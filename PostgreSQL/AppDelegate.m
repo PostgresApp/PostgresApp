@@ -22,7 +22,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
     NSLog(@"applicationDidFinishLaunching");
 
+    
     NSUInteger port = 9900;
+    
     [[PostgresServer sharedServer] startOnPort:9900 completionBlock:^{
         self.portLabel.stringValue = [[NSNumber numberWithInteger:port] stringValue];
         self.commandTextField.stringValue = [NSString stringWithFormat:@"psql -p %d", port];

@@ -16,6 +16,37 @@
     NSUInteger _port;
 }
 
+- (void)communicateWithXPC {
+    xpc_connection_t connection = xpc_connection_create("com.postgres.initdb_service", dispatch_get_main_queue());
+	xpc_connection_set_event_handler(connection, ^(xpc_object_t event) {
+        NSLog(@"XPC");
+
+        xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
+			NSLog(@"XPC %s: %s", key, xpc_string_get_string_ptr(value));
+			return true;
+		});
+	});
+	xpc_connection_resume(connection);
+    
+    
+    
+	xpc_object_t message = xpc_dictionary_create(NULL, NULL, 0);
+	xpc_dictionary_set_string(message, "id", "initdb");
+	
+//	if( src )
+//		xpc_dictionary_set_string(message, "source", [src fileSystemRepresentation]);
+//	if( dst )
+//		xpc_dictionary_set_string(message, "destination", [dst fileSystemRepresentation]);
+//	if( tmp )
+//		xpc_dictionary_set_string(message, "tmp", [tmp UTF8String]);
+	
+    
+	xpc_connection_send_message_with_reply(connection, message, dispatch_get_main_queue(), ^(xpc_object_t object) {
+        NSLog(@"REsponse: %s" , xpc_string_get_string_ptr(object));
+    });
+//	xpc_type_t type = xpc_get_type(response);
+}
+
 + (PostgresServer *)sharedServer {
     static PostgresServer *_sharedServer = nil;
     static dispatch_once_t onceToken;
@@ -36,7 +67,9 @@
     
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
-
+    
+    NSLog(@"var: %@", _varPath);
+    NSLog(@"bin: %@", _binPath);
     return self;
 }
 
@@ -64,18 +97,23 @@
     [self willChangeValueForKey:@"isRunning"];
     [self willChangeValueForKey:@"port"];
     _port = port;
-    if (!existingPGVersion) {
-        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-d"], nil] terminationHandler:^{
-            _postgresTask = [self executeCommandNamed:@"postgres" arguments:mutableArguments terminationHandler:nil];
-            
-            // TODO replace with FSEvent-based approach
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p %d", port], NSUserName(), nil] terminationHandler:nil];
-            });
-        }];
-    } else {
-        _postgresTask = [self executeCommandNamed:@"postgres" arguments:mutableArguments terminationHandler:nil];
-    }
+
+    [self communicateWithXPC];
+    //    if (!existingPGVersion) {
+////        [self communicateWithXPC];
+//        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-d"], nil] terminationHandler:^{
+//            _postgresTask = [self executeCommandNamed:@"postgres" arguments:mutableArguments terminationHandler:nil];
+//            
+//            // TODO replace with FSEvent-based approach
+////            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+////                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p %d", port], NSUserName(), nil] terminationHandler:nil];
+////            });
+//        }];
+//    } else {
+//        NSLog(@"postgres!!!");
+//        [mutableArguments addObject:[NSString stringWithFormat:@"-k%@", [[NSFileManager defaultManager] applicationSupportDirectory]]];
+//        _postgresTask = [self executeCommandNamed:@"postgres" arguments:mutableArguments terminationHandler:nil];
+//    }
     
     [self didChangeValueForKey:@"port"];
     [self didChangeValueForKey:@"isRunning"];

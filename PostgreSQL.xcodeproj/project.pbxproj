@@ -16,7 +16,21 @@
 		F86725F3152CB33200919A4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F86725F2152CB33200919A4D /* AppDelegate.m */; };
 		F86725F6152CB33200919A4D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F86725F4152CB33200919A4D /* MainMenu.xib */; };
 		F867332E152CBCE500919A4D /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = F867332D152CBCE500919A4D /* NSFileManager+DirectoryLocations.m */; };
+		F8C5290D152EC53C00F82E1A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C528EA152EC04C00F82E1A /* Foundation.framework */; };
+		F8C52913152EC53C00F82E1A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8C52911152EC53C00F82E1A /* InfoPlist.strings */; };
+		F8C52916152EC53C00F82E1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C52915152EC53C00F82E1A /* main.m */; };
+		F8C5291A152EC56200F82E1A /* com.postgres.initdb_service.xpc in Copy XPC Services */ = {isa = PBXBuildFile; fileRef = F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F8C5291B152EC56600F82E1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86725D2152CB33200919A4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8C5290B152EC53C00F82E1A;
+			remoteInfo = initdb_service;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F87B8D15152E6E6D009BC19F /* CopyFiles */ = {
@@ -27,6 +41,17 @@
 			files = (
 				F81C7993152E8A06008BE8BF /* postgres in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8C52906152EC49D00F82E1A /* Copy XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/XPCServices;
+			dstSubfolderSpec = 1;
+			files = (
+				F8C5291A152EC56200F82E1A /* com.postgres.initdb_service.xpc in Copy XPC Services */,
+			);
+			name = "Copy XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -51,6 +76,12 @@
 		F86725F5152CB33200919A4D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F867332C152CBCE500919A4D /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		F867332D152CBCE500919A4D /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
+		F8C528EA152EC04C00F82E1A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.postgres.initdb_service.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8C52910152EC53C00F82E1A /* initdb_service-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "initdb_service-Info.plist"; sourceTree = "<group>"; };
+		F8C52912152EC53C00F82E1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F8C52914152EC53C00F82E1A /* initdb_service-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "initdb_service-Prefix.pch"; sourceTree = "<group>"; };
+		F8C52915152EC53C00F82E1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F8CC6154152EB31F008669CF /* PostgreSQL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PostgreSQL.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +91,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F86725E0152CB33200919A4D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8C52909152EC53C00F82E1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8C5290D152EC53C00F82E1A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +125,7 @@
 			children = (
 				F86725E5152CB33200919A4D /* PostgreSQL */,
 				F81C798A152E88B1008BE8BF /* Vendor */,
+				F8C5290E152EC53C00F82E1A /* initdb_service */,
 				F86725DE152CB33200919A4D /* Frameworks */,
 				F86725DC152CB33200919A4D /* Products */,
 				F81C7980152E8888008BE8BF /* postgres.xcodeproj */,
@@ -96,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				F86725DB152CB33200919A4D /* PostgreSQL.app */,
+				F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				F86725DF152CB33200919A4D /* Cocoa.framework */,
+				F8C528EA152EC04C00F82E1A /* Foundation.framework */,
 				F86725E1152CB33200919A4D /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -155,6 +197,25 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		F8C5290E152EC53C00F82E1A /* initdb_service */ = {
+			isa = PBXGroup;
+			children = (
+				F8C52915152EC53C00F82E1A /* main.m */,
+				F8C5290F152EC53C00F82E1A /* Supporting Files */,
+			);
+			path = initdb_service;
+			sourceTree = "<group>";
+		};
+		F8C5290F152EC53C00F82E1A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F8C52910152EC53C00F82E1A /* initdb_service-Info.plist */,
+				F8C52911152EC53C00F82E1A /* InfoPlist.strings */,
+				F8C52914152EC53C00F82E1A /* initdb_service-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -166,15 +227,34 @@
 				F86725D8152CB33200919A4D /* Frameworks */,
 				F86725D9152CB33200919A4D /* Resources */,
 				F87B8D15152E6E6D009BC19F /* CopyFiles */,
+				F8C52906152EC49D00F82E1A /* Copy XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F8C5291C152EC56600F82E1A /* PBXTargetDependency */,
 			);
 			name = PostgreSQL;
 			productName = PostgreSQL;
 			productReference = F86725DB152CB33200919A4D /* PostgreSQL.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F8C5290B152EC53C00F82E1A /* initdb_service */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8C52917152EC53C00F82E1A /* Build configuration list for PBXNativeTarget "initdb_service" */;
+			buildPhases = (
+				F8C52908152EC53C00F82E1A /* Sources */,
+				F8C52909152EC53C00F82E1A /* Frameworks */,
+				F8C5290A152EC53C00F82E1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = initdb_service;
+			productName = initdb_service;
+			productReference = F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -203,6 +283,7 @@
 			projectRoot = "";
 			targets = (
 				F86725DA152CB33200919A4D /* PostgreSQL */,
+				F8C5290B152EC53C00F82E1A /* initdb_service */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +296,14 @@
 				F86725EA152CB33200919A4D /* InfoPlist.strings in Resources */,
 				F86725F0152CB33200919A4D /* Credits.rtf in Resources */,
 				F86725F6152CB33200919A4D /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8C5290A152EC53C00F82E1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8C52913152EC53C00F82E1A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +321,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F8C52908152EC53C00F82E1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8C52916152EC53C00F82E1A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F8C5291C152EC56600F82E1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8C5290B152EC53C00F82E1A /* initdb_service */;
+			targetProxy = F8C5291B152EC56600F82E1A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F86725E8152CB33200919A4D /* InfoPlist.strings */ = {
@@ -257,6 +362,14 @@
 				F86725F5152CB33200919A4D /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F8C52911152EC53C00F82E1A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8C52912152EC53C00F82E1A /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -345,6 +458,30 @@
 			};
 			name = Release;
 		};
+		F8C52918152EC53C00F82E1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "initdb_service/initdb_service-Prefix.pch";
+				INFOPLIST_FILE = "initdb_service/initdb_service-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_NAME = "com.postgres.$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Debug;
+		};
+		F8C52919152EC53C00F82E1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "initdb_service/initdb_service-Prefix.pch";
+				INFOPLIST_FILE = "initdb_service/initdb_service-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_NAME = "com.postgres.$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -365,6 +502,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F8C52917152EC53C00F82E1A /* Build configuration list for PBXNativeTarget "initdb_service" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8C52918152EC53C00F82E1A /* Debug */,
+				F8C52919152EC53C00F82E1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
