@@ -51,6 +51,7 @@
 		F86725F5152CB33200919A4D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F867332C152CBCE500919A4D /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		F867332D152CBCE500919A4D /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
+		F8CC6154152EB31F008669CF /* PostgreSQL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PostgreSQL.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +122,7 @@
 		F86725E5152CB33200919A4D /* PostgreSQL */ = {
 			isa = PBXGroup;
 			children = (
+				F8CC6154152EB31F008669CF /* PostgreSQL.entitlements */,
 				F86725F1152CB33200919A4D /* AppDelegate.h */,
 				F86725F2152CB33200919A4D /* AppDelegate.m */,
 				F84B7B68152E3C5500E942FB /* PostgresServer.h */,
@@ -310,6 +312,8 @@
 		F86725FA152CB33200919A4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PostgreSQL/PostgreSQL.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer: Mattt Thompson (78K26BBJN7)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL/PostgreSQL-Prefix.pch";
 				INFOPLIST_FILE = "PostgreSQL/PostgreSQL-Info.plist";
@@ -318,6 +322,7 @@
 					"\"$(SRCROOT)/PostgreSQL/postgresql/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -325,6 +330,8 @@
 		F86725FB152CB33200919A4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PostgreSQL/PostgreSQL.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer: Mattt Thompson (78K26BBJN7)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL/PostgreSQL-Prefix.pch";
 				INFOPLIST_FILE = "PostgreSQL/PostgreSQL-Info.plist";
@@ -333,6 +340,7 @@
 					"\"$(SRCROOT)/PostgreSQL/postgresql/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

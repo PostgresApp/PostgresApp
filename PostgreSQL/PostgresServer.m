@@ -65,7 +65,7 @@
     [self willChangeValueForKey:@"port"];
     _port = port;
     if (!existingPGVersion) {
-        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObject:[NSString stringWithFormat:@"-D%@", _varPath]] terminationHandler:^{
+        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-d"], nil] terminationHandler:^{
             _postgresTask = [self executeCommandNamed:@"postgres" arguments:mutableArguments terminationHandler:nil];
             
             // TODO replace with FSEvent-based approach
