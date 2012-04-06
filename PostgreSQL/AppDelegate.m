@@ -16,6 +16,10 @@ static NSUInteger kPostgresAppDefaultPort = 6543;
 @synthesize portLabel = _statusLabel;
 @synthesize commandTextField = _commandTextField;
 
+- (void)awakeFromNib {
+    [self.window setHidesOnDeactivate:YES];
+}
+
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
@@ -25,6 +29,12 @@ static NSUInteger kPostgresAppDefaultPort = 6543;
         self.portLabel.stringValue = [[NSNumber numberWithInteger:kPostgresAppDefaultPort] stringValue];
         self.commandTextField.stringValue = [NSString stringWithFormat:@"psql -p %d", kPostgresAppDefaultPort];
     }];    
+}
+
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)flag {
+    [self.window makeKeyAndOrderFront:self];
+    
+    return YES;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
