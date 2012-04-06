@@ -41,18 +41,14 @@
     _varPath = databaseDirectory;
     
     _xpc_connection = xpc_connection_create("com.postgres.initdb_service", dispatch_get_main_queue());
-	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {
-        NSLog(@"XPC");
-        
+	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {        
         xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
 			NSLog(@"XPC %s: %s", key, xpc_string_get_string_ptr(value));
 			return true;
 		});
 	});
 	xpc_connection_resume(_xpc_connection);
-    
-    NSLog(@"var: %@", _varPath);
-    NSLog(@"bin: %@", _binPath);
+
     return self;
 }
 
@@ -61,40 +57,32 @@
 }
 
 - (BOOL)isRunning {
-    return [_postgresTask isRunning];
+    return _port != 0;
 }
 
 - (BOOL)startOnPort:(NSUInteger)port 
     completionBlock:(void (^)())completionBlock
-{
-    if ([self isRunning]) {
-        return NO;
-    }
-    
-    NSMutableArray *mutableArguments = [NSMutableArray array];
-    [mutableArguments addObject:[NSString stringWithFormat:@"-D%@", _varPath]];
-    [mutableArguments addObject:[NSString stringWithFormat:@"-p%d", port]];
-    
-    NSString *existingPGVersion = [NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil];
-    
+{    
+    [self stop];
     [self willChangeValueForKey:@"isRunning"];
     [self willChangeValueForKey:@"port"];
     _port = port;
-
+    
+    NSString *existingPGVersion = [NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil];
     if (!existingPGVersion) {
-        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-d"], nil]];    
-        double delayInSeconds = 2.0;
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"init", [NSString stringWithFormat:@"-D%@", _varPath], nil]];    
+        double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self executeCommandNamed:@"postgres" arguments:mutableArguments];
+            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil]];
             
             // TODO replace with FSEvent-based approach
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
-                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p %d", port], NSUserName(), nil]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil]];
             });
         });
     } else {
-        [self executeCommandNamed:@"postgres" arguments:mutableArguments];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil]];
     }
     
     [self didChangeValueForKey:@"port"];
@@ -108,11 +96,15 @@
 }
 
 - (BOOL)stop {
-    if (![self isRunning]) {
-        return NO;
+    // TODO: Reasonable way to get existing pid
+    NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
+        NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];
+        
+        NSLog(@"PID: %@", pid);
+
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil]];
     }
-    
-    [_postgresTask terminate];
     
     return YES;
 }
