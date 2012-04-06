@@ -31,6 +31,7 @@ The database data directory is located in the `/var` directory of the PostgreSQL
 - Add instructions for how to configure with Ruby / Python, etc.
   - ...or better yet, make them work without any additional configuration
 - Test, test, test, test, test
+- ~~Make App Store sandbox compatible~~
 
 ## Contact
 
