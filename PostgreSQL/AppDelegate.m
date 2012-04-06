@@ -9,8 +9,7 @@
 #import "AppDelegate.h"
 #import "PostgresServer.h"
 
-@interface AppDelegate ()
-@end
+static NSUInteger kPostgresAppDefaultPort = 6543;
 
 @implementation AppDelegate
 @synthesize window = _window;
@@ -22,18 +21,28 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
     NSLog(@"applicationDidFinishLaunching");
 
-    
-    NSUInteger port = 9900;
-    
-    [[PostgresServer sharedServer] startOnPort:9900 completionBlock:^{
-        self.portLabel.stringValue = [[NSNumber numberWithInteger:port] stringValue];
-        self.commandTextField.stringValue = [NSString stringWithFormat:@"psql -p %d", port];
+    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
+        self.portLabel.stringValue = [[NSNumber numberWithInteger:kPostgresAppDefaultPort] stringValue];
+        self.commandTextField.stringValue = [NSString stringWithFormat:@"psql -p %d", kPostgresAppDefaultPort];
     }];    
+}
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+    NSLog(@"shouldTerminate");
+    
+    // TODO: Use termination handlers instead of delay 
+    [[PostgresServer sharedServer] stop];
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [sender replyToApplicationShouldTerminate:YES];
+    });
+    
+    return NSTerminateLater;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     NSLog(@"applicationWillTerminate");
-    [[PostgresServer sharedServer] stop];
 }
 
 @end
