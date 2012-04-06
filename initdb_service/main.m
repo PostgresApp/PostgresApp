@@ -8,12 +8,8 @@
 
 #include <xpc/xpc.h>
 #include <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
 
-#import "NSFileManager+DirectoryLocations.h"
-
-static void initdb_service_peer_event_handler(xpc_connection_t peer, xpc_object_t event) 
-{
+static void initdb_service_peer_event_handler(xpc_connection_t peer, xpc_object_t event) {
 	xpc_type_t type = xpc_get_type(event);
 	if (type == XPC_TYPE_ERROR) {
 		if (event == XPC_ERROR_CONNECTION_INVALID) {
@@ -27,36 +23,23 @@ static void initdb_service_peer_event_handler(xpc_connection_t peer, xpc_object_
 		}
 	} else {
 		assert(type == XPC_TYPE_DICTIONARY);
-        //		const char *path = xpc_dictionary_get_string(event, "path");
-        //        xpc_object_t array = xpc_dictionary_get_value(event, "arguments");
-        //        
-        //        NSString *relaunchToolPath = path ? [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)] : nil;;
-        //        NSMutableArray *arguments = [NSMutableArray array];
-        //        
-        //        for (size_t i = 0; i < xpc_array_get_count(array); i++) {
-        //            [arguments addObject:
-        //             [NSString stringWithUTF8String:xpc_array_get_string(array, i)]];
-        //        }
-        NSLog(@"!!!!!!!!!");
         
-//        [NSTask launchedTaskWithLaunchPath:[@"/Users/mattt/Library/Developer/Xcode/DerivedData/PostgreSQL-gueviupyznjdpiexudenisvkerca/Build/Products/Debug/PostgreSQL.app/Contents/MacOS/postgres/bin" stringByAppendingPathComponent:@"initdb"] 
-//                                 arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", @"/Users/mattt/Library/Containers/com.heroku.PostgreSQL/Data/Library/Application Support/PostgreSQL/var"], nil]];
+        NSString *command = [NSString stringWithUTF8String:xpc_dictionary_get_string(event, "command")];
+        NSMutableArray *mutableArguments = [NSMutableArray array];
+        xpc_array_apply(xpc_dictionary_get_value(event, "arguments"), ^_Bool(size_t index, xpc_object_t obj) {
+            const char *string = xpc_string_get_string_ptr(obj);
+            [mutableArguments addObject:[NSString stringWithUTF8String:string]];
+            return true;
+        });
+        
+        [NSTask launchedTaskWithLaunchPath:command arguments:mutableArguments];
 
-        [NSTask launchedTaskWithLaunchPath:[@"/Users/mattt/Library/Developer/Xcode/DerivedData/PostgreSQL-gueviupyznjdpiexudenisvkerca/Build/Products/Debug/PostgreSQL.app/Contents/MacOS/postgres/bin" stringByAppendingPathComponent:@"createdb"] 
-                                 arguments:[NSArray arrayWithObjects: @"-p9991", @"mattt", nil]];
-        [NSTask launchedTaskWithLaunchPath:[@"/Users/mattt/Library/Developer/Xcode/DerivedData/PostgreSQL-gueviupyznjdpiexudenisvkerca/Build/Products/Debug/PostgreSQL.app/Contents/MacOS/postgres/bin" stringByAppendingPathComponent:@"postgres"] 
-                                 arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", @"/Users/mattt/Library/Containers/com.heroku.PostgreSQL/Data/Library/Application Support/PostgreSQL/var"], [NSString stringWithFormat:@"-p9991"], nil]];
-
-        // send response to indicate ok
         xpc_object_t reply = xpc_dictionary_create_reply(event);
         xpc_connection_send_message(peer, reply);
 	}
 }
 
-static void initdb_service_event_handler(xpc_connection_t peer) 
-{
-    NSLog(@"~~~~~~~~");
-
+static void initdb_service_event_handler(xpc_connection_t peer)  {
 	// By defaults, new connections will target the default dispatch
 	// concurrent queue.
 	xpc_connection_set_event_handler(peer, ^(xpc_object_t event) {
@@ -69,8 +52,7 @@ static void initdb_service_event_handler(xpc_connection_t peer)
 	xpc_connection_resume(peer);
 }
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
 	xpc_main(initdb_service_event_handler);
 	return 0;
 }

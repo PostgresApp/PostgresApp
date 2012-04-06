@@ -22,8 +22,7 @@
     completionBlock:(void (^)())completionBlock;
 - (BOOL)stop;
 
-- (NSTask *)executeCommandNamed:(NSString *)command 
-                      arguments:(NSArray *)arguments 
-             terminationHandler:(void (^)())terminationHandler;
+- (void)executeCommandNamed:(NSString *)command 
+                  arguments:(NSArray *)arguments;
 
 @end
