@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		F81C798B152E88E1008BE8BF /* postgres */ = {
+		F81C798B152E88E1008BE8BF /* pg_bin */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = F81C798C152E88E1008BE8BF /* Build configuration list for PBXAggregateTarget "postgres" */;
+			buildConfigurationList = F81C798C152E88E1008BE8BF /* Build configuration list for PBXAggregateTarget "pg_bin" */;
 			buildPhases = (
 				F81C798F152E88E6008BE8BF /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = postgres;
+			name = pg_bin;
 			productName = postgres;
 		};
 /* End PBXAggregateTarget section */
@@ -40,7 +40,7 @@
 			attributes = {
 				LastUpgradeCheck = 0420;
 			};
-			buildConfigurationList = F81C7975152E8850008BE8BF /* Build configuration list for PBXProject "postgres" */;
+			buildConfigurationList = F81C7975152E8850008BE8BF /* Build configuration list for PBXProject "pg_bin" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -51,7 +51,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F81C798B152E88E1008BE8BF /* postgres */,
+				F81C798B152E88E1008BE8BF /* pg_bin */,
 			);
 		};
 /* End PBXProject section */
@@ -121,21 +121,21 @@
 		F81C798D152E88E1008BE8BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pg_bin;
 			};
 			name = Debug;
 		};
 		F81C798E152E88E1008BE8BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pg_bin;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F81C7975152E8850008BE8BF /* Build configuration list for PBXProject "postgres" */ = {
+		F81C7975152E8850008BE8BF /* Build configuration list for PBXProject "pg_bin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F81C7978152E8850008BE8BF /* Debug */,
@@ -144,13 +144,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F81C798C152E88E1008BE8BF /* Build configuration list for PBXAggregateTarget "postgres" */ = {
+		F81C798C152E88E1008BE8BF /* Build configuration list for PBXAggregateTarget "pg_bin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F81C798D152E88E1008BE8BF /* Debug */,
 				F81C798E152E88E1008BE8BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

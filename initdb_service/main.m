@@ -9,7 +9,7 @@
 #include <xpc/xpc.h>
 #include <Foundation/Foundation.h>
 
-static void initdb_service_peer_event_handler(xpc_connection_t peer, xpc_object_t event) {
+static void postgres_service_peer_event_handler(xpc_connection_t peer, xpc_object_t event) {
 	xpc_type_t type = xpc_get_type(event);
 	if (type == XPC_TYPE_ERROR) {
 		if (event == XPC_ERROR_CONNECTION_INVALID) {
@@ -39,11 +39,11 @@ static void initdb_service_peer_event_handler(xpc_connection_t peer, xpc_object_
 	}
 }
 
-static void initdb_service_event_handler(xpc_connection_t peer)  {
+static void postgres_service_event_handler(xpc_connection_t peer)  {
 	// By defaults, new connections will target the default dispatch
 	// concurrent queue.
 	xpc_connection_set_event_handler(peer, ^(xpc_object_t event) {
-		initdb_service_peer_event_handler(peer, event);
+		postgres_service_peer_event_handler(peer, event);
 	});
 	
 	// This will tell the connection to begin listening for events. If you
@@ -53,6 +53,6 @@ static void initdb_service_event_handler(xpc_connection_t peer)  {
 }
 
 int main(int argc, const char *argv[]) {
-	xpc_main(initdb_service_event_handler);
+	xpc_main(postgres_service_event_handler);
 	return 0;
 }
