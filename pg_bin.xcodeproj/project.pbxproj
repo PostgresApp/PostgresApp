@@ -68,7 +68,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\ncd ${PROJECT_DIR}/postgres\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres\n/usr/bin/make\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\ncd ${PROJECT_DIR}/postgres\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres --with-openssl --with-rendezvous --with-python \n/usr/bin/make\n/usr/bin/make install\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
