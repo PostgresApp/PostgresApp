@@ -23,7 +23,7 @@
     static PostgresServer *_sharedServer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:[[NSBundle mainBundle] pathForAuxiliaryExecutable:@"postgres/bin"] databaseDirectory:[[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingPathComponent:@"var"]];
+        _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:[[NSBundle mainBundle] pathForAuxiliaryExecutable:@"bin"] databaseDirectory:[[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingPathComponent:@"var"]];
     });
     
     return _sharedServer;
@@ -40,7 +40,7 @@
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
     
-    _xpc_connection = xpc_connection_create("com.postgres.initdb_service", dispatch_get_main_queue());
+    _xpc_connection = xpc_connection_create("com.heroku.postgres-service", dispatch_get_main_queue());
 	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {        
         xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
 			NSLog(@"XPC %s: %s", key, xpc_string_get_string_ptr(value));
@@ -113,7 +113,7 @@
                   arguments:(NSArray *)arguments
 {
 	xpc_object_t message = xpc_dictionary_create(NULL, NULL, 0);
-    
+
     xpc_dictionary_set_string(message, "command", [[_binPath stringByAppendingPathComponent:command] UTF8String]);
     
     xpc_object_t args = xpc_array_create(NULL, 0);

@@ -33,7 +33,7 @@ static void postgres_service_peer_event_handler(xpc_connection_t peer, xpc_objec
         });
         
         [NSTask launchedTaskWithLaunchPath:command arguments:mutableArguments];
-
+        
         xpc_object_t reply = xpc_dictionary_create_reply(event);
         xpc_connection_send_message(peer, reply);
 	}
