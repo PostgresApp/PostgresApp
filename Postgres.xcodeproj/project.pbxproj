@@ -76,6 +76,7 @@
 		F80534FC1538884E000E1BAC /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
 		F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
 		F80534FE1538884E000E1BAC /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
+		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F8973A0D1538846600EAB41E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F8973A171538846600EAB41E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8973A151538846600EAB41E /* InfoPlist.strings */; };
 		F8973A191538846600EAB41E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8973A181538846600EAB41E /* main.m */; };
@@ -161,6 +162,8 @@
 		F80534F41538884A000E1BAC /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Postgres/Vendor/postgres/include; sourceTree = "<group>"; };
 		F80534F51538884A000E1BAC /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Postgres/Vendor/postgres/lib; sourceTree = "<group>"; };
 		F80534F61538884A000E1BAC /* share */ = {isa = PBXFileReference; lastKnownFileType = folder; name = share; path = Postgres/Vendor/postgres/share; sourceTree = "<group>"; };
+		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
+		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F8973A081538846600EAB41E /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8973A0C1538846600EAB41E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8973A0F1538846600EAB41E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -268,6 +271,8 @@
 				F8973A36153884EF00EAB41E /* PostgresServer.h */,
 				F8973A35153884EF00EAB41E /* PostgresServer.m */,
 				F8973A211538846600EAB41E /* MainMenu.xib */,
+				F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */,
+				F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */,
 				F8973A131538846600EAB41E /* Supporting Files */,
 			);
 			path = Postgres;
@@ -485,6 +490,7 @@
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
 				F8973A30153884A900EAB41E /* NSFileManager+DirectoryLocations.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
+				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +747,7 @@
 				F805350215388AD6000E1BAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgres" */ = {
 			isa = XCConfigurationList;
@@ -749,6 +756,7 @@
 				F805350615388AE5000E1BAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F805350815388AEC000E1BAC /* Build configuration list for PBXAggregateTarget "geos" */ = {
 			isa = XCConfigurationList;
@@ -757,6 +765,7 @@
 				F805350A15388AEC000E1BAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F805350C15388AF0000E1BAC /* Build configuration list for PBXAggregateTarget "proj" */ = {
 			isa = XCConfigurationList;
@@ -765,6 +774,7 @@
 				F805350E15388AF0000E1BAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */ = {
 			isa = XCConfigurationList;
@@ -773,6 +783,7 @@
 				F805351215388AF3000E1BAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F8973A021538846600EAB41E /* Build configuration list for PBXProject "Postgres" */ = {
 			isa = XCConfigurationList;
