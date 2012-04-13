@@ -7,16 +7,9 @@ One click install, one click uninstall: it should be that easy.
 
 ## How To Build
 
-1. Download the [latest Postgres source code](https://github.com/postgres/postgres) to the `postgres` submodule:
-
-``` terminal
-$ git submodule init
-$ git submodule update
-```
-
-2. Open `PostgreSQL.xcodeproj` in Xcode
-3. Select the "Postgres Binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`.
-4. Once the binaries are finished building, select the "PostgreSQL Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
+1. Open `PostgreSQL.xcodeproj` in Xcode
+2. Select the "Postgres Binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`.
+3. Once the binaries are finished building, select the "PostgreSQL Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
 
 ## Under the Hood
 
@@ -27,11 +20,11 @@ The database data directory is located in the `/var` directory of the PostgreSQL
 ## Next Steps
 
 - Create a real UI
-- Add PostGIS to the build process (as well as any other essential extensions)
 - Add instructions for how to configure with Ruby / Python, etc.
   - ...or better yet, make them work without any additional configuration
 - Test, test, test, test, test
 - ~~Make App Store sandbox compatible~~
+- ~~Add PostGIS to the build process (as well as any other essential extensions)~~
 
 ## Contact
 
