@@ -34,23 +34,22 @@ static void postgres_service_peer_event_handler(xpc_connection_t peer, xpc_objec
             return true;
         });
         
-        [NSTask launchedTaskWithLaunchPath:command arguments:mutableArguments];
+//        [NSTask launchedTaskWithLaunchPath:command arguments:mutableArguments];
+//        xpc_object_t reply = xpc_dictionary_create_reply(event);
+//        xpc_connection_send_message(peer, reply);
         
-        xpc_object_t reply = xpc_dictionary_create_reply(event);
-        xpc_connection_send_message(peer, reply);
-        
-//        NSTask *task = [[NSTask alloc] init];
-//        task.launchPath = command;
-//        task.arguments = mutableArguments;
-//        NSTask *task = [NSTask launchedTaskWithLaunchPath:command arguments:mutableArguments];
-//        __block xpc_object_t reply = xpc_dictionary_create_reply(event);
-//        task.terminationHandler = ^(NSTask *task) {
-//            xpc_dictionary_set_string(reply, "command", [[task launchPath] UTF8String]);
-//            xpc_dictionary_set_int64(reply, "status", [task terminationStatus]);
-//            xpc_dictionary_set_int64(reply, "pid", [task processIdentifier]);
-//            xpc_connection_send_message(peer, reply);
-//        };
-//        [task launch];
+        NSTask *task = [[NSTask alloc] init];
+        task.launchPath = command;
+        task.arguments = mutableArguments;
+
+        __block xpc_object_t reply = xpc_dictionary_create_reply(event);
+        task.terminationHandler = ^(NSTask *task) {
+            xpc_dictionary_set_string(reply, "command", [[task launchPath] UTF8String]);
+            xpc_dictionary_set_int64(reply, "status", [task terminationStatus]);
+            xpc_dictionary_set_int64(reply, "pid", [task processIdentifier]);
+            xpc_connection_send_message(peer, reply);
+        };
+        [task launch];
 //        [task waitUntilExit];
 	}
 }

@@ -70,10 +70,13 @@
     NSString *existingPGVersion = [NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil];
     if (!existingPGVersion) {
         [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"init", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
-            NSLog(@"InitDB done: %d", status);
-            [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
-                [self executeCommandNamed:@"psql" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], [NSString stringWithFormat:@"-f%@", [[_binPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"share/contrib/postgis-1.5/postgis"]], nil] terminationHandler:nil];
-                [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:nil];
+            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:^(NSUInteger status) {
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+                        [self executeCommandNamed:@"psql" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], [NSString stringWithFormat:@"-f%@", [[_binPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"share/contrib/postgis-1.5/postgis"]], nil] terminationHandler:nil];
+                    }];
+                });
             }];
         }];    
     } else {
