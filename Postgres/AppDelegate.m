@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "PostgresServer.h"
 
-static NSUInteger kPostgresAppDefaultPort = 6543;
+static NSUInteger kPostgresAppDefaultPort = 5432;
 
 @implementation AppDelegate
 @synthesize window = _window;
