@@ -112,19 +112,19 @@
 			remoteGlobalIDString = F89226271537A17800B832E8;
 			remoteInfo = postgis;
 		};
-		F8C5291B152EC56600F82E1A /* PBXContainerItemProxy */ = {
+		F89226381537ADA000B832E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F86725D2152CB33200919A4D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F8C5290B152EC53C00F82E1A;
-			remoteInfo = initdb_service;
+			remoteInfo = postgres_service;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F87B8D15152E6E6D009BC19F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
@@ -313,7 +313,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F8C5291C152EC56600F82E1A /* PBXTargetDependency */,
+				F89226391537ADA000B832E8 /* PBXTargetDependency */,
 			);
 			name = Postgres;
 			productName = PostgreSQL;
@@ -487,10 +487,10 @@
 			target = F89226271537A17800B832E8 /* postgis */;
 			targetProxy = F89226361537A27000B832E8 /* PBXContainerItemProxy */;
 		};
-		F8C5291C152EC56600F82E1A /* PBXTargetDependency */ = {
+		F89226391537ADA000B832E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8C5290B152EC53C00F82E1A /* postgres_service */;
-			targetProxy = F8C5291B152EC56600F82E1A /* PBXContainerItemProxy */;
+			targetProxy = F89226381537ADA000B832E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
