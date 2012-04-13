@@ -27,7 +27,7 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
         self.portLabel.stringValue = [[NSNumber numberWithInteger:kPostgresAppDefaultPort] stringValue];
-        self.commandTextField.stringValue = [NSString stringWithFormat:@"psql -p %d", kPostgresAppDefaultPort];
+        self.commandTextField.stringValue = @"psql -h localhost";
     }];    
 }
 
