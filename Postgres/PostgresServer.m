@@ -80,6 +80,10 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
                 [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil]];
             });
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+                [self executeCommandNamed:@"psql" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], [NSString stringWithFormat:@"-f%@", [[_binPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"share/contrib/postgis-1.5/postgis"]], nil]];
+            });
         });
     } else {
         [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil]];
