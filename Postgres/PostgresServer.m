@@ -43,7 +43,6 @@
     _xpc_connection = xpc_connection_create("com.heroku.postgres-service", dispatch_get_main_queue());
 	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {        
         xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
-			NSLog(@"XPC %s: %s", key, xpc_string_get_string_ptr(value));
 			return true;
 		});
 	});
@@ -70,23 +69,14 @@
     
     NSString *existingPGVersion = [NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil];
     if (!existingPGVersion) {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"init", [NSString stringWithFormat:@"-D%@", _varPath], nil]];    
-        double delayInSeconds = 3.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil]];
-            
-            // TODO replace with FSEvent-based approach
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
-                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil]];
-            });
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
-                [self executeCommandNamed:@"psql" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], [NSString stringWithFormat:@"-f%@", [[_binPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"share/contrib/postgis-1.5/postgis"]], nil]];
-            });
-        });
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"init", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
+            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:nil];
+            [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+                [self executeCommandNamed:@"psql" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], [NSString stringWithFormat:@"-f%@", [[_binPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"share/contrib/postgis-1.5/postgis"]], nil] terminationHandler:nil];
+            }];
+        }];    
     } else {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil]];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:nil];
     }
     
     [self didChangeValueForKey:@"port"];
@@ -107,7 +97,7 @@
         
         NSLog(@"PID: %@", pid);
 
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil]];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil] terminationHandler:nil];
     }
     
     return YES;
@@ -115,6 +105,7 @@
 
 - (void)executeCommandNamed:(NSString *)command 
                   arguments:(NSArray *)arguments
+         terminationHandler:(void (^)(NSUInteger status))terminationHandler
 {
 	xpc_object_t message = xpc_dictionary_create(NULL, NULL, 0);
 
@@ -127,7 +118,11 @@
     xpc_dictionary_set_value(message, "arguments", args);
     
     xpc_connection_send_message_with_reply(_xpc_connection, message, dispatch_get_main_queue(), ^(xpc_object_t object) {
-        NSLog(@"Response: %s" , xpc_string_get_string_ptr(object));
+        NSLog(@"%lld %s: Status %lld", xpc_dictionary_get_int64(object, "pid"), xpc_dictionary_get_string(object, "command"), xpc_dictionary_get_int64(object, "status"));
+        
+        if (terminationHandler) {
+            terminationHandler(xpc_dictionary_get_int64(object, "status"));
+        }
     });
 }
 

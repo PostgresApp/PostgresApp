@@ -23,8 +23,10 @@ static void postgres_service_peer_event_handler(xpc_connection_t peer, xpc_objec
 		}
 	} else {
 		assert(type == XPC_TYPE_DICTIONARY);
-        
+
         NSString *command = [NSString stringWithUTF8String:xpc_dictionary_get_string(event, "command")];
+
+        
         NSMutableArray *mutableArguments = [NSMutableArray array];
         xpc_array_apply(xpc_dictionary_get_value(event, "arguments"), ^_Bool(size_t index, xpc_object_t obj) {
             const char *string = xpc_string_get_string_ptr(obj);
@@ -32,10 +34,31 @@ static void postgres_service_peer_event_handler(xpc_connection_t peer, xpc_objec
             return true;
         });
         
-        [NSTask launchedTaskWithLaunchPath:command arguments:mutableArguments];
+        xpc_connection_t task = xpc_connection_create_mach_service([command UTF8String], NULL, 0);
         
-        xpc_object_t reply = xpc_dictionary_create_reply(event);
-        xpc_connection_send_message(peer, reply);
+        
+        xpc_string_create([[mutableArguments componentsJoinedByString:@" "] UTF8String]);
+        
+        xpc_connection_send_message_with_reply(task, args, dispatch_get_main_queue(), ^(xpc_object_t object) {
+            xpc_object_t reply = xpc_dictionary_create_reply(event);
+            xpc_dictionary_set_string(reply, "command", "asdfasdsafsd");
+            xpc_dictionary_set_int64(reply, "status", 11231213);
+            xpc_dictionary_set_int64(reply, "pid", 111111);
+            xpc_connection_send_message(peer, reply);
+
+        });
+                
+//        NSTask *task = [[NSTask alloc] init];
+//        task.launchPath = command;
+//        task.arguments = mutableArguments;        
+//        task.terminationHandler = ^(NSTask *task) {
+//            xpc_object_t reply = xpc_dictionary_create_reply(event);
+//            xpc_dictionary_set_string(reply, "command", [[task launchPath] UTF8String]);
+//            xpc_dictionary_set_int64(reply, "status", [task terminationStatus]);
+//            xpc_dictionary_set_int64(reply, "pid", [task processIdentifier]);
+//            xpc_connection_send_message(peer, reply);
+//        };
+//        [task launch];        
 	}
 }
 

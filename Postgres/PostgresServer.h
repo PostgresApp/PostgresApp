@@ -23,6 +23,7 @@
 - (BOOL)stop;
 
 - (void)executeCommandNamed:(NSString *)command 
-                  arguments:(NSArray *)arguments;
+                  arguments:(NSArray *)arguments
+         terminationHandler:(void (^)(NSUInteger status))terminationHandler;
 
 @end
