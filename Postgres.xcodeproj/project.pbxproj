@@ -6,6 +6,67 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		F892261415379FE200B832E8 /* geos */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F892261915379FE200B832E8 /* Build configuration list for PBXAggregateTarget "geos" */;
+			buildPhases = (
+				F89226251537A02200B832E8 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = geos;
+			productName = geos;
+		};
+		F892261B1537A00200B832E8 /* postgres */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F892261C1537A00200B832E8 /* Build configuration list for PBXAggregateTarget "postgres" */;
+			buildPhases = (
+				F892261F1537A00900B832E8 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = postgres;
+			productName = postgres;
+		};
+		F89226201537A01500B832E8 /* proj */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F89226211537A01500B832E8 /* Build configuration list for PBXAggregateTarget "proj" */;
+			buildPhases = (
+				F89226241537A01B00B832E8 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = proj;
+			productName = proj;
+		};
+		F89226271537A17800B832E8 /* postgis */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F89226281537A17800B832E8 /* Build configuration list for PBXAggregateTarget "postgis" */;
+			buildPhases = (
+				F892262B1537A17B00B832E8 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = postgis;
+			productName = postgis;
+		};
+		F892262C1537A26800B832E8 /* pg_binaries */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F892262D1537A26800B832E8 /* Build configuration list for PBXAggregateTarget "pg_binaries" */;
+			buildPhases = (
+			);
+			dependencies = (
+				F89226311537A27000B832E8 /* PBXTargetDependency */,
+				F89226331537A27000B832E8 /* PBXTargetDependency */,
+				F89226351537A27000B832E8 /* PBXTargetDependency */,
+				F89226371537A27000B832E8 /* PBXTargetDependency */,
+			);
+			name = pg_binaries;
+			productName = pg_binaries;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		F81C7993152E8A06008BE8BF /* postgres in CopyFiles */ = {isa = PBXBuildFile; fileRef = F805B49E152E75FB002848AB /* postgres */; };
 		F84B7B6A152E3C5500E942FB /* PostgresServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F84B7B69152E3C5500E942FB /* PostgresServer.m */; };
@@ -19,10 +80,38 @@
 		F8C5290D152EC53C00F82E1A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C528EA152EC04C00F82E1A /* Foundation.framework */; };
 		F8C52913152EC53C00F82E1A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8C52911152EC53C00F82E1A /* InfoPlist.strings */; };
 		F8C52916152EC53C00F82E1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C52915152EC53C00F82E1A /* main.m */; };
-		F8C5291A152EC56200F82E1A /* com.postgres.initdb_service.xpc in Copy XPC Services */ = {isa = PBXBuildFile; fileRef = F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */; };
+		F8C5291A152EC56200F82E1A /* com.postgres.postgres_service.xpc in Copy XPC Services */ = {isa = PBXBuildFile; fileRef = F8C5290C152EC53C00F82E1A /* com.postgres.postgres_service.xpc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F89226301537A27000B832E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86725D2152CB33200919A4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F892261B1537A00200B832E8;
+			remoteInfo = postgres;
+		};
+		F89226321537A27000B832E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86725D2152CB33200919A4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F892261415379FE200B832E8;
+			remoteInfo = geos;
+		};
+		F89226341537A27000B832E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86725D2152CB33200919A4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F89226201537A01500B832E8;
+			remoteInfo = proj;
+		};
+		F89226361537A27000B832E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86725D2152CB33200919A4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F89226271537A17800B832E8;
+			remoteInfo = postgis;
+		};
 		F8C5291B152EC56600F82E1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F86725D2152CB33200919A4D /* Project object */;
@@ -49,7 +138,7 @@
 			dstPath = Contents/XPCServices;
 			dstSubfolderSpec = 1;
 			files = (
-				F8C5291A152EC56200F82E1A /* com.postgres.initdb_service.xpc in Copy XPC Services */,
+				F8C5291A152EC56200F82E1A /* com.postgres.postgres_service.xpc in Copy XPC Services */,
 			);
 			name = "Copy XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,7 +147,6 @@
 
 /* Begin PBXFileReference section */
 		F805B49E152E75FB002848AB /* postgres */ = {isa = PBXFileReference; lastKnownFileType = folder; name = postgres; path = PostgreSQL/Vendor/postgres; sourceTree = "<group>"; };
-		F81C7980152E8888008BE8BF /* pg_bin.xcodeproj */ = {isa = PBXFileReference; path = pg_bin.xcodeproj; sourceTree = "<group>"; };
 		F84B7B68152E3C5500E942FB /* PostgresServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresServer.h; sourceTree = "<group>"; };
 		F84B7B69152E3C5500E942FB /* PostgresServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresServer.m; sourceTree = "<group>"; };
 		F86725DB152CB33200919A4D /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,10 +154,10 @@
 		F86725E2152CB33200919A4D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F86725E3152CB33200919A4D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F86725E4152CB33200919A4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F86725E7152CB33200919A4D /* Postgres-Info.plist */ = {isa = PBXFileReference; path = "Postgres-Info.plist"; sourceTree = "<group>"; };
+		F86725E7152CB33200919A4D /* Postgres-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Postgres-Info.plist"; sourceTree = "<group>"; };
 		F86725E9152CB33200919A4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F86725EB152CB33200919A4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F86725ED152CB33200919A4D /* Postgres-Prefix.pch */ = {isa = PBXFileReference; path = "Postgres-Prefix.pch"; sourceTree = "<group>"; };
+		F86725ED152CB33200919A4D /* Postgres-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Prefix.pch"; sourceTree = "<group>"; };
 		F86725EF152CB33200919A4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		F86725F1152CB33200919A4D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F86725F2152CB33200919A4D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -77,7 +165,7 @@
 		F867332C152CBCE500919A4D /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		F867332D152CBCE500919A4D /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		F8C528EA152EC04C00F82E1A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.postgres.initdb_service.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8C5290C152EC53C00F82E1A /* com.postgres.postgres_service.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.postgres.postgres_service.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8C52910152EC53C00F82E1A /* initdb_service-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "initdb_service-Info.plist"; sourceTree = "<group>"; };
 		F8C52912152EC53C00F82E1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F8C52914152EC53C00F82E1A /* initdb_service-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "initdb_service-Prefix.pch"; sourceTree = "<group>"; };
@@ -121,7 +209,6 @@
 				F8C5290E152EC53C00F82E1A /* postgres_service */,
 				F86725DE152CB33200919A4D /* Frameworks */,
 				F86725DC152CB33200919A4D /* Products */,
-				F81C7980152E8888008BE8BF /* pg_bin.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,7 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				F86725DB152CB33200919A4D /* Postgres.app */,
-				F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */,
+				F8C5290C152EC53C00F82E1A /* com.postgres.postgres_service.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,7 +334,7 @@
 			);
 			name = postgres_service;
 			productName = initdb_service;
-			productReference = F8C5290C152EC53C00F82E1A /* com.postgres.initdb_service.xpc */;
+			productReference = F8C5290C152EC53C00F82E1A /* com.postgres.postgres_service.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -272,6 +359,11 @@
 			targets = (
 				F86725DA152CB33200919A4D /* Postgres */,
 				F8C5290B152EC53C00F82E1A /* postgres_service */,
+				F892262C1537A26800B832E8 /* pg_binaries */,
+				F892261B1537A00200B832E8 /* postgres */,
+				F892261415379FE200B832E8 /* geos */,
+				F89226201537A01500B832E8 /* proj */,
+				F89226271537A17800B832E8 /* postgis */,
 			);
 		};
 /* End PBXProject section */
@@ -297,6 +389,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F892261F1537A00900B832E8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v9.1.3/postgresql-9.1.3.tar.bz2\"\n/usr/bin/tar xzf postgresql-9.1.3.tar.bz2\ncd postgresql-9.1.3\n\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-ossp-uuid --with-perl --with-python\n/usr/bin/make install-world\n";
+		};
+		F89226241537A01B00B832E8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-4.7.0.tar.gz\"\n/usr/bin/tar xzf proj-4.7.0.tar.gz\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-datumgrid-1.5.zip\"\n/usr/bin/unzip -o proj-datumgrid-1.5.zip -d ./proj-4.7.0/nad\n\ncd proj-4.7.0\n\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres\n/usr/bin/make install\n";
+		};
+		F89226251537A02200B832E8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://download.osgeo.org/geos/geos-3.3.2.tar.bz2\"\n/usr/bin/tar xzf geos-3.3.2.tar.bz2\ncd geos-3.3.2\n\n/usr/bin/sed -i -e 's/@CFLAGS@$/@CFLAGS@ -O1/g' ./src/geom/Makefile.in\n/usr/bin/sed -i -e 's/@CXXFLAGS@$/@CXXFLAGS@ -O1/g' ./src/geom/Makefile.in\n\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres\n/usr/bin/make install";
+		};
+		F892262B1537A17B00B832E8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://postgis.refractions.net/download/postgis-1.5.3.tar.gz\"\n/usr/bin/tar xzf postgis-1.5.3.tar.gz\ncd postgis-1.5.3\n\nsh ./autogen.sh\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres --with-pgconfig=${PROJECT_DIR}/PostgreSQL/Vendor/postgres/bin/pg_config --with-geosconfig=${PROJECT_DIR}/PostgreSQL/Vendor/postgres/bin/geos-config --with-projdir=${PROJECT_DIR}/PostgreSQL/Vendor/postgres/\n/usr/bin/make\n/usr/bin/make install";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F86725D7152CB33200919A4D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -320,6 +467,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F89226311537A27000B832E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F892261B1537A00200B832E8 /* postgres */;
+			targetProxy = F89226301537A27000B832E8 /* PBXContainerItemProxy */;
+		};
+		F89226331537A27000B832E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F892261415379FE200B832E8 /* geos */;
+			targetProxy = F89226321537A27000B832E8 /* PBXContainerItemProxy */;
+		};
+		F89226351537A27000B832E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F89226201537A01500B832E8 /* proj */;
+			targetProxy = F89226341537A27000B832E8 /* PBXContainerItemProxy */;
+		};
+		F89226371537A27000B832E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F89226271537A17800B832E8 /* postgis */;
+			targetProxy = F89226361537A27000B832E8 /* PBXContainerItemProxy */;
+		};
 		F8C5291C152EC56600F82E1A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8C5290B152EC53C00F82E1A /* postgres_service */;
@@ -446,6 +613,76 @@
 			};
 			name = Release;
 		};
+		F892261515379FE200B832E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F892261615379FE200B832E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F892261D1537A00200B832E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F892261E1537A00200B832E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F89226221537A01500B832E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F89226231537A01500B832E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F89226291537A17800B832E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F892262A1537A17800B832E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F892262E1537A26800B832E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F892262F1537A26800B832E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F8C52918152EC53C00F82E1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -490,6 +727,46 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F892261915379FE200B832E8 /* Build configuration list for PBXAggregateTarget "geos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F892261515379FE200B832E8 /* Debug */,
+				F892261615379FE200B832E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F892261C1537A00200B832E8 /* Build configuration list for PBXAggregateTarget "postgres" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F892261D1537A00200B832E8 /* Debug */,
+				F892261E1537A00200B832E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F89226211537A01500B832E8 /* Build configuration list for PBXAggregateTarget "proj" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F89226221537A01500B832E8 /* Debug */,
+				F89226231537A01500B832E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F89226281537A17800B832E8 /* Build configuration list for PBXAggregateTarget "postgis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F89226291537A17800B832E8 /* Debug */,
+				F892262A1537A17800B832E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F892262D1537A26800B832E8 /* Build configuration list for PBXAggregateTarget "pg_binaries" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F892262E1537A26800B832E8 /* Debug */,
+				F892262F1537A26800B832E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F8C52917152EC53C00F82E1A /* Build configuration list for PBXNativeTarget "postgres_service" */ = {
 			isa = XCConfigurationList;
