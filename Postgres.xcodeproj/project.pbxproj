@@ -58,8 +58,8 @@
 			);
 			dependencies = (
 				F89226311537A27000B832E8 /* PBXTargetDependency */,
-				F89226331537A27000B832E8 /* PBXTargetDependency */,
 				F89226351537A27000B832E8 /* PBXTargetDependency */,
+				F89226331537A27000B832E8 /* PBXTargetDependency */,
 				F89226371537A27000B832E8 /* PBXTargetDependency */,
 			);
 			name = pg_binaries;
@@ -428,7 +428,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-4.7.0.tar.gz\"\n/usr/bin/tar xzf proj-4.7.0.tar.gz\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-datumgrid-1.5.zip\"\n/usr/bin/unzip -o proj-datumgrid-1.5.zip -d ./proj-4.7.0/nad\n\ncd proj-4.7.0\n\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-4.7.0.tar.gz\"\n/usr/bin/tar xzf proj-4.7.0.tar.gz\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-datumgrid-1.5.zip\"\n/usr/bin/unzip -o proj-datumgrid-1.5.zip -d ./proj-4.7.0/nad\n\ncd proj-4.7.0\n\nsh ./configure --prefix=${PROJECT_DIR}/Postgres/Vendor/postgres\n/usr/bin/make install\n";
 		};
 		F89226251537A02200B832E8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -454,7 +454,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://postgis.refractions.net/download/postgis-1.5.3.tar.gz\"\n/usr/bin/tar xzf postgis-1.5.3.tar.gz\ncd postgis-1.5.3\n\nsh ./autogen.sh\nsh ./configure --prefix=${PROJECT_DIR}/PostgreSQL/Vendor/postgres --with-pgconfig=${PROJECT_DIR}/PostgreSQL/Vendor/postgres/bin/pg_config --with-geosconfig=${PROJECT_DIR}/PostgreSQL/Vendor/postgres/bin/geos-config --with-projdir=${PROJECT_DIR}/PostgreSQL/Vendor/postgres/\n/usr/bin/make\n/usr/bin/make install";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://postgis.refractions.net/download/postgis-1.5.3.tar.gz\"\n/usr/bin/tar xzf postgis-1.5.3.tar.gz\ncd postgis-1.5.3\n\nsh ./autogen.sh\nsh ./configure --with-pgconfig=${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config --with-geosconfig=${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config --with-projdir=${PROJECT_DIR}/Postgres/Vendor/postgres/ --disable-nls\n#/usr/bin/make\n#/usr/bin/make install";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -601,7 +601,7 @@
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Postgres/postgres/lib\"",
+					"\"$(SRCROOT)/Postgres/Vendor/postgres/lib\"",
 				);
 				PRODUCT_NAME = Postgres;
 				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
@@ -619,7 +619,7 @@
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Postgres/postgres/lib\"",
+					"\"$(SRCROOT)/Postgres/Vendor/postgres/lib\"",
 				);
 				PRODUCT_NAME = Postgres;
 				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
