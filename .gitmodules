@@ -1,3 +1,0 @@
-[submodule "postgres"]
-	path = postgres
-	url = https://github.com/postgres/postgres.git
