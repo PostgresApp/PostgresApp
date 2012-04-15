@@ -77,6 +77,7 @@
 		F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
 		F80534FE1538884E000E1BAC /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
+		F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */ = {isa = PBXBuildFile; fileRef = F87A4263153AB23D00456130 /* pg-elephant-status-item.png */; };
 		F8973A0D1538846600EAB41E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F8973A171538846600EAB41E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8973A151538846600EAB41E /* InfoPlist.strings */; };
 		F8973A191538846600EAB41E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8973A181538846600EAB41E /* main.m */; };
@@ -164,6 +165,7 @@
 		F80534F61538884A000E1BAC /* share */ = {isa = PBXFileReference; lastKnownFileType = folder; name = share; path = Postgres/Vendor/postgres/share; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
+		F87A4264153AB23D00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/pg-elephant-status-item.png"; sourceTree = "<group>"; };
 		F8973A081538846600EAB41E /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8973A0C1538846600EAB41E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8973A0F1538846600EAB41E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -219,6 +221,22 @@
 				F80534F61538884A000E1BAC /* share */,
 			);
 			name = postgres;
+			sourceTree = "<group>";
+		};
+		F87A4267153AB23F00456130 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F87A4268153AB24600456130 /* Status Item */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		F87A4268153AB24600456130 /* Status Item */ = {
+			isa = PBXGroup;
+			children = (
+				F87A4263153AB23D00456130 /* pg-elephant-status-item.png */,
+			);
+			name = "Status Item";
 			sourceTree = "<group>";
 		};
 		F89739FD1538846600EAB41E = {
@@ -286,6 +304,7 @@
 				F8973A181538846600EAB41E /* main.m */,
 				F8973A1A1538846600EAB41E /* Postgres-Prefix.pch */,
 				F8973A1B1538846600EAB41E /* Credits.rtf */,
+				F87A4267153AB23F00456130 /* Images */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -409,6 +428,7 @@
 				F80534F81538884A000E1BAC /* include in Resources */,
 				F80534F91538884A000E1BAC /* lib in Resources */,
 				F80534FA1538884A000E1BAC /* share in Resources */,
+				F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +553,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		F87A4263153AB23D00456130 /* pg-elephant-status-item.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F87A4264153AB23D00456130 /* en */,
+			);
+			name = "pg-elephant-status-item.png";
+			sourceTree = "<group>";
+		};
 		F8973A151538846600EAB41E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

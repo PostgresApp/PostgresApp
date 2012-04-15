@@ -10,8 +10,12 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSTextField *portLabel;
-@property (weak) IBOutlet NSTextField *commandTextField;
+@property (weak) IBOutlet NSMenu *statusBarMenu;
+@property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
+
+- (IBAction)selectPostgresStatus:(id)sender;
+- (IBAction)selectAbout:(id)sender;
+- (IBAction)selectDocumentation:(id)sender;
+- (IBAction)selectAutomaticallyStart:(id)sender;
 
 @end

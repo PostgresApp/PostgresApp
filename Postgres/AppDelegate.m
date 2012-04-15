@@ -11,30 +11,33 @@
 
 static NSUInteger kPostgresAppDefaultPort = 5432;
 
-@implementation AppDelegate
-@synthesize window = _window;
-@synthesize portLabel = _statusLabel;
-@synthesize commandTextField = _commandTextField;
+@implementation AppDelegate {
+    __strong NSStatusItem *_statusBarItem;
+}
+@synthesize statusBarMenu;
+@synthesize postgresStatusMenuItem;
 
 - (void)awakeFromNib {
-    [self.window setHidesOnDeactivate:YES];
+    _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    _statusBarItem.highlightMode = YES;
+    _statusBarItem.menu = self.statusBarMenu;
+    _statusBarItem.image = [NSImage imageNamed:@"pg-elephant-status-item"];
+    
+    self.postgresStatusMenuItem.title = NSLocalizedString(@"Postgres: Starting Up...", nil);
+    [self.postgresStatusMenuItem setEnabled:NO];
 }
 
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    NSLog(@"applicationDidFinishLaunching");
-
-    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
-        self.portLabel.stringValue = [[NSNumber numberWithInteger:kPostgresAppDefaultPort] stringValue];
-        self.commandTextField.stringValue = @"psql -h localhost";
-    }];    
-}
-
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)flag {
-    [self.window makeKeyAndOrderFront:self];
     
-    return YES;
+    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
+        
+        self.postgresStatusMenuItem.title = NSLocalizedString(@"Postgres: Running on Port 5432", nil);
+        [self.postgresStatusMenuItem setEnabled:YES];
+    }]; 
+    
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
@@ -53,6 +56,24 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     NSLog(@"applicationWillTerminate");
+}
+
+#pragma mark - IBAction
+
+- (IBAction)selectPostgresStatus:(id)sender {
+    
+}
+
+- (IBAction)selectAbout:(id)sender {
+    [NSApp orderFrontStandardAboutPanel:nil];
+}
+
+- (IBAction)selectDocumentation:(id)sender {
+    
+}
+
+- (IBAction)selectAutomaticallyStart:(id)sender {
+    
 }
 
 @end
