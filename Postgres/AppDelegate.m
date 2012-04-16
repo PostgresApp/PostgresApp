@@ -11,6 +11,17 @@
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 
+static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
+    NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
+    for (NSDictionary *job in jobs) {
+        if ([[job valueForKey:@"Label"] isEqualToString:@"com.heroku.PostgresHelper"]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 static NSUInteger kPostgresAppDefaultPort = 5432;
 
 @implementation AppDelegate {
@@ -31,6 +42,8 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
     [self.postgresStatusMenuItem setEnabled:NO];    
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
     [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Postgres: Starting Up", nil)];
+    
+    [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
 }
 
 #pragma mark - NSApplicationDelegate
@@ -73,7 +86,7 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 }
 
 - (IBAction)selectDocumentation:(id)sender {
-    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgres.heroku.com"]];
 }
 
 - (IBAction)selectAutomaticallyStart:(id)sender {
