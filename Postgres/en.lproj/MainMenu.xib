@@ -11,6 +11,7 @@
 			<string key="NS.object.0">1938</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
+			<string>NSViewController</string>
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
 			<string>NSCustomObject</string>
@@ -517,6 +518,7 @@
 				<array class="NSMutableArray" key="NSMenuItems">
 					<object class="NSMenuItem" id="272042490">
 						<reference key="NSMenu" ref="225019770"/>
+						<bool key="NSIsDisabled">YES</bool>
 						<string key="NSTitle">Postgres: Running on Port 5432</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -586,6 +588,9 @@
 						<reference key="NSMixedImage" ref="502551668"/>
 					</object>
 				</array>
+			</object>
+			<object class="NSViewController" id="152267338">
+				<string key="NSNibName">PostgresStatusMenuItemView</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -877,6 +882,14 @@
 						<reference key="destination" ref="697863152"/>
 					</object>
 					<int key="connectionID">571</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">postgresStatusMenuItemViewController</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="152267338"/>
+					</object>
+					<int key="connectionID">579</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1320,6 +1333,11 @@
 						<reference key="object" ref="766091906"/>
 						<reference key="parent" ref="225019770"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">578</int>
+						<reference key="object" ref="152267338"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1378,6 +1396,8 @@
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="572.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="573.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="578.CustomClassName">PostgresStatusMenuItemViewController</string>
+				<string key="578.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1395,7 +1415,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">575</int>
+			<int key="maxID">579</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1407,7 +1427,6 @@
 						<string key="selectAutomaticallyStart:">id</string>
 						<string key="selectDocumentation:">id</string>
 						<string key="selectPostgresStatus:">id</string>
-						<string key="selectQuit:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="selectAbout:">
@@ -1426,14 +1445,12 @@
 							<string key="name">selectPostgresStatus:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="selectQuit:">
-							<string key="name">selectQuit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="automaticallyStartMenuItem">NSMenuItem</string>
 						<string key="postgresStatusMenuItem">NSMenuItem</string>
+						<string key="postgresStatusMenuItemViewController">PostgresStatusMenuItemViewController</string>
+						<string key="postgresStatusProgressIndicator">NSProgressIndicator</string>
 						<string key="statusBarMenu">NSMenu</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1444,6 +1461,14 @@
 						<object class="IBToOneOutletInfo" key="postgresStatusMenuItem">
 							<string key="name">postgresStatusMenuItem</string>
 							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="postgresStatusMenuItemViewController">
+							<string key="name">postgresStatusMenuItemViewController</string>
+							<string key="candidateClassName">PostgresStatusMenuItemViewController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="postgresStatusProgressIndicator">
+							<string key="name">postgresStatusProgressIndicator</string>
+							<string key="candidateClassName">NSProgressIndicator</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="statusBarMenu">
 							<string key="name">statusBarMenu</string>
@@ -1494,6 +1519,28 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/NSDocument.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PostgresStatusMenuItemViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="progressIndicator">NSProgressIndicator</string>
+						<string key="titleTextField">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="progressIndicator">
+							<string key="name">progressIndicator</string>
+							<string key="candidateClassName">NSProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="titleTextField">
+							<string key="name">titleTextField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PostgresStatusMenuItemViewController.h</string>
 					</object>
 				</object>
 			</array>

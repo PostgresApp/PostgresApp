@@ -86,6 +86,8 @@
 		F87A4281153AB60C00456130 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87A427F153AB60C00456130 /* MainMenu.xib */; };
 		F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */; };
 		F884C8F1153C786D00CDCB09 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
+		F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */; };
+		F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */; };
 		F8973A0D1538846600EAB41E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F8973A171538846600EAB41E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8973A151538846600EAB41E /* InfoPlist.strings */; };
 		F8973A191538846600EAB41E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8973A181538846600EAB41E /* main.m */; };
@@ -134,7 +136,7 @@
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F87A426C153AB60C00456130;
-			remoteInfo = "PostgresHelper";
+			remoteInfo = PostgresHelper;
 		};
 		F8973A4B1538858900EAB41E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -203,6 +205,9 @@
 		F87A4280153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F884C8F3153C7A4C00CDCB09 /* PostgresHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PostgresHelper.entitlements; path = ../PostgresHelper.entitlements; sourceTree = "<group>"; };
+		F884C902153C807400CDCB09 /* PostgresStatusMenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresStatusMenuItemViewController.h; sourceTree = "<group>"; };
+		F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresStatusMenuItemViewController.m; sourceTree = "<group>"; };
+		F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostgresStatusMenuItemView.xib; sourceTree = "<group>"; };
 		F8973A081538846600EAB41E /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8973A0C1538846600EAB41E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8973A0F1538846600EAB41E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -294,8 +299,7 @@
 				F87A427F153AB60C00456130 /* MainMenu.xib */,
 				F87A4271153AB60C00456130 /* Supporting Files */,
 			);
-			name = PostgresHelper;
-			path = "PostgresHelper";
+			path = PostgresHelper;
 			sourceTree = "<group>";
 		};
 		F87A4271153AB60C00456130 /* Supporting Files */ = {
@@ -363,6 +367,9 @@
 				F8973A36153884EF00EAB41E /* PostgresServer.h */,
 				F8973A35153884EF00EAB41E /* PostgresServer.m */,
 				F8973A211538846600EAB41E /* MainMenu.xib */,
+				F884C902153C807400CDCB09 /* PostgresStatusMenuItemViewController.h */,
+				F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */,
+				F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */,
 				F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */,
 				F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */,
 				F8973A131538846600EAB41E /* Supporting Files */,
@@ -435,7 +442,7 @@
 			dependencies = (
 			);
 			name = PostgresHelper;
-			productName = "PostgresHelper";
+			productName = PostgresHelper;
 			productReference = F87A426D153AB60C00456130 /* PostgresHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -533,6 +540,7 @@
 				F80534F91538884A000E1BAC /* lib in Resources */,
 				F80534FA1538884A000E1BAC /* share in Resources */,
 				F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */,
+				F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +632,7 @@
 				F8973A30153884A900EAB41E /* NSFileManager+DirectoryLocations.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
+				F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

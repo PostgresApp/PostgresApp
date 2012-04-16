@@ -8,11 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PostgresStatusMenuItemViewController;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
+
+@property (strong) IBOutlet PostgresStatusMenuItemViewController *postgresStatusMenuItemViewController;
 
 @property (weak) IBOutlet NSMenu *statusBarMenu;
 @property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
 @property (weak) IBOutlet NSMenuItem *automaticallyStartMenuItem;
+@property (weak) IBOutlet NSProgressIndicator *postgresStatusProgressIndicator;
 
 - (IBAction)selectPostgresStatus:(id)sender;
 - (IBAction)selectAbout:(id)sender;

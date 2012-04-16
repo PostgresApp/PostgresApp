@@ -9,15 +9,18 @@
 #import <ServiceManagement/ServiceManagement.h>
 #import "AppDelegate.h"
 #import "PostgresServer.h"
+#import "PostgresStatusMenuItemViewController.h"
 
 static NSUInteger kPostgresAppDefaultPort = 5432;
 
 @implementation AppDelegate {
     __strong NSStatusItem *_statusBarItem;
 }
+@synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
 @synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
 @synthesize automaticallyStartMenuItem = _automaticallyStartMenuItem;
+@synthesize postgresStatusProgressIndicator = _postgresStatusProgressIndicator;
 
 - (void)awakeFromNib {
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
@@ -25,16 +28,16 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
     _statusBarItem.menu = self.statusBarMenu;
     _statusBarItem.image = [NSImage imageNamed:@"pg-elephant-status-item"];
     
-    self.postgresStatusMenuItem.title = NSLocalizedString(@"Postgres: Starting Up...", nil);
-    [self.postgresStatusMenuItem setEnabled:NO];
+    [self.postgresStatusMenuItem setEnabled:NO];    
+    self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
+    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Postgres: Starting Up", nil)];
 }
 
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
-        self.postgresStatusMenuItem.title = NSLocalizedString(@"Postgres: Running on Port 5432", nil);
+        [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:NSLocalizedString(@"Postgres: Running on Port 5432", nil) wasSuccessful:YES];
         [self.postgresStatusMenuItem setEnabled:YES];
     }]; 
         
