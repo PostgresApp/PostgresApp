@@ -78,6 +78,12 @@
 		F80534FE1538884E000E1BAC /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */ = {isa = PBXBuildFile; fileRef = F87A4263153AB23D00456130 /* pg-elephant-status-item.png */; };
+		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
+		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
+		F87A4277153AB60C00456130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A4276153AB60C00456130 /* main.m */; };
+		F87A427B153AB60C00456130 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F87A4279153AB60C00456130 /* Credits.rtf */; };
+		F87A427E153AB60C00456130 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A427D153AB60C00456130 /* AppDelegate.m */; };
+		F87A4281153AB60C00456130 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87A427F153AB60C00456130 /* MainMenu.xib */; };
 		F8973A0D1538846600EAB41E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F8973A171538846600EAB41E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8973A151538846600EAB41E /* InfoPlist.strings */; };
 		F8973A191538846600EAB41E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8973A181538846600EAB41E /* main.m */; };
@@ -121,6 +127,13 @@
 			remoteGlobalIDString = F805350F15388AF3000E1BAC;
 			remoteInfo = postgis;
 		};
+		F87A4285153AB65200456130 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F87A426C153AB60C00456130;
+			remoteInfo = "Postgres-Helper";
+		};
 		F8973A4B1538858900EAB41E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
@@ -145,6 +158,15 @@
 			name = "Copy postgres Executables";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F87A4287153AB65800456130 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8973A51153885A100EAB41E /* Copy XPC Service */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +188,15 @@
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F87A4264153AB23D00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/pg-elephant-status-item.png"; sourceTree = "<group>"; };
+		F87A426D153AB60C00456130 /* Postgres-Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Postgres-Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F87A4272153AB60C00456130 /* Postgres-Helper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Postgres-Helper-Info.plist"; sourceTree = "<group>"; };
+		F87A4274153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F87A4276153AB60C00456130 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F87A4278153AB60C00456130 /* Postgres-Helper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Helper-Prefix.pch"; sourceTree = "<group>"; };
+		F87A427A153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		F87A427C153AB60C00456130 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F87A427D153AB60C00456130 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F87A4280153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F8973A081538846600EAB41E /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8973A0C1538846600EAB41E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8973A0F1538846600EAB41E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -193,6 +224,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F87A426A153AB60C00456130 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8973A051538846600EAB41E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,12 +278,36 @@
 			name = "Status Item";
 			sourceTree = "<group>";
 		};
+		F87A4270153AB60C00456130 /* Postgres-Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F87A427C153AB60C00456130 /* AppDelegate.h */,
+				F87A427D153AB60C00456130 /* AppDelegate.m */,
+				F87A427F153AB60C00456130 /* MainMenu.xib */,
+				F87A4271153AB60C00456130 /* Supporting Files */,
+			);
+			path = "Postgres-Helper";
+			sourceTree = "<group>";
+		};
+		F87A4271153AB60C00456130 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F87A4272153AB60C00456130 /* Postgres-Helper-Info.plist */,
+				F87A4273153AB60C00456130 /* InfoPlist.strings */,
+				F87A4276153AB60C00456130 /* main.m */,
+				F87A4278153AB60C00456130 /* Postgres-Helper-Prefix.pch */,
+				F87A4279153AB60C00456130 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		F89739FD1538846600EAB41E = {
 			isa = PBXGroup;
 			children = (
 				F8973A121538846600EAB41E /* Postgres */,
-				F8973A32153884AC00EAB41E /* Vendor */,
+				F87A4270153AB60C00456130 /* Postgres-Helper */,
 				F8973A3F1538851D00EAB41E /* postgres-service */,
+				F8973A32153884AC00EAB41E /* Vendor */,
 				F8973A0B1538846600EAB41E /* Frameworks */,
 				F8973A091538846600EAB41E /* Products */,
 			);
@@ -255,6 +318,7 @@
 			children = (
 				F8973A081538846600EAB41E /* Postgres.app */,
 				F8973A3C1538851D00EAB41E /* com.heroku.postgres-service.xpc */,
+				F87A426D153AB60C00456130 /* Postgres-Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -348,6 +412,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F87A426C153AB60C00456130 /* Postgres-Helper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F87A4282153AB60C00456130 /* Build configuration list for PBXNativeTarget "Postgres-Helper" */;
+			buildPhases = (
+				F87A4269153AB60C00456130 /* Sources */,
+				F87A426A153AB60C00456130 /* Frameworks */,
+				F87A426B153AB60C00456130 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Postgres-Helper";
+			productName = "Postgres-Helper";
+			productReference = F87A426D153AB60C00456130 /* Postgres-Helper.app */;
+			productType = "com.apple.product-type.application";
+		};
 		F8973A071538846600EAB41E /* Postgres */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8973A261538846600EAB41E /* Build configuration list for PBXNativeTarget "Postgres" */;
@@ -357,11 +438,13 @@
 				F8973A061538846600EAB41E /* Resources */,
 				F80534EF15388783000E1BAC /* Copy postgres Executables */,
 				F8973A51153885A100EAB41E /* Copy XPC Service */,
+				F87A4287153AB65800456130 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F8973A4C1538858900EAB41E /* PBXTargetDependency */,
+				F87A4286153AB65200456130 /* PBXTargetDependency */,
 			);
 			name = Postgres;
 			productName = Postgres;
@@ -406,6 +489,7 @@
 			projectRoot = "";
 			targets = (
 				F8973A071538846600EAB41E /* Postgres */,
+				F87A426C153AB60C00456130 /* Postgres-Helper */,
 				F8973A3B1538851D00EAB41E /* postgres-service */,
 				F80534FF15388AD6000E1BAC /* postgres-binaries */,
 				F805350315388AE4000E1BAC /* postgres */,
@@ -417,6 +501,16 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F87A426B153AB60C00456130 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */,
+				F87A427B153AB60C00456130 /* Credits.rtf in Resources */,
+				F87A4281153AB60C00456130 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8973A061538846600EAB41E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,6 +596,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F87A4269153AB60C00456130 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F87A4277153AB60C00456130 /* main.m in Sources */,
+				F87A427E153AB60C00456130 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8973A041538846600EAB41E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -545,6 +648,11 @@
 			target = F805350F15388AF3000E1BAC /* postgis */;
 			targetProxy = F805351915388AFB000E1BAC /* PBXContainerItemProxy */;
 		};
+		F87A4286153AB65200456130 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F87A426C153AB60C00456130 /* Postgres-Helper */;
+			targetProxy = F87A4285153AB65200456130 /* PBXContainerItemProxy */;
+		};
 		F8973A4C1538858900EAB41E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8973A3B1538851D00EAB41E /* postgres-service */;
@@ -559,6 +667,30 @@
 				F87A4264153AB23D00456130 /* en */,
 			);
 			name = "pg-elephant-status-item.png";
+			sourceTree = "<group>";
+		};
+		F87A4273153AB60C00456130 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F87A4274153AB60C00456130 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F87A4279153AB60C00456130 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F87A427A153AB60C00456130 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		F87A427F153AB60C00456130 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F87A4280153AB60C00456130 /* en */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		F8973A151538846600EAB41E /* InfoPlist.strings */ = {
@@ -663,6 +795,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F87A4283153AB60C00456130 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Postgres-Helper/Postgres-Helper-Prefix.pch";
+				INFOPLIST_FILE = "Postgres-Helper/Postgres-Helper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F87A4284153AB60C00456130 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Postgres-Helper/Postgres-Helper-Prefix.pch";
+				INFOPLIST_FILE = "Postgres-Helper/Postgres-Helper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -812,6 +966,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F87A4282153AB60C00456130 /* Build configuration list for PBXNativeTarget "Postgres-Helper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F87A4283153AB60C00456130 /* Debug */,
+				F87A4284153AB60C00456130 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F8973A021538846600EAB41E /* Build configuration list for PBXProject "Postgres" */ = {
 			isa = XCConfigurationList;
