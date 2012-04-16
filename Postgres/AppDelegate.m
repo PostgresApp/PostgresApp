@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
+#import <ServiceManagement/ServiceManagement.h>
 #import "AppDelegate.h"
 #import "PostgresServer.h"
 
@@ -14,8 +15,9 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 @implementation AppDelegate {
     __strong NSStatusItem *_statusBarItem;
 }
-@synthesize statusBarMenu;
-@synthesize postgresStatusMenuItem;
+@synthesize statusBarMenu = _statusBarMenu;
+@synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
+@synthesize automaticallyStartMenuItem = _automaticallyStartMenuItem;
 
 - (void)awakeFromNib {
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
@@ -32,11 +34,10 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
     
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
-        
         self.postgresStatusMenuItem.title = NSLocalizedString(@"Postgres: Running on Port 5432", nil);
         [self.postgresStatusMenuItem setEnabled:YES];
     }]; 
-    
+        
     [NSApp activateIgnoringOtherApps:YES];
 }
 
@@ -73,7 +74,17 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 }
 
 - (IBAction)selectAutomaticallyStart:(id)sender {
+    [self.automaticallyStartMenuItem setState:![self.automaticallyStartMenuItem state]];
     
+    NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/PostgresHelper.app"];
+    NSLog(@"URL: %@",helperApplicationURL);
+    if (LSRegisterURL((__bridge CFURLRef)helperApplicationURL, true) != noErr) {
+        NSLog(@"LSRegisterURL Failed");
+    }
+    
+    if (!SMLoginItemSetEnabled((__bridge CFStringRef)@"com.heroku.PostgresHelper", [self.automaticallyStartMenuItem state] == NSOnState)) {
+        NSLog(@"SMLoginItemSetEnabled Failed");
+    }
 }
 
 @end

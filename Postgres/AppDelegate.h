@@ -12,6 +12,7 @@
 
 @property (weak) IBOutlet NSMenu *statusBarMenu;
 @property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
+@property (weak) IBOutlet NSMenuItem *automaticallyStartMenuItem;
 
 - (IBAction)selectPostgresStatus:(id)sender;
 - (IBAction)selectAbout:(id)sender;

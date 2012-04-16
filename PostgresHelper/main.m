@@ -1,6 +1,6 @@
 //
 //  main.m
-//  Postgres-Helper
+//  PostgresHelper
 //
 //  Created by Mattt Thompson on 12/04/15.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
