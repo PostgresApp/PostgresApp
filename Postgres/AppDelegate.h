@@ -19,7 +19,6 @@
 @property (weak) IBOutlet NSMenuItem *automaticallyOpenDocumentationMenuItem;
 @property (weak) IBOutlet NSMenuItem *automaticallyStartMenuItem;
 
-- (IBAction)selectPostgresStatus:(id)sender;
 - (IBAction)selectAbout:(id)sender;
 - (IBAction)selectDocumentation:(id)sender;
 - (IBAction)selectAutomaticallyOpenDocumentation:(id)sender;

@@ -12,8 +12,10 @@
 #import "PostgresStatusMenuItemViewController.h"
 
 static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/";
+static NSUInteger const kPostgresAppDefaultPort = 5432;
 
 static NSString * const kPostgresAutomaticallyOpenDocumentationPreferenceKey = @"com.heroku.postgres.preference.open-documentation-at-start";
+
 static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
     for (NSDictionary *job in jobs) {
@@ -25,7 +27,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     return NO;
 }
 
-static NSUInteger kPostgresAppDefaultPort = 5432;
 
 @implementation AppDelegate {
     __strong NSStatusItem *_statusBarItem;
@@ -55,7 +56,7 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
     
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
-        [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:NSLocalizedString(@"Postgres: Running on Port 5432", nil) wasSuccessful:YES];
+        [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
     }]; 
         
     [NSApp activateIgnoringOtherApps:YES];
@@ -77,17 +78,11 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
     return NSTerminateLater;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification {
-    NSLog(@"applicationWillTerminate");
-}
-
 #pragma mark - IBAction
 
-- (IBAction)selectPostgresStatus:(id)sender {
-    
-}
-
 - (IBAction)selectAbout:(id)sender {
+    // Bring application to foreground to have about window display on top of other windows
+    [NSApp activateIgnoringOtherApps:YES];
     [NSApp orderFrontStandardAboutPanel:nil];
 }
 
