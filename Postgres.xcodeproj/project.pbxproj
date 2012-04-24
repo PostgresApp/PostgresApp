@@ -14,6 +14,7 @@
 			);
 			dependencies = (
 				F805351415388AFB000E1BAC /* PBXTargetDependency */,
+				F8A12F0715474E3B009AFF07 /* PBXTargetDependency */,
 				F805351615388AFB000E1BAC /* PBXTargetDependency */,
 				F805351815388AFB000E1BAC /* PBXTargetDependency */,
 				F805351A15388AFB000E1BAC /* PBXTargetDependency */,
@@ -154,6 +155,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F8973A3B1538851D00EAB41E;
 			remoteInfo = "postgres-service";
+		};
+		F8A12F0615474E3B009AFF07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8B05E24153E43D900A8D53A;
+			remoteInfo = gdal;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -697,6 +705,11 @@
 			isa = PBXTargetDependency;
 			target = F8973A3B1538851D00EAB41E /* postgres-service */;
 			targetProxy = F8973A4B1538858900EAB41E /* PBXContainerItemProxy */;
+		};
+		F8A12F0715474E3B009AFF07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8B05E24153E43D900A8D53A /* gdal */;
+			targetProxy = F8A12F0615474E3B009AFF07 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
