@@ -11,6 +11,8 @@
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 
+static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/";
+
 static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
     for (NSDictionary *job in jobs) {
@@ -57,9 +59,7 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
     [NSApp activateIgnoringOtherApps:YES];
 }
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-    NSLog(@"shouldTerminate");
-    
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {    
     // TODO: Use termination handlers instead of delay 
     [[PostgresServer sharedServer] stop];
     double delayInSeconds = 0.1;
@@ -86,14 +86,14 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 }
 
 - (IBAction)selectDocumentation:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgres.heroku.com"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
 }
 
 - (IBAction)selectAutomaticallyStart:(id)sender {
     [self.automaticallyStartMenuItem setState:![self.automaticallyStartMenuItem state]];
     
     NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/PostgresHelper.app"];
-    NSLog(@"URL: %@",helperApplicationURL);
+    NSLog(@"Helper Application URL: %@", helperApplicationURL);
     if (LSRegisterURL((__bridge CFURLRef)helperApplicationURL, true) != noErr) {
         NSLog(@"LSRegisterURL Failed");
     }
