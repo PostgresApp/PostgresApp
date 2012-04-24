@@ -92,7 +92,6 @@
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
 		F87A4277153AB60C00456130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A4276153AB60C00456130 /* main.m */; };
-		F87A427B153AB60C00456130 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F87A4279153AB60C00456130 /* Credits.rtf */; };
 		F87A427E153AB60C00456130 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A427D153AB60C00456130 /* AppDelegate.m */; };
 		F87A4281153AB60C00456130 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87A427F153AB60C00456130 /* MainMenu.xib */; };
 		F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */; };
@@ -210,7 +209,6 @@
 		F87A4274153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F87A4276153AB60C00456130 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F87A4278153AB60C00456130 /* PostgresHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresHelper-Prefix.pch"; sourceTree = "<group>"; };
-		F87A427A153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		F87A427C153AB60C00456130 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F87A427D153AB60C00456130 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F87A4280153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 				F87A4273153AB60C00456130 /* InfoPlist.strings */,
 				F87A4276153AB60C00456130 /* main.m */,
 				F87A4278153AB60C00456130 /* PostgresHelper-Prefix.pch */,
-				F87A4279153AB60C00456130 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -535,7 +532,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */,
-				F87A427B153AB60C00456130 /* Credits.rtf in Resources */,
 				F87A4281153AB60C00456130 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,14 +715,6 @@
 				F87A4274153AB60C00456130 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		F87A4279153AB60C00456130 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F87A427A153AB60C00456130 /* en */,
-			);
-			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 		F87A427F153AB60C00456130 /* MainMenu.xib */ = {
