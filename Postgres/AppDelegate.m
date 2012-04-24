@@ -26,7 +26,7 @@
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 
-static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/";
+static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/documentation";
 static NSUInteger const kPostgresAppDefaultPort = 5432;
 
 static NSString * const kPostgresAutomaticallyOpenDocumentationPreferenceKey = @"com.heroku.postgres.preference.open-documentation-at-start";
