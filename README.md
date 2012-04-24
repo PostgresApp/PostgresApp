@@ -1,9 +1,10 @@
 # PostgreSQL.app
-## "Less Drama, More Awesome"
 
-PostgreSQL.app is a Postgres bottled in a convenient, Mac App Store-compatible package.
+Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.
 
-One click install, one click uninstall: it should be that easy.
+## Download
+
+> [Download the Latest Build (v005)](http://cl.ly/2z2O1E0z0L3N1f2i000N)
 
 ## How To Build
 
@@ -16,15 +17,6 @@ One click install, one click uninstall: it should be that easy.
 PostgreSQL.app bundles the Postgres binaries as auxiliary executables. An `NSTask` runs  `postgres` as a `launchd` service, and is terminated when the app is quit.
 
 The database data directory is located in the `/var` directory of the PostgreSQL.app Application Support directory. When the app is launched, it checks for "PG_VERSION" in the directory. If it does not exist, `initdb` is run, and later, `createdb` to create a default database for the current user.
-
-## Next Steps
-
-- Create a real UI
-- Add instructions for how to configure with Ruby / Python, etc.
-  - ...or better yet, make them work without any additional configuration
-- Test, test, test, test, test
-- ~~Make App Store sandbox compatible~~
-- ~~Add PostGIS to the build process (as well as any other essential extensions)~~
 
 ## Contact
 
