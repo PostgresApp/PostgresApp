@@ -13,6 +13,7 @@
 
 static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/";
 
+static NSString * const kPostgresAutomaticallyOpenDocumentationPreferenceKey = @"com.heroku.postgres.preference.open-documentation-at-start";
 static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
     for (NSDictionary *job in jobs) {
@@ -32,8 +33,8 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
 @synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
+@synthesize automaticallyOpenDocumentationMenuItem = _automaticallyOpenDocumentationMenuItem;
 @synthesize automaticallyStartMenuItem = _automaticallyStartMenuItem;
-@synthesize postgresStatusProgressIndicator = _postgresStatusProgressIndicator;
 
 - (void)awakeFromNib {
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
@@ -44,19 +45,24 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
     [self.postgresStatusMenuItem setEnabled:NO];    
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
     [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Postgres: Starting Up", nil)];
-    
-    [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
 }
 
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
+    [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
+    [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
+    
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
         [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:NSLocalizedString(@"Postgres: Running on Port 5432", nil) wasSuccessful:YES];
-        [self.postgresStatusMenuItem setEnabled:YES];
     }]; 
         
     [NSApp activateIgnoringOtherApps:YES];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
+    }
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {    
@@ -87,6 +93,12 @@ static NSUInteger kPostgresAppDefaultPort = 5432;
 
 - (IBAction)selectDocumentation:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
+}
+
+- (IBAction)selectAutomaticallyOpenDocumentation:(id)sender {
+    [self.automaticallyOpenDocumentationMenuItem setState:![self.automaticallyOpenDocumentationMenuItem state]];
+
+    [[NSUserDefaults standardUserDefaults] setBool:self.automaticallyOpenDocumentationMenuItem.state == NSOnState forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey];
 }
 
 - (IBAction)selectAutomaticallyStart:(id)sender {
