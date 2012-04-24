@@ -8,15 +8,15 @@ Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open 
 
 ## How To Build
 
-1. Open `PostgreSQL.xcodeproj` in Xcode
+1. Open `Postgres.xcodeproj` in Xcode
 2. Select the "Postgres Binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`.
-3. Once the binaries are finished building, select the "PostgreSQL Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
+3. Once the binaries are finished building, select the "Postgres Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
 
 ## Under the Hood
 
-PostgreSQL.app bundles the Postgres binaries as auxiliary executables. An `NSTask` runs  `postgres` as a `launchd` service, and is terminated when the app is quit.
+Postgres.app bundles the PostgreSQL binaries as auxiliary executables. An `NSTask` runs  `postgres` as a `launchd` service, and is terminated when the app is quit.
 
-The database data directory is located in the `/var` directory of the PostgreSQL.app Application Support directory. When the app is launched, it checks for "PG_VERSION" in the directory. If it does not exist, `initdb` is run, and later, `createdb` to create a default database for the current user.
+The database data directory is located in the `/var` directory of the Postgres.app Application Support directory. When the app is launched, it checks for "PG_VERSION" in the directory. If it does not exist, `initdb` is run, and later, `createdb` to create a default database for the current user.
 
 ## Contact
 
@@ -28,4 +28,4 @@ Mattt Thompson
 
 ## License
 
-PostgreSQL.app is released under the PostgreSQL License. See LICENSE for additional information.
+Postgres.app is released under the PostgreSQL License. See LICENSE for additional information.
