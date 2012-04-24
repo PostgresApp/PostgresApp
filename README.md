@@ -1,4 +1,4 @@
-# PostgreSQL.app
+# Postgres.app
 
 Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.
 
