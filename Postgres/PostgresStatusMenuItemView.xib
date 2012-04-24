@@ -41,15 +41,15 @@
 					<object class="NSTextField" id="1005911197">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">298</int>
-						<string key="NSFrame">{{19, 1}, {232, 17}}</string>
+						<string key="NSFrame">{{19, 0}, {232, 19}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="987048745"/>
 						<string key="NSReuseIdentifierKey">_NS:3944</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="178839858">
-							<int key="NSCellFlags">604110400</int>
-							<int key="NSCellFlags2">272631872</int>
+							<int key="NSCellFlags">604110336</int>
+							<int key="NSCellFlags2">272629824</int>
 							<string key="NSContents">Postgres: Running on Port 5432</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
@@ -83,7 +83,7 @@
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">1321</int>
 						<object class="NSPSMatrix" key="NSDrawMatrix"/>
-						<string key="NSFrame">{{256, 1}, {16, 16}}</string>
+						<string key="NSFrame">{{256, 2}, {16, 16}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -92,7 +92,7 @@
 						<double key="NSMaxValue">100</double>
 					</object>
 				</array>
-				<string key="NSFrameSize">{272, 19}</string>
+				<string key="NSFrameSize">{272, 20}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1005911197"/>
