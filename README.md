@@ -4,7 +4,7 @@ Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open 
 
 ## Download
 
-> [Download the Latest Build (v006)](http://cl.ly/121v1a0G2J1H2W0A2C3A)
+> [Download the Latest Build (Beta 2)](http://postgres-app.s3.amazonaws.com/Postgres-for-Mac-Beta-2.zip)
 
 ## How To Build
 
