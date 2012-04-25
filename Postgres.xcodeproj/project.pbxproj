@@ -839,12 +839,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PostgresHelper.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer: Mattt Thompson (78K26BBJN7)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -853,12 +852,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PostgresHelper.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer: Mattt Thompson (78K26BBJN7)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -914,12 +912,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer: Mattt Thompson (78K26BBJN7)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -928,12 +925,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer: Mattt Thompson (78K26BBJN7)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BC8EE9D5-BA42-4387-B6B6-D5399D81D8FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
