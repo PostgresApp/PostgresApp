@@ -81,10 +81,6 @@
 
 /* Begin PBXBuildFile section */
 		B6C1A2CF15478D6400A9C1FB /* pg-elephant-status-item-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = B6C1A2CD15478D6400A9C1FB /* pg-elephant-status-item-highlight.png */; };
-		F80534F71538884A000E1BAC /* bin in Resources */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
-		F80534F81538884A000E1BAC /* include in Resources */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
-		F80534F91538884A000E1BAC /* lib in Resources */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
-		F80534FA1538884A000E1BAC /* share in Resources */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F80534FB1538884E000E1BAC /* bin in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
 		F80534FC1538884E000E1BAC /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
 		F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
@@ -553,10 +549,6 @@
 			files = (
 				F8973A171538846600EAB41E /* InfoPlist.strings in Resources */,
 				F8973A231538846600EAB41E /* MainMenu.xib in Resources */,
-				F80534F71538884A000E1BAC /* bin in Resources */,
-				F80534F81538884A000E1BAC /* include in Resources */,
-				F80534F91538884A000E1BAC /* lib in Resources */,
-				F80534FA1538884A000E1BAC /* share in Resources */,
 				F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */,
 				F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */,
 				F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */,
