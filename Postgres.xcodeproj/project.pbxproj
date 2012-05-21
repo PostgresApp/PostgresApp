@@ -14,6 +14,7 @@
 				F8A9C9B6154C86850019468A /* Change DYLIB for Binaries */,
 			);
 			dependencies = (
+				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
 				F805351415388AFB000E1BAC /* PBXTargetDependency */,
 				F8A12F0715474E3B009AFF07 /* PBXTargetDependency */,
 				F805351615388AFB000E1BAC /* PBXTargetDependency */,
@@ -67,6 +68,17 @@
 			);
 			name = postgis;
 			productName = postgis;
+		};
+		F8273EF0156AC7B900199DA0 /* libedit */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8273EF3156AC7B900199DA0 /* Build configuration list for PBXAggregateTarget "libedit" */;
+			buildPhases = (
+				F8273EF5156AC7C200199DA0 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = libedit;
+			productName = libedit;
 		};
 		F8A544331566B85900997555 /* v8 */ = {
 			isa = PBXAggregateTarget;
@@ -154,6 +166,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F805350F15388AF3000E1BAC;
 			remoteInfo = postgis;
+		};
+		F8273EF6156AC98A00199DA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8273EF0156AC7B900199DA0;
+			remoteInfo = libedit;
 		};
 		F87A4285153AB65200456130 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -547,6 +566,7 @@
 				F87A426C153AB60C00456130 /* PostgresHelper */,
 				F8973A3B1538851D00EAB41E /* postgres-service */,
 				F80534FF15388AD6000E1BAC /* postgres-binaries */,
+				F8273EF0156AC7B900199DA0 /* libedit */,
 				F805350315388AE4000E1BAC /* postgres */,
 				F805350715388AEC000E1BAC /* geos */,
 				F8B05E24153E43D900A8D53A /* gdal */,
@@ -647,6 +667,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://postgis.org/download/postgis-2.0.0.tar.gz\"\n/usr/bin/tar xzf postgis-2.0.0.tar.gz\ncd postgis-2.0.0\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install";
 		};
+		F8273EF5156AC7C200199DA0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.thrysoee.dk/editline/libedit-20120311-3.0.tar.gz\"\n/usr/bin/tar xzf libedit-20120311-3.0.tar.gz\ncd libedit-20120311-3.0\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+		};
 		F8A544381566B85D00997555 /* Download & Build Scons */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -673,7 +706,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\necho $PROJECT_DIR\n\ndirectories=( \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" )\nfor directory in ${directories[@]}\ndo\ncd $directory\n\nfor file in *\ndo\n\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" )\nfor lib in ${libs[@]}\ndo\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\ndone\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\necho $PROJECT_DIR\n\ndirectories=( \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" )\nfor directory in ${directories[@]}\ndo\n  cd $directory\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n  done\ndone\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -785,6 +818,11 @@
 			isa = PBXTargetDependency;
 			target = F805350F15388AF3000E1BAC /* postgis */;
 			targetProxy = F805351915388AFB000E1BAC /* PBXContainerItemProxy */;
+		};
+		F8273EF7156AC98A00199DA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8273EF0156AC7B900199DA0 /* libedit */;
+			targetProxy = F8273EF6156AC98A00199DA0 /* PBXContainerItemProxy */;
 		};
 		F87A4286153AB65200456130 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -932,6 +970,20 @@
 			name = Debug;
 		};
 		F805351215388AF3000E1BAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F8273EF1156AC7B900199DA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8273EF2156AC7B900199DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1136,6 +1188,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F8273EF3156AC7B900199DA0 /* Build configuration list for PBXAggregateTarget "libedit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8273EF1156AC7B900199DA0 /* Debug */,
+				F8273EF2156AC7B900199DA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F87A4282153AB60C00456130 /* Build configuration list for PBXNativeTarget "PostgresHelper" */ = {
 			isa = XCConfigurationList;
