@@ -114,7 +114,7 @@
         
         NSLog(@"PID: %@", pid);
 
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil] terminationHandler:nil];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"SIGTERM", pid, nil] terminationHandler:nil];
     }
     
     return YES;
