@@ -11,7 +11,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
 			buildPhases = (
-				F8A9C9B6154C86850019468A /* Change DYLIB for Binaries */,
 			);
 			dependencies = (
 				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
@@ -524,6 +523,7 @@
 				F80534EF15388783000E1BAC /* Copy postgres Executables */,
 				F8973A51153885A100EAB41E /* Copy XPC Service */,
 				F87A4287153AB65800456130 /* Copy Helper Application */,
+				F8273F46156C030800199DA0 /* Fix DYLIB Paths for Binaries */,
 			);
 			buildRules = (
 			);
@@ -707,6 +707,20 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\ncd postgis-2.00/liblwgeom\n\n/usr/bin/sed -i -e 's/\\/usr\\/local$/\\${PROJECT_DIR}\\/Postgres\\/Vendor\\/postgres\\//g' Makefile\n\n/usr/bin/make install\n";
 		};
+		F8273F46156C030800199DA0 /* Fix DYLIB Paths for Binaries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix DYLIB Paths for Binaries";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\")\n    for lib in ${libs[@]}\n    do\n      basename=`basename $file`\n      if [[ $file == *.dylib ]]\n      then\n        /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n      fi\n\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/liblwgeom-2.0.0.dylib\" $file\n  done\ndone\n";
+		};
 		F8A544381566B85D00997555 /* Download & Build Scons */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -720,20 +734,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/bin/python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
-		};
-		F8A9C9B6154C86850019468A /* Change DYLIB for Binaries */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Change DYLIB for Binaries";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\necho $PROJECT_DIR\n\ndirectories=( \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" )\nfor directory in ${directories[@]}\ndo\n  cd $directory\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/liblwgeom-2.0.0.dylib\" $file\n  done\ndone\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
