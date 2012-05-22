@@ -14,6 +14,7 @@
 			);
 			dependencies = (
 				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
+				F8273F58156C151400199DA0 /* PBXTargetDependency */,
 				F805351415388AFB000E1BAC /* PBXTargetDependency */,
 				F8A12F0715474E3B009AFF07 /* PBXTargetDependency */,
 				F805351615388AFB000E1BAC /* PBXTargetDependency */,
@@ -89,6 +90,17 @@
 			);
 			name = "postgres-extensions";
 			productName = "pg-extensions";
+		};
+		F8273F51156C130A00199DA0 /* libjasper */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8273F54156C130A00199DA0 /* Build configuration list for PBXAggregateTarget "libjasper" */;
+			buildPhases = (
+				F8273F56156C131400199DA0 /* Download, Build, & Install libjasper */,
+			);
+			dependencies = (
+			);
+			name = libjasper;
+			productName = libjasper;
 		};
 		F8A544331566B85900997555 /* plv8 */ = {
 			isa = PBXAggregateTarget;
@@ -190,6 +202,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F8A544331566B85900997555;
 			remoteInfo = v8;
+		};
+		F8273F57156C151400199DA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8273F51156C130A00199DA0;
+			remoteInfo = libjasper;
 		};
 		F87A4285153AB65200456130 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -579,6 +598,7 @@
 				F80534FF15388AD6000E1BAC /* postgres-binaries */,
 				F8273EF8156ACA1300199DA0 /* postgres-extensions */,
 				F8273EF0156AC7B900199DA0 /* libedit */,
+				F8273F51156C130A00199DA0 /* libjasper */,
 				F805350315388AE4000E1BAC /* postgres */,
 				F805350715388AEC000E1BAC /* geos */,
 				F8B05E24153E43D900A8D53A /* gdal */,
@@ -719,7 +739,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\")\n    for lib in ${libs[@]}\n    do\n      basename=`basename $file`\n      if [[ $file == *.dylib ]]\n      then\n        /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n      fi\n\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/liblwgeom-2.0.0.dylib\" $file\n  done\ndone\n";
+			shellScript = "#!/bin/sh\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" )\n    for lib in ${libs[@]}\n    do\n      basename=`basename $file`\n      if [[ $file == *.dylib ]]\n      then\n        /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n      fi\n\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/liblwgeom-2.0.0.dylib\" $file\n  done\ndone\n";
+		};
+		F8273F56156C131400199DA0 /* Download, Build, & Install libjasper */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Build, & Install libjasper";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://slackware.sukkology.net/packages/jasper/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
 		};
 		F8A544381566B85D00997555 /* Download & Build Scons */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -855,6 +889,11 @@
 			isa = PBXTargetDependency;
 			target = F8A544331566B85900997555 /* plv8 */;
 			targetProxy = F8273EFE156ACA3100199DA0 /* PBXContainerItemProxy */;
+		};
+		F8273F58156C151400199DA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8273F51156C130A00199DA0 /* libjasper */;
+			targetProxy = F8273F57156C151400199DA0 /* PBXContainerItemProxy */;
 		};
 		F87A4286153AB65200456130 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1025,6 +1064,20 @@
 			name = Debug;
 		};
 		F8273EFB156ACA1300199DA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F8273F52156C130A00199DA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8273F53156C130A00199DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1247,6 +1300,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F8273F54156C130A00199DA0 /* Build configuration list for PBXAggregateTarget "libjasper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8273F52156C130A00199DA0 /* Debug */,
+				F8273F53156C130A00199DA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F87A4282153AB60C00456130 /* Build configuration list for PBXNativeTarget "PostgresHelper" */ = {
 			isa = XCConfigurationList;
