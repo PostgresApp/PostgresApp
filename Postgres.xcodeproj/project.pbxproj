@@ -61,6 +61,7 @@
 			buildConfigurationList = F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */;
 			buildPhases = (
 				F805351F15388B74000E1BAC /* Download, Configure, & Install postgis */,
+				F8273F43156BFB1100199DA0 /* Build & Install liblwgeom */,
 			);
 			dependencies = (
 			);
@@ -692,6 +693,20 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.thrysoee.dk/editline/libedit-20120311-3.0.tar.gz\"\n/usr/bin/tar xzf libedit-20120311-3.0.tar.gz\ncd libedit-20120311-3.0\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
+		F8273F43156BFB1100199DA0 /* Build & Install liblwgeom */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build & Install liblwgeom";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\ncd postgis-2.00/liblwgeom\n\n/usr/bin/sed -i -e 's/\\/usr\\/local$/\\${PROJECT_DIR}\\/Postgres\\/Vendor\\/postgres\\//g' Makefile\n\n/usr/bin/make install\n";
+		};
 		F8A544381566B85D00997555 /* Download & Build Scons */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -718,7 +733,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\necho $PROJECT_DIR\n\ndirectories=( \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" )\nfor directory in ${directories[@]}\ndo\n  cd $directory\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n  done\ndone\n";
+			shellScript = "#!/bin/sh\n\necho $PROJECT_DIR\n\ndirectories=( \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" )\nfor directory in ${directories[@]}\ndo\n  cd $directory\n  for file in *\n  do\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"/Applications/Postgres.app/Contents/MacOS/lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"/Applications/Postgres.app/Contents/MacOS/lib/liblwgeom-2.0.0.dylib\" $file\n  done\ndone\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1222,6 +1237,7 @@
 				F8273EF2156AC7B900199DA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F8273EF9156ACA1300199DA0 /* Build configuration list for PBXAggregateTarget "postgres-extensions" */ = {
 			isa = XCConfigurationList;
@@ -1230,6 +1246,7 @@
 				F8273EFB156ACA1300199DA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F87A4282153AB60C00456130 /* Build configuration list for PBXNativeTarget "PostgresHelper" */ = {
 			isa = XCConfigurationList;
