@@ -26,6 +26,8 @@
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 
+#import "PFMoveApplication.h"
+
 static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/documentation";
 static NSUInteger const kPostgresAppDefaultPort = 5432;
 
@@ -67,6 +69,8 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    PFMoveToApplicationsFolderIfNecessary();
+    
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
