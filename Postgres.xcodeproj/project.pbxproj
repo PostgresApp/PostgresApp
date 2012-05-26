@@ -1091,6 +1091,7 @@
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
+				GCC_STRICT_ALIASING = YES;
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1104,6 +1105,7 @@
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
+				GCC_STRICT_ALIASING = YES;
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1164,6 +1166,7 @@
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
+				GCC_STRICT_ALIASING = YES;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1177,6 +1180,7 @@
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
+				GCC_STRICT_ALIASING = YES;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1188,6 +1192,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "postgres-service/postgres-service-Prefix.pch";
+				GCC_STRICT_ALIASING = YES;
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
@@ -1200,6 +1205,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "postgres-service/postgres-service-Prefix.pch";
+				GCC_STRICT_ALIASING = YES;
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
