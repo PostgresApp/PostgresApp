@@ -38,7 +38,6 @@ static NSString *AlertSuppressKey = @"moveToApplicationsFolderAlertSuppress";
 
 
 // Helper functions
-static NSString *PreferredInstallLocation(BOOL *isUserDirectory);
 static BOOL IsInApplicationsFolder(NSString *path);
 static BOOL IsInDownloadsFolder(NSString *path);
 static BOOL Trash(NSString *path);
@@ -73,7 +72,7 @@ void PFMoveToApplicationsFolderIfNecessary()
 
 	// Since we are good to go, get the preferred installation directory.
 	BOOL installToUserApplications = NO;
-	NSString *applicationsDirectory = PreferredInstallLocation(&installToUserApplications);
+	NSString *applicationsDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES) lastObject];
 	NSString *bundleName = [bundlePath lastPathComponent];
 	NSString *destinationPath = [applicationsDirectory stringByAppendingPathComponent:bundleName];
 
@@ -231,31 +230,6 @@ fail:
 
 #pragma mark -
 #pragma mark Helper Functions
-
-static NSString *PreferredInstallLocation(BOOL *isUserDirectory)
-{
-	// Return the preferred install location.
-	// Assume that if the user has a ~/Applications folder, they'd prefer their
-	// applications to go there.
-
-	NSFileManager *fm = [NSFileManager defaultManager];
-
-	NSArray *userApplicationsDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSUserDomainMask, YES);
-
-	if ([userApplicationsDirs count] > 0) {
-		NSString *userApplicationsDir = [userApplicationsDirs objectAtIndex:0];
-		BOOL isDirectory;
-
-		if ([fm fileExistsAtPath:userApplicationsDir isDirectory:&isDirectory] && isDirectory) {
-			if (isUserDirectory) *isUserDirectory = YES;
-			return userApplicationsDir;
-		}
-	}
-
-	// No user Applications directory. Return the machine local Applications directory
-	if (isUserDirectory) *isUserDirectory = NO;
-	return [NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES) lastObject];
-}
 
 static BOOL IsInApplicationsFolder(NSString *path)
 {
