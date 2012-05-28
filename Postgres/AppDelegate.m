@@ -26,7 +26,10 @@
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 
+#ifdef SPARKLE
+#import <Sparkle/Sparkle.h>
 #import "PFMoveApplication.h"
+#endif
 
 static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/documentation";
 static NSUInteger const kPostgresAppDefaultPort = 5432;
@@ -53,6 +56,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 @synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
 @synthesize automaticallyOpenDocumentationMenuItem = _automaticallyOpenDocumentationMenuItem;
 @synthesize automaticallyStartMenuItem = _automaticallyStartMenuItem;
+@synthesize checkForUpdatesMenuItem = _checkForUpdatesMenuItem;
 
 - (void)awakeFromNib {
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
@@ -69,7 +73,11 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+#ifdef SPARKLE
     PFMoveToApplicationsFolderIfNecessary();
+    [self.checkForUpdatesMenuItem setEnabled:YES];
+    [self.checkForUpdatesMenuItem setHidden:NO];
+#endif
     
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
@@ -129,5 +137,13 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
         NSLog(@"SMLoginItemSetEnabled Failed");
     }
 }
+
+- (IBAction)checkForUpdates:(id)sender {
+#ifdef SPARKLE
+    [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];
+    [[SUUpdater sharedUpdater] checkForUpdates:sender];
+#endif
+}
+
 
 @end
