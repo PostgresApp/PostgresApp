@@ -2,11 +2,11 @@
 
 Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.
 
-We plan to distribute Postgres.app through the Mac App Store, with a separate build containing the latest PostgreSQL beta available for direct download from the website.
+Postgres.app will be distributed through the Mac App Store, with a separate build containing the latest PostgreSQL beta available for direct download from the website.
 
 ## Download
 
-> [Download the Latest Build (Beta 4)](http://postgres-app.s3.amazonaws.com/Postgres-for-Mac-Beta-4.zip)
+> You can download the latest build [from the Postgres.app website](http://postgresapp.com/)
 
 ## What's Included?
 
@@ -18,6 +18,7 @@ We plan to distribute Postgres.app through the Mac App Store, with a separate bu
 
 1. Open `Postgres.xcodeproj` in Xcode
 2. Select the "Postgres Binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`.
+3. Optionally, Select the "Postgres Extensions" scheme, and build in the same manner.
 3. Once the binaries are finished building, select the "Postgres Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
 
 ## Under the Hood
