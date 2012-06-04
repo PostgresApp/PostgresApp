@@ -885,7 +885,7 @@
 		};
 		F8273F46156C030800199DA0 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -913,7 +913,7 @@
 		};
 		F8A4B51915735C6E003C00F5 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (

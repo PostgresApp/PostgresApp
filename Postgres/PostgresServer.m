@@ -77,7 +77,7 @@
 }
 
 - (BOOL)startOnPort:(NSUInteger)port 
-    completionBlock:(void (^)())completionBlock
+    completionBlock:(void (^)(NSUInteger status))completionBlock
 {    
     [self stop];
     [self willChangeValueForKey:@"isRunning"];
@@ -90,33 +90,34 @@
             [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:^(NSUInteger status) {
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:nil];
+                    [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+                        if (completionBlock) {
+                            completionBlock(status);
+                        }
+                    }];
                 });
             }];
         }];    
     } else {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:nil];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:^(NSUInteger status) {
+            if (completionBlock) {
+                completionBlock(status);
+            }
+        }];
     }
     
     [self didChangeValueForKey:@"port"];
     [self didChangeValueForKey:@"isRunning"];
     
-    if (completionBlock) {
-        completionBlock();
-    }
-    
     return YES;
 }
 
 - (BOOL)stop {
-    // TODO: Reasonable way to get existing pid
     NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
         NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];
         
-        NSLog(@"PID: %@", pid);
-
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"SIGTERM", pid, nil] terminationHandler:nil];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"TERM", pid, nil] terminationHandler:nil];
     }
     
     return YES;

@@ -85,10 +85,14 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
     
-    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^{
-        [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
-    }]; 
-        
+    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^(NSUInteger status) {
+        if (status == 0) {
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
+        } else {
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Could not start on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:NO];
+        }
+    }];
+
     [NSApp activateIgnoringOtherApps:YES];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]) {
