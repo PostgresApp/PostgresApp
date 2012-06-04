@@ -36,8 +36,9 @@
                  databaseDirectory:(NSString *)databaseDirectory;
 
 - (BOOL)startOnPort:(NSUInteger)port
-    completionBlock:(void (^)(NSUInteger status))completionBlock;
-- (BOOL)stop;
+ terminationHandler:(void (^)(NSUInteger status))completionBlock;
+
+- (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler;
 
 - (void)executeCommandNamed:(NSString *)command 
                   arguments:(NSArray *)arguments

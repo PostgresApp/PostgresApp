@@ -77,9 +77,9 @@
 }
 
 - (BOOL)startOnPort:(NSUInteger)port 
-    completionBlock:(void (^)(NSUInteger status))completionBlock
+ terminationHandler:(void (^)(NSUInteger status))completionBlock
 {    
-    [self stop];
+    [self stopWithTerminationHandler:nil];
     [self willChangeValueForKey:@"isRunning"];
     [self willChangeValueForKey:@"port"];
     _port = port;
@@ -112,12 +112,12 @@
     return YES;
 }
 
-- (BOOL)stop {
+- (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler {
     NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
         NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];
         
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"TERM", pid, nil] terminationHandler:nil];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"TERM", pid, nil] terminationHandler:terminationHandler];
     }
     
     return YES;

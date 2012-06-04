@@ -39,14 +39,17 @@ static NSUInteger const kPostgresAppDefaultPort = 5432;
 static NSString * const kPostgresAutomaticallyOpenDocumentationPreferenceKey = @"com.heroku.postgres.preference.open-documentation-at-start";
 
 static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
+    BOOL flag = NO;
     NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
     for (NSDictionary *job in jobs) {
         if ([[job valueForKey:@"Label"] isEqualToString:@"com.heroku.PostgresHelper"]) {
-            return YES;
+            flag = YES;
         }
     }
     
-    return NO;
+    CFRelease((__bridge CFMutableArrayRef)jobs);
+    
+    return flag;
 }
 
 
@@ -85,7 +88,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
     
-    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort completionBlock:^(NSUInteger status) {
+    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort terminationHandler:^(NSUInteger status) {
         if (status == 0) {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
         } else {
@@ -101,11 +104,13 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {    
-    // TODO: Use termination handlers instead of delay 
-    [[PostgresServer sharedServer] stop];
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [[PostgresServer sharedServer] stopWithTerminationHandler:^(NSUInteger status) {
+        [sender replyToApplicationShouldTerminate:YES];
+    }];
+    
+    // Set a timeout interval for postgres shutdown
+    static NSTimeInterval const kTerminationTimeoutInterval = 3.0;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kTerminationTimeoutInterval * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         [sender replyToApplicationShouldTerminate:YES];
     });
     
@@ -134,7 +139,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.automaticallyStartMenuItem setState:![self.automaticallyStartMenuItem state]];
     
     NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/PostgresHelper.app"];
-    NSLog(@"Helper Application URL: %@", helperApplicationURL);
     if (LSRegisterURL((__bridge CFURLRef)helperApplicationURL, true) != noErr) {
         NSLog(@"LSRegisterURL Failed");
     }
