@@ -72,7 +72,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     
     [self.postgresStatusMenuItem setEnabled:NO];    
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
-    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Postgres: Starting Up", nil)];
+    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
 }
 
 #pragma mark - NSApplicationDelegate
@@ -90,9 +90,9 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort terminationHandler:^(NSUInteger status) {
         if (status == 0) {
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
         } else {
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Postgres: Could not start on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:NO];
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:NO];
         }
     }];
 
