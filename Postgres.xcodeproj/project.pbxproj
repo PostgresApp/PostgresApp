@@ -11,7 +11,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
 			buildPhases = (
-				F8B988AF159CB94200EF7944 /* ShellScript */,
 			);
 			dependencies = (
 				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
@@ -709,9 +708,9 @@
 				F8A4B50515735C6E003C00F5 /* Frameworks */,
 				F8A4B56D15735F3F003C00F5 /* Copy Sparkle Framework */,
 				F8A4B50915735C6E003C00F5 /* Resources */,
-				F8A4B51015735C6E003C00F5 /* Copy postgres Executables */,
 				F8A4B51515735C6E003C00F5 /* Copy XPC Service */,
 				F8A4B51715735C6E003C00F5 /* Copy Helper Application */,
+				F8A4B51015735C6E003C00F5 /* Copy postgres Executables */,
 			);
 			buildRules = (
 			);
@@ -949,19 +948,6 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/gdal-1.9.1.tar.gz\"\n/usr/bin/tar xzf gdal-1.9.1.tar.gz\ncd gdal-1.9.1\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
-		F8B988AF159CB94200EF7944 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@loader_path/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@loader_path/lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@loader_path/lib/liblwgeom-2.0.0.dylib\" $file\ndone\ndone\n";
-		};
 		F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -974,7 +960,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -rpath \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@loader_path/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -rpath \"/usr/lib/libedit.3.dylib\" \"@loader_path/lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -rpath \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@loader_path/lib/liblwgeom-2.0.0.dylib\" $file\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@loader_path/lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n#/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/lib/libedit.3.dylib\" $file\n#/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/lib/liblwgeom-2.0.0.dylib\" $file\ndone\ndone\n";
 		};
 		F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1429,7 +1415,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				PRODUCT_NAME = Postgres;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1449,7 +1435,7 @@
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = SPARKLE;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				PRODUCT_NAME = Postgres;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1642,6 +1628,7 @@
 				F8B988B3159CCE2700EF7944 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
