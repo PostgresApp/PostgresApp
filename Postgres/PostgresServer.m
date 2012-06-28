@@ -87,19 +87,26 @@
     NSString *existingPGVersion = [NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil];
     if (!existingPGVersion) {
         [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
-            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:^(NSUInteger status) {
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
-                        if (completionBlock) {
-                            completionBlock(status);
-                        }
-                    }];
-                });
+            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:^(NSUInteger status) {
+                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%d", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+                    if (completionBlock) {
+                        completionBlock(status);
+                    }
+                }];
             }];
         }];    
     } else {
         [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%d'", port], nil] terminationHandler:^(NSUInteger status) {
+            // Kill server and try one more time if server can't be started
+            if (status != 0) {
+                static dispatch_once_t onceToken;
+                dispatch_once(&onceToken, ^{
+                    [self stopWithTerminationHandler:^(NSUInteger status) {
+                        [self startOnPort:port terminationHandler:completionBlock];
+                    }];
+                });
+            }
+            
             if (completionBlock) {
                 completionBlock(status);
             }
@@ -116,8 +123,9 @@
     NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
         NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];
-        
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"TERM", pid, nil] terminationHandler:terminationHandler];
+        NSLog(@"Pid: %@", pid);
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil] terminationHandler:terminationHandler];
+        [[NSFileManager defaultManager] removeItemAtPath:pidPath error:nil];
     }
     
     return YES;
