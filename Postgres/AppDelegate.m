@@ -30,7 +30,6 @@
 
 #ifdef SPARKLE
 #import <Sparkle/Sparkle.h>
-#import "PFMoveApplication.h"
 #endif
 
 static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/documentation";
@@ -79,7 +78,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 #ifdef SPARKLE
-    PFMoveToApplicationsFolderIfNecessary();
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
 #endif
