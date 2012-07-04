@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				F8BE0C6F15A4C66A00139A21 /* PBXTargetDependency */,
 				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
 				F8273F58156C151400199DA0 /* PBXTargetDependency */,
 				F805351415388AFB000E1BAC /* PBXTargetDependency */,
@@ -137,6 +138,17 @@
 			);
 			name = "postgres-dylib-linker";
 			productName = "postgres-dylib-linker";
+		};
+		F8BE0C6815A4C60100139A21 /* libjpeg */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8BE0C6B15A4C60100139A21 /* Build configuration list for PBXAggregateTarget "libjpeg" */;
+			buildPhases = (
+				F8BE0C6D15A4C61400139A21 /* Download, Compile, and Install libjpeg */,
+			);
+			dependencies = (
+			);
+			name = libjpeg;
+			productName = libjpeg;
 		};
 /* End PBXAggregateTarget section */
 
@@ -280,6 +292,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F87A426C153AB60C00456130;
 			remoteInfo = PostgresHelper;
+		};
+		F8BE0C6E15A4C66A00139A21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8BE0C6815A4C60100139A21;
+			remoteInfo = libjpeg;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -752,6 +771,7 @@
 				F8B988B0159CCE2700EF7944 /* postgres-dylib-linker */,
 				F8273EF0156AC7B900199DA0 /* libedit */,
 				F8273F51156C130A00199DA0 /* libjasper */,
+				F8BE0C6815A4C60100139A21 /* libjpeg */,
 				F805350315388AE4000E1BAC /* postgres */,
 				F805350715388AEC000E1BAC /* geos */,
 				F8B05E24153E43D900A8D53A /* gdal */,
@@ -960,7 +980,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\ndone\ndone\n";
+		};
+		F8BE0C6D15A4C61400139A21 /* Download, Compile, and Install libjpeg */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Compile, and Install libjpeg";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://www.ijg.org/files/jpegsrc.v8d.tar.gz\"\n/usr/bin/tar xzf jpegsrc.v8d.tar.gz\ncd jpeg-8d\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-dependency-tracking\n/usr/bin/make install\n";
 		};
 		F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1099,6 +1133,11 @@
 			isa = PBXTargetDependency;
 			target = F87A426C153AB60C00456130 /* PostgresHelper */;
 			targetProxy = F8A4B4FC15735C6E003C00F5 /* PBXContainerItemProxy */;
+		};
+		F8BE0C6F15A4C66A00139A21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8BE0C6815A4C60100139A21 /* libjpeg */;
+			targetProxy = F8BE0C6E15A4C66A00139A21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1483,6 +1522,20 @@
 			};
 			name = Release;
 		};
+		F8BE0C6915A4C60100139A21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8BE0C6A15A4C60100139A21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1629,6 +1682,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F8BE0C6B15A4C60100139A21 /* Build configuration list for PBXAggregateTarget "libjpeg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8BE0C6915A4C60100139A21 /* Debug */,
+				F8BE0C6A15A4C60100139A21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
