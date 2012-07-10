@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Postgres.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.heroku.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.heroku.postgres</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,21 +26,21 @@
 	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2012 Heroku. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>LSUIElement</key>
+	<key>SUAllowsAutomaticUpdates</key>
 	<true/>
-	<key>SUFeedURL</key>
-	<string>https://postgres.mesmerizeapp.com/</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUEnableSystemProfiling</key>
 	<true/>
-	<key>SUAllowsAutomaticUpdates</key>
-	<true/>
+	<key>SUFeedURL</key>
+	<string>https://postgres.mesmerizeapp.com/</string>
 </dict>
 </plist>
