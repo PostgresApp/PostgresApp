@@ -153,13 +153,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		B6C1A2CF15478D6400A9C1FB /* pg-elephant-status-item-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = B6C1A2CD15478D6400A9C1FB /* pg-elephant-status-item-highlight.png */; };
 		F80534FB1538884E000E1BAC /* bin in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
 		F80534FC1538884E000E1BAC /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
 		F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
 		F80534FE1538884E000E1BAC /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
-		F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */ = {isa = PBXBuildFile; fileRef = F87A4263153AB23D00456130 /* pg-elephant-status-item.png */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
 		F87A4277153AB60C00456130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A4276153AB60C00456130 /* main.m */; };
@@ -193,10 +191,8 @@
 		F8A4B50815735C6E003C00F5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F8A4B50A15735C6E003C00F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8973A151538846600EAB41E /* InfoPlist.strings */; };
 		F8A4B50B15735C6E003C00F5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8973A211538846600EAB41E /* MainMenu.xib */; };
-		F8A4B50C15735C6E003C00F5 /* pg-elephant-status-item.png in Resources */ = {isa = PBXBuildFile; fileRef = F87A4263153AB23D00456130 /* pg-elephant-status-item.png */; };
 		F8A4B50D15735C6E003C00F5 /* PostgresStatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */; };
 		F8A4B50E15735C6E003C00F5 /* Postgres.icns in Resources */ = {isa = PBXBuildFile; fileRef = F884C919153CA24400CDCB09 /* Postgres.icns */; };
-		F8A4B50F15735C6E003C00F5 /* pg-elephant-status-item-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = B6C1A2CD15478D6400A9C1FB /* pg-elephant-status-item-highlight.png */; };
 		F8A4B51115735C6E003C00F5 /* bin in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
 		F8A4B51215735C6E003C00F5 /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
 		F8A4B51315735C6E003C00F5 /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
@@ -205,6 +201,10 @@
 		F8A4B51815735C6E003C00F5 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
 		F8A4B56C15735F26003C00F5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A4B56B15735F26003C00F5 /* Sparkle.framework */; };
 		F8A4B56E15735F75003C00F5 /* Sparkle.framework in Copy Sparkle Framework */ = {isa = PBXBuildFile; fileRef = F8A4B56B15735F26003C00F5 /* Sparkle.framework */; };
+		F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F8C09C4715ACD15C00F571AE /* status-off.png */; };
+		F8C09C4C15ACD15C00F571AE /* status-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F8C09C4715ACD15C00F571AE /* status-off.png */; };
+		F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */ = {isa = PBXBuildFile; fileRef = F8C09C4915ACD15C00F571AE /* status-on.png */; };
+		F8C09C4E15ACD15C00F571AE /* status-on.png in Resources */ = {isa = PBXBuildFile; fileRef = F8C09C4915ACD15C00F571AE /* status-on.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -388,14 +388,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B6C1A2CE15478D6400A9C1FB /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/pg-elephant-status-item-highlight.png"; sourceTree = "<group>"; };
 		F80534F31538884A000E1BAC /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bin; path = Postgres/Vendor/postgres/bin; sourceTree = "<group>"; };
 		F80534F41538884A000E1BAC /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Postgres/Vendor/postgres/include; sourceTree = "<group>"; };
 		F80534F51538884A000E1BAC /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Postgres/Vendor/postgres/lib; sourceTree = "<group>"; };
 		F80534F61538884A000E1BAC /* share */ = {isa = PBXFileReference; lastKnownFileType = folder; name = share; path = Postgres/Vendor/postgres/share; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
-		F87A4264153AB23D00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/pg-elephant-status-item.png"; sourceTree = "<group>"; };
 		F87A426D153AB60C00456130 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87A4272153AB60C00456130 /* PostgresHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PostgresHelper-Info.plist"; sourceTree = "<group>"; };
 		F87A4274153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -436,6 +434,8 @@
 		F8973A531538869700EAB41E /* Postgres.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Postgres.entitlements; sourceTree = "<group>"; };
 		F8A4B51D15735C6E003C00F5 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A4B56B15735F26003C00F5 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Postgres/Vendor/Sparkle.framework; sourceTree = "<group>"; };
+		F8C09C4815ACD15C00F571AE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off.png"; sourceTree = "<group>"; };
+		F8C09C4A15ACD15C00F571AE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,8 +501,8 @@
 		F87A4268153AB24600456130 /* Status Item */ = {
 			isa = PBXGroup;
 			children = (
-				F87A4263153AB23D00456130 /* pg-elephant-status-item.png */,
-				B6C1A2CD15478D6400A9C1FB /* pg-elephant-status-item-highlight.png */,
+				F8C09C4715ACD15C00F571AE /* status-off.png */,
+				F8C09C4915ACD15C00F571AE /* status-on.png */,
 			);
 			name = "Status Item";
 			sourceTree = "<group>";
@@ -784,10 +784,10 @@
 			files = (
 				F8973A171538846600EAB41E /* InfoPlist.strings in Resources */,
 				F8973A231538846600EAB41E /* MainMenu.xib in Resources */,
-				F87A4265153AB23D00456130 /* pg-elephant-status-item.png in Resources */,
 				F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */,
 				F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */,
-				B6C1A2CF15478D6400A9C1FB /* pg-elephant-status-item-highlight.png in Resources */,
+				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
+				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,10 +805,10 @@
 			files = (
 				F8A4B50A15735C6E003C00F5 /* InfoPlist.strings in Resources */,
 				F8A4B50B15735C6E003C00F5 /* MainMenu.xib in Resources */,
-				F8A4B50C15735C6E003C00F5 /* pg-elephant-status-item.png in Resources */,
 				F8A4B50D15735C6E003C00F5 /* PostgresStatusMenuItemView.xib in Resources */,
 				F8A4B50E15735C6E003C00F5 /* Postgres.icns in Resources */,
-				F8A4B50F15735C6E003C00F5 /* pg-elephant-status-item-highlight.png in Resources */,
+				F8C09C4C15ACD15C00F571AE /* status-off.png in Resources */,
+				F8C09C4E15ACD15C00F571AE /* status-on.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,22 +1127,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B6C1A2CD15478D6400A9C1FB /* pg-elephant-status-item-highlight.png */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B6C1A2CE15478D6400A9C1FB /* en */,
-			);
-			name = "pg-elephant-status-item-highlight.png";
-			sourceTree = "<group>";
-		};
-		F87A4263153AB23D00456130 /* pg-elephant-status-item.png */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F87A4264153AB23D00456130 /* en */,
-			);
-			name = "pg-elephant-status-item.png";
-			sourceTree = "<group>";
-		};
 		F87A4273153AB60C00456130 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1181,6 +1165,22 @@
 				F8973A431538851D00EAB41E /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F8C09C4715ACD15C00F571AE /* status-off.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8C09C4815ACD15C00F571AE /* en */,
+			);
+			name = "status-off.png";
+			sourceTree = "<group>";
+		};
+		F8C09C4915ACD15C00F571AE /* status-on.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8C09C4A15ACD15C00F571AE /* en */,
+			);
+			name = "status-on.png";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1375,11 +1375,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1388,11 +1389,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1675,6 +1677,7 @@
 				F8BE0C6A15A4C60100139A21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

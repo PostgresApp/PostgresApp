@@ -66,8 +66,8 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
-    _statusBarItem.image = [NSImage imageNamed:@"pg-elephant-status-item"];
-    _statusBarItem.alternateImage = [NSImage imageNamed:@"pg-elephant-status-item-highlight"];
+    _statusBarItem.image = [NSImage imageNamed:@"status-off"];
+    _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
     
     [self.postgresStatusMenuItem setEnabled:NO];    
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
