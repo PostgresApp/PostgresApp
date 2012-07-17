@@ -163,6 +163,10 @@
 		F87A4277153AB60C00456130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A4276153AB60C00456130 /* main.m */; };
 		F87A427E153AB60C00456130 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A427D153AB60C00456130 /* AppDelegate.m */; };
 		F87A4281153AB60C00456130 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87A427F153AB60C00456130 /* MainMenu.xib */; };
+		F883D60E15B5CEB60017F83A /* WelcomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */; };
+		F883D60F15B5CEB60017F83A /* WelcomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */; };
+		F883D61015B5CEB60017F83A /* WelcomeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */; };
+		F883D61115B5CEB60017F83A /* WelcomeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */; };
 		F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */; };
 		F884C8F1153C786D00CDCB09 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
 		F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */; };
@@ -402,6 +406,10 @@
 		F87A427C153AB60C00456130 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F87A427D153AB60C00456130 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F87A4280153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F883D60B15B5CEB60017F83A /* WelcomeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeWindowController.h; sourceTree = "<group>"; };
+		F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeWindowController.m; sourceTree = "<group>"; };
+		F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeWindow.xib; sourceTree = "<group>"; };
+		F883D61315B5E2780017F83A /* PostgresConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConstants.h; sourceTree = "<group>"; };
 		F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F884C8F3153C7A4C00CDCB09 /* PostgresHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PostgresHelper.entitlements; path = ../PostgresHelper.entitlements; sourceTree = "<group>"; };
 		F884C902153C807400CDCB09 /* PostgresStatusMenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresStatusMenuItemViewController.h; sourceTree = "<group>"; };
@@ -591,6 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				F8973A531538869700EAB41E /* Postgres.entitlements */,
+				F883D61315B5E2780017F83A /* PostgresConstants.h */,
 				F8973A1E1538846600EAB41E /* AppDelegate.h */,
 				F8973A1F1538846600EAB41E /* AppDelegate.m */,
 				F8973A36153884EF00EAB41E /* PostgresServer.h */,
@@ -601,6 +610,9 @@
 				F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */,
 				F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */,
 				F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */,
+				F883D60B15B5CEB60017F83A /* WelcomeWindowController.h */,
+				F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */,
+				F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */,
 				F8973A131538846600EAB41E /* Supporting Files */,
 			);
 			path = Postgres;
@@ -788,6 +800,7 @@
 				F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */,
 				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
 				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
+				F883D61015B5CEB60017F83A /* WelcomeWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +822,7 @@
 				F8A4B50E15735C6E003C00F5 /* Postgres.icns in Resources */,
 				F8C09C4C15ACD15C00F571AE /* status-off.png in Resources */,
 				F8C09C4E15ACD15C00F571AE /* status-on.png in Resources */,
+				F883D61115B5CEB60017F83A /* WelcomeWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,6 +1046,7 @@
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
 				F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */,
 				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,
+				F883D60E15B5CEB60017F83A /* WelcomeWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,6 +1068,7 @@
 				F8A4B50115735C6E003C00F5 /* PostgresConnectionURLValueTransformer.m in Sources */,
 				F8A4B50215735C6E003C00F5 /* PostgresStatusMenuItemViewController.m in Sources */,
 				F8A4B50315735C6E003C00F5 /* NSFileManager+DirectoryLocations.m in Sources */,
+				F883D60F15B5CEB60017F83A /* WelcomeWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1379,7 +1395,6 @@
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1392,7 +1407,6 @@
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

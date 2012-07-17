@@ -27,15 +27,11 @@
 #import "AppDelegate.h"
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
+#import "WelcomeWindowController.h"
 
 #ifdef SPARKLE
 #import <Sparkle/Sparkle.h>
 #endif
-
-static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/documentation";
-static NSUInteger const kPostgresAppDefaultPort = 5432;
-
-static NSString * const kPostgresAutomaticallyOpenDocumentationPreferenceKey = @"com.heroku.postgres.preference.open-documentation-at-start";
 
 static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     BOOL flag = NO;
@@ -54,6 +50,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 
 @implementation AppDelegate {
     __strong NSStatusItem *_statusBarItem;
+    __strong WelcomeWindowController *_welcomeWindowController;
 }
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
@@ -61,18 +58,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 @synthesize automaticallyOpenDocumentationMenuItem = _automaticallyOpenDocumentationMenuItem;
 @synthesize automaticallyStartMenuItem = _automaticallyStartMenuItem;
 @synthesize checkForUpdatesMenuItem = _checkForUpdatesMenuItem;
-
-- (void)awakeFromNib {
-    _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    _statusBarItem.highlightMode = YES;
-    _statusBarItem.menu = self.statusBarMenu;
-    _statusBarItem.image = [NSImage imageNamed:@"status-off"];
-    _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
-    
-    [self.postgresStatusMenuItem setEnabled:NO];    
-    self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
-    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
-}
 
 #pragma mark - NSApplicationDelegate
 
@@ -82,6 +67,12 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.checkForUpdatesMenuItem setHidden:NO];
 #endif
     
+    _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    _statusBarItem.highlightMode = YES;
+    _statusBarItem.menu = self.statusBarMenu;
+    _statusBarItem.image = [NSImage imageNamed:@"status-off"];
+    _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
+        
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
@@ -93,12 +84,21 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:NO];
         }
     }];
-
+    
     [NSApp activateIgnoringOtherApps:YES];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kPostgresFirstLaunchPreferenceKey]) {        
+        _welcomeWindowController = [[WelcomeWindowController alloc] initWithWindowNibName:@"WelcomeWindow"];
+        [_welcomeWindowController showWindow:self];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPostgresFirstLaunchPreferenceKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]) {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
     }
+    
+    [self.postgresStatusMenuItem setEnabled:NO];
+    self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
+    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {    
@@ -131,6 +131,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.automaticallyOpenDocumentationMenuItem setState:![self.automaticallyOpenDocumentationMenuItem state]];
 
     [[NSUserDefaults standardUserDefaults] setBool:self.automaticallyOpenDocumentationMenuItem.state == NSOnState forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (IBAction)selectAutomaticallyStart:(id)sender {
