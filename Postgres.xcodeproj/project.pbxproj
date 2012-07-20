@@ -841,7 +841,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v9.1.4/postgresql-9.1.4.tar.bz2\"\n/usr/bin/tar xzf postgresql-9.1.4.tar.bz2\ncd postgresql-9.1.4\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-ossp-uuid --with-perl --with-python\n/usr/bin/make install-world\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf postgresql-${POSTGRES_VERSION}.tar.bz2\ncd postgresql-${POSTGRES_VERSION}\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-ossp-uuid --with-perl --with-python\n/usr/bin/make install-world\n";
 		};
 		F805351C15388B2A000E1BAC /* Download, Configure, & Install geos */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1219,6 +1219,7 @@
 		F805350515388AE5000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				POSTGRES_VERSION = 9.1.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1226,6 +1227,7 @@
 		F805350615388AE5000E1BAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				POSTGRES_VERSION = 9.1.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
