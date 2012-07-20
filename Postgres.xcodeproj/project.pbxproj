@@ -28,7 +28,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgres" */;
 			buildPhases = (
-				F805351B15388B0A000E1BAC /* Download, Configure, & Install postgres */,
+				F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */,
 			);
 			dependencies = (
 			);
@@ -39,7 +39,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350815388AEC000E1BAC /* Build configuration list for PBXAggregateTarget "geos" */;
 			buildPhases = (
-				F805351C15388B2A000E1BAC /* Download, Configure, & Install geos */,
+				F805351C15388B2A000E1BAC /* Download, Build, & Install geos */,
 			);
 			dependencies = (
 			);
@@ -50,7 +50,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350C15388AF0000E1BAC /* Build configuration list for PBXAggregateTarget "proj" */;
 			buildPhases = (
-				F805351D15388B54000E1BAC /* Download, Configure, & Install proj */,
+				F805351D15388B54000E1BAC /* Download, Build, & Install proj */,
 			);
 			dependencies = (
 			);
@@ -61,7 +61,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */;
 			buildPhases = (
-				F805351F15388B74000E1BAC /* Download, Configure, & Install postgis */,
+				F805351F15388B74000E1BAC /* Download, Build, & Install postgis */,
 				F8273F43156BFB1100199DA0 /* Build & Install liblwgeom */,
 			);
 			dependencies = (
@@ -73,7 +73,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F8273EF3156AC7B900199DA0 /* Build configuration list for PBXAggregateTarget "libedit" */;
 			buildPhases = (
-				F8273EF5156AC7C200199DA0 /* Download & Build libedit */,
+				F8273EF5156AC7C200199DA0 /* Download, Build, & Install libedit */,
 			);
 			dependencies = (
 			);
@@ -109,7 +109,7 @@
 			buildPhases = (
 				F8A544381566B85D00997555 /* Download & Build Scons */,
 				F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */,
-				F8DE00BC1566C4EB003BEB10 /* Download & Build plv8 */,
+				F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */,
 				F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */,
 			);
 			dependencies = (
@@ -121,7 +121,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F8B05E25153E43D900A8D53A /* Build configuration list for PBXAggregateTarget "gdal" */;
 			buildPhases = (
-				F8B05E28153E43DD00A8D53A /* ShellScript */,
+				F8B05E28153E43DD00A8D53A /* Download, Build, & Install gdal */,
 			);
 			dependencies = (
 			);
@@ -143,7 +143,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F8BE0C6B15A4C60100139A21 /* Build configuration list for PBXAggregateTarget "libjpeg" */;
 			buildPhases = (
-				F8BE0C6D15A4C61400139A21 /* Download, Compile, and Install libjpeg */,
+				F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */,
 			);
 			dependencies = (
 			);
@@ -829,70 +829,70 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F805351B15388B0A000E1BAC /* Download, Configure, & Install postgres */ = {
+		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download, Configure, & Install postgres";
+			name = "Download, Build, & Install postgres";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v9.1.4/postgresql-9.1.4.tar.bz2\"\n/usr/bin/tar xzf postgresql-9.1.4.tar.bz2\ncd postgresql-9.1.4\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-ossp-uuid --with-perl --with-python\n/usr/bin/make install-world\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v9.1.4/postgresql-9.1.4.tar.bz2\"\n/usr/bin/tar xzf postgresql-9.1.4.tar.bz2\ncd postgresql-9.1.4\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
 		};
-		F805351C15388B2A000E1BAC /* Download, Configure, & Install geos */ = {
+		F805351C15388B2A000E1BAC /* Download, Build, & Install geos */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download, Configure, & Install geos";
+			name = "Download, Build, & Install geos";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/geos/geos-3.3.5.tar.bz2\"\n/usr/bin/tar xzf geos-3.3.5.tar.bz2\ncd geos-3.3.5\n\n/usr/bin/sed -i -e 's/@CFLAGS@$/@CFLAGS@ -O1/g' ./src/geom/Makefile.in\n/usr/bin/sed -i -e 's/@CXXFLAGS@$/@CXXFLAGS@ -O1/g' ./src/geom/Makefile.in\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/geos/geos-3.3.5.tar.bz2\"\n/usr/bin/tar xzf geos-3.3.5.tar.bz2\ncd geos-3.3.5\n\n/usr/bin/sed -i -e 's/@CFLAGS@$/@CFLAGS@ -O1/g' ./src/geom/Makefile.in\n/usr/bin/sed -i -e 's/@CXXFLAGS@$/@CXXFLAGS@ -O1/g' ./src/geom/Makefile.in\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
-		F805351D15388B54000E1BAC /* Download, Configure, & Install proj */ = {
+		F805351D15388B54000E1BAC /* Download, Build, & Install proj */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download, Configure, & Install proj";
+			name = "Download, Build, & Install proj";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/proj/proj-4.8.0.tar.gz\"\n/usr/bin/tar xzf proj-4.8.0.tar.gz\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-datumgrid-1.5.zip\"\n/usr/bin/unzip -o proj-datumgrid-1.5.zip -d ./proj-4.7.0/nad\n\ncd proj-4.8.0\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
-		F805351F15388B74000E1BAC /* Download, Configure, & Install postgis */ = {
+		F805351F15388B74000E1BAC /* Download, Build, & Install postgis */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download, Configure, & Install postgis";
+			name = "Download, Build, & Install postgis";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://postgis.org/download/postgis-2.0.1.tar.gz\"\n/usr/bin/tar xzf postgis-2.0.1.tar.gz\ncd postgis-2.0.1\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install\n";
 		};
-		F8273EF5156AC7C200199DA0 /* Download & Build libedit */ = {
+		F8273EF5156AC7C200199DA0 /* Download, Build, & Install libedit */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download & Build libedit";
+			name = "Download, Build, & Install libedit";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -955,13 +955,14 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\n/usr/bin/install_name_tool -change libv8.dylib \"/Applications/Postgres.app/Contents/MacOS/lib/libv8.dylib\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/plv8.so\"\n";
 		};
-		F8B05E28153E43DD00A8D53A /* ShellScript */ = {
+		F8B05E28153E43DD00A8D53A /* Download, Build, & Install gdal */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Download, Build, & Install gdal";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,16 +981,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.2.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
 		};
-		F8BE0C6D15A4C61400139A21 /* Download, Compile, and Install libjpeg */ = {
+		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download, Compile, and Install libjpeg";
+			name = "Download, Build, and Install libjpeg";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1010,19 +1011,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.12.2.tar.gz \"https://github.com/v8/v8/tarball/3.12.2\"\n/usr/bin/tar xzf v8-3.12.2.tar.gz\nmv -f \"v8-v8-15095c7\" v8\ncd v8\n\n\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/scons\" arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp ./libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
 		};
-		F8DE00BC1566C4EB003BEB10 /* Download & Build plv8 */ = {
+		F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download & Build plv8";
+			name = "Download, Build, & Install plv8";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n#/usr/bin/curl -L10 -O \"http://plv8js.googlecode.com/files/plv8js-20110911.tar.gz\"\n#/usr/bin/tar xzf plv8js-20110911.tar.gz\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\n/usr/bin/sed -i -e 's/SHLIB_LINK += -lv8$//g' ./Makefile\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport PGHOME=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\n/usr/bin/sed -i -e 's/SHLIB_LINK += -lv8$//g' ./Makefile\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport PGHOME=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\n/usr/bin/make install\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1205,112 +1206,146 @@
 		F805350115388AD6000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F805350215388AD6000E1BAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F805350515388AE5000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F805350615388AE5000E1BAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F805350915388AEC000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F805350A15388AEC000E1BAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F805350D15388AF0000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F805350E15388AF0000E1BAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F805351115388AF3000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F805351215388AF3000E1BAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F8273EF1156AC7B900199DA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8273EF2156AC7B900199DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F8273EFA156ACA1300199DA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8273EFB156ACA1300199DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F8273F52156C130A00199DA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8273F53156C130A00199DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1323,6 +1358,8 @@
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1336,6 +1373,8 @@
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1391,10 +1430,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Heroku INC";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "167790D9-5ADF-4451-8AB0-828DDD1BB282";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1403,10 +1445,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Heroku INC";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "167790D9-5ADF-4451-8AB0-828DDD1BB282";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1419,6 +1464,7 @@
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Debug;
@@ -1431,6 +1477,7 @@
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Release;
@@ -1455,6 +1502,7 @@
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				PRODUCT_NAME = Postgres;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1475,6 +1523,7 @@
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				PRODUCT_NAME = Postgres;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1482,56 +1531,74 @@
 		F8A544341566B85900997555 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8A544351566B85900997555 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F8B05E26153E43D900A8D53A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8B05E27153E43D900A8D53A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F8B988B2159CCE2700EF7944 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8B988B3159CCE2700EF7944 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F8BE0C6915A4C60100139A21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		F8BE0C6A15A4C60100139A21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
