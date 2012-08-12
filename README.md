@@ -8,6 +8,10 @@ Postgres.app will be distributed through the Mac App Store, with a separate buil
 
 > You can download the latest build [from the Postgres.app website](http://postgresapp.com/)
 
+## Documentation
+
+Documentation is available at [http://postgresapp.com/documentation](http://postgresapp.com/documentation), as well as from the "Open Documentation" menu item in Postgres.app.
+
 ## What's Included?
 
 - [PostgreSQL 9.1.3](http://www.postgresql.org/docs/9.1/static/release-9-1-3.html)
