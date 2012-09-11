@@ -38,8 +38,8 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&major];
     [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&minor];
     [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&tiny];
-    
-    return [[NSArray arrayWithObjects:(major ?: @"0"), (minor ?: @"0"), (tiny ?: @"0"), nil] componentsJoinedByString:@"."];
+
+    return [[NSArray arrayWithObjects:(major ?: @"0"), (minor ?: @"0"), nil] componentsJoinedByString:@"."];
 }
 
 @implementation PostgresServer {
