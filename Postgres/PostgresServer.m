@@ -31,6 +31,10 @@
 #define str(a) #a
 
 static NSString * PGNormalizedVersionStringFromString(NSString *version) {
+    if (!version) {
+        return nil;
+    }
+    
     NSScanner *scanner = [NSScanner scannerWithString:version];
     [scanner setCharactersToBeSkipped:[NSCharacterSet punctuationCharacterSet]];
     
@@ -50,6 +54,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     
     xpc_connection_t _xpc_connection;
 }
+@synthesize migrationDelegate = _migrationDelegate;
 
 + (PostgresServer *)sharedServer {
     static PostgresServer *_sharedServer = nil;
@@ -105,16 +110,22 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     NSLog(@"Existing PGVersion: %@", existingPGVersion);
     NSLog(@"Installed PGVersion: %@", installedPGVersion);
     
-    if ([installedPGVersion compare:existingPGVersion options:NSNumericSearch] == NSOrderedDescending) {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:_varPath]) {
-            NSError *error = nil;
-            [[NSFileManager defaultManager] moveItemAtPath:_varPath toPath:[_varPath stringByAppendingFormat:@"-%@", existingPGVersion] error:&error];
-            if (error) {
-                NSLog(@"Error: %@", error);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:_varPath] && existingPGVersion) {
+        if ([installedPGVersion compare:existingPGVersion options:NSNumericSearch] == NSOrderedDescending) {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:_varPath]) {
+                if (![self.migrationDelegate postgresServer:self shouldMigrateFromVersion:existingPGVersion toVersion:installedPGVersion]) {
+                    [NSApp terminate:self];
+                }
+                
+                NSError *error = nil;
+                [[NSFileManager defaultManager] moveItemAtPath:_varPath toPath:[_varPath stringByAppendingFormat:@"-%@", existingPGVersion] error:&error];
+                if (error) {
+                    NSLog(@"Error: %@", error);
+                }
             }
+            
+            existingPGVersion = nil;
         }
-        
-        existingPGVersion = nil;
     }
     
     if (!existingPGVersion) {

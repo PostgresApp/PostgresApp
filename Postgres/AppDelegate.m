@@ -47,10 +47,12 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     return flag;
 }
 
+@interface AppDelegate () <PostgresServerMigrationDelegate>
+@end
 
 @implementation AppDelegate {
-    __strong NSStatusItem *_statusBarItem;
-    __strong WelcomeWindowController *_welcomeWindowController;
+    NSStatusItem *_statusBarItem;
+    WelcomeWindowController *_welcomeWindowController;    
 }
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
@@ -66,7 +68,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
 #endif
-    
+        
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
@@ -77,6 +79,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
     
+    [[PostgresServer sharedServer] setMigrationDelegate:self];
     [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort terminationHandler:^(NSUInteger status) {
         if (status == 0) {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
@@ -159,6 +162,18 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];
     [[SUUpdater sharedUpdater] checkForUpdates:sender];
 #endif
+}
+
+#pragma mark - PostgresServerMigrationDelegate
+
+- (BOOL)postgresServer:(PostgresServer *)server
+shouldMigrateFromVersion:(NSString *)fromVersion
+             toVersion:(NSString *)toVersion
+{
+    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedString(@"Upgrade to Postgres Version %@?", nil), toVersion] defaultButton:NSLocalizedString(@"OK", nil) alternateButton:NSLocalizedString(@"Quit", nil) otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Your current database, configured for Postgres %@, will have its data moved to `var-%@`.\n\nA new data directory at `var`, configured for Postgres %@ will be initialized in its place.", nil), fromVersion, fromVersion, toVersion];
+    NSInteger result = [alert runModal];
+    
+    return result == NSAlertDefaultReturn;
 }
 
 @end
