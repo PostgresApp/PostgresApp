@@ -27,6 +27,21 @@
 #import "PostgresServer.h"
 #import "NSFileManager+DirectoryLocations.h"
 
+#define xstr(a) str(a)
+#define str(a) #a
+
+static NSString * PGNormalizedVersionStringFromString(NSString *version) {
+    NSScanner *scanner = [NSScanner scannerWithString:version];
+    [scanner setCharactersToBeSkipped:[NSCharacterSet punctuationCharacterSet]];
+    
+    NSString *major, *minor, *tiny = nil;
+    [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&major];
+    [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&minor];
+    [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&tiny];
+    
+    return [[NSArray arrayWithObjects:(major ?: @"0"), (minor ?: @"0"), (tiny ?: @"0"), nil] componentsJoinedByString:@"."];
+}
+
 @implementation PostgresServer {
     __strong NSString *_binPath;
     __strong NSString *_varPath;
@@ -84,7 +99,24 @@
     [self willChangeValueForKey:@"port"];
     _port = port;
     
-    NSString *existingPGVersion = [NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil];
+    NSString *existingPGVersion = PGNormalizedVersionStringFromString([NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil]);
+    NSString *installedPGVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_VERSION)]);
+    
+    NSLog(@"Existing PGVersion: %@", existingPGVersion);
+    NSLog(@"Installed PGVersion: %@", installedPGVersion);
+    
+    if ([installedPGVersion compare:existingPGVersion options:NSNumericSearch] == NSOrderedDescending) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:_varPath]) {
+            NSError *error = nil;
+            [[NSFileManager defaultManager] moveItemAtPath:_varPath toPath:[_varPath stringByAppendingFormat:@"-%@", existingPGVersion] error:&error];
+            if (error) {
+                NSLog(@"Error: %@", error);
+            }
+        }
+        
+        existingPGVersion = nil;
+    }
+    
     if (!existingPGVersion) {
         [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
             [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", port], nil] terminationHandler:^(NSUInteger status) {
@@ -122,8 +154,7 @@
 - (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler {
     NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
-        NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];
-        NSLog(@"Pid: %@", pid);
+        NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];        
         [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil] terminationHandler:terminationHandler];
         [[NSFileManager defaultManager] removeItemAtPath:pidPath error:nil];
     }

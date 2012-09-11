@@ -841,7 +841,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v9.1.4/postgresql-9.1.4.tar.bz2\"\n/usr/bin/tar xzf postgresql-9.1.4.tar.bz2\ncd postgresql-9.1.4\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
 		};
 		F805351C15388B2A000E1BAC /* Download, Build, & Install geos */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -939,7 +939,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/bin/python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/local/bin/python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1393,7 +1393,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"POSTGRES_VERSION=($POSTGRES_VERSION)",
+					"PG_VERSION=\"$POSTGRES_VERSION\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1418,7 +1418,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "POSTGRES_VERSION=($POSTGRES_VERSION)";
+				GCC_PREPROCESSOR_DEFINITIONS = "PG_VERSION=\"$POSTGRES_VERSION\"";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
