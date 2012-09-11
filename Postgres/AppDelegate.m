@@ -161,5 +161,4 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 #endif
 }
 
-
 @end
