@@ -127,6 +127,13 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
 }
 
+- (IBAction)selectPsql:(id)sender {
+    // Open the psql binary in Terminal.app
+    NSString *binPath = [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"bin"];
+    NSString *psqlPath = [binPath stringByAppendingPathComponent:@"psql"];
+    [[NSWorkspace sharedWorkspace] openFile:psqlPath withApplication:@"Terminal"];
+}
+
 - (IBAction)selectAutomaticallyOpenDocumentation:(id)sender {
     [self.automaticallyOpenDocumentationMenuItem setState:![self.automaticallyOpenDocumentationMenuItem state]];
 

@@ -39,6 +39,7 @@
 
 - (IBAction)selectAbout:(id)sender;
 - (IBAction)selectDocumentation:(id)sender;
+- (IBAction)selectPsql:(id)sender;
 - (IBAction)selectAutomaticallyOpenDocumentation:(id)sender;
 - (IBAction)selectAutomaticallyStart:(id)sender;
 - (IBAction)checkForUpdates:(id)sender;
