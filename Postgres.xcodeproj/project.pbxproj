@@ -939,7 +939,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/local/bin/python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/bin/env python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -980,8 +980,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
+			shellPath = /usr/bin/ruby;
+			shellScript = "require 'open3'\nrequire 'pathname'\n\nmodule DynLinker\n\nclass Libraries\nattr_reader :relative_path\n\ndef initialize(root_path, lib_path, &block)\n@root_path = root_path\n@lib_path = \"#{lib_path}/\".squeeze('/')\n@relative_path = \"@loader_path/../#@lib_path\"\n@libraries = {}\n@aliases = {}\n@block = block\nscan\nend\n\ndef include?(library)\n@aliases.include? File.basename library\nend\n\ndef library_id(library)\n@libraries[@aliases[File.basename library]] if include? library\nend\n\ndef aliases\n@aliases.keys.to_set\nend\n\ndef list_aliases\naliases = Hash.new { |h, k| h[k] = [] }\n@aliases.each_pair do |k, v|\naliases[v] << k\nend\naliases.keys.sort.each do |key|\naliases[key].delete(key)\nputs \"#{key}#{ (': ' + aliases[key].join(', ')) unless aliases[key].empty? }\"\nend\nend\n\nprivate\n\ndef scan\nDir.glob(File.join(@root_path, \"#@lib_path*.dylib\")) do |library|\nprocess_library(library)\nend\nend\n\ndef process_library(path)\nfull_name = real_path path\nreturn if full_name.nil?\n\nfilename = File.basename(full_name)\nreturn if include?(filename)\ninstall_name = get_install_name(full_name)\nreturn if install_name.empty?\n\nlib_name = File.basename(install_name)\nadd_alias filename, lib_name\n\nreturn if @libraries.include? lib_name\n\nif relative_link? install_name\nrelative_path = install_name\nelse\nrelative_path = \"#@relative_path#{lib_name}\"\n@block.call(full_name, relative_path) unless @block.nil?\nend\nadd_library lib_name, relative_path\nadd_alias lib_name, lib_name\nend\n\ndef real_path(path)\nreturn path unless File.symlink? path\ntarget = File.readlink path\n\nunless target.start_with? @root_path\ntarget = File.join(File.join(@root_path, @lib_path), File.basename(target))\nend\n\nunless File.file?(target)\nputs \"target doesn't exist: '#{target}' (from '#{path}')\"\nreturn nil\nend\n\ntarget\nend\n\ndef add_alias(lib_alias, lib_name)\n@aliases[lib_alias] = lib_name\nend\n\ndef add_library(lib_name, rpath)\n@libraries[lib_name] = rpath\nend\n\ndef get_install_name(file)\n%x['/usr/bin/otool' -D \"#{file}\"].split(':')[1].strip\nend\n\ndef relative_link?(library)\nlibrary.start_with? '@'\nend\nend\n\nclass Binaries\ndef initialize(base_path, *globs, &block)\n@root_path = base_path\n@block = block\n@paths = []\nglobs.each do |path|\n@paths << File.join(@root_path, path)\nend\nscan\nend\n\nprivate\n\ndef scan\n@paths.each do |path|\nDir.glob(path) do |file|\nfile_dependencies = dependencies file\n@block.call file, file_dependencies unless file_dependencies.empty?\nend\nend\nend\n\ndef dylib?(file)\n\"#{file}\".end_with? '.dylib'\nend\n\ndef get_install_name(file)\n%x['/usr/bin/otool' -D \"#{file}\"].split(':')[1].strip\nend\n\ndef dependencies(file)\nlibraries = []\nIO.popen(\"/usr/bin/otool -L '#{file}'\").each do |line|\nlibraries << line.chomp[1..-1].sub(/ \\(.*\\)/, '') if line.start_with? \"\\t\"\nend\nlibraries.delete get_install_name(file) if dylib?(file)\nlibraries\nend\nend\n\nclass Command\ndef initialize(description)\n@description = description\nend\n\ndef description\n@description\nend\n\ndef commit\nend\n\nprivate\n\ndef execute(command)\nOpen3.popen3(command) do |stdin, stdout, stderr|\nreturn stderr.read\nend\nend\nend\n\nclass CompositeCommand < Command\ndef initialize\n@commands = []\nend\n\ndef <<(command)\n@commands << command\nend\n\ndef commit\nlog = ''\n@commands.each do |command|\nresult = execute(command.commit)\nlog += \"#{result}: #{command.description}\" unless result.nil? or result.empty?\nend\nlog\nend\n\ndef description\ndescription = ''\n@commands.each do |command|\ndescription += \"#{command.description}\\n\"\nend\ndescription\nend\nend\n\nclass SetLibraryId < Command\ndef initialize(file, id)\nsuper(\"SetLibraryId\")\n@file = file\n@id = id\nend\n\ndef description\ncommit_cmd\nend\n\ndef commit\nexecute commit_cmd\nend\n\nprivate\n\ndef commit_cmd\n\"/usr/bin/install_name_tool -id '#@id' '#@file'\"\nend\nend\n\nclass ChangeInstallName < Command\ndef initialize(file)\nsuper(\"#{file}: \")\n@file = file\n@changes = {}\nend\n\ndef add_change(old, new)\nreturn if old == new or old.empty? or new.empty?\n@changes[old] = new\nend\n\ndef has_commands?\n@changes.length > 0\nend\n\ndef commit\ncmd = commit_cmd\nexecute(cmd) unless cmd.nil?\nend\n\ndef description\ncommit_cmd\nend\n\nprivate\n\ndef commit_cmd\nchanges = []\n@changes.each_pair do |original, new|\nchanges << \"-change '#{original}' '#{new}'\"\nend\n\nreturn nil if changes.empty?\n\"'/usr/bin/install_name_tool' #{changes.join(' ')} '#@file'\"\nend\nend\n\ndef self.preview(base_dir, lib_dir, *globs)\ncommand = get_command(base_dir, lib_dir, *globs)\nputs command.description if command\nend\n\ndef self.relink(base_dir, lib_dir, *globs)\ncommand = get_command(base_dir, lib_dir, *globs)\nputs command.commit if command\nend\n\ndef self.get_command(base_dir, lib_dir, *globs)\ncommands = CompositeCommand.new\n\nlibraries = Libraries.new(base_dir, lib_dir) do |file, id|\ncommands << SetLibraryId.new(file, id)\nend\n\nBinaries.new(base_dir, *globs) do |file, dependencies|\nchange_name = ChangeInstallName.new(file)\ndependencies.each do |dependency|\nif libraries.include? dependency\nchange_name.add_change dependency, libraries.library_id(dependency)\nend\nend\ncommands << change_name if change_name.has_commands?\nend\ncommands\nend\nend\n\nDynLinker.relink(\"#{ENV['PROJECT_DIR']}/Postgres/Vendor/postgres\", 'lib/', 'bin/*', 'lib/*.dylib', 'lib/*.so', 'lib/*.bundle')\n";
 		};
 		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1350,6 +1350,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1360,6 +1361,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1623,6 +1625,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1633,6 +1636,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
