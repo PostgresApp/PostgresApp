@@ -68,12 +68,18 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
 #endif
-        
+
+    NSImage *statusOff = [NSImage imageNamed:@"status-off"];
+    NSImage *statusOn = [NSImage imageNamed:@"status-on"];
+    [statusOff setSize:NSSizeFromString(@"{20,16}")];
+    [statusOn setSize:NSSizeFromString(@"{20,16}")];
+
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
-    _statusBarItem.image = [NSImage imageNamed:@"status-off"];
-    _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
+    _statusBarItem.image = statusOff;
+    _statusBarItem.alternateImage = statusOn;
+
         
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
