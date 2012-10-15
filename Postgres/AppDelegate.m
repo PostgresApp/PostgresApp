@@ -78,7 +78,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
     _statusBarItem.image = statusOff;
-    _statusBarItem.alternateImage = statusOff;
+    _statusBarItem.alternateImage = statusOn;
 
         
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
