@@ -153,6 +153,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
+		0710E97E1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
+		0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
+		0710E9801639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
 		F80534FB1538884E000E1BAC /* bin in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
 		F80534FC1538884E000E1BAC /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
 		F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
@@ -392,6 +396,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
+		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		F80534F31538884A000E1BAC /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bin; path = Postgres/Vendor/postgres/bin; sourceTree = "<group>"; };
 		F80534F41538884A000E1BAC /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Postgres/Vendor/postgres/include; sourceTree = "<group>"; };
 		F80534F51538884A000E1BAC /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Postgres/Vendor/postgres/lib; sourceTree = "<group>"; };
@@ -509,6 +515,8 @@
 		F87A4268153AB24600456130 /* Status Item */ = {
 			isa = PBXGroup;
 			children = (
+				0710E9791639ADD7006D7FB2 /* status-off@2x.png */,
+				0710E97B1639ADD7006D7FB2 /* status-on@2x.png */,
 				F8C09C4715ACD15C00F571AE /* status-off.png */,
 				F8C09C4915ACD15C00F571AE /* status-on.png */,
 			);
@@ -801,6 +809,8 @@
 				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
 				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
 				F883D61015B5CEB60017F83A /* WelcomeWindow.xib in Resources */,
+				0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
+				0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,6 +833,8 @@
 				F8C09C4C15ACD15C00F571AE /* status-off.png in Resources */,
 				F8C09C4E15ACD15C00F571AE /* status-on.png in Resources */,
 				F883D61115B5CEB60017F83A /* WelcomeWindow.xib in Resources */,
+				0710E97E1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
+				0710E9801639ADD7006D7FB2 /* status-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,6 +1156,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0710E9791639ADD7006D7FB2 /* status-off@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0710E97A1639ADD7006D7FB2 /* en */,
+			);
+			name = "status-off@2x.png";
+			sourceTree = "<group>";
+		};
+		0710E97B1639ADD7006D7FB2 /* status-on@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0710E97C1639ADD7006D7FB2 /* en */,
+			);
+			name = "status-on@2x.png";
+			sourceTree = "<group>";
+		};
 		F87A4273153AB60C00456130 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
