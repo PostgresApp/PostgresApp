@@ -1009,7 +1009,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.12.2.tar.gz \"https://github.com/v8/v8/tarball/3.12.2\"\n/usr/bin/tar xzf v8-3.12.2.tar.gz\nmv -f \"v8-v8-15095c7\" v8\ncd v8\n\n\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/scons\" arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp ./libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.12.2.tar.gz \"https://github.com/v8/v8/tarball/3.12.2\"\n/usr/bin/tar xzf v8-3.12.2.tar.gz\nmv -f \"v8-v8-15095c7\" v8\ncd v8\n\n#\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/scons\" arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n/usr/local/bin/scons arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp ./libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
 		};
 		F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1209,7 +1209,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1219,7 +1219,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1228,7 +1228,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1237,7 +1237,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1246,7 +1246,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1255,7 +1255,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1264,7 +1264,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1273,7 +1273,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1282,7 +1282,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1291,7 +1291,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1300,7 +1300,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1309,7 +1309,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1318,7 +1318,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1327,7 +1327,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1336,7 +1336,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1345,7 +1345,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1358,7 +1358,7 @@
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1373,7 +1373,7 @@
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1403,8 +1403,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRES_VERSION = 9.2.0;
-				SDKROOT = macosx;
+				POSTGRES_VERSION = 9.2.2;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1425,8 +1425,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRES_VERSION = 9.2.0;
-				SDKROOT = macosx;
+				POSTGRES_VERSION = 9.2.2;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1438,9 +1438,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "167790D9-5ADF-4451-8AB0-828DDD1BB282";
-				SDKROOT = macosx;
+				PROVISIONING_PROFILE = "EC377DC1-C061-4F78-9616-92C3181BBF02";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1453,9 +1454,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "167790D9-5ADF-4451-8AB0-828DDD1BB282";
-				SDKROOT = macosx;
+				PROVISIONING_PROFILE = "EC377DC1-C061-4F78-9616-92C3181BBF02";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1468,7 +1470,7 @@
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Debug;
@@ -1481,7 +1483,7 @@
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Release;
@@ -1506,7 +1508,7 @@
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				PRODUCT_NAME = Postgres;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1527,7 +1529,7 @@
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				PRODUCT_NAME = Postgres;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1537,7 +1539,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1546,7 +1548,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1556,7 +1558,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1566,7 +1568,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1575,7 +1577,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1584,7 +1586,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1593,7 +1595,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -1602,7 +1604,7 @@
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
