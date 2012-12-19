@@ -21,9 +21,9 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 ## How To Build
 
 1. Open `Postgres.xcodeproj` in Xcode
-2. Select the "Postgres Binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`.
+2. Select the "postgres-binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`. This is a prerequisite for the PostgresApp+Sparkle scheme.
 3. Optionally, Select the "Postgres Extensions" scheme, and build in the same manner.
-3. Once the binaries are finished building, select the "Postgres Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
+3. Once the binaries are finished building, select the "PostgresApp" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
 
 ## Under the Hood
 
