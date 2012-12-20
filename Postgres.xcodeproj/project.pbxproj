@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		B1DFAF7E1682A8CD00027F8C /* uuid-ossp */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = B1DFAF801682A8CD00027F8C /* Build configuration list for PBXAggregateTarget "uuid-ossp" */;
+			buildPhases = (
+				B1DFAF7F1682A8CD00027F8C /* Download, Build, and Install uuid-ossp */,
+			);
+			dependencies = (
+			);
+			name = "uuid-ossp";
+			productName = "uuid-ossp";
+		};
 		F80534FF15388AD6000E1BAC /* postgres-binaries */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
@@ -31,6 +42,7 @@
 				F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */,
 			);
 			dependencies = (
+				B1DFAF971683DAED00027F8C /* PBXTargetDependency */,
 			);
 			name = postgres;
 			productName = postgres;
@@ -212,6 +224,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B1DFAF961683DAED00027F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1DFAF7E1682A8CD00027F8C;
+			remoteInfo = "uuid-ossp";
+		};
 		F805351315388AFB000E1BAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
@@ -776,6 +795,7 @@
 				F805350B15388AF0000E1BAC /* proj */,
 				F805350F15388AF3000E1BAC /* postgis */,
 				F8A544331566B85900997555 /* plv8 */,
+				B1DFAF7E1682A8CD00027F8C /* uuid-ossp */,
 			);
 		};
 /* End PBXProject section */
@@ -829,6 +849,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		B1DFAF7F1682A8CD00027F8C /* Download, Build, and Install uuid-ossp */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Build, and Install uuid-ossp";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\nexport SOURCE_ARCHIVE=\"uuid-1.6.2.tar.gz\"\n\nif [ ! -f $SOURCE_ARCHIVE ]; then\n    /usr/bin/curl -O \"ftp://ftp.ossp.org/pkg/lib/uuid/\"\n    /usr/bin/tar xzf \"uuid-1.6.2.tar.gz\"\nelse\n    echo \"Found $SOURCE_ARCHIVE in \" `pwd` \" - not downloading.\"\nfi\n\ncd \"uuid-1.6.2\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+		};
 		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -841,7 +875,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# LSDKFLSDLFKJSDLKFJSDLKJ\nexport LDFLAGS=-L${PROJECT_DIR}/Postgres/Vendor/postgres/lib\nexport CPPFLAGS=\"-I${PROJECT_DIR}/Postgres/Vendor/postgres/include -D_XOPEN_SOURCE\"\n# /LSDKFLSDLFKJSDLKFJSDLKJ\n\nexport SOURCE_ARCHIVE=postgresql-${POSTGRES_VERSION}.tar.bz2\n\nif [ !-f SOURCE_ARCHIVE ]; then\n    /usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/${SOURCE_ARCHIVE}\"\n    /usr/bin/tar xzf \"${SOURCE_ARCHIVE}\"\nelse\n  echo \"${SOURCE_ARCHIVE} already exists in \" `pwd` \" - not downloading.\"\nfi\n\ncd \"postgresql-${POSTGRES_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-ossp-uuid\n/usr/bin/make install-world\n";
 		};
 		F805351C15388B2A000E1BAC /* Download, Build, & Install geos */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -981,7 +1015,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" \"libuuid.16.dylib\")\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
 		};
 		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1076,6 +1110,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B1DFAF971683DAED00027F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1DFAF7E1682A8CD00027F8C /* uuid-ossp */;
+			targetProxy = B1DFAF961683DAED00027F8C /* PBXContainerItemProxy */;
+		};
 		F805351415388AFB000E1BAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F805350315388AE4000E1BAC /* postgres */;
@@ -1203,6 +1242,26 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B1DFAF811682A8CD00027F8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = "uuid-ossp";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B1DFAF821682A8CD00027F8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = "uuid-ossp";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		F805350115388AD6000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1641,6 +1700,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B1DFAF801682A8CD00027F8C /* Build configuration list for PBXAggregateTarget "uuid-ossp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1DFAF811682A8CD00027F8C /* Debug */,
+				B1DFAF821682A8CD00027F8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
