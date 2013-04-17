@@ -925,7 +925,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://slackware.sukkology.net/packages/jasper/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
 		};
 		F8A544381566B85D00997555 /* Download & Build Scons */ = {
 			isa = PBXShellScriptBuildPhase;
