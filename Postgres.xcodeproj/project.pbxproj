@@ -1434,13 +1434,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Heroku INC";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EC377DC1-C061-4F78-9616-92C3181BBF02";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1450,13 +1450,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Heroku INC";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EC377DC1-C061-4F78-9616-92C3181BBF02";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
