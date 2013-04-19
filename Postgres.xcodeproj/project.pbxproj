@@ -24,15 +24,15 @@
 			name = "postgres-binaries";
 			productName = "postgres-binaries";
 		};
-		F805350315388AE4000E1BAC /* postgres */ = {
+		F805350315388AE4000E1BAC /* postgresql */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgres" */;
+			buildConfigurationList = F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgresql" */;
 			buildPhases = (
 				F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */,
 			);
 			dependencies = (
 			);
-			name = postgres;
+			name = postgresql;
 			productName = postgres;
 		};
 		F805350715388AEC000E1BAC /* geos */ = {
@@ -770,7 +770,7 @@
 				F8273EF0156AC7B900199DA0 /* libedit */,
 				F8273F51156C130A00199DA0 /* libjasper */,
 				F8BE0C6815A4C60100139A21 /* libjpeg */,
-				F805350315388AE4000E1BAC /* postgres */,
+				F805350315388AE4000E1BAC /* postgresql */,
 				F805350715388AEC000E1BAC /* geos */,
 				F8B05E24153E43D900A8D53A /* gdal */,
 				F805350B15388AF0000E1BAC /* proj */,
@@ -1078,7 +1078,7 @@
 /* Begin PBXTargetDependency section */
 		F805351415388AFB000E1BAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F805350315388AE4000E1BAC /* postgres */;
+			target = F805350315388AE4000E1BAC /* postgresql */;
 			targetProxy = F805351315388AFB000E1BAC /* PBXContainerItemProxy */;
 		};
 		F805351615388AFB000E1BAC /* PBXTargetDependency */ = {
@@ -1620,7 +1620,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgres" */ = {
+		F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgresql" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F805350515388AE5000E1BAC /* Debug */,
