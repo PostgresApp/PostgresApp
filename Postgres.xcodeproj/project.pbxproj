@@ -1440,6 +1440,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				POSTGRESAPP_BUILD_VERSION = 12;
+				POSTGRESAPP_MINOR_VERSION = 0;
 				POSTGRES_VERSION = 9.2.4;
 				SDKROOT = macosx10.7;
 			};
@@ -1462,6 +1464,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				POSTGRESAPP_BUILD_VERSION = 12;
+				POSTGRESAPP_MINOR_VERSION = 0;
 				POSTGRES_VERSION = 9.2.4;
 				SDKROOT = macosx10.7;
 			};
@@ -1506,6 +1510,7 @@
 				GCC_PREFIX_HEADER = "postgres-service/postgres-service-Prefix.pch";
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
+				POSTGRESAPP_BUILD_VERSION = "";
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = xpc;
@@ -1519,6 +1524,7 @@
 				GCC_PREFIX_HEADER = "postgres-service/postgres-service-Prefix.pch";
 				INFOPLIST_FILE = "postgres-service/postgres-service-Info.plist";
 				MACH_O_TYPE = mh_execute;
+				POSTGRESAPP_BUILD_VERSION = "";
 				PRODUCT_NAME = "com.heroku.$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = xpc;
@@ -1544,6 +1550,7 @@
 				);
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
+				POSTGRESAPP_MINOR_VERSION = "";
 				PRODUCT_NAME = Postgres;
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
@@ -1565,6 +1572,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = SPARKLE;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
+				POSTGRESAPP_MINOR_VERSION = "";
 				PRODUCT_NAME = Postgres;
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
