@@ -119,7 +119,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F8A544361566B85900997555 /* Build configuration list for PBXAggregateTarget "plv8" */;
 			buildPhases = (
-				F8A544381566B85D00997555 /* Download & Build Scons */,
 				F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */,
 				F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */,
 				F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */,
@@ -960,20 +959,6 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
 		};
-		F8A544381566B85D00997555 /* Download & Build Scons */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download & Build Scons";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/local/bin/python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
-		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1042,7 +1027,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.12.2.tar.gz \"https://github.com/v8/v8/tarball/3.12.2\"\n/usr/bin/tar xzf v8-3.12.2.tar.gz\nmv -f \"v8-v8-15095c7\" v8\ncd v8\n\n#\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/scons\" arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n/usr/local/bin/scons arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp ./libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
+			shellScript = "#!/bin/sh\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# note: $V8_VERSION is defined in build settings\nsvn checkout \"http://v8.googlecode.com/svn/branches/$V8_VERSION/\" \"v8-$V8_VERSION\"\n\ncd \"v8-$V8_VERSION\"\n\nexport CC=clang\nexport CXX=clang++\nexport GYP_DEFINES=\"clang=1\"\n\nmake dependencies\nmake -j 2 library=shared x64.release\n\ncp out/x64.release/libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
 		};
 		F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1056,7 +1041,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\n/usr/bin/sed -i -e 's/SHLIB_LINK += -lv8$//g' ./Makefile\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport PGHOME=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport PGHOME=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\nexport CC=clang\nexport CXX=clang++\n\nexport V8_SRCDIR=\"../v8-$V8_VERSION\"\n\n/usr/bin/make install\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1592,6 +1577,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
+				V8_VERSION = 3.16;
 			};
 			name = Debug;
 		};
@@ -1601,6 +1587,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
+				V8_VERSION = 3.16;
 			};
 			name = Release;
 		};
