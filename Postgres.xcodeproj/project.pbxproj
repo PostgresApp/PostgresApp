@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		3609051B172147B6002FBC53 /* openssl */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 3609051E172147B6002FBC53 /* Build configuration list for PBXAggregateTarget "openssl" */;
+			buildPhases = (
+				3609051F172147C1002FBC53 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = openssl;
+			productName = openssl;
+		};
 		F80534FF15388AD6000E1BAC /* postgres-binaries */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
@@ -31,6 +42,7 @@
 				F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */,
 			);
 			dependencies = (
+				36AEBA961721582D003B4CB9 /* PBXTargetDependency */,
 			);
 			name = postgresql;
 			productName = postgres;
@@ -212,6 +224,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		36AEBA951721582D003B4CB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3609051B172147B6002FBC53;
+			remoteInfo = openssl;
+		};
 		F805351315388AFB000E1BAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
@@ -771,6 +790,7 @@
 				F8273F51156C130A00199DA0 /* libjasper */,
 				F8BE0C6815A4C60100139A21 /* libjpeg */,
 				F805350315388AE4000E1BAC /* postgresql */,
+				3609051B172147B6002FBC53 /* openssl */,
 				F805350715388AEC000E1BAC /* geos */,
 				F8B05E24153E43D900A8D53A /* gdal */,
 				F805350B15388AF0000E1BAC /* proj */,
@@ -829,6 +849,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3609051F172147C1002FBC53 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl --silent --show-error --remote-name \"http://www.openssl.org/source/openssl-1.0.1e.tar.gz\"\n/usr/bin/tar xzf \"openssl-1.0.1e.tar.gz\"\ncd \"openssl-1.0.1e\"\n\nsh ./Configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" darwin64-x86_64-cc zlib no-asm no-krb5 shared\n/usr/bin/make && /usr/bin/make install\n";
+		};
 		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -841,7 +874,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\n# the --with-includes and --with-libraries options are necessary so that postgres will be compiled and linked against\n# our own versions of libraries like openssl, instead of the system provided ones\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-includes=\"${PROJECT_DIR}/Postgres/Vendor/postgres/include\" --with-libraries=\"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
 		};
 		F805351C15388B2A000E1BAC /* Download, Build, & Install geos */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -981,7 +1014,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    # openssl libraries are installed read-only, so make sure we can write to them\n    chmod u+w $file\n\n    basename=`basename $file`\n    if [[ $file == *.dylib ]]\n    then\n      /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n    fi\n\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.1.dylib\" \"libjpeg.8.dylib\" \"libssl.1.0.0.dylib\" \"libcrypto.1.0.0.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n  done\ndone\n";
 		};
 		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1076,6 +1109,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		36AEBA961721582D003B4CB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3609051B172147B6002FBC53 /* openssl */;
+			targetProxy = 36AEBA951721582D003B4CB9 /* PBXContainerItemProxy */;
+		};
 		F805351415388AFB000E1BAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F805350315388AE4000E1BAC /* postgresql */;
@@ -1203,6 +1241,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3609051C172147B6002FBC53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3609051D172147B6002FBC53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F805350115388AD6000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1611,6 +1663,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3609051E172147B6002FBC53 /* Build configuration list for PBXAggregateTarget "openssl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3609051C172147B6002FBC53 /* Debug */,
+				3609051D172147B6002FBC53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
