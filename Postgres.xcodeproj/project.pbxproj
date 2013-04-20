@@ -938,7 +938,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n/usr/bin/install_name_tool -change libv8.dylib \"/Applications/Postgres.app/Contents/MacOS/lib/libv8.dylib\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/plv8.so\"\n";
+			shellScript = "#!/bin/sh\n\n/usr/bin/install_name_tool -change /usr/local/lib/libv8.dylib \"/Applications/Postgres.app/Contents/MacOS/lib/libv8.dylib\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/plv8.so\"\n";
 		};
 		F8B05E28153E43DD00A8D53A /* Download, Build, & Install gdal */ = {
 			isa = PBXShellScriptBuildPhase;
