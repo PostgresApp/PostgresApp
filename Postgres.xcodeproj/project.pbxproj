@@ -61,6 +61,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */;
 			buildPhases = (
+				4BFBD57517233901004C737E /* Download, Build, & Install json-c */,
 				F805351F15388B74000E1BAC /* Download, Build, & Install postgis */,
 				F8273F43156BFB1100199DA0 /* Build & Install liblwgeom */,
 			);
@@ -828,6 +829,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4BFBD57517233901004C737E /* Download, Build, & Install json-c */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Build, & Install json-c";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"https://github.com/downloads/json-c/json-c/json-c-0.10.tar.gz\"\n/usr/bin/tar xzf json-c-0.10.tar.gz\ncd json-c-0.10\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\ncp json_object_iterator.h \"${PROJECT_DIR}/Postgres/Vendor/postgres/include/json/\"";
+		};
 		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -882,7 +897,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz\"\n/usr/bin/tar xzf postgis-2.0.3.tar.gz\ncd postgis-2.0.3\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz\"\n/usr/bin/tar xzf postgis-2.0.3.tar.gz\ncd postgis-2.0.3\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-jsondir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install\n";
 		};
 		F8273EF5156AC7C200199DA0 /* Download, Build, & Install libedit */ = {
 			isa = PBXShellScriptBuildPhase;
