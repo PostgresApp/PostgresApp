@@ -61,6 +61,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */;
 			buildPhases = (
+				4BFBD57517233901004C737E /* Download, Build, & Install json-c */,
 				F805351F15388B74000E1BAC /* Download, Build, & Install postgis */,
 				F8273F43156BFB1100199DA0 /* Build & Install liblwgeom */,
 			);
@@ -107,7 +108,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F8A544361566B85900997555 /* Build configuration list for PBXAggregateTarget "plv8" */;
 			buildPhases = (
-				F8A544381566B85D00997555 /* Download & Build Scons */,
 				F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */,
 				F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */,
 				F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */,
@@ -829,6 +829,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4BFBD57517233901004C737E /* Download, Build, & Install json-c */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Build, & Install json-c";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"https://github.com/downloads/json-c/json-c/json-c-0.10.tar.gz\"\n/usr/bin/tar xzf json-c-0.10.tar.gz\ncd json-c-0.10\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\ncp json_object_iterator.h \"${PROJECT_DIR}/Postgres/Vendor/postgres/include/json/\"";
+		};
 		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -841,7 +855,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xjf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
 		};
 		F805351C15388B2A000E1BAC /* Download, Build, & Install geos */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -855,7 +869,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/geos/geos-3.3.5.tar.bz2\"\n/usr/bin/tar xzf geos-3.3.5.tar.bz2\ncd geos-3.3.5\n\n/usr/bin/sed -i -e 's/@CFLAGS@$/@CFLAGS@ -O1/g' ./src/geom/Makefile.in\n/usr/bin/sed -i -e 's/@CXXFLAGS@$/@CXXFLAGS@ -O1/g' ./src/geom/Makefile.in\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/geos/geos-3.3.8.tar.bz2\"\n/usr/bin/tar xjf geos-3.3.8.tar.bz2\ncd geos-3.3.8\n\n/usr/bin/sed -i -e 's/@CFLAGS@$/@CFLAGS@ -O1/g' ./src/geom/Makefile.in\n/usr/bin/sed -i -e 's/@CXXFLAGS@$/@CXXFLAGS@ -O1/g' ./src/geom/Makefile.in\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
 		F805351D15388B54000E1BAC /* Download, Build, & Install proj */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -883,7 +897,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://postgis.org/download/postgis-2.0.1.tar.gz\"\n/usr/bin/tar xzf postgis-2.0.1.tar.gz\ncd postgis-2.0.1\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz\"\n/usr/bin/tar xzf postgis-2.0.3.tar.gz\ncd postgis-2.0.3\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-jsondir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install\n";
 		};
 		F8273EF5156AC7C200199DA0 /* Download, Build, & Install libedit */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -897,7 +911,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz\"\n/usr/bin/tar xzf libedit-20120601-3.0.tar.gz\ncd libedit-20120601-3.0\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.thrysoee.dk/editline/libedit-20121213-3.0.tar.gz\"\n/usr/bin/tar xzf libedit-20121213-3.0.tar.gz\ncd libedit-20121213-3.0\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
 		F8273F43156BFB1100199DA0 /* Build & Install liblwgeom */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -911,7 +925,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\ncd postgis-2.0.1/liblwgeom\n\n/usr/bin/sed -i -e 's/\\/usr\\/local$/\\${PROJECT_DIR}\\/Postgres\\/Vendor\\/postgres\\//g' Makefile\n\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\ncd postgis-2.0.3/liblwgeom\n\n/usr/bin/sed -i -e 's/\\/usr\\/local$/\\${PROJECT_DIR}\\/Postgres\\/Vendor\\/postgres\\//g' Makefile\n\n/usr/bin/make install\n";
 		};
 		F8273F56156C131400199DA0 /* Download, Build, & Install libjasper */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -925,21 +939,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://slackware.sukkology.net/packages/jasper/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
-		};
-		F8A544381566B85D00997555 /* Download & Build Scons */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download & Build Scons";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://downloads.sourceforge.net/project/scons/scons/2.1.0/scons-2.1.0.tar.gz\"\n/usr/bin/tar xzf scons-2.1.0.tar.gz\ncd scons-2.1.0\n\n/usr/local/bin/python setup.py install --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --standalone-lib --no-version-script --no-install-man\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/jasper-1.900.1.uuid.tar.gz\"\n/usr/bin/tar xzf jasper-1.900.1.uuid.tar.gz\ncd jasper-1.900.1.uuid\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -953,7 +953,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n/usr/bin/install_name_tool -change libv8.dylib \"/Applications/Postgres.app/Contents/MacOS/lib/libv8.dylib\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/plv8.so\"\n";
+			shellScript = "#!/bin/sh\n\n/usr/bin/install_name_tool -change /usr/local/lib/libv8.dylib \"/Applications/Postgres.app/Contents/MacOS/lib/libv8.dylib\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/plv8.so\"\n";
 		};
 		F8B05E28153E43DD00A8D53A /* Download, Build, & Install gdal */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -967,7 +967,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/gdal-1.9.1.tar.gz\"\n/usr/bin/tar xzf gdal-1.9.1.tar.gz\ncd gdal-1.9.1\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/gdal-1.9.2.tar.gz\"\n/usr/bin/tar xzf gdal-1.9.2.tar.gz\ncd gdal-1.9.2\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
 		F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -981,7 +981,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\ncd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\nfor file in *\ndo\nlibs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.8.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.dylib\" \"libjpeg.8.dylib\" )\nfor lib in ${libs[@]}\ndo\nbasename=`basename $file`\nif [[ $file == *.dylib ]]\nthen\n/usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\nfi\n\n/usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n/usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\ndone\n\n/usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.3.dylib\" \"@executable_path/../lib/liblwgeom-2.0.3.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n/usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n\ndone\ndone\n";
 		};
 		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1009,7 +1009,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.12.2.tar.gz \"https://github.com/v8/v8/tarball/3.12.2\"\n/usr/bin/tar xzf v8-3.12.2.tar.gz\nmv -f \"v8-v8-15095c7\" v8\ncd v8\n\n#\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/scons\" arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n/usr/local/bin/scons arch=x64 mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp ./libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.18.2.tar.gz \"https://github.com/v8/v8/archive/3.18.2.tar.gz\"\n/usr/bin/tar xzf v8-3.18.2.tar.gz\ncd v8-3.18.2\n\n/usr/bin/make dependencies\n/usr/bin/make native mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp include/* \"${PROJECT_DIR}/Postgres/Vendor/postgres/include/\"\ncd out/native\ncp lib* \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"              \ncp d8 lineprocessor mksnapshot preparser process shell \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/\"\n";
 		};
 		F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1023,7 +1023,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\n/usr/bin/sed -i -e 's/SHLIB_LINK += -lv8$//g' ./Makefile\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport PGHOME=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\ncurl -O \"https://raw.github.com/jashkenas/coffee-script/master/extras/coffee-script.js\"\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport V8_SRCDIR=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\n/usr/bin/make install\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1403,7 +1403,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRES_VERSION = 9.2.2;
+				POSTGRES_VERSION = 9.2.4;
 				SDKROOT = macosx10.7;
 			};
 			name = Debug;
@@ -1425,7 +1425,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRES_VERSION = 9.2.2;
+				POSTGRES_VERSION = 9.2.4;
 				SDKROOT = macosx10.7;
 			};
 			name = Release;
