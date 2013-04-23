@@ -1009,7 +1009,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.17.15.tar.gz \"https://github.com/v8/v8/archive/3.17.15.tar.gz\"\n/usr/bin/tar xzf v8-3.17.15.tar.gz\ncd v8-3.17.15\n\n/usr/bin/make dependencies\n/usr/bin/make native mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp include/* \"${PROJECT_DIR}/Postgres/Vendor/postgres/include/\"\ncd out/native\ncp lib* \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"              \ncp d8 lineprocessor mksnapshot preparser process shell \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/\"\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -o v8-3.18.2.tar.gz \"https://github.com/v8/v8/archive/3.18.2.tar.gz\"\n/usr/bin/tar xzf v8-3.18.2.tar.gz\ncd v8-3.18.2\n\n/usr/bin/make dependencies\n/usr/bin/make native mode=release snapshot=on library=shared visibility=default console=readline sample=shell\n\ncp include/* \"${PROJECT_DIR}/Postgres/Vendor/postgres/include/\"\ncd out/native\ncp lib* \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"              \ncp d8 lineprocessor mksnapshot preparser process shell \"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/\"\n";
 		};
 		F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */ = {
 			isa = PBXShellScriptBuildPhase;
