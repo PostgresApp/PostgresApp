@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4465A93B17302EA600AE8091 /* libxml2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4465A93D17302EA600AE8091 /* Build configuration list for PBXAggregateTarget "libxml2" */;
+			buildPhases = (
+				4465A93C17302EA600AE8091 /* Download, Build, and Install libjpeg */,
+			);
+			dependencies = (
+			);
+			name = libxml2;
+			productName = libjpeg;
+		};
 		F80534FF15388AD6000E1BAC /* postgres-binaries */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
@@ -776,6 +787,7 @@
 				F805350B15388AF0000E1BAC /* proj */,
 				F805350F15388AF3000E1BAC /* postgis */,
 				F8A544331566B85900997555 /* plv8 */,
+				4465A93B17302EA600AE8091 /* libxml2 */,
 			);
 		};
 /* End PBXProject section */
@@ -829,6 +841,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4465A93C17302EA600AE8091 /* Download, Build, and Install libjpeg */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Build, and Install libjpeg";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz\"\n/usr/bin/tar xzf libxml2-2.7.8.tar.gz\ncd libxml2-2.7.8\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-dependency-tracking\n/usr/bin/make install\n";
+		};
 		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -925,7 +951,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://slackware.sukkology.net/packages/jasper/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip\"\n/usr/bin/unzip -o jasper-1.900.1.zip\ncd jasper-1.900.1\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
 		};
 		F8A544381566B85D00997555 /* Download & Build Scons */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1203,6 +1229,26 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4465A93E17302EA600AE8091 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = "libjpeg copy";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4465A93F17302EA600AE8091 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = "libjpeg copy";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		F805350115388AD6000E1BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1452,13 +1498,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Heroku INC";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "167790D9-5ADF-4451-8AB0-828DDD1BB282";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1468,13 +1514,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Heroku INC";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "167790D9-5ADF-4451-8AB0-828DDD1BB282";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1641,6 +1687,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4465A93D17302EA600AE8091 /* Build configuration list for PBXAggregateTarget "libxml2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4465A93E17302EA600AE8091 /* Debug */,
+				4465A93F17302EA600AE8091 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
