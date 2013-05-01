@@ -29,16 +29,28 @@
 			name = libuuid;
 			productName = "ossp-uuid";
 		};
+		F802E6691730AB6D005EFEA5 /* libxml2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F802E66A1730AB6D005EFEA5 /* Build configuration list for PBXAggregateTarget "libxml2" */;
+			buildPhases = (
+				F802E66D1730AB76005EFEA5 /* Download, Configure, and Install libxml2 */,
+			);
+			dependencies = (
+			);
+			name = libxml2;
+			productName = libxml2;
+		};
 		F80534FF15388AD6000E1BAC /* postgres-binaries */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
 			buildPhases = (
 			);
 			dependencies = (
-				F802E6681730AACB005EFEA5 /* PBXTargetDependency */,
-				F8BE0C6F15A4C66A00139A21 /* PBXTargetDependency */,
 				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
 				F8273F58156C151400199DA0 /* PBXTargetDependency */,
+				F8BE0C6F15A4C66A00139A21 /* PBXTargetDependency */,
+				F802E6681730AACB005EFEA5 /* PBXTargetDependency */,
+				F802E66F1730AC62005EFEA5 /* PBXTargetDependency */,
 				F8A12F0715474E3B009AFF07 /* PBXTargetDependency */,
 				F805351615388AFB000E1BAC /* PBXTargetDependency */,
 				F805351815388AFB000E1BAC /* PBXTargetDependency */,
@@ -248,6 +260,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F802E6621730A780005EFEA5;
 			remoteInfo = uuid;
+		};
+		F802E66E1730AC62005EFEA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F89739FF1538846600EAB41E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F802E6691730AB6D005EFEA5;
+			remoteInfo = libxml2;
 		};
 		F805351315388AFB000E1BAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -808,6 +827,7 @@
 				F8273F51156C130A00199DA0 /* libjasper */,
 				F8BE0C6815A4C60100139A21 /* libjpeg */,
 				F802E6621730A780005EFEA5 /* libuuid */,
+				F802E6691730AB6D005EFEA5 /* libxml2 */,
 				F805350315388AE4000E1BAC /* postgresql */,
 				3609051B172147B6002FBC53 /* openssl */,
 				F805350715388AEC000E1BAC /* geos */,
@@ -894,6 +914,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\nexport UUID_VERSION=\"1.6.2\"\n\n/usr/bin/curl -O \"http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-${UUID_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"uuid-${UUID_VERSION}.tar.gz\"\n\ncd \"uuid-${UUID_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug\n/usr/bin/make\n/usr/bin/make install\n";
+		};
+		F802E66D1730AB76005EFEA5 /* Download, Configure, and Install libxml2 */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Configure, and Install libxml2";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\nexport LIBXML2_VERSION=\"2.7.8\"\n\n/usr/bin/curl -O \"ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"libxml2-${LIBXML2_VERSION}.tar.gz\"\n\ncd libxml2-${LIBXML2_VERSION}\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-dependency-tracking\n/usr/bin/make install";
 		};
 		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1033,7 +1067,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    # openssl libraries are installed read-only, so make sure we can write to them\n    chmod u+w $file\n\n    basename=`basename $file`\n    if [[ $file == *.dylib ]]\n    then\n      /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n    fi\n\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.1.dylib\" \"libjpeg.8.dylib\" \"libssl.1.0.0.dylib\" \"libcrypto.1.0.0.dylib\" \"libuuid.16.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n  done\ndone\n";
+			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    # openssl libraries are installed read-only, so make sure we can write to them\n    chmod u+w $file\n\n    basename=`basename $file`\n    if [[ $file == *.dylib ]]\n    then\n      /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n    fi\n\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.1.dylib\" \"libjpeg.8.dylib\" \"libssl.1.0.0.dylib\" \"libcrypto.1.0.0.dylib\" \"libuuid.16.dylib\" \"libxml2.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n  done\ndone\n";
 		};
 		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1137,6 +1171,11 @@
 			isa = PBXTargetDependency;
 			target = F802E6621730A780005EFEA5 /* libuuid */;
 			targetProxy = F802E6671730AACB005EFEA5 /* PBXContainerItemProxy */;
+		};
+		F802E66F1730AC62005EFEA5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F802E6691730AB6D005EFEA5 /* libxml2 */;
+			targetProxy = F802E66E1730AC62005EFEA5 /* PBXContainerItemProxy */;
 		};
 		F805351415388AFB000E1BAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1287,6 +1326,20 @@
 			name = Debug;
 		};
 		F802E6641730A780005EFEA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F802E66B1730AB6D005EFEA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F802E66C1730AB6D005EFEA5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1725,6 +1778,14 @@
 			buildConfigurations = (
 				F802E6631730A780005EFEA5 /* Debug */,
 				F802E6641730A780005EFEA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F802E66A1730AB6D005EFEA5 /* Build configuration list for PBXAggregateTarget "libxml2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F802E66B1730AB6D005EFEA5 /* Debug */,
+				F802E66C1730AB6D005EFEA5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
