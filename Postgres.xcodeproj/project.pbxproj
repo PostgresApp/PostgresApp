@@ -967,7 +967,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/gdal-1.9.2.tar.gz\"\n/usr/bin/tar xzf gdal-1.9.2.tar.gz\ncd gdal-1.9.2\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/1.10.0/gdal-1.10.0.tar.gz\"\n/usr/bin/tar xzf gdal-1.10.0.tar.gz\ncd gdal-1.10.0\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
 		F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
