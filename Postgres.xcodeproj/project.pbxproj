@@ -1065,7 +1065,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $GDAL_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/gdal-${GDAL_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"gdal-${GDAL_VERSION}.tar.gz\"\n\ncd \"gdal-${GDAL_VERSION}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $GDAL_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-1.10.0.tar.gz\"\n/usr/bin/tar xzf \"gdal-${GDAL_VERSION}.tar.gz\"\n\ncd \"gdal-${GDAL_VERSION}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
 		F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1751,7 +1751,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GDAL_VERSION = 1.9.2;
+				GDAL_VERSION = 1.10.0;
 				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
@@ -1762,7 +1762,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GDAL_VERSION = 1.9.2;
+				GDAL_VERSION = 1.10.0;
 				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
