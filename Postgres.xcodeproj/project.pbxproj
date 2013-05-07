@@ -1037,7 +1037,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $LIBJASPER_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://www.ece.uvic.ca/~frodo/jasper/software/jasper-${LIBJASPER_VERSION}.zip\"\n/usr/bin/unzip -o \"jasper-${LIBJASPER_VERSION}.zip\"\n\ncd \"jasper-${LIBJASPER_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $LIBJASPER_VERSION defined in Build Settings\n\n# this version of libjasper is 'hacked' to work better with gdal\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/jasper-${LIBJASPER_VERSION}.uuid.tar.gz\"\n/usr/bin/tar xzf \"jasper-${LIBJASPER_VERSION}.uuid.tar.gz\"\ncd \"jasper-${LIBJASPER_VERSION}.uuid\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
 		};
 		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1065,7 +1065,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $GDAL_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-1.10.0.tar.gz\"\n/usr/bin/tar xzf \"gdal-${GDAL_VERSION}.tar.gz\"\n\ncd \"gdal-${GDAL_VERSION}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $GDAL_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"gdal-${GDAL_VERSION}.tar.gz\"\n\ncd \"gdal-${GDAL_VERSION}\"\n\ntouch config.rpath #prevents annoying build error\nsh ./autogen.sh\n# --with-pg ensures we link against the right libpq\n# --with-jasper is necessary so that jasper.h is found\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-pg=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\"  --with-jasper=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
 		};
 		F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */ = {
 			isa = PBXShellScriptBuildPhase;
