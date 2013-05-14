@@ -18,6 +18,17 @@
 			name = openssl;
 			productName = openssl;
 		};
+		A010AFB41742C22B00E84EF2 /* libtiff */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A010AFB61742C22B00E84EF2 /* Build configuration list for PBXAggregateTarget "libtiff" */;
+			buildPhases = (
+				A010AFB51742C22B00E84EF2 /* Download, Build, and Install libtiff */,
+			);
+			dependencies = (
+			);
+			name = libtiff;
+			productName = libtiff;
+		};
 		F802E6621730A780005EFEA5 /* libuuid */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F802E6651730A780005EFEA5 /* Build configuration list for PBXAggregateTarget "libuuid" */;
@@ -843,6 +854,7 @@
 				F805350B15388AF0000E1BAC /* proj */,
 				F805350F15388AF3000E1BAC /* postgis */,
 				F8A544331566B85900997555 /* plv8 */,
+				A010AFB41742C22B00E84EF2 /* libtiff */,
 			);
 		};
 /* End PBXProject section */
@@ -912,6 +924,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $OPENSSL_VERSION defined in Build Settings\n\n/usr/bin/curl --silent --show-error --remote-name \"http://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"openssl-${OPENSSL_VERSION}.tar.gz\"\n\ncd \"openssl-${OPENSSL_VERSION}\"\n\nsh ./Configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" darwin64-x86_64-cc zlib no-asm no-krb5 shared\n/usr/bin/make && /usr/bin/make install\n";
+		};
+		A010AFB51742C22B00E84EF2 /* Download, Build, and Install libtiff */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download, Build, and Install libtiff";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz\"\n/usr/bin/tar xzf tiff-4.0.3.tar.gz\ncd tiff-4.0.3\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-dependency-tracking\n/usr/bin/make install\n";
 		};
 		F802E6661730A785005EFEA5 /* Download, Configure, and Install libuuid */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1345,6 +1371,24 @@
 			buildSettings = {
 				OPENSSL_VERSION = 1.0.1e;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A010AFB71742C22B00E84EF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				PRODUCT_NAME = libtiff;
+				SDKROOT = macosx10.7;
+			};
+			name = Debug;
+		};
+		A010AFB81742C22B00E84EF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				PRODUCT_NAME = libtiff;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -1813,6 +1857,15 @@
 			buildConfigurations = (
 				3609051C172147B6002FBC53 /* Debug */,
 				3609051D172147B6002FBC53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A010AFB61742C22B00E84EF2 /* Build configuration list for PBXAggregateTarget "libtiff" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A010AFB71742C22B00E84EF2 /* Debug */,
+				A010AFB81742C22B00E84EF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
