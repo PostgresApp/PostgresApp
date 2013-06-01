@@ -14,16 +14,23 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 ## What's Included?
 
-- [PostgreSQL 9.1.3](http://www.postgresql.org/docs/9.1/static/release-9-1-3.html)
-- [PostGIS 2.0](http://postgis.refractions.net/)
+- [PostgreSQL 9.2.4](http://www.postgresql.org/docs/9.1/static/release-9-1-3.html)
+- [PostGIS 2.0.1](http://postgis.refractions.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 
 ## How To Build
 
+The XCode project is set up so it automatically downloads and builds the PostgreSQL source code (and other required software packages)
+
+To build Postgres.app with PostgreSQL only:
 1. Open `Postgres.xcodeproj` in Xcode
-2. Select the "Postgres Binaries" scheme, and build by clicking "Run", or using the keyboard shortcut, `⌘B`.
-3. Optionally, Select the "Postgres Extensions" scheme, and build in the same manner.
-3. Once the binaries are finished building, select the "Postgres Mac Application" scheme, and build & run by clicking "Run", or using the keyboard shortcut, `⌘R`.
+2. Select the `Postgres` scheme, and click "Run"
+
+To build Postgres.app with extensions (PostGIS, v8):
+1. Open `Postgres.xcodeproj` in Xcode
+2. Select `postgres-binaries` scheme, and build using the keyboard shortcut ⌘B
+3. Select `postgres-extensions`, build
+4. Select `Postgres`, click run
 
 ## Under the Hood
 
