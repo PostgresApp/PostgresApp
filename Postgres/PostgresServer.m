@@ -129,7 +129,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     }
     
     if (!existingPGVersion) {
-        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
+        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
             [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", port], nil] terminationHandler:^(NSUInteger status) {
                 [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
                     if (completionBlock) {
@@ -166,7 +166,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
         NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];        
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"QUIT", pid, nil] terminationHandler:terminationHandler];
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"INT", pid, nil] terminationHandler:terminationHandler];
         [[NSFileManager defaultManager] removeItemAtPath:pidPath error:nil];
     }
     
