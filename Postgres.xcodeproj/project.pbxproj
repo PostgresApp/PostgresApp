@@ -11,8 +11,6 @@
 		0710E97E1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
 		0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
 		0710E9801639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
-		3671343717C9003F003BBA08 /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
-		3671343817C90043003BBA08 /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
@@ -53,8 +51,6 @@
 		F8A4B50B15735C6E003C00F5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8973A211538846600EAB41E /* MainMenu.xib */; };
 		F8A4B50D15735C6E003C00F5 /* PostgresStatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */; };
 		F8A4B50E15735C6E003C00F5 /* Postgres.icns in Resources */ = {isa = PBXBuildFile; fileRef = F884C919153CA24400CDCB09 /* Postgres.icns */; };
-		F8A4B51215735C6E003C00F5 /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
-		F8A4B51415735C6E003C00F5 /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F8A4B51615735C6E003C00F5 /* com.heroku.postgres-service.xpc in Copy XPC Service */ = {isa = PBXBuildFile; fileRef = F8973A3C1538851D00EAB41E /* com.heroku.postgres-service.xpc */; };
 		F8A4B51815735C6E003C00F5 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
 		F8A4B56C15735F26003C00F5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A4B56B15735F26003C00F5 /* Sparkle.framework */; };
@@ -111,18 +107,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F80534EF15388783000E1BAC /* Copy postgres Executables */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				3671343817C90043003BBA08 /* share in Copy postgres Executables */,
-				3671343717C9003F003BBA08 /* include in Copy postgres Executables */,
-			);
-			name = "Copy postgres Executables";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F87A4287153AB65800456130 /* Copy Helper Application */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,18 +127,6 @@
 				F8973A52153885BD00EAB41E /* com.heroku.postgres-service.xpc in Copy XPC Service */,
 			);
 			name = "Copy XPC Service";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8A4B51015735C6E003C00F5 /* Copy postgres Executables */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				F8A4B51215735C6E003C00F5 /* include in Copy postgres Executables */,
-				F8A4B51415735C6E003C00F5 /* share in Copy postgres Executables */,
-			);
-			name = "Copy postgres Executables";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F8A4B51515735C6E003C00F5 /* Copy XPC Service */ = {
@@ -195,8 +167,6 @@
 /* Begin PBXFileReference section */
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
-		F80534F41538884A000E1BAC /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = "Postgres/Vendor/postgres/built-products/include"; sourceTree = "<group>"; };
-		F80534F61538884A000E1BAC /* share */ = {isa = PBXFileReference; lastKnownFileType = folder; name = share; path = "Postgres/Vendor/postgres/built-products/share"; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F87A426D153AB60C00456130 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,15 +258,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F80534F21538883D000E1BAC /* postgres */ = {
-			isa = PBXGroup;
-			children = (
-				F80534F41538884A000E1BAC /* include */,
-				F80534F61538884A000E1BAC /* share */,
-			);
-			name = postgres;
-			sourceTree = "<group>";
-		};
 		F87A4267153AB23F00456130 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,7 +396,6 @@
 			isa = PBXGroup;
 			children = (
 				F88BDC8315704B22004ECB52 /* NSFileManager+DirectoryLocations */,
-				F80534F21538883D000E1BAC /* postgres */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -469,7 +429,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "${PROJECT_DIR}/Postgres/Vendor/postgres";
+			buildWorkingDirectory = "${PROJECT_DIR}/src";
 			dependencies = (
 			);
 			name = postgresql;
@@ -505,8 +465,7 @@
 				F8973A061538846600EAB41E /* Resources */,
 				F8973A51153885A100EAB41E /* Copy XPC Service */,
 				F87A4287153AB65800456130 /* Copy Helper Application */,
-				3671343617C8FFBB003BBA08 /* Copy bin, lib & fix linking issues */,
-				F80534EF15388783000E1BAC /* Copy postgres Executables */,
+				3671343617C8FFBB003BBA08 /* Copy bin, lib, include, share & fix linking issues */,
 			);
 			buildRules = (
 			);
@@ -547,8 +506,7 @@
 				F8A4B50915735C6E003C00F5 /* Resources */,
 				F8A4B51515735C6E003C00F5 /* Copy XPC Service */,
 				F8A4B51715735C6E003C00F5 /* Copy Helper Application */,
-				3671343B17C928FB003BBA08 /* Copy bin, lib & fix linking issues */,
-				F8A4B51015735C6E003C00F5 /* Copy postgres Executables */,
+				3671343B17C928FB003BBA08 /* Copy bin, lib, include, share & fix linking issues */,
 			);
 			buildRules = (
 			);
@@ -644,33 +602,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3671343617C8FFBB003BBA08 /* Copy bin, lib & fix linking issues */ = {
+		3671343617C8FFBB003BBA08 /* Copy bin, lib, include, share & fix linking issues */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy bin, lib & fix linking issues";
+			name = "Copy bin, lib, include, share & fix linking issues";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#!/bin/bash\n\nORIG_INSTALL_ROOT=\"${PROJECT_DIR}/Postgres/Vendor/postgres/built-products\"\nEXECUTABLE_TARGET_DIR=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\n\n# copy binaries\ncd \"${ORIG_INSTALL_ROOT}/bin/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/bin/\"\n# copy postgresql binaries\ncp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg_archivecleanup pg_basebackup pg_config pg_controldata pg_ctl pg_dump pg_dumpall pg_receivexlog pg_resetxlog pg_restore pg_standby pg_test_fsync pg_test_timing pg_upgrade pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy proj binaries\ncp cs2cs geod invgeod invproj nad2bin proj \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy gdal binaries\ncp gdal_contour gdal_grid gdal_rasterize gdal_translate gdaladdo gdalbuildvrt gdaldem gdalenhance gdalinfo gdallocationinfo gdalmanage gdalserver gdalsrsinfo gdaltindex gdaltransform gdalwarp nearblack ogr2ogr ogrinfo ogrtindex testepsg \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy postgis binaries\ncp pgsql2shp raster2pgsql shp2pgsql \"$EXECUTABLE_TARGET_DIR/bin/\"\n\n# copy dynamic libraries only (no need for static libraries)\ncd \"${ORIG_INSTALL_ROOT}/lib/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -af *.dylib *.so \"$EXECUTABLE_TARGET_DIR/lib/\"\n\n# fix dylib paths\ncd \"$EXECUTABLE_TARGET_DIR\"\nprefix=\"${ORIG_INSTALL_ROOT}\"\nprefix_length=${#prefix}\n    \n# fix library ids\nfor libfile in \"lib/\"*\ndo\n\tlibrary_id=$(otool -D $libfile | grep \"$prefix\");\n\tif [[ -n \"$library_id\" ]]\n\tthen\n        new_library_id=\"@loader_path/..\"${library_id:$prefix_length}\n        install_name_tool -id \"$new_library_id\" \"$libfile\"\n\tfi\ndone\n    \n    # fix library references\nfor file in \"lib/\"* \"bin/\"*\ndo\n\tlinked_libs=$(otool -L $file | egrep --only-matching \"\\Q$prefix\\E\\S+\");\n\tfor lib_path in $linked_libs\n\tdo\n        new_lib_path=\"@loader_path/..\"${lib_path:$prefix_length}\n        install_name_tool -change \"$lib_path\" \"$new_lib_path\" $file\n\tdone\ndone";
+			shellScript = "#!/bin/bash\n\nORIG_INSTALL_ROOT=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\nEXECUTABLE_TARGET_DIR=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\n\n# copy binaries\ncd \"${ORIG_INSTALL_ROOT}/bin/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/bin/\"\n# copy postgresql binaries\ncp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg_archivecleanup pg_basebackup pg_config pg_controldata pg_ctl pg_dump pg_dumpall pg_receivexlog pg_resetxlog pg_restore pg_standby pg_test_fsync pg_test_timing pg_upgrade pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy proj binaries\ncp cs2cs geod invgeod invproj nad2bin proj \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy gdal binaries\ncp gdal_contour gdal_grid gdal_rasterize gdal_translate gdaladdo gdalbuildvrt gdaldem gdalenhance gdalinfo gdallocationinfo gdalmanage gdalserver gdalsrsinfo gdaltindex gdaltransform gdalwarp nearblack ogr2ogr ogrinfo ogrtindex testepsg \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy postgis binaries\ncp pgsql2shp raster2pgsql shp2pgsql \"$EXECUTABLE_TARGET_DIR/bin/\"\n\n# copy dynamic libraries only (no need for static libraries)\ncd \"${ORIG_INSTALL_ROOT}/lib/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -af *.dylib *.so \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -afR pgxs \"$EXECUTABLE_TARGET_DIR/lib/\"\n\n#copy include, share\ncp -afR \"${ORIG_INSTALL_ROOT}/include\" \"${ORIG_INSTALL_ROOT}/share\" \"$EXECUTABLE_TARGET_DIR/\"\n\n# fix dylib paths\ncd \"$EXECUTABLE_TARGET_DIR\"\nprefix=\"${ORIG_INSTALL_ROOT}\"\nprefix_length=${#prefix}\n    \n# fix library ids\nfor libfile in \"lib/\"*\ndo\n\tlibrary_id=$(otool -D $libfile | grep \"$prefix\");\n\tif [[ -n \"$library_id\" ]]\n\tthen\n        new_library_id=\"@loader_path/..\"${library_id:$prefix_length}\n        install_name_tool -id \"$new_library_id\" \"$libfile\"\n\tfi\ndone\n    \n# fix library references\nfor file in \"lib/\"* \"bin/\"*\ndo\n\tlinked_libs=$(otool -L $file | egrep --only-matching \"\\Q$prefix\\E\\S+\");\n\tfor lib_path in $linked_libs\n\tdo\n        new_lib_path=\"@loader_path/..\"${lib_path:$prefix_length}\n        install_name_tool -change \"$lib_path\" \"$new_lib_path\" $file\n\tdone\ndone";
 		};
-		3671343B17C928FB003BBA08 /* Copy bin, lib & fix linking issues */ = {
+		3671343B17C928FB003BBA08 /* Copy bin, lib, include, share & fix linking issues */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy bin, lib & fix linking issues";
+			name = "Copy bin, lib, include, share & fix linking issues";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#!/bin/bash\n\nORIG_INSTALL_ROOT=\"${PROJECT_DIR}/Postgres/Vendor/postgres/built-products\"\nEXECUTABLE_TARGET_DIR=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\n\n# copy binaries\ncd \"${ORIG_INSTALL_ROOT}/bin/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/bin/\"\n# copy postgresql binaries\ncp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg_archivecleanup pg_basebackup pg_config pg_controldata pg_ctl pg_dump pg_dumpall pg_receivexlog pg_resetxlog pg_restore pg_standby pg_test_fsync pg_test_timing pg_upgrade pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy proj binaries\ncp cs2cs geod invgeod invproj nad2bin proj \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy gdal binaries\ncp gdal_contour gdal_grid gdal_rasterize gdal_translate gdaladdo gdalbuildvrt gdaldem gdalenhance gdalinfo gdallocationinfo gdalmanage gdalserver gdalsrsinfo gdaltindex gdaltransform gdalwarp nearblack ogr2ogr ogrinfo ogrtindex testepsg \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy postgis binaries\ncp pgsql2shp raster2pgsql shp2pgsql \"$EXECUTABLE_TARGET_DIR/bin/\"\n\n# copy dynamic libraries only (no need for static libraries)\ncd \"${ORIG_INSTALL_ROOT}/lib/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -af *.dylib *.so \"$EXECUTABLE_TARGET_DIR/lib/\"\n\n# fix dylib paths\ncd \"$EXECUTABLE_TARGET_DIR\"\nprefix=\"${ORIG_INSTALL_ROOT}\"\nprefix_length=${#prefix}\n    \n# fix library ids\nfor libfile in \"lib/\"*\ndo\n\tlibrary_id=$(otool -D $libfile | grep \"$prefix\");\n\tif [[ -n \"$library_id\" ]]\n\tthen\n        new_library_id=\"@loader_path/..\"${library_id:$prefix_length}\n        install_name_tool -id \"$new_library_id\" \"$libfile\"\n\tfi\ndone\n    \n# fix library references\nfor file in \"lib/\"* \"bin/\"*\ndo\n\tlinked_libs=$(otool -L $file | egrep --only-matching \"\\Q$prefix\\E\\S+\");\n\tfor lib_path in $linked_libs\n\tdo\n        new_lib_path=\"@loader_path/..\"${lib_path:$prefix_length}\n        install_name_tool -change \"$lib_path\" \"$new_lib_path\" $file\n\tdone\ndone";
+			shellScript = "#!/bin/bash\n\nORIG_INSTALL_ROOT=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\nEXECUTABLE_TARGET_DIR=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\n\n# copy binaries\ncd \"${ORIG_INSTALL_ROOT}/bin/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/bin/\"\n# copy postgresql binaries\ncp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg_archivecleanup pg_basebackup pg_config pg_controldata pg_ctl pg_dump pg_dumpall pg_receivexlog pg_resetxlog pg_restore pg_standby pg_test_fsync pg_test_timing pg_upgrade pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy proj binaries\ncp cs2cs geod invgeod invproj nad2bin proj \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy gdal binaries\ncp gdal_contour gdal_grid gdal_rasterize gdal_translate gdaladdo gdalbuildvrt gdaldem gdalenhance gdalinfo gdallocationinfo gdalmanage gdalserver gdalsrsinfo gdaltindex gdaltransform gdalwarp nearblack ogr2ogr ogrinfo ogrtindex testepsg \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy postgis binaries\ncp pgsql2shp raster2pgsql shp2pgsql \"$EXECUTABLE_TARGET_DIR/bin/\"\n\n# copy dynamic libraries only (no need for static libraries)\ncd \"${ORIG_INSTALL_ROOT}/lib/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -af *.dylib *.so \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -afR pgxs \"$EXECUTABLE_TARGET_DIR/lib/\"\n\n#copy include, share\ncp -afR \"${ORIG_INSTALL_ROOT}/include\" \"${ORIG_INSTALL_ROOT}/share\" \"$EXECUTABLE_TARGET_DIR/\"\n\n# fix dylib paths\ncd \"$EXECUTABLE_TARGET_DIR\"\nprefix=\"${ORIG_INSTALL_ROOT}\"\nprefix_length=${#prefix}\n    \n# fix library ids\nfor libfile in \"lib/\"*\ndo\n\tlibrary_id=$(otool -D $libfile | grep \"$prefix\");\n\tif [[ -n \"$library_id\" ]]\n\tthen\n        new_library_id=\"@loader_path/..\"${library_id:$prefix_length}\n        install_name_tool -id \"$new_library_id\" \"$libfile\"\n\tfi\ndone\n    \n# fix library references\nfor file in \"lib/\"* \"bin/\"*\ndo\n\tlinked_libs=$(otool -L $file | egrep --only-matching \"\\Q$prefix\\E\\S+\");\n\tfor lib_path in $linked_libs\n\tdo\n        new_lib_path=\"@loader_path/..\"${lib_path:$prefix_length}\n        install_name_tool -change \"$lib_path\" \"$new_lib_path\" $file\n\tdone\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -930,9 +888,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRESAPP_BUILD_VERSION = 12;
-				POSTGRESAPP_MINOR_VERSION = 0;
-				POSTGRES_VERSION = 9.3.0;
+				POSTGRESAPP_BUILD_VERSION = 15;
+				POSTGRESAPP_MINOR_VERSION = 1;
+				POSTGRES_VERSION = 9.3RC1;
 				SDKROOT = macosx10.7;
 			};
 			name = Debug;
@@ -947,16 +905,16 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "PG_VERSION=\"9.3.0\"";
+				GCC_PREPROCESSOR_DEFINITIONS = "PG_VERSION=\"$POSTGRES_VERSION\"";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRESAPP_BUILD_VERSION = 12;
-				POSTGRESAPP_MINOR_VERSION = 0;
-				POSTGRES_VERSION = 9.3.0;
+				POSTGRESAPP_BUILD_VERSION = 15;
+				POSTGRESAPP_MINOR_VERSION = 1;
+				POSTGRES_VERSION = 9.3RC1;
 				SDKROOT = macosx10.7;
 			};
 			name = Release;
