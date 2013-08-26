@@ -6,196 +6,11 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		3609051B172147B6002FBC53 /* openssl */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 3609051E172147B6002FBC53 /* Build configuration list for PBXAggregateTarget "openssl" */;
-			buildPhases = (
-				3609051F172147C1002FBC53 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = openssl;
-			productName = openssl;
-		};
-		F802E6621730A780005EFEA5 /* libuuid */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F802E6651730A780005EFEA5 /* Build configuration list for PBXAggregateTarget "libuuid" */;
-			buildPhases = (
-				F802E6661730A785005EFEA5 /* Download, Configure, and Install libuuid */,
-			);
-			dependencies = (
-			);
-			name = libuuid;
-			productName = "ossp-uuid";
-		};
-		F802E6691730AB6D005EFEA5 /* libxml2 */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F802E66A1730AB6D005EFEA5 /* Build configuration list for PBXAggregateTarget "libxml2" */;
-			buildPhases = (
-				F802E66D1730AB76005EFEA5 /* Download, Configure, and Install libxml2 */,
-			);
-			dependencies = (
-			);
-			name = libxml2;
-			productName = libxml2;
-		};
-		F80534FF15388AD6000E1BAC /* postgres-binaries */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */;
-			buildPhases = (
-			);
-			dependencies = (
-				F8273EF7156AC98A00199DA0 /* PBXTargetDependency */,
-				F8273F58156C151400199DA0 /* PBXTargetDependency */,
-				F8BE0C6F15A4C66A00139A21 /* PBXTargetDependency */,
-				F802E6681730AACB005EFEA5 /* PBXTargetDependency */,
-				F802E66F1730AC62005EFEA5 /* PBXTargetDependency */,
-				F8A12F0715474E3B009AFF07 /* PBXTargetDependency */,
-				F805351615388AFB000E1BAC /* PBXTargetDependency */,
-				F805351815388AFB000E1BAC /* PBXTargetDependency */,
-				F805351415388AFB000E1BAC /* PBXTargetDependency */,
-			);
-			name = "postgres-binaries";
-			productName = "postgres-binaries";
-		};
-		F805350315388AE4000E1BAC /* postgresql */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgresql" */;
-			buildPhases = (
-				F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */,
-			);
-			dependencies = (
-				36AEBA961721582D003B4CB9 /* PBXTargetDependency */,
-			);
-			name = postgresql;
-			productName = postgres;
-		};
-		F805350715388AEC000E1BAC /* geos */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F805350815388AEC000E1BAC /* Build configuration list for PBXAggregateTarget "geos" */;
-			buildPhases = (
-				F805351C15388B2A000E1BAC /* Download, Build, & Install geos */,
-			);
-			dependencies = (
-			);
-			name = geos;
-			productName = geos;
-		};
-		F805350B15388AF0000E1BAC /* proj */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F805350C15388AF0000E1BAC /* Build configuration list for PBXAggregateTarget "proj" */;
-			buildPhases = (
-				F805351D15388B54000E1BAC /* Download, Build, & Install proj */,
-			);
-			dependencies = (
-			);
-			name = proj;
-			productName = proj;
-		};
-		F805350F15388AF3000E1BAC /* postgis */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */;
-			buildPhases = (
-				F805351F15388B74000E1BAC /* Download, Build, & Install postgis */,
-				F802E6701730B1B5005EFEA5 /* Build & Install liblwgeom */,
-			);
-			dependencies = (
-			);
-			name = postgis;
-			productName = postgis;
-		};
-		F8273EF0156AC7B900199DA0 /* libedit */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8273EF3156AC7B900199DA0 /* Build configuration list for PBXAggregateTarget "libedit" */;
-			buildPhases = (
-				F8273EF5156AC7C200199DA0 /* Download, Build, & Install libedit */,
-			);
-			dependencies = (
-			);
-			name = libedit;
-			productName = libedit;
-		};
-		F8273EF8156ACA1300199DA0 /* postgres-extensions */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8273EF9156ACA1300199DA0 /* Build configuration list for PBXAggregateTarget "postgres-extensions" */;
-			buildPhases = (
-			);
-			dependencies = (
-				F8273EFF156ACA3100199DA0 /* PBXTargetDependency */,
-				F8273EFD156ACA3100199DA0 /* PBXTargetDependency */,
-			);
-			name = "postgres-extensions";
-			productName = "pg-extensions";
-		};
-		F8273F51156C130A00199DA0 /* libjasper */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8273F54156C130A00199DA0 /* Build configuration list for PBXAggregateTarget "libjasper" */;
-			buildPhases = (
-				F8273F56156C131400199DA0 /* Download, Build, & Install libjasper */,
-			);
-			dependencies = (
-			);
-			name = libjasper;
-			productName = libjasper;
-		};
-		F8A544331566B85900997555 /* plv8 */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8A544361566B85900997555 /* Build configuration list for PBXAggregateTarget "plv8" */;
-			buildPhases = (
-				F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */,
-				F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */,
-				F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */,
-			);
-			dependencies = (
-			);
-			name = plv8;
-			productName = v8;
-		};
-		F8B05E24153E43D900A8D53A /* gdal */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8B05E25153E43D900A8D53A /* Build configuration list for PBXAggregateTarget "gdal" */;
-			buildPhases = (
-				F8B05E28153E43DD00A8D53A /* Download, Build, & Install gdal */,
-			);
-			dependencies = (
-			);
-			name = gdal;
-			productName = gdal;
-		};
-		F8B988B0159CCE2700EF7944 /* postgres-dylib-linker */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8B988B1159CCE2700EF7944 /* Build configuration list for PBXAggregateTarget "postgres-dylib-linker" */;
-			buildPhases = (
-				F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */,
-			);
-			dependencies = (
-			);
-			name = "postgres-dylib-linker";
-			productName = "postgres-dylib-linker";
-		};
-		F8BE0C6815A4C60100139A21 /* libjpeg */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F8BE0C6B15A4C60100139A21 /* Build configuration list for PBXAggregateTarget "libjpeg" */;
-			buildPhases = (
-				F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */,
-			);
-			dependencies = (
-			);
-			name = libjpeg;
-			productName = libjpeg;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
 		0710E97E1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
 		0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
 		0710E9801639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
-		F80534FB1538884E000E1BAC /* bin in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
-		F80534FC1538884E000E1BAC /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
-		F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
-		F80534FE1538884E000E1BAC /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
@@ -236,10 +51,6 @@
 		F8A4B50B15735C6E003C00F5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8973A211538846600EAB41E /* MainMenu.xib */; };
 		F8A4B50D15735C6E003C00F5 /* PostgresStatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */; };
 		F8A4B50E15735C6E003C00F5 /* Postgres.icns in Resources */ = {isa = PBXBuildFile; fileRef = F884C919153CA24400CDCB09 /* Postgres.icns */; };
-		F8A4B51115735C6E003C00F5 /* bin in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F31538884A000E1BAC /* bin */; };
-		F8A4B51215735C6E003C00F5 /* include in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F41538884A000E1BAC /* include */; };
-		F8A4B51315735C6E003C00F5 /* lib in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F51538884A000E1BAC /* lib */; };
-		F8A4B51415735C6E003C00F5 /* share in Copy postgres Executables */ = {isa = PBXBuildFile; fileRef = F80534F61538884A000E1BAC /* share */; };
 		F8A4B51615735C6E003C00F5 /* com.heroku.postgres-service.xpc in Copy XPC Service */ = {isa = PBXBuildFile; fileRef = F8973A3C1538851D00EAB41E /* com.heroku.postgres-service.xpc */; };
 		F8A4B51815735C6E003C00F5 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
 		F8A4B56C15735F26003C00F5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A4B56B15735F26003C00F5 /* Sparkle.framework */; };
@@ -251,75 +62,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		36AEBA951721582D003B4CB9 /* PBXContainerItemProxy */ = {
+		3671343917C90049003BBA08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3609051B172147B6002FBC53;
-			remoteInfo = openssl;
+			remoteGlobalIDString = 3671343217C8FE9A003BBA08;
+			remoteInfo = postgresql;
 		};
-		F802E6671730AACB005EFEA5 /* PBXContainerItemProxy */ = {
+		3671343C17C92943003BBA08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F802E6621730A780005EFEA5;
-			remoteInfo = uuid;
-		};
-		F802E66E1730AC62005EFEA5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F802E6691730AB6D005EFEA5;
-			remoteInfo = libxml2;
-		};
-		F805351315388AFB000E1BAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F805350315388AE4000E1BAC;
-			remoteInfo = postgres;
-		};
-		F805351515388AFB000E1BAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F805350715388AEC000E1BAC;
-			remoteInfo = geos;
-		};
-		F805351715388AFB000E1BAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F805350B15388AF0000E1BAC;
-			remoteInfo = proj;
-		};
-		F8273EF6156AC98A00199DA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8273EF0156AC7B900199DA0;
-			remoteInfo = libedit;
-		};
-		F8273EFC156ACA3100199DA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F805350F15388AF3000E1BAC;
-			remoteInfo = postgis;
-		};
-		F8273EFE156ACA3100199DA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8A544331566B85900997555;
-			remoteInfo = v8;
-		};
-		F8273F57156C151400199DA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8273F51156C130A00199DA0;
-			remoteInfo = libjasper;
+			remoteGlobalIDString = 3671343217C8FE9A003BBA08;
+			remoteInfo = postgresql;
 		};
 		F87A4285153AB65200456130 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -335,13 +90,6 @@
 			remoteGlobalIDString = F8973A3B1538851D00EAB41E;
 			remoteInfo = "postgres-service";
 		};
-		F8A12F0615474E3B009AFF07 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8B05E24153E43D900A8D53A;
-			remoteInfo = gdal;
-		};
 		F8A4B4FA15735C6E003C00F5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
@@ -356,30 +104,9 @@
 			remoteGlobalIDString = F87A426C153AB60C00456130;
 			remoteInfo = PostgresHelper;
 		};
-		F8BE0C6E15A4C66A00139A21 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8BE0C6815A4C60100139A21;
-			remoteInfo = libjpeg;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F80534EF15388783000E1BAC /* Copy postgres Executables */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				F80534FB1538884E000E1BAC /* bin in Copy postgres Executables */,
-				F80534FC1538884E000E1BAC /* include in Copy postgres Executables */,
-				F80534FD1538884E000E1BAC /* lib in Copy postgres Executables */,
-				F80534FE1538884E000E1BAC /* share in Copy postgres Executables */,
-			);
-			name = "Copy postgres Executables";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F87A4287153AB65800456130 /* Copy Helper Application */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,20 +127,6 @@
 				F8973A52153885BD00EAB41E /* com.heroku.postgres-service.xpc in Copy XPC Service */,
 			);
 			name = "Copy XPC Service";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8A4B51015735C6E003C00F5 /* Copy postgres Executables */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				F8A4B51115735C6E003C00F5 /* bin in Copy postgres Executables */,
-				F8A4B51215735C6E003C00F5 /* include in Copy postgres Executables */,
-				F8A4B51315735C6E003C00F5 /* lib in Copy postgres Executables */,
-				F8A4B51415735C6E003C00F5 /* share in Copy postgres Executables */,
-			);
-			name = "Copy postgres Executables";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F8A4B51515735C6E003C00F5 /* Copy XPC Service */ = {
@@ -454,10 +167,6 @@
 /* Begin PBXFileReference section */
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
-		F80534F31538884A000E1BAC /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bin; path = Postgres/Vendor/postgres/bin; sourceTree = "<group>"; };
-		F80534F41538884A000E1BAC /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Postgres/Vendor/postgres/include; sourceTree = "<group>"; };
-		F80534F51538884A000E1BAC /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Postgres/Vendor/postgres/lib; sourceTree = "<group>"; };
-		F80534F61538884A000E1BAC /* share */ = {isa = PBXFileReference; lastKnownFileType = folder; name = share; path = Postgres/Vendor/postgres/share; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F87A426D153AB60C00456130 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -549,17 +258,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F80534F21538883D000E1BAC /* postgres */ = {
-			isa = PBXGroup;
-			children = (
-				F80534F31538884A000E1BAC /* bin */,
-				F80534F41538884A000E1BAC /* include */,
-				F80534F51538884A000E1BAC /* lib */,
-				F80534F61538884A000E1BAC /* share */,
-			);
-			name = postgres;
-			sourceTree = "<group>";
-		};
 		F87A4267153AB23F00456130 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -698,7 +396,6 @@
 			isa = PBXGroup;
 			children = (
 				F88BDC8315704B22004ECB52 /* NSFileManager+DirectoryLocations */,
-				F80534F21538883D000E1BAC /* postgres */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -723,6 +420,23 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		3671343217C8FE9A003BBA08 /* postgresql */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 3671343317C8FE9A003BBA08 /* Build configuration list for PBXLegacyTarget "postgresql" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "${PROJECT_DIR}/src";
+			dependencies = (
+			);
+			name = postgresql;
+			passBuildSettingsInEnvironment = 1;
+			productName = postgresql;
+		};
+/* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
 		F87A426C153AB60C00456130 /* PostgresHelper */ = {
@@ -749,13 +463,14 @@
 				F8973A041538846600EAB41E /* Sources */,
 				F8973A051538846600EAB41E /* Frameworks */,
 				F8973A061538846600EAB41E /* Resources */,
-				F80534EF15388783000E1BAC /* Copy postgres Executables */,
 				F8973A51153885A100EAB41E /* Copy XPC Service */,
 				F87A4287153AB65800456130 /* Copy Helper Application */,
+				3671343617C8FFBB003BBA08 /* Copy bin, lib, include, share & fix linking issues */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3671343A17C90049003BBA08 /* PBXTargetDependency */,
 				F8973A4C1538858900EAB41E /* PBXTargetDependency */,
 				F87A4286153AB65200456130 /* PBXTargetDependency */,
 			);
@@ -791,11 +506,12 @@
 				F8A4B50915735C6E003C00F5 /* Resources */,
 				F8A4B51515735C6E003C00F5 /* Copy XPC Service */,
 				F8A4B51715735C6E003C00F5 /* Copy Helper Application */,
-				F8A4B51015735C6E003C00F5 /* Copy postgres Executables */,
+				3671343B17C928FB003BBA08 /* Copy bin, lib, include, share & fix linking issues */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3671343D17C92943003BBA08 /* PBXTargetDependency */,
 				F8A4B4F915735C6E003C00F5 /* PBXTargetDependency */,
 				F8A4B4FB15735C6E003C00F5 /* PBXTargetDependency */,
 			);
@@ -828,21 +544,7 @@
 				F8A4B4F815735C6E003C00F5 /* PostgresApp+Sparkle */,
 				F87A426C153AB60C00456130 /* PostgresHelper */,
 				F8973A3B1538851D00EAB41E /* postgres-service */,
-				F80534FF15388AD6000E1BAC /* postgres-binaries */,
-				F8273EF8156ACA1300199DA0 /* postgres-extensions */,
-				F8B988B0159CCE2700EF7944 /* postgres-dylib-linker */,
-				F8273EF0156AC7B900199DA0 /* libedit */,
-				F8273F51156C130A00199DA0 /* libjasper */,
-				F8BE0C6815A4C60100139A21 /* libjpeg */,
-				F802E6621730A780005EFEA5 /* libuuid */,
-				F802E6691730AB6D005EFEA5 /* libxml2 */,
-				F805350315388AE4000E1BAC /* postgresql */,
-				3609051B172147B6002FBC53 /* openssl */,
-				F805350715388AEC000E1BAC /* geos */,
-				F8B05E24153E43D900A8D53A /* gdal */,
-				F805350B15388AF0000E1BAC /* proj */,
-				F805350F15388AF3000E1BAC /* postgis */,
-				F8A544331566B85900997555 /* plv8 */,
+				3671343217C8FE9A003BBA08 /* postgresql */,
 			);
 		};
 /* End PBXProject section */
@@ -900,228 +602,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3609051F172147C1002FBC53 /* ShellScript */ = {
+		3671343617C8FFBB003BBA08 /* Copy bin, lib, include, share & fix linking issues */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Copy bin, lib, include, share & fix linking issues";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $OPENSSL_VERSION defined in Build Settings\n\n/usr/bin/curl --silent --show-error --remote-name \"http://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"openssl-${OPENSSL_VERSION}.tar.gz\"\n\ncd \"openssl-${OPENSSL_VERSION}\"\n\nsh ./Configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" darwin64-x86_64-cc zlib no-asm no-krb5 shared\n/usr/bin/make && /usr/bin/make install\n";
+			shellPath = /bin/bash;
+			shellScript = "#!/bin/bash\n\nORIG_INSTALL_ROOT=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\nEXECUTABLE_TARGET_DIR=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\n\n# copy binaries\ncd \"${ORIG_INSTALL_ROOT}/bin/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/bin/\"\n# copy postgresql binaries\ncp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg_archivecleanup pg_basebackup pg_config pg_controldata pg_ctl pg_dump pg_dumpall pg_receivexlog pg_resetxlog pg_restore pg_standby pg_test_fsync pg_test_timing pg_upgrade pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy proj binaries\ncp cs2cs geod invgeod invproj nad2bin proj \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy gdal binaries\ncp gdal_contour gdal_grid gdal_rasterize gdal_translate gdaladdo gdalbuildvrt gdaldem gdalenhance gdalinfo gdallocationinfo gdalmanage gdalserver gdalsrsinfo gdaltindex gdaltransform gdalwarp nearblack ogr2ogr ogrinfo ogrtindex testepsg \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy postgis binaries\ncp pgsql2shp raster2pgsql shp2pgsql \"$EXECUTABLE_TARGET_DIR/bin/\"\n\n# copy dynamic libraries only (no need for static libraries)\ncd \"${ORIG_INSTALL_ROOT}/lib/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -af *.dylib *.so \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -afR pgxs \"$EXECUTABLE_TARGET_DIR/lib/\"\n\n#copy include, share\ncp -afR \"${ORIG_INSTALL_ROOT}/include\" \"${ORIG_INSTALL_ROOT}/share\" \"$EXECUTABLE_TARGET_DIR/\"\n\n# fix dylib paths\ncd \"$EXECUTABLE_TARGET_DIR\"\nprefix=\"${ORIG_INSTALL_ROOT}\"\nprefix_length=${#prefix}\n    \n# fix library ids\nfor libfile in \"lib/\"*\ndo\n\tlibrary_id=$(otool -D $libfile | grep \"$prefix\");\n\tif [[ -n \"$library_id\" ]]\n\tthen\n        new_library_id=\"@loader_path/..\"${library_id:$prefix_length}\n        install_name_tool -id \"$new_library_id\" \"$libfile\"\n\tfi\ndone\n    \n# fix library references\nfor file in \"lib/\"* \"bin/\"*\ndo\n\tlinked_libs=$(otool -L $file | egrep --only-matching \"\\Q$prefix\\E\\S+\");\n\tfor lib_path in $linked_libs\n\tdo\n        new_lib_path=\"@loader_path/..\"${lib_path:$prefix_length}\n        install_name_tool -change \"$lib_path\" \"$new_lib_path\" $file\n\tdone\ndone";
 		};
-		F802E6661730A785005EFEA5 /* Download, Configure, and Install libuuid */ = {
+		3671343B17C928FB003BBA08 /* Copy bin, lib, include, share & fix linking issues */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Download, Configure, and Install libuuid";
+			name = "Copy bin, lib, include, share & fix linking issues";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $LIBUUID_VERSION defined in Build Settings\n\n/usr/bin/curl -O \"http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-${LIBUUID_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"uuid-${LIBUUID_VERSION}.tar.gz\"\n\ncd \"uuid-${LIBUUID_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug\n/usr/bin/make\n/usr/bin/make install\n";
-		};
-		F802E66D1730AB76005EFEA5 /* Download, Configure, and Install libxml2 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Configure, and Install libxml2";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $LIBXML2_VERSION defined in Build Settings\n\n/usr/bin/curl -O \"ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"libxml2-${LIBXML2_VERSION}.tar.gz\"\n\ncd libxml2-${LIBXML2_VERSION}\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-dependency-tracking\n/usr/bin/make install";
-		};
-		F802E6701730B1B5005EFEA5 /* Build & Install liblwgeom */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Build & Install liblwgeom";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $POSTGIS_VERSION defined in Build Settings\n\ncd \"postgis-${POSTGIS_VERSION}/liblwgeom\"\n\n/usr/bin/sed -i -e 's/\\/usr\\/local$/\\${PROJECT_DIR}\\/Postgres\\/Vendor\\/postgres\\//g' Makefile\n\n/usr/bin/make install\n";
-		};
-		F805351B15388B0A000E1BAC /* Download, Build, & Install postgres */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install postgres";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $POSTGRES_VERSION defined in Build Settings\n/usr/bin/curl -O \"http://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"postgresql-${POSTGRES_VERSION}.tar.bz2\"\ncd \"postgresql-${POSTGRES_VERSION}\"\n\n# the --with-includes and --with-libraries options are necessary so that postgres will be compiled and linked against\n# our own versions of libraries like openssl, instead of the system provided ones\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-includes=\"${PROJECT_DIR}/Postgres/Vendor/postgres/include\" --with-libraries=\"${PROJECT_DIR}/Postgres/Vendor/postgres/lib\" --enable-thread-safety --without-docdir --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python\n/usr/bin/make install-world\n";
-		};
-		F805351C15388B2A000E1BAC /* Download, Build, & Install geos */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install geos";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $GEOS_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/geos/geos-${GEOS_VERSION}.tar.bz2\"\n/usr/bin/tar xzf \"geos-${GEOS_VERSION}.tar.bz2\"\n\ncd \"geos-${GEOS_VERSION}\"\n\n/usr/bin/sed -i -e 's/@CFLAGS@$/@CFLAGS@ -O1/g' ./src/geom/Makefile.in\n/usr/bin/sed -i -e 's/@CXXFLAGS@$/@CXXFLAGS@ -O1/g' ./src/geom/Makefile.in\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
-		};
-		F805351D15388B54000E1BAC /* Download, Build, & Install proj */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install proj";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\nexport PROJ_VERSION=\"4.8.0\"\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"proj-${PROJ_VERSION}.tar.gz\"\n\nexport DATUMGRID_VERSION=\"1.5\"\n\n/usr/bin/curl -O \"http://download.osgeo.org/proj/proj-datumgrid-${DATUMGRID_VERSION}.zip\"\n/usr/bin/unzip -o \"proj-datumgrid-${DATUMGRID_VERSION}.zip\" -d \"./proj-${PROJ_VERSION}/nad\"\n\ncd \"proj-${PROJ_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
-		};
-		F805351F15388B74000E1BAC /* Download, Build, & Install postgis */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install postgis";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $POSTGIS_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://postgis.org/download/postgis-${POSTGIS_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"postgis-${POSTGIS_VERSION}.tar.gz\"\ncd \"postgis-${POSTGIS_VERSION}\"\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-pgconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/pg_config\" --with-geosconfig=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/geos-config\" --with-projdir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --with-gdaldir=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n\n/usr/bin/make\n/usr/bin/make install\n";
-		};
-		F8273EF5156AC7C200199DA0 /* Download, Build, & Install libedit */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install libedit";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $LIBEDIT_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://www.thrysoee.dk/editline/libedit-${LIBEDIT_VERSION}.tar.gz\"\n/usr/bin/tar xzf \"libedit-${LIBEDIT_VERSION}.tar.gz\"\n\ncd \"libedit-${LIBEDIT_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
-		};
-		F8273F56156C131400199DA0 /* Download, Build, & Install libjasper */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install libjasper";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $LIBJASPER_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://www.ece.uvic.ca/~frodo/jasper/software/jasper-${LIBJASPER_VERSION}.zip\"\n/usr/bin/unzip -o \"jasper-${LIBJASPER_VERSION}.zip\"\n\ncd \"jasper-${LIBJASPER_VERSION}\"\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic\n/usr/bin/make install\n";
-		};
-		F8AEBF1C1566EF6F006BC0B8 /* Fix dylib Loading Path for plv8.so */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix dylib Loading Path for plv8.so";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n/usr/bin/install_name_tool -change libv8.dylib \"/Applications/Postgres.app/Contents/MacOS/lib/libv8.dylib\" \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/plv8.so\"\n";
-		};
-		F8B05E28153E43DD00A8D53A /* Download, Build, & Install gdal */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install gdal";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $GDAL_VERSION defined in Build Settings\n\n/usr/bin/curl -L10 -O \"http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-1.10.0.tar.gz\"\n/usr/bin/tar xzf \"gdal-${GDAL_VERSION}.tar.gz\"\n\ncd \"gdal-${GDAL_VERSION}\"\n\nsh ./autogen.sh\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\n/usr/bin/make install\n";
-		};
-		F8B988B4159CCE2B00EF7944 /* Fix DYLIB Paths for Binaries */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix DYLIB Paths for Binaries";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport LC_RPATH=\"@executable_path\"\n\ndirectories=( \"bin\" \"lib\" )\nfor directory in ${directories[@]}\ndo\n  cd \"${PROJECT_DIR}/Postgres/Vendor/postgres/${directory}\"\n  for file in *\n  do\n    # openssl libraries are installed read-only, so make sure we can write to them\n    chmod u+w $file\n\n    basename=`basename $file`\n    if [[ $file == *.dylib ]]\n    then\n      /usr/bin/install_name_tool -id \"/Applications/Postgres.app/Contents/MacOS/lib/${basename}\" $file\n    fi\n\n    libs=( \"libpq.5.dylib\" \"libproj.0.dylib\" \"libgdal.dylib\" \"libgdal.1.dylib\" \"libgeos_c.1.dylib\" \"libgeos-3.3.5.dylib\" \"libv8.dylib\" \"libecpg.6.dylib\" \"libecpg_compat.3.dylib\" \"libedit.0.dylib\" \"libpgtypes.3.dylib\" \"libjasper.1.dylib\" \"libjpeg.8.dylib\" \"libssl.1.0.0.dylib\" \"libcrypto.1.0.0.dylib\" \"libuuid.16.dylib\" \"libxml2.dylib\" )\n    for lib in ${libs[@]}\n    do\n      /usr/bin/install_name_tool -add_rpath \"@rpath/lib/${lib}\" $file\n      /usr/bin/install_name_tool -change \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/${lib}\" \"@executable_path/../lib/${lib}\" $file\n    done\n\n    /usr/bin/install_name_tool -change \"/usr/lib/libedit.3.dylib\" \"@executable_path/../lib/libedit.3.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/liblwgeom-2.0.0.dylib\" \"@executable_path/../lib/liblwgeom-2.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjasper.1.0.0.dylib\" \"@executable_path/../lib/libjasper.1.0.0.dylib\" $file\n    /usr/bin/install_name_tool -change \"/usr/local/lib/libjpeg.8.dylib\" \"@executable_path/../lib/libjpeg.8.dylib\" $file\n  done\ndone\n";
-		};
-		F8BE0C6D15A4C61400139A21 /* Download, Build, and Install libjpeg */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, and Install libjpeg";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/curl -O \"http://www.ijg.org/files/jpegsrc.v8d.tar.gz\"\n/usr/bin/tar xzf jpegsrc.v8d.tar.gz\ncd jpeg-8d\n\nsh ./configure --prefix=\"${PROJECT_DIR}/Postgres/Vendor/postgres\" --disable-dependency-tracking\n/usr/bin/make install\n";
-		};
-		F8DE00BB1566C4C9003BEB10 /* Download & Build v8 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download & Build v8";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n# $V8_VERSION defined in Build Settings\nsvn checkout \"http://v8.googlecode.com/svn/branches/$V8_VERSION/\" \"v8-${V8_VERSION}\"\n\ncd \"v8-${V8_VERSION}\"\n\nexport CC=clang\nexport CXX=clang++\nexport GYP_DEFINES=\"clang=1\"\n\nmake dependencies\nmake -j 2 library=shared x64.release\n\ncp out/x64.release/libv8.dylib \"${PROJECT_DIR}/Postgres/Vendor/postgres/lib/\"\n";
-		};
-		F8DE00BC1566C4EB003BEB10 /* Download, Build, & Install plv8 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download, Build, & Install plv8";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nmkdir -p ${PROJECT_DIR}/src\ncd ${PROJECT_DIR}/src\n\n/usr/bin/git clone \"https://code.google.com/p/plv8js/\" -q\ncd plv8js\n\nexport PATH=\"${PROJECT_DIR}/Postgres/Vendor/postgres/bin/:${PATH}\"\nexport PGHOME=\"${PROJECT_DIR}/Postgres/Vendor/postgres/\"\n\nexport CC=clang\nexport CXX=clang++\n\nexport V8_SRCDIR=\"../v8-${V8_VERSION}\"\n\n/usr/bin/make install\n";
+			shellPath = /bin/bash;
+			shellScript = "#!/bin/bash\n\nORIG_INSTALL_ROOT=\"${PROJECT_DIR}/Postgres/Vendor/postgres\"\nEXECUTABLE_TARGET_DIR=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\n\n# copy binaries\ncd \"${ORIG_INSTALL_ROOT}/bin/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/bin/\"\n# copy postgresql binaries\ncp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg_archivecleanup pg_basebackup pg_config pg_controldata pg_ctl pg_dump pg_dumpall pg_receivexlog pg_resetxlog pg_restore pg_standby pg_test_fsync pg_test_timing pg_upgrade pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy proj binaries\ncp cs2cs geod invgeod invproj nad2bin proj \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy gdal binaries\ncp gdal_contour gdal_grid gdal_rasterize gdal_translate gdaladdo gdalbuildvrt gdaldem gdalenhance gdalinfo gdallocationinfo gdalmanage gdalserver gdalsrsinfo gdaltindex gdaltransform gdalwarp nearblack ogr2ogr ogrinfo ogrtindex testepsg \"$EXECUTABLE_TARGET_DIR/bin/\"\n#copy postgis binaries\ncp pgsql2shp raster2pgsql shp2pgsql \"$EXECUTABLE_TARGET_DIR/bin/\"\n\n# copy dynamic libraries only (no need for static libraries)\ncd \"${ORIG_INSTALL_ROOT}/lib/\"\nmkdir -p \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -af *.dylib *.so \"$EXECUTABLE_TARGET_DIR/lib/\"\ncp -afR pgxs \"$EXECUTABLE_TARGET_DIR/lib/\"\n\n#copy include, share\ncp -afR \"${ORIG_INSTALL_ROOT}/include\" \"${ORIG_INSTALL_ROOT}/share\" \"$EXECUTABLE_TARGET_DIR/\"\n\n# fix dylib paths\ncd \"$EXECUTABLE_TARGET_DIR\"\nprefix=\"${ORIG_INSTALL_ROOT}\"\nprefix_length=${#prefix}\n    \n# fix library ids\nfor libfile in \"lib/\"*\ndo\n\tlibrary_id=$(otool -D $libfile | grep \"$prefix\");\n\tif [[ -n \"$library_id\" ]]\n\tthen\n        new_library_id=\"@loader_path/..\"${library_id:$prefix_length}\n        install_name_tool -id \"$new_library_id\" \"$libfile\"\n\tfi\ndone\n    \n# fix library references\nfor file in \"lib/\"* \"bin/\"*\ndo\n\tlinked_libs=$(otool -L $file | egrep --only-matching \"\\Q$prefix\\E\\S+\");\n\tfor lib_path in $linked_libs\n\tdo\n        new_lib_path=\"@loader_path/..\"${lib_path:$prefix_length}\n        install_name_tool -change \"$lib_path\" \"$new_lib_path\" $file\n\tdone\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1174,55 +681,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		36AEBA961721582D003B4CB9 /* PBXTargetDependency */ = {
+		3671343A17C90049003BBA08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3609051B172147B6002FBC53 /* openssl */;
-			targetProxy = 36AEBA951721582D003B4CB9 /* PBXContainerItemProxy */;
+			target = 3671343217C8FE9A003BBA08 /* postgresql */;
+			targetProxy = 3671343917C90049003BBA08 /* PBXContainerItemProxy */;
 		};
-		F802E6681730AACB005EFEA5 /* PBXTargetDependency */ = {
+		3671343D17C92943003BBA08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F802E6621730A780005EFEA5 /* libuuid */;
-			targetProxy = F802E6671730AACB005EFEA5 /* PBXContainerItemProxy */;
-		};
-		F802E66F1730AC62005EFEA5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F802E6691730AB6D005EFEA5 /* libxml2 */;
-			targetProxy = F802E66E1730AC62005EFEA5 /* PBXContainerItemProxy */;
-		};
-		F805351415388AFB000E1BAC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F805350315388AE4000E1BAC /* postgresql */;
-			targetProxy = F805351315388AFB000E1BAC /* PBXContainerItemProxy */;
-		};
-		F805351615388AFB000E1BAC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F805350715388AEC000E1BAC /* geos */;
-			targetProxy = F805351515388AFB000E1BAC /* PBXContainerItemProxy */;
-		};
-		F805351815388AFB000E1BAC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F805350B15388AF0000E1BAC /* proj */;
-			targetProxy = F805351715388AFB000E1BAC /* PBXContainerItemProxy */;
-		};
-		F8273EF7156AC98A00199DA0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8273EF0156AC7B900199DA0 /* libedit */;
-			targetProxy = F8273EF6156AC98A00199DA0 /* PBXContainerItemProxy */;
-		};
-		F8273EFD156ACA3100199DA0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F805350F15388AF3000E1BAC /* postgis */;
-			targetProxy = F8273EFC156ACA3100199DA0 /* PBXContainerItemProxy */;
-		};
-		F8273EFF156ACA3100199DA0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8A544331566B85900997555 /* plv8 */;
-			targetProxy = F8273EFE156ACA3100199DA0 /* PBXContainerItemProxy */;
-		};
-		F8273F58156C151400199DA0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8273F51156C130A00199DA0 /* libjasper */;
-			targetProxy = F8273F57156C151400199DA0 /* PBXContainerItemProxy */;
+			target = 3671343217C8FE9A003BBA08 /* postgresql */;
+			targetProxy = 3671343C17C92943003BBA08 /* PBXContainerItemProxy */;
 		};
 		F87A4286153AB65200456130 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1234,11 +701,6 @@
 			target = F8973A3B1538851D00EAB41E /* postgres-service */;
 			targetProxy = F8973A4B1538858900EAB41E /* PBXContainerItemProxy */;
 		};
-		F8A12F0715474E3B009AFF07 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8B05E24153E43D900A8D53A /* gdal */;
-			targetProxy = F8A12F0615474E3B009AFF07 /* PBXContainerItemProxy */;
-		};
 		F8A4B4F915735C6E003C00F5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8973A3B1538851D00EAB41E /* postgres-service */;
@@ -1248,11 +710,6 @@
 			isa = PBXTargetDependency;
 			target = F87A426C153AB60C00456130 /* PostgresHelper */;
 			targetProxy = F8A4B4FC15735C6E003C00F5 /* PBXContainerItemProxy */;
-		};
-		F8BE0C6F15A4C66A00139A21 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8BE0C6815A4C60100139A21 /* libjpeg */;
-			targetProxy = F8BE0C6E15A4C66A00139A21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1332,205 +789,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3609051C172147B6002FBC53 /* Debug */ = {
+		3671343417C8FE9A003BBA08 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OPENSSL_VERSION = 1.0.1e;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
-		3609051D172147B6002FBC53 /* Release */ = {
+		3671343517C8FE9A003BBA08 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OPENSSL_VERSION = 1.0.1e;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		F802E6631730A780005EFEA5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LIBUUID_VERSION = 1.6.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		F802E6641730A780005EFEA5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LIBUUID_VERSION = 1.6.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		F802E66B1730AB6D005EFEA5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LIBXML2_VERSION = 2.7.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		F802E66C1730AB6D005EFEA5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LIBXML2_VERSION = 2.7.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		F805350115388AD6000E1BAC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				OTHER_LDFLAGS = "-headerpad_max_install_names";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F805350215388AD6000E1BAC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				OTHER_LDFLAGS = "-headerpad_max_install_names";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F805350515388AE5000E1BAC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F805350615388AE5000E1BAC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F805350915388AEC000E1BAC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GEOS_VERSION = 3.3.5;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F805350A15388AEC000E1BAC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GEOS_VERSION = 3.3.5;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F805350D15388AF0000E1BAC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F805350E15388AF0000E1BAC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F805351115388AF3000E1BAC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				POSTGIS_VERSION = 2.0.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F805351215388AF3000E1BAC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				POSTGIS_VERSION = 2.0.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F8273EF1156AC7B900199DA0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				LIBEDIT_VERSION = "20120601-3.0";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F8273EF2156AC7B900199DA0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				LIBEDIT_VERSION = "20120601-3.0";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F8273EFA156ACA1300199DA0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F8273EFB156ACA1300199DA0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F8273F52156C130A00199DA0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				LIBJASPER_VERSION = 1.900.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F8273F53156C130A00199DA0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				LIBJASPER_VERSION = 1.900.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1588,8 +888,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRESAPP_BUILD_VERSION = 12;
-				POSTGRESAPP_MINOR_VERSION = 0;
+				POSTGRESAPP_BUILD_VERSION = 14;
+				POSTGRESAPP_MINOR_VERSION = 3;
 				POSTGRES_VERSION = 9.2.4;
 				SDKROOT = macosx10.7;
 			};
@@ -1612,8 +912,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRESAPP_BUILD_VERSION = 12;
-				POSTGRESAPP_MINOR_VERSION = 0;
+				POSTGRESAPP_BUILD_VERSION = 14;
+				POSTGRESAPP_MINOR_VERSION = 3;
 				POSTGRES_VERSION = 9.2.4;
 				SDKROOT = macosx10.7;
 			};
@@ -1622,7 +922,6 @@
 		F8973A271538846600EAB41E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
@@ -1638,7 +937,6 @@
 		F8973A281538846600EAB41E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
@@ -1727,182 +1025,14 @@
 			};
 			name = Release;
 		};
-		F8A544341566B85900997555 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-				V8_VERSION = 3.16;
-			};
-			name = Debug;
-		};
-		F8A544351566B85900997555 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-				V8_VERSION = 3.16;
-			};
-			name = Release;
-		};
-		F8B05E26153E43D900A8D53A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GDAL_VERSION = 1.10.0;
-				OTHER_LDFLAGS = "-headerpad_max_install_names";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F8B05E27153E43D900A8D53A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GDAL_VERSION = 1.10.0;
-				OTHER_LDFLAGS = "-headerpad_max_install_names";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F8B988B2159CCE2700EF7944 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F8B988B3159CCE2700EF7944 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
-		F8BE0C6915A4C60100139A21 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Debug;
-		};
-		F8BE0C6A15A4C60100139A21 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3609051E172147B6002FBC53 /* Build configuration list for PBXAggregateTarget "openssl" */ = {
+		3671343317C8FE9A003BBA08 /* Build configuration list for PBXLegacyTarget "postgresql" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3609051C172147B6002FBC53 /* Debug */,
-				3609051D172147B6002FBC53 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F802E6651730A780005EFEA5 /* Build configuration list for PBXAggregateTarget "libuuid" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F802E6631730A780005EFEA5 /* Debug */,
-				F802E6641730A780005EFEA5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F802E66A1730AB6D005EFEA5 /* Build configuration list for PBXAggregateTarget "libxml2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F802E66B1730AB6D005EFEA5 /* Debug */,
-				F802E66C1730AB6D005EFEA5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F805350015388AD6000E1BAC /* Build configuration list for PBXAggregateTarget "postgres-binaries" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F805350115388AD6000E1BAC /* Debug */,
-				F805350215388AD6000E1BAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F805350415388AE5000E1BAC /* Build configuration list for PBXAggregateTarget "postgresql" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F805350515388AE5000E1BAC /* Debug */,
-				F805350615388AE5000E1BAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F805350815388AEC000E1BAC /* Build configuration list for PBXAggregateTarget "geos" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F805350915388AEC000E1BAC /* Debug */,
-				F805350A15388AEC000E1BAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F805350C15388AF0000E1BAC /* Build configuration list for PBXAggregateTarget "proj" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F805350D15388AF0000E1BAC /* Debug */,
-				F805350E15388AF0000E1BAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F805351015388AF3000E1BAC /* Build configuration list for PBXAggregateTarget "postgis" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F805351115388AF3000E1BAC /* Debug */,
-				F805351215388AF3000E1BAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8273EF3156AC7B900199DA0 /* Build configuration list for PBXAggregateTarget "libedit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8273EF1156AC7B900199DA0 /* Debug */,
-				F8273EF2156AC7B900199DA0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8273EF9156ACA1300199DA0 /* Build configuration list for PBXAggregateTarget "postgres-extensions" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8273EFA156ACA1300199DA0 /* Debug */,
-				F8273EFB156ACA1300199DA0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8273F54156C130A00199DA0 /* Build configuration list for PBXAggregateTarget "libjasper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8273F52156C130A00199DA0 /* Debug */,
-				F8273F53156C130A00199DA0 /* Release */,
+				3671343417C8FE9A003BBA08 /* Debug */,
+				3671343517C8FE9A003BBA08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1948,42 +1078,6 @@
 			buildConfigurations = (
 				F8A4B51B15735C6E003C00F5 /* Debug */,
 				F8A4B51C15735C6E003C00F5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8A544361566B85900997555 /* Build configuration list for PBXAggregateTarget "plv8" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8A544341566B85900997555 /* Debug */,
-				F8A544351566B85900997555 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8B05E25153E43D900A8D53A /* Build configuration list for PBXAggregateTarget "gdal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8B05E26153E43D900A8D53A /* Debug */,
-				F8B05E27153E43D900A8D53A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8B988B1159CCE2700EF7944 /* Build configuration list for PBXAggregateTarget "postgres-dylib-linker" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8B988B2159CCE2700EF7944 /* Debug */,
-				F8B988B3159CCE2700EF7944 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F8BE0C6B15A4C60100139A21 /* Build configuration list for PBXAggregateTarget "libjpeg" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F8BE0C6915A4C60100139A21 /* Debug */,
-				F8BE0C6A15A4C60100139A21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

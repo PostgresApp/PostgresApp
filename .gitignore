@@ -1,4 +1,5 @@
-src/
-Postgres/Vendor/postgres/
+src/*
+!src/makefile
+Postgres/Vendor/postgres/*
 .DS_Store
 xcuserdata
