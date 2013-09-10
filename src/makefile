@@ -1,7 +1,7 @@
 # VERSION numbers
 POSTGIS_VERSION=2.1.0
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.3RC1
+POSTGRES_VERSION=9.3.0
 GDAL_VERSION=1.10.0
 GEOS_VERSION=3.3.8
 JPEG_VERSION=8d
@@ -17,8 +17,15 @@ JSONC_VERSION=0.10
 LIBTIFF_VERSION=4.0.3
 
 #path configuration
-PREFIX=$(CURDIR)/../Postgres/Vendor/postgres
+PREFIX=$(shell dirname $(CURDIR))/Postgres/Vendor/postgres
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
+
+#compiler options
+MACOSX_DEPLOYMENT_TARGET=10.7
+CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
+CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
+
+export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 
 # commands used for downloading and extracting sources
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
