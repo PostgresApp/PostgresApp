@@ -4,7 +4,9 @@ Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open 
 
 ## Download
 
-You can download the latest build from the [Postgres.app website](http://postgresapp.com/)
+The latest version is available from the [Postgres.app website](http://postgresapp.com/).
+
+Older versions and pre-releases are available in the releases section on github.
 
 ## Documentation
 
@@ -12,7 +14,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 ## What's Included?
 
-- [PostgreSQL 9.2.4](http://www.postgresql.org/docs/9.2/static/release-9-2-4.html)
+- [PostgreSQL 9.3.0](http://www.postgresql.org/docs/9.3/static/release-9-3.html)
 - [PostGIS 2.1](http://postgis.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 
@@ -23,7 +25,13 @@ Make sure you have `autoconf` and `automake` installed. The quickest way to inst
     sudo port install autoconf automake
 
 Then just open `Postgres.xcodeproj` in Xcode, select the `Postgres` scheme, and click "Build"
+
 XCode will download and build PostgreSQL, PostGIS, and PLV8. Several hundred megabytes of sources will be downloaded and built. This can take an hour or longer, depending on your Internet connection and processor speed.
+
+You can also build the PostgreSQL binaries from the command line.
+To do so, open a Terminal, change to the `src` directory, and type `make`.
+When the build is complete, switch to XCode and build Postgres.app with XCode.
+This makes debugging a lot easier!
 
 ## Under the Hood
 
@@ -44,15 +52,11 @@ See [the documentation](http://postgresapp.com/documentation) for more info.
 
 ## Contact
 
-Created by Mattt Thompson
+If you find a bug, please [open an issue](https://github.com/PostgresApp/PostgresApp/issues).
 
-- http://github.com/mattt
-- http://twitter.com/mattt
-- mattt@heroku.com
+Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Craig Kerstiens](https://github.com/craigkerstiens).
 
-Maintained by Jakob Egger
-
- - jakob@eggerapps.at
+Postgres.app was created by [Mattt Thompson](https://github.com/mattt).
 
 
 ## License

@@ -888,9 +888,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRESAPP_BUILD_VERSION = 14;
-				POSTGRESAPP_MINOR_VERSION = 3;
-				POSTGRES_VERSION = 9.2.4;
+				POSTGRESAPP_BUILD_VERSION = 16;
+				POSTGRESAPP_MINOR_VERSION = 0;
+				POSTGRES_VERSION = 9.3.0;
 				SDKROOT = macosx10.7;
 			};
 			name = Debug;
@@ -912,9 +912,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRESAPP_BUILD_VERSION = 14;
-				POSTGRESAPP_MINOR_VERSION = 3;
-				POSTGRES_VERSION = 9.2.4;
+				POSTGRESAPP_BUILD_VERSION = 16;
+				POSTGRESAPP_MINOR_VERSION = 0;
+				POSTGRES_VERSION = 9.3.0;
 				SDKROOT = macosx10.7;
 			};
 			name = Release;
@@ -922,6 +922,7 @@
 		F8973A271538846600EAB41E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
@@ -937,6 +938,7 @@
 		F8973A281538846600EAB41E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Postgres/Postgres.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
