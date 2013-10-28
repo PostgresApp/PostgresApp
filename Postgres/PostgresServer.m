@@ -77,7 +77,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
     
-    _xpc_connection = xpc_connection_create("com.heroku.postgres-service", dispatch_get_main_queue());
+    _xpc_connection = xpc_connection_create("com.postgresapp.postgres93-service", dispatch_get_main_queue());
 	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {        
         xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
 			return true;

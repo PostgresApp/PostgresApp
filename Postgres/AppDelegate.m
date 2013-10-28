@@ -37,7 +37,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     BOOL flag = NO;
     NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
     for (NSDictionary *job in jobs) {
-        if ([[job valueForKey:@"Label"] isEqualToString:@"com.heroku.PostgresHelper"]) {
+        if ([[job valueForKey:@"Label"] isEqualToString:@"com.postgresapp.Postgres93Helper"]) {
             flag = YES;
         }
     }
@@ -64,6 +64,9 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+	
+	[self validateBundleLocation];
+		
 #ifdef SPARKLE
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
@@ -104,7 +107,12 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
 }
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {    
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+	
+	if (![[PostgresServer sharedServer] isRunning]) {
+		return NSTerminateNow;
+	}
+	
     [[PostgresServer sharedServer] stopWithTerminationHandler:^(NSUInteger status) {
         [sender replyToApplicationShouldTerminate:YES];
     }];
@@ -116,6 +124,34 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     });
     
     return NSTerminateLater;
+}
+
+#pragma mark -
+
+/**
+ * This method ensures that the
+ */
+-(void)validateBundleLocation {
+	NSString *appPath = [[NSBundle mainBundle] bundlePath];
+	NSString *errorMessage = nil;
+	if (![[appPath lastPathComponent] isEqualToString:@"Postgres93.app"]) {
+		errorMessage = @"App was renamed";
+	}
+#if !DEBUG
+	else if (![appPath isEqualToString:@"/Applications/Postgres93.app"]) {
+		errorMessage = @"App not inside Applications folder";
+	}
+#endif
+	if (errorMessage) {
+		NSAlert *alert = [NSAlert alertWithMessageText:errorMessage
+										 defaultButton:@"Quit"
+									   alternateButton:nil
+										   otherButton:nil
+							 informativeTextWithFormat:@"To avoid linking issues with bundled libraries, this app must be located exactly at the following path:\n/Applications/Postgres93.app"];
+		[alert runModal];
+		[NSApp terminate:self];
+		return;
+	}
 }
 
 #pragma mark - IBAction
@@ -147,12 +183,12 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 - (IBAction)selectAutomaticallyStart:(id)sender {
     [self.automaticallyStartMenuItem setState:![self.automaticallyStartMenuItem state]];
     
-    NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/PostgresHelper.app"];
+    NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/Postgres93Helper.app"];
     if (LSRegisterURL((__bridge CFURLRef)helperApplicationURL, true) != noErr) {
         NSLog(@"LSRegisterURL Failed");
     }
     
-    if (!SMLoginItemSetEnabled((__bridge CFStringRef)@"com.heroku.PostgresHelper", [self.automaticallyStartMenuItem state] == NSOnState)) {
+    if (!SMLoginItemSetEnabled((__bridge CFStringRef)@"com.postgresapp.Postgres93Helper", [self.automaticallyStartMenuItem state] == NSOnState)) {
         NSLog(@"SMLoginItemSetEnabled Failed");
     }
 }

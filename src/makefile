@@ -1,7 +1,7 @@
 # VERSION numbers
 POSTGIS_VERSION=2.1.0
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.3.0
+POSTGRES_VERSION=9.3.1
 GDAL_VERSION=1.10.0
 GEOS_VERSION=3.3.8
 JPEG_VERSION=8d
@@ -17,7 +17,7 @@ JSONC_VERSION=0.10
 LIBTIFF_VERSION=4.0.3
 
 #path configuration
-PREFIX=$(shell dirname $(CURDIR))/Postgres/Vendor/postgres
+PREFIX=/Applications/Postgres93.app/Contents/MacOS
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
 #compiler options
@@ -339,13 +339,13 @@ clean-libtiff:
 
 #depends on libgdal, libgeos, libjpeg, postgresql, jsonc
 
-postgis: $(PREFIX)/lib/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
 
-$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgis-$(POSTGIS_MAJOR_VERSION).so
+$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom install
 
-$(PREFIX)/lib/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
+$(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} install
 
@@ -369,11 +369,11 @@ clean-postgis:
 ######## PLV8 ############
 ##########################
 
-plv8: $(PREFIX)/lib/plv8.so
+plv8: $(PREFIX)/lib/postgresql/plv8.so
 
-$(PREFIX)/lib/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install
-	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "@loader_path/../lib/libv8.dylib" "$(PREFIX)/lib/plv8.so"
+$(PREFIX)/lib/postgresql/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
+	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install 
+	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
 
 
 plv8js/Makefile:

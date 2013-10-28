@@ -26,8 +26,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    [[NSWorkspace sharedWorkspace] launchApplication:@"/Applications/Postgres.app"];
-//    [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.heroku.Postgres" options:NSWorkspaceLaunchWithoutAddingToRecents | NSWorkspaceLaunchWithoutActivation | NSWorkspaceLaunchAndHide additionalEventParamDescriptor:nil launchIdentifier:NULL];
+    [[NSWorkspace sharedWorkspace] launchApplication:@"/Applications/Postgres93.app"];
     [NSApp terminate:self];
 }
 
