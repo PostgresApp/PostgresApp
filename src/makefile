@@ -13,7 +13,7 @@ OPENSSL_VERSION=1.0.1e
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
 V8_VERSION=3.18
-JSONC_VERSION=0.10
+JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.3
 
 #path configuration
@@ -308,7 +308,7 @@ json-c-$(JSONC_VERSION)/configure: json-c-$(JSONC_VERSION).tar.gz
 	touch $@
 
 json-c-$(JSONC_VERSION).tar.gz:
-	$(CURL) "https://github.com/downloads/json-c/json-c/json-c-$(JSONC_VERSION).tar.gz"
+	$(CURL) "https://s3.amazonaws.com/json-c_releases/releases/json-c-$(JSONC_VERSION).tar.gz"
 
 
 #########################
