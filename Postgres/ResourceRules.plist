@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>rules</key>
+	<dict>
+		<key>^MacOS/include</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+		</dict>
+		<key>^MacOS/share</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+		</dict>
+		<key>^MacOS/lib</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+		</dict>
+		<key>^MacOS/bin</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
