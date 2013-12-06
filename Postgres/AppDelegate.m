@@ -82,12 +82,13 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
     [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
     
-    [[PostgresServer sharedServer] setMigrationDelegate:self];
-    [[PostgresServer sharedServer] startOnPort:kPostgresAppDefaultPort terminationHandler:^(NSUInteger status) {
+    PostgresServer *server = [PostgresServer sharedServer];
+    [server setMigrationDelegate:self];
+    [server startWithTerminationHandler:^(NSUInteger status) {
         if (status == 0) {
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:YES];
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
         } else {
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), kPostgresAppDefaultPort] wasSuccessful:NO];
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), server.port] wasSuccessful:NO];
         }
     }];
     
