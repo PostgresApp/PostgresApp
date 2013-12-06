@@ -140,7 +140,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     if (!existingPGVersion) {
         [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
             [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", _port], nil] terminationHandler:^(NSUInteger status) {
-                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects: NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", _port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
                     if (completionBlock) {
                         completionBlock(status);
                     }
