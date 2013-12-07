@@ -77,7 +77,8 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
-    
+    _port    = kPostgresAppDefaultPort;
+   
     NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
         const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
@@ -90,7 +91,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
             }
         }
     }
-    _port = _port ? _port : kPostgresAppDefaultPort;
 
     _xpc_connection = xpc_connection_create("com.postgresapp.postgres93-service", dispatch_get_main_queue());
 	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {
