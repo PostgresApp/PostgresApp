@@ -38,8 +38,7 @@
 - (id)initWithExecutablesDirectory:(NSString *)executablesDirectory
                  databaseDirectory:(NSString *)databaseDirectory;
 
-- (BOOL)startOnPort:(NSUInteger)port
- terminationHandler:(void (^)(NSUInteger status))completionBlock;
+- (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock;
 
 - (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler;
 

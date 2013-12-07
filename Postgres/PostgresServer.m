@@ -51,6 +51,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     __strong NSString *_varPath;
     __strong NSTask *_postgresTask;
     NSUInteger _port;
+    BOOL _isRunning;
     
     xpc_connection_t _xpc_connection;
 }
@@ -77,8 +78,22 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
     
+    NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
+        const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
+        for (int i = 0; t[i]; i++) {
+            if (t[i] == '#')
+                while (t[i] != '\n' && t[i]) i++;
+            else if (strncmp(t + i, "port ", 5) == 0) {
+                if (sscanf(t + i + 5, "%*s %ld", &_port) == 1)
+                    break;
+            }
+        }
+    }
+    _port = _port ? _port : kPostgresAppDefaultPort;
+
     _xpc_connection = xpc_connection_create("com.postgresapp.postgres93-service", dispatch_get_main_queue());
-	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {        
+	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {
         xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
 			return true;
 		});
@@ -92,17 +107,11 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     return [self isRunning] ? _port : NSNotFound;
 }
 
-- (BOOL)isRunning {
-    return _port != 0;
-}
-
-- (BOOL)startOnPort:(NSUInteger)port 
- terminationHandler:(void (^)(NSUInteger status))completionBlock
-{    
+- (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock
+{
     [self stopWithTerminationHandler:nil];
     [self willChangeValueForKey:@"isRunning"];
     [self willChangeValueForKey:@"port"];
-    _port = port;
     
     NSString *existingPGVersion = PGNormalizedVersionStringFromString([NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil]);
     NSString *installedPGVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_VERSION)]);
@@ -130,26 +139,26 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     
     if (!existingPGVersion) {
         [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
-            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", port], nil] terminationHandler:^(NSUInteger status) {
-                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", _port], nil] terminationHandler:^(NSUInteger status) {
+                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", _port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
                     if (completionBlock) {
                         completionBlock(status);
                     }
                 }];
             }];
-        }];    
+        }];
     } else {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-o'-p%ld'", port], nil] terminationHandler:^(NSUInteger status) {
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
             // Kill server and try one more time if server can't be started
             if (status != 0) {
                 static dispatch_once_t onceToken;
                 dispatch_once(&onceToken, ^{
                     [self stopWithTerminationHandler:^(NSUInteger status) {
-                        [self startOnPort:port terminationHandler:completionBlock];
+                        [self startWithTerminationHandler:completionBlock];
                     }];
                 });
             }
-            
+            _isRunning = (status == 0);
             if (completionBlock) {
                 completionBlock(status);
             }
