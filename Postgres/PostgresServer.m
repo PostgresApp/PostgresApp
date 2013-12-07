@@ -77,7 +77,8 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
-    
+    _port    = kPostgresAppDefaultPort;
+   
     NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
         const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
@@ -90,7 +91,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
             }
         }
     }
-    _port = _port ? _port : kPostgresAppDefaultPort;
 
     _xpc_connection = xpc_connection_create("com.postgresapp.postgres93-service", dispatch_get_main_queue());
 	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {
@@ -101,10 +101,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	xpc_connection_resume(_xpc_connection);
     
     return self;
-}
-
-- (NSUInteger)port {
-    return [self isRunning] ? _port : NSNotFound;
 }
 
 - (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock
@@ -148,7 +144,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
             }];
         }];
     } else {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", @"-w", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
             // Kill server and try one more time if server can't be started
             if (status != 0) {
                 static dispatch_once_t onceToken;
