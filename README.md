@@ -20,18 +20,30 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 ## How To Build
 
-Make sure you have `autoconf` and `automake` installed. The quickest way to install them is using MacPorts:
+If you want to tweak the GUI only, just make sure you have a compiled copy of Postgres93.app in your applications folder.
+Open the XCode file and start hacking!
+
+If you want to build your own versions of all the PostgreSQL binaries, you have a bit more work.
+
+Make sure you have `autoconf`, `automake` installed. The quickest way to install them is using MacPorts:
 
     sudo port install autoconf automake
 
-Then just open `Postgres.xcodeproj` in Xcode, select the `Postgres` scheme, and click "Build"
+For building PostgreSQL with docs, you also need a bunch of other tools:
 
-XCode will download and build PostgreSQL, PostGIS, and PLV8. Several hundred megabytes of sources will be downloaded and built. This can take an hour or longer, depending on your Internet connection and processor speed.
+    sudo port install docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl libxslt openjade opensp
 
-You can also build the PostgreSQL binaries from the command line.
-To do so, open a Terminal, change to the `src` directory, and type `make`.
-When the build is complete, switch to XCode and build Postgres.app with XCode.
-This makes debugging a lot easier!
+Then make sure you remove other versions of `Postgres93.app` from your Applications folder.
+
+Open the `src` directory and type `make`.
+This will download and build PostgreSQL, PostGIS, and PLV8. 
+Several hundred megabytes of sources will be downloaded and built.
+This can take an hour or longer, depending on your Internet connection and processor speed.
+All the products will be installed in `/Applications/Postgres93.app/Contents/MacOS/`.
+
+Once this is done, you can just open `Postgres.xcodeproj` in Xcode, select the "Postgres" scheme, and click "Build".
+
+To share your build, use the "Archive" command and then use the "Distribute" command in Organizer.
 
 ## Under the Hood
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
 		0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
+		3609DA081853B31F00665ED2 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609DA071853B31F00665ED2 /* ScriptingBridge.framework */; };
+		3609DA0B1853B56E00665ED2 /* Terminal.app in Sources */ = {isa = PBXBuildFile; fileRef = 3609DA091853B54E00665ED2 /* Terminal.app */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
@@ -38,14 +40,21 @@
 		F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */ = {isa = PBXBuildFile; fileRef = F8C09C4915ACD15C00F571AE /* status-on.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3671343917C90049003BBA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F89739FF1538846600EAB41E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3671343217C8FE9A003BBA08;
-			remoteInfo = postgresql;
+/* Begin PBXBuildRule section */
+		3609DA0C1853B59D00665ED2 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.app";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE).h",
+			);
+			script = "# script from SBSendEmail sample app\nsdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
 		};
+/* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
 		F87A4285153AB65200456130 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F89739FF1538846600EAB41E /* Project object */;
@@ -90,6 +99,8 @@
 /* Begin PBXFileReference section */
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
+		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		3609DA091853B54E00665ED2 /* Terminal.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = Terminal.app; path = ../../../../Applications/Utilities/Terminal.app; sourceTree = "<group>"; };
 		3668913F183CD12900A3FA19 /* ResourceRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResourceRules.plist; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
@@ -153,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3609DA081853B31F00665ED2 /* ScriptingBridge.framework in Frameworks */,
 				F88BDC9115704C15004ECB52 /* Security.framework in Frameworks */,
 				F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */,
 				F8973A0D1538846600EAB41E /* Cocoa.framework in Frameworks */,
@@ -225,6 +237,7 @@
 		F89739FD1538846600EAB41E = {
 			isa = PBXGroup;
 			children = (
+				3609DA091853B54E00665ED2 /* Terminal.app */,
 				F884C919153CA24400CDCB09 /* Postgres.icns */,
 				F8973A121538846600EAB41E /* Postgres */,
 				F87A4270153AB60C00456130 /* PostgresHelper */,
@@ -248,6 +261,7 @@
 		F8973A0B1538846600EAB41E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3609DA071853B31F00665ED2 /* ScriptingBridge.framework */,
 				F8A4B56B15735F26003C00F5 /* Sparkle.framework */,
 				F88BDC9015704C14004ECB52 /* Security.framework */,
 				F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */,
@@ -333,23 +347,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXLegacyTarget section */
-		3671343217C8FE9A003BBA08 /* postgresql */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = 3671343317C8FE9A003BBA08 /* Build configuration list for PBXLegacyTarget "postgresql" */;
-			buildPhases = (
-			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "${PROJECT_DIR}/src";
-			dependencies = (
-			);
-			name = postgresql;
-			passBuildSettingsInEnvironment = 1;
-			productName = postgresql;
-		};
-/* End PBXLegacyTarget section */
-
 /* Begin PBXNativeTarget section */
 		F87A426C153AB60C00456130 /* Postgres93Helper */ = {
 			isa = PBXNativeTarget;
@@ -381,9 +378,9 @@
 				3668913E183CC1E800A3FA19 /* Codesign binaries & libraries */,
 			);
 			buildRules = (
+				3609DA0C1853B59D00665ED2 /* PBXBuildRule */,
 			);
 			dependencies = (
-				3671343A17C90049003BBA08 /* PBXTargetDependency */,
 				F8973A4C1538858900EAB41E /* PBXTargetDependency */,
 				F87A4286153AB65200456130 /* PBXTargetDependency */,
 			);
@@ -448,7 +445,6 @@
 				F8973A071538846600EAB41E /* Postgres93 */,
 				F87A426C153AB60C00456130 /* Postgres93Helper */,
 				F8973A3B1538851D00EAB41E /* postgres93-service */,
-				3671343217C8FE9A003BBA08 /* postgresql */,
 			);
 		};
 /* End PBXProject section */
@@ -534,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3609DA0B1853B56E00665ED2 /* Terminal.app in Sources */,
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
@@ -555,11 +552,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3671343A17C90049003BBA08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3671343217C8FE9A003BBA08 /* postgresql */;
-			targetProxy = 3671343917C90049003BBA08 /* PBXContainerItemProxy */;
-		};
 		F87A4286153AB65200456130 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F87A426C153AB60C00456130 /* Postgres93Helper */;
@@ -648,51 +640,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3671343417C8FE9A003BBA08 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUGGING_SYMBOLS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		3671343517C8FE9A003BBA08 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		F87A4283153AB60C00456130 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -743,9 +690,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRESAPP_BUILD_VERSION = 18;
-				POSTGRESAPP_MINOR_VERSION = 1;
-				POSTGRES_VERSION = 9.3.1;
+				POSTGRESAPP_BUILD_VERSION = 19;
+				POSTGRESAPP_MINOR_VERSION = 0;
+				POSTGRES_VERSION = 9.3.2;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -767,9 +714,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRESAPP_BUILD_VERSION = 18;
-				POSTGRESAPP_MINOR_VERSION = 1;
-				POSTGRES_VERSION = 9.3.1;
+				POSTGRESAPP_BUILD_VERSION = 19;
+				POSTGRESAPP_MINOR_VERSION = 0;
+				POSTGRES_VERSION = 9.3.2;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -835,15 +782,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3671343317C8FE9A003BBA08 /* Build configuration list for PBXLegacyTarget "postgresql" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3671343417C8FE9A003BBA08 /* Debug */,
-				3671343517C8FE9A003BBA08 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		F87A4282153AB60C00456130 /* Build configuration list for PBXNativeTarget "Postgres93Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

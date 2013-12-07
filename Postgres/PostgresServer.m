@@ -107,7 +107,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 {
     [self stopWithTerminationHandler:nil];
     [self willChangeValueForKey:@"isRunning"];
-    [self willChangeValueForKey:@"port"];
     
     NSString *existingPGVersion = PGNormalizedVersionStringFromString([NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil]);
     NSString *installedPGVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_VERSION)]);
@@ -161,7 +160,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
         }];
     }
     
-    [self didChangeValueForKey:@"port"];
     [self didChangeValueForKey:@"isRunning"];
     
     return YES;

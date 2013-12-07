@@ -29,6 +29,8 @@
 #import "PostgresStatusMenuItemViewController.h"
 #import "WelcomeWindowController.h"
 
+#import "Terminal.h"
+
 #ifdef SPARKLE
 #import <Sparkle/Sparkle.h>
 #endif
@@ -168,10 +170,12 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 }
 
 - (IBAction)selectPsql:(id)sender {
-    // Open the psql binary in Terminal.app
-    NSString *binPath = [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"bin"];
-    NSString *psqlPath = [binPath stringByAppendingPathComponent:@"psql"];
-    [[NSWorkspace sharedWorkspace] openFile:psqlPath withApplication:@"Terminal"];
+	TerminalApplication* terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
+	BOOL wasRunning = terminal.isRunning;
+	[terminal activate];
+	TerminalWindow *window = wasRunning ? nil : terminal.windows.firstObject;
+	NSString *psqlScript = [NSString stringWithFormat:@"%@/psql -p%u", [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"bin"], (unsigned)[PostgresServer sharedServer].port];
+	[terminal doScript:psqlScript in:window.tabs.firstObject];
 }
 
 - (IBAction)selectAutomaticallyOpenDocumentation:(id)sender {

@@ -1,9 +1,9 @@
 # VERSION numbers
-POSTGIS_VERSION=2.1.0
+POSTGIS_VERSION=2.1.1
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.3.1
+POSTGRES_VERSION=9.3.2
 GDAL_VERSION=1.10.0
-GEOS_VERSION=3.3.8
+GEOS_VERSION=3.4.2
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
@@ -32,7 +32,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis plv8
-clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libedit clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff
+clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff
 
 #########################
 ###### PostgreSQL #######
@@ -41,19 +41,15 @@ clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libedit 
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	make -C "postgresql-$(POSTGRES_VERSION)/config"
-	make -C "postgresql-$(POSTGRES_VERSION)/src"
-	make -C "postgresql-$(POSTGRES_VERSION)/contrib"
-	make -C "postgresql-$(POSTGRES_VERSION)/config" install
-	make -C "postgresql-$(POSTGRES_VERSION)/contrib" install
-	make -C "postgresql-$(POSTGRES_VERSION)/src" install
-
+	make -C "postgresql-$(POSTGRES_VERSION)" world
+	make -C "postgresql-$(POSTGRES_VERSION)" install-world
+	
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libedit.dylib ${PREFIX}/include/uuid.h postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-libedit-preferred --with-ossp-uuid
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib ${PREFIX}/include/uuid.h postgresql-$(POSTGRES_VERSION)/configure 
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-ossp-uuid --with-readline
 
 # after extracting PostgreSQL sources, we must patch uuid-ossp so it builds on OSX
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
