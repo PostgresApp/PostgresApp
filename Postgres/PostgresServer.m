@@ -103,10 +103,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     return self;
 }
 
-- (NSUInteger)port {
-    return [self isRunning] ? _port : NSNotFound;
-}
-
 - (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock
 {
     [self stopWithTerminationHandler:nil];
@@ -148,7 +144,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
             }];
         }];
     } else {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
+        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", @"-w", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
             // Kill server and try one more time if server can't be started
             if (status != 0) {
                 static dispatch_once_t onceToken;
