@@ -79,6 +79,8 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     _varPath = databaseDirectory;
     _port    = kPostgresAppDefaultPort;
    
+    if (getenv("PGPORT"))
+        _port = atol(getenv("PGPORT"));
     NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
         const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
@@ -135,6 +137,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     if (!existingPGVersion) {
         [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
             [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", _port], nil] terminationHandler:^(NSUInteger status) {
+                _isRunning = (status == 0);
                 [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", _port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
                     if (completionBlock) {
                         completionBlock(status);
@@ -144,15 +147,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
         }];
     } else {
         [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", @"-w", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
-            // Kill server and try one more time if server can't be started
-            if (status != 0) {
-                static dispatch_once_t onceToken;
-                dispatch_once(&onceToken, ^{
-                    [self stopWithTerminationHandler:^(NSUInteger status) {
-                        [self startWithTerminationHandler:completionBlock];
-                    }];
-                });
-            }
             _isRunning = (status == 0);
             if (completionBlock) {
                 completionBlock(status);
