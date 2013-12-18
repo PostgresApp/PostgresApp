@@ -108,8 +108,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
         [_welcomeWindowController showWindow:self];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPostgresFirstLaunchPreferenceKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]) {
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
     }
     
     [self.postgresStatusMenuItem setEnabled:NO];
