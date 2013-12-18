@@ -10,6 +10,7 @@
 		0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E9791639ADD7006D7FB2 /* status-off@2x.png */; };
 		0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0710E97B1639ADD7006D7FB2 /* status-on@2x.png */; };
 		3609DA081853B31F00665ED2 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609DA071853B31F00665ED2 /* ScriptingBridge.framework */; };
+		36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B958C31861AE88007BBB36 /* PGApplicationMover.m */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
@@ -100,6 +101,8 @@
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		3668913F183CD12900A3FA19 /* ResourceRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResourceRules.plist; sourceTree = "<group>"; };
+		36B958C21861AE88007BBB36 /* PGApplicationMover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGApplicationMover.h; sourceTree = "<group>"; };
+		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F87A426D153AB60C00456130 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +302,8 @@
 				F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */,
 				F8973A131538846600EAB41E /* Supporting Files */,
 				3668913F183CD12900A3FA19 /* ResourceRules.plist */,
+				36B958C21861AE88007BBB36 /* PGApplicationMover.h */,
+				36B958C31861AE88007BBB36 /* PGApplicationMover.m */,
 			);
 			path = Postgres;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
+				36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */,
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
 				F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */,
 				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,

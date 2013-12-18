@@ -28,6 +28,7 @@
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 #import "WelcomeWindowController.h"
+#import "PGApplicationMover.h"
 
 #import "Terminal.h"
 
@@ -65,9 +66,14 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 
 #pragma mark - NSApplicationDelegate
 
+-(void)applicationWillFinishLaunching:(NSNotification *)notification {
+#if !DEBUG
+	[[PGApplicationMover sharedApplicationMover] validateApplicationPath];
+#endif
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 	
-	[self validateBundleLocation];
 		
 #ifdef SPARKLE
     [self.checkForUpdatesMenuItem setEnabled:YES];
@@ -127,34 +133,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     });
     
     return NSTerminateLater;
-}
-
-#pragma mark -
-
-/**
- * This method ensures that the
- */
--(void)validateBundleLocation {
-	NSString *appPath = [[NSBundle mainBundle] bundlePath];
-	NSString *errorMessage = nil;
-	if (![[appPath lastPathComponent] isEqualToString:@"Postgres.app"]) {
-		errorMessage = @"App was renamed";
-	}
-#if !DEBUG
-	else if (![appPath isEqualToString:@"/Applications/Postgres.app"]) {
-		errorMessage = @"App not inside Applications folder";
-	}
-#endif
-	if (errorMessage) {
-		NSAlert *alert = [NSAlert alertWithMessageText:errorMessage
-										 defaultButton:@"Quit"
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:@"To avoid linking issues with bundled libraries, this app must be located exactly at the following path:\n/Applications/Postgres.app"];
-		[alert runModal];
-		[NSApp terminate:self];
-		return;
-	}
 }
 
 #pragma mark - IBAction
