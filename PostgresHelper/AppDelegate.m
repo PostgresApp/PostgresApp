@@ -26,7 +26,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    [[NSWorkspace sharedWorkspace] launchApplication:@"/Applications/Postgres93.app"];
+    [[NSWorkspace sharedWorkspace] launchApplication:@"/Applications/Postgres.app"];
     [NSApp terminate:self];
 }
 

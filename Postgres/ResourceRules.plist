@@ -4,22 +4,7 @@
 <dict>
 	<key>rules</key>
 	<dict>
-		<key>^MacOS/include</key>
-		<dict>
-			<key>omit</key>
-			<true/>
-		</dict>
-		<key>^MacOS/share</key>
-		<dict>
-			<key>omit</key>
-			<true/>
-		</dict>
-		<key>^MacOS/lib</key>
-		<dict>
-			<key>omit</key>
-			<true/>
-		</dict>
-		<key>^MacOS/bin</key>
+		<key>^Versions</key>
 		<dict>
 			<key>omit</key>
 			<true/>

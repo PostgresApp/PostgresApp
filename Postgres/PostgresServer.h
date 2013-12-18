@@ -32,6 +32,9 @@
 @property (weak) id <PostgresServerMigrationDelegate> migrationDelegate;
 @property (readonly) BOOL isRunning;
 @property (readonly) NSUInteger port;
+@property (readonly) NSString *binPath;
+@property (readonly) NSString *varPath;
+
 
 + (PostgresServer *)sharedServer;
 

@@ -39,7 +39,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     BOOL flag = NO;
     NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
     for (NSDictionary *job in jobs) {
-        if ([[job valueForKey:@"Label"] isEqualToString:@"com.postgresapp.Postgres93Helper"]) {
+        if ([[job valueForKey:@"Label"] isEqualToString:@"com.postgresapp.PostgresHelper"]) {
             flag = YES;
         }
     }
@@ -137,11 +137,11 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 -(void)validateBundleLocation {
 	NSString *appPath = [[NSBundle mainBundle] bundlePath];
 	NSString *errorMessage = nil;
-	if (![[appPath lastPathComponent] isEqualToString:@"Postgres93.app"]) {
+	if (![[appPath lastPathComponent] isEqualToString:@"Postgres.app"]) {
 		errorMessage = @"App was renamed";
 	}
 #if !DEBUG
-	else if (![appPath isEqualToString:@"/Applications/Postgres93.app"]) {
+	else if (![appPath isEqualToString:@"/Applications/Postgres.app"]) {
 		errorMessage = @"App not inside Applications folder";
 	}
 #endif
@@ -150,7 +150,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 										 defaultButton:@"Quit"
 									   alternateButton:nil
 										   otherButton:nil
-							 informativeTextWithFormat:@"To avoid linking issues with bundled libraries, this app must be located exactly at the following path:\n/Applications/Postgres93.app"];
+							 informativeTextWithFormat:@"To avoid linking issues with bundled libraries, this app must be located exactly at the following path:\n/Applications/Postgres.app"];
 		[alert runModal];
 		[NSApp terminate:self];
 		return;
@@ -174,7 +174,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 	BOOL wasRunning = terminal.isRunning;
 	[terminal activate];
 	TerminalWindow *window = wasRunning ? nil : terminal.windows.firstObject;
-	NSString *psqlScript = [NSString stringWithFormat:@"%@/psql -p%u", [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"bin"], (unsigned)[PostgresServer sharedServer].port];
+	NSString *psqlScript = [NSString stringWithFormat:@"%@/psql -p%u", [PostgresServer sharedServer].binPath, (unsigned)[PostgresServer sharedServer].port];
 	[terminal doScript:psqlScript in:window.tabs.firstObject];
 }
 
@@ -188,12 +188,12 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 - (IBAction)selectAutomaticallyStart:(id)sender {
     [self.automaticallyStartMenuItem setState:![self.automaticallyStartMenuItem state]];
     
-    NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/Postgres93Helper.app"];
+    NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/PostgresHelper.app"];
     if (LSRegisterURL((__bridge CFURLRef)helperApplicationURL, true) != noErr) {
         NSLog(@"LSRegisterURL Failed");
     }
     
-    if (!SMLoginItemSetEnabled((__bridge CFStringRef)@"com.postgresapp.Postgres93Helper", [self.automaticallyStartMenuItem state] == NSOnState)) {
+    if (!SMLoginItemSetEnabled((__bridge CFStringRef)@"com.postgresapp.PostgresHelper", [self.automaticallyStartMenuItem state] == NSOnState)) {
         NSLog(@"SMLoginItemSetEnabled Failed");
     }
 }

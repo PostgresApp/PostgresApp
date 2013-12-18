@@ -2,6 +2,7 @@
 POSTGIS_VERSION=2.1.1
 POSTGIS_MAJOR_VERSION=2.1
 POSTGRES_VERSION=9.3.2
+POSTGRES_MAJOR_VERSION=9.3
 GDAL_VERSION=1.10.0
 GEOS_VERSION=3.4.2
 JPEG_VERSION=8d
@@ -17,7 +18,7 @@ JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.3
 
 #path configuration
-PREFIX=/Applications/Postgres93.app/Contents/MacOS
+PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
 #compiler options
