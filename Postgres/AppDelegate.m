@@ -29,6 +29,7 @@
 #import "PostgresStatusMenuItemViewController.h"
 #import "WelcomeWindowController.h"
 #import "PGApplicationMover.h"
+#import "PGShellProfileUpdater.h"
 
 #import "Terminal.h"
 
@@ -74,7 +75,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 	
-		
 #ifdef SPARKLE
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
@@ -95,6 +95,7 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [server startWithTerminationHandler:^(NSUInteger status) {
         if (status == 0) {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
+			
         } else {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), server.port] wasSuccessful:NO];
         }
@@ -114,6 +115,8 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [self.postgresStatusMenuItem setEnabled:NO];
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
     [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
+	
+	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
