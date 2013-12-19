@@ -23,13 +23,13 @@
 // "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-#import <ServiceManagement/ServiceManagement.h>
 #import "AppDelegate.h"
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
 #import "WelcomeWindowController.h"
 #import "PGApplicationMover.h"
 #import "PGShellProfileUpdater.h"
+#import "PreferenceWindowController.h"
 
 #import "Terminal.h"
 
@@ -37,22 +37,6 @@
 #import <Sparkle/Sparkle.h>
 #endif
 
-static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
-    BOOL flag = NO;
-    NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
-    for (NSDictionary *job in jobs) {
-        if ([[job valueForKey:@"Label"] isEqualToString:@"com.postgresapp.PostgresHelper"]) {
-            flag = YES;
-        }
-    }
-    
-    CFRelease((__bridge CFMutableArrayRef)jobs);
-    
-    return flag;
-}
-
-@interface AppDelegate () <PostgresServerMigrationDelegate>
-@end
 
 @implementation AppDelegate {
     NSStatusItem *_statusBarItem;
@@ -61,9 +45,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
 @synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
-@synthesize automaticallyOpenDocumentationMenuItem = _automaticallyOpenDocumentationMenuItem;
-@synthesize automaticallyStartMenuItem = _automaticallyStartMenuItem;
-@synthesize checkForUpdatesMenuItem = _checkForUpdatesMenuItem;
 
 #pragma mark - NSApplicationDelegate
 
@@ -71,6 +52,10 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
 #if !DEBUG
 	[[PGApplicationMover sharedApplicationMover] validateApplicationPath];
 #endif
+	
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{
+															  kPostgresShowWelcomeWindowPreferenceKey: @(YES)
+															  }];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
@@ -85,13 +70,8 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     _statusBarItem.menu = self.statusBarMenu;
     _statusBarItem.image = [NSImage imageNamed:@"status-off"];
     _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
-        
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
-    [self.automaticallyOpenDocumentationMenuItem setState:[[NSUserDefaults standardUserDefaults] boolForKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey]];
-    [self.automaticallyStartMenuItem setState:PostgresIsHelperApplicationSetAsLoginItem() ? NSOnState : NSOffState];
-    
+	
     PostgresServer *server = [PostgresServer sharedServer];
-    [server setMigrationDelegate:self];
     [server startWithTerminationHandler:^(NSUInteger status) {
         if (status == 0) {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
@@ -103,21 +83,25 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     
     [NSApp activateIgnoringOtherApps:YES];
     
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kPostgresFirstLaunchPreferenceKey]) {        
-        _welcomeWindowController = [[WelcomeWindowController alloc] initWithWindowNibName:@"WelcomeWindow"];
-        [_welcomeWindowController showWindow:self];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPostgresFirstLaunchPreferenceKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
     
     [self.postgresStatusMenuItem setEnabled:NO];
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
     [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
 	
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
+		[[WelcomeWindowController sharedController] showWindow:self];
+    }
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+	
+	// make sure preferences are saved before quitting
+	PreferenceWindowController *prefController = [PreferenceWindowController sharedController];
+	if (prefController.isWindowLoaded && prefController.window.isVisible && ![prefController windowShouldClose:prefController.window]) {
+		return NSTerminateCancel;
+	}
 	
 	if (![[PostgresServer sharedServer] isRunning]) {
 		return NSTerminateNow;
@@ -144,37 +128,22 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [NSApp orderFrontStandardAboutPanel:nil];
 }
 
-- (IBAction)selectDocumentation:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
+- (IBAction)openDocumentation:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgresapp.com/documentation"]];
 }
 
-- (IBAction)selectPsql:(id)sender {
+- (IBAction)openPreferences:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+	[[PreferenceWindowController sharedController] showWindow:nil];
+}
+
+- (IBAction)openPsql:(id)sender {
 	TerminalApplication* terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
 	BOOL wasRunning = terminal.isRunning;
 	[terminal activate];
 	TerminalWindow *window = wasRunning ? nil : terminal.windows.firstObject;
-	NSString *psqlScript = [NSString stringWithFormat:@"%@/psql -p%u", [PostgresServer sharedServer].binPath, (unsigned)[PostgresServer sharedServer].port];
+	NSString *psqlScript = [NSString stringWithFormat:@"'%@'/psql -p%u", [[PostgresServer sharedServer].binPath stringByReplacingOccurrencesOfString:@"'" withString:@"'\\''"], (unsigned)[PostgresServer sharedServer].port];
 	[terminal doScript:psqlScript in:window.tabs.firstObject];
-}
-
-- (IBAction)selectAutomaticallyOpenDocumentation:(id)sender {
-    [self.automaticallyOpenDocumentationMenuItem setState:![self.automaticallyOpenDocumentationMenuItem state]];
-
-    [[NSUserDefaults standardUserDefaults] setBool:self.automaticallyOpenDocumentationMenuItem.state == NSOnState forKey:kPostgresAutomaticallyOpenDocumentationPreferenceKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (IBAction)selectAutomaticallyStart:(id)sender {
-    [self.automaticallyStartMenuItem setState:![self.automaticallyStartMenuItem state]];
-    
-    NSURL *helperApplicationURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Library/LoginItems/PostgresHelper.app"];
-    if (LSRegisterURL((__bridge CFURLRef)helperApplicationURL, true) != noErr) {
-        NSLog(@"LSRegisterURL Failed");
-    }
-    
-    if (!SMLoginItemSetEnabled((__bridge CFStringRef)@"com.postgresapp.PostgresHelper", [self.automaticallyStartMenuItem state] == NSOnState)) {
-        NSLog(@"SMLoginItemSetEnabled Failed");
-    }
 }
 
 - (IBAction)checkForUpdates:(id)sender {
@@ -182,18 +151,6 @@ static BOOL PostgresIsHelperApplicationSetAsLoginItem() {
     [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];
     [[SUUpdater sharedUpdater] checkForUpdates:sender];
 #endif
-}
-
-#pragma mark - PostgresServerMigrationDelegate
-
-- (BOOL)postgresServer:(PostgresServer *)server
-shouldMigrateFromVersion:(NSString *)fromVersion
-             toVersion:(NSString *)toVersion
-{
-    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedString(@"Upgrade to Postgres Version %@?", nil), toVersion] defaultButton:NSLocalizedString(@"OK", nil) alternateButton:NSLocalizedString(@"Quit", nil) otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Your current database, configured for Postgres %@, will have its data moved to `var-%@`.\n\nA new data directory at `var`, configured for Postgres %@ will be initialized in its place.", nil), fromVersion, fromVersion, toVersion];
-    NSInteger result = [alert runModal];
-    
-    return result == NSAlertDefaultReturn;
 }
 
 @end

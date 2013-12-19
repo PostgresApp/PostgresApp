@@ -46,21 +46,76 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     return [[NSArray arrayWithObjects:(major ?: @"0"), (minor ?: @"0"), nil] componentsJoinedByString:@"."];
 }
 
+@interface PostgresServer()
+
+@property BOOL isRunning;
+
+@end
+
 @implementation PostgresServer {
     __strong NSTask *_postgresTask;
     NSUInteger _port;
-    BOOL _isRunning;
     
     xpc_connection_t _xpc_connection;
 }
-@synthesize migrationDelegate = _migrationDelegate;
 
-+ (PostgresServer *)sharedServer {
++(NSString*)standardDatabaseDirectory {
+	return [[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingFormat:@"/var-%s", xstr(PG_MAJOR_VERSION)];
+}
+
++(PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir {
+	NSString *versionFilePath = [dir stringByAppendingPathComponent:@"PG_VERSION"];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:versionFilePath]) {
+		return PostgresDataDirectoryEmpty;
+	}
+	
+    NSString *dataDirectoryVersion = PGNormalizedVersionStringFromString([NSString stringWithContentsOfFile:versionFilePath encoding:NSUTF8StringEncoding error:nil]);
+    NSString *includedVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_VERSION)]);
+
+	if ([includedVersion isEqual:dataDirectoryVersion]) {
+		return PostgresDataDirectoryCompatible;
+	}
+	
+	return PostgresDataDirectoryIncompatible;
+}
+
++(NSString*)existingDatabaseDirectory {
+	// This function tries to locate existing data directories with the same version
+	// It returns the first matching data directory
+	NSArray *applicationSupportDirectories = @[
+											   [[NSFileManager defaultManager] applicationSupportDirectory],
+											   [NSHomeDirectory() stringByAppendingString:@"/Library/Application Support/Postgres93"],
+											   [NSHomeDirectory() stringByAppendingString:@"/Library/Containers/com.heroku.Postgres/Data/Library/Application Support/Postgres"]
+											   ];
+	NSArray *dataDirNames = @[
+							  @"var",
+							  [NSString stringWithFormat:@"var-%s",xstr(PG_MAJOR_VERSION)]
+							  ];
+	for (NSString *applicationSupportDirectory in applicationSupportDirectories) {
+		for (NSString *dataDirName in dataDirNames) {
+			NSString *dataDirectoryPath = [applicationSupportDirectory stringByAppendingPathComponent:dataDirName];
+			PostgresDataDirectoryStatus status = [self statusOfDataDirectory:dataDirectoryPath];
+			if (status == PostgresDataDirectoryCompatible) {
+				return dataDirectoryPath;
+			}
+		}
+	}
+	return nil;
+}
+
++(PostgresServer *)sharedServer {
     static PostgresServer *_sharedServer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 		NSString *binDirectory = [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
-		NSString *databaseDirectory = [[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingFormat:@"/var-%s", xstr(PG_MAJOR_VERSION)];
+		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:kPostgresDataDirectoryPreferenceKey];
+		if (!databaseDirectory || [self statusOfDataDirectory:databaseDirectory] == PostgresDataDirectoryIncompatible) {
+			databaseDirectory = [self existingDatabaseDirectory];
+		}
+		if (!databaseDirectory) {
+			databaseDirectory = [self standardDatabaseDirectory];
+		}
+		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:kPostgresDataDirectoryPreferenceKey];
         _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:binDirectory databaseDirectory:databaseDirectory];
     });
     
@@ -77,7 +132,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     
     _binPath = executablesDirectory;
     _varPath = databaseDirectory;
-    _port    = kPostgresAppDefaultPort;
+    _port    = getenv("PGPORT") ? atol(getenv("PGPORT")) : kPostgresAppDefaultPort;
    
     NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
@@ -106,61 +161,47 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 - (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock
 {
     [self stopWithTerminationHandler:nil];
-    [self willChangeValueForKey:@"isRunning"];
     
-    NSString *existingPGVersion = PGNormalizedVersionStringFromString([NSString stringWithContentsOfFile:[_varPath stringByAppendingPathComponent:@"PG_VERSION"] encoding:NSUTF8StringEncoding error:nil]);
-    NSString *installedPGVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_VERSION)]);
-    
-    NSLog(@"Existing PGVersion: %@", existingPGVersion);
-    NSLog(@"Installed PGVersion: %@", installedPGVersion);
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:_varPath] && existingPGVersion) {
-        if ([installedPGVersion compare:existingPGVersion options:NSNumericSearch] == NSOrderedDescending) {
-            if ([[NSFileManager defaultManager] fileExistsAtPath:_varPath]) {
-                if (![self.migrationDelegate postgresServer:self shouldMigrateFromVersion:existingPGVersion toVersion:installedPGVersion]) {
-                    [NSApp terminate:self];
-                }
-                
-                NSError *error = nil;
-                [[NSFileManager defaultManager] moveItemAtPath:_varPath toPath:[_varPath stringByAppendingFormat:@"-%@", existingPGVersion] error:&error];
-                if (error) {
-                    NSLog(@"Error: %@", error);
-                }
-            }
-            
-            existingPGVersion = nil;
-        }
-    }
-    
-    if (!existingPGVersion) {
+    PostgresDataDirectoryStatus dataDirStatus = [PostgresServer statusOfDataDirectory:_varPath];
+	
+    if (dataDirStatus==PostgresDataDirectoryEmpty) {
         [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
-            [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", _port], nil] terminationHandler:^(NSUInteger status) {
-                [self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", _port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
-                    if (completionBlock) {
-                        completionBlock(status);
-                    }
-                }];
-            }];
+			if (status!=0) {
+				if (completionBlock) {
+					completionBlock(status);
+				}
+			} else {
+				[self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", _port], nil] terminationHandler:^(NSUInteger status) {
+					if (status!=0) {
+						if (completionBlock) {
+							completionBlock(status);
+						}
+					} else {
+						self.isRunning = YES;
+						[self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", _port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
+							if (completionBlock) {
+								completionBlock(status);
+							}
+						}];
+					}
+				}];
+			}
         }];
-    } else {
+    }
+	else if (dataDirStatus==PostgresDataDirectoryCompatible) {
         [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", @"-w", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
-            // Kill server and try one more time if server can't be started
-            if (status != 0) {
-                static dispatch_once_t onceToken;
-                dispatch_once(&onceToken, ^{
-                    [self stopWithTerminationHandler:^(NSUInteger status) {
-                        [self startWithTerminationHandler:completionBlock];
-                    }];
-                });
-            }
-            _isRunning = (status == 0);
+            self.isRunning = (status == 0);
             if (completionBlock) {
                 completionBlock(status);
             }
         }];
     }
+	else {
+		if (completionBlock) {
+			completionBlock(1);
+		}
+	}
     
-    [self didChangeValueForKey:@"isRunning"];
     
     return YES;
 }

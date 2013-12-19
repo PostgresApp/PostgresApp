@@ -73,7 +73,7 @@ static NSString *kIgnoredProfileFilesKey = @"IgnoredProfileFiles";
 											 defaultButton: @"Update"
 										   alternateButton: @"Don't update & don't ask again"
 											   otherButton: @"Don't update"
-								 informativeTextWithFormat: @"The file %@ contains a path of an older version of Postgres.app. Do you want to update the profile file automatically?\n\nOld:\n%@\n\nNew:\n%@", profilePath.lastPathComponent, [changedOldLines componentsJoinedByString:@"\n"], [changedNewLines componentsJoinedByString:@"\n"]
+								 informativeTextWithFormat: @"The file %@ contains a path of an older version of Postgres. Do you want to update it automatically?\n\nOld:\n%@\n\nNew:\n%@", profilePath.lastPathComponent, [changedOldLines componentsJoinedByString:@"\n"], [changedNewLines componentsJoinedByString:@"\n"]
 							  ];
 			NSInteger returnCode = [alert runModal];
 			if (returnCode==NSAlertDefaultReturn) {

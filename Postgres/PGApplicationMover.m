@@ -46,7 +46,7 @@
 										 defaultButton:@"Open Copy"
 									   alternateButton:@"Quit"
 										   otherButton:nil
-							 informativeTextWithFormat:@"This copy of Postgres.app can't be started because it is not inside the Applications folder. There is an identical copy inside the Applications folder. Do you want to open that copy instead?"];
+							 informativeTextWithFormat:@"This copy of Postgres can't be started because it is not inside the Applications folder. There is an identical copy inside the Applications folder. Do you want to open that copy instead?"];
 		NSInteger returnCode = [alert runModal];
 		if (returnCode == NSAlertDefaultReturn) {
 			[self terminateAndLaunchTarget];
@@ -66,7 +66,7 @@
 										 defaultButton:@"Copy"
 									   alternateButton:@"Quit"
 										   otherButton:nil
-							 informativeTextWithFormat:@"Postgres.app needs to be inside your Applications folder to work properly. Do you want to copy it automatically?%@", sideEffects];
+							 informativeTextWithFormat:@"Postgres needs to be inside your Applications folder to work properly. Do you want to copy it automatically?%@", sideEffects];
 		NSInteger returnCode = [alert runModal];
 		if (returnCode != NSAlertDefaultReturn) exit(1);
 		[self copyApplicationAndRelaunch];
@@ -84,7 +84,7 @@
 										 defaultButton:@"Move"
 									   alternateButton:@"Quit"
 										   otherButton:nil
-							 informativeTextWithFormat:@"Postgres.app needs to be inside your Applications folder to work properly. Do you want to move it automatically?%@", sideEffects];
+							 informativeTextWithFormat:@"Postgres needs to be inside your Applications folder to work properly. Do you want to move it automatically?%@", sideEffects];
 		NSInteger returnCode = [alert runModal];
 		if (returnCode != NSAlertDefaultReturn) exit(1);
 		[self moveApplicationAndRelaunch];
@@ -100,7 +100,7 @@
 										 defaultButton:@"Rename"
 									   alternateButton:@"Quit"
 										   otherButton:nil
-							 informativeTextWithFormat:@"Postgres.app must be named ‘Postgres.app’ to function properly. Do you want to rename it automatically?%@", sideEffects];
+							 informativeTextWithFormat:@"%@ must be named ‘Postgres.app’ to function properly. Do you want to rename it automatically?%@", bundlePath.lastPathComponent, sideEffects];
 		NSInteger returnCode = [alert runModal];
 		if (returnCode != NSAlertDefaultReturn) exit(1);
 		[self moveApplicationAndRelaunch];
@@ -173,7 +173,7 @@
 		for (NSRunningApplication *runningApplication in [[NSWorkspace sharedWorkspace] runningApplications]) {
 			NSString *executablePath = [[runningApplication executableURL] path];
 			if ([executablePath hasPrefix:targetPath]) {
-				NSAlert *alert = [NSAlert alertWithMessageText:@"Application running" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Postgres.app could not be moved to the Applications folder because the old version is still running."];
+				NSAlert *alert = [NSAlert alertWithMessageText:@"Application running" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Postgres could not be moved to the Applications folder because the old version is still running."];
 				[alert runModal];
 				exit(1);
 			}

@@ -27,7 +27,7 @@
 
 @interface WelcomeWindowController : NSWindowController
 
++(WelcomeWindowController*)sharedController;
 - (IBAction)close:(id)sender;
-- (IBAction)openDocumentation:(id)sender;
 
 @end

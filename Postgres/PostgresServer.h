@@ -25,17 +25,22 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PostgresServerMigrationDelegate;
+typedef enum {
+	PostgresDataDirectoryIncompatible,
+	PostgresDataDirectoryCompatible,
+	PostgresDataDirectoryEmpty
+} PostgresDataDirectoryStatus;
 
 @interface PostgresServer : NSObject
 
-@property (weak) id <PostgresServerMigrationDelegate> migrationDelegate;
 @property (readonly) BOOL isRunning;
 @property (readonly) NSUInteger port;
 @property (readonly) NSString *binPath;
 @property (readonly) NSString *varPath;
 
-
++ (NSString*)standardDatabaseDirectory;
++ (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir;
++ (NSString*)existingDatabaseDirectory;
 + (PostgresServer *)sharedServer;
 
 - (id)initWithExecutablesDirectory:(NSString *)executablesDirectory
@@ -48,15 +53,5 @@
 - (void)executeCommandNamed:(NSString *)command 
                   arguments:(NSArray *)arguments
          terminationHandler:(void (^)(NSUInteger status))terminationHandler;
-
-@end
-
-#pragma mark -
-
-@protocol PostgresServerMigrationDelegate <NSObject>
-
-- (BOOL)postgresServer:(PostgresServer *)server
-shouldMigrateFromVersion:(NSString *)fromVersion
-             toVersion:(NSString *)toVersion;
 
 @end

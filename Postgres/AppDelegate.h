@@ -33,15 +33,12 @@
 
 @property (weak) IBOutlet NSMenu *statusBarMenu;
 @property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
-@property (weak) IBOutlet NSMenuItem *automaticallyOpenDocumentationMenuItem;
-@property (weak) IBOutlet NSMenuItem *automaticallyStartMenuItem;
-@property (weak) IBOutlet NSMenuItem *checkForUpdatesMenuItem;
 
 - (IBAction)selectAbout:(id)sender;
-- (IBAction)selectDocumentation:(id)sender;
-- (IBAction)selectPsql:(id)sender;
-- (IBAction)selectAutomaticallyOpenDocumentation:(id)sender;
-- (IBAction)selectAutomaticallyStart:(id)sender;
-- (IBAction)checkForUpdates:(id)sender;
+
+- (IBAction)openDocumentation:(id)sender;
+- (IBAction)openPreferences:(id)sender;
+
+- (IBAction)openPsql:(id)sender;
 
 @end

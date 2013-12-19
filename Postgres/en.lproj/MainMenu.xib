@@ -79,8 +79,6 @@
         </menu>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="automaticallyStartMenuItem" destination="556" id="571"/>
-                <outlet property="checkForUpdatesMenuItem" destination="583" id="585"/>
                 <outlet property="postgresStatusMenuItem" destination="559" id="568"/>
                 <outlet property="postgresStatusMenuItemViewController" destination="578" id="579"/>
                 <outlet property="statusBarMenu" destination="553" id="567"/>
@@ -92,6 +90,13 @@
                 <menuItem title="Postgres: Running on Port 5432" enabled="NO" id="559">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="572"/>
+                <menuItem title="Open psql" id="588">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="openPsql:" target="494" id="V94-nd-Dk4"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="560"/>
                 <menuItem title="About Postgres" id="554">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -99,33 +104,19 @@
                         <action selector="selectAbout:" target="494" id="564"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Open Documentation" id="555">
+                <menuItem title="Documentation…" id="555">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="selectDocumentation:" target="494" id="565"/>
+                        <action selector="openDocumentation:" target="494" id="Hi6-yv-vbG"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Preferences…" id="556">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="openPreferences:" target="-1" id="7cr-ld-uPl"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="587"/>
-                <menuItem title="Open psql" id="588">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="selectPsql:" target="494" id="589"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="561"/>
-                <menuItem title="Automatically Start at Login" id="556">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="selectAutomaticallyStart:" target="494" id="566"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Check For Updates..." hidden="YES" id="583">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="checkForUpdates:" target="-1" id="584"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="572"/>
                 <menuItem title="Quit" id="573">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
