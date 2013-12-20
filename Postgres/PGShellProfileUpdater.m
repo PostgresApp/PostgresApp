@@ -54,17 +54,17 @@ static NSString *kIgnoredProfileFilesKey = @"IgnoredProfileFiles";
 		NSMutableArray *changedNewLines = [[NSMutableArray alloc] init];
 		for(NSString *line in lines) {
 			NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-			if (!trimmedLine.length) continue;
-			if ([trimmedLine characterAtIndex:0]=='#') continue;
 			NSString *newLine = line;
-			for (NSString *oldPath in _oldPaths) {
-				if ([newLine rangeOfString:oldPath].length) {
-					newLine = [newLine stringByReplacingOccurrencesOfString:oldPath withString:_currentPath];
+			if (trimmedLine.length && [trimmedLine characterAtIndex:0]!='#') {
+				for (NSString *oldPath in _oldPaths) {
+					if ([newLine rangeOfString:oldPath].length) {
+						newLine = [newLine stringByReplacingOccurrencesOfString:oldPath withString:_currentPath];
+					}
 				}
-			}
-			if (newLine!=line) {
-				[changedOldLines addObject:line];
-				[changedNewLines addObject:newLine];
+				if (newLine!=line) {
+					[changedOldLines addObject:line];
+					[changedNewLines addObject:newLine];
+				}
 			}
 			[updatedLines addObject:newLine];
 		}
