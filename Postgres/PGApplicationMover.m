@@ -40,20 +40,6 @@
 	
 	NSFileManager *fm = [[NSFileManager alloc] init];
 	
-	// check if this app is already in the applications folder
-	if ([fm contentsEqualAtPath:bundlePath andPath:targetPath]) {
-		NSAlert *alert = [NSAlert alertWithMessageText:@"Open copy in Applications folder?"
-										 defaultButton:@"Open Copy"
-									   alternateButton:@"Quit"
-										   otherButton:nil
-							 informativeTextWithFormat:@"This copy of Postgres can't be started because it is not inside the Applications folder. There is an identical copy inside the Applications folder. Do you want to open that copy instead?"];
-		NSInteger returnCode = [alert runModal];
-		if (returnCode == NSAlertDefaultReturn) {
-			[self terminateAndLaunchTarget];
-		}
-		exit(1);
-	}
-	
 	// check if the app is even on the same volume as the application folder
 	id bundleVolume = [[NSURL fileURLWithPath:bundlePath] resourceValuesForKeys:@[NSURLVolumeIdentifierKey] error:nil][NSURLVolumeIdentifierKey];
 	id targetVolume = [[NSURL fileURLWithPath:_targetFolder] resourceValuesForKeys:@[NSURLVolumeIdentifierKey] error:nil][NSURLVolumeIdentifierKey];
@@ -71,8 +57,6 @@
 		if (returnCode != NSAlertDefaultReturn) exit(1);
 		[self copyApplicationAndRelaunch];
 	}
-	
-	
 	
 	NSString *currentFolder = bundlePath.stringByDeletingLastPathComponent;
 	if (![currentFolder isEqualToString:_targetFolder]) {
