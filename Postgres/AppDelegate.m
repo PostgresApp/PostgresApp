@@ -49,13 +49,38 @@
 #pragma mark - NSApplicationDelegate
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
+	
+	/* Make sure that the app is inside the application directory */
 #if !DEBUG
 	[[PGApplicationMover sharedApplicationMover] validateApplicationPath];
 #endif
 	
+	/* make sure that there is no other version of Postgres.app running */
+	[self validateNoOtherVersionsAreRunning];
+	
 	[[NSUserDefaults standardUserDefaults] registerDefaults:@{
 															  kPostgresShowWelcomeWindowPreferenceKey: @(YES)
 															  }];
+}
+
+-(void)validateNoOtherVersionsAreRunning {
+	NSMutableArray *runningCopies = [NSMutableArray array];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres93"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres93"]];
+	for (NSRunningApplication *runningCopy in runningCopies) {
+		if (![runningCopy isEqual:[NSRunningApplication currentApplication]]) {
+			NSAlert *alert = [NSAlert alertWithMessageText: @"Another copy of Postgres.app is already running."
+											 defaultButton: @"OK"
+										   alternateButton: nil
+											   otherButton: nil
+								 informativeTextWithFormat: @"Please quit %@ before starting this copy.", runningCopy.localizedName];
+			[alert runModal];
+			exit(1);
+		}
+	}
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
