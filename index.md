@@ -1,6 +1,6 @@
 ---
 layout: index
-title: Postgres.app – Run PostgreSQL on your Mac
+title: Postgres.app – the easiest way to get started with PostgreSQL on the Mac
 ---
 
 
