@@ -9,7 +9,7 @@ What's in the box?
 
 Postgres.app contains a full featured PostgreSQL installation in a single package:
 
-- PostgreSQL 9.3.2
+- PostgreSQL 9.3.3
 - PostGIS 2.1.2
 - Procedural languages: PGSQL, Perl, Python, V8 (Javascript)
 - Popular extensions like hstore, uuid-ossp, and more
