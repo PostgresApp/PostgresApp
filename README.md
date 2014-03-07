@@ -5,7 +5,7 @@ This repository contains the Postgresapp.com website.
 
 ## Contributions Welcome!
 
-To contribute to the Postgresapp website, fork this repository, make changes, and send a pull request.
+To contribute to this website, fork this repository, make changes, and send a pull request.
 
 ## Page Content
 
@@ -13,7 +13,6 @@ The website is hosted on Github Pages, and uses Jekyll for formatting. All conte
 
 - The content of the home page is stored in `index.md`
 - The documentation is in the `documentation` subdirectory
-
 
 ## HTML Layout
 

@@ -9,27 +9,47 @@
   margin: 30px 0;
 }
 
+header {
+  margin-top: 25px;
+  text-align: center;
+}
 
-#header {
-	margin-top: 25px;
-	text-align: center;
+hgroup h1 {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+hgroup h2 {
+  border: none;
+  margin-top: 1em;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+hgroup h3 {
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 0.5em;
 }
 
 h2 {
-	border-bottom: 1px solid #ccc;
-	margin-top: 2em;
+  border-bottom: 1px solid #ccc;
+  margin-top: 2em;
+  padding-bottom: 0.125em;
 }
 
 .share {
-	text-align: center;
-	margin: 80px 0 45px;
+  text-align: center;
+  margin: 80px 0 45px;
 }
 
 .buttons {
-	margin-top: 40px;
-	text-align: center;
+  margin-top: 40px;
+  text-align: center;
 }
 
 .buttons .btn {
-	margin: 10px 3px;
+  margin: 10px 3px;
 }
