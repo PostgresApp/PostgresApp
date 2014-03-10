@@ -71,7 +71,7 @@ If you're looking for something more fully-featured and don't mind getting the k
 When using a GUI program, here are the connection parameters you need to enter:
 
 - **Host:** localhost
-- **Port:** 3306 (default)
+- **Port:** 5432 (default)
 - **User:** *your user name*
 - **Password:** *blank*
 - **Database:** *same as user name*
