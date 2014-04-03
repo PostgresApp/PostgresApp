@@ -15,7 +15,7 @@ Upgrading between bugfix versions (eg. 9.3.0.0 to 9.3.1.0, or 9.3.1.0 to 9.3.1.1
 
 When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory.
 You are responsible for migrating the data yourself.
-We suggest using `pg_dump_all` to export your data, and then import it using `psql`.
+We suggest using `pg_dumpall` to export your data, and then import it using `psql`.
 
 Starting with Version 9.3.2.0, the default the data directory is:
 `~/Library/Application Support/Postgres/var-9.3`
