@@ -10,9 +10,10 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 LIBUUID_VERSION=1.6.2
 LIBXML2_VERSION=2.9.1
-OPENSSL_VERSION=1.0.1f
+OPENSSL_VERSION=1.0.1g
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
+#see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18
 JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.3
@@ -370,7 +371,7 @@ plv8: $(PREFIX)/lib/postgresql/plv8.so
 
 $(PREFIX)/lib/postgresql/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
 	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install 
-	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
+#	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
 
 
 plv8js/Makefile:
@@ -379,10 +380,11 @@ plv8js/Makefile:
 
 $(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/out/x64.release/libv8.dylib
 	cp v8-${V8_VERSION}/out/x64.release/libv8.dylib $(PREFIX)/lib/libv8.dylib
+	/usr/bin/install_name_tool -id "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib"
 
 v8-${V8_VERSION}/out/x64.release/libv8.dylib: v8-${V8_VERSION}/Makefile
 	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} dependencies
-	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} library=shared x64.release
+	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; export DYLD_LIBRARY_PATH=$(CURDIR)/v8-${V8_VERSION}/out/x64.release; make -C v8-${V8_VERSION} library=shared werror=no x64.release
 
 v8-${V8_VERSION}/Makefile:
 	svn export --force "http://v8.googlecode.com/svn/branches/$(V8_VERSION)/" "v8-$(V8_VERSION)"
