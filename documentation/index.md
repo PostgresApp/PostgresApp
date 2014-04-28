@@ -84,11 +84,9 @@ Building a web application and want to skip to the part where everything works? 
 
 ### Ruby
 
-Install the `pg` gem with `gem install pg`, or just add `gem 'pg'` to your application's `Gemfile` and run `bundle install`. If you run into a problem with finding headers, run the following:
+To install the `pg` gem, make sure you have set up your `$PATH` correctly (see above in the section *Comannd Line Tools*), then execute the following command:
 
-```text
-gem install pg -- --with-pg-include=/Applications/Postgres.app/Contents/Versions/9.3/include
-```
+    sudo ARCHFLAGS="-arch x86_64" gem install pg
 
 If you are running your application with [Foreman](https://github.com/ddollar/foreman), set the `DATABASE_URL` config variable in `.env`:
 
