@@ -241,6 +241,18 @@ Postgres.app data and configuration resides at `~/Library/Application\ Support/P
 
 ## Troubleshooting
 
+### Reset Postgres.app
+
+If you somehow mess up your Postgres.app installation, here's how to start fresh:
+
+1. Quit Postgres.app
+2. Open Activity Monitor, see if any processes name `postgres` are running. If so, kill them.
+3. Delete the Folder `~/Library/Application Support/Postgres`
+4. Open Postgres.app again
+5. Wait a few moments before clicking "Open psql", initialising the database might take a few seconds
+
+### Technical Support
+
 If you run into any issues using Postgres.app, your first stop should be the [issue tracker](https://github.com/postgresapp/postgresapp/issues) on Github.
 You can also ask [@Postgresapp](https://twitter.com/Postgresapp) on Twitter.
 
