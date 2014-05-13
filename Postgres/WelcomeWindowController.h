@@ -27,6 +27,10 @@
 
 @interface WelcomeWindowController : NSWindowController
 
+@property BOOL canConnect;
+@property BOOL isBusy;
+@property NSString *statusMessage;
+
 +(WelcomeWindowController*)sharedController;
 - (IBAction)close:(id)sender;
 

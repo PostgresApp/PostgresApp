@@ -100,9 +100,14 @@
     [server startWithTerminationHandler:^(NSUInteger status) {
         if (status == 0) {
             [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
-			
+			[WelcomeWindowController sharedController].statusMessage = nil;
+			[WelcomeWindowController sharedController].isBusy = NO;
+			[WelcomeWindowController sharedController].canConnect = YES;
         } else {
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), server.port] wasSuccessful:NO];
+			NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), server.port];
+            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:errorMessage wasSuccessful:NO];
+			[WelcomeWindowController sharedController].statusMessage = errorMessage;
+			[WelcomeWindowController sharedController].isBusy = NO;
         }
     }];
     
@@ -111,8 +116,11 @@
     
     [self.postgresStatusMenuItem setEnabled:NO];
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
-    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Up", nil)];
-	
+    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Server…", nil)];
+	[WelcomeWindowController sharedController].canConnect = NO;
+	[WelcomeWindowController sharedController].isBusy = YES;
+	[WelcomeWindowController sharedController].statusMessage = @"Starting Server…";
+
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
