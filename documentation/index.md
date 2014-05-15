@@ -17,7 +17,7 @@ When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.a
 You are responsible for migrating the data yourself.
 We suggest using `pg_dumpall` to export your data, and then import it using `psql`.
 
-Starting with Version 9.3.2.0, the default the data directory is:
+Starting with Version 9.3.2.0, the default data directory is:
 `~/Library/Application Support/Postgres/var-9.3`
 
 ## Command-Line Tools
@@ -84,7 +84,7 @@ Building a web application and want to skip to the part where everything works? 
 
 ### Ruby
 
-To install the `pg` gem, make sure you have set up your `$PATH` correctly (see above in the section *Comannd Line Tools*), then execute the following command:
+To install the `pg` gem, make sure you have set up your `$PATH` correctly (see above in the section *Command-Line Tools*), then execute the following command:
 
     sudo ARCHFLAGS="-arch x86_64" gem install pg
 
