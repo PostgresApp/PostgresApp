@@ -10,7 +10,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 LIBUUID_VERSION=1.6.2
 LIBXML2_VERSION=2.9.1
-OPENSSL_VERSION=1.0.1g
+OPENSSL_VERSION=1.0.1h
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
@@ -52,6 +52,9 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # of libraries like openssl, instead of system provided versions
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib ${PREFIX}/include/uuid.h postgresql-$(POSTGRES_VERSION)/configure 
 	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-ossp-uuid --with-readline
+# patch makefile to fix python linker flags
+	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
+
 
 # after extracting PostgreSQL sources, we must patch uuid-ossp so it builds on OSX
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
