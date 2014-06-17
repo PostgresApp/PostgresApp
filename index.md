@@ -51,4 +51,4 @@ Postgres.app is maintained by [Jakob Egger](https://github.com/jakob).
 
 Postgres.app was created by [Mattt Thompson](https://github.com/mattt).
 
-We'd like to thank [Craig Kerstiens](https://github.com/craigkerstiens) and [Heroku Postgres](http://postgres.heroku.com/) for support.
+We'd like to thank [Craig Kerstiens](https://github.com/craigkerstiens) for support.

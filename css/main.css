@@ -53,3 +53,7 @@ h2 {
 .buttons .btn {
   margin: 10px 3px;
 }
+
+body {
+	margin-bottom: 100px;
+}
