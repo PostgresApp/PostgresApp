@@ -46,8 +46,9 @@
       ga('create', 'UA-49977852-1', 'postgresapp.com');
       ga('send', 'pageview');
       
-      var trackOutboundLink = function(url) {
-      	ga('send', 'event', 'outbound', 'click', url, {'hitCallback': function () {
+      var trackOutboundLink = function(url, category) {
+      	if (!category) category = 'outboundLink';
+      	ga('send', 'event', category, 'click', url, {'hitCallback': function () {
       		document.location = url;
       	}});
       	setTimeout(function() { location.href = url; }, 500);
