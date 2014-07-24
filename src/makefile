@@ -1,16 +1,15 @@
 # VERSION numbers
-POSTGIS_VERSION=2.1.1
+POSTGIS_VERSION=2.1.3
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.4beta1
+POSTGRES_VERSION=9.4beta2
 POSTGRES_MAJOR_VERSION=9.4
 GDAL_VERSION=1.10.0
 GEOS_VERSION=3.4.2
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
-LIBUUID_VERSION=1.6.2
 LIBXML2_VERSION=2.9.1
-OPENSSL_VERSION=1.0.1g
+OPENSSL_VERSION=1.0.1h
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
@@ -34,7 +33,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis plv8
-clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
 
 #########################
 ###### PostgreSQL #######
@@ -50,46 +49,21 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib ${PREFIX}/include/uuid.h postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure 
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs
 # patch makefile to fix python linker flags
 	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
 
-# after extracting PostgreSQL sources, we must patch uuid-ossp so it builds on OSX
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
-#	echo '#define _XOPEN_SOURCE' >"postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched"
-#	cat "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c" >>"postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched"
-#	mv "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched" "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c"
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
 	$(CURL) "http://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
 	
+
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
-
-#########################
-####### libuuid #########
-#########################
-
-uuid-${LIBUUID_VERSION}.tar.gz:
-	$(CURL) "http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-${LIBUUID_VERSION}.tar.gz"
-
-uuid-${LIBUUID_VERSION}: uuid-${LIBUUID_VERSION}.tar.gz
-	$(TAR) "uuid-${LIBUUID_VERSION}.tar.gz"
-	touch "uuid-${LIBUUID_VERSION}"
-
-${PREFIX}/include/uuid.h: uuid-${LIBUUID_VERSION}
-	cd uuid-${LIBUUID_VERSION} && ./configure --prefix="${PREFIX}" --disable-debug
-	make -C uuid-${LIBUUID_VERSION}
-	make -C uuid-${LIBUUID_VERSION} install
-	touch ${PREFIX}/include/uuid.h
-	
-libuuid: ${PREFIX}/include/uuid.h
-
-clean-libuuid:
-	rm -Rf "uuid-${LIBUUID_VERSION}"
 	
 	
 #########################
@@ -309,6 +283,9 @@ json-c-$(JSONC_VERSION)/configure: json-c-$(JSONC_VERSION).tar.gz
 
 json-c-$(JSONC_VERSION).tar.gz:
 	$(CURL) "https://s3.amazonaws.com/json-c_releases/releases/json-c-$(JSONC_VERSION).tar.gz"
+
+clean-json-c:
+	rm -Rf json-c-$(JSONC_VERSION)
 
 
 #########################
