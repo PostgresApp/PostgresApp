@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta content='Jakob Egger and Mattt Thompson' name='author'/>
-    <meta content='Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.' name='description'/>
+    <meta http-equiv="last-modified" content="{{ site.time | date: '%A, %d %Y %H:%M:%S GMT' }}"/>
     <title>{{ page.title }}</title>
-    <link href='http://www.opensource.org/licenses/postgresql' rel='license' title='PostgreSQL License'/>
+    <meta name='author' content='Jakob Egger and Mattt Thompson'/>
+    <meta name='description' content='Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel='license' href='http://www.opensource.org/licenses/postgresql' title='PostgreSQL License'/>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
@@ -45,7 +46,7 @@
 
       ga('create', 'UA-49977852-1', 'postgresapp.com');
       ga('send', 'pageview');
-      
+
       var trackOutboundLink = function(url, category) {
       	if (!category) category = 'outboundLink';
       	ga('send', 'event', category, 'click', url, {'hitCallback': function () {
