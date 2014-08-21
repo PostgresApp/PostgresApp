@@ -17,8 +17,6 @@ Whether you're a command line aficionado, prefer GUIs, or just want to start mak
  - [PHP](configuration-php.html)
 - [Troubleshooting & Support](troubleshooting.html)
 
-
-
 ## Additional Resources
 
 - [PostgreSQL Website](http://www.postgresql.org/) - The source for all of the latest PostgreSQL news and information.
