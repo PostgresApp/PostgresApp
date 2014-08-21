@@ -2,35 +2,43 @@
 layout: default
 ---
 
-<div class="container">
+<div class="container" itemscope itemtype="http://schema.org/SoftwareApplication">
+  <header>
+    <img src="/img/PostgresAppIconLarge.png" width="192" height="192" alt="Postgres.app Icon" itemprop="image">
+    <hgroup>
+      <h1 itemprop="name">Postgres.app</h1>
+      <h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
+      <h3>Just download, drag to the applications folder, and double-click</h3>
+    </hgroup>
+  </header>
 
-<header>
-  <img src="/img/PostgresAppIconLarge.png" width="192" height="192" alt="PostgresAppIconLarge">
-  <hgroup>
-    <h1>Postgres.app</h1>
-    <h2>The easiest way to get started with PostgreSQL on the Mac</h2>
-    <h3>Just download, drag to the applications folder, and double-click</h3>
-  </hgroup>
-</header>
+  <div class="buttons">
+    <a href="https://github.com/PostgresApp/PostgresApp/releases/download/9.3.5.0/Postgres-9.3.5.0.zip" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+    <a href="/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
+    <a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-list"></span> Releases</a>
+    <a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
+  </div>
 
-<div class="buttons">
-  <a href="https://github.com/PostgresApp/PostgresApp/releases/download/9.3.5.0/Postgres-9.3.5.0.zip" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
-  <a href="/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
-  <a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-list"></span> Releases</a>
-  <a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
-</div>
+  {{ content }}
 
-{{ content }}
+  <div class="metadata" hidden style="display:none">
+    <link itemprop="url" href="https://github.com/PostgresApp/PostgresApp/"/>
+    <link itemprop="license" href="http://opensource.org/licenses/MIT"/>
+    <span itemprop="applicationCategory">Application</span>
+    <span itemprop="applicationSubCategory">Utility</span>
+    <span itemprop="applicationSuite">PostgreSQL</span>
+    <span itemprop="operatingSystem">Mac OS X</span>
+    <span itemprop="requirements">Mac OS X 10.7+</span>
+  </div>
 
-<div class='share'>
-  <iframe src="http://ghbtns.com/github-btn.html?user=postgresapp&repo=postgresapp&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="155" height="30"></iframe>
+  <div class='share'>
+    <iframe src="http://ghbtns.com/github-btn.html?user=postgresapp&repo=postgresapp&type=watch&count=true&size=large"
+    allowtransparency="true" frameborder="0" scrolling="0" width="155" height="30"></iframe>
 
-  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://postgresapp.com" data-text="Postgres.app | the easiest way to run PostgreSQL on the Mac" data-via="postgresapp" data-size="large">Tweet</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://postgresapp.com" data-text="Postgres.app | the easiest way to run PostgreSQL on the Mac" data-via="postgresapp" data-size="large">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-  <a href="https://twitter.com/postgresapp" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @postgresapp</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-</div>
-
+    <a href="https://twitter.com/postgresapp" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @postgresapp</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
 </div>
