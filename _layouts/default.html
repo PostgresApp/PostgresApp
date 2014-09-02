@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="last-modified" content="{{ site.time | date: '%A, %d %Y %H:%M:%S GMT' }}"/>
     <title>{{ page.title }}</title>
-    <meta name='author' content='Jakob Egger and Mattt Thompson'/>
-    <meta name='description' content='Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.'/>
+    <meta name="author" content="Jakob Egger and Mattt Thompson"/>
+    <meta name="description" content="{{ site.description }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel='license' href='http://www.opensource.org/licenses/postgresql' title='PostgreSQL License'/>
+    <link rel="license" href="http://www.opensource.org/licenses/postgresql" title="PostgreSQL License"/>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css"/>
 
@@ -23,11 +22,11 @@
     <link rel="stylesheet" href="/css/syntax.css"/>
     <link rel="stylesheet" href="/css/main.css"/>
 
-    <meta content='Postgres.app' property='og:title'/>
-    <meta content='http://postgresapp.com' property='og:url'/>
-    <meta content='http://postgresapp.com/img/PostgresAppIconLarge.png' property='og:image'/>
-    <meta content='Postgres.app' property='og:site_name'/>
-    <meta content='The easiest way to run PostgreSQL on the Mac' property='og:description'/>
+    <meta content="{{ page.title }}" property="og:title"/>
+    <meta content="http://postgresapp.com/" property="og:url"/>
+    <meta content="http://postgresapp.com/img/PostgresAppIconLarge.png" property="og:image"/>
+    <meta content="{{ site.name }}" property="og:site_name"/>
+    <meta content="{{ site.description }}" property="og:description"/>
   </head>
   <body>
 
