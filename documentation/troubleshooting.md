@@ -26,4 +26,4 @@ If you somehow mess up your Postgres.app installation, here's how to start fresh
 ### Technical Support
 
 If you run into any issues using Postgres.app, your first stop should be the [issue tracker](https://github.com/postgresapp/postgresapp/issues) on Github.
-You can also ask [@Postgresapp](https://twitter.com/Postgresapp) on Twitter.
+You can also ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter.

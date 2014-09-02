@@ -17,12 +17,9 @@ Postgres.app contains a full featured PostgreSQL installation in a single packag
 Support
 -------
 
-The quickest way to get help is to ask [@Postgresapp](https://twitter.com/Postgresapp) on Twitter or to [open an issue](https://github.com/postgresapp/postgresapp/issues) on Github.
-When reporting bugs, please always tell us which version of Postgres.app and which version of OS X you are using.
+The quickest way to get help is to ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter, or to [open an issue](https://github.com/postgresapp/postgresapp/issues) on Github.
 
-Make sure you include detailed error messages, even if your issue seems similar to another one.
-
-[GitHub Issues](https://github.com/postgresapp/postgresapp/issues) is also the best place for feature requests.
+When reporting bugs, be sure to let us know which version of Postgres.app & OS X you are using, and please include detailed error messages, even if your issue seems similar to another one. GitHub Issues is also the best place to request new features.
 
 Contribute
 ----------
@@ -35,7 +32,7 @@ There are a many ways to contribute to Postgres.app. Here are some ideas:
 - Improve the documentation
 - Write a tutorial
 
-If you want to help, email Jakob Egger: [jakob@eggerapps.at](mailto:jakob@eggerapps.at).
+If you want to help, email Jakob Egger: <jakob@eggerapps.at>.
 
 License
 -------
@@ -51,4 +48,4 @@ Postgres.app is maintained by [Jakob Egger](https://github.com/jakob).
 
 Postgres.app was created by [Mattt Thompson](https://github.com/mattt).
 
-We'd like to thank [Craig Kerstiens](https://github.com/craigkerstiens) for support.
+Thanks to [Craig Kerstiens](https://github.com/craigkerstiens) and the [Heroku Postgres](https://postgres.heroku.com/) team for support.

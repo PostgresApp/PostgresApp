@@ -3,7 +3,6 @@ layout: documentation
 title: Using Command Line Tools with Postgres.app
 ---
 
-
 ## Tools provided by Postgres.app
 
 The following tools come with Postgres.app:
