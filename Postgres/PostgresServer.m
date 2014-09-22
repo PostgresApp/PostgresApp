@@ -26,6 +26,7 @@
 #import <xpc/xpc.h>
 #import "PostgresServer.h"
 #import "NSFileManager+DirectoryLocations.h"
+#import "RecoveryAttempter.h"
 
 #define xstr(a) str(a)
 #define str(a) #a
@@ -47,17 +48,11 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 }
 
 @interface PostgresServer()
-
 @property BOOL isRunning;
-
+@property NSUInteger port;
 @end
 
-@implementation PostgresServer {
-    __strong NSTask *_postgresTask;
-    NSUInteger _port;
-    
-    xpc_connection_t _xpc_connection;
-}
+@implementation PostgresServer
 
 +(NSString*)standardDatabaseDirectory {
 	return [[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingFormat:@"/var-%s", xstr(PG_MAJOR_VERSION)];
@@ -146,98 +141,204 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
             }
         }
     }
-
-    _xpc_connection = xpc_connection_create("com.postgresapp.postgres-service", dispatch_get_main_queue());
-	xpc_connection_set_event_handler(_xpc_connection, ^(xpc_object_t event) {
-        xpc_dictionary_apply(event, ^bool(const char *key, xpc_object_t value) {
-			return true;
-		});
-	});
-	xpc_connection_resume(_xpc_connection);
-    
+	
     return self;
 }
 
-- (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock
+#pragma mark - Asynchronous Server Control Methods
+
+- (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 {
-    [self stopWithTerminationHandler:nil];
-    
-    PostgresDataDirectoryStatus dataDirStatus = [PostgresServer statusOfDataDirectory:_varPath];
-	
-    if (dataDirStatus==PostgresDataDirectoryEmpty) {
-        [self executeCommandNamed:@"initdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-D%@", _varPath], [NSString stringWithFormat:@"-E%@", @"UTF8"], [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]], nil] terminationHandler:^(NSUInteger status) {
-			if (status!=0) {
-				if (completionBlock) {
-					completionBlock(status);
-				}
-			} else {
-				[self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", [NSString stringWithFormat:@"-D%@", _varPath], @"-w", [NSString stringWithFormat:@"-o'-p%ld'", _port], nil] terminationHandler:^(NSUInteger status) {
-					if (status!=0) {
-						if (completionBlock) {
-							completionBlock(status);
-						}
-					} else {
-						self.isRunning = YES;
-						[self executeCommandNamed:@"createdb" arguments:[NSArray arrayWithObjects:[NSString stringWithFormat:@"-p%ld", _port], NSUserName(), nil] terminationHandler:^(NSUInteger status) {
-							if (completionBlock) {
-								completionBlock(status);
-							}
-						}];
-					}
-				}];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		NSError *error = nil;
+		PostgresDataDirectoryStatus dataDirStatus = [PostgresServer statusOfDataDirectory:_varPath];
+		
+		if (dataDirStatus==PostgresDataDirectoryEmpty) {
+			BOOL serverDidInit = [self initDatabaseWithError:&error];
+			if (!serverDidInit) {
+				if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
+				return;
 			}
-        }];
-    }
-	else if (dataDirStatus==PostgresDataDirectoryCompatible) {
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"start", @"-w", [NSString stringWithFormat:@"-D%@", _varPath], nil] terminationHandler:^(NSUInteger status) {
-            self.isRunning = (status == 0);
-            if (completionBlock) {
-                completionBlock(status);
-            }
-        }];
-    }
-	else {
-		if (completionBlock) {
-			completionBlock(1);
+			
+			BOOL serverDidStart = [self startServerWithError:&error];
+			if (!serverDidStart) {
+				if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
+				return;
+			}
+			
+			BOOL createdUserDatabase = [self createUserDatabaseWithError:&error];
+			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(createdUserDatabase, error); });
 		}
-	}
-    
-    
-    return YES;
+		else if (dataDirStatus==PostgresDataDirectoryCompatible) {
+			BOOL serverDidStart = [self startServerWithError:&error];
+			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(serverDidStart, error); });
+		}
+		else {
+			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, nil); });
+		}
+		
+	});
 }
 
-- (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler {
-    NSString *pidPath = [_varPath stringByAppendingPathComponent:@"postmaster.pid"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pidPath]) {
-        NSString *pid = [[[NSString stringWithContentsOfFile:pidPath encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0];        
-        [self executeCommandNamed:@"pg_ctl" arguments:[NSArray arrayWithObjects:@"kill", @"INT", pid, nil] terminationHandler:terminationHandler];
-        [[NSFileManager defaultManager] removeItemAtPath:pidPath error:nil];
-    }
-    
-    return YES;
-}
-
-- (void)executeCommandNamed:(NSString *)command 
-                  arguments:(NSArray *)arguments
-         terminationHandler:(void (^)(NSUInteger status))terminationHandler
+- (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 {
-	xpc_object_t message = xpc_dictionary_create(NULL, NULL, 0);
+	NSError *error = nil;
+	BOOL success = [self stopServerWithError:&error];
+	if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(success, error); });
+}
 
-    xpc_dictionary_set_string(message, "command", [[_binPath stringByAppendingPathComponent:command] UTF8String]);
-    
-    xpc_object_t args = xpc_array_create(NULL, 0);
-    [arguments enumerateObjectsUsingBlock:^(id argument, NSUInteger idx, BOOL *stop) {
-        xpc_array_set_value(args, XPC_ARRAY_APPEND, xpc_string_create([argument UTF8String]));
-    }];
-    xpc_dictionary_set_value(message, "arguments", args);
-    
-    xpc_connection_send_message_with_reply(_xpc_connection, message, dispatch_get_main_queue(), ^(xpc_object_t object) {
-        NSLog(@"%lld %s: Status %lld", xpc_dictionary_get_int64(object, "pid"), xpc_dictionary_get_string(object, "command"), xpc_dictionary_get_int64(object, "status"));
-        
-        if (terminationHandler) {
-            terminationHandler(xpc_dictionary_get_int64(object, "status"));
-        }
-    });
+#pragma mark - Synchronous Server Control Methods
+
+-(PostgresServerStatus)serverStatus {
+	NSTask *psqlTask = [[NSTask alloc] init];
+	psqlTask.launchPath = [self.binPath stringByAppendingPathComponent:@"psql"];
+	psqlTask.arguments = @[
+						   [NSString stringWithFormat:@"-p%u", (unsigned)self.port],
+						   @"-A",
+						   @"-q",
+						   @"-t",
+						   @"-c", @"SHOW data_directory;",
+						   @"postgres"
+						   ];
+	NSPipe *outPipe = [[NSPipe alloc] init];
+	psqlTask.standardOutput = outPipe;
+	
+	[psqlTask launch];
+	NSString *taskOutput = [[NSString alloc] initWithData:[[outPipe fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[psqlTask waitUntilExit];
+	
+	NSString *expectedDataDirectory = self.varPath;
+	NSString *actualDataDirectory = taskOutput.length>1 ? [taskOutput substringToIndex:taskOutput.length-1] : nil;
+	
+	switch(psqlTask.terminationStatus) {
+		case 0:
+			if (strcmp(actualDataDirectory.fileSystemRepresentation, expectedDataDirectory.fileSystemRepresentation)==0) {
+				self.isRunning = YES;
+				return PostgresServerRunning;
+			} else {
+				self.isRunning = NO;
+				return PostgresServerWrongDataDirectory;
+			}
+		case 2:
+			self.isRunning = NO;
+			return PostgresServerUnreachable;
+		default:
+			self.isRunning = NO;
+			return PostgresServerStatusError;
+	}
+}
+
+-(BOOL)startServerWithError:(NSError**)error {
+	NSTask *controlTask = [[NSTask alloc] init];
+	controlTask.launchPath = [self.binPath stringByAppendingPathComponent:@"pg_ctl"];
+	controlTask.arguments = @[
+		/* control command          */ @"start",
+		/* data directory           */ @"-D", self.varPath,
+		/* wait for server to start */ @"-w",
+		/* server log file          */ @"-l", self.logfilePath
+	];
+	controlTask.standardError = [[NSPipe alloc] init];
+	[controlTask launch];
+	NSString *controlTaskError = [[NSString alloc] initWithData:[[controlTask.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[controlTask waitUntilExit];
+	
+	if (controlTask.terminationStatus != 0 && error) {
+		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not start PostgreSQL server.",nil);
+		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
+		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:controlTask.terminationStatus userInfo:errorUserInfo];
+	}
+
+	if (controlTask.terminationStatus == 0) {
+		self.isRunning = YES;
+	}
+	
+	return controlTask.terminationStatus == 0;
+}
+
+-(BOOL)stopServerWithError:(NSError**)error {
+	NSTask *controlTask = [[NSTask alloc] init];
+	controlTask.launchPath = [self.binPath stringByAppendingPathComponent:@"pg_ctl"];
+	controlTask.arguments = @[
+		/* control command         */ @"stop",
+		/* data directory          */ @"-D", self.varPath,
+		/* wait for server to stop */ @"-w",
+	];
+	controlTask.standardError = [[NSPipe alloc] init];
+	[controlTask launch];
+	NSString *controlTaskError = [[NSString alloc] initWithData:[[controlTask.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[controlTask waitUntilExit];
+	
+	if (controlTask.terminationStatus != 0 && error) {
+		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not stop PostgreSQL server.",nil);
+		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
+		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:controlTask.terminationStatus userInfo:errorUserInfo];
+	}
+	
+	if (controlTask.terminationStatus == 0) {
+		self.isRunning = NO;
+	}
+	
+	return controlTask.terminationStatus == 0;
+}
+
+-(BOOL)initDatabaseWithError:(NSError**)error {
+	NSTask *initdbTask = [[NSTask alloc] init];
+	initdbTask.launchPath = [self.binPath stringByAppendingPathComponent:@"initdb"];
+	initdbTask.arguments = @[
+		/* data directory */ @"-D", self.varPath,
+		/* encoding       */ @"-EU,TF-8",
+		/* locale         */ [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]]
+	];
+	initdbTask.standardError = [[NSPipe alloc] init];
+	[initdbTask launch];
+	NSString *initdbTaskError = [[NSString alloc] initWithData:[[initdbTask.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[initdbTask waitUntilExit];
+	
+	if (initdbTask.terminationStatus != 0 && error) {
+		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not initialize database cluster.",nil);
+		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = initdbTaskError;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.initdb" code:initdbTask.terminationStatus userInfo:errorUserInfo];
+	}
+	
+	return initdbTask.terminationStatus == 0;
+}
+
+-(BOOL)createUserDatabaseWithError:(NSError**)error {
+	NSTask *task = [[NSTask alloc] init];
+	task.launchPath = [self.binPath stringByAppendingPathComponent:@"createdb"];
+	task.arguments = @[ @"-p", @(self.port).stringValue, NSUserName() ];
+	task.standardError = [[NSPipe alloc] init];
+	[task launch];
+	NSString *taskError = [[NSString alloc] initWithData:[[task.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[task waitUntilExit];
+	
+	if (task.terminationStatus != 0 && error) {
+		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create user database.",nil);
+		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = taskError;
+		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createdb" code:task.terminationStatus userInfo:errorUserInfo];
+	}
+	
+	return task.terminationStatus == 0;
+}
+
+-(NSString *)logfilePath {
+	return [self.varPath stringByAppendingPathComponent:@"postgres-server.log"];
 }
 
 @end

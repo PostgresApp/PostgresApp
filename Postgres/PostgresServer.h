@@ -31,12 +31,22 @@ typedef enum {
 	PostgresDataDirectoryEmpty
 } PostgresDataDirectoryStatus;
 
+typedef enum : NSUInteger {
+	PostgresServerUnreachable,
+	PostgresServerRunning,
+	PostgresServerWrongDataDirectory,
+	PostgresServerStatusError
+} PostgresServerStatus;
+
+typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *error);
+
 @interface PostgresServer : NSObject
 
-@property (readonly) BOOL isRunning;
 @property (readonly) NSUInteger port;
 @property (readonly) NSString *binPath;
 @property (readonly) NSString *varPath;
+@property (readonly) NSString *logfilePath;
+@property (readonly) BOOL isRunning;
 
 + (NSString*)standardDatabaseDirectory;
 + (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir;
@@ -46,12 +56,9 @@ typedef enum {
 - (id)initWithExecutablesDirectory:(NSString *)executablesDirectory
                  databaseDirectory:(NSString *)databaseDirectory;
 
-- (BOOL)startWithTerminationHandler:(void (^)(NSUInteger status))completionBlock;
+- (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
+- (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 
-- (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler;
-
-- (void)executeCommandNamed:(NSString *)command 
-                  arguments:(NSArray *)arguments
-         terminationHandler:(void (^)(NSUInteger status))terminationHandler;
+-(PostgresServerStatus)serverStatus;
 
 @end
