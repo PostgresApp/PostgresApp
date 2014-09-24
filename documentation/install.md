@@ -26,8 +26,27 @@ Starting with Version 9.2.2.0, Postgres.app is using semantic versioning, tied t
 
 Upgrading between bugfix versions (e.g. `9.3.0.0` → 9.3.1.0 or `9.3.1.0` → `9.3.1.1`) is as simple as replacing Postgres.app in your Applications directory (just be sure to quit the app first, though).
 
-When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory. You are responsible for migrating the data yourself. Instructions for how to do this with the `pg_upgrade` utility can be found [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
+When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory. You are responsible for migrating the data yourself. There are two ways to migrate the data:
 
+### Migrate data using `pg_dump`
+
+1. While the old version is running, use `pg_dump` (or `pg_dumpall` if you have multiple databases) to create a dump of your database
+2. Quit the old version of Postgres.app, then start the new version of Postgres.app
+3. Now use `psql` to restore the dump file
+
+### Migrate data using `pg_upgrade`
+
+Using `pg_upgrade` from the command line is a bit more difficult.
+This is recommended only if you have a large database and using `pg_dump` is too slow or uses too much disk space.
+Make sure you completely understand the process and have a working backup before attempting this!
+
+Since `pg_upgrade` needs the old and new binaries, you must make a special version of Postgres.app containing both the old and new binaries. For example, when upgrading from 9.3 to 9.4:
+
+1. Right-Click to "Show Package Contents" on the old Postgres.app
+2. Right-Click to "Show Package Contents" on the new Postgres.app
+3. Copy the folder `Contents/Versions/9.3` from the old Postgres.app into `Contents/Versions` from the new Postgres.app
+4. Place the modified new version inside the Applications folder
+5. Now use `pg_upgrade` according to the instructions [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
 
 ## Removing Existing PostgreSQL Installations
 
