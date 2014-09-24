@@ -3,38 +3,33 @@
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta content='Jakob Egger and Mattt Thompson' name='author'/>
-    <meta content='Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.' name='description'/>
+    <meta http-equiv="last-modified" content="{{ site.time | date: '%A, %d %Y %H:%M:%S GMT' }}"/>
     <title>{{ page.title }}</title>
-    <link href='http://www.opensource.org/licenses/postgresql' rel='license' title='PostgreSQL License'/>
+    <meta name="author" content="Jakob Egger and Mattt Thompson"/>
+    <meta name="description" content="{{ site.description }}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="license" href="http://www.opensource.org/licenses/postgresql" title="PostgreSQL License"/>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css"/>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="/css/syntax.css"/>
     <link rel="stylesheet" href="/css/main.css"/>
 
-    <meta content='Postgres.app' property='og:title'/>
-    <meta content='http://postgresapp.com' property='og:url'/>
-    <meta content='http://postgresapp.com/img/PostgresAppIconLarge.png' property='og:image'/>
-    <meta content='Postgres.app' property='og:site_name'/>
-    <meta content='The easiest way to run PostgreSQL on the Mac' property='og:description'/>
+    <meta content="{{ page.title }}" property="og:title"/>
+    <meta content="http://postgresapp.com/" property="og:url"/>
+    <meta content="http://postgresapp.com/img/PostgresAppIconLarge.png" property="og:image"/>
+    <meta content="{{ site.name }}" property="og:site_name"/>
+    <meta content="{{ site.description }}" property="og:description"/>
   </head>
   <body>
 
     {{ content }}
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
     <script>
@@ -45,13 +40,13 @@
 
       ga('create', 'UA-49977852-1', 'postgresapp.com');
       ga('send', 'pageview');
-      
+
       var trackOutboundLink = function(url, category) {
-      	if (!category) category = 'outboundLink';
-      	ga('send', 'event', category, 'click', url, {'hitCallback': function () {
-      		document.location = url;
-      	}});
-      	setTimeout(function() { location.href = url; }, 500);
+        if (!category) category = 'outboundLink';
+        ga('send', 'event', category, 'click', url, {'hitCallback': function () {
+          document.location = url;
+        }});
+        setTimeout(function() { location.href = url; }, 500);
       }
     </script>
   </body>

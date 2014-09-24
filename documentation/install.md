@@ -12,15 +12,21 @@ A few moments after launching, you should be able to click on "Open psql" to con
 
 If you'd like to use the command line tools delivered with Postgres.app, see the [section on Command Line Tools](cli-tools.html).
 
+### Installation Directories
+
+- Binaries: `/Applications/Postgres.app/Contents/MacOS/bin`
+- Headers: `/Applications/Postgres.app/Contents/MacOS/include`
+- Libraries: `/Applications/Postgres.app/Contents/MacOS/lib`
+- Shared Libraries: `/Applications/Postgres.app/Contents/MacOS/share`
+- Data: `~/Library/Containers/com.heroku.postgres/Data/Library/Application\ Support/Postgres/var`
+
 ## Upgrading From A Previous Version
 
-Starting with Version 9.2.2.0, Postgres.app is using semantic versioning, tied to the release of PostgreSQL provided in the release, with the final number corresponding to the individual releases of PostgresApp for each distribution.
+Starting with Version 9.2.2.0, Postgres.app is using semantic versioning, tied to the release of PostgreSQL provided in the release, with the final number corresponding to the individual releases of Postgres.app for each distribution.
 
-Upgrading between bugfix versions (eg. 9.3.0.0 to 9.3.1.0, or 9.3.1.0 to 9.3.1.1) is as simple as replacing Postgres.app in your Applications directory. Make sure that the app is closed, though.
+Upgrading between bugfix versions (e.g. `9.3.0.0` → 9.3.1.0 or `9.3.1.0` → `9.3.1.1`) is as simple as replacing Postgres.app in your Applications directory (just be sure to quit the app first, though).
 
-When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory.
-You are responsible for migrating the data yourself.
-We suggest using `pg_dumpall` to export your data, and then import it using `psql`.
+When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory. You are responsible for migrating the data yourself. Instructions for how to do this with the `pg_upgrade` utility can be found [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
 
 Starting with Version 9.3.2.0, the default data directory is:
 `~/Library/Application Support/Postgres/var-9.3`
@@ -51,6 +57,6 @@ To uninstall the Kyng Chaos distribution, follow [these instructions](http://com
 
 ## Uninstalling Postgres.app
 
-Uninstall Postgres.app just like you would any application: quit, drag to the Trash, and Empty Trash.
+Uninstall Postgres.app just like you would any other application: quit, drag to the Trash, and then "Finder > Empty Trash...".
 
-Postgres.app data and configuration resides at `~/Library/Application\ Support/Postgres`, so remove that when uninstalling, or if you need to do a hard reset on the database.
+Postgres.app data and configuration reside at `~/Library/Containers/com.heroku.postgres/Data/Library/Application\ Support/Postgres/var`, so remove that after uninstalling.

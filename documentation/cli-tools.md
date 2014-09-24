@@ -3,7 +3,6 @@ layout: documentation
 title: Using Command Line Tools with Postgres.app
 ---
 
-
 ## Tools provided by Postgres.app
 
 The following tools come with Postgres.app:
@@ -23,6 +22,12 @@ $ /Applications/Postgres.app/Contents/Versions/9.3/bin/psql -h localhost
 
 ```bash
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
+```
+
+If you're using the fish shell, add the following to your `config.fish` (normally located at `~/.config/fish/config.fish`):
+
+```bash
+set PATH /Applications/Postgres.app/Contents/Versions/9.3/bin $PATH
 ```
 
 Once your path is correctly set up, you should be able to run `psql` without a host. You can check if the path is set up correctly by typing `which psql`.
