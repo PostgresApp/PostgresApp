@@ -296,7 +296,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	initdbTask.launchPath = [self.binPath stringByAppendingPathComponent:@"initdb"];
 	initdbTask.arguments = @[
 		/* data directory */ @"-D", self.varPath,
-		/* encoding       */ @"-EU,TF-8",
+		/* encoding       */ @"-EUTF-8",
 		/* locale         */ [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]]
 	];
 	initdbTask.standardError = [[NSPipe alloc] init];
