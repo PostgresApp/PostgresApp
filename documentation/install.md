@@ -14,11 +14,11 @@ If you'd like to use the command line tools delivered with Postgres.app, see the
 
 ### Installation Directories
 
-- Binaries: `/Applications/Postgres.app/Contents/MacOS/bin`
-- Headers: `/Applications/Postgres.app/Contents/MacOS/include`
-- Libraries: `/Applications/Postgres.app/Contents/MacOS/lib`
-- Shared Libraries: `/Applications/Postgres.app/Contents/MacOS/share`
-- Data: `~/Library/Containers/com.heroku.postgres/Data/Library/Application\ Support/Postgres/var`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/9.3/bin`
+- Headers: `/Applications/Postgres.app/Contents/Versions/9.3/include`
+- Libraries: `/Applications/Postgres.app/Contents/Versions/9.3/lib`
+- Shared Libraries: `/Applications/Postgres.app/Contents/Versions/9.3/share`
+- Default data directory: `~/Library/Application Support/Postgres/var-9.3`
 
 ## Upgrading From A Previous Version
 
@@ -28,8 +28,6 @@ Upgrading between bugfix versions (e.g. `9.3.0.0` → 9.3.1.0 or `9.3.1.0` → `
 
 When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory. You are responsible for migrating the data yourself. Instructions for how to do this with the `pg_upgrade` utility can be found [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
 
-Starting with Version 9.3.2.0, the default data directory is:
-`~/Library/Application Support/Postgres/var-9.3`
 
 ## Removing Existing PostgreSQL Installations
 
@@ -57,6 +55,7 @@ To uninstall the Kyng Chaos distribution, follow [these instructions](http://com
 
 ## Uninstalling Postgres.app
 
-Uninstall Postgres.app just like you would any other application: quit, drag to the Trash, and then "Finder > Empty Trash...".
+1. Quit Postgres.app
+2. Drag Postgres.app to the Trash
+3. Delete the data directory (default location: `~/Library/Application Support/Postgres/var-9.3`)
 
-Postgres.app data and configuration reside at `~/Library/Containers/com.heroku.postgres/Data/Library/Application\ Support/Postgres/var`, so remove that after uninstalling.
