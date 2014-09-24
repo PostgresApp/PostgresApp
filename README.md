@@ -47,9 +47,21 @@ To share your build, use the "Archive" command and then use the "Distribute" com
 
 ## Under the Hood
 
-Postgres.app bundles the PostgreSQL binaries as auxiliary executables. An [XPC service](http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html) manages `postgres` processes, which are terminated when the app is quit.
+Postgres.app bundles the PostgreSQL binaries inside the application package. When you first start Postgres.app, here's what it does:
 
-The database data directory is located in the `/var` directory of the Postgres.app Container's Application Support directory. When the app is launched, it checks for "PG_VERSION" in the directory. If it does not exist, `initdb` is run, and later, `createdb` to create a default database for the current user.
+- Initialise a database cluster: `initdb -D DATA_DIRECTORY -EUTF-8 --locale=XX_XX.UTF-8`
+- Start the server: `pg_ctl start -D DATA_DIRECTORY -w -l DATA_DIRECTORY/postgres-server.log`
+- Create a user database: `createdb USERNAME`
+
+On subsequent app launches, Postgres.app only starts the server.
+
+The default `DATA_DIRECTORY` is `/Users/USERNAME/Library/Application Support/Postgres/var-9.X`
+
+Note that Postgres.app runs the server as your user, unlike other installations which might create a separate user named `postgres`.
+
+When you quit Postgres.app, it stops the server using the following command:
+
+- `pg_ctl stop -w -D DATA_DIRECTORY`
 
 ## Command Line Utilities
 
