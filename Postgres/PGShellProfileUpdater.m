@@ -36,8 +36,7 @@ static NSString *kIgnoredProfileFilesKey = @"IgnoredProfileFiles";
 											  ];
 		sharedProfileUpdater.oldPaths = @[
 										  @"/Applications/Postgres.app/Contents/MacOS/bin",
-										  @"/Applications/Postgres93.app/Contents/MacOS/bin",
-										  @"/Applications/Postgres.app/Contents/Versions/9.3/bin"
+										  @"/Applications/Postgres93.app/Contents/MacOS/bin"
 										  ];
 		sharedProfileUpdater.currentPath = [NSString stringWithFormat:@"/Applications/Postgres.app/Contents/Versions/%s/bin", xstr(PG_MAJOR_VERSION)];
     });

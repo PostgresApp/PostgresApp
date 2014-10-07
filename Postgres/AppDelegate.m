@@ -96,23 +96,7 @@
     _statusBarItem.image = [NSImage imageNamed:@"status-off"];
     _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
 	
-    PostgresServer *server = [PostgresServer sharedServer];
-    [server startWithTerminationHandler:^(NSUInteger status) {
-        if (status == 0) {
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
-			[WelcomeWindowController sharedController].statusMessage = nil;
-			[WelcomeWindowController sharedController].isBusy = NO;
-			[WelcomeWindowController sharedController].canConnect = YES;
-        } else {
-			NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not start on Port %u", nil), server.port];
-            [self.postgresStatusMenuItemViewController stopAnimatingWithTitle:errorMessage wasSuccessful:NO];
-			[WelcomeWindowController sharedController].statusMessage = errorMessage;
-			[WelcomeWindowController sharedController].isBusy = NO;
-        }
-    }];
-    
     [NSApp activateIgnoringOtherApps:YES];
-    
     
     [self.postgresStatusMenuItem setEnabled:NO];
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
@@ -123,9 +107,48 @@
 
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
+	PostgresServer *server = [PostgresServer sharedServer];
+
+	PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error){
+		if (success) {
+			[self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
+			[WelcomeWindowController sharedController].statusMessage = nil;
+			[WelcomeWindowController sharedController].isBusy = NO;
+			[WelcomeWindowController sharedController].canConnect = YES;
+		} else {
+			NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Server startup failed.", nil)];
+			[self.postgresStatusMenuItemViewController stopAnimatingWithTitle:errorMessage wasSuccessful:NO];
+			[WelcomeWindowController sharedController].statusMessage = errorMessage;
+			[WelcomeWindowController sharedController].isBusy = NO;
+			
+			[[WelcomeWindowController sharedController] showWindow:self];
+			[[WelcomeWindowController sharedController].window presentError:error modalForWindow:[WelcomeWindowController sharedController].window delegate:nil didPresentSelector:NULL contextInfo:NULL];
+		}
+	};
+
+	PostgresServerStatus serverStatus = [server serverStatus];
+	
+	if (serverStatus == PostgresServerWrongDataDirectory) {
+		/* a different server is running */
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: [NSString stringWithFormat:@"There is already a PostgreSQL server running on port %u", (unsigned)server.port],
+								   NSLocalizedRecoverySuggestionErrorKey: @"Please stop this server before starting Postgres.app.\n\nIf you want to use multiple servers, configure them to use different ports."
+								   };
+		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
+		completionHandler(NO, error);
+	}
+	else if (serverStatus == PostgresServerRunning) {
+		/* apparently the server is already running... Either the user started it manually, or Postgres.app was force quit */
+		completionHandler(YES, nil);
+	}
+	else {
+		/* server is not running; try to start it */
+		[server startWithCompletionHandler:completionHandler];
+	}
+	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
 		[[WelcomeWindowController sharedController] showWindow:self];
-    }
+	}
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
@@ -136,12 +159,12 @@
 		return NSTerminateCancel;
 	}
 	
-	if (![[PostgresServer sharedServer] isRunning]) {
+	if (![PostgresServer sharedServer].isRunning) {
 		return NSTerminateNow;
 	}
 	
-    [[PostgresServer sharedServer] stopWithTerminationHandler:^(NSUInteger status) {
-        [sender replyToApplicationShouldTerminate:YES];
+    [[PostgresServer sharedServer] stopWithCompletionHandler:^(BOOL success, NSError *error) {
+	    [sender replyToApplicationShouldTerminate:YES];
     }];
     
     // Set a timeout interval for postgres shutdown
