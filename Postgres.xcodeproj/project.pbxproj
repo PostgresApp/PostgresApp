@@ -92,7 +92,6 @@
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		3668913F183CD12900A3FA19 /* ResourceRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResourceRules.plist; sourceTree = "<group>"; };
 		36B958C21861AE88007BBB36 /* PGApplicationMover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGApplicationMover.h; sourceTree = "<group>"; };
 		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
 		36C986ED1861DFCC00308267 /* PGShellProfileUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGShellProfileUpdater.h; sourceTree = "<group>"; };
@@ -290,7 +289,6 @@
 				36C986F21861FBB200308267 /* PreferenceWindowController.h */,
 				36C986F31861FBB200308267 /* PreferenceWindowController.m */,
 				F8973A131538846600EAB41E /* Supporting Files */,
-				3668913F183CD12900A3FA19 /* ResourceRules.plist */,
 				36B958C21861AE88007BBB36 /* PGApplicationMover.h */,
 				36B958C31861AE88007BBB36 /* PGApplicationMover.m */,
 				36C986ED1861DFCC00308267 /* PGShellProfileUpdater.h */,
@@ -676,7 +674,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_RESOURCE_RULES_PATH = $PROJECT_DIR/Postgres/ResourceRules.plist;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
@@ -691,7 +688,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_RESOURCE_RULES_PATH = $PROJECT_DIR/Postgres/ResourceRules.plist;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
