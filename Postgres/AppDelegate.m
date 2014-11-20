@@ -207,7 +207,9 @@
 }
 
 - (IBAction)reloadPsql:(id)sender {
-    NSLog(@"Reloading postgresql");
+    PostgresServer *server = [PostgresServer sharedServer];
+    NSError *error = [[NSError alloc] init];
+    [server reloadServerWithError:&error];
 }
 
 - (IBAction)checkForUpdates:(id)sender {

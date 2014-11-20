@@ -58,6 +58,7 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 
 - (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 - (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
+- (BOOL)reloadServerWithError:(NSError**)error;
 
 -(PostgresServerStatus)serverStatus;
 

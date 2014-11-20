@@ -291,6 +291,31 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return controlTask.terminationStatus == 0;
 }
 
+-(BOOL)reloadServerWithError:(NSError**)error {
+    NSTask *controlTask = [[NSTask alloc] init];
+    controlTask.launchPath = [self.binPath stringByAppendingPathComponent:@"pg_ctl"];
+    controlTask.arguments = @[
+                              @"reload",
+                              @"-D", self.varPath,
+    ];
+    controlTask.standardError = [[NSPipe alloc] init];
+    [controlTask launch];
+    NSString *controlTaskError = [[NSString alloc] initWithData:[[controlTask.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+    [controlTask waitUntilExit];
+
+    if (controlTask.terminationStatus != 0 && error) {
+        NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+        errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not stop PostgreSQL server.",nil);
+        errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
+        errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+        errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+        errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+        errorUserInfo[@"ServerLogPath"] = self.logfilePath;
+        *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:controlTask.terminationStatus userInfo:errorUserInfo];
+    }
+    return controlTask.terminationStatus == 0;
+}
+
 -(BOOL)initDatabaseWithError:(NSError**)error {
 	NSTask *initdbTask = [[NSTask alloc] init];
 	initdbTask.launchPath = [self.binPath stringByAppendingPathComponent:@"initdb"];
