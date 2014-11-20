@@ -206,6 +206,10 @@
 	[terminal doScript:psqlScript in:window.tabs.firstObject];
 }
 
+- (IBAction)reloadPsql:(id)sender {
+    NSLog(@"Reloading postgresql");
+}
+
 - (IBAction)checkForUpdates:(id)sender {
 #ifdef SPARKLE
     [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];

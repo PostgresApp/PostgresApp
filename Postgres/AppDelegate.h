@@ -40,5 +40,6 @@
 - (IBAction)openPreferences:(id)sender;
 
 - (IBAction)openPsql:(id)sender;
+- (IBAction)reloadPsql:(id)sender;
 
 @end
