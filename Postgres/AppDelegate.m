@@ -206,6 +206,12 @@
 	[terminal doScript:psqlScript in:window.tabs.firstObject];
 }
 
+- (IBAction)reloadPsql:(id)sender {
+    PostgresServer *server = [PostgresServer sharedServer];
+    NSError *error = [[NSError alloc] init];
+    [server reloadServerWithError:&error];
+}
+
 - (IBAction)checkForUpdates:(id)sender {
 #ifdef SPARKLE
     [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];

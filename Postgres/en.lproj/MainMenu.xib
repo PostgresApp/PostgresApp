@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
                 <menuItem title="Postgres" id="56">
@@ -97,6 +97,13 @@
                         <action selector="openPsql:" target="494" id="V94-nd-Dk4"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="587"/>
+                <menuItem title="Reload Postgres" id="ikJ-8n-Bib">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="reloadPsql:" target="494" id="iPG-mV-WBG"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="560"/>
                 <menuItem title="About Postgres" id="554">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -116,7 +123,7 @@
                         <action selector="openPreferences:" target="-1" id="7cr-ld-uPl"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="587"/>
+                <menuItem isSeparatorItem="YES" id="Tvf-Gs-cis"/>
                 <menuItem title="Quit" id="573">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
