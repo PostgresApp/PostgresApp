@@ -93,8 +93,12 @@
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
-    _statusBarItem.image = [NSImage imageNamed:@"status-off"];
-    _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
+	NSImage *templateOffImage = [NSImage imageNamed:@"status-off"];
+	templateOffImage.template = YES;
+	_statusBarItem.image = templateOffImage;
+	NSImage *templateOnImage = [NSImage imageNamed:@"status-on"];
+	templateOnImage.template = YES;
+	_statusBarItem.alternateImage = templateOnImage;
 	
     [NSApp activateIgnoringOtherApps:YES];
     

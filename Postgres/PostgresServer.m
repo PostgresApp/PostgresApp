@@ -98,19 +98,23 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return nil;
 }
 
++(NSString*)dataDirectoryPreferenceKey {
+	return [[NSString stringWithFormat:@"%@%s", kPostgresDataDirectoryPreferenceKey, xstr(PG_MAJOR_VERSION)] stringByReplacingOccurrencesOfString:@"." withString:@""];
+}
+
 +(PostgresServer *)sharedServer {
     static PostgresServer *_sharedServer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 		NSString *binDirectory = [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
-		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:kPostgresDataDirectoryPreferenceKey];
+		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]];
 		if (!databaseDirectory || [self statusOfDataDirectory:databaseDirectory] == PostgresDataDirectoryIncompatible) {
 			databaseDirectory = [self existingDatabaseDirectory];
 		}
 		if (!databaseDirectory) {
 			databaseDirectory = [self standardDatabaseDirectory];
 		}
-		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:kPostgresDataDirectoryPreferenceKey];
+		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:[PostgresServer dataDirectoryPreferenceKey]];
         _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:binDirectory databaseDirectory:databaseDirectory];
     });
     

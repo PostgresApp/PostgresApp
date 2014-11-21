@@ -10,6 +10,7 @@
 
 @interface PreferenceWindowController : NSWindowController<NSWindowDelegate> {
 	IBOutlet NSButton *loginItemCheckbox;
+	IBOutlet NSTextField *dataDirectoryField;
 }
 
 +(PreferenceWindowController*)sharedController;

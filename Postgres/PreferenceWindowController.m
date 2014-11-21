@@ -24,6 +24,7 @@
 
 -(void)windowDidLoad {
 	[self configureLoginItemButton];
+	[dataDirectoryField bind:@"value" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:[@"values." stringByAppendingString:[PostgresServer dataDirectoryPreferenceKey]] options:nil];
 }
 
 -(void)configureLoginItemButton {
@@ -65,7 +66,7 @@
 
 -(IBAction)openDataDirectory:(id)sender;
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] stringForKey:kPostgresDataDirectoryPreferenceKey]]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]]]];
 }
 
 -(IBAction)chooseDataDirectory:(id)sender;
@@ -74,17 +75,17 @@
 	dataDirPanel.canChooseDirectories = YES;
 	dataDirPanel.canChooseFiles = NO;
 	dataDirPanel.canCreateDirectories = YES;
-	dataDirPanel.directoryURL = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] stringForKey:kPostgresDataDirectoryPreferenceKey]];
+	dataDirPanel.directoryURL = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]]];
 	[dataDirPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
 		if (result==NSFileHandlingPanelOKButton) {
-			[[NSUserDefaults standardUserDefaults] setObject:dataDirPanel.URL.path forKey:kPostgresDataDirectoryPreferenceKey];
+			[[NSUserDefaults standardUserDefaults] setObject:dataDirPanel.URL.path forKey:[PostgresServer dataDirectoryPreferenceKey]];
 		}
 	}];
 }
 
 -(IBAction)resetDataDirectory:(id)sender;
 {
-	[[NSUserDefaults standardUserDefaults] setObject:[PostgresServer standardDatabaseDirectory] forKey:kPostgresDataDirectoryPreferenceKey];
+	[[NSUserDefaults standardUserDefaults] setObject:[PostgresServer standardDatabaseDirectory] forKey:[PostgresServer dataDirectoryPreferenceKey]];
 }
 
 -(BOOL)windowShouldClose:(NSWindow*)window {
