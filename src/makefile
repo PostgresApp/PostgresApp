@@ -1,7 +1,7 @@
 # VERSION numbers
 POSTGIS_VERSION=2.1.4
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.4beta3
+POSTGRES_VERSION=9.4rc1
 POSTGRES_MAJOR_VERSION=9.4
 GDAL_VERSION=1.11.1
 GEOS_VERSION=3.4.2
@@ -9,13 +9,15 @@ JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.1
-OPENSSL_VERSION=1.0.1i
+OPENSSL_VERSION=1.0.1j
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18
 JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.3
+ICU_MAJOR_VERSION=54
+ICU_MINOR_VERSION=1
 
 #path configuration
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
@@ -50,13 +52,15 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs --with-icu
 # patch makefile to fix python linker flags
 	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
-	touch $@
+#apply patch from palle girgenson http://people.freebsd.org/~girgen/postgresql-icu/README.html
+	patch -p0 -d "postgresql-$(POSTGRES_VERSION)" <postgresql-icu-patch.diff
+	cd "postgresql-$(POSTGRES_VERSION)"; autoconf -B "$(PREFIX)/include"
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
 	$(CURL) "http://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
@@ -65,6 +69,32 @@ postgresql-$(POSTGRES_VERSION).tar.bz2:
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
 	
+	
+#########################
+######## ICU ############
+#########################
+
+icu: $(PREFIX)/lib/libicui18n.dylib
+
+$(PREFIX)/lib/libicui18n.dylib: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile
+	make -C "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source"
+	make -C "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source" install
+	install_name_tool -change libicuuc.54.dylib $(PREFIX)/lib/libicuuc.54.dylib $(PREFIX)/lib/libicui18n.54.dylib 
+	install_name_tool -change libicudata.54.dylib $(PREFIX)/lib/libicudata.54.dylib $(PREFIX)/lib/libicui18n.54.dylib 
+	install_name_tool -change libicudata.54.dylib $(PREFIX)/lib/libicudata.54.dylib $(PREFIX)/lib/libicuuc.54.dylib 
+	install_name_tool -id $(PREFIX)/lib/libicui18n.54.dylib $(PREFIX)/lib/libicui18n.54.dylib
+	install_name_tool -id $(PREFIX)/lib/libicuuc.54.dylib $(PREFIX)/lib/libicuuc.54.dylib
+	install_name_tool -id $(PREFIX)/lib/libicudata.54.dylib $(PREFIX)/lib/libicudata.54.dylib
+
+icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
+	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; ./runConfigureICU MacOSX --prefix="$(PREFIX)"
+
+icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
+	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
+	mv icu icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
+	
+icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz:
+	$(CURL) http://download.icu-project.org/files/icu4c/$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
 	
 #########################
 ####### OpenSSL #########
