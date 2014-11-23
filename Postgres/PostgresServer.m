@@ -269,6 +269,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	controlTask.launchPath = [self.binPath stringByAppendingPathComponent:@"pg_ctl"];
 	controlTask.arguments = @[
 		/* control command         */ @"stop",
+		/* fast mode (don't wait for clients to disconnect) */ @"-m", @"f",
 		/* data directory          */ @"-D", self.varPath,
 		/* wait for server to stop */ @"-w",
 	];
