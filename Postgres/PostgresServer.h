@@ -51,7 +51,7 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 + (NSString*)standardDatabaseDirectory;
 + (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir;
 + (NSString*)existingDatabaseDirectory;
-+ (PostgresServer *)sharedServer;
++ (PostgresServer *)defaultServer;
 + (NSString*)dataDirectoryPreferenceKey;
 
 - (id)initWithExecutablesDirectory:(NSString *)executablesDirectory

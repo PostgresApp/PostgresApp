@@ -102,7 +102,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return [[NSString stringWithFormat:@"%@%s", kPostgresDataDirectoryPreferenceKey, xstr(PG_MAJOR_VERSION)] stringByReplacingOccurrencesOfString:@"." withString:@""];
 }
 
-+(PostgresServer *)sharedServer {
++(PostgresServer *)defaultServer {
     static PostgresServer *_sharedServer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

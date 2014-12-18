@@ -25,7 +25,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PostgresStatusMenuItemViewController;
+@class PostgresStatusMenuItemViewController, PostgresServer;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
@@ -33,6 +33,8 @@
 
 @property (weak) IBOutlet NSMenu *statusBarMenu;
 @property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
+
+@property PostgresServer *server;
 
 - (IBAction)selectAbout:(id)sender;
 
