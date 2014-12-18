@@ -15,10 +15,6 @@ Postgres.app contains a full-featured PostgreSQL installation in a single packag
 - A number of [command-line utilities](https://github.com/postgresapp/postgresapp#command-line-utilities) for managing PostgreSQL and working with GIS data
 
 
-<--
-<p class="bg-info" style="padding:1em;margin-top:3em;">PostgreSQL 9.4 is coming! Download the release candidate and help find bugs before the final release.&nbsp;<a href="https://github.com/PostgresApp/PostgresApp/releases/tag/9.4rc1" onclick="trackOutboundLink(this.href,'download-prerelease');return false;">More Info…</a></p>
--->
-
 Support
 -------
 
