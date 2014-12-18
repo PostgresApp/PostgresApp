@@ -35,7 +35,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis plv8
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-icu
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
 
 #########################
 ###### PostgreSQL #######
@@ -51,54 +51,22 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib postgresql-$(POSTGRES_VERSION)/configure 
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure 
 	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs --with-icu
 # patch makefile to fix python linker flags
 	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
-#apply patch from palle girgenson http://people.freebsd.org/~girgen/postgresql-icu/README.html
-	patch -p0 -d "postgresql-$(POSTGRES_VERSION)" <postgresql-icu-patch.diff
-	cd "postgresql-$(POSTGRES_VERSION)"; autoconf -B "$(PREFIX)/include"
+	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
 	$(CURL) "http://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
-	
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
 	
-	
-#########################
-######## ICU ############
-#########################
-
-icu: $(PREFIX)/lib/libicui18n.dylib
-
-$(PREFIX)/lib/libicui18n.dylib: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile
-	make -C "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source"
-	make -C "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source" install
-	install_name_tool -change libicuuc.54.dylib $(PREFIX)/lib/libicuuc.54.dylib $(PREFIX)/lib/libicui18n.54.dylib 
-	install_name_tool -change libicudata.54.dylib $(PREFIX)/lib/libicudata.54.dylib $(PREFIX)/lib/libicui18n.54.dylib 
-	install_name_tool -change libicudata.54.dylib $(PREFIX)/lib/libicudata.54.dylib $(PREFIX)/lib/libicuuc.54.dylib 
-	install_name_tool -id $(PREFIX)/lib/libicui18n.54.dylib $(PREFIX)/lib/libicui18n.54.dylib
-	install_name_tool -id $(PREFIX)/lib/libicuuc.54.dylib $(PREFIX)/lib/libicuuc.54.dylib
-	install_name_tool -id $(PREFIX)/lib/libicudata.54.dylib $(PREFIX)/lib/libicudata.54.dylib
-
-icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
-	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; ./runConfigureICU MacOSX --prefix="$(PREFIX)"
-
-icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
-	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
-	mv icu icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
-	
-icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz:
-	$(CURL) http://download.icu-project.org/files/icu4c/$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
-	
-clean-icu:
-	rm -Rf "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)"
-	
+		
 #########################
 ####### OpenSSL #########
 #########################
