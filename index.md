@@ -8,15 +8,16 @@ What's In The Box?
 
 Postgres.app contains a full-featured PostgreSQL installation in a single package:
 
-- [PostgreSQL](http://www.postgresql.org) 9.3.5
-- [PostGIS](http://postgis.net) 2.1.3
-- Procedural languages: [PL/pgSQL](http://www.postgresql.org/docs/9.3/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/9.3/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/9.3/static/plpython.html), and [PLV8 (Javascript)](https://code.google.com/p/plv8js/wiki/PLV8)
-- Popular extensions, including [hstore](http://www.postgresql.org/docs/9.3/static/hstore.html) and [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), and more
+- [PostgreSQL](http://www.postgresql.org) 9.4.0  *NEW!*
+- [PostGIS](http://postgis.net) 2.1.4
+- Procedural languages: [PL/pgSQL](http://www.postgresql.org/docs/9.4/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/9.4/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/9.4/static/plpython.html), and [PLV8 (Javascript)](https://code.google.com/p/plv8js/wiki/PLV8)
+- Popular extensions, including [hstore](http://www.postgresql.org/docs/9.4/static/hstore.html) and [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), and more
 - A number of [command-line utilities](https://github.com/postgresapp/postgresapp#command-line-utilities) for managing PostgreSQL and working with GIS data
 
 
+<--
 <p class="bg-info" style="padding:1em;margin-top:3em;">PostgreSQL 9.4 is coming! Download the release candidate and help find bugs before the final release.&nbsp;<a href="https://github.com/PostgresApp/PostgresApp/releases/tag/9.4rc1" onclick="trackOutboundLink(this.href,'download-prerelease');return false;">More Info…</a></p>
-
+-->
 
 Support
 -------
