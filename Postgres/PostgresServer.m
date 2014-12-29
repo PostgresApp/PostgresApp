@@ -302,7 +302,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	initdbTask.arguments = @[
 		/* data directory */ @"-D", self.varPath,
 		/* encoding       */ @"-EUTF-8",
-		/* locale         */ [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]]
+		/* locale         */ @"--locale=en_US.UTF-8"
 	];
 	initdbTask.standardError = [[NSPipe alloc] init];
 	[initdbTask launch];
