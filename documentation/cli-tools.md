@@ -2,6 +2,23 @@
 layout: documentation
 title: Using Command Line Tools with Postgres.app
 ---
+## Configure your `$PATH`
+
+Postgres.app includes many command line tools. If you want to use them, you must configure the `$PATH` variable.
+
+If you are using **bash** (default shell on OS X), add the following line to `~/.bash_profile`:
+
+```bash
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+```
+
+If you're using the **fish** shell, add the following to your `config.fish` (normally located at `~/.config/fish/config.fish`):
+
+```bash
+set PATH /Applications/Postgres.app/Contents/Versions/9.4/bin $PATH
+```
+
+You can now check if the path is set up correctly by typing `which psql`.
 
 ## Tools provided by Postgres.app
 
@@ -12,25 +29,6 @@ The following tools come with Postgres.app:
 - GDAL: `gdal_contour` `gdal_grid` `gdal_rasterize` `gdal_translate` `gdaladdo` `gdalbuildvrt` `gdaldem` `gdalenhance` `gdalinfo` `gdallocationinfo` `gdalmanage` `gdalserver` `gdalsrsinfo` `gdaltindex` `gdaltransform` `gdalwarp` `nearblack` `ogr2ogr` `ogrinfo` `ogrtindex` `testepsg`
 - PostGIS: `pgsql2shp` `raster2pgsql` `shp2pgsql`
 
-To use these tools, either call them using the full path like this:
-
-```bash
-$ /Applications/Postgres.app/Contents/Versions/9.4/bin/psql -h localhost
-```
-
-... but this is slightly inconvenient. It's better to add the bin directory to your path. Just add a line like the following to `.bash_profile`:
-
-```bash
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
-```
-
-If you're using the fish shell, add the following to your `config.fish` (normally located at `~/.config/fish/config.fish`):
-
-```bash
-set PATH /Applications/Postgres.app/Contents/Versions/9.4/bin $PATH
-```
-
-Once your path is correctly set up, you should be able to run `psql` without a host. You can check if the path is set up correctly by typing `which psql`.
 
 ## Man pages
 
