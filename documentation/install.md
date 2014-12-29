@@ -30,9 +30,11 @@ When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.a
 
 ### Migrate data using `pg_dump`
 
+This is the recommended way for migrating your data.
+
 1. While the old version is running, use `pg_dump` (or `pg_dumpall` if you have multiple databases) to create a dump of your database
 2. Quit the old version of Postgres.app, then start the new version of Postgres.app
-3. Now use `psql` to restore the dump file
+3. Now use `psql` or `pg_restore` to restore the dump file
 
 ### Migrate data using `pg_upgrade`
 
@@ -47,6 +49,7 @@ Since `pg_upgrade` needs the old and new binaries, you must make a special versi
 3. Copy the folder `Contents/Versions/9.3` from the old Postgres.app into `Contents/Versions` from the new Postgres.app
 4. Place the modified new version inside the Applications folder
 5. Now use `pg_upgrade` according to the instructions [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
+6. See [issue 241](https://github.com/PostgresApp/PostgresApp/issues/241) for details how to deal with migration errors.
 
 ## Removing Existing PostgreSQL Installations
 
