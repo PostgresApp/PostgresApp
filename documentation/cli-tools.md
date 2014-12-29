@@ -15,19 +15,19 @@ The following tools come with Postgres.app:
 To use these tools, either call them using the full path like this:
 
 ```bash
-$ /Applications/Postgres.app/Contents/Versions/9.3/bin/psql -h localhost
+$ /Applications/Postgres.app/Contents/Versions/9.4/bin/psql -h localhost
 ```
 
 ... but this is slightly inconvenient. It's better to add the bin directory to your path. Just add a line like the following to `.bash_profile`:
 
 ```bash
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 ```
 
 If you're using the fish shell, add the following to your `config.fish` (normally located at `~/.config/fish/config.fish`):
 
 ```bash
-set PATH /Applications/Postgres.app/Contents/Versions/9.3/bin $PATH
+set PATH /Applications/Postgres.app/Contents/Versions/9.4/bin $PATH
 ```
 
 Once your path is correctly set up, you should be able to run `psql` without a host. You can check if the path is set up correctly by typing `which psql`.
