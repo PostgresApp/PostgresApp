@@ -21,9 +21,9 @@ Each release of Postgres.app comes with the latest stable release of PostgreSQL,
 
 ## Useful Directories
 
-- Default data directory: `~/Library/Application\ Support/Postgres/var-9.3`
-- Binaries: `/Applications/Postgres.app/Contents/Versions/9.3/bin`
-- Headers: `/Applications/Postgres.app/Contents/Versions/9.3/include`
-- Libraries: `/Applications/Postgres.app/Contents/Versions/9.3/lib`
-- Man pages: `/Applications/Postgres.app/Contents/Versions/9.3/share`
+- Default data directory: `~/Library/Application\ Support/Postgres/var-9.4`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/9.4/bin`
+- Headers: `/Applications/Postgres.app/Contents/Versions/9.4/include`
+- Libraries: `/Applications/Postgres.app/Contents/Versions/9.4/lib`
+- Man pages: `/Applications/Postgres.app/Contents/Versions/9.4/share`
 
