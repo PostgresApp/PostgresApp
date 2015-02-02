@@ -14,9 +14,8 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 ## What's Included?
 
-- [PostgreSQL 9.3.5](http://www.postgresql.org/docs/9.3/static/release-9-3-5.html)
-- [PostGIS 2.1.3](http://postgis.net/)
-- [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
+- [PostgreSQL 8.3.23](http://www.postgresql.org/docs/8.3/static/release-8-3-23.html)
+- [PostGIS 1.5.8](http://postgis.net/)
 
 ## How To Build
 
@@ -36,7 +35,7 @@ For building PostgreSQL with docs, you also need a bunch of other tools:
 Then make sure you remove other versions of `Postgres.app` from your Applications folder.
 
 Open the `src` directory and type `make`.
-This will download and build PostgreSQL, PostGIS, and PLV8. 
+This will download and build PostgreSQL, PostGIS, and PLV8.
 Several hundred megabytes of sources will be downloaded and built.
 This can take an hour or longer, depending on your Internet connection and processor speed.
 All the products will be installed in `/Applications/Postgres.app/Contents/MacOS/`.
@@ -55,13 +54,24 @@ Postgres.app bundles the PostgreSQL binaries inside the application package. Whe
 
 On subsequent app launches, Postgres.app only starts the server.
 
-The default `DATA_DIRECTORY` is `/Users/USERNAME/Library/Application Support/Postgres/var-9.X`
+The default `DATA_DIRECTORY` is `/Users/USERNAME/Library/Application Support/Postgres/var-8.X`
 
 Note that Postgres.app runs the server as your user, unlike other installations which might create a separate user named `postgres`.
 
 When you quit Postgres.app, it stops the server using the following command:
 
 - `pg_ctl stop -w -D DATA_DIRECTORY`
+
+## Important note for 8.3
+
+On OS X, Postgres 8.3 may require increased shared memory settings than the default. If you receive the error `child process exited with exit code 134` when it runs `initdb` for the first time, you can tweak the shared memory with the following commands:
+
+```
+sudo sysctl -w kern.sysv.shmmax=16777216
+sudo sysctl -w kern.sysv.shmall=65536
+```
+
+More about it on http://www.postgresql.org/message-id/6C06E93A-8276-4E6C-9F81-544495F70FFE@bignerdranch.com
 
 ## Command Line Utilities
 

@@ -79,7 +79,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	// It returns the first matching data directory
 	NSArray *applicationSupportDirectories = @[
 											   [[NSFileManager defaultManager] applicationSupportDirectory],
-											   [NSHomeDirectory() stringByAppendingString:@"/Library/Application Support/Postgres93"],
+											   [NSHomeDirectory() stringByAppendingString:@"/Library/Application Support/Postgres83"],
 											   [NSHomeDirectory() stringByAppendingString:@"/Library/Containers/com.heroku.Postgres/Data/Library/Application Support/Postgres"]
 											   ];
 	NSArray *dataDirNames = @[
