@@ -1,8 +1,8 @@
 # VERSION numbers
-POSTGIS_VERSION=2.1.3
-POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.3.5
-POSTGRES_MAJOR_VERSION=9.3
+POSTGIS_VERSION=1.5.8
+POSTGIS_MAJOR_VERSION=1.5
+POSTGRES_VERSION=8.3.23
+POSTGRES_MAJOR_VERSION=8.3
 GDAL_VERSION=1.10.0
 GEOS_VERSION=3.4.2
 JPEG_VERSION=8d
@@ -24,8 +24,8 @@ PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.7
-CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
-CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
+CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7 -Os
+CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7 -Os
 
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 
@@ -33,8 +33,8 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis plv8
-clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff
+all: postgresql postgis
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-libjpeg clean-libjasper clean-libgeos clean-libtiff
 
 #########################
 ###### PostgreSQL #######
@@ -43,56 +43,28 @@ clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libgdal 
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	make -C "postgresql-$(POSTGRES_VERSION)" world
-	make -C "postgresql-$(POSTGRES_VERSION)" install-world
-	
+	make -C "postgresql-$(POSTGRES_VERSION)"
+	make -C "postgresql-$(POSTGRES_VERSION)" install
+
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib ${PREFIX}/include/uuid.h postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-ossp-uuid --with-readline
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-readline
 # patch makefile to fix python linker flags
 	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
 
 
-# after extracting PostgreSQL sources, we must patch uuid-ossp so it builds on OSX
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
-	echo '#define _XOPEN_SOURCE' >"postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched"
-	cat "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c" >>"postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched"
-	mv "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched" "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c"
-	touch $@
 
-postgresql-$(POSTGRES_VERSION).tar.bz2:	
+postgresql-$(POSTGRES_VERSION).tar.bz2:
 	$(CURL) "http://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
-	
+
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
 
-#########################
-####### libuuid #########
-#########################
-
-uuid-${LIBUUID_VERSION}.tar.gz:
-	$(CURL) "http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-${LIBUUID_VERSION}.tar.gz"
-
-uuid-${LIBUUID_VERSION}: uuid-${LIBUUID_VERSION}.tar.gz
-	$(TAR) "uuid-${LIBUUID_VERSION}.tar.gz"
-	touch "uuid-${LIBUUID_VERSION}"
-
-${PREFIX}/include/uuid.h: uuid-${LIBUUID_VERSION}
-	cd uuid-${LIBUUID_VERSION} && ./configure --prefix="${PREFIX}" --disable-debug
-	make -C uuid-${LIBUUID_VERSION}
-	make -C uuid-${LIBUUID_VERSION} install
-	touch ${PREFIX}/include/uuid.h
-	
-libuuid: ${PREFIX}/include/uuid.h
-
-clean-libuuid:
-	rm -Rf "uuid-${LIBUUID_VERSION}"
-	
-	
 #########################
 ####### OpenSSL #########
 #########################
@@ -112,7 +84,7 @@ openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 
 openssl-${OPENSSL_VERSION}.tar.gz:
 	$(CURL) "http://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
-	
+
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"
 
@@ -133,10 +105,10 @@ libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
 libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.gz
 	$(TAR) libxml2-${LIBXML2_VERSION}.tar.gz
 	touch $@
-	
+
 libxml2-${LIBXML2_VERSION}.tar.gz:
 	$(CURL) "ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.gz"
-	
+
 clean-libxml2:
 	rm -Rf "libxml2-$(LIBXML2_VERSION)"
 
@@ -253,7 +225,7 @@ gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh $(PREFIX)/lib/
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
 	$(TAR) gdal-${GDAL_VERSION}.tar.gz
-	touch $@	
+	touch $@
 
 gdal-${GDAL_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz"
@@ -286,7 +258,7 @@ proj-${PROJ_VERSION}.tar.gz:
 
 proj-datumgrid-${DATUMGRID_VERSION}.zip:
 	$(CURL) "http://download.osgeo.org/proj/proj-datumgrid-${DATUMGRID_VERSION}.zip"
-	
+
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
 
@@ -340,11 +312,7 @@ clean-libtiff:
 
 #depends on libgdal, libgeos, libjpeg, postgresql, jsonc
 
-postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
-
-$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
-	make -C postgis-${POSTGIS_VERSION}/liblwgeom
-	make -C postgis-${POSTGIS_VERSION}/liblwgeom install
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
 
 $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
 	make -C postgis-${POSTGIS_VERSION}
@@ -373,7 +341,7 @@ clean-postgis:
 plv8: $(PREFIX)/lib/postgresql/plv8.so
 
 $(PREFIX)/lib/postgresql/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install 
+	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install
 #	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
 
 

@@ -587,7 +587,6 @@
 		F87A4283153AB60C00456130 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
@@ -600,7 +599,6 @@
 		F87A4284153AB60C00456130 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
@@ -636,8 +634,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				POSTGRESAPP_BUILD_VERSION = "$(POSTGRES_VERSION).$(POSTGRESAPP_MINOR_VERSION)";
 				POSTGRESAPP_MINOR_VERSION = 2;
-				POSTGRES_MAJOR_VERSION = 9.3;
-				POSTGRES_VERSION = 9.3.5;
+				POSTGRES_MAJOR_VERSION = 8.3;
+				POSTGRES_VERSION = 8.3.23;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -664,8 +662,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				POSTGRESAPP_BUILD_VERSION = "$(POSTGRES_VERSION).$(POSTGRESAPP_MINOR_VERSION)";
 				POSTGRESAPP_MINOR_VERSION = 2;
-				POSTGRES_MAJOR_VERSION = 9.3;
-				POSTGRES_VERSION = 9.3.5;
+				POSTGRES_MAJOR_VERSION = 8.3;
+				POSTGRES_VERSION = 8.3.23;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -673,7 +671,6 @@
 		F8973A271538846600EAB41E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
@@ -687,7 +684,6 @@
 		F8973A281538846600EAB41E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
