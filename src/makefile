@@ -1,7 +1,7 @@
 # VERSION numbers
-POSTGIS_VERSION=2.1.4
+POSTGIS_VERSION=2.1.5
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.4.0
+POSTGRES_VERSION=9.4.1
 POSTGRES_MAJOR_VERSION=9.4
 GDAL_VERSION=1.11.1
 GEOS_VERSION=3.4.2
@@ -9,7 +9,7 @@ JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.1
-OPENSSL_VERSION=1.0.1j
+OPENSSL_VERSION=1.0.1l
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
@@ -61,7 +61,7 @@ postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
-	$(CURL) "http://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
+	$(CURL) "https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
@@ -85,7 +85,7 @@ openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
-	$(CURL) "http://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
 	
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"
