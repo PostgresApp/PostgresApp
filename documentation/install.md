@@ -51,30 +51,6 @@ Since `pg_upgrade` needs the old and new binaries, you must make a special versi
 5. Now use `pg_upgrade` according to the instructions [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
 6. See [issue 241](https://github.com/PostgresApp/PostgresApp/issues/241) for details how to deal with migration errors.
 
-## Removing Existing PostgreSQL Installations
-
-For best results, you should remove any existing installation of PostgreSQL. Here's a run-down of the most common ways you may have installed it previously:
-
-### Homebrew
-
-``` bash
-$ brew remove postgresql
-````
-
-### MacPorts
-
-``` bash
-$ sudo port uninstall postgres
-```
-
-### EnterpriseDB
-
-In the EnterpriseDB installation directory, open `uninstall-postgresql.app`.
-
-### Kyng Chaos
-
-To uninstall the Kyng Chaos distribution, follow [these instructions](http://comments.gmane.org/gmane.comp.gis.postgis/32157).
-
 ## Uninstalling Postgres.app
 
 1. Quit Postgres.app

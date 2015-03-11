@@ -8,6 +8,7 @@ Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open 
 Whether you're a command line aficionado, prefer GUIs, or just want to start making things with your framework of choice, connecting to Postgres.app is easy.
 
 - [Installing, Upgrading and Uninstalling](install.html)
+- [Removing other PostgreSQL installations](remove.html)
 - [Command Line Tools](cli-tools.html)
 - [GUI Applications](gui-tools.html)
 - Configuration
