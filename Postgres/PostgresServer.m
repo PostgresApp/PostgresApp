@@ -98,19 +98,23 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return nil;
 }
 
-+(PostgresServer *)sharedServer {
++(NSString*)dataDirectoryPreferenceKey {
+	return [[NSString stringWithFormat:@"%@%s", kPostgresDataDirectoryPreferenceKey, xstr(PG_MAJOR_VERSION)] stringByReplacingOccurrencesOfString:@"." withString:@""];
+}
+
++(PostgresServer *)defaultServer {
     static PostgresServer *_sharedServer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 		NSString *binDirectory = [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
-		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:kPostgresDataDirectoryPreferenceKey];
+		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]];
 		if (!databaseDirectory || [self statusOfDataDirectory:databaseDirectory] == PostgresDataDirectoryIncompatible) {
 			databaseDirectory = [self existingDatabaseDirectory];
 		}
 		if (!databaseDirectory) {
 			databaseDirectory = [self standardDatabaseDirectory];
 		}
-		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:kPostgresDataDirectoryPreferenceKey];
+		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:[PostgresServer dataDirectoryPreferenceKey]];
         _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:binDirectory databaseDirectory:databaseDirectory];
     });
     
@@ -265,6 +269,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	controlTask.launchPath = [self.binPath stringByAppendingPathComponent:@"pg_ctl"];
 	controlTask.arguments = @[
 		/* control command         */ @"stop",
+		/* fast mode (don't wait for clients to disconnect) */ @"-m", @"f",
 		/* data directory          */ @"-D", self.varPath,
 		/* wait for server to stop */ @"-w",
 	];
@@ -297,7 +302,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	initdbTask.arguments = @[
 		/* data directory */ @"-D", self.varPath,
 		/* encoding       */ @"-EUTF-8",
-		/* locale         */ [NSString stringWithFormat:@"--locale=%@_%@.UTF-8", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode], [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]]
+		/* locale         */ @"--locale=en_US.UTF-8"
 	];
 	initdbTask.standardError = [[NSPipe alloc] init];
 	[initdbTask launch];

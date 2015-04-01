@@ -93,8 +93,12 @@
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
-    _statusBarItem.image = [NSImage imageNamed:@"status-off"];
-    _statusBarItem.alternateImage = [NSImage imageNamed:@"status-on"];
+	NSImage *templateOffImage = [NSImage imageNamed:@"status-off"];
+	templateOffImage.template = YES;
+	_statusBarItem.image = templateOffImage;
+	NSImage *templateOnImage = [NSImage imageNamed:@"status-on"];
+	templateOnImage.template = YES;
+	_statusBarItem.alternateImage = templateOnImage;
 	
     [NSApp activateIgnoringOtherApps:YES];
     
@@ -107,11 +111,11 @@
 
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
-	PostgresServer *server = [PostgresServer sharedServer];
+	self.server = [PostgresServer defaultServer];
 
 	PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error){
 		if (success) {
-			[self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), server.port] wasSuccessful:YES];
+			[self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), self.server.port] wasSuccessful:YES];
 			[WelcomeWindowController sharedController].statusMessage = nil;
 			[WelcomeWindowController sharedController].isBusy = NO;
 			[WelcomeWindowController sharedController].canConnect = YES;
@@ -126,12 +130,12 @@
 		}
 	};
 
-	PostgresServerStatus serverStatus = [server serverStatus];
+	PostgresServerStatus serverStatus = [self.server serverStatus];
 	
 	if (serverStatus == PostgresServerWrongDataDirectory) {
 		/* a different server is running */
 		NSDictionary *userInfo = @{
-								   NSLocalizedDescriptionKey: [NSString stringWithFormat:@"There is already a PostgreSQL server running on port %u", (unsigned)server.port],
+								   NSLocalizedDescriptionKey: [NSString stringWithFormat:@"There is already a PostgreSQL server running on port %u", (unsigned)self.server.port],
 								   NSLocalizedRecoverySuggestionErrorKey: @"Please stop this server before starting Postgres.app.\n\nIf you want to use multiple servers, configure them to use different ports."
 								   };
 		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
@@ -141,9 +145,12 @@
 		/* apparently the server is already running... Either the user started it manually, or Postgres.app was force quit */
 		completionHandler(YES, nil);
 	}
+/*	else if ([self.server stat]) {
+	
+	}*/
 	else {
 		/* server is not running; try to start it */
-		[server startWithCompletionHandler:completionHandler];
+		[self.server startWithCompletionHandler:completionHandler];
 	}
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
@@ -159,11 +166,11 @@
 		return NSTerminateCancel;
 	}
 	
-	if (![PostgresServer sharedServer].isRunning) {
+	if (!self.server.isRunning) {
 		return NSTerminateNow;
 	}
 	
-    [[PostgresServer sharedServer] stopWithCompletionHandler:^(BOOL success, NSError *error) {
+    [self.server stopWithCompletionHandler:^(BOOL success, NSError *error) {
 	    [sender replyToApplicationShouldTerminate:YES];
     }];
     
@@ -198,7 +205,7 @@
 	BOOL wasRunning = terminal.isRunning;
 	[terminal activate];
 	TerminalWindow *window = wasRunning ? nil : terminal.windows.firstObject;
-	NSString *psqlScript = [NSString stringWithFormat:@"'%@'/psql -p%u", [[PostgresServer sharedServer].binPath stringByReplacingOccurrencesOfString:@"'" withString:@"'\\''"], (unsigned)[PostgresServer sharedServer].port];
+	NSString *psqlScript = [NSString stringWithFormat:@"'%@'/psql -p%u", [self.server.binPath stringByReplacingOccurrencesOfString:@"'" withString:@"'\\''"], (unsigned)self.server.port];
 	[terminal doScript:psqlScript in:window.tabs.firstObject];
 }
 
