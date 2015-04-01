@@ -14,30 +14,54 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 ## What's Included?
 
-- [PostgreSQL 9.3.0](http://www.postgresql.org/docs/9.3/static/release-9-3.html)
-- [PostGIS 2.1](http://postgis.net/)
+- [PostgreSQL 9.4.1](http://www.postgresql.org/docs/9.4/static/release-9-4-1.html)
+- [PostGIS 2.1.5](http://postgis.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 
 ## How To Build
 
-Make sure you have `autoconf` and `automake` installed. The quickest way to install them is using MacPorts:
+If you want to tweak the GUI only, just make sure you have a compiled copy of Postgres.app in your applications folder.
+Open the XCode file and start hacking!
+
+If you want to build your own versions of all the PostgreSQL binaries, you have a bit more work.
+
+Make sure you have `autoconf`, `automake` installed. The quickest way to install them is using MacPorts:
 
     sudo port install autoconf automake
 
-Then just open `Postgres.xcodeproj` in Xcode, select the `Postgres` scheme, and click "Build"
+For building PostgreSQL with docs, you also need a bunch of other tools:
 
-XCode will download and build PostgreSQL, PostGIS, and PLV8. Several hundred megabytes of sources will be downloaded and built. This can take an hour or longer, depending on your Internet connection and processor speed.
+    sudo port install docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl libxslt openjade opensp
 
-You can also build the PostgreSQL binaries from the command line.
-To do so, open a Terminal, change to the `src` directory, and type `make`.
-When the build is complete, switch to XCode and build Postgres.app with XCode.
-This makes debugging a lot easier!
+Then make sure you remove other versions of `Postgres.app` from your Applications folder.
+
+Open the `src` directory and type `make`.
+This will download and build PostgreSQL, PostGIS, and PLV8. 
+Several hundred megabytes of sources will be downloaded and built.
+This can take an hour or longer, depending on your Internet connection and processor speed.
+All the products will be installed in `/Applications/Postgres.app/Contents/MacOS/`.
+
+Once this is done, you can just open `Postgres.xcodeproj` in Xcode, select the "Postgres" scheme, and click "Build".
+
+To share your build, use the "Archive" command and then use the "Distribute" command in Organizer.
 
 ## Under the Hood
 
-Postgres.app bundles the PostgreSQL binaries as auxiliary executables. An [XPC service](http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html) manages `postgres` processes, which are terminated when the app is quit.
+Postgres.app bundles the PostgreSQL binaries inside the application package. When you first start Postgres.app, here's what it does:
 
-The database data directory is located in the `/var` directory of the Postgres.app Container's Application Support directory. When the app is launched, it checks for "PG_VERSION" in the directory. If it does not exist, `initdb` is run, and later, `createdb` to create a default database for the current user.
+- Initialise a database cluster: `initdb -D DATA_DIRECTORY -EUTF-8 --locale=XX_XX.UTF-8`
+- Start the server: `pg_ctl start -D DATA_DIRECTORY -w -l DATA_DIRECTORY/postgres-server.log`
+- Create a user database: `createdb USERNAME`
+
+On subsequent app launches, Postgres.app only starts the server.
+
+The default `DATA_DIRECTORY` is `/Users/USERNAME/Library/Application Support/Postgres/var-9.X`
+
+Note that Postgres.app runs the server as your user, unlike other installations which might create a separate user named `postgres`.
+
+When you quit Postgres.app, it stops the server using the following command:
+
+- `pg_ctl stop -w -D DATA_DIRECTORY`
 
 ## Command Line Utilities
 
@@ -57,6 +81,7 @@ If you find a bug, please [open an issue](https://github.com/PostgresApp/Postgre
 Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Craig Kerstiens](https://github.com/craigkerstiens).
 
 Postgres.app was created by [Mattt Thompson](https://github.com/mattt).
+
 
 ## License
 

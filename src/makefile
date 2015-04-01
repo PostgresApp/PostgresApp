@@ -1,23 +1,26 @@
 # VERSION numbers
-POSTGIS_VERSION=2.1.0
+POSTGIS_VERSION=2.1.6
 POSTGIS_MAJOR_VERSION=2.1
-POSTGRES_VERSION=9.3.0
-GDAL_VERSION=1.10.0
-GEOS_VERSION=3.3.8
+POSTGRES_VERSION=9.3.6
+POSTGRES_MAJOR_VERSION=9.3
+GDAL_VERSION=1.11.1
+GEOS_VERSION=3.4.2
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
-LIBUUID_VERSION=1.6.2
 LIBXML2_VERSION=2.9.1
-OPENSSL_VERSION=1.0.1e
+OPENSSL_VERSION=1.0.1m
 PROJ_VERSION=4.8.0
 DATUMGRID_VERSION=1.5
+#see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18
-JSONC_VERSION=0.10
+JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.3
+ICU_MAJOR_VERSION=54
+ICU_MINOR_VERSION=1
 
 #path configuration
-PREFIX=$(shell dirname $(CURDIR))/Postgres/Vendor/postgres
+PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
 #compiler options
@@ -32,7 +35,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis plv8
-clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libedit clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
 
 #########################
 ###### PostgreSQL #######
@@ -41,57 +44,29 @@ clean: clean-postgresql clean-libuuid clean-openssl clean-libxml2 clean-libedit 
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	make -C "postgresql-$(POSTGRES_VERSION)/config"
-	make -C "postgresql-$(POSTGRES_VERSION)/src"
-	make -C "postgresql-$(POSTGRES_VERSION)/contrib"
-	make -C "postgresql-$(POSTGRES_VERSION)/config" install
-	make -C "postgresql-$(POSTGRES_VERSION)/contrib" install
-	make -C "postgresql-$(POSTGRES_VERSION)/src" install
-
+	make -C "postgresql-$(POSTGRES_VERSION)" world
+	make -C "postgresql-$(POSTGRES_VERSION)" install-world
+	
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libedit.dylib ${PREFIX}/include/uuid.h postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-krb5 --with-libxml --with-libxslt --with-perl --with-python --with-libedit-preferred --with-ossp-uuid
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure 
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs --with-icu
+# patch makefile to fix python linker flags
+	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
 
-# after extracting PostgreSQL sources, we must patch uuid-ossp so it builds on OSX
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
-	echo '#define _XOPEN_SOURCE' >"postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched"
-	cat "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c" >>"postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched"
-	mv "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c.patched" "postgresql-$(POSTGRES_VERSION)/contrib/uuid-ossp/uuid-ossp.c"
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
-	$(CURL) "http://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
-	
+	$(CURL) "https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
+
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
-
-#########################
-####### libuuid #########
-#########################
-
-uuid-${LIBUUID_VERSION}.tar.gz:
-	$(CURL) "http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-${LIBUUID_VERSION}.tar.gz"
-
-uuid-${LIBUUID_VERSION}: uuid-${LIBUUID_VERSION}.tar.gz
-	$(TAR) "uuid-${LIBUUID_VERSION}.tar.gz"
-	touch "uuid-${LIBUUID_VERSION}"
-
-${PREFIX}/include/uuid.h: uuid-${LIBUUID_VERSION}
-	cd uuid-${LIBUUID_VERSION} && ./configure --prefix="${PREFIX}" --disable-debug
-	make -C uuid-${LIBUUID_VERSION}
-	make -C uuid-${LIBUUID_VERSION} install
-	touch ${PREFIX}/include/uuid.h
 	
-libuuid: ${PREFIX}/include/uuid.h
-
-clean-libuuid:
-	rm -Rf "uuid-${LIBUUID_VERSION}"
-	
-	
+		
 #########################
 ####### OpenSSL #########
 #########################
@@ -110,7 +85,7 @@ openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
-	$(CURL) "http://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
 	
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"
@@ -246,8 +221,8 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)"
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/include/json/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
+	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)"
 	touch $@
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
@@ -308,7 +283,10 @@ json-c-$(JSONC_VERSION)/configure: json-c-$(JSONC_VERSION).tar.gz
 	touch $@
 
 json-c-$(JSONC_VERSION).tar.gz:
-	$(CURL) "https://github.com/downloads/json-c/json-c/json-c-$(JSONC_VERSION).tar.gz"
+	$(CURL) "https://s3.amazonaws.com/json-c_releases/releases/json-c-$(JSONC_VERSION).tar.gz"
+
+clean-json-c:
+	rm -Rf json-c-$(JSONC_VERSION)
 
 
 #########################
@@ -339,13 +317,13 @@ clean-libtiff:
 
 #depends on libgdal, libgeos, libjpeg, postgresql, jsonc
 
-postgis: $(PREFIX)/lib/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
 
-$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgis-$(POSTGIS_MAJOR_VERSION).so
+$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom install
 
-$(PREFIX)/lib/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
+$(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} install
 
@@ -369,23 +347,30 @@ clean-postgis:
 ######## PLV8 ############
 ##########################
 
-plv8: $(PREFIX)/lib/plv8.so
+plv8: $(PREFIX)/lib/postgresql/plv8.so
 
-$(PREFIX)/lib/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install
-	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "@loader_path/../lib/libv8.dylib" "$(PREFIX)/lib/plv8.so"
+$(PREFIX)/lib/postgresql/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
+	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install 
+#	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
 
 
 plv8js/Makefile:
 	/usr/bin/git clone "https://code.google.com/p/plv8js/" -q
 	touch $@
 
-$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/out/x64.release/libv8.dylib
-	cp v8-${V8_VERSION}/out/x64.release/libv8.dylib $(PREFIX)/lib/libv8.dylib
+# Unfortunately, plv8 only builds with outdated v8, but outdated v8 no longer builds with recent clang
+# As a workaround, we include libv8 binary built with older clang in repository
+#
+#$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/out/x64.release/libv8.dylib
+#	cp v8-${V8_VERSION}/out/x64.release/libv8.dylib $(PREFIX)/lib/libv8.dylib
+#	/usr/bin/install_name_tool -id "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib"
+#
+#v8-${V8_VERSION}/out/x64.release/libv8.dylib: v8-${V8_VERSION}/Makefile
+#	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} dependencies
+#	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; export DYLD_LIBRARY_PATH=$(CURDIR)/v8-${V8_VERSION}/out/x64.release; make -C v8-${V8_VERSION} library=shared werror=no x64.release
 
-v8-${V8_VERSION}/out/x64.release/libv8.dylib: v8-${V8_VERSION}/Makefile
-	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} dependencies
-	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} library=shared x64.release
+$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/Makefile
+	cp bin/libv8.dylib $(PREFIX)/lib/libv8.dylib
 
 v8-${V8_VERSION}/Makefile:
 	svn export --force "http://v8.googlecode.com/svn/branches/$(V8_VERSION)/" "v8-$(V8_VERSION)"

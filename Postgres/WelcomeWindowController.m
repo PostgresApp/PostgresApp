@@ -28,13 +28,17 @@
 
 @implementation WelcomeWindowController
 
-- (IBAction)close:(id)sender {
-    [self.window close];
++(WelcomeWindowController*)sharedController {
+	static WelcomeWindowController* sharedController = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sharedController = [[WelcomeWindowController alloc] initWithWindowNibName:@"WelcomeWindow"];
+	});
+	return sharedController;
 }
 
-- (IBAction)openDocumentation:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPostgresAppWebsiteURLString]];
-    [self close:sender];
+- (IBAction)close:(id)sender {
+    [self.window close];
 }
 
 @end

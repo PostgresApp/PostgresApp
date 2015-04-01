@@ -23,8 +23,6 @@
 // "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-static NSString * const kPostgresAppWebsiteURLString = @"http://postgresapp.com/documentation";
 static NSUInteger const kPostgresAppDefaultPort = 5432;
-
-static NSString * const kPostgresFirstLaunchPreferenceKey = @"com.heroku.postgres.preference.first-launch";
-static NSString * const kPostgresAutomaticallyOpenDocumentationPreferenceKey = @"com.heroku.postgres.preference.open-documentation-at-start";
+static NSString * const kPostgresShowWelcomeWindowPreferenceKey = @"ShowWelcomeWindow";
+static NSString * const kPostgresDataDirectoryPreferenceKey = @"DataDirectory";

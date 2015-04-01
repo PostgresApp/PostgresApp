@@ -25,36 +25,41 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PostgresServerMigrationDelegate;
+typedef enum {
+	PostgresDataDirectoryIncompatible,
+	PostgresDataDirectoryCompatible,
+	PostgresDataDirectoryEmpty
+} PostgresDataDirectoryStatus;
+
+typedef enum : NSUInteger {
+	PostgresServerUnreachable,
+	PostgresServerRunning,
+	PostgresServerWrongDataDirectory,
+	PostgresServerStatusError
+} PostgresServerStatus;
+
+typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *error);
 
 @interface PostgresServer : NSObject
 
-@property (weak) id <PostgresServerMigrationDelegate> migrationDelegate;
-@property (readonly) BOOL isRunning;
 @property (readonly) NSUInteger port;
+@property (readonly) NSString *binPath;
+@property (readonly) NSString *varPath;
+@property (readonly) NSString *logfilePath;
+@property (readonly) BOOL isRunning;
 
-+ (PostgresServer *)sharedServer;
++ (NSString*)standardDatabaseDirectory;
++ (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir;
++ (NSString*)existingDatabaseDirectory;
++ (PostgresServer *)defaultServer;
++ (NSString*)dataDirectoryPreferenceKey;
 
 - (id)initWithExecutablesDirectory:(NSString *)executablesDirectory
                  databaseDirectory:(NSString *)databaseDirectory;
 
-- (BOOL)startOnPort:(NSUInteger)port
- terminationHandler:(void (^)(NSUInteger status))completionBlock;
+- (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
+- (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 
-- (BOOL)stopWithTerminationHandler:(void (^)(NSUInteger status))terminationHandler;
-
-- (void)executeCommandNamed:(NSString *)command 
-                  arguments:(NSArray *)arguments
-         terminationHandler:(void (^)(NSUInteger status))terminationHandler;
-
-@end
-
-#pragma mark -
-
-@protocol PostgresServerMigrationDelegate <NSObject>
-
-- (BOOL)postgresServer:(PostgresServer *)server
-shouldMigrateFromVersion:(NSString *)fromVersion
-             toVersion:(NSString *)toVersion;
+-(PostgresServerStatus)serverStatus;
 
 @end
