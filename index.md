@@ -9,7 +9,7 @@ What's In The Box?
 Postgres.app contains a full-featured PostgreSQL installation in a single package:
 
 - [PostgreSQL](http://www.postgresql.org) 9.4.1
-- [PostGIS](http://postgis.net) 2.1.5
+- [PostGIS](http://postgis.net) 2.1.6
 - Procedural languages: [PL/pgSQL](http://www.postgresql.org/docs/9.4/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/9.4/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/9.4/static/plpython.html), and [PLV8 (Javascript)](https://code.google.com/p/plv8js/wiki/PLV8)
 - Popular extensions, including [hstore](http://www.postgresql.org/docs/9.4/static/hstore.html) and [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), and more
 - A number of [command-line utilities](documentation/cli-tools.html) for managing PostgreSQL and working with GIS data
