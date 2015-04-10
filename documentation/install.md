@@ -30,20 +30,13 @@ When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.a
 
 ### Migrate data using `pg_dump`
 
-This is the recommended way for migrating your data.
+This is the recommended way to migrate your data.
 
-1. While the old version is running, use `pg_dump` (or `pg_dumpall` if you have multiple databases) to create a dump of your database
-2. Quit the old version of Postgres.app, then start the new version of Postgres.app
-3. Now use `psql` or `pg_restore` to restore the dump file
-
-#### Migration walkthrough:
-
-1. Leave the old version of Postgres.app running, and use `psql --list` to show the list of databases.
-1. For each database you want to migrate use `pg_dump database_name > database_name.sql` to create the backup file.
-1. Quit Postgres.app.
-1. Replace Postgres.app with the new version, and start the new version.
-1. For each database, use `psql -d database_name -f database_name.sql` to restore from the backup.
-1. Remove the old data at `~/Library/Application Support/Postgres`.
+1. While the old version of Postgres.app is running, use `psql --list` to show the list of databases
+1. For each database you want to migrate use `pg_dump database_name > database_name.sql` to create a dump of your database
+1. Quit the old version of Postgres.app, then start the new version of Postgres.app
+1. For each database, use `psql -d database_name -f database_name.sql` to restore from the backup
+1. Once you've tested everything is working, remove the old data at `~/Library/Application Support/Postgres`
 
 
 ### Migrate data using `pg_upgrade`
