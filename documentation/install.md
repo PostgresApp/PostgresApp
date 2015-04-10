@@ -36,6 +36,16 @@ This is the recommended way for migrating your data.
 2. Quit the old version of Postgres.app, then start the new version of Postgres.app
 3. Now use `psql` or `pg_restore` to restore the dump file
 
+#### Migration walkthrough:
+
+1. Leave the old version of Postgres.app running, and use `psql --list` to show the list of databases.
+1. For each database you want to migrate use `pg_dump database_name > database_name.sql` to create the backup file.
+1. Quit Postgres.app.
+1. Replace Postgres.app with the new version, and start the new version.
+1. For each database, use `psql -d database_name -f database_name.sql` to restore from the backup.
+1. Remove the old data at `~/Library/Application Support/Postgres`.
+
+
 ### Migrate data using `pg_upgrade`
 
 Using `pg_upgrade` from the command line is a bit more difficult.
