@@ -50,7 +50,7 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 @implementation AppDelegate {
     NSStatusItem *_statusBarItem;
     WelcomeWindowController *_welcomeWindowController;
-    id _observer;
+    id _interfaceThemeObserver;
 }
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
@@ -101,14 +101,14 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 #endif
     
     __weak AppDelegate *weakSelf = self;
-    _observer = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
-                                                                             object:nil
-                                                                              queue:[NSOperationQueue mainQueue]
-                                                                         usingBlock:^(NSNotification *notification) {
-                                                                             BOOL darkMode = weakSelf.isDarkMode;
-                                                                             weakSelf.templateOffImage.template = darkMode;
-                                                                             weakSelf.templateOnImage.template = darkMode;
-                                                                         }];
+    _interfaceThemeObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
+                                                                                           object:nil
+                                                                                            queue:[NSOperationQueue mainQueue]
+                                                                                       usingBlock:^(NSNotification *notification) {
+                                                                                           BOOL darkMode = weakSelf.isDarkMode;
+                                                                                           weakSelf.templateOffImage.template = darkMode;
+                                                                                           weakSelf.templateOnImage.template = darkMode;
+                                                                                       }];
     
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
@@ -207,11 +207,11 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 }
 
 - (BOOL)isDarkMode {
-    return [[[NSUserDefaults standardUserDefaults] valueForKey:kAppleInterfaceStyle] isEqualToString:kAppleInterfaceStyleDark];
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
 }
 
 - (void)dealloc {
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:_observer];
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:_interfaceThemeObserver];
 }
 
 #pragma mark - IBAction
