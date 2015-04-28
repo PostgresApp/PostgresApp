@@ -222,7 +222,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
 gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/include/json/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)"
+	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-static-proj4="$(PWD)/proj-$(PROJ_VERSION)/src/.libs"
 	touch $@
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
