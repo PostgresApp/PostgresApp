@@ -3,6 +3,13 @@ layout: index
 title: Postgres.app – the easiest way to get started with PostgreSQL on the Mac
 ---
 
+Quick Installation Guide
+-----------------
+1. Download Postgres.app
+2. Double click Postgres.app
+3. Add `/Applications/Postgres.app/Contents/Versions/9.4/bin` to your `$PATH`
+4. Done!
+
 What's In The Box?
 ------------------
 
