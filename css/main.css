@@ -57,3 +57,9 @@ h2 {
 body {
 	margin-bottom: 100px;
 }
+
+#requirements {
+	text-align: center;
+	color: #aaa;
+	font-style: italic;
+}
