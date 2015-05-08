@@ -9,6 +9,10 @@
   margin: 30px 0;
 }
 
+.container {
+	position: relative;
+}
+
 header {
   margin-top: 25px;
   text-align: center;
@@ -62,4 +66,34 @@ body {
 	text-align: center;
 	color: #aaa;
 	font-style: italic;
+}
+
+#index-lang-links {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+}
+
+#index-lang-links li {
+	list-style: none;
+	display: inline; 
+	padding: 5px;
+	border: 1px solid #ddd;
+}
+
+#index-lang-links li.current {
+	border: 1px solid #999;
+}
+
+#index-lang-links li.current a {
+	color: #666;
+}
+
+.nav .lang-link {
+	font-size: 12px;
+	margin-left: 100px;;
+}
+
+.nav .lang-link.current a {
+	color: #fff;
 }

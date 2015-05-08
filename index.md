@@ -3,6 +3,24 @@ layout: index
 title: Postgres.app – the easiest way to get started with PostgreSQL on the Mac
 ---
 
+<header>
+	<img src="/img/PostgresAppIconLarge.png" width="192" height="192" alt="Postgres.app Icon" itemprop="image">
+	<hgroup>
+	  <h1 itemprop="name">Postgres.app</h1>
+	  <h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
+	</hgroup>
+</header>
+
+<div class="buttons">
+	<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+	<a href="/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
+	<a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-list"></span> Releases</a>
+	<a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
+</div>
+
+<div id="requirements">Postgres.app runs on OS X 10.7 or later.</div>
+
+
 Quick Installation Guide
 -----------------
 1. Download Postgres.app
@@ -15,8 +33,8 @@ What's In The Box?
 
 Postgres.app contains a full-featured PostgreSQL installation in a single package:
 
-- [PostgreSQL](http://www.postgresql.org) 9.4.1
-- [PostGIS](http://postgis.net) 2.1.6
+- [PostgreSQL](http://www.postgresql.org) {{site.postgresqlVersion}}
+- [PostGIS](http://postgis.net) {{site.postgisVersion}}
 - Procedural languages: [PL/pgSQL](http://www.postgresql.org/docs/9.4/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/9.4/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/9.4/static/plpython.html), and [PLV8 (Javascript)](https://code.google.com/p/plv8js/wiki/PLV8)
 - Popular extensions, including [hstore](http://www.postgresql.org/docs/9.4/static/hstore.html) and [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), and more
 - A number of [command-line utilities](documentation/cli-tools.html) for managing PostgreSQL and working with GIS data

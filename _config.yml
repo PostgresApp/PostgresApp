@@ -1,3 +1,9 @@
 name: Postgres.app
 description: "Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down."
 markdown: redcarpet
+
+downloadLocation: https://github.com/PostgresApp/PostgresApp/releases/download/9.4.1.2/Postgres-9.4.1.2.zip
+postgresqlVersion: 9.4.1
+postgisVersion: 2.1.6
+
+languages: [en, de]

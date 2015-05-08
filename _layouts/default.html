@@ -24,6 +24,7 @@
     <meta content="http://postgresapp.com/img/PostgresAppIconLarge.png" property="og:image"/>
     <meta content="{{ site.name }}" property="og:site_name"/>
     <meta content="{{ site.description }}" property="og:description"/>
+    {% assign pathComponents = page.path | split: '/' %}{% for pathComponent in pathComponents limit: 1 %}{% assign truncatedComponent = pathComponent | truncate: 2 %}{% if pathComponent.size == 2 %}{% assign basename = page.path | remove_first: pathComponent | remove_first: '/' %}{% else %}{% assign basename = page.path %}{% endif %}{% endfor %}{% for lang in site.languages %}{% if lang == 'en' %}{% assign langPath = basename %}{% else %}{% assign langPath = basename | prepend: '/' | prepend: lang %}{% endif %}{% assign langPages = site.pages | where: 'path', langPath %}{% for langPage in langPages %}{%if page.path != langPage.path%}<link rel="alternate" hreflang="{{lang}}" href="{{ langPage.url | remove: 'index.html'}}">{%endif%}{% endfor %}{% endfor %}
   </head>
   <body>
 
