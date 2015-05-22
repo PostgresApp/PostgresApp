@@ -92,6 +92,8 @@
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		36A9159E1B0DFB9000C7F424 /* postgresql-icu-patch-2.diff */ = {isa = PBXFileReference; lastKnownFileType = text; path = "postgresql-icu-patch-2.diff"; sourceTree = "<group>"; };
+		36A9E3061B0DFB5500C7F424 /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		36B958C21861AE88007BBB36 /* PGApplicationMover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGApplicationMover.h; sourceTree = "<group>"; };
 		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
 		36C986ED1861DFCC00308267 /* PGShellProfileUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGShellProfileUpdater.h; sourceTree = "<group>"; };
@@ -168,6 +170,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36A9A9B81B0DFB0100C7F424 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				36A9E3061B0DFB5500C7F424 /* makefile */,
+				36A9159E1B0DFB9000C7F424 /* postgresql-icu-patch-2.diff */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		F87A4267153AB23F00456130 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				F884C919153CA24400CDCB09 /* Postgres.icns */,
+				36A9A9B81B0DFB0100C7F424 /* src */,
 				F8973A121538846600EAB41E /* Postgres */,
 				F87A4270153AB60C00456130 /* PostgresHelper */,
 				F8973A32153884AC00EAB41E /* Vendor */,
