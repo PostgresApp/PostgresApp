@@ -41,13 +41,14 @@
 
       ga('create', 'UA-49977852-1', 'postgresapp.com');
       ga('send', 'pageview');
-
+      var outboundLinkTimeout;
       var trackOutboundLink = function(url, category) {
         if (!category) category = 'outboundLink';
         ga('send', 'event', category, 'click', url, {'hitCallback': function () {
+          clearTimeout(outboundLinkTimeout);
           document.location = url;
         }});
-        setTimeout(function() { location.href = url; }, 500);
+        outboundLinkTimeout = setTimeout(function() { location.href = url; }, 500);
       }
     </script>
   </body>
