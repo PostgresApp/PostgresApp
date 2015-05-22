@@ -37,10 +37,20 @@
 #import <Sparkle/Sparkle.h>
 #endif
 
+NSString *const kAppleInterfaceStyle = @"AppleInterfaceStyle";
+NSString *const kAppleInterfaceStyleDark = @"Dark";
+NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeChangedNotification";
+
+@interface AppDelegate()
+@property (assign, readonly) BOOL isDarkMode;
+@property (strong, nonatomic) NSImage *templateOffImage;
+@property (strong, nonatomic) NSImage *templateOnImage;
+@end
 
 @implementation AppDelegate {
     NSStatusItem *_statusBarItem;
-    WelcomeWindowController *_welcomeWindowController;    
+    WelcomeWindowController *_welcomeWindowController;
+    id _interfaceThemeObserver;
 }
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
@@ -89,16 +99,29 @@
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
 #endif
-        
+    
+    __weak AppDelegate *weakSelf = self;
+    _interfaceThemeObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
+                                                                                           object:nil
+                                                                                            queue:[NSOperationQueue mainQueue]
+                                                                                       usingBlock:^(NSNotification *notification) {
+                                                                                           BOOL darkMode = weakSelf.isDarkMode;
+                                                                                           weakSelf.templateOffImage.template = darkMode;
+                                                                                           weakSelf.templateOnImage.template = darkMode;
+                                                                                       }];
+    
     _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     _statusBarItem.highlightMode = YES;
     _statusBarItem.menu = self.statusBarMenu;
-	NSImage *templateOffImage = [NSImage imageNamed:@"status-off"];
-	templateOffImage.template = YES;
-	_statusBarItem.image = templateOffImage;
-	NSImage *templateOnImage = [NSImage imageNamed:@"status-on"];
-	templateOnImage.template = YES;
-	_statusBarItem.alternateImage = templateOnImage;
+	_templateOffImage = [NSImage imageNamed:@"status-off"];
+	_templateOnImage = [NSImage imageNamed:@"status-on"];
+
+    BOOL darkMode = self.isDarkMode;
+    _templateOffImage.template = darkMode;
+    _templateOnImage.template = darkMode;
+    
+    _statusBarItem.image = _templateOffImage;
+	_statusBarItem.alternateImage = _templateOnImage;
 	
     [NSApp activateIgnoringOtherApps:YES];
     
@@ -181,6 +204,14 @@
     });
     
     return NSTerminateLater;
+}
+
+- (BOOL)isDarkMode {
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
+}
+
+- (void)dealloc {
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:_interfaceThemeObserver];
 }
 
 #pragma mark - IBAction
