@@ -14,7 +14,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 ## What's Included?
 
-- [PostgreSQL 9.4.3](http://www.postgresql.org/docs/9.4/static/release-9-4-3.html)
+- [PostgreSQL 9.4.4](http://www.postgresql.org/docs/9.4/static/release-9-4-4.html)
 - [PostGIS 2.1.7](http://postgis.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 
