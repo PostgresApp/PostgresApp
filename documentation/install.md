@@ -17,7 +17,6 @@ If you'd like to use the command line tools delivered with Postgres.app, see the
 - Binaries: `/Applications/Postgres.app/Contents/Versions/9.3/bin`
 - Headers: `/Applications/Postgres.app/Contents/Versions/9.3/include`
 - Libraries: `/Applications/Postgres.app/Contents/Versions/9.3/lib`
-- Shared Libraries: `/Applications/Postgres.app/Contents/Versions/9.3/share`
 - Default data directory: `~/Library/Application Support/Postgres/var-9.3`
 
 ## Upgrading From A Previous Version
