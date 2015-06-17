@@ -13,7 +13,7 @@ title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 
 <div class="buttons">
 	<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Laden</a>
-	<a href="/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Dokumentation</a>
+	<a href="/de/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Dokumentation</a>
 	<a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-list"></span> Alle Versionen</a>
 	<a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
 </div>
