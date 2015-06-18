@@ -32,20 +32,9 @@ The only field you have to provide is "Name". You can choose any name, I suggest
 
 To actually connect, double click the newly created connection in the sidebar.
 
-## PG Commander
+## Postico
 
-[PG Commander](https://eggerapps.at/pgcommander/) is the easiest client to connect to Postgres.app: Just click "Connect".
-The default settings are already suitable for connecting to Postgres.app.
+[Postico](https://eggerapps.at/postico/) is a modern Postgres client for OS X.
+There's no configuration necessary, just click "Connect".
 
-PG Commander is written by Jakob Egger, the current maintainer of Postgres.app.
-
-## Induction
-
-Explore, Query, Visualize: [Induction](http://inductionapp.com) is a database app that supports different databases, and also PostgreSQL.
-It has built in support for graphing query results.
-
-To connect to Postgres.app with Induction, you need to provide an URL:
-
-    postgresql://YOURUSERNAME@localhost/YOURUSERNAME
-
-Induction is written by Mattt Thompson, the creator of Postgres.app.
+Postico is written by Jakob Egger, the current maintainer of Postgres.app.
