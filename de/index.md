@@ -25,8 +25,8 @@ Kurzanleitung
 -------------
 1. Laden
 2. Doppelklicken
-3. Bei Verwendung im Terminal: `/Applications/Postgres.app/Contents/Versions/9.4/bin` zum Pfad hinzufügen
-4. Fertig!
+3. Bei Verwendung im Terminal: [konfiguriere die `$PATH` Variable](documentation/cli-tools.html)
+4. Wenn du graphische Clients bevorzugst, lies die [Liste von GUI Tools](documentation/gui-tools.html)
 
 Was ist alles drin?
 -------------------

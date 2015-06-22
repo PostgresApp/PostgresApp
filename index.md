@@ -23,10 +23,10 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 
 Quick Installation Guide
 -----------------
-1. Download Postgres.app
-2. Double click Postgres.app
-3. Add `/Applications/Postgres.app/Contents/Versions/9.4/bin` to your `$PATH`
-4. Done!
+1. Download
+2. Double Click
+3. To use the command line programs, [set up your `$PATH`](documentation/cli-tools.html)
+4. If you prefer a graphical app, check out the [list of GUI tools](documentation/gui-tools.html)
 
 What's In The Box?
 ------------------
