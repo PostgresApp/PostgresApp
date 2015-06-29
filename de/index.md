@@ -23,10 +23,13 @@ title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 
 Kurzanleitung
 -------------
-1. Laden
-2. Doppelklicken
-3. Bei Verwendung im Terminal: [konfiguriere die `$PATH` Variable](documentation/cli-tools.html)
-4. Wenn du graphische Clients bevorzugst, lies die [Liste von GUI Tools](documentation/gui-tools.html)
+1. Herunterladen
+2. In den Programme-Ordner bewegen
+3. Doppelklicken
+
+Fertig! Jetzt läuft ein PostgreSQL Server auf deinem Mac.
+[Konfiguriere die `$PATH` Variable](documentation/cli-tools.html) damit du die mitgelieferten Kommandozeilenprogramme verwenden kannst.
+Wenn du graphische Clients bevorzugst, gibt es eine [Liste von GUI Tools](documentation/gui-tools.html).
 
 Was ist alles drin?
 -------------------

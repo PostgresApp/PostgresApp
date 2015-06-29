@@ -24,9 +24,13 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 Quick Installation Guide
 -----------------
 1. Download
-2. Double Click
-3. To use the command line programs, [set up your `$PATH`](documentation/cli-tools.html)
-4. If you prefer a graphical app, check out the [list of GUI tools](documentation/gui-tools.html)
+2. Move to `/Applications`
+3. Double Click
+
+Done! You now have a PostgreSQL server running on your Mac.
+To use the command line programs, [set up your `$PATH`](documentation/cli-tools.html).
+If you prefer a graphical app, check out the [list of GUI tools](documentation/gui-tools.html).
+
 
 What's In The Box?
 ------------------
