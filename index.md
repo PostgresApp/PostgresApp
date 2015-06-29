@@ -75,5 +75,3 @@ Credits
 Postgres.app is maintained by [Jakob Egger](https://github.com/jakob).
 
 Postgres.app was created by [Mattt Thompson](https://github.com/mattt).
-
-Thanks to [Craig Kerstiens](https://github.com/craigkerstiens) and the [Heroku Postgres](https://postgres.heroku.com/) team for their support.
