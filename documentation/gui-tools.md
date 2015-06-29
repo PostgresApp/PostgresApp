@@ -56,7 +56,6 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
-- [Tuples](http://tuplesapp.com)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 - [Woolly](http://woollyapp.com)
 
