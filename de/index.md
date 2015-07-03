@@ -42,6 +42,10 @@ Postgres.app enthält eine vollständige Installation die keine Wünsche offen l
 - Beliebte Erweiterungen wie [hstore](http://www.postgresql.org/docs/9.4/static/hstore.html) und [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), und mehr!
 - Viele [Tools für die Kommandozeile](/documentation/cli-tools.html), für PostgreSQL und GIS-Anwendungen
 
+<p class="bg-info" style="padding:1em;margin-top:3em;">
+	Die erste Alpha-Version von PostgreSQL 9.5 ist da.
+	<a href="https://github.com/PostgresApp/PostgresApp/releases/" onclick="trackOutboundLink(this.href,'download-prerelease');return false;">Lade die Vorabversion</a> und hilf mit beim Testen!
+</p>
 
 Support
 -------
