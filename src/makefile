@@ -306,7 +306,7 @@ tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	touch $@
 
 tiff-$(LIBTIFF_VERSION).tar.gz:
-	$(CURL) ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz
+	$(CURL) ftp://ftp.remotesensing.org/pub/libtiff/tiff-$(LIBTIFF_VERSION).tar.gz
 
 clean-libtiff:
 	rm -Rf tiff-$(LIBTIFF_VERSION)
