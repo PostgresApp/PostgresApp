@@ -1,10 +1,10 @@
 # VERSION numbers
-POSTGIS_VERSION=2.2.0dev
+POSTGIS_VERSION=2.2.0
 POSTGIS_MAJOR_VERSION=2.2
-POSTGRES_VERSION=9.5alpha1
+POSTGRES_VERSION=9.5beta1
 POSTGRES_MAJOR_VERSION=9.5
 GDAL_VERSION=1.11.3
-GEOS_VERSION=3.4.2
+GEOS_VERSION=3.5.0
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
@@ -337,8 +337,7 @@ postgis-${POSTGIS_VERSION}/autogen.sh: postgis-${POSTGIS_VERSION}.tar.gz
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
-#	$(CURL) "http://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz"
-	$(CURL) "http://postgis.net/stuff/postgis-${POSTGIS_VERSION}.tar.gz"
+	$(CURL) "http://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz"
 
 clean-postgis:
 	rm -Rf postgis-${POSTGIS_VERSION}
