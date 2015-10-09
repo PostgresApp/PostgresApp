@@ -14,11 +14,13 @@ title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 <div class="buttons">
 	<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Laden</a>
 	<a href="/de/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Dokumentation</a>
-	<a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-list"></span> Alle Versionen</a>
 	<a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
 </div>
 
-<div id="requirements">Postgres.app benötigt OS X 10.7 oder neuer.</div>
+<div id="requirements">
+	PostgresApp enthält PostgreSQL {{site.postgresqlVersion}} (andere Versionen siehe unten)<br>
+	Postgres.app benötigt OS X 10.7 oder neuer.
+</div>
 
 
 Kurzanleitung
@@ -42,10 +44,16 @@ Postgres.app enthält eine vollständige Installation die keine Wünsche offen l
 - Beliebte Erweiterungen wie [hstore](http://www.postgresql.org/docs/9.4/static/hstore.html) und [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), und mehr!
 - Viele [Tools für die Kommandozeile](/documentation/cli-tools.html), für PostgreSQL und GIS-Anwendungen
 
-<p class="bg-info" style="padding:1em;margin-top:3em;">
-	Die erste Alpha-Version von PostgreSQL 9.5 ist da.
-	<a href="https://github.com/PostgresApp/PostgresApp/releases/" onclick="trackOutboundLink(this.href,'download-prerelease');return false;">Lade die Vorabversion</a> und hilf mit beim Testen!
-</p>
+Andere Versionen
+----------------
+
+Suchst du eine bestimmte Version von PostgreSQL?
+
+<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion}}</a> mit PostGIS {{site.postgisVersion}}
+
+<a href="{{ site.downloadLocationDev }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersionDev}}</a> mit PostGIS {{site.postgisVersionDev}}
+
+Du findest noch mehr Versionen auf der <a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;">„Releases“-Seite</a> auf Github.
 
 Support
 -------

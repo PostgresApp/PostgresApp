@@ -6,4 +6,8 @@ downloadLocation: https://github.com/PostgresApp/PostgresApp/releases/download/9
 postgresqlVersion: 9.4.5
 postgisVersion: 2.1.8
 
+downloadLocationDev: https://github.com/PostgresApp/PostgresApp/releases/download/9.5beta1.0/Postgres-9.5beta1.0.zip
+postgresqlVersionDev: 9.5beta1
+postgisVersionDev: 2.2.0
+
 languages: [en, de]
