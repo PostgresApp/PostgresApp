@@ -50,6 +50,8 @@ Other versions
 
 Are you looking for a specific version of PostgreSQL? The following popular builds are available:
 
+<a href="{{ site.downloadLocation93 }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion93}}</a> with PostGIS {{site.postgisVersion93}}
+
 <a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion}}</a> with PostGIS {{site.postgisVersion}}
 
 <a href="{{ site.downloadLocationDev }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersionDev}}</a> with PostGIS {{site.postgisVersionDev}}
