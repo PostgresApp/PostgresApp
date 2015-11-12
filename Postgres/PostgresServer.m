@@ -170,6 +170,12 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 				return;
 			}
 			
+			BOOL createdUser = [self createUserWithError:&error];
+			if (!createdUser) {
+				if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
+				return;
+			}
+			
 			BOOL createdUserDatabase = [self createUserDatabaseWithError:&error];
 			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(createdUserDatabase, error); });
 		}
@@ -301,7 +307,8 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	initdbTask.launchPath = [self.binPath stringByAppendingPathComponent:@"initdb"];
 	initdbTask.arguments = @[
 		/* data directory */ @"-D", self.varPath,
-		/* encoding       */ @"-EUTF-8",
+		/* superuser name */ @"-U", @"postgres",
+		/* encoding       */ @"--encoding=UTF-8",
 		/* locale         */ @"--locale=en_US.UTF-8"
 	];
 	initdbTask.standardError = [[NSPipe alloc] init];
@@ -317,6 +324,34 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	}
 	
 	return initdbTask.terminationStatus == 0;
+}
+
+-(BOOL)createUserWithError:(NSError**)error {
+	NSTask *task = [[NSTask alloc] init];
+	task.launchPath = [self.binPath stringByAppendingPathComponent:@"createuser"];
+	task.arguments = @[
+					   @"-U", @"postgres",
+					   @"-p", @(self.port).stringValue,
+					   @"--superuser",
+					   NSUserName()
+	];
+	task.standardError = [[NSPipe alloc] init];
+	[task launch];
+	NSString *taskError = [[NSString alloc] initWithData:[[task.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[task waitUntilExit];
+	
+	if (task.terminationStatus != 0 && error) {
+		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create default user.",nil);
+		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = taskError;
+		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createuser" code:task.terminationStatus userInfo:errorUserInfo];
+	}
+	
+	return task.terminationStatus == 0;
 }
 
 -(BOOL)createUserDatabaseWithError:(NSError**)error {
