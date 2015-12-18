@@ -14,6 +14,7 @@ PROJ_VERSION=4.9.2
 DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18
+PLV8_VERSION=1.4.4
 JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.6
 ICU_MAJOR_VERSION=54
@@ -349,14 +350,17 @@ clean-postgis:
 
 plv8: $(PREFIX)/lib/postgresql/plv8.so
 
-$(PREFIX)/lib/postgresql/plv8.so: plv8js/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8js install 
+$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/lib/libv8.dylib
+	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install 
 #	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
 
 
-plv8js/Makefile:
-	/usr/bin/git clone "https://code.google.com/p/plv8js/" -q
+plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
+	$(TAR) $<
 	touch $@
+	
+plv8-${PLV8_VERSION}.tar.gz:
+	/usr/bin/curl -L10 --silent --show-error -o $@ https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
 
 # Unfortunately, plv8 only builds with outdated v8, but outdated v8 no longer builds with recent clang
 # As a workaround, we include libv8 binary built with older clang in repository
