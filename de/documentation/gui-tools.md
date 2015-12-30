@@ -48,6 +48,8 @@ Eine ausführliche Übersicht über verfügbare Programme findest du im PostgreS
 
 Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Reihenfolge):
 
+- [Datagrip](https://www.jetbrains.com/datagrip/)
+- [DBeaver](http://dbeaver.jkiss.org/)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin III](http://pgadmin.org/)
 - [PG Commander](https://eggerapps.at/pgcommander/)
