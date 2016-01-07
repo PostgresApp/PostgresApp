@@ -9,13 +9,13 @@ Postgres.app includes many command line tools. If you want to use them, you must
 If you are using **bash** (default shell on OS X), add the following line to `~/.bash_profile`:
 
 ```bash
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 ```
 
 If you're using the **fish** shell, add the following to your `config.fish` (normally located at `~/.config/fish/config.fish`):
 
 ```bash
-set PATH /Applications/Postgres.app/Contents/Versions/9.4/bin $PATH
+set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 ```
 
 You can now check if the path is set up correctly by typing `which psql`.

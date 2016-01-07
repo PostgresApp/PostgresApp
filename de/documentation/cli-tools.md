@@ -9,13 +9,13 @@ Postgres.app beinhaltet auch einige Tools für die Kommandozeile. Damit du sie v
 Wenn du **bash** verwendest (Standardshell unter OS X), füge die folgende Zeile zur Datei `~/.bash_profile` hinzu:
 
 ```bash
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 ```
 
 Verwendest du die **fish** shell, füge folgende Zeile zu `config.fish` hinzu (normalerweise unter `~/.config/fish/config.fish`):
 
 ```bash
-set PATH /Applications/Postgres.app/Contents/Versions/9.4/bin $PATH
+set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 ```
 
 Du kannst überprüfen ob der Pfad korrekt konfiguriert ist in dem du den Befehl `which psql` ausführst.

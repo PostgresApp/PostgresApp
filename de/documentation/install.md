@@ -16,10 +16,10 @@ Natürlich gibt es aber auch [graphische Clients für PostgreSQL](gui-tools.html
 
 ### Wichtige Verzeichnise
 
-- Binaries: `/Applications/Postgres.app/Contents/Versions/9.4/bin`
-- Header: `/Applications/Postgres.app/Contents/Versions/9.4/include`
-- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.4/lib`
-- Datenverzeichnis (data directory): `~/Library/Application Support/Postgres/var-9.4`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/9.5/bin`
+- Header: `/Applications/Postgres.app/Contents/Versions/9.5/include`
+- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.5/lib`
+- Datenverzeichnis (data directory): `~/Library/Application Support/Postgres/var-9.5`
 
 ## Upgrade von einer früheren Version
 
@@ -58,5 +58,5 @@ Weil `pg_upgrade` alte und neue Binaries gleichzeitig braucht, musst du eine spe
 
 1. Postgres.app beenden
 2. Postgres.app in den Papierkorb ziehen
-3. Datenverzeichnis in den Papierkorb ziehen (Standardort: `~/Library/Application Support/Postgres/var-9.4`)
+3. Datenverzeichnis in den Papierkorb ziehen (Standardort: `~/Library/Application Support/Postgres/var-9.5`)
 

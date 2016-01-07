@@ -22,5 +22,5 @@ Ob du lieber auf der Kommandozeile arbeitest order graphische Benutzeroberfläch
 ## Weiterführende Informationen
 
 - [PostgreSQL Webseite](http://www.postgresql.org/) - Die offizielle Webseite von PostgreSQL (Englisch)
-- [PostgreSQL Documentation](http://www.postgresql.org/docs/9.4/interactive/index.html) - Das offizielle Benutzerhandbuch für PostgreSQL (Englisch)
+- [PostgreSQL Documentation](http://www.postgresql.org/docs/9.5/interactive/index.html) - Das offizielle Benutzerhandbuch für PostgreSQL (Englisch)
 

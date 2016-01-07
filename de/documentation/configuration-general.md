@@ -22,9 +22,9 @@ Zusätzlich sind auch PostGIS und plv8 mit dabei.
 
 ## Wichtige Verzeichnisse
 
-- Datenverzeichnis: `~/Library/Application\ Support/Postgres/var-9.4` (Kann in den Einstellungen geändert werden)
-- Ausführbare Dateien: `/Applications/Postgres.app/Contents/Versions/9.4/bin`
-- Header: `/Applications/Postgres.app/Contents/Versions/9.4/include`
-- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.4/lib`
-- Man-Seiten: `/Applications/Postgres.app/Contents/Versions/9.4/share`
+- Datenverzeichnis: `~/Library/Application\ Support/Postgres/var-9.5` (Kann in den Einstellungen geändert werden)
+- Ausführbare Dateien: `/Applications/Postgres.app/Contents/Versions/9.5/bin`
+- Header: `/Applications/Postgres.app/Contents/Versions/9.5/include`
+- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.5/lib`
+- Man-Seiten: `/Applications/Postgres.app/Contents/Versions/9.5/share`
 
