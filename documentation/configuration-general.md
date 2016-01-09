@@ -18,6 +18,8 @@ Each release of Postgres.app comes with the latest stable release of PostgreSQL,
 - **Password:** *blank*
 - **Database:** *same as user name*
 
+### Connection security
+Postgresql (and Postgres.app) default to only localhost connections, configurable by [listen_addresses](http://www.postgresql.org/docs/current/static/runtime-config-connection.html) –  'The default value is localhost, which allows only local TCP/IP "loopback" connections to be made'.
 
 ## Useful Directories
 
