@@ -58,7 +58,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return [[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingFormat:@"/var-%s", xstr(PG_MAJOR_VERSION)];
 }
 
-+(PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir {
++(PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError {
 	NSString *versionFilePath = [dir stringByAppendingPathComponent:@"PG_VERSION"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:versionFilePath]) {
 		return PostgresDataDirectoryEmpty;
@@ -69,6 +69,13 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 
 	if ([includedVersion isEqual:dataDirectoryVersion]) {
 		return PostgresDataDirectoryCompatible;
+	}
+	
+	if (outError) {
+		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] initWithCapacity:2];
+		userInfo[NSLocalizedDescriptionKey] = @"Incompatible Data Directory";
+		if (dataDirectoryVersion) userInfo[NSLocalizedRecoverySuggestionErrorKey] = [NSString stringWithFormat:@"The data directory was created with PostgreSQL %@. This version of Postgres.app can only open %@ data directories. Please download a different version of Postgres.app, or choose a different data directory.", dataDirectoryVersion, includedVersion];
+		*outError = [NSError errorWithDomain:@"com.postgresapp.Postgres" code:1 userInfo:userInfo];
 	}
 	
 	return PostgresDataDirectoryIncompatible;
@@ -89,7 +96,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	for (NSString *applicationSupportDirectory in applicationSupportDirectories) {
 		for (NSString *dataDirName in dataDirNames) {
 			NSString *dataDirectoryPath = [applicationSupportDirectory stringByAppendingPathComponent:dataDirName];
-			PostgresDataDirectoryStatus status = [self statusOfDataDirectory:dataDirectoryPath];
+			PostgresDataDirectoryStatus status = [self statusOfDataDirectory:dataDirectoryPath error:nil];
 			if (status == PostgresDataDirectoryCompatible) {
 				return dataDirectoryPath;
 			}
@@ -104,11 +111,10 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 
 +(PostgresServer *)defaultServer {
     static PostgresServer *_sharedServer = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+	if (!_sharedServer) {
 		NSString *binDirectory = [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
 		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]];
-		if (!databaseDirectory || [self statusOfDataDirectory:databaseDirectory] == PostgresDataDirectoryIncompatible) {
+		if (!databaseDirectory) {
 			databaseDirectory = [self existingDatabaseDirectory];
 		}
 		if (!databaseDirectory) {
@@ -116,8 +122,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 		}
 		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:[PostgresServer dataDirectoryPreferenceKey]];
         _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:binDirectory databaseDirectory:databaseDirectory];
-    });
-    
+    }
     return _sharedServer;
 }
 
@@ -155,7 +160,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSError *error = nil;
-		PostgresDataDirectoryStatus dataDirStatus = [PostgresServer statusOfDataDirectory:_varPath];
+		PostgresDataDirectoryStatus dataDirStatus = [PostgresServer statusOfDataDirectory:_varPath error:&error];
 		
 		if (dataDirStatus==PostgresDataDirectoryEmpty) {
 			BOOL serverDidInit = [self initDatabaseWithError:&error];
@@ -178,7 +183,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(serverDidStart, error); });
 		}
 		else {
-			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, nil); });
+			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
 		}
 		
 	});
