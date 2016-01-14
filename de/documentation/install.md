@@ -45,14 +45,19 @@ Bei einem größeren Update (zB. 9.3.x auf 9.4.x) erstellt Postgres.app automati
 
 `pg_upgrade` ist etwas komplizierter, weil es die Binaries der alten und neuen Version gleichzeitig benötigt. Sinn macht es nur wenn du sehr große Datenbanken hast und `pg_dump` zu langsam ist oder zuviel Festplattenspeicher benötigt. Bevor du mit `pg_upgrade` beginnst, solltest du sicher sein dass du den Prozess genau verstehst, und ein Backup hast!
 
-Weil `pg_upgrade` alte und neue Binaries gleichzeitig braucht, musst du eine spezielle Version von Postgres.app erstellen. Hier zum Beispiel der Prozess für das Update von 9.3 auf 9.4:
+Weil `pg_upgrade` alte und neue Binaries gleichzeitig braucht, musst du eine spezielle Version von Postgres.app erstellen. Hier zum Beispiel der Prozess für das Update von 9.4 auf 9.5:
 
-1. Rechtsklick auf das alte Postgres.app und "Paketinhalt zeigen" auswählen
-1. Rechtsklick auf das neue Postgres.app und "Paketinhalt zeigen" auswählen
-3. Kopiere den Ornder `Contents/Versions/9.3` von der alten Postgres.app in die neue Postgres.app
-4. Bewege nun die modifizierte, neue Version von Postgres.app in den Programme-Ordner.
-5. Verwende `pg_upgrade` entsprechend der Anleitung [in der PostgreSQL Dokumentation](http://www.postgresql.org/docs/current/static/pgupgrade.html).
-6. Siehe auch [issue 241](https://github.com/PostgresApp/PostgresApp/issues/241) für mehr Infos wie man mit Fehlern umgeht.
+1. Beende Postgres.app
+2. Rechtsklick auf das alte Postgres.app und "Paketinhalt zeigen" auswählen
+3. Rechtsklick auf das neue Postgres.app und "Paketinhalt zeigen" auswählen
+4. Kopiere den Ordner `Contents/Versions/9.4` von der alten Postgres.app in die neue Postgres.app
+5. Bewege nun die modifizierte, neue Version von Postgres.app in den Programme-Ordner
+6. Lösche nun den Ordner `~/Library/Application Support/Postgres/var-9.5` (falls er existiert) und erstelle ein leeres Verzeichnis mit dem Namen `var-9.5`
+7. Initialisiere einen neuen Datenbankcluster mit dem Befehl `/Applications/Postgres.app/Contents/Versions/9.5/bin/initdb -D ~/Library/Application\ Support/Postgres/var-9.5`
+8. Führe das Migration durch mit dem Befehl `/Applications/Postgres.app/Contents/Versions/9.5/bin/pg_upgrade -b /Applications/Postgres.app/Contents/Versions/9.4/bin -B /Applications/Postgres.app/Contents/Versions/9.5/bin -d ~/Library/Application\ Support/Postgres/var-9.4 -D ~/Library/Application\ Support/Postgres/var-9.5 -v` (siehe auch die [Dokumentation von pg_upgrade](http://www.postgresql.org/docs/current/static/pgupgrade.html))
+9. `pg_upgrade` erstellt zwei Skripte, `analyze_new_cluster.sh` und `delete_old_cluster.sh`. Du kannst sie verwenden um das neue Datenverzeichnis zu optimieren und das alte zu löschen.
+
+
 
 ## Postgres.app deinstallieren
 
