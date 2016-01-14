@@ -50,6 +50,7 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 
 - [Datagrip](https://www.jetbrains.com/datagrip/)
 - [DBeaver](http://dbeaver.jkiss.org/)
+- [DbVisualizer](https://www.dbvis.com/)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin III](http://pgadmin.org/)
 - [PG Commander](https://eggerapps.at/pgcommander/)
@@ -57,6 +58,7 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
+- [Toad Mac Edition](https://www.toadworld.com/products/toad-mac-edition)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 - [Woolly](http://woollyapp.com)
 
