@@ -18,8 +18,16 @@ Each release of Postgres.app comes with the latest stable release of PostgreSQL,
 - **Password:** *blank*
 - **Database:** *same as user name*
 
-### Connection security
-Postgresql (and Postgres.app) default to only localhost connections, configurable by [listen_addresses](http://www.postgresql.org/docs/current/static/runtime-config-connection.html) –  'The default value is localhost, which allows only local TCP/IP "loopback" connections to be made'.
+## Allowing Remote Connections
+By default, PostgreSQL only allows connections from localhost, and requires no password.
+
+If you want to connect to PostgreSQL from a different computer,
+you need to change the `listen_address` parameter in the file `postgresql.conf`,
+which you can find in your data directory (See [Connections and Authentication](http://www.postgresql.org/docs/current/static/runtime-config-connection.html) in the PostgreSQL documentation).
+
+Additionally, you need to edit the [`pg_hba.conf`](http://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html) file to configure which hosts can access the database.
+
+Restart Postgres.app after changing these files.
 
 ## Useful Directories
 
