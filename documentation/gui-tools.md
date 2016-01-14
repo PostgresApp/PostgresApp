@@ -50,6 +50,7 @@ Some of them are quite powerful; some are still a bit rough.
 Here's a list of all the Mac Apps I found (in alphabetic order):
 
 - [Datagrip](https://www.jetbrains.com/datagrip/)
+- [DbVisualizer](https://www.dbvis.com/)
 - [DBeaver](http://dbeaver.jkiss.org/)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin III](http://pgadmin.org/)
@@ -57,6 +58,7 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [PostgreSQL Manager](https://itunes.apple.com/at/app/postgresql-manager/id875191518?mt=12)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
+- [Toad Mac Edition](https://www.toadworld.com/products/toad-mac-edition)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 - [Woolly](http://woollyapp.com)
