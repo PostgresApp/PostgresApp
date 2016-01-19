@@ -49,6 +49,7 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 @property (readonly) BOOL isRunning;
 
 + (NSString*)standardDatabaseDirectory;
++(NSString*)standardBinaryDirectory;
 + (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError;
 + (NSString*)existingDatabaseDirectory;
 + (PostgresServer *)defaultServer;

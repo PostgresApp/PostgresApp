@@ -58,6 +58,10 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return [[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingFormat:@"/var-%s", xstr(PG_MAJOR_VERSION)];
 }
 
++(NSString*)standardBinaryDirectory {
+	return [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
+}
+
 +(PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError {
 	NSString *versionFilePath = [dir stringByAppendingPathComponent:@"PG_VERSION"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:versionFilePath]) {
@@ -112,7 +116,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 +(PostgresServer *)defaultServer {
     static PostgresServer *_sharedServer = nil;
 	if (!_sharedServer) {
-		NSString *binDirectory = [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
 		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]];
 		if (!databaseDirectory) {
 			databaseDirectory = [self existingDatabaseDirectory];
@@ -121,7 +124,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 			databaseDirectory = [self standardDatabaseDirectory];
 		}
 		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:[PostgresServer dataDirectoryPreferenceKey]];
-        _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:binDirectory databaseDirectory:databaseDirectory];
+        _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:[self standardBinaryDirectory] databaseDirectory:databaseDirectory];
     }
     return _sharedServer;
 }
