@@ -42,7 +42,7 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 
 @interface PostgresServer : NSObject
 
-@property (readonly) NSUInteger port;
+@property unsigned long port;
 @property (readonly) NSString *binPath;
 @property (readonly) NSString *varPath;
 @property (readonly) NSString *logfilePath;

@@ -49,7 +49,6 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 
 @interface PostgresServer()
 @property BOOL isRunning;
-@property NSUInteger port;
 @end
 
 @implementation PostgresServer
@@ -247,7 +246,8 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 		/* control command          */ @"start",
 		/* data directory           */ @"-D", self.varPath,
 		/* wait for server to start */ @"-w",
-		/* server log file          */ @"-l", self.logfilePath
+		/* server log file          */ @"-l", self.logfilePath,
+		/* allow overriding port    */ @"-o", [NSString stringWithFormat:@"-p %lu", self.port]
 	];
 	controlTask.standardError = [[NSPipe alloc] init];
 	[controlTask launch];
