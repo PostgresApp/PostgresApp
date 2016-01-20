@@ -55,7 +55,7 @@ Since `pg_upgrade` needs the old and new binaries, you must make a special versi
 4. Copy the folder `Contents/Versions/9.4` from the old Postgres.app into `Contents/Versions` from the new Postgres.app
 5. Place the modified new version inside the Applications folder (you need to do this and _not_ place both apps side by side, as the binaries in both versions expect to be located under `/Applications/Postgres.app`)
 6. Go to `~/Library/Application Support/Postgres` and remove the `var-9.5` folder if it exists. Make an empty folder named `var-9.5`
-7. In the terminal, create a new database cluster with `/Applications/Postgres.app/Contents/Versions/9.5/bin/initdb -D ~/Library/Application\ Support/Postgres/var-9.5`
+7. In the terminal, create a new database cluster with `/Applications/Postgres.app/Contents/Versions/9.5/bin/initdb -D ~/Library/Application\ Support/Postgres/var-9.5 --encoding=UTF-8 --locale=en_US.UTF-8`
 8. Finally, run the upgrade with `/Applications/Postgres.app/Contents/Versions/9.5/bin/pg_upgrade -b /Applications/Postgres.app/Contents/Versions/9.4/bin -B /Applications/Postgres.app/Contents/Versions/9.5/bin -d ~/Library/Application\ Support/Postgres/var-9.4 -D ~/Library/Application\ Support/Postgres/var-9.5 -v` (see the [pg_upgrade documentation](http://www.postgresql.org/docs/current/static/pgupgrade.html) for details)
 9. `pg_upgrade` will leave behind two scripts, `analyze_new_cluster.sh` and `delete_old_cluster.sh`. Run them to optimise the new database and remove the old database cluster
 
