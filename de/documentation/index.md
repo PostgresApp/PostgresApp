@@ -17,6 +17,7 @@ Ob du lieber auf der Kommandozeile arbeitest order graphische Benutzeroberfläch
  - [Ruby](configuration-ruby.html)
  - [Python](configuration-python.html)
  - [PHP](configuration-php.html)
+ - [Java](configuration-java.html)
 - [Fehlerbehebung & Support](troubleshooting.html)
 
 ## Weiterführende Informationen
