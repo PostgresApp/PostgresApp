@@ -16,6 +16,7 @@ Whether you're a command line aficionado, prefer GUIs, or just want to start mak
  - [Ruby](configuration-ruby.html)
  - [Python](configuration-python.html)
  - [PHP](configuration-php.html)
+ - [Java](configuration-java.html)
 - [Troubleshooting & Support](troubleshooting.html)
 
 ## Additional Resources
