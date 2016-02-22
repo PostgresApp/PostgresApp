@@ -407,4 +407,4 @@ v8-${V8_VERSION}/Makefile:
 	touch $@
 
 clean-plv8:
-	rm -Rf plv8js v8-${V8_VERSION}
+	rm -Rf plv8js v8-${V8_VERSION} plv8-${PLV8_VERSION}
