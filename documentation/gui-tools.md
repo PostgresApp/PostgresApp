@@ -50,6 +50,7 @@ Some of them are quite powerful; some are still a bit rough.
 Here's a list of all the Mac Apps I found (in alphabetic order):
 
 - [Datagrip](https://www.jetbrains.com/datagrip/)
+- [Datazenit](https://datazenit.com/)
 - [DBeaver](http://dbeaver.jkiss.org/)
 - [DbVisualizer](https://www.dbvis.com/)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
