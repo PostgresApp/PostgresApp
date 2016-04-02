@@ -21,11 +21,13 @@ If you'd like to use the command line tools delivered with Postgres.app, see the
 
 ## Upgrading From A Previous Version
 
-Starting with Version 9.2.2.0, Postgres.app is using semantic versioning, tied to the release of PostgreSQL provided in the release, with the final number corresponding to the individual releases of Postgres.app for each distribution.
+PostgreSQL releases a major new version approximately once a year. Major releases are denoted by increasing the second digit of the version number (eg. PostgreSQL version 9.4 to 9.5). Minor updates are released every quarter (eg. 9.5 to 9.5.1).
 
-Upgrading between bugfix versions (e.g. `9.3.0.0` → 9.3.1.0 or `9.3.1.0` → `9.3.1.1`) is as simple as replacing Postgres.app in your Applications directory (just be sure to quit the app first, though).
+The version number of Postgres.app corresponds to the version of PostgreSQL included in the package. For example, Postgres.app 9.5.2 contains PostgreSQL 9.5.2. If a new build with the same version of PostgreSQL inside becomes necessary (eg. a security issue in OpenSSL), a 4th digit is added (so Postgres.app 9.5.2.1 would be an newer build with the same version of PostgreSQL).
 
-When updating between minor PostgreSQL releases (eg. 9.3.x to 9.4.x), Postgres.app will create a new, empty data directory. You are responsible for migrating the data yourself. There are two ways to migrate the data:
+The data format always stays the same for minor versions. **To upgrade from a minor version to the next, you can just replace Postgres.app in your application directory.** In rare cases you might need perform additional steps such as reindexing -- please refer to the PostgreSQL release notes for details.
+
+**When updating to a major new release (eg. 9.4 to 9.5), Postgres.app will create a new, empty data directory**, and leave the old one alone. You are responsible for migrating the data yourself. There are two ways to migrate the data:
 
 ### Migrate data using `pg_dump`
 
