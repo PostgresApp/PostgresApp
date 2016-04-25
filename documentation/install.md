@@ -14,10 +14,10 @@ If you'd like to use the command line tools delivered with Postgres.app, see the
 
 ### Installation Directories
 
-- Binaries: `/Applications/Postgres.app/Contents/Versions/9.3/bin`
-- Headers: `/Applications/Postgres.app/Contents/Versions/9.3/include`
-- Libraries: `/Applications/Postgres.app/Contents/Versions/9.3/lib`
-- Default data directory: `~/Library/Application Support/Postgres/var-9.3`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/latest/bin`
+- Headers: `/Applications/Postgres.app/Contents/Versions/latest/include`
+- Libraries: `/Applications/Postgres.app/Contents/Versions/latest/lib`
+- Default data directory: `~/Library/Application Support/Postgres/var-9.5`
 
 ## Upgrading From A Previous Version
 
@@ -66,4 +66,3 @@ Since `pg_upgrade` needs the old and new binaries, you must make a special versi
 1. Quit Postgres.app
 2. Drag Postgres.app to the Trash
 3. Delete the data directory (default location: `~/Library/Application Support/Postgres`)
-
