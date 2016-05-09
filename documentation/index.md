@@ -22,5 +22,5 @@ Whether you're a command line aficionado, prefer GUIs, or just want to start mak
 ## Additional Resources
 
 - [PostgreSQL Website](http://www.postgresql.org/) - The source for all of the latest PostgreSQL news and information.
-- [PostgreSQL Docs](http://www.postgresql.org/docs/9.3/interactive/index.html) - The canonical reference for everything you need to know about PostgreSQL.
+- [PostgreSQL Docs](http://www.postgresql.org/docs/current/static/index.html) - The canonical reference for everything you need to know about PostgreSQL.
 - [Postgres Guide](http://postgresguide.com/) - A promising new PostgreSQL resource that reads well and introduces advanced topics in a way that's easy to understand.
