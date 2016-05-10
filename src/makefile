@@ -1,25 +1,49 @@
 # VERSION numbers
+
+# http://postgis.net/source/
 POSTGIS_VERSION=2.1.8
 POSTGIS_MAJOR_VERSION=2.1
+
 POSTGRES_VERSION=9.3.12
 POSTGRES_MAJOR_VERSION=9.3
+
+# http://trac.osgeo.org/gdal/wiki/DownloadSource
 GDAL_VERSION=1.11.3
+
+# http://trac.osgeo.org/geos/
 GEOS_VERSION=3.4.2
+
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
+
+#http://download.osgeo.org/gdal/
 LIBJASPER_VERSION=1.900.1
+
 LIBUUID_VERSION=1.6.2
+
+# http://xmlsoft.org/news.html
 LIBXML2_VERSION=2.9.2
+
+# https://www.openssl.org
 OPENSSL_VERSION=1.0.1s
+
+# http://proj4.org/download.html
 PROJ_VERSION=4.9.2
 DATUMGRID_VERSION=1.5
+
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18
+
+# https://github.com/plv8/plv8/releases
 PLV8_VERSION=1.4.4
+
+# https://github.com/json-c/json-c/wiki
+# https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.11
+
+# http://www.remotesensing.org/libtiff/
 LIBTIFF_VERSION=4.0.6
-ICU_MAJOR_VERSION=54
-ICU_MINOR_VERSION=1
+
 
 #path configuration
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
