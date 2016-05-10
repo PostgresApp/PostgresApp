@@ -8,7 +8,7 @@ POSTGRES_VERSION=9.4.7
 POSTGRES_MAJOR_VERSION=9.4
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-GDAL_VERSION=1.11.3
+GDAL_VERSION=1.11.4
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.4.2
@@ -20,10 +20,10 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 
 # http://xmlsoft.org/news.html
-LIBXML2_VERSION=2.9.2
+LIBXML2_VERSION=2.9.3
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.0.1s
+OPENSSL_VERSION=1.0.1t
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.2
@@ -33,7 +33,7 @@ DATUMGRID_VERSION=1.5
 V8_VERSION=3.18
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=1.4.4
+PLV8_VERSION=1.4.8
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
