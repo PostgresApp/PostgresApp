@@ -40,8 +40,8 @@ Postgres.app enthält eine vollständige Installation die keine Wünsche offen l
 
 - [PostgreSQL](http://www.postgresql.org) {{site.postgresqlVersion}}
 - [PostGIS](http://postgis.net) {{site.postgisVersion}}
-- Unterstüzte Sprachen für Stored Procedures: [PL/pgSQL](http://www.postgresql.org/docs/9.5/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/9.5/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/9.5/static/plpython.html), und [PLV8 (Javascript)](https://code.google.com/p/plv8js/wiki/PLV8)
-- Beliebte Erweiterungen wie [hstore](http://www.postgresql.org/docs/9.5/static/hstore.html) und [uuid-ossp](http://www.postgresql.org/docs/devel/static/uuid-ossp.html), und mehr!
+- Unterstüzte Sprachen für Stored Procedures: [PL/pgSQL](http://www.postgresql.org/docs/current/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/current/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/current/static/plpython.html), und [PLV8 (Javascript)](https://github.com/plv8/plv8)
+- Beliebte Erweiterungen wie [hstore](http://www.postgresql.org/docs/current/static/hstore.html) und [uuid-ossp](http://www.postgresql.org/docs/current/static/uuid-ossp.html), und mehr!
 - Viele [Tools für die Kommandozeile](/documentation/cli-tools.html), für PostgreSQL und GIS-Anwendungen
 
 Andere Versionen
