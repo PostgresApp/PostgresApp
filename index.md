@@ -56,6 +56,8 @@ Are you looking for a specific version of PostgreSQL? The following popular buil
 
 <a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion}}</a> with PostGIS {{site.postgisVersion}}
 
+<a href="{{ site.downloadLocation96 }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion96}}</a> with PostGIS {{site.postgisVersion96}}
+
 You can find even more versions on the <a href="https://github.com/PostgresApp/PostgresApp/releases" onclick="trackOutboundLink(this.href);return false;">Releases Page</a> on Github.
 
 Support
