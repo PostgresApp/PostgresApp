@@ -42,6 +42,8 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 
 @interface PostgresServer : NSObject
 
+@property (readwrite) NSString *name;
+@property (readwrite) NSString *version;
 @property unsigned long port;
 @property (readonly) NSString *binPath;
 @property (readonly) NSString *varPath;
@@ -49,14 +51,12 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 @property (readonly) BOOL isRunning;
 
 + (NSString*)standardDatabaseDirectory;
-+(NSString*)standardBinaryDirectory;
++ (NSString*)standardBinaryDirectory;
 + (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError;
 + (NSString*)existingDatabaseDirectory;
-+ (PostgresServer *)defaultServer;
 + (NSString*)dataDirectoryPreferenceKey;
 
-- (id)initWithExecutablesDirectory:(NSString *)executablesDirectory
-                 databaseDirectory:(NSString *)databaseDirectory;
+- (id)initWithExecutablesDirectory:(NSString *)executablesDirectory databaseDirectory:(NSString *)databaseDirectory;
 
 - (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 - (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;

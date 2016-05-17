@@ -24,6 +24,7 @@
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 #import <Cocoa/Cocoa.h>
+#import "MainWindowController.h"
 
 @class PostgresStatusMenuItemViewController, PostgresServer;
 
@@ -35,12 +36,12 @@
 @property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
 
 @property PostgresServer *server;
+@property MainWindowController *mainWindowController;
 
 - (IBAction)selectAbout:(id)sender;
-
 - (IBAction)openDocumentation:(id)sender;
 - (IBAction)openPreferences:(id)sender;
-
+- (IBAction)openMainWindow:(id)sender;
 - (IBAction)openPsql:(id)sender;
 
 @end

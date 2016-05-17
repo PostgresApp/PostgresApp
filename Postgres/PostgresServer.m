@@ -31,6 +31,8 @@
 #define xstr(a) str(a)
 #define str(a) #a
 
+
+
 static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     if (!version) {
         return nil;
@@ -47,21 +49,28 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     return [[NSArray arrayWithObjects:(major ?: @"0"), (minor ?: @"0"), nil] componentsJoinedByString:@"."];
 }
 
+
+
 @interface PostgresServer()
 @property BOOL isRunning;
 @end
 
+
+
 @implementation PostgresServer
 
-+(NSString*)standardDatabaseDirectory {
+
+#pragma mark class methods
+
++ (NSString*)standardDatabaseDirectory {
 	return [[[NSFileManager defaultManager] applicationSupportDirectory] stringByAppendingFormat:@"/var-%s", xstr(PG_MAJOR_VERSION)];
 }
 
-+(NSString*)standardBinaryDirectory {
++ (NSString*)standardBinaryDirectory {
 	return [[NSBundle mainBundle].bundlePath stringByAppendingFormat:@"/Contents/Versions/%s/bin",xstr(PG_MAJOR_VERSION)];
 }
 
-+(PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError {
++ (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError {
 	NSString *versionFilePath = [dir stringByAppendingPathComponent:@"PG_VERSION"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:versionFilePath]) {
 		return PostgresDataDirectoryEmpty;
@@ -84,7 +93,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return PostgresDataDirectoryIncompatible;
 }
 
-+(NSString*)existingDatabaseDirectory {
++ (NSString*)existingDatabaseDirectory {
 	// This function tries to locate existing data directories with the same version
 	// It returns the first matching data directory
 	NSArray *applicationSupportDirectories = @[
@@ -108,29 +117,47 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	return nil;
 }
 
-+(NSString*)dataDirectoryPreferenceKey {
++ (NSString*)dataDirectoryPreferenceKey {
 	return [[NSString stringWithFormat:@"%@%s", kPostgresDataDirectoryPreferenceKey, xstr(PG_MAJOR_VERSION)] stringByReplacingOccurrencesOfString:@"." withString:@""];
 }
 
-+(PostgresServer *)defaultServer {
-    static PostgresServer *_sharedServer = nil;
-	if (!_sharedServer) {
-		NSString *databaseDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:[PostgresServer dataDirectoryPreferenceKey]];
-		if (!databaseDirectory) {
-			databaseDirectory = [self existingDatabaseDirectory];
-		}
-		if (!databaseDirectory) {
-			databaseDirectory = [self standardDatabaseDirectory];
-		}
-		[[NSUserDefaults standardUserDefaults] setObject:databaseDirectory forKey:[PostgresServer dataDirectoryPreferenceKey]];
-        _sharedServer = [[PostgresServer alloc] initWithExecutablesDirectory:[self standardBinaryDirectory] databaseDirectory:databaseDirectory];
+
+
+
+#pragma mark - instance methods
+
+- (id)init {
+    self = [super init];
+    if (! self) {
+        return nil;
     }
-    return _sharedServer;
+	
+	_name = @"New Server";
+    _binPath = [PostgresServer standardBinaryDirectory];
+    _varPath = [PostgresServer standardDatabaseDirectory];
+    _port = getenv("PGPORT") ? atol(getenv("PGPORT")) : kPostgresAppDefaultPort;
+    
+    NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
+        const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
+        for (int i = 0; t[i]; i++) {
+            if (t[i] == '#')
+                while (t[i] != '\n' && t[i]) i++;
+            else if (strncmp(t + i, "port ", 5) == 0) {
+                if (sscanf(t + i + 5, "%*s %ld", &_port) == 1)
+                    break;
+            }
+        }
+    }
+    
+    return self;
 }
 
-- (id)initWithExecutablesDirectory:(NSString *)executablesDirectory
-                 databaseDirectory:(NSString *)databaseDirectory
-{
+
+
+
+
+- (id)initWithExecutablesDirectory:(NSString *)executablesDirectory databaseDirectory:(NSString *)databaseDirectory {
     self = [super init];
     if (!self) {
         return nil;
@@ -144,17 +171,20 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
         const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
         for (int i = 0; t[i]; i++) {
-            if (t[i] == '#')
-                while (t[i] != '\n' && t[i]) i++;
+			if (t[i] == '#') {
+				while (t[i] != '\n' && t[i]) i++;
+			}
             else if (strncmp(t + i, "port ", 5) == 0) {
-                if (sscanf(t + i + 5, "%*s %ld", &_port) == 1)
-                    break;
+                if (sscanf(t + i + 5, "%*s %ld", &_port) == 1) break;
             }
         }
     }
 	
     return self;
 }
+
+
+
 
 #pragma mark - Asynchronous Server Control Methods
 
@@ -203,6 +233,9 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	BOOL success = [self stopServerWithError:&error];
 	if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(success, error); });
 }
+
+
+
 
 #pragma mark - Synchronous Server Control Methods
 

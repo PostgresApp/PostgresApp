@@ -30,16 +30,17 @@
 #import "PGApplicationMover.h"
 #import "PGShellProfileUpdater.h"
 #import "PreferenceWindowController.h"
-
 #import "Terminal.h"
 
 #ifdef SPARKLE
 #import <Sparkle/Sparkle.h>
 #endif
 
+
 NSString *const kAppleInterfaceStyle = @"AppleInterfaceStyle";
 NSString *const kAppleInterfaceStyleDark = @"Dark";
 NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeChangedNotification";
+
 
 @interface AppDelegate()
 @property (assign, readonly) BOOL isDarkMode;
@@ -47,14 +48,18 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 @property (strong, nonatomic) NSImage *templateOnImage;
 @end
 
+
 @implementation AppDelegate {
     NSStatusItem *_statusBarItem;
     WelcomeWindowController *_welcomeWindowController;
     id _interfaceThemeObserver;
 }
+
 @synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
 @synthesize statusBarMenu = _statusBarMenu;
 @synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
+
+
 
 #pragma mark - NSApplicationDelegate
 
@@ -71,7 +76,11 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	[[NSUserDefaults standardUserDefaults] registerDefaults:@{
 															  kPostgresShowWelcomeWindowPreferenceKey: @(YES)
 															  }];
+    
+    self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
+    [self.mainWindowController showWindow:nil];
 }
+
 
 -(void)validateNoOtherVersionsAreRunning {
 	NSMutableArray *runningCopies = [NSMutableArray array];
@@ -127,54 +136,8 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
     
     [self.postgresStatusMenuItem setEnabled:NO];
     self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
-    [self.postgresStatusMenuItemViewController startAnimatingWithTitle:NSLocalizedString(@"Starting Server…", nil)];
-	[WelcomeWindowController sharedController].canConnect = NO;
-	[WelcomeWindowController sharedController].isBusy = YES;
-	[WelcomeWindowController sharedController].statusMessage = @"Starting Server…";
-
+	
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
-	
-	self.server = [PostgresServer defaultServer];
-
-	PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error){
-		if (success) {
-			[self.postgresStatusMenuItemViewController stopAnimatingWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Running on Port %u", nil), self.server.port] wasSuccessful:YES];
-			[WelcomeWindowController sharedController].statusMessage = nil;
-			[WelcomeWindowController sharedController].isBusy = NO;
-			[WelcomeWindowController sharedController].canConnect = YES;
-		} else {
-			NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Server startup failed.", nil)];
-			[self.postgresStatusMenuItemViewController stopAnimatingWithTitle:errorMessage wasSuccessful:NO];
-			[WelcomeWindowController sharedController].statusMessage = errorMessage;
-			[WelcomeWindowController sharedController].isBusy = NO;
-			
-			[[WelcomeWindowController sharedController] showWindow:self];
-			[[WelcomeWindowController sharedController].window presentError:error modalForWindow:[WelcomeWindowController sharedController].window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-		}
-	};
-
-	PostgresServerStatus serverStatus = [self.server serverStatus];
-	
-	if (serverStatus == PostgresServerWrongDataDirectory) {
-		/* a different server is running */
-		NSDictionary *userInfo = @{
-								   NSLocalizedDescriptionKey: [NSString stringWithFormat:@"There is already a PostgreSQL server running on port %u", (unsigned)self.server.port],
-								   NSLocalizedRecoverySuggestionErrorKey: @"Please stop this server before starting Postgres.app.\n\nIf you want to use multiple servers, configure them to use different ports."
-								   };
-		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
-		completionHandler(NO, error);
-	}
-	else if (serverStatus == PostgresServerRunning) {
-		/* apparently the server is already running... Either the user started it manually, or Postgres.app was force quit */
-		completionHandler(YES, nil);
-	}
-/*	else if ([self.server stat]) {
-	
-	}*/
-	else {
-		/* server is not running; try to start it */
-		[self.server startWithCompletionHandler:completionHandler];
-	}
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
 		[[WelcomeWindowController sharedController] showWindow:self];
@@ -189,20 +152,14 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 		return NSTerminateCancel;
 	}
 	
-	if (!self.server.isRunning) {
-		return NSTerminateNow;
-	}
-	
-    [self.server stopWithCompletionHandler:^(BOOL success, NSError *error) {
-	    [sender replyToApplicationShouldTerminate:YES];
-    }];
+	[self.mainWindowController stopAllServers];
     
     // Set a timeout interval for postgres shutdown
     static NSTimeInterval const kTerminationTimeoutInterval = 3.0;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kTerminationTimeoutInterval * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         [sender replyToApplicationShouldTerminate:YES];
     });
-    
+	
     return NSTerminateLater;
 }
 
@@ -214,7 +171,7 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:_interfaceThemeObserver];
 }
 
-#pragma mark - IBAction
+#pragma mark - IBActions
 
 - (IBAction)selectAbout:(id)sender {
     // Bring application to foreground to have about window display on top of other windows
@@ -245,6 +202,11 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
     [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];
     [[SUUpdater sharedUpdater] checkForUpdates:sender];
 #endif
+}
+
+
+- (IBAction)openMainWindow:(id)sender {
+    [self.mainWindowController showWindow:nil];
 }
 
 @end
