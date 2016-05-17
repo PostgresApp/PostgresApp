@@ -260,7 +260,7 @@
                     </splitView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="475" y="238"/>
+            <point key="canvasLocation" x="77" y="63"/>
         </window>
         <arrayController objectClassName="PostgresServer" editable="NO" id="3zM-Vk-PoP">
             <connections>

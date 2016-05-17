@@ -40,7 +40,7 @@ typedef enum : NSUInteger {
 
 typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *error);
 
-@interface PostgresServer : NSObject
+@interface PostgresServer : NSObject <NSCoding>
 
 @property (readwrite) NSString *name;
 @property (readwrite) NSString *version;

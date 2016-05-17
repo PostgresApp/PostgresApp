@@ -185,6 +185,31 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 
 
 
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [self init];
+	
+	if (self) {
+		_name = [coder decodeObjectForKey:@"name"];
+		_version = [coder decodeObjectForKey:@"version"];
+		_port = [coder decodeIntForKey:@"port"];
+		_binPath = [coder decodeObjectForKey:@"binPath"];
+		_varPath = [coder decodeObjectForKey:@"varPath"];
+	}
+	
+	return self;
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.name forKey:@"name"];
+	[coder encodeObject:self.version forKey:@"version"];
+	[coder encodeInt:(unsigned)self.port forKey:@"port"];
+	[coder encodeObject:self.binPath forKey:@"binPath"];
+	[coder encodeObject:self.varPath forKey:@"varPath"];
+}
+
+
+
 
 #pragma mark - Asynchronous Server Control Methods
 

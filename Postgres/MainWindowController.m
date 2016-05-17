@@ -23,7 +23,7 @@
 - (id)initWithWindowNibName:(NSString *)windowNibName {
     self = [super initWithWindowNibName:windowNibName];
     if (self) {
-        self.serverArray = [[NSMutableArray alloc] init];
+        _serverArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -135,7 +135,31 @@
 			NSLog(@"Server on port %lu stopped", srv.port);
 		}];
 	}
-	
+}
+
+
+- (void)saveServerList {
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.serverArray];
+	[[NSUserDefaults standardUserDefaults] setObject:data forKey:@"servers"];
+}
+
+
+- (void)loadServerList {
+	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"servers"];
+	NSMutableArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	self.serverArray = arr;
+	[self.serverArrayController rearrangeObjects];
+}
+
+
+
+- (NSMutableArray *)serverArray {
+	return _serverArray;
+}
+
+- (void)setServerArray:(NSMutableArray *)srvArr {
+	_serverArray = [srvArr copy];
+	[self saveServerList];
 }
 
 @end

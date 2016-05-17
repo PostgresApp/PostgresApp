@@ -76,9 +76,6 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	[[NSUserDefaults standardUserDefaults] registerDefaults:@{
 															  kPostgresShowWelcomeWindowPreferenceKey: @(YES)
 															  }];
-    
-    self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
-    [self.mainWindowController showWindow:nil];
 }
 
 
@@ -142,6 +139,10 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
 		[[WelcomeWindowController sharedController] showWindow:self];
 	}
+	
+	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
+	[self.mainWindowController loadServerList];
+	[self.mainWindowController showWindow:nil];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
@@ -153,6 +154,7 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	}
 	
 	[self.mainWindowController stopAllServers];
+	[self.mainWindowController saveServerList];
     
     // Set a timeout interval for postgres shutdown
     static NSTimeInterval const kTerminationTimeoutInterval = 3.0;
