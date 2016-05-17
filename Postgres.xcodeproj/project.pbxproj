@@ -12,19 +12,16 @@
 		3609DA081853B31F00665ED2 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609DA071853B31F00665ED2 /* ScriptingBridge.framework */; };
 		36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B958C31861AE88007BBB36 /* PGApplicationMover.m */; };
 		36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */; };
-		36C986F11861FB9C00308267 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C986F01861FB9C00308267 /* PreferenceWindow.xib */; };
-		36C986F41861FBB200308267 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C986F31861FBB200308267 /* PreferenceWindowController.m */; };
 		36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
 		83800E7F1CEB07580078CFEA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83800E7E1CEB07580078CFEA /* MainWindow.xib */; };
+		83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
 		F87A4277153AB60C00456130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A4276153AB60C00456130 /* main.m */; };
 		F87A427E153AB60C00456130 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A427D153AB60C00456130 /* AppDelegate.m */; };
 		F87A4281153AB60C00456130 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87A427F153AB60C00456130 /* MainMenu.xib */; };
-		F883D60E15B5CEB60017F83A /* WelcomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */; };
-		F883D61015B5CEB60017F83A /* WelcomeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */; };
 		F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */; };
 		F884C8F1153C786D00CDCB09 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
 		F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */; };
@@ -100,14 +97,13 @@
 		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
 		36C986ED1861DFCC00308267 /* PGShellProfileUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGShellProfileUpdater.h; sourceTree = "<group>"; };
 		36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGShellProfileUpdater.m; sourceTree = "<group>"; };
-		36C986F01861FB9C00308267 /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
-		36C986F21861FBB200308267 /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
-		36C986F31861FBB200308267 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		36D70A1119D0157C00B97508 /* RecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoveryAttempter.h; sourceTree = "<group>"; };
 		36D70A1219D0157C00B97508 /* RecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoveryAttempter.m; sourceTree = "<group>"; };
 		83800E771CEB071C0078CFEA /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		83800E781CEB071C0078CFEA /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		83800E7E1CEB07580078CFEA /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTableCellView.h; sourceTree = "<group>"; };
+		83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTableCellView.m; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F87A426D153AB60C00456130 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,9 +114,6 @@
 		F87A427C153AB60C00456130 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F87A427D153AB60C00456130 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F87A4280153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		F883D60B15B5CEB60017F83A /* WelcomeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeWindowController.h; sourceTree = "<group>"; };
-		F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeWindowController.m; sourceTree = "<group>"; };
-		F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeWindow.xib; sourceTree = "<group>"; };
 		F883D61315B5E2780017F83A /* PostgresConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConstants.h; sourceTree = "<group>"; };
 		F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F884C8F3153C7A4C00CDCB09 /* PostgresHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PostgresHelper.entitlements; path = ../PostgresHelper.entitlements; sourceTree = "<group>"; };
@@ -299,14 +292,10 @@
 				F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */,
 				F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */,
 				F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */,
-				F883D60D15B5CEB60017F83A /* WelcomeWindow.xib */,
-				F883D60B15B5CEB60017F83A /* WelcomeWindowController.h */,
-				F883D60C15B5CEB60017F83A /* WelcomeWindowController.m */,
-				36C986F01861FB9C00308267 /* PreferenceWindow.xib */,
-				36C986F21861FBB200308267 /* PreferenceWindowController.h */,
-				36C986F31861FBB200308267 /* PreferenceWindowController.m */,
 				83800E771CEB071C0078CFEA /* MainWindowController.h */,
 				83800E781CEB071C0078CFEA /* MainWindowController.m */,
+				83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */,
+				83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */,
 				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
 				F8973A131538846600EAB41E /* Supporting Files */,
 				36B958C21861AE88007BBB36 /* PGApplicationMover.h */,
@@ -444,8 +433,6 @@
 				F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */,
 				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
 				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
-				36C986F11861FB9C00308267 /* PreferenceWindow.xib in Resources */,
-				F883D61015B5CEB60017F83A /* WelcomeWindow.xib in Resources */,
 				0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
 				0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */,
 			);
@@ -513,9 +500,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */,
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
-				36C986F41861FBB200308267 /* PreferenceWindowController.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
 				36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */,
 				36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */,
@@ -523,7 +510,6 @@
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
 				F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */,
 				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,
-				F883D60E15B5CEB60017F83A /* WelcomeWindowController.m in Sources */,
 				36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

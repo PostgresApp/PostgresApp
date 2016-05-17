@@ -75,7 +75,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView id="i6c-AT-vNL">
+                                                                <tableCellView id="i6c-AT-vNL" customClass="ServerTableCellView">
                                                                     <rect key="frame" x="1" y="1" width="197" height="50"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -90,10 +90,6 @@
                                                                                 <binding destination="i6c-AT-vNL" name="value" keyPath="objectValue.name" id="hs9-2E-45k"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NF5-LI-OMI">
-                                                                            <rect key="frame" x="125" y="9" width="32" height="32"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="status-off" id="d87-AF-qpg"/>
-                                                                        </imageView>
                                                                     </subviews>
                                                                     <connections>
                                                                         <outlet property="textField" destination="V8g-SM-DIX" id="9Of-pd-vWW"/>
@@ -271,6 +267,5 @@
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="status-off" width="20" height="16"/>
     </resources>
 </document>

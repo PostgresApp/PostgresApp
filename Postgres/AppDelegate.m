@@ -26,10 +26,8 @@
 #import "AppDelegate.h"
 #import "PostgresServer.h"
 #import "PostgresStatusMenuItemViewController.h"
-#import "WelcomeWindowController.h"
 #import "PGApplicationMover.h"
 #import "PGShellProfileUpdater.h"
-#import "PreferenceWindowController.h"
 #import "Terminal.h"
 
 #ifdef SPARKLE
@@ -51,7 +49,6 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 
 @implementation AppDelegate {
     NSStatusItem *_statusBarItem;
-    WelcomeWindowController *_welcomeWindowController;
     id _interfaceThemeObserver;
 }
 
@@ -136,25 +133,13 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kPostgresShowWelcomeWindowPreferenceKey]) {
-		[[WelcomeWindowController sharedController] showWindow:self];
-	}
-	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
 	[self.mainWindowController loadServerList];
 	[self.mainWindowController showWindow:nil];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-	
-	// make sure preferences are saved before quitting
-	PreferenceWindowController *prefController = [PreferenceWindowController sharedController];
-	if (prefController.isWindowLoaded && prefController.window.isVisible && ![prefController windowShouldClose:prefController.window]) {
-		return NSTerminateCancel;
-	}
-	
 	[self.mainWindowController stopAllServers];
-	[self.mainWindowController saveServerList];
     
     // Set a timeout interval for postgres shutdown
     static NSTimeInterval const kTerminationTimeoutInterval = 3.0;
@@ -183,20 +168,6 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 
 - (IBAction)openDocumentation:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgresapp.com/documentation"]];
-}
-
-- (IBAction)openPreferences:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-	[[PreferenceWindowController sharedController] showWindow:nil];
-}
-
-- (IBAction)openPsql:(id)sender {
-	TerminalApplication* terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
-	BOOL wasRunning = terminal.isRunning;
-	[terminal activate];
-	TerminalWindow *window = wasRunning ? nil : terminal.windows.firstObject;
-	NSString *psqlScript = [NSString stringWithFormat:@"'%@'/psql -p%u", [self.server.binPath stringByReplacingOccurrencesOfString:@"'" withString:@"'\\''"], (unsigned)self.server.port];
-	[terminal doScript:psqlScript in:window.tabs.firstObject];
 }
 
 - (IBAction)checkForUpdates:(id)sender {

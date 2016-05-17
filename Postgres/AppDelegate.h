@@ -40,8 +40,6 @@
 
 - (IBAction)selectAbout:(id)sender;
 - (IBAction)openDocumentation:(id)sender;
-- (IBAction)openPreferences:(id)sender;
 - (IBAction)openMainWindow:(id)sender;
-- (IBAction)openPsql:(id)sender;
 
 @end

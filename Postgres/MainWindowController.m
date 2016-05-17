@@ -73,6 +73,9 @@
     PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error){
         if (success) {
             NSLog(@"Running on Port %lu", selServer.port);
+			
+			
+			
         } else {
             NSLog(@"Startup failed");
         }
@@ -153,12 +156,14 @@
 
 
 
+
+#pragma mark - custom properties
 - (NSMutableArray *)serverArray {
 	return _serverArray;
 }
 
 - (void)setServerArray:(NSMutableArray *)srvArr {
-	_serverArray = [srvArr copy];
+	_serverArray = [srvArr mutableCopy];
 	[self saveServerList];
 }
 

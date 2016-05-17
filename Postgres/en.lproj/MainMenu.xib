@@ -91,13 +91,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="572"/>
-                <menuItem title="Open psql" id="588">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openPsql:" target="494" id="V94-nd-Dk4"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="560"/>
                 <menuItem title="About Postgres" id="554">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -108,12 +101,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="openDocumentation:" target="494" id="Hi6-yv-vbG"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Preferences…" id="556">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openPreferences:" target="-1" id="7cr-ld-uPl"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Servers..." id="56Q-HK-V8p">
