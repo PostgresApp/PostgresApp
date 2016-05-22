@@ -171,6 +171,7 @@
 
 
 
+#pragma mark - redirect stdout
 - (void)openConsolePipe {
 	_pipe = [NSPipe pipe];
 	_pipeReadHandle = [_pipe fileHandleForReading];
