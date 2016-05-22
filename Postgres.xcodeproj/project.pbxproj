@@ -15,6 +15,7 @@
 		36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
 		83800E7F1CEB07580078CFEA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83800E7E1CEB07580078CFEA /* MainWindow.xib */; };
+		83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A638FB1CF265BC008D4D1B /* ServerManager.m */; };
 		83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
@@ -102,6 +103,8 @@
 		83800E771CEB071C0078CFEA /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		83800E781CEB071C0078CFEA /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		83800E7E1CEB07580078CFEA /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		83A638FA1CF265BC008D4D1B /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
+		83A638FB1CF265BC008D4D1B /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
 		83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTableCellView.h; sourceTree = "<group>"; };
 		83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTableCellView.m; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				F8973A1F1538846600EAB41E /* AppDelegate.m */,
 				F8973A36153884EF00EAB41E /* PostgresServer.h */,
 				F8973A35153884EF00EAB41E /* PostgresServer.m */,
+				83A638FA1CF265BC008D4D1B /* ServerManager.h */,
+				83A638FB1CF265BC008D4D1B /* ServerManager.m */,
 				36D70A1119D0157C00B97508 /* RecoveryAttempter.h */,
 				36D70A1219D0157C00B97508 /* RecoveryAttempter.m */,
 				F8973A211538846600EAB41E /* MainMenu.xib */,
@@ -500,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */,
 				83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */,
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,

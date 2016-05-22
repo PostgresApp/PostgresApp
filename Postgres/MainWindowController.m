@@ -8,11 +8,12 @@
 
 #import "MainWindowController.h"
 #import "PostgresServer.h"
+#import "ServerManager.h"
 #import "Terminal.h"
 
 
 @interface MainWindowController ()
-
+@property ServerManager *serverManager;
 @end
 
 
@@ -20,17 +21,20 @@
 
 @implementation MainWindowController
 
+@dynamic serverArray;
+
 - (id)initWithWindowNibName:(NSString *)windowNibName {
     self = [super initWithWindowNibName:windowNibName];
     if (self) {
-        _serverArray = [[NSMutableArray alloc] init];
+		self.serverManager = [ServerManager sharedManager];
     }
     return self;
 }
 
 
 - (void)windowDidLoad {
-    [super windowDidLoad];    
+    [super windowDidLoad];
+	[self.serverArrayController rearrangeObjects];
 }
 
 
@@ -144,25 +148,6 @@
 }
 
 
-- (void)saveServerList {
-	if ([self.serverArray count] > 0) {
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.serverArray];
-		[[NSUserDefaults standardUserDefaults] setObject:data forKey:@"servers"];
-	}
-}
-
-
-- (void)loadServerList {
-	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"servers"];
-	NSMutableArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-	
-	if ([arr count] > 0) {
-		[self.serverArray addObjectsFromArray:arr];
-		[self.serverArrayController rearrangeObjects];
-	}
-}
-
-
 
 #pragma mark - logging
 - (void)updateLogString:(NSString *)logString forServer:(NSUInteger)srvIdx {
@@ -173,12 +158,12 @@
 
 #pragma mark - custom properties
 - (NSMutableArray *)serverArray {
-	return _serverArray;
+	return self.serverManager.servers;
 }
 
 - (void)setServerArray:(NSMutableArray *)srvArr {
-	_serverArray = [srvArr mutableCopy];
-	[self saveServerList];
+	self.serverManager.servers = [srvArr mutableCopy];
+	[self.serverManager saveServerList];
 }
 
 @end

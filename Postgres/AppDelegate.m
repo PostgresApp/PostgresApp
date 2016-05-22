@@ -25,6 +25,7 @@
 
 #import "AppDelegate.h"
 #import "PostgresServer.h"
+#import "ServerManager.h"
 #import "PostgresStatusMenuItemViewController.h"
 #import "PGApplicationMover.h"
 #import "PGShellProfileUpdater.h"
@@ -44,6 +45,7 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 @property (assign, readonly) BOOL isDarkMode;
 @property (strong, nonatomic) NSImage *templateOffImage;
 @property (strong, nonatomic) NSImage *templateOnImage;
+@property ServerManager *serverManager;
 @end
 
 
@@ -129,8 +131,10 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
+	self.serverManager = [ServerManager sharedManager];
+	[self.serverManager loadServerList];
+	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
-	[self.mainWindowController loadServerList];
 	[self openMainWindow:nil];
 }
 

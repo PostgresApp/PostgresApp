@@ -9,14 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface MainWindowController : NSWindowController {
-	NSMutableArray *_serverArray;
-}
+@interface MainWindowController : NSWindowController
 
 @property IBOutlet NSArrayController *serverArrayController;
 @property NSMutableArray *serverArray;
-//- (NSMutableArray *)serverArray;
-//- (void)setServerArray:(NSMutableArray *)arr;
 
 - (IBAction)openPathFolder:(id)sender;
 - (IBAction)openPsql:(id)sender;
@@ -25,7 +21,5 @@
 - (IBAction)toggleRunAtStartup:(id)sender;
 
 - (void)stopAllServers;
-- (void)saveServerList;
-- (void)loadServerList;
 
 @end
