@@ -12,7 +12,10 @@
 #import "Terminal.h"
 
 
-@interface MainWindowController ()
+@interface MainWindowController () {
+	NSPipe *_pipe;
+	NSFileHandle *_pipeReadHandle;
+}
 @property ServerManager *serverManager;
 @end
 
@@ -164,6 +167,28 @@
 - (void)setServerArray:(NSMutableArray *)srvArr {
 	self.serverManager.servers = [srvArr mutableCopy];
 	[self.serverManager saveServerList];
+}
+
+
+
+- (void)openConsolePipe {
+	_pipe = [NSPipe pipe];
+	_pipeReadHandle = [_pipe fileHandleForReading];
+	dup2([[_pipe fileHandleForWriting] fileDescriptor], fileno(stdout));
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:NSFileHandleReadCompletionNotification object:_pipeReadHandle];
+	[_pipeReadHandle readInBackgroundAndNotify];
+}
+
+- (void)closeConsolePipe {
+	if (_pipe != nil) {
+		[[_pipe fileHandleForWriting] closeFile];
+	}
+}
+
+- (void) handleNotification:(NSNotification *)notification {
+	[_pipeReadHandle readInBackgroundAndNotify] ;
+	NSString *str = [[NSString alloc] initWithData: [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
+	//[self.logTextField setStringValue:[NSString stringWithFormat:@"%@\n%@", self.logTextField.stringValue, str]];
 }
 
 @end
