@@ -24,5 +24,4 @@
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 static NSUInteger const kPostgresAppDefaultPort = 5432;
-static NSString * const kPostgresShowWelcomeWindowPreferenceKey = @"ShowWelcomeWindow";
 static NSString * const kPostgresDataDirectoryPreferenceKey = @"DataDirectory";

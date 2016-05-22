@@ -69,10 +69,6 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	
 	/* make sure that there is no other version of Postgres.app running */
 	[self validateNoOtherVersionsAreRunning];
-	
-	[[NSUserDefaults standardUserDefaults] registerDefaults:@{
-															  kPostgresShowWelcomeWindowPreferenceKey: @(YES)
-															  }];
 }
 
 
@@ -135,7 +131,7 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
 	[self.mainWindowController loadServerList];
-	[self.mainWindowController showWindow:nil];
+	[self openMainWindow:nil];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
@@ -179,7 +175,9 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 
 
 - (IBAction)openMainWindow:(id)sender {
+	[NSApp activateIgnoringOtherApps:YES];
     [self.mainWindowController showWindow:nil];
+	[[self.mainWindowController window] makeKeyAndOrderFront:nil];
 }
 
 @end

@@ -14,14 +14,15 @@
 }
 
 @property IBOutlet NSArrayController *serverArrayController;
-
-- (NSMutableArray *)serverArray;
-- (void)setServerArray:(NSMutableArray *)arr;
+@property NSMutableArray *serverArray;
+//- (NSMutableArray *)serverArray;
+//- (void)setServerArray:(NSMutableArray *)arr;
 
 - (IBAction)openPathFolder:(id)sender;
 - (IBAction)openPsql:(id)sender;
 - (IBAction)startServer:(id)sender;
 - (IBAction)stopServer:(id)sender;
+- (IBAction)toggleRunAtStartup:(id)sender;
 
 - (void)stopAllServers;
 - (void)saveServerList;

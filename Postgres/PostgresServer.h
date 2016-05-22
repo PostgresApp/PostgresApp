@@ -49,6 +49,8 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 @property (readonly) NSString *varPath;
 @property (readonly) NSString *logfilePath;
 @property (readonly) BOOL isRunning;
+@property (readwrite) BOOL runAtStartup;
+@property (readonly) NSString *logString;
 
 + (NSString*)standardDatabaseDirectory;
 + (NSString*)standardBinaryDirectory;
@@ -62,5 +64,7 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 - (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 
 -(PostgresServerStatus)serverStatus;
+
+- (void)appendLogString:(NSString *)str;
 
 @end

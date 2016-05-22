@@ -136,7 +136,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
     _binPath = [PostgresServer standardBinaryDirectory];
     _varPath = [PostgresServer standardDatabaseDirectory];
     _port = getenv("PGPORT") ? atol(getenv("PGPORT")) : kPostgresAppDefaultPort;
-    
+	
     NSString *conf = [_varPath stringByAppendingPathComponent:@"postgresql.conf"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:conf]) {
         const char *t = [[NSString stringWithContentsOfFile:conf encoding:NSUTF8StringEncoding error:nil] UTF8String];
@@ -445,6 +445,18 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 
 -(NSString *)logfilePath {
 	return [self.varPath stringByAppendingPathComponent:@"postgres-server.log"];
+}
+
+
+
+- (void)appendLogString:(NSString *)str {
+	[self willChangeValueForKey:@"logString"];
+	if (! _logString) {
+		_logString = [str copy];
+	} else {
+		_logString = [NSString stringWithFormat:@"%@\n%@", _logString, str];
+	}
+	[self didChangeValueForKey:@"logString"];
 }
 
 @end

@@ -254,12 +254,12 @@
 		F8973A0B1538846600EAB41E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8973A3D1538851D00EAB41E /* Foundation.framework */,
+				F8973A0C1538846600EAB41E /* Cocoa.framework */,
 				3609DA071853B31F00665ED2 /* ScriptingBridge.framework */,
 				F8A4B56B15735F26003C00F5 /* Sparkle.framework */,
 				F88BDC9015704C14004ECB52 /* Security.framework */,
 				F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */,
-				F8973A0C1538846600EAB41E /* Cocoa.framework */,
-				F8973A3D1538851D00EAB41E /* Foundation.framework */,
 				F8973A0E1538846600EAB41E /* Other Frameworks */,
 			);
 			name = Frameworks;
