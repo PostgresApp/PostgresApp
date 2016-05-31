@@ -6,25 +6,24 @@
 //
 //
 
+
 #import "MainWindowController.h"
+#import "AddServerSheetController.h"
 #import "PostgresServer.h"
 #import "ServerManager.h"
 #import "Terminal.h"
 
 
-@interface MainWindowController () {
-	NSPipe *_pipe;
-	NSFileHandle *_pipeReadHandle;
-}
+@interface MainWindowController ()
 @property ServerManager *serverManager;
+@property AddServerSheetController *addServerSheetController;
+@property NSTask *logTask;
 @end
 
 
 
 
 @implementation MainWindowController
-
-@dynamic serverArray;
 
 - (id)initWithWindowNibName:(NSString *)windowNibName {
     self = [super initWithWindowNibName:windowNibName];
@@ -37,28 +36,123 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+	
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:0 context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.port" options:0 context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.runAtStartup" options:0 context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.stopAtQuit" options:0 context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"selection.logfilePath" options:0 context:nil];
 	[self.serverArrayController rearrangeObjects];
 }
 
 
+- (void)dealloc {
+	[self.serverArrayController removeObserver:self forKeyPath:@"arrangedObjects.name"];
+	[self.serverArrayController removeObserver:self forKeyPath:@"arrangedObjects.port"];
+	[self.serverArrayController removeObserver:self forKeyPath:@"arrangedObjects.runAtStartup"];
+	[self.serverArrayController removeObserver:self forKeyPath:@"arrangedObjects.stopAtQuit"];
+	[self.serverArrayController removeObserver:self forKeyPath:@"selection.logfilePath"];
+}
+
+
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"selection.logfilePath"]) {
+		
+		if (self.serverArrayController.selectionIndexes.count > 0) {
+			NSString *logfilePath = [[self.serverArray objectAtIndex:self.serverArrayController.selectionIndex] logfilePath];
+			[self startMonitoringLogFile:logfilePath];
+		} else {
+			[self startMonitoringLogFile:nil];
+		}
+	}
+	else {
+		[self.serverManager saveServers];
+	}
+}
+
 
 
 #pragma mark IBActions
+- (IBAction)addServer:(id)sender {
+	self.addServerSheetController = [[AddServerSheetController alloc] initWithWindowNibName:@"AddServerSheet"];
+	self.addServerSheetController.name = [NSString stringWithFormat:@"Server %lu", self.serverArray.count+1];
+	
+	[self.window beginSheet:self.addServerSheetController.window completionHandler:^(NSModalResponse returnCode) {
+		if (returnCode == NSModalResponseOK) {
+			[self.serverArray addObject:self.addServerSheetController.server];
+			[self.serverArrayController rearrangeObjects];
+			[self.serverArrayController setSelectionIndex:self.serverArray.count-1];
+		}
+		self.addServerSheetController = nil;
+	}];
+}
+
+
+- (IBAction)removeServer:(id)sender {
+	NSAlert *alert = [NSAlert alertWithMessageText:@"Delete server?" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@""];
+	
+	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		if (returnCode == NSModalResponseOK) {
+			NSUInteger selIdx = self.serverArrayController.selectionIndex;
+			
+			if ([[self.serverArray objectAtIndex:selIdx] isRunning]) {
+				[[self.serverArray objectAtIndex:selIdx] stopWithCompletionHandler:^(BOOL success, NSError *error) {
+					if (! success) {
+						NSAlert *errAlert = [NSAlert alertWithMessageText:@"Could not stop server"
+															defaultButton:@"OK"
+														  alternateButton:nil
+															  otherButton:nil
+												informativeTextWithFormat:@"Please kill the process manually."
+											 ];
+						[errAlert beginSheetModalForWindow:self.window completionHandler:nil];
+					}
+				}];
+			}
+			
+			[self.serverArray removeObjectAtIndex:selIdx];
+			[self.serverArrayController rearrangeObjects];
+			if (selIdx == self.serverArray.count) {
+				[self.serverArrayController setSelectionIndex:selIdx-1];
+			} else {
+				[self.serverArrayController setSelectionIndex:selIdx];
+			}
+		}
+	}];
+}
+
+
 - (IBAction)openPathFolder:(id)sender {
+	if (![self.window makeFirstResponder:nil]) {
+		NSBeep();
+		return;
+	}
+	
     PostgresServer *selSrv = [self.serverArray objectAtIndex:[self.serverArrayController selectionIndex]];
     if (selSrv) {
         NSString *path = selSrv.varPath;
-		BOOL isDir = YES;
-		if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir]) {
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
 	        [[NSWorkspace sharedWorkspace] selectFile:nil inFileViewerRootedAtPath:path];
 		} else {
-			NSRunAlertPanel(@"Folder not found", @"It will be created the first time you start the server.", @"OK", nil, nil);
+			NSAlert *alert = [NSAlert alertWithMessageText:@"Folder not found"
+											 defaultButton:@"OK"
+										   alternateButton:nil
+											   otherButton:nil
+								 informativeTextWithFormat:@"It will be created the first time you start the server."
+							  ];
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse response) {}];
 		}
     }
 }
 
 
 - (IBAction)openPsql:(id)sender {
+	if (![self.window makeFirstResponder:nil]) {
+		NSBeep();
+		return;
+	}
+	
 	PostgresServer *selSrv = [self.serverArray objectAtIndex:[self.serverArrayController selectionIndex]];
 	if (selSrv) {
         TerminalApplication *terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
@@ -73,123 +167,152 @@
 
 
 - (IBAction)startServer:(id)sender {
-	NSUInteger srvIdx = [self.serverArrayController selectionIndex];
-    PostgresServer *selSrv = [self.serverArray objectAtIndex:srvIdx];
-    if (! selSrv) {
-        NSLog(@"no server selected");
-        return;
-    }
+	if (![self.window makeFirstResponder:nil]) {
+		NSBeep();
+		return;
+	}
 	
-    PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error){
-        if (success) {
-            NSLog(@"Running on Port %lu", selSrv.port);
-			[self updateLogString:[NSString stringWithFormat: @"Running on port %lu", selSrv.port] forServer:srvIdx];
-        } else {
-            NSLog(@"Startup failed");
-			[self updateLogString:@"Startup failed" forServer:srvIdx];
-        }
+	PostgresServer *selServer = [[self.serverArrayController selectedObjects] lastObject];
+	if (! selServer) {
+		return;
+	}
+	
+    PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error) {
+		if (! success) {
+			NSAlert *alert = [NSAlert alertWithError:error];
+			[alert beginSheetModalForWindow:self.window completionHandler:nil];
+		}
     };
 	
-    PostgresServerStatus serverStatus = [selSrv serverStatus];
+    PostgresServerStatus serverStatus = [selServer serverStatus];
+	
     if (serverStatus == PostgresServerWrongDataDirectory) {
-        NSDictionary *userInfo = @{
-                                   NSLocalizedDescriptionKey: [NSString stringWithFormat:@"There is already a PostgreSQL server running on port %u", (unsigned)selSrv.port],
-                                   NSLocalizedRecoverySuggestionErrorKey: @"Please stop this server before starting Postgres.app.\n\nIf you want to use multiple servers, configure them to use different ports."
-                                   };
-        NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
-        
-        NSLog(@"%@", error);
-        
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is already a PostgreSQL server running on port %lu", selServer.port],
+								   NSLocalizedRecoverySuggestionErrorKey:@"Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
+								   };
+		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
         completionHandler(NO, error);
     }
+	else if (serverStatus == PostgresServerStatusNoBinDir) {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey:@"The binaries for this PostgreSQL server were not found"
+								   };
+		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
+		completionHandler(NO, error);
+	}
     else if (serverStatus == PostgresServerRunning) {
-        // apparently the server is already running... Either the user started it manually, or Postgres.app was force quit
         completionHandler(YES, nil);
     }
-    // else if ([self.server stat]) {}
     else {
-        // server is not running; try to start it
-        [selSrv startWithCompletionHandler:completionHandler];
+        [selServer startWithCompletionHandler:completionHandler];
     }
-    
-    
+	
 }
 
 
 
 - (IBAction)stopServer:(id)sender {
+	if (![self.window makeFirstResponder:nil]) {
+		NSBeep();
+		return;
+	}
+	
     PostgresServer *selServer = [[self.serverArrayController selectedObjects] lastObject];
-    
     if (! selServer) {
         return;
     }
     
     [selServer stopWithCompletionHandler:^(BOOL success, NSError *error) {
-        NSLog(@"Server on port %lu stopped", selServer.port);
+        //NSLog(@"Server on port %lu stopped", selServer.port);
     }];
 	
     // Set a timeout interval for postgres shutdown
-    static NSTimeInterval const kTerminationTimeoutInterval = 3.0;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kTerminationTimeoutInterval * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){});
-}
-
-
-- (IBAction)toggleRunAtStartup:(id)sender {
-	NSRunAlertPanel(@"", @"Changes will take effect the next time you start Postgres", @"OK", nil, nil);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kPostgresAppTerminationTimeoutInterval * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){});
 }
 
 
 
-- (void)stopAllServers {
-	NSLog(@"Stopping servers...");
+#pragma mark - Monitor log file
+- (void)startMonitoringLogFile:(NSString *)path {
+	[NSThread detachNewThreadSelector:@selector(monitorLogFile:) toTarget:self withObject:path];
+}
+
+
+- (void)monitorLogFile:(NSString *)path {
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		if ([self.logTask isRunning]) {
+			[self.logTask terminate];
+			self.logTask = nil;
+		}
+		[self.logTextView.textStorage setAttributedString:[[NSAttributedString alloc] init]];
+	});
 	
-	for (PostgresServer *srv in self.serverArray) {
-		[srv stopWithCompletionHandler:^(BOOL success, NSError *error) {
-			NSLog(@"Server on port %lu stopped", srv.port);
-		}];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return;
+	
+	NSTask *logTask;
+	NSPipe *logPipe;
+	
+	logTask = [[NSTask alloc] init];
+	logPipe = [NSPipe pipe];
+	
+	logTask.launchPath = @"/usr/bin/tail";
+	logTask.arguments = @[@"-n", @(kPostgresAppMaxLogLines).stringValue, @"-f", path];
+	logTask.standardOutput = logPipe;
+	logTask.standardError = logPipe;
+	[logTask launch];
+	
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		self.logTask = logTask;
+	});
+	
+	NSFileHandle *fileHandle = [logPipe fileHandleForReading];
+	NSData *data;
+	do {
+		data = [fileHandle availableData];
+		NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		if (str) {
+			__block BOOL stop = NO;
+			dispatch_sync(dispatch_get_main_queue(), ^{
+				if (logTask != self.logTask) {
+					stop = YES;
+					return;
+				};
+				[self appendLogEntry:str];
+			});
+			if (stop) break;
+		}
+	} while (data.length > 0);
+	
+	[logTask terminate];
+}
+
+
+- (void)appendLogEntry:(NSString *)str {
+	[self.logTextView.textStorage.mutableString appendString:str];
+	[self.logTextView scrollRangeToVisible:NSMakeRange(self.logTextView.string.length, 0)];
+	
+	NSArray *lines = [self.logTextView.string componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	NSUInteger linesToDel = lines.count - kPostgresAppMaxLogLines - 1; // -1: last line is always empty
+	for (NSUInteger i=0; i<linesToDel; i++) {
+		NSRange newlineRange = [self.logTextView.string rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
+		NSUInteger max = NSMaxRange(newlineRange);
+		if (max != NSNotFound) {
+			[self.logTextView.textStorage.mutableString deleteCharactersInRange:NSMakeRange(0, max)];
+		}
 	}
 }
 
 
 
-#pragma mark - logging
-- (void)updateLogString:(NSString *)logString forServer:(NSUInteger)srvIdx {
-	[[self.serverArray objectAtIndex:srvIdx] appendLogString:logString];
-}
+#pragma mark - Custom properties
 
-
-
-#pragma mark - custom properties
 - (NSMutableArray *)serverArray {
 	return self.serverManager.servers;
 }
 
 - (void)setServerArray:(NSMutableArray *)srvArr {
-	self.serverManager.servers = [srvArr mutableCopy];
-	[self.serverManager saveServerList];
-}
-
-
-
-#pragma mark - redirect stdout
-- (void)openConsolePipe {
-	_pipe = [NSPipe pipe];
-	_pipeReadHandle = [_pipe fileHandleForReading];
-	dup2([[_pipe fileHandleForWriting] fileDescriptor], fileno(stdout));
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:NSFileHandleReadCompletionNotification object:_pipeReadHandle];
-	[_pipeReadHandle readInBackgroundAndNotify];
-}
-
-- (void)closeConsolePipe {
-	if (_pipe != nil) {
-		[[_pipe fileHandleForWriting] closeFile];
-	}
-}
-
-- (void) handleNotification:(NSNotification *)notification {
-	[_pipeReadHandle readInBackgroundAndNotify] ;
-	NSString *str = [[NSString alloc] initWithData: [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
-	//[self.logTextField setStringValue:[NSString stringWithFormat:@"%@\n%@", self.logTextField.stringValue, str]];
+	self.serverManager.servers = srvArr;
 }
 
 @end
