@@ -35,7 +35,8 @@ typedef enum : NSUInteger {
 	PostgresServerUnreachable,
 	PostgresServerRunning,
 	PostgresServerWrongDataDirectory,
-	PostgresServerStatusError
+	PostgresServerStatusError,
+	PostgresServerStatusNoBinDir
 } PostgresServerStatus;
 
 typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *error);
@@ -44,27 +45,19 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 
 @property (readwrite) NSString *name;
 @property (readwrite) NSString *version;
-@property unsigned long port;
-@property (readonly) NSString *binPath;
-@property (readonly) NSString *varPath;
+@property (readwrite) NSUInteger port;
+@property (readwrite) BOOL runAtStartup;
+@property (readwrite) BOOL stopAtQuit;
+@property (readwrite) NSString *binPath;
+@property (readwrite) NSString *varPath;
 @property (readonly) NSString *logfilePath;
 @property (readonly) BOOL isRunning;
-@property (readwrite) BOOL runAtStartup;
-@property (readonly) NSString *logString;
 
-+ (NSString*)standardDatabaseDirectory;
-+ (NSString*)standardBinaryDirectory;
-+ (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString*)dir error:(NSError**)outError;
-+ (NSString*)existingDatabaseDirectory;
-+ (NSString*)dataDirectoryPreferenceKey;
-
-- (id)initWithExecutablesDirectory:(NSString *)executablesDirectory databaseDirectory:(NSString *)databaseDirectory;
+- (id)initWithName:(NSString *)name version:(NSString *)version port:(NSUInteger)port varPath:(NSString *)varPath;
 
 - (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 - (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock;
 
--(PostgresServerStatus)serverStatus;
-
-- (void)appendLogString:(NSString *)str;
+- (PostgresServerStatus)serverStatus;
 
 @end
