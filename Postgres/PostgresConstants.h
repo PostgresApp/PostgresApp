@@ -23,5 +23,10 @@
 // "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
+
+//#define BUNDLE_PATH [[NSBundle mainBundle] bundlePath]
+#define BUNDLE_PATH @"/Applications/Postgres.app"
+
 static NSUInteger const kPostgresAppDefaultPort = 5432;
-static NSString * const kPostgresDataDirectoryPreferenceKey = @"DataDirectory";
+static NSUInteger const kPostgresAppMaxLogLines = 10;
+static NSTimeInterval const kPostgresAppTerminationTimeoutInterval = 3.0;
