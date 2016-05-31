@@ -63,13 +63,11 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 #pragma mark - NSApplicationDelegate
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
-	
-	/* Make sure that the app is inside the application directory */
+	// make sure that the app is inside the application directory
 #if !DEBUG
 	[[PGApplicationMover sharedApplicationMover] validateApplicationPath];
 #endif
-	
-	/* make sure that there is no other version of Postgres.app running */
+	// make sure that there is no other version of Postgres.app running
 	[self validateNoOtherVersionsAreRunning];
 }
 
@@ -95,7 +93,6 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-	
 #ifdef SPARKLE
     [self.checkForUpdatesMenuItem setEnabled:YES];
     [self.checkForUpdatesMenuItem setHidden:NO];
@@ -161,7 +158,7 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 #pragma mark - IBActions
 
 - (IBAction)selectAbout:(id)sender {
-    // Bring application to foreground to have about window display on top of other windows
+    // bring application to foreground to have about window display on top of other windows
     [NSApp activateIgnoringOtherApps:YES];
     [NSApp orderFrontStandardAboutPanel:nil];
 }
