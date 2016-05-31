@@ -16,6 +16,8 @@
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
 		83800E7F1CEB07580078CFEA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83800E7E1CEB07580078CFEA /* MainWindow.xib */; };
 		83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A638FB1CF265BC008D4D1B /* ServerManager.m */; };
+		83B4E7A51CF46B7C00D24B46 /* AddServerSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B4E7A41CF46B7C00D24B46 /* AddServerSheet.xib */; };
+		83B4E7A81CF46B9400D24B46 /* AddServerSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B4E7A71CF46B9400D24B46 /* AddServerSheetController.m */; };
 		83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
@@ -105,6 +107,9 @@
 		83800E7E1CEB07580078CFEA /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		83A638FA1CF265BC008D4D1B /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
 		83A638FB1CF265BC008D4D1B /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
+		83B4E7A41CF46B7C00D24B46 /* AddServerSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddServerSheet.xib; sourceTree = "<group>"; };
+		83B4E7A61CF46B9400D24B46 /* AddServerSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddServerSheetController.h; sourceTree = "<group>"; };
+		83B4E7A71CF46B9400D24B46 /* AddServerSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerSheetController.m; sourceTree = "<group>"; };
 		83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTableCellView.h; sourceTree = "<group>"; };
 		83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTableCellView.m; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
@@ -299,9 +304,12 @@
 				F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */,
 				83800E771CEB071C0078CFEA /* MainWindowController.h */,
 				83800E781CEB071C0078CFEA /* MainWindowController.m */,
+				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
 				83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */,
 				83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */,
-				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
+				83B4E7A61CF46B9400D24B46 /* AddServerSheetController.h */,
+				83B4E7A71CF46B9400D24B46 /* AddServerSheetController.m */,
+				83B4E7A41CF46B7C00D24B46 /* AddServerSheet.xib */,
 				F8973A131538846600EAB41E /* Supporting Files */,
 				36B958C21861AE88007BBB36 /* PGApplicationMover.h */,
 				36B958C31861AE88007BBB36 /* PGApplicationMover.m */,
@@ -437,6 +445,7 @@
 				F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */,
 				F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */,
 				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
+				83B4E7A51CF46B7C00D24B46 /* AddServerSheet.xib in Resources */,
 				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
 				0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
 				0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */,
@@ -516,6 +525,7 @@
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
 				F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */,
 				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,
+				83B4E7A81CF46B9400D24B46 /* AddServerSheetController.m in Sources */,
 				36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -662,7 +672,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				POSTGRESAPP_BUILD_VERSION = "$(POSTGRES_VERSION).$(POSTGRESAPP_MINOR_VERSION)";
+				POSTGRESAPP_BUILD_VERSION = 1.0;
 				POSTGRESAPP_MINOR_VERSION = 0;
 				POSTGRES_MAJOR_VERSION = 9.6;
 				POSTGRES_VERSION = 9.6beta1;
@@ -701,7 +711,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRESAPP_BUILD_VERSION = "$(POSTGRES_VERSION).$(POSTGRESAPP_MINOR_VERSION)";
+				POSTGRESAPP_BUILD_VERSION = 1.0;
 				POSTGRESAPP_MINOR_VERSION = 0;
 				POSTGRES_MAJOR_VERSION = 9.6;
 				POSTGRES_VERSION = 9.6beta1;
