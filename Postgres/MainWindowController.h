@@ -11,8 +11,8 @@
 
 @interface MainWindowController : NSWindowController
 
-@property IBOutlet NSArrayController *serverArrayController;
 @property NSMutableArray *serverArray;
+@property IBOutlet NSArrayController *serverArrayController;
 
 - (IBAction)openPathFolder:(id)sender;
 - (IBAction)openPsql:(id)sender;
