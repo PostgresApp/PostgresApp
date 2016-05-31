@@ -72,26 +72,6 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 }
 
 
--(void)validateNoOtherVersionsAreRunning {
-	NSMutableArray *runningCopies = [NSMutableArray array];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.postgres"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres93"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres93"]];
-	for (NSRunningApplication *runningCopy in runningCopies) {
-		if (![runningCopy isEqual:[NSRunningApplication currentApplication]]) {
-			NSAlert *alert = [NSAlert alertWithMessageText: @"Another copy of Postgres.app is already running."
-											 defaultButton: @"OK"
-										   alternateButton: nil
-											   otherButton: nil
-								 informativeTextWithFormat: @"Please quit %@ before starting this copy.", runningCopy.localizedName];
-			[alert runModal];
-			exit(1);
-		}
-	}
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 #ifdef SPARKLE
     [self.checkForUpdatesMenuItem setEnabled:YES];
@@ -129,31 +109,56 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
 	self.serverManager = [ServerManager sharedManager];
-	[self.serverManager loadServerList];
+	[self.serverManager loadServers];
+	[self.serverManager refreshStatus];
+	[self.serverManager startServers];
 	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
 	[self openMainWindow:nil];
 }
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-	[self.mainWindowController stopAllServers];
-    
-    // Set a timeout interval for postgres shutdown
-    static NSTimeInterval const kTerminationTimeoutInterval = 3.0;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kTerminationTimeoutInterval * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-        [sender replyToApplicationShouldTerminate:YES];
-    });
-	
-    return NSTerminateLater;
+
+-(void)applicationDidBecomeActive:(NSNotification *)notification {
+	[self.serverManager refreshStatus];
 }
 
-- (BOOL)isDarkMode {
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+	[self.serverManager stopServers];
+	return NSTerminateNow;
 }
+
 
 - (void)dealloc {
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:_interfaceThemeObserver];
 }
+
+
+-(void)validateNoOtherVersionsAreRunning {
+	NSMutableArray *runningCopies = [NSMutableArray array];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres93"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres93"]];
+	for (NSRunningApplication *runningCopy in runningCopies) {
+		if (![runningCopy isEqual:[NSRunningApplication currentApplication]]) {
+			NSAlert *alert = [NSAlert alertWithMessageText: @"Another copy of Postgres.app is already running."
+											 defaultButton: @"OK"
+										   alternateButton: nil
+											   otherButton: nil
+								 informativeTextWithFormat: @"Please quit %@ before starting this copy.", runningCopy.localizedName];
+			[alert runModal];
+			exit(1);
+		}
+	}
+}
+
+
+- (BOOL)isDarkMode {
+	return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
+}
+
+
 
 #pragma mark - IBActions
 

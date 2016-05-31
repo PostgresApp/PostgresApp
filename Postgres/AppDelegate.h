@@ -35,7 +35,6 @@
 @property (weak) IBOutlet NSMenu *statusBarMenu;
 @property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
 
-@property PostgresServer *server;
 @property MainWindowController *mainWindowController;
 
 - (IBAction)selectAbout:(id)sender;
