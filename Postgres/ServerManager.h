@@ -14,7 +14,10 @@
 
 + (ServerManager *)sharedManager;
 
-- (void)saveServerList;
-- (void)loadServerList;
+- (void)refreshStatus;
+- (void)startServers;
+- (void)stopServers;
+- (void)saveServers;
+- (void)loadServers;
 
 @end

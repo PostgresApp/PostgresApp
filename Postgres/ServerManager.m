@@ -7,20 +7,24 @@
 //
 
 #import "ServerManager.h"
+#import "PostgresServer.h"
+
 
 @implementation ServerManager
 
+#pragma mark - Singleton class methods
+
 + (ServerManager *)sharedManager {
-	static ServerManager *sharedManager = nil;
-	if (sharedManager == nil) {
-		sharedManager = [[[self class] hiddenAlloc] init];
+	static ServerManager *__sharedManager = nil;
+	if (__sharedManager == nil) {
+		__sharedManager = [[[self class] hiddenAlloc] init];
 	}
-	return sharedManager;
+	return __sharedManager;
 }
 
 
 + (id)alloc {
-	NSLog(@"%@ is a singleton - use +sharedInstance", [self.class description]);
+	NSLog(@"%@ is a singleton - use +sharedInstance", self.class.description);
 	return nil;
 }
 
@@ -31,7 +35,7 @@
 
 
 
-#pragma mark - instance methods
+#pragma mark - Instance methods
 
 - (id)init {
 	self = [super init];
@@ -42,15 +46,42 @@
 }
 
 
-- (void)saveServerList {
-	if ([self.servers count] > 0) {
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.servers];
-		[[NSUserDefaults standardUserDefaults] setObject:data forKey:@"servers"];
+- (void)refreshStatus {
+	for (PostgresServer *srv in self.servers) {
+		[srv serverStatus];
 	}
 }
 
 
-- (void)loadServerList {
+- (void)startServers {
+	for (PostgresServer *srv in self.servers) {
+		if (srv.runAtStartup) {
+			[srv startWithCompletionHandler:^(BOOL success, NSError *error) {
+				NSLog(@"Server on port %lu started", srv.port);
+			}];
+		}
+	}
+}
+
+
+- (void)stopServers {
+	for (PostgresServer *srv in self.servers) {
+		if (srv.stopAtQuit) {
+			[srv stopWithCompletionHandler:^(BOOL success, NSError *error) {
+				NSLog(@"Server on port %lu stopped", srv.port);
+			}];
+		}
+	}
+}
+
+
+- (void)saveServers {
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.servers];
+	[[NSUserDefaults standardUserDefaults] setObject:data forKey:@"servers"];
+}
+
+
+- (void)loadServers {
 	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"servers"];
 	NSMutableArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 	
