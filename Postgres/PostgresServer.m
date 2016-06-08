@@ -29,7 +29,8 @@
 
 
 @interface PostgresServer()
-@property BOOL isRunning;
+@property BOOL isBusy;
+@property (nonatomic) BOOL isRunning;
 @end
 
 
@@ -98,10 +99,13 @@
 
 
 
-#pragma mark - Asynchronous Server Control Methods
+#pragma mark - Async server control methods
 
 - (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock {
+	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[self setIsBusyOnMainThread:YES];
+		
 		NSError *error = nil;
 		PostgresDataDirectoryStatus dataDirStatus = [self statusOfDataDirectory:self.varPath error:&error];
 		
@@ -134,22 +138,30 @@
 		else {
 			if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
 		}
+		
+		[self setIsBusyOnMainThread:NO];
 	});
 }
 
 - (void)stopWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock {
-	NSError *error = nil;
-	BOOL success = [self stopServerWithError:&error];
-	if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(success, error); });
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[self setIsBusyOnMainThread:YES];
+		
+		NSError *error = nil;
+		BOOL success = [self stopServerWithError:&error];
+		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(success, error); });
+		
+		[self setIsBusyOnMainThread:NO];
+	});
 }
 
 
 
 
-#pragma mark - Synchronous Server Control Methods
+#pragma mark - Sync server control methods
 
 - (PostgresDataDirectoryStatus)statusOfDataDirectory:(NSString *)dir error:(NSError **)outError {
-	if (![[NSFileManager defaultManager] fileExistsAtPath:dir]) {
+	if (![[NSFileManager defaultManager] fileExistsAtPath:[dir stringByAppendingPathComponent:@"PG_VERSION"]]) {
 		return PostgresDataDirectoryEmpty;
 	}
 	return PostgresDataDirectoryCompatible;
@@ -185,17 +197,17 @@
 	switch(task.terminationStatus) {
 		case 0:
 			if (strcmp(actualDataDirectory.fileSystemRepresentation, expectedDataDirectory.fileSystemRepresentation) == 0) {
-				self.isRunning = YES;
+				[self setIsRunningOnMainThread:YES];
 				return PostgresServerRunning;
 			} else {
-				self.isRunning = NO;
+				[self setIsRunningOnMainThread:NO];
 				return PostgresServerWrongDataDirectory;
 			}
 		case 2:
-			self.isRunning = NO;
+			[self setIsRunningOnMainThread:NO];
 			return PostgresServerUnreachable;
 		default:
-			self.isRunning = NO;
+			[self setIsRunningOnMainThread:NO];
 			return PostgresServerStatusError;
 	}
 }
@@ -229,7 +241,7 @@
 	}
 
 	if (task.terminationStatus == 0) {
-		self.isRunning = YES;
+		[self setIsRunningOnMainThread:YES];
 	}
 	
 	return task.terminationStatus == 0;
@@ -263,7 +275,7 @@
 	}
 	
 	if (task.terminationStatus == 0) {
-		self.isRunning = NO;
+		[self setIsRunningOnMainThread:NO];
 	}
 	
 	return task.terminationStatus == 0;
@@ -358,8 +370,58 @@
 
 #pragma mark - Custom properties
 
+- (void)setIsRunning:(BOOL)isRunning {
+	[self willChangeValueForKey:@"statusMessage"];
+	_isRunning = isRunning;
+	[self didChangeValueForKey:@"statusMessage"];
+}
+
+
 -(NSString *)logfilePath {
 	return [self.varPath stringByAppendingPathComponent:@"postgres-server.log"];
+}
+
+
+- (NSString *)statusMessage {
+	if (self.isRunning) {
+		return [NSString stringWithFormat:@"Running on port %lu", self.port];
+	}
+	else {
+		return @"Stopped";
+	}
+}
+
+
+- (NSString *)statusMessageExtended {
+	PostgresDataDirectoryStatus dataDirStatus = [self statusOfDataDirectory:self.varPath error:nil];
+	switch (dataDirStatus) {
+		case PostgresDataDirectoryIncompatible:
+			return @"The selected data directory is not compatible with the selected server version.";
+			break;
+		case PostgresDataDirectoryCompatible:
+			return @"Data directory compatible.";
+			break;
+		case PostgresDataDirectoryEmpty:
+			return @"The data directory will be created the first time you start the server.";
+			break;
+		default:
+			break;
+	}
+	
+	return @"UNKNOWN STATUS";
+}
+
+
+
+#pragma mark - Async property helpers
+
+- (void)setIsRunningOnMainThread:(BOOL)isRunning {
+	dispatch_async(dispatch_get_main_queue(), ^{ self.isRunning = isRunning; });
+}
+
+
+- (void)setIsBusyOnMainThread:(BOOL)isBusy {
+	dispatch_async(dispatch_get_main_queue(), ^{ self.isBusy = isBusy; });
 }
 
 @end
