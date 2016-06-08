@@ -24,9 +24,10 @@
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 #import "AppDelegate.h"
+#import "MainWindowController.h"
+#import "StatusMenuItemViewController.h"
 #import "PostgresServer.h"
 #import "ServerManager.h"
-#import "PostgresStatusMenuItemViewController.h"
 #import "PGApplicationMover.h"
 #import "PGShellProfileUpdater.h"
 #import "Terminal.h"
@@ -36,28 +37,18 @@
 #endif
 
 
-NSString *const kAppleInterfaceStyle = @"AppleInterfaceStyle";
-NSString *const kAppleInterfaceStyleDark = @"Dark";
-NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeChangedNotification";
-
-
 @interface AppDelegate()
-@property (assign, readonly) BOOL isDarkMode;
-@property (strong, nonatomic) NSImage *templateOffImage;
-@property (strong, nonatomic) NSImage *templateOnImage;
-@property ServerManager *serverManager;
+@property MainWindowController *mainWindowController;
+@property NSStatusItem *statusBarItem;
+@property (readonly) BOOL isDarkMode;
+@property (nonatomic) NSImage *templateOffImage;
+@property (nonatomic) NSImage *templateOnImage;
 @end
 
 
 @implementation AppDelegate {
-    NSStatusItem *_statusBarItem;
     id _interfaceThemeObserver;
 }
-
-@synthesize postgresStatusMenuItemViewController = _postgresStatusMenuItemViewController;
-@synthesize statusBarMenu = _statusBarMenu;
-@synthesize postgresStatusMenuItem = _postgresStatusMenuItem;
-
 
 
 #pragma mark - NSApplicationDelegate
@@ -87,31 +78,26 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
                                                                                            weakSelf.templateOffImage.template = darkMode;
                                                                                            weakSelf.templateOnImage.template = darkMode;
                                                                                        }];
-    
-    _statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    _statusBarItem.highlightMode = YES;
-    _statusBarItem.menu = self.statusBarMenu;
-	_templateOffImage = [NSImage imageNamed:@"status-off"];
-	_templateOnImage = [NSImage imageNamed:@"status-on"];
-
-    BOOL darkMode = self.isDarkMode;
-    _templateOffImage.template = darkMode;
-    _templateOnImage.template = darkMode;
-    
-    _statusBarItem.image = _templateOffImage;
-	_statusBarItem.alternateImage = _templateOnImage;
 	
-    [NSApp activateIgnoringOtherApps:YES];
-    
-    [self.postgresStatusMenuItem setEnabled:NO];
-    self.postgresStatusMenuItem.view = self.postgresStatusMenuItemViewController.view;
+	[[ServerManager sharedManager] loadServers];
+	[[ServerManager sharedManager] refreshStatus];
+	[[ServerManager sharedManager] startServers];
 	
+	self.templateOffImage = [NSImage imageNamed:@"status-off"];
+	self.templateOnImage = [NSImage imageNamed:@"status-on"];
+	self.templateOffImage.template = self.isDarkMode;
+	self.templateOnImage.template = self.isDarkMode;
+	
+	self.statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+	self.statusBarItem.highlightMode = YES;
+	self.statusBarItem.menu = self.statusMenu;
+    self.statusBarItem.image = self.templateOffImage;
+	self.statusBarItem.alternateImage = self.templateOnImage;
+	
+	self.statusMenuItem.view = self.statusMenuItemViewController.view;
+	
+	[NSApp activateIgnoringOtherApps:YES];
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
-	
-	self.serverManager = [ServerManager sharedManager];
-	[self.serverManager loadServers];
-	[self.serverManager refreshStatus];
-	[self.serverManager startServers];
 	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
 	[self openMainWindow:nil];
@@ -119,43 +105,17 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 
 
 -(void)applicationDidBecomeActive:(NSNotification *)notification {
-	[self.serverManager refreshStatus];
+	[[ServerManager sharedManager] refreshStatus];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-	[self.serverManager stopServers];
+	[[ServerManager sharedManager] stopServers];
 	return NSTerminateNow;
 }
 
 
 - (void)dealloc {
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:_interfaceThemeObserver];
-}
-
-
--(void)validateNoOtherVersionsAreRunning {
-	NSMutableArray *runningCopies = [NSMutableArray array];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.postgres"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres93"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres"]];
-	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres93"]];
-	for (NSRunningApplication *runningCopy in runningCopies) {
-		if (![runningCopy isEqual:[NSRunningApplication currentApplication]]) {
-			NSAlert *alert = [NSAlert alertWithMessageText: @"Another copy of Postgres.app is already running."
-											 defaultButton: @"OK"
-										   alternateButton: nil
-											   otherButton: nil
-								 informativeTextWithFormat: @"Please quit %@ before starting this copy.", runningCopy.localizedName];
-			[alert runModal];
-			exit(1);
-		}
-	}
-}
-
-
-- (BOOL)isDarkMode {
-	return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
 }
 
 
@@ -184,6 +144,38 @@ NSString *const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeC
 	[NSApp activateIgnoringOtherApps:YES];
     [self.mainWindowController showWindow:nil];
 	[[self.mainWindowController window] makeKeyAndOrderFront:nil];
+}
+
+
+
+#pragma mark - Custom properties
+
+- (BOOL)isDarkMode {
+	return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
+}
+
+
+
+#pragma mark - Custom methods
+
+-(void)validateNoOtherVersionsAreRunning {
+	NSMutableArray *runningCopies = [NSMutableArray array];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.heroku.Postgres93"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres"]];
+	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres93"]];
+	for (NSRunningApplication *runningCopy in runningCopies) {
+		if (![runningCopy isEqual:[NSRunningApplication currentApplication]]) {
+			NSAlert *alert = [NSAlert alertWithMessageText: @"Another copy of Postgres.app is already running."
+											 defaultButton: @"OK"
+										   alternateButton: nil
+											   otherButton: nil
+								 informativeTextWithFormat: @"Please quit %@ before starting this copy.", runningCopy.localizedName];
+			[alert runModal];
+			exit(1);
+		}
+	}
 }
 
 @end

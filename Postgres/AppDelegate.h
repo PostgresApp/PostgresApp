@@ -24,18 +24,15 @@
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 #import <Cocoa/Cocoa.h>
-#import "MainWindowController.h"
 
-@class PostgresStatusMenuItemViewController, PostgresServer;
+@class ServerManager, StatusMenuItemViewController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (strong) IBOutlet PostgresStatusMenuItemViewController *postgresStatusMenuItemViewController;
-
-@property (weak) IBOutlet NSMenu *statusBarMenu;
-@property (weak) IBOutlet NSMenuItem *postgresStatusMenuItem;
-
-@property MainWindowController *mainWindowController;
+@property (weak) ServerManager *serverManager;
+@property (weak) IBOutlet NSMenu *statusMenu;
+@property (weak) IBOutlet NSMenuItem *statusMenuItem;
+@property IBOutlet StatusMenuItemViewController *statusMenuItemViewController;
 
 - (IBAction)selectAbout:(id)sender;
 - (IBAction)openDocumentation:(id)sender;
