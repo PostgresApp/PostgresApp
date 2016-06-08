@@ -50,8 +50,11 @@ typedef void (^PostgresServerControlCompletionHandler)(BOOL success, NSError *er
 @property (readwrite) BOOL stopAtQuit;
 @property (readwrite) NSString *binPath;
 @property (readwrite) NSString *varPath;
-@property (readonly) NSString *logfilePath;
-@property (readonly) BOOL isRunning;
+@property (readonly) BOOL isBusy;
+@property (readonly, nonatomic) BOOL isRunning;
+@property (readonly, nonatomic) NSString *logfilePath;
+@property (readonly, nonatomic) NSString *statusMessage;
+@property (readonly, nonatomic) NSString *statusMessageExtended;
 
 - (id)initWithName:(NSString *)name version:(NSString *)version port:(NSUInteger)port varPath:(NSString *)varPath;
 
