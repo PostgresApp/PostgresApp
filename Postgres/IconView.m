@@ -8,9 +8,6 @@
 
 #import "IconView.h"
 #import "IconViewSection.h"
-#import "PGETable.h"
-#import "PGE.h"
-#import "BrowserDatasource.h"
 
 #define TOP_PADDING 30
 #define SECTION_HEADER_HEIGHT 28
@@ -37,6 +34,7 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
+	if (!mainSection) [self reloadData];
 	[[NSColor whiteColor] set];
 	NSRectFill(dirtyRect);
 	[self drawRect:dirtyRect ofSection:mainSection atVerticalOffset:TOP_PADDING];
@@ -134,9 +132,6 @@
 				IconViewSection *subSection = [[IconViewSection alloc] init];
 				[self loadItem:subItem intoSection:subSection fromDatasource:source];
 				[containedItems addObject:subSection];
-			} else if ([subItem isKindOfClass:[PGEQueryObject class]]) {
-				if (isFirstResponder && !_selectedItems.count) {[_selectedItems addObject:subItem]; lastSelectItem = subItem; }
-				[specialItems addObject:subItem];
 			} else if (subItem) {
 				if (isFirstResponder && !_selectedItems.count) {[_selectedItems addObject:subItem]; lastSelectItem = subItem; }
 				[containedItems addObject:subItem];
@@ -258,16 +253,7 @@
 		NSSize textSize = [name sizeWithAttributes:attributes];
 		NSRect textRect = NSMakeRect(28+16+5, y+0.5*(SECTION_HEADER_HEIGHT-textSize.height)-2, self.bounds.size.width, 20);
 		
-		if ([_datasource respondsToSelector:@selector(filterString)] && [[(id)_datasource filterString] length]) {
-			NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:name attributes:attributes];
-			for (NSValue *rangeObject in [(id)_datasource rangesMatchingCurrentFilterInString:attrString.string]) {
-				NSRange highlightedRange = rangeObject.rangeValue;
-				[attrString addAttribute:NSBackgroundColorAttributeName value:[NSColor colorWithCalibratedRed:1 green:1 blue:0 alpha:0.5] range:highlightedRange];
-			}
-			[attrString drawInRect:textRect];
-		} else {
-			[name drawInRect:textRect withAttributes:attributes];
-		}
+		[name drawInRect:textRect withAttributes:attributes];
 		
 		y += SECTION_HEADER_HEIGHT;
 		if ([_expandedItems containsObject:section.item]) y+= SECTION_PADDING_AFTER_HEADER;
@@ -299,11 +285,7 @@
 					cell.item = subItem;
 					cell.selected = [_selectedItems containsObject:subItem];
 					cell.isInForeground = isFirstResponder && self.window.mainWindow;
-					if ([subItem respondsToSelector:@selector(name)] && [_datasource respondsToSelector:@selector(filterString)] && [[(id)_datasource filterString] length]) {
-						cell.highlightedRanges = [(id)_datasource rangesMatchingCurrentFilterInString:[subItem name]];
-					} else {
-						cell.highlightedRanges = nil;
-					}
+					cell.highlightedRanges = nil;
 					[cell drawWithFrame:iconRect inView:self];
 				}
 				itemsInColumn++;
@@ -565,7 +547,7 @@
 	}
 	typeNavigationLastKeypress = evt.timestamp;
 	[typeNavigationPrefix appendString:evt.characters];
-	PGEObject *newSelectedItem = nil;
+	id newSelectedItem = nil;
 	NSRect newSelectedItemRect;
 	NSRect typeNavigationStartItemRect;
 	if (typeNavigationStartItem) typeNavigationStartItemRect = itemRects[typeNavigationStartItem].rectValue;

@@ -6,15 +6,14 @@
 //  Copyright (c) 2015 Egger Apps. All rights reserved.
 //
 
-#import "IconViewCell.h"
 
-#import "PGETable.h"
+#import "IconViewCell.h"
 
 @implementation IconViewCell
 
 -(NSImage*)image {
 	id item = self.item;
-	NSImage *image = [item respondsToSelector:@selector(bigImage)] ? [item bigImage] : [item respondsToSelector:@selector(image)] ? [item image] : nil;
+	NSImage *image = [item respondsToSelector:@selector(image)] ? [item image] : nil;
 	return image;
 }
 
@@ -39,11 +38,6 @@
 	name = [name stringByReplacingOccurrencesOfString:@"_" withString:@"_​"]; // add zero width space after underscore to mark it as a line break point
 	
 	NSFont *font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-	if ([self.item respondsToSelector:@selector(isNew)] && [self.item isNew]) {
-		NSFontManager *fontManager = [NSFontManager sharedFontManager];
-		NSFont *italicSystemFont = [fontManager fontWithFamily: font.familyName traits: NSItalicFontMask weight:5 size:[NSFont systemFontSize]];
-		if (italicSystemFont) font = italicSystemFont;
-	}
 	
 	NSMutableParagraphStyle *parStyle = [[NSMutableParagraphStyle alloc] init];
 	parStyle.alignment = NSCenterTextAlignment;

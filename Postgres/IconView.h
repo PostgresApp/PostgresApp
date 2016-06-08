@@ -44,6 +44,9 @@
 
 @property IconViewCell *cell;
 
+@property BOOL allowEmptySelection;
+@property BOOL allowMultipleSelection;
+
 -(void)reloadData;
 -(NSArray*)selectedItemArray;
 
