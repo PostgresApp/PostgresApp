@@ -56,9 +56,7 @@
 - (void)startServers {
 	for (PostgresServer *srv in self.servers) {
 		if (srv.runAtStartup) {
-			[srv startWithCompletionHandler:^(BOOL success, NSError *error) {
-				NSLog(@"Server on port %lu started", srv.port);
-			}];
+			[srv startWithCompletionHandler:^(BOOL success, NSError *error) {}];
 		}
 	}
 }
@@ -67,9 +65,7 @@
 - (void)stopServers {
 	for (PostgresServer *srv in self.servers) {
 		if (srv.stopAtQuit) {
-			[srv stopWithCompletionHandler:^(BOOL success, NSError *error) {
-				NSLog(@"Server on port %lu stopped", srv.port);
-			}];
+			[srv stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
 		}
 	}
 }
