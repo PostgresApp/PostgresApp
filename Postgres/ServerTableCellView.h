@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ServerTableCellView : NSTableCellView {
-	BOOL _running;
-}
+@interface ServerTableCellView : NSTableCellView
+
+@property (readonly) NSImage *statusImage;
 
 @end

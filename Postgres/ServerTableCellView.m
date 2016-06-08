@@ -9,9 +9,9 @@
 #import "ServerTableCellView.h"
 #import "PostgresServer.h"
 
-
-#define RED [NSColor colorWithRed:252/255.0f green:96/255.0f blue:92/255.0f alpha:1.0f]
-#define GREEN [NSColor colorWithRed:53/255.0f green:202/255.0f blue:74/255.0f alpha:1.0f]
+@interface ServerTableCellView ()
+@property NSImage *statusImage;
+@end
 
 
 @implementation ServerTableCellView
@@ -28,20 +28,12 @@
 
 - (void)drawRect:(NSRect)dirtyRect {
 	[super drawRect:dirtyRect];
-	
-	NSColor *color = ((PostgresServer*)[self objectValue]).isRunning ? GREEN : RED;
-	[color setFill];
-	
-	NSRect rect = NSMakeRect(10, 20, 10, 10);
-	NSBezierPath *circlePath = [NSBezierPath bezierPath];
-	[circlePath appendBezierPathWithOvalInRect:rect];
-	[circlePath stroke];
-	[circlePath fill];
 }
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-	[self setNeedsDisplay:YES];
+	NSString *imgName = ((PostgresServer*)[self objectValue]).isRunning ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable;
+	self.statusImage = [NSImage imageNamed:imgName];
 }
 
 @end
