@@ -13,6 +13,16 @@
 		36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B958C31861AE88007BBB36 /* PGApplicationMover.m */; };
 		36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */; };
 		36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
+		8313A4F71D05A1BB0038814C /* DatabasesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8313A4F61D05A1BB0038814C /* DatabasesViewController.m */; };
+		8313A4F91D05A1C80038814C /* DatabasesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8313A4F81D05A1C80038814C /* DatabasesView.xib */; };
+		8313A4FC1D05A8EE0038814C /* DBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8313A4FB1D05A8EE0038814C /* DBModel.m */; };
+		83262EAB1D06E65500C4F5E5 /* IconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83262EA61D06E65500C4F5E5 /* IconView.m */; };
+		83262EAC1D06E65500C4F5E5 /* IconViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83262EA81D06E65500C4F5E5 /* IconViewCell.m */; };
+		83262EAD1D06E65500C4F5E5 /* IconViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83262EAA1D06E65500C4F5E5 /* IconViewSection.m */; };
+		83262EB81D07146600C4F5E5 /* PGDumpTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 83262EB71D07146600C4F5E5 /* PGDumpTask.m */; };
+		83262EBD1D0721D400C4F5E5 /* ProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */; };
+		836ABAB31D04442A00BC84E4 /* StatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */; };
+		836ABAB51D04443700BC84E4 /* StatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */; };
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
 		83800E7F1CEB07580078CFEA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83800E7E1CEB07580078CFEA /* MainWindow.xib */; };
 		83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A638FB1CF265BC008D4D1B /* ServerManager.m */; };
@@ -27,8 +37,6 @@
 		F87A4281153AB60C00456130 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87A427F153AB60C00456130 /* MainMenu.xib */; };
 		F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */; };
 		F884C8F1153C786D00CDCB09 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
-		F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */; };
-		F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */; };
 		F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */ = {isa = PBXBuildFile; fileRef = F884C919153CA24400CDCB09 /* Postgres.icns */; };
 		F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = F88BDC8515704B22004ECB52 /* NSFileManager+DirectoryLocations.m */; };
 		F88BDC9115704C15004ECB52 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F88BDC9015704C14004ECB52 /* Security.framework */; };
@@ -94,7 +102,6 @@
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		36A9159E1B0DFB9000C7F424 /* postgresql-icu-patch-2.diff */ = {isa = PBXFileReference; lastKnownFileType = text; path = "postgresql-icu-patch-2.diff"; sourceTree = "<group>"; };
 		36A9E3061B0DFB5500C7F424 /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		36B958C21861AE88007BBB36 /* PGApplicationMover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGApplicationMover.h; sourceTree = "<group>"; };
 		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
@@ -102,6 +109,25 @@
 		36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGShellProfileUpdater.m; sourceTree = "<group>"; };
 		36D70A1119D0157C00B97508 /* RecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoveryAttempter.h; sourceTree = "<group>"; };
 		36D70A1219D0157C00B97508 /* RecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoveryAttempter.m; sourceTree = "<group>"; };
+		8313A4F51D05A1BB0038814C /* DatabasesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabasesViewController.h; sourceTree = "<group>"; };
+		8313A4F61D05A1BB0038814C /* DatabasesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabasesViewController.m; sourceTree = "<group>"; };
+		8313A4F81D05A1C80038814C /* DatabasesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatabasesView.xib; sourceTree = "<group>"; };
+		8313A4FA1D05A8EE0038814C /* DBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBModel.h; sourceTree = "<group>"; };
+		8313A4FB1D05A8EE0038814C /* DBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBModel.m; sourceTree = "<group>"; };
+		83262EA51D06E65500C4F5E5 /* IconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconView.h; sourceTree = "<group>"; };
+		83262EA61D06E65500C4F5E5 /* IconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconView.m; sourceTree = "<group>"; };
+		83262EA71D06E65500C4F5E5 /* IconViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconViewCell.h; sourceTree = "<group>"; };
+		83262EA81D06E65500C4F5E5 /* IconViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconViewCell.m; sourceTree = "<group>"; };
+		83262EA91D06E65500C4F5E5 /* IconViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconViewSection.h; sourceTree = "<group>"; };
+		83262EAA1D06E65500C4F5E5 /* IconViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconViewSection.m; sourceTree = "<group>"; };
+		83262EB11D06F00400C4F5E5 /* libpq.5.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.9.dylib; path = ../../../../../Applications/Postgres.app/Contents/Versions/9.6/lib/libpq.5.9.dylib; sourceTree = "<group>"; };
+		83262EB31D06F09900C4F5E5 /* libpq.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpq.tbd; path = usr/lib/libpq.tbd; sourceTree = SDKROOT; };
+		83262EB61D07146600C4F5E5 /* PGDumpTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDumpTask.h; sourceTree = "<group>"; };
+		83262EB71D07146600C4F5E5 /* PGDumpTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDumpTask.m; sourceTree = "<group>"; };
+		83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressSheet.xib; sourceTree = "<group>"; };
+		836ABAB11D04442A00BC84E4 /* StatusMenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusMenuItemViewController.h; sourceTree = "<group>"; };
+		836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusMenuItemViewController.m; sourceTree = "<group>"; };
+		836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusMenuItemView.xib; sourceTree = "<group>"; };
 		83800E771CEB071C0078CFEA /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		83800E781CEB071C0078CFEA /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		83800E7E1CEB07580078CFEA /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -125,9 +151,6 @@
 		F883D61315B5E2780017F83A /* PostgresConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConstants.h; sourceTree = "<group>"; };
 		F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F884C8F3153C7A4C00CDCB09 /* PostgresHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PostgresHelper.entitlements; path = ../PostgresHelper.entitlements; sourceTree = "<group>"; };
-		F884C902153C807400CDCB09 /* PostgresStatusMenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresStatusMenuItemViewController.h; sourceTree = "<group>"; };
-		F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresStatusMenuItemViewController.m; sourceTree = "<group>"; };
-		F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostgresStatusMenuItemView.xib; sourceTree = "<group>"; };
 		F884C919153CA24400CDCB09 /* Postgres.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Postgres.icns; sourceTree = "<group>"; };
 		F88BDC8415704B22004ECB52 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		F88BDC8515704B22004ECB52 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
@@ -180,9 +203,21 @@
 			isa = PBXGroup;
 			children = (
 				36A9E3061B0DFB5500C7F424 /* makefile */,
-				36A9159E1B0DFB9000C7F424 /* postgresql-icu-patch-2.diff */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		83262EA41D06E62F00C4F5E5 /* IconView */ = {
+			isa = PBXGroup;
+			children = (
+				83262EA51D06E65500C4F5E5 /* IconView.h */,
+				83262EA61D06E65500C4F5E5 /* IconView.m */,
+				83262EA71D06E65500C4F5E5 /* IconViewCell.h */,
+				83262EA81D06E65500C4F5E5 /* IconViewCell.m */,
+				83262EA91D06E65500C4F5E5 /* IconViewSection.h */,
+				83262EAA1D06E65500C4F5E5 /* IconViewSection.m */,
+			);
+			name = IconView;
 			sourceTree = "<group>";
 		};
 		F87A4267153AB23F00456130 /* Images */ = {
@@ -262,6 +297,8 @@
 		F8973A0B1538846600EAB41E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83262EB31D06F09900C4F5E5 /* libpq.tbd */,
+				83262EB11D06F00400C4F5E5 /* libpq.5.9.dylib */,
 				F8973A3D1538851D00EAB41E /* Foundation.framework */,
 				F8973A0C1538846600EAB41E /* Cocoa.framework */,
 				3609DA071853B31F00665ED2 /* ScriptingBridge.framework */,
@@ -290,31 +327,40 @@
 				F883D61315B5E2780017F83A /* PostgresConstants.h */,
 				F8973A1E1538846600EAB41E /* AppDelegate.h */,
 				F8973A1F1538846600EAB41E /* AppDelegate.m */,
+				F8973A211538846600EAB41E /* MainMenu.xib */,
+				83800E771CEB071C0078CFEA /* MainWindowController.h */,
+				83800E781CEB071C0078CFEA /* MainWindowController.m */,
+				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
+				83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */,
+				8313A4F51D05A1BB0038814C /* DatabasesViewController.h */,
+				8313A4F61D05A1BB0038814C /* DatabasesViewController.m */,
+				8313A4F81D05A1C80038814C /* DatabasesView.xib */,
+				8313A4FA1D05A8EE0038814C /* DBModel.h */,
+				8313A4FB1D05A8EE0038814C /* DBModel.m */,
+				83262EA41D06E62F00C4F5E5 /* IconView */,
+				83B4E7A61CF46B9400D24B46 /* AddServerSheetController.h */,
+				83B4E7A71CF46B9400D24B46 /* AddServerSheetController.m */,
+				83B4E7A41CF46B7C00D24B46 /* AddServerSheet.xib */,
+				83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */,
+				83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */,
+				836ABAB11D04442A00BC84E4 /* StatusMenuItemViewController.h */,
+				836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */,
+				836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */,
 				F8973A36153884EF00EAB41E /* PostgresServer.h */,
 				F8973A35153884EF00EAB41E /* PostgresServer.m */,
 				83A638FA1CF265BC008D4D1B /* ServerManager.h */,
 				83A638FB1CF265BC008D4D1B /* ServerManager.m */,
+				83262EB61D07146600C4F5E5 /* PGDumpTask.h */,
+				83262EB71D07146600C4F5E5 /* PGDumpTask.m */,
 				36D70A1119D0157C00B97508 /* RecoveryAttempter.h */,
 				36D70A1219D0157C00B97508 /* RecoveryAttempter.m */,
-				F8973A211538846600EAB41E /* MainMenu.xib */,
-				F884C902153C807400CDCB09 /* PostgresStatusMenuItemViewController.h */,
-				F884C903153C807400CDCB09 /* PostgresStatusMenuItemViewController.m */,
-				F884C904153C807400CDCB09 /* PostgresStatusMenuItemView.xib */,
 				F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */,
 				F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */,
-				83800E771CEB071C0078CFEA /* MainWindowController.h */,
-				83800E781CEB071C0078CFEA /* MainWindowController.m */,
-				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
-				83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */,
-				83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */,
-				83B4E7A61CF46B9400D24B46 /* AddServerSheetController.h */,
-				83B4E7A71CF46B9400D24B46 /* AddServerSheetController.m */,
-				83B4E7A41CF46B7C00D24B46 /* AddServerSheet.xib */,
-				F8973A131538846600EAB41E /* Supporting Files */,
 				36B958C21861AE88007BBB36 /* PGApplicationMover.h */,
 				36B958C31861AE88007BBB36 /* PGApplicationMover.m */,
 				36C986ED1861DFCC00308267 /* PGShellProfileUpdater.h */,
 				36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */,
+				F8973A131538846600EAB41E /* Supporting Files */,
 			);
 			path = Postgres;
 			sourceTree = "<group>";
@@ -442,9 +488,11 @@
 				83800E7F1CEB07580078CFEA /* MainWindow.xib in Resources */,
 				F8973A171538846600EAB41E /* InfoPlist.strings in Resources */,
 				F8973A231538846600EAB41E /* MainMenu.xib in Resources */,
-				F884C906153C807400CDCB09 /* PostgresStatusMenuItemView.xib in Resources */,
 				F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */,
+				83262EBD1D0721D400C4F5E5 /* ProgressSheet.xib in Resources */,
+				8313A4F91D05A1C80038814C /* DatabasesView.xib in Resources */,
 				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
+				836ABAB51D04443700BC84E4 /* StatusMenuItemView.xib in Resources */,
 				83B4E7A51CF46B7C00D24B46 /* AddServerSheet.xib in Resources */,
 				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
 				0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
@@ -515,18 +563,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */,
+				83262EAD1D06E65500C4F5E5 /* IconViewSection.m in Sources */,
 				83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */,
+				836ABAB31D04442A00BC84E4 /* StatusMenuItemViewController.m in Sources */,
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
+				83262EB81D07146600C4F5E5 /* PGDumpTask.m in Sources */,
+				8313A4F71D05A1BB0038814C /* DatabasesViewController.m in Sources */,
+				8313A4FC1D05A8EE0038814C /* DBModel.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
 				36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */,
 				36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */,
 				83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */,
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
-				F884C905153C807400CDCB09 /* PostgresStatusMenuItemViewController.m in Sources */,
 				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,
 				83B4E7A81CF46B9400D24B46 /* AddServerSheetController.m in Sources */,
 				36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */,
+				83262EAC1D06E65500C4F5E5 /* IconViewCell.m in Sources */,
+				83262EAB1D06E65500C4F5E5 /* IconView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,8 +779,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
+				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = "-lpq";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -740,8 +797,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
+				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = "-lpq";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

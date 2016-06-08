@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1713" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -77,17 +77,9 @@
                 </menuItem>
             </items>
         </menu>
-        <customObject id="494" customClass="AppDelegate">
-            <connections>
-                <outlet property="postgresStatusMenuItem" destination="559" id="568"/>
-                <outlet property="postgresStatusMenuItemViewController" destination="578" id="579"/>
-                <outlet property="statusBarMenu" destination="553" id="567"/>
-            </connections>
-        </customObject>
-        <customObject id="420" customClass="NSFontManager"/>
         <menu title="Postgres" id="553" userLabel="Status Bar Item Menu">
             <items>
-                <menuItem title="Postgres: Running on Port 5432" enabled="NO" id="559">
+                <menuItem title="&lt;statusMenuItem&gt;" enabled="NO" id="559">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="572"/>
@@ -118,7 +110,14 @@
                 </menuItem>
             </items>
         </menu>
-        <viewController nibName="PostgresStatusMenuItemView" id="578" customClass="PostgresStatusMenuItemViewController"/>
-        <customObject id="586"/>
+        <customObject id="494" customClass="AppDelegate">
+            <connections>
+                <outlet property="statusMenu" destination="553" id="qoK-hz-pQe"/>
+                <outlet property="statusMenuItem" destination="559" id="kjf-xa-h0y"/>
+                <outlet property="statusMenuItemViewController" destination="578" id="SML-Mz-qHq"/>
+            </connections>
+        </customObject>
+        <customObject id="420" customClass="NSFontManager"/>
+        <viewController nibName="StatusMenuItemView" id="578" customClass="StatusMenuItemViewController"/>
     </objects>
 </document>
