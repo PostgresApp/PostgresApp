@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DatabasesViewController : NSViewController
+@class PostgresServer, IconView;
+
+@interface DatabasesViewController : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate>
+
+@property NSMutableArray *databases;
+@property (nonatomic) PostgresServer *server;
+@property (nonatomic, readonly) NSString *selectedDBName;
+
+@property IBOutlet IconView *iconView;
 
 @end

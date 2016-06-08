@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6233" systemVersion="14A329f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6233"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="DatabasesViewController">
+            <connections>
+                <outlet property="iconView" destination="FSf-wj-fA2" id="U3Z-do-RkL"/>
+                <outlet property="view" destination="vIz-eo-aMu" id="9xF-wD-KxQ"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="vIz-eo-aMu">
+            <rect key="frame" x="0.0" y="0.0" width="165" height="98"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-        </customView>
+            <clipView key="contentView" id="1QV-Tn-hH2">
+                <rect key="frame" x="1" y="1" width="181" height="94"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FSf-wj-fA2" customClass="IconView">
+                        <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+                        <connections>
+                            <outlet property="datasource" destination="-2" id="pIY-Nw-VeW"/>
+                            <outlet property="delegate" destination="-2" id="73R-J0-bnY"/>
+                        </connections>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="FSf-wj-fA2" secondAttribute="bottom" id="66g-od-saO"/>
+                    <constraint firstItem="FSf-wj-fA2" firstAttribute="height" relation="greaterThanOrEqual" secondItem="1QV-Tn-hH2" secondAttribute="height" id="CzI-5C-Idt"/>
+                    <constraint firstItem="FSf-wj-fA2" firstAttribute="leading" secondItem="1QV-Tn-hH2" secondAttribute="leading" id="DPM-gJ-7dd"/>
+                    <constraint firstItem="FSf-wj-fA2" firstAttribute="width" secondItem="1QV-Tn-hH2" secondAttribute="width" id="u8f-om-pm8"/>
+                </constraints>
+            </clipView>
+            <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="U7p-Av-bju">
+                <rect key="frame" x="1" y="79" width="181" height="16"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Ktx-YL-ZFc">
+                <rect key="frame" x="166" y="1" width="16" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <point key="canvasLocation" x="88.5" y="356"/>
+        </scrollView>
     </objects>
 </document>
