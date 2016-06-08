@@ -18,7 +18,7 @@
 @property NSArray *versions;
 @property NSUInteger selectedVersionIndex;
 
-@property (readonly) NSString *version;
+@property (readonly, nonatomic) NSString *version;
 @property (readonly) PostgresServer *server;
 
 @property IBOutlet NSPopUpButton *versionsPopup;

@@ -41,10 +41,6 @@
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"selectedVersionIndex"]) {
-		
-		///
-		// replace old version with the new one if path contains old version
-		///
 		NSNumber *old = change[NSKeyValueChangeOldKey];
 		NSNumber *new = change[NSKeyValueChangeNewKey];
 		if ([old isKindOfClass:[NSNumber class]] && [new isKindOfClass:[NSNumber class]]) {
@@ -58,17 +54,12 @@
 		}
 	}
 	else if ([keyPath isEqualToString:@"varPath"]) {
-		
-		///
-		// select version in popup if popup contains string in PG_VERSION
-		///
 		NSString *pgVerPath = [self.varPath stringByAppendingPathComponent:@"/PG_VERSION"];
 		if ([[NSFileManager defaultManager] fileExistsAtPath:pgVerPath]) {
 			NSString *contents = [NSString stringWithContentsOfFile:pgVerPath encoding:NSUTF8StringEncoding error:nil];
 			NSArray *lines = [contents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 			if (lines.count > 0) {
 				[self.versionsPopup selectItemWithTitle:[lines objectAtIndex:0]];
-				//[self.versionsPopup setEnabled:NO];
 			}
 		}
 		else {
@@ -90,10 +81,6 @@
 	[openPanel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 		if (returnCode == NSModalResponseOK) {
 			NSString *varTmp = openPanel.URL.path;
-			
-			///
-			// append string in PG_VERSION to path
-			///
 			NSString *pgVerPath = [varTmp stringByAppendingPathComponent:@"/PG_VERSION"];
 			if (! [[NSFileManager defaultManager] fileExistsAtPath:pgVerPath]) {
 				self.varPath = [varTmp stringByAppendingFormat:@"/var-%@", self.version];
