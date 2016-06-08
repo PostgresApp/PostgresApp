@@ -21,6 +21,7 @@
 		83262EAD1D06E65500C4F5E5 /* IconViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83262EAA1D06E65500C4F5E5 /* IconViewSection.m */; };
 		83262EB81D07146600C4F5E5 /* PGDumpTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 83262EB71D07146600C4F5E5 /* PGDumpTask.m */; };
 		83262EBD1D0721D400C4F5E5 /* ProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */; };
+		832F2D4C1D0844300058B4D4 /* ProgressSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */; };
 		836ABAB31D04442A00BC84E4 /* StatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */; };
 		836ABAB51D04443700BC84E4 /* StatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */; };
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
@@ -125,6 +126,8 @@
 		83262EB61D07146600C4F5E5 /* PGDumpTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDumpTask.h; sourceTree = "<group>"; };
 		83262EB71D07146600C4F5E5 /* PGDumpTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDumpTask.m; sourceTree = "<group>"; };
 		83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressSheet.xib; sourceTree = "<group>"; };
+		832F2D4A1D0844300058B4D4 /* ProgressSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressSheetController.h; sourceTree = "<group>"; };
+		832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressSheetController.m; sourceTree = "<group>"; };
 		836ABAB11D04442A00BC84E4 /* StatusMenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusMenuItemViewController.h; sourceTree = "<group>"; };
 		836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusMenuItemViewController.m; sourceTree = "<group>"; };
 		836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusMenuItemView.xib; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				83800E771CEB071C0078CFEA /* MainWindowController.h */,
 				83800E781CEB071C0078CFEA /* MainWindowController.m */,
 				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
+				832F2D4A1D0844300058B4D4 /* ProgressSheetController.h */,
+				832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */,
 				83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */,
 				8313A4F51D05A1BB0038814C /* DatabasesViewController.h */,
 				8313A4F61D05A1BB0038814C /* DatabasesViewController.m */,
@@ -576,6 +581,7 @@
 				36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */,
 				83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */,
 				F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */,
+				832F2D4C1D0844300058B4D4 /* ProgressSheetController.m in Sources */,
 				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,
 				83B4E7A81CF46B9400D24B46 /* AddServerSheetController.m in Sources */,
 				36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */,

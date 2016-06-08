@@ -20,6 +20,7 @@
 
 @interface MainWindowController ()
 @property AddServerSheetController *addServerSheetController;
+@property ProgressSheetController *progressSheetController;
 @property DatabasesViewController *databasesViewController;
 @property NSTask *logTask;
 @property PGDumpTask *dumpTask;
@@ -393,20 +394,24 @@
 #pragma mark ProgressSheet
 
 - (void)beginProgressSheetWithMessage:(NSString *)message {
-	[[NSBundle mainBundle] loadNibNamed:@"ProgressSheet" owner:self topLevelObjects:NULL];
-	self.progressSheetDescription = message;
-	self.progressSheetAnimate = YES;
-	[NSApp beginSheet:self.progressSheetWindow modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+	if (!self.progressSheetController) {
+		self.progressSheetController = [[ProgressSheetController alloc] initWithWindowNibName:@"ProgressSheet"];
+		self.progressSheetController.delegate = self;
+	}
+	
+	self.progressSheetController.message = message;
+	[NSApp beginSheet:self.progressSheetController.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 }
 
 - (void)endProgressSheet {
-	[NSApp endSheet:self.progressSheetWindow];
-	[self.progressSheetWindow close];
+	[NSApp endSheet:self.progressSheetController.window];
+	[self.progressSheetController close];
 }
 
 
-- (IBAction)progressSheetCancel:(id)sender {
+- (void)progressSheetCancel:(id)sender {
 	[self.dumpTask cancel];
+	[self endProgressSheet];
 }
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ProgressSheetController.h"
 
-
-@interface MainWindowController : NSWindowController
+@interface MainWindowController : NSWindowController <ProgressSheetControllerDelegate>
 
 @property (nonatomic) NSMutableArray *servers;
 @property IBOutlet NSArrayController *serverArrayController;
@@ -25,12 +25,5 @@
 - (IBAction)pg_restore:(id)sender;
 - (IBAction)startServer:(id)sender;
 - (IBAction)stopServer:(id)sender;
-
-// ProgressSheet
-@property IBOutlet NSWindow *progressSheetWindow;
-@property NSString *progressSheetDescription;
-@property BOOL progressSheetAnimate;
-
-- (IBAction)progressSheetCancel:(id)sender;
 
 @end
