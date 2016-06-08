@@ -11,15 +11,26 @@
 
 @interface MainWindowController : NSWindowController
 
-@property NSMutableArray *serverArray;
+@property (nonatomic) NSMutableArray *servers;
 @property IBOutlet NSArrayController *serverArrayController;
 @property IBOutlet NSTextView *logTextView;
+@property IBOutlet NSBox *databasesContentBox;
 
 - (IBAction)addServer:(id)sender;
 - (IBAction)removeServer:(id)sender;
 - (IBAction)openPathFolder:(id)sender;
+- (IBAction)openLogfile:(id)sender;
 - (IBAction)openPsql:(id)sender;
+- (IBAction)pg_dump:(id)sender;
+- (IBAction)pg_restore:(id)sender;
 - (IBAction)startServer:(id)sender;
 - (IBAction)stopServer:(id)sender;
+
+// ProgressSheet
+@property IBOutlet NSWindow *progressSheetWindow;
+@property NSString *progressSheetDescription;
+@property BOOL progressSheetAnimate;
+
+- (IBAction)progressSheetCancel:(id)sender;
 
 @end
