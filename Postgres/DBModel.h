@@ -6,8 +6,11 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@interface DBModel : NSObject
+@interface DBModel : NSObject<NSCopying>
+
+@property NSString *name;
+@property (readonly, nonatomic) NSImage *image;
 
 @end
