@@ -20,7 +20,7 @@
                 <rect key="frame" x="1" y="1" width="181" height="94"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FSf-wj-fA2" customClass="IconView">
+                    <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FSf-wj-fA2" customClass="IconView">
                         <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
                         <connections>
                             <outlet property="datasource" destination="-2" id="pIY-Nw-VeW"/>
@@ -36,11 +36,11 @@
                 </constraints>
             </clipView>
             <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="U7p-Av-bju">
-                <rect key="frame" x="1" y="79" width="181" height="16"/>
+                <rect key="frame" x="1" y="81" width="163" height="16"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Ktx-YL-ZFc">
-                <rect key="frame" x="166" y="1" width="16" height="94"/>
+                <rect key="frame" x="149" y="1" width="15" height="96"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <point key="canvasLocation" x="88.5" y="356"/>

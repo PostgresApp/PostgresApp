@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ProgressSheetController">
             <connections>
-                <outlet property="window" destination="QvC-M9-y7g" id="890-mT-K27"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="BNU-HN-ii0"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -31,7 +31,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="cancel:" target="-2" id="rxI-3m-Bbv"/>
+                            <action selector="cancel:" target="-2" id="1LE-JN-Lhq"/>
                         </connections>
                     </button>
                     <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="NIi-xb-ogu">
