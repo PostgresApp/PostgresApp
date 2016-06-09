@@ -9,12 +9,12 @@
 #import "IconView.h"
 #import "IconViewSection.h"
 
-#define TOP_PADDING 30
-#define SECTION_HEADER_HEIGHT 28
+#define TOP_PADDING 20
+#define SECTION_HEADER_HEIGHT 0
 #define SECTION_PADDING_TOP 0
 #define SECTION_PADDING_AFTER_HEADER 12
 #define SECTION_PADDING_BOTTOM 0
-#define BOTTOM_PADDING 30
+#define BOTTOM_PADDING 0
 
 @interface IconView () <NSTextFieldDelegate> {
 	NSTimeInterval typeNavigationLastKeypress;
