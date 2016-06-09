@@ -230,14 +230,14 @@
 	[task waitUntilExit];
 	
 	if (task.terminationStatus != 0 && error) {
-		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
-		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not start PostgreSQL server.",nil);
-		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
-		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
-		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
-		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
-		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
-		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:task.terminationStatus userInfo:errorUserInfo];
+		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not start PostgreSQL server.",nil);
+		userInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
+		userInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		userInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		userInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		userInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:task.terminationStatus userInfo:userInfo];
 	}
 
 	if (task.terminationStatus == 0) {
@@ -264,14 +264,14 @@
 	[task waitUntilExit];
 	
 	if (task.terminationStatus != 0 && error) {
-		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
-		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not stop PostgreSQL server.",nil);
-		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
-		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
-		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
-		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
-		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
-		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:task.terminationStatus userInfo:errorUserInfo];
+		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not stop PostgreSQL server.",nil);
+		userInfo[NSLocalizedRecoverySuggestionErrorKey] = controlTaskError;
+		userInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		userInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		userInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		userInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_ctl" code:task.terminationStatus userInfo:userInfo];
 	}
 	
 	if (task.terminationStatus == 0) {
@@ -298,10 +298,10 @@
 	[task waitUntilExit];
 	
 	if (task.terminationStatus != 0 && error) {
-		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
-		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not initialize database cluster.",nil);
-		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = initdbTaskError;
-		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.initdb" code:task.terminationStatus userInfo:errorUserInfo];
+		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not initialize database cluster.",nil);
+		userInfo[NSLocalizedRecoverySuggestionErrorKey] = initdbTaskError;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.initdb" code:task.terminationStatus userInfo:userInfo];
 	}
 	
 	return task.terminationStatus == 0;
@@ -324,14 +324,14 @@
 	[task waitUntilExit];
 	
 	if (task.terminationStatus != 0 && error) {
-		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
-		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create default user.",nil);
-		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = taskError;
-		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
-		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
-		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
-		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
-		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createuser" code:task.terminationStatus userInfo:errorUserInfo];
+		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create default user.",nil);
+		userInfo[NSLocalizedRecoverySuggestionErrorKey] = taskError;
+		userInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		userInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		userInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		userInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createuser" code:task.terminationStatus userInfo:userInfo];
 	}
 	
 	return task.terminationStatus == 0;
@@ -353,14 +353,14 @@
 	[task waitUntilExit];
 	
 	if (task.terminationStatus != 0 && error) {
-		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
-		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create user database.",nil);
-		errorUserInfo[NSLocalizedRecoverySuggestionErrorKey] = taskError;
-		errorUserInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
-		errorUserInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
-		errorUserInfo[@"ServerLogRecoveryOptionIndex"] = @1;
-		errorUserInfo[@"ServerLogPath"] = self.logfilePath;
-		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createdb" code:task.terminationStatus userInfo:errorUserInfo];
+		NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create user database.",nil);
+		userInfo[NSLocalizedRecoverySuggestionErrorKey] = taskError;
+		userInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Open Server Log"];
+		userInfo[NSRecoveryAttempterErrorKey] = [[RecoveryAttempter alloc] init];
+		userInfo[@"ServerLogRecoveryOptionIndex"] = @1;
+		userInfo[@"ServerLogPath"] = self.logfilePath;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createdb" code:task.terminationStatus userInfo:userInfo];
 	}
 	
 	return task.terminationStatus == 0;
