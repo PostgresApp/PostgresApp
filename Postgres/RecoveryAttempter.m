@@ -27,7 +27,7 @@
 		NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[delegate methodSignatureForSelector:didRecoverSelector]];
 		[inv setTarget:delegate];
 		[inv setSelector:didRecoverSelector];
-		BOOL no=NO;
+		BOOL no = NO;
 		[inv setArgument:&no atIndex:2];
 		[inv setArgument:&contextInfo atIndex:3];
 		[inv invoke];
