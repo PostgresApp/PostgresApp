@@ -43,13 +43,11 @@
 @property (readonly) BOOL isDarkMode;
 @property (nonatomic) NSImage *templateOffImage;
 @property (nonatomic) NSImage *templateOnImage;
+@property id interfaceThemeObserver;
 @end
 
 
-@implementation AppDelegate {
-    id _interfaceThemeObserver;
-}
-
+@implementation AppDelegate
 
 #pragma mark - NSApplicationDelegate
 
@@ -64,13 +62,8 @@
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-#ifdef SPARKLE
-    [self.checkForUpdatesMenuItem setEnabled:YES];
-    [self.checkForUpdatesMenuItem setHidden:NO];
-#endif
-    
     __weak AppDelegate *weakSelf = self;
-    _interfaceThemeObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
+    self.interfaceThemeObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
                                                                                            object:nil
                                                                                             queue:[NSOperationQueue mainQueue]
                                                                                        usingBlock:^(NSNotification *notification) {
@@ -115,7 +108,7 @@
 
 
 - (void)dealloc {
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:_interfaceThemeObserver];
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self.interfaceThemeObserver];
 }
 
 
@@ -131,14 +124,6 @@
 - (IBAction)openDocumentation:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgresapp.com/documentation"]];
 }
-
-- (IBAction)checkForUpdates:(id)sender {
-#ifdef SPARKLE
-    [[SUUpdater sharedUpdater] setSendsSystemProfile:YES];
-    [[SUUpdater sharedUpdater] checkForUpdates:sender];
-#endif
-}
-
 
 - (IBAction)openMainWindow:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES];
@@ -156,7 +141,7 @@
 
 
 
-#pragma mark - Custom methods
+#pragma mark - Helper methods
 
 -(void)validateNoOtherVersionsAreRunning {
 	NSMutableArray *runningCopies = [NSMutableArray array];

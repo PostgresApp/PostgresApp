@@ -7,9 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ProgressSheetController.h"
 
-@interface MainWindowController : NSWindowController <ProgressSheetControllerDelegate>
+@interface MainWindowController : NSWindowController
 
 @property (nonatomic) NSMutableArray *servers;
 @property IBOutlet NSArrayController *serverArrayController;

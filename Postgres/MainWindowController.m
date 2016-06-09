@@ -6,24 +6,22 @@
 //
 //
 
-
 #import "MainWindowController.h"
 #import "AddServerSheetController.h"
 #import "DatabasesViewController.h"
-#import "PostgresServer.h"
-#import "PGDumpTask.h"
-#import "ServerManager.h"
-#import "Terminal.h"
 #import "DBModel.h"
 #import "IconView.h"
-
+#import "PostgresServer.h"
+#import "ServerManager.h"
+#import "PGDumpController.h"
+#import "PGRestoreController.h"
+#import "Terminal.h"
 
 @interface MainWindowController ()
 @property AddServerSheetController *addServerSheetController;
-@property ProgressSheetController *progressSheetController;
 @property DatabasesViewController *databasesViewController;
 @property NSTask *logTask;
-@property PGDumpTask *dumpTask;
+@property (readonly) PostgresServer *selectedServer;
 @end
 
 
@@ -66,26 +64,27 @@
 
 
 #pragma mark - KVO
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"arrangedObjects.isRunning"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
-			// toggle DBView
-			BOOL isRunning = [[self.servers objectAtIndex:self.serverArrayController.selectionIndex] isRunning];
-			[self toggleDatabasesView:isRunning];
+			// show/hide DBView
+			BOOL isRunning = self.selectedServer.isRunning;
+			[self showHideDatabasesView:isRunning];
 			// set server of DatabasesViewController
-			self.databasesViewController.server = [self.servers objectAtIndex:self.serverArrayController.selectionIndex];
+			self.databasesViewController.server = self.selectedServer;
 		}
 	}
 	else if ([keyPath isEqualToString:@"selection.logfilePath"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
-			NSString *logfilePath = [[self.servers objectAtIndex:self.serverArrayController.selectionIndex] logfilePath];
+			// start monitoring logfile
+			NSString *logfilePath = self.selectedServer.logfilePath;
 			[self startMonitoringLogFile:logfilePath];
-			
-			// toggle DBView
-			BOOL isRunning = [[self.servers objectAtIndex:self.serverArrayController.selectionIndex] isRunning];
-			[self toggleDatabasesView:isRunning];
+			// show/hide DBView
+			BOOL isRunning = self.selectedServer.isRunning;
+			[self showHideDatabasesView:isRunning];
 			// set server of DatabasesViewController
-			self.databasesViewController.server = [self.servers objectAtIndex:self.serverArrayController.selectionIndex];
+			self.databasesViewController.server = self.selectedServer;
 			
 		} else {
 			[self startMonitoringLogFile:nil];
@@ -98,7 +97,8 @@
 
 
 
-#pragma mark IBActions
+#pragma mark - IBActions
+
 - (IBAction)addServer:(id)sender {
 	self.addServerSheetController = [[AddServerSheetController alloc] initWithWindowNibName:@"AddServerSheet"];
 	self.addServerSheetController.name = [NSString stringWithFormat:@"Server %lu", self.servers.count+1];
@@ -123,14 +123,8 @@
 			
 			if ([[self.servers objectAtIndex:selIdx] isRunning]) {
 				[[self.servers objectAtIndex:selIdx] stopWithCompletionHandler:^(BOOL success, NSError *error) {
-					if (! success) {
-						NSAlert *errAlert = [NSAlert alertWithMessageText:@"Could not stop server"
-															defaultButton:@"OK"
-														  alternateButton:nil
-															  otherButton:nil
-												informativeTextWithFormat:@"Please kill the process manually."
-											 ];
-						[errAlert beginSheetModalForWindow:self.window completionHandler:nil];
+					if (!success) {
+						[self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
 					}
 				}];
 			}
@@ -153,28 +147,24 @@
 		return;
 	}
 	
-    PostgresServer *selSrv = [self.servers objectAtIndex:[self.serverArrayController selectionIndex]];
-    if (selSrv) {
-        NSString *path = selSrv.varPath;
+	PostgresServer *selectedServer = self.selectedServer;
+    if (selectedServer) {
+        NSString *path = selectedServer.varPath;
 		if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
 	        [[NSWorkspace sharedWorkspace] selectFile:nil inFileViewerRootedAtPath:path];
 		} else {
-			NSAlert *alert = [NSAlert alertWithMessageText:@"Folder not found"
-											 defaultButton:@"OK"
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:@"It will be created the first time you start the server."
-							  ];
-			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse response) {}];
+			NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"Folder not found. It will be created the first time you start the server."};
+			NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.missing-folder" code:0 userInfo:userInfo];
+			[self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
 		}
     }
 }
 
 
 - (IBAction)openLogfile:(id)sender {
-	PostgresServer *selSrv = [self.servers objectAtIndex:[self.serverArrayController selectionIndex]];
-	if (selSrv) {
-		NSString *path = selSrv.logfilePath;
+	PostgresServer *selectedServer = self.selectedServer;
+	if (selectedServer) {
+		NSString *path = selectedServer.logfilePath;
 		if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
 			[[NSWorkspace sharedWorkspace] selectFile:nil inFileViewerRootedAtPath:path];
 		}
@@ -188,15 +178,15 @@
 		return;
 	}
 	
-	PostgresServer *selSrv = [self.servers objectAtIndex:[self.serverArrayController selectionIndex]];
-	if (selSrv) {
+	PostgresServer *selectedServer = self.selectedServer;
+	if (selectedServer) {
 		NSString *dbName = self.databasesViewController.selectedDBName;
 		if (dbName) {
 			TerminalApplication *terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
 			BOOL wasRunning = terminal.isRunning;
 			[terminal activate];
 			TerminalWindow *window = wasRunning ? nil : terminal.windows.firstObject;
-			NSString *psqlScript = [NSString stringWithFormat:@"'%@'/psql -p%u -d %@", [selSrv.binPath stringByReplacingOccurrencesOfString:@"'" withString:@"'\\''"], (unsigned)selSrv.port, dbName];
+			NSString *psqlScript = [NSString stringWithFormat:@"'%@'/psql -p%u -d %@", [selectedServer.binPath stringByReplacingOccurrencesOfString:@"'" withString:@"'\\''"], (unsigned)selectedServer.port, dbName];
 			[terminal doScript:psqlScript in:window.tabs.firstObject];
 		}
     }
@@ -205,39 +195,18 @@
 
 - (IBAction)pg_dump:(id)sender {
 	NSString *dbName = self.databasesViewController.selectedDBName;
+	if (!dbName) {
+		return;
+	}
 	
-	if (!dbName) return;
-	//NSString *directoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-	
-	NSSavePanel *savePanel = [NSSavePanel savePanel];
-	//savePanel.directoryURL = [NSURL fileURLWithPath:directoryPath];
-	savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@.pg_dump", dbName];
-	[savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-		if (result == NSFileHandlingPanelOKButton) {
-			[savePanel close];
-			
-			[self beginProgressSheetWithMessage:@"Dumping database..."];
-			
-			self.dumpTask = [[PGDumpTask alloc] init];
-			self.dumpTask.server = self.servers[self.serverArrayController.selectionIndex];
-			self.dumpTask.dbName = dbName;
-			self.dumpTask.filePath = savePanel.URL.path;
-			[self.dumpTask startWithCompletionHandler:^(BOOL success, NSError *error) {
-				if (success) {
-					[self endProgressSheet];
-				}
-				else {
-					[self endProgressSheet];
-					[self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-				}
-			}];
-		}
-	}];
+	PGDumpController *dumpController = [[PGDumpController alloc] initWithServer:self.selectedServer dbName:dbName];
+	[dumpController startModalForWindow:self.window];
 }
 
 
 - (IBAction)pg_restore:(id)sender {
-	
+	PGRestoreController *restoreController = [[PGRestoreController alloc] initWithServer:self.selectedServer];
+	[restoreController startModalForWindow:self.window];
 }
 
 
@@ -247,32 +216,29 @@
 		return;
 	}
 	
-	PostgresServer *selServer = [[self.serverArrayController selectedObjects] lastObject];
-	if (! selServer) {
+	PostgresServer *selectedServer = self.selectedServer;
+	if (!selectedServer) {
 		return;
 	}
 	
     PostgresServerControlCompletionHandler completionHandler = ^(BOOL success, NSError *error) {
-		if (! success) {
-			NSAlert *alert = [NSAlert alertWithError:error];
-			[alert beginSheetModalForWindow:self.window completionHandler:nil];
+		if (!success) {
+			[self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
 		}
     };
 	
-    PostgresServerStatus serverStatus = [selServer serverStatus];
+    PostgresServerStatus serverStatus = [selectedServer serverStatus];
 	
     if (serverStatus == PostgresServerWrongDataDirectory) {
 		NSDictionary *userInfo = @{
-								   NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is already a PostgreSQL server running on port %lu", selServer.port],
+								   NSLocalizedDescriptionKey:[NSString stringWithFormat:@"There is already a PostgreSQL server running on port %lu", selectedServer.port],
 								   NSLocalizedRecoverySuggestionErrorKey:@"Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
 								   };
 		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
         completionHandler(NO, error);
     }
 	else if (serverStatus == PostgresServerStatusNoBinDir) {
-		NSDictionary *userInfo = @{
-								   NSLocalizedDescriptionKey:@"The binaries for this PostgreSQL server were not found"
-								   };
+		NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"The binaries for this PostgreSQL server were not found"};
 		NSError *error = [NSError errorWithDomain:@"com.postgresapp.Postgres.server-status" code:serverStatus userInfo:userInfo];
 		completionHandler(NO, error);
 	}
@@ -280,7 +246,7 @@
         completionHandler(YES, nil);
     }
     else {
-        [selServer startWithCompletionHandler:completionHandler];
+        [selectedServer startWithCompletionHandler:completionHandler];
     }
 	
 }
@@ -293,9 +259,9 @@
 		return;
 	}
 	
-    PostgresServer *selServer = [[self.serverArrayController selectedObjects] lastObject];
-    if (selServer) {
-        [selServer stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
+	PostgresServer *selectedServer = self.selectedServer;
+	if (selectedServer) {
+        [selectedServer stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
     }
 }
 
@@ -373,7 +339,7 @@
 
 
 
-- (void)toggleDatabasesView:(BOOL)show {
+- (void)showHideDatabasesView:(BOOL)show {
 	[self.databasesContentBox setContentView:(show) ? self.databasesViewController.view : nil];
 }
 
@@ -389,29 +355,29 @@
 	[ServerManager sharedManager].servers = servers;
 }
 
+- (PostgresServer *)selectedServer {
+	return self.servers[self.serverArrayController.selectionIndex];
+}
 
 
-#pragma mark ProgressSheet
 
-- (void)beginProgressSheetWithMessage:(NSString *)message {
-	if (!self.progressSheetController) {
-		self.progressSheetController = [[ProgressSheetController alloc] initWithWindowNibName:@"ProgressSheet"];
-		self.progressSheetController.delegate = self;
+#pragma mark - Custom error sheet
+
+-(void)presentError:(NSError *)error modalForWindow:(NSWindow *)window delegate:(id)delegate didPresentSelector:(SEL)didPresentSelector contextInfo:(void *)contextInfo {
+	NSAlert *alert = [NSAlert alertWithError:error];
+	
+	if (error.userInfo[@"RawCommandOutput"]) {
+		NSArray *tlo;
+		[[NSBundle mainBundle] loadNibNamed:@"AlertAccessoryView" owner:nil topLevelObjects:&tlo];
+		for (id obj in tlo) {
+			if ([obj isKindOfClass:[NSScrollView class]]) {
+				((NSTextView*)((NSScrollView*)obj).contentView.documentView).textStorage.mutableString.string = error.userInfo[@"RawCommandOutput"];
+				alert.accessoryView = obj;
+			}
+		}
 	}
 	
-	self.progressSheetController.message = message;
-	[NSApp beginSheet:self.progressSheetController.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
-}
-
-- (void)endProgressSheet {
-	[NSApp endSheet:self.progressSheetController.window];
-	[self.progressSheetController close];
-}
-
-
-- (void)progressSheetCancel:(id)sender {
-	[self.dumpTask cancel];
-	[self endProgressSheet];
+	[alert beginSheetModalForWindow:window modalDelegate:delegate didEndSelector:didPresentSelector contextInfo:contextInfo];
 }
 
 @end

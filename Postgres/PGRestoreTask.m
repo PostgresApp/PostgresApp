@@ -1,22 +1,22 @@
 //
-//  PGDumpTask.m
+//  PGRestoreTask.m
 //  Postgres
 //
-//  Created by Chris on 07/06/16.
+//  Created by Chris on 09/06/16.
 //
 //
 
-#import "PGDumpTask.h"
+#import "PGRestoreTask.h"
 #import "PostgresServer.h"
 
-@interface PGDumpTask ()
+@interface PGRestoreTask ()
 @property NSTask *task;
 @end
 
 
-@implementation PGDumpTask
+@implementation PGRestoreTask
 
-- (void)startWithCompletionHandler:(PGDumpTaskCompletionHandler)completionBlock {
+- (void)startWithCompletionHandler:(PGRestoreTaskCompletionHandler)completionBlock {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSError *error = nil;
 		BOOL success = [self executeWithError:&error];
@@ -27,14 +27,13 @@
 
 - (BOOL)executeWithError:(NSError **)error {
 	self.task = [[NSTask alloc] init];
-	self.task.launchPath = [self.server.binPath stringByAppendingPathComponent:@"pg_dump"];
+	self.task.launchPath = [self.server.binPath stringByAppendingPathComponent:@"pg_restore"];
 	self.task.arguments = @[
 							@"-p", @(self.server.port).stringValue,
 							@"-F", @"c",
-							@"-Z", @"9",
-							@"-f", self.filePath,
-							self.dbName
-	];
+							@"-d", self.dbName,
+							self.filePath,
+							];
 	
 	self.task.standardOutput = [[NSPipe alloc] init];
 	self.task.standardError = [[NSPipe alloc] init];
@@ -44,11 +43,11 @@
 	
 	if (self.task.terminationStatus != 0 && error) {
 		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
-		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not dump database", nil);
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not restore database", nil);
 		if (description) errorUserInfo[@"RawCommandOutput"] = description;
-		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_dump" code:self.task.terminationStatus userInfo:errorUserInfo];
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_restore" code:self.task.terminationStatus userInfo:errorUserInfo];
 	}
-	
+		
 	return self.task.terminationStatus == 0;
 }
 
