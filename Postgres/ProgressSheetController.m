@@ -17,7 +17,7 @@
 
 
 - (IBAction)cancel:(id)sender {
-	[self.delegate performSelector:@selector(progressSheetCancel:) withObject:self];
+	[self.delegate progressSheetCancel:self];
 }
 
 @end
