@@ -25,7 +25,6 @@
 
 #import "AppDelegate.h"
 #import "MainWindowController.h"
-#import "StatusMenuItemViewController.h"
 #import "PostgresServer.h"
 #import "ServerManager.h"
 #import "PGApplicationMover.h"
@@ -86,8 +85,6 @@
 	self.statusBarItem.menu = self.statusMenu;
     self.statusBarItem.image = self.templateOffImage;
 	self.statusBarItem.alternateImage = self.templateOnImage;
-	
-	self.statusMenuItem.view = self.statusMenuItemViewController.view;
 	
 	[NSApp activateIgnoringOtherApps:YES];
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
@@ -152,11 +149,11 @@
 	[runningCopies addObjectsFromArray:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.postgresapp.Postgres93"]];
 	for (NSRunningApplication *runningCopy in runningCopies) {
 		if (![runningCopy isEqual:[NSRunningApplication currentApplication]]) {
-			NSAlert *alert = [NSAlert alertWithMessageText: @"Another copy of Postgres.app is already running."
-											 defaultButton: @"OK"
-										   alternateButton: nil
-											   otherButton: nil
-								 informativeTextWithFormat: @"Please quit %@ before starting this copy.", runningCopy.localizedName];
+			NSAlert *alert = [NSAlert alertWithMessageText:@"Another copy of Postgres.app is already running."
+											 defaultButton:@"OK"
+										   alternateButton:nil
+											   otherButton:nil
+								 informativeTextWithFormat:@"Please quit %@ before starting this copy.", runningCopy.localizedName];
 			[alert runModal];
 			exit(1);
 		}

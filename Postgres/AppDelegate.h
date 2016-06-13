@@ -25,14 +25,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ServerManager, StatusMenuItemViewController;
+@class ServerManager;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (weak) ServerManager *serverManager;
 @property (weak) IBOutlet NSMenu *statusMenu;
-@property (weak) IBOutlet NSMenuItem *statusMenuItem;
-@property IBOutlet StatusMenuItemViewController *statusMenuItemViewController;
 
 - (IBAction)selectAbout:(id)sender;
 - (IBAction)openDocumentation:(id)sender;
