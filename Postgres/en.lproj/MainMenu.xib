@@ -79,10 +79,6 @@
         </menu>
         <menu title="Postgres" id="553" userLabel="Status Bar Item Menu">
             <items>
-                <menuItem title="&lt;statusMenuItem&gt;" enabled="NO" id="559">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="572"/>
                 <menuItem title="About Postgres" id="554">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -113,11 +109,8 @@
         <customObject id="494" customClass="AppDelegate">
             <connections>
                 <outlet property="statusMenu" destination="553" id="qoK-hz-pQe"/>
-                <outlet property="statusMenuItem" destination="559" id="kjf-xa-h0y"/>
-                <outlet property="statusMenuItemViewController" destination="578" id="SML-Mz-qHq"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <viewController nibName="StatusMenuItemView" id="578" customClass="StatusMenuItemViewController"/>
     </objects>
 </document>

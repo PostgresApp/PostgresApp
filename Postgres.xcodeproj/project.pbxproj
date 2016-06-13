@@ -23,8 +23,6 @@
 		83262EBD1D0721D400C4F5E5 /* ProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */; };
 		832F2D4C1D0844300058B4D4 /* ProgressSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */; };
 		832F2D6C1D0964D30058B4D4 /* PGRestoreTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 832F2D6B1D0964D30058B4D4 /* PGRestoreTask.m */; };
-		836ABAB31D04442A00BC84E4 /* StatusMenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */; };
-		836ABAB51D04443700BC84E4 /* StatusMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */; };
 		83764BC41D09E3C000FAE7E0 /* PGDumpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83764BC31D09E3C000FAE7E0 /* PGDumpController.m */; };
 		83764BC61D09E66E00FAE7E0 /* PGDump.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83764BC51D09E66E00FAE7E0 /* PGDump.xib */; };
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
@@ -135,9 +133,6 @@
 		832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressSheetController.m; sourceTree = "<group>"; };
 		832F2D6A1D0964D30058B4D4 /* PGRestoreTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRestoreTask.h; sourceTree = "<group>"; };
 		832F2D6B1D0964D30058B4D4 /* PGRestoreTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRestoreTask.m; sourceTree = "<group>"; };
-		836ABAB11D04442A00BC84E4 /* StatusMenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusMenuItemViewController.h; sourceTree = "<group>"; };
-		836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusMenuItemViewController.m; sourceTree = "<group>"; };
-		836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusMenuItemView.xib; sourceTree = "<group>"; };
 		83764BC21D09E3C000FAE7E0 /* PGDumpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDumpController.h; sourceTree = "<group>"; };
 		83764BC31D09E3C000FAE7E0 /* PGDumpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDumpController.m; sourceTree = "<group>"; };
 		83764BC51D09E66E00FAE7E0 /* PGDump.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGDump.xib; sourceTree = "<group>"; };
@@ -377,9 +372,6 @@
 				83B4E7A41CF46B7C00D24B46 /* AddServerSheet.xib */,
 				83E793701CEB5CCE008CD1F2 /* ServerTableCellView.h */,
 				83E793711CEB5CCE008CD1F2 /* ServerTableCellView.m */,
-				836ABAB11D04442A00BC84E4 /* StatusMenuItemViewController.h */,
-				836ABAB21D04442A00BC84E4 /* StatusMenuItemViewController.m */,
-				836ABAB41D04443700BC84E4 /* StatusMenuItemView.xib */,
 				F8973A36153884EF00EAB41E /* PostgresServer.h */,
 				F8973A35153884EF00EAB41E /* PostgresServer.m */,
 				83A638FA1CF265BC008D4D1B /* ServerManager.h */,
@@ -524,7 +516,6 @@
 				83262EBD1D0721D400C4F5E5 /* ProgressSheet.xib in Resources */,
 				8313A4F91D05A1C80038814C /* DatabasesView.xib in Resources */,
 				F8C09C4B15ACD15C00F571AE /* status-off.png in Resources */,
-				836ABAB51D04443700BC84E4 /* StatusMenuItemView.xib in Resources */,
 				83B4E7A51CF46B7C00D24B46 /* AddServerSheet.xib in Resources */,
 				F8C09C4D15ACD15C00F571AE /* status-on.png in Resources */,
 				0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
@@ -600,7 +591,6 @@
 				83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */,
 				83262EAD1D06E65500C4F5E5 /* IconViewSection.m in Sources */,
 				83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */,
-				836ABAB31D04442A00BC84E4 /* StatusMenuItemViewController.m in Sources */,
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				832F2D6C1D0964D30058B4D4 /* PGRestoreTask.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
