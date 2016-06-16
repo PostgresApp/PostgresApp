@@ -1,4 +1,4 @@
-// PostgresConstants.h
+// PostgresAppConstants.h
 //
 // Created by Mattt Thompson (http://mattt.me/)
 // Copyright (c) 2012 Heroku (http://heroku.com/)
@@ -22,10 +22,6 @@
 // FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN
 // "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO
 // PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-
-
-//#define BUNDLE_PATH [[NSBundle mainBundle] bundlePath]
-#define BUNDLE_PATH @"/Applications/Postgres.app"
 
 static NSUInteger const kPostgresAppDefaultPort = 5432;
 static NSUInteger const kPostgresAppMaxLogLines = 10;

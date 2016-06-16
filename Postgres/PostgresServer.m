@@ -26,6 +26,7 @@
 
 #import "PostgresServer.h"
 #import "RecoveryAttempter.h"
+#import <libpq-fe.h>
 
 
 @interface PostgresServer()
@@ -368,6 +369,19 @@
 
 
 
+#pragma mark - Async property helpers
+
+- (void)setIsRunningOnMainThread:(BOOL)isRunning {
+	dispatch_async(dispatch_get_main_queue(), ^{ self.isRunning = isRunning; });
+}
+
+
+- (void)setIsBusyOnMainThread:(BOOL)isBusy {
+	dispatch_async(dispatch_get_main_queue(), ^{ self.isBusy = isBusy; });
+}
+
+
+
 #pragma mark - Custom properties
 
 - (void)setIsRunning:(BOOL)isRunning {
@@ -408,20 +422,31 @@
 			break;
 	}
 	
-	return @"UNKNOWN STATUS";
+	return @"STATUS N/A";
+}
+
+
+- (NSArray *)databases {
+	NSMutableArray *dbs = [[NSMutableArray alloc] init];
+	
+	NSString *connectionString = [NSString stringWithFormat:@"postgresql://:%lu", self.port];
+	PGconn *conn = PQconnectdb(connectionString.UTF8String);
+	PGresult *result = PQexec(conn, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)");
+	
+	//ConnStatusType status = PQstatus(conn);
+	
+	for (int i=0; i<PQntuples(result); i++) {
+		NSString *value = @(PQgetvalue(result, i, 0));
+		[dbs addObject:value];
+	}
+	
+	PQfinish(conn);
+	
+	return dbs;
 }
 
 
 
-#pragma mark - Async property helpers
 
-- (void)setIsRunningOnMainThread:(BOOL)isRunning {
-	dispatch_async(dispatch_get_main_queue(), ^{ self.isRunning = isRunning; });
-}
-
-
-- (void)setIsBusyOnMainThread:(BOOL)isBusy {
-	dispatch_async(dispatch_get_main_queue(), ^{ self.isBusy = isBusy; });
-}
 
 @end
