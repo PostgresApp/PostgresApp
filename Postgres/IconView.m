@@ -418,13 +418,16 @@
 }
 
 -(void)selectItem:(id)newSelectedItem byExtendingSelection:(BOOL)extend {
-	if (!extend) {
+	if (!newSelectedItem) return;
+	
+	//if (!extend) {
 		for (id item in _selectedItems) {
 			NSValue *rectObject = [itemRects objectForKey:item];
 			if (rectObject) [self setNeedsDisplayInRect:NSInsetRect(rectObject.rectValue,-4,-4)];
 		}
 		[_selectedItems removeAllObjects];
-	}
+	//}
+	
 	if (newSelectedItem && ![_selectedItems containsObject:newSelectedItem]) {
 		[_selectedItems addObject:newSelectedItem];
 		NSValue *rectObject = [itemRects objectForKey:newSelectedItem];
@@ -434,12 +437,14 @@
 }
 
 -(void)deselectItem:(id)item {
+	/*
 	if ([_selectedItems containsObject:item]) {
 		[_selectedItems removeObject:item];
 		NSValue *rectObject = [itemRects objectForKey:item];
 		if (rectObject) [self setNeedsDisplayInRect:NSInsetRect(rectObject.rectValue,-4,-4)];
 	}
 	lastSelectItem = item;
+	 */
 }
 
 -(void)mouseUp:(NSEvent *)theEvent {
