@@ -20,7 +20,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="881" height="451"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="881" height="451"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -103,11 +103,11 @@
                         <tabViewItems>
                             <tabViewItem label="Databases" identifier="1" id="pBi-Fc-SGC">
                                 <view key="view" ambiguous="YES" id="8uv-6g-e1L">
-                                    <rect key="frame" x="10" y="33" width="180" height="0.0"/>
+                                    <rect key="frame" x="10" y="33" width="639" height="235"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <box fixedFrame="YES" title="Databases" borderType="none" translatesAutoresizingMaskIntoConstraints="NO" id="60n-9z-2nB">
-                                            <rect key="frame" x="14" y="-181" width="619" height="153"/>
+                                            <rect key="frame" x="14" y="54" width="619" height="153"/>
                                             <view key="contentView" id="Z7Y-14-U0Y">
                                                 <rect key="frame" x="0.0" y="0.0" width="619" height="138"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,7 @@
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mc0-qL-lhc">
-                                            <rect key="frame" x="15" y="-20" width="653" height="17"/>
+                                            <rect key="frame" x="15" y="215" width="653" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;statusMessageExtended&gt;" id="pGU-7U-9Ip">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -127,7 +127,7 @@
                                             </connections>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-SB-7aH">
-                                            <rect key="frame" x="526" y="-225" width="102" height="32"/>
+                                            <rect key="frame" x="526" y="10" width="102" height="32"/>
                                             <buttonCell key="cell" type="push" title="Open psql" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QVm-If-bcg">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -137,26 +137,26 @@
                                                 <binding destination="3zM-Vk-PoP" name="enabled" keyPath="selection.isRunning" id="jjs-SI-5N7"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mun-sW-daW">
-                                            <rect key="frame" x="324" y="-225" width="97" height="32"/>
-                                            <buttonCell key="cell" type="push" title="pg_dump" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MJ0-TT-MYw">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="pg_dump:" target="-2" id="4rH-Fz-IrJ"/>
-                                                <binding destination="3zM-Vk-PoP" name="enabled" keyPath="selection.isRunning" id="ETR-BX-8yy"/>
-                                            </connections>
-                                        </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEm-Fh-y8X">
-                                            <rect key="frame" x="421" y="-225" width="105" height="32"/>
-                                            <buttonCell key="cell" type="push" title="pg_restore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1C2-eu-s6f">
+                                            <rect key="frame" x="406" y="10" width="120" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Restore DB..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1C2-eu-s6f">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="pg_restore:" target="-2" id="QNm-Ra-H69"/>
                                                 <binding destination="3zM-Vk-PoP" name="enabled" keyPath="selection.isRunning" id="Yih-hH-UkZ"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mun-sW-daW">
+                                            <rect key="frame" x="297" y="10" width="109" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Dump DB..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MJ0-TT-MYw">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="pg_dump:" target="-2" id="4rH-Fz-IrJ"/>
+                                                <binding destination="3zM-Vk-PoP" name="enabled" keyPath="selection.isRunning" id="ETR-BX-8yy"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -254,8 +254,8 @@
                                             </connections>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XfE-Y5-XTW">
-                                            <rect key="frame" x="497" y="126" width="73" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZEs-QR-pNC">
+                                            <rect key="frame" x="441" y="126" width="129" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Open in Finder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZEs-QR-pNC">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -300,17 +300,17 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Xg4-6V-Y00">
-                                                <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                                <rect key="frame" x="1" y="157" width="598" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="GEU-7i-xpy">
-                                                <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                                                <rect key="frame" x="583" y="1" width="16" height="172"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfr-uV-Z5U">
-                                            <rect key="frame" x="506" y="10" width="117" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Open Logfile" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xW4-KX-WJa">
+                                            <rect key="frame" x="499" y="10" width="124" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Open Log File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xW4-KX-WJa">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -369,7 +369,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Postgres" id="8Nn-VL-3S7"/>
                     </imageView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aTW-gl-7V7">
-                        <rect key="frame" x="20" y="19" width="21" height="21"/>
+                        <rect key="frame" x="20" y="17" width="21" height="23"/>
                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kPX-UY-9wY">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -377,17 +377,6 @@
                         <connections>
                             <action selector="addServer:" target="-2" id="Yg1-ui-hhm"/>
                             <binding destination="3zM-Vk-PoP" name="enabled" keyPath="canAdd" id="6rR-mg-wYj"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EPR-zk-AqT">
-                        <rect key="frame" x="40" y="19" width="21" height="21"/>
-                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="D9v-fk-OV8">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="removeServer:" target="-2" id="QF1-ed-V38"/>
-                            <binding destination="3zM-Vk-PoP" name="enabled" keyPath="canRemove" id="yMb-sk-wxj"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HWg-Dc-Ker">
@@ -425,9 +414,20 @@
                             </binding>
                         </connections>
                     </progressIndicator>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EPR-zk-AqT">
+                        <rect key="frame" x="40" y="17" width="21" height="23"/>
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="D9v-fk-OV8">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="removeServer:" target="-2" id="QF1-ed-V38"/>
+                            <binding destination="3zM-Vk-PoP" name="enabled" keyPath="canRemove" id="yMb-sk-wxj"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-1552.5" y="-2188.5"/>
+            <point key="canvasLocation" x="-1805.5" y="-2319.5"/>
         </window>
         <arrayController objectClassName="PostgresServer" editable="NO" id="3zM-Vk-PoP">
             <connections>

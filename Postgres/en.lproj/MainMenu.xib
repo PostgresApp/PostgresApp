@@ -77,40 +77,7 @@
                 </menuItem>
             </items>
         </menu>
-        <menu title="Postgres" id="553" userLabel="Status Bar Item Menu">
-            <items>
-                <menuItem title="About Postgres" id="554">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="selectAbout:" target="494" id="564"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Documentation…" id="555">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openDocumentation:" target="494" id="Hi6-yv-vbG"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Servers..." id="56Q-HK-V8p">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openMainWindow:" target="494" id="NzK-fV-tfs"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="587"/>
-                <menuItem title="Quit" id="573">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="terminate:" target="-1" id="575"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
-        <customObject id="494" customClass="AppDelegate">
-            <connections>
-                <outlet property="statusMenu" destination="553" id="qoK-hz-pQe"/>
-            </connections>
-        </customObject>
+        <customObject id="494" customClass="AppDelegate"/>
         <customObject id="420" customClass="NSFontManager"/>
     </objects>
 </document>
