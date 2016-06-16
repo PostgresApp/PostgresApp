@@ -6,8 +6,6 @@
 //
 //
 
-#ifndef PostgresHelperConstants_h
-#define PostgresHelperConstants_h
-
-
-#endif /* PostgresHelperConstants_h */
+static NSString* const kAppleInterfaceStyle = @"AppleInterfaceStyle";
+static NSString* const kAppleInterfaceStyleDark = @"Dark";
+static NSString* const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeChangedNotification";
