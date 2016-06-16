@@ -13,4 +13,6 @@
 @property NSString *name;
 @property (readonly, nonatomic) NSImage *image;
 
+- (id)initWithName:(NSString *)name;
+
 @end

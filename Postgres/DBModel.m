@@ -10,6 +10,15 @@
 
 @implementation DBModel
 
+- (id)initWithName:(NSString *)name {
+	self = [super init];
+	if (self) {
+		self.name = name;
+	}
+	return self;
+}
+
+
 - (NSImage *)image {
 	static NSImage *schemaImage = nil;
 	static dispatch_once_t onceToken;
