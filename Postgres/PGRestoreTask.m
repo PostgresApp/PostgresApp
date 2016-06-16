@@ -19,13 +19,37 @@
 - (void)startWithCompletionHandler:(PGRestoreTaskCompletionHandler)completionBlock {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSError *error = nil;
-		BOOL success = [self executeWithError:&error];
+		BOOL success = [self createDBWithError:&error] && [self restoreWithError:&error];
 		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(success, error); });
 	});
 }
 
 
-- (BOOL)executeWithError:(NSError **)error {
+- (BOOL)createDBWithError:(NSError **)error {
+	self.task = [[NSTask alloc] init];
+	self.task.launchPath = [self.server.binPath stringByAppendingPathComponent:@"createdb"];
+	self.task.arguments = @[
+							@"-p", @(self.server.port).stringValue,
+							self.dbName,
+							];
+	
+	self.task.standardOutput = [[NSPipe alloc] init];
+	self.task.standardError = [[NSPipe alloc] init];
+	[self.task launch];
+	NSString *description = [[NSString alloc] initWithData:[[self.task.standardError fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+	[self.task waitUntilExit];
+	
+	if (self.task.terminationStatus != 0 && error) {
+		NSMutableDictionary *errorUserInfo = [[NSMutableDictionary alloc] init];
+		errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not create database", nil);
+		if (description) errorUserInfo[@"RawCommandOutput"] = description;
+		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.createdb" code:self.task.terminationStatus userInfo:errorUserInfo];
+	}
+	
+	return self.task.terminationStatus == 0;
+}
+
+- (BOOL)restoreWithError:(NSError **)error {
 	self.task = [[NSTask alloc] init];
 	self.task.launchPath = [self.server.binPath stringByAppendingPathComponent:@"pg_restore"];
 	self.task.arguments = @[
@@ -47,7 +71,7 @@
 		if (description) errorUserInfo[@"RawCommandOutput"] = description;
 		*error = [NSError errorWithDomain:@"com.postgresapp.Postgres.pg_restore" code:self.task.terminationStatus userInfo:errorUserInfo];
 	}
-		
+	
 	return self.task.terminationStatus == 0;
 }
 
