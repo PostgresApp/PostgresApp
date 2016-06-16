@@ -10,4 +10,7 @@
 
 @interface MenuItemViewController : NSViewController
 
+@property NSString *name;
+@property NSImage *statusImage;
+
 @end
