@@ -9,7 +9,6 @@
 #import "MainWindowController.h"
 #import "AddServerSheetController.h"
 #import "DatabasesViewController.h"
-#import "DBModel.h"
 #import "IconView.h"
 #import "PostgresServer.h"
 #import "ServerManager.h"
@@ -261,7 +260,11 @@
 	
 	PostgresServer *selectedServer = self.selectedServer;
 	if (selectedServer) {
-        [selectedServer stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
+        [selectedServer stopWithCompletionHandler:^(BOOL success, NSError *error) {
+			if (!success) {
+				[self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
+			}
+		}];
     }
 }
 
@@ -336,7 +339,6 @@
 		}
 	}
 }
-
 
 
 - (void)showHideDatabasesView:(BOOL)show {
