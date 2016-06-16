@@ -26,6 +26,7 @@
 		83262EBD1D0721D400C4F5E5 /* ProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83262EBC1D0721D400C4F5E5 /* ProgressSheet.xib */; };
 		832F2D4C1D0844300058B4D4 /* ProgressSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */; };
 		832F2D6C1D0964D30058B4D4 /* PGRestoreTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 832F2D6B1D0964D30058B4D4 /* PGRestoreTask.m */; };
+		8371BA511D1368B800268FD5 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 8371BA501D1368B700268FD5 /* NSFileManager+DirectoryLocations.m */; };
 		83764BC41D09E3C000FAE7E0 /* PGDumpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83764BC31D09E3C000FAE7E0 /* PGDumpController.m */; };
 		83764BC61D09E66E00FAE7E0 /* PGDump.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83764BC51D09E66E00FAE7E0 /* PGDump.xib */; };
 		83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83800E781CEB071C0078CFEA /* MainWindowController.m */; };
@@ -49,7 +50,6 @@
 		F884C8F0153C76F800CDCB09 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */; };
 		F884C8F1153C786D00CDCB09 /* PostgresHelper.app in Copy Helper Application */ = {isa = PBXBuildFile; fileRef = F87A426D153AB60C00456130 /* PostgresHelper.app */; };
 		F884C91A153CA24400CDCB09 /* Postgres.icns in Resources */ = {isa = PBXBuildFile; fileRef = F884C919153CA24400CDCB09 /* Postgres.icns */; };
-		F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = F88BDC8515704B22004ECB52 /* NSFileManager+DirectoryLocations.m */; };
 		F88BDC9115704C15004ECB52 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F88BDC9015704C14004ECB52 /* Security.framework */; };
 		F8973A0D1538846600EAB41E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F8973A171538846600EAB41E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8973A151538846600EAB41E /* InfoPlist.strings */; };
@@ -142,6 +142,8 @@
 		832F2D4B1D0844300058B4D4 /* ProgressSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressSheetController.m; sourceTree = "<group>"; };
 		832F2D6A1D0964D30058B4D4 /* PGRestoreTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRestoreTask.h; sourceTree = "<group>"; };
 		832F2D6B1D0964D30058B4D4 /* PGRestoreTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRestoreTask.m; sourceTree = "<group>"; };
+		8371BA4F1D1368B700268FD5 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
+		8371BA501D1368B700268FD5 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		83764BC21D09E3C000FAE7E0 /* PGDumpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDumpController.h; sourceTree = "<group>"; };
 		83764BC31D09E3C000FAE7E0 /* PGDumpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDumpController.m; sourceTree = "<group>"; };
 		83764BC51D09E66E00FAE7E0 /* PGDump.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGDump.xib; sourceTree = "<group>"; };
@@ -172,8 +174,6 @@
 		F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F884C8F3153C7A4C00CDCB09 /* PostgresHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PostgresHelper.entitlements; path = ../PostgresHelper.entitlements; sourceTree = "<group>"; };
 		F884C919153CA24400CDCB09 /* Postgres.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Postgres.icns; sourceTree = "<group>"; };
-		F88BDC8415704B22004ECB52 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
-		F88BDC8515704B22004ECB52 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		F88BDC9015704C14004ECB52 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F8973A081538846600EAB41E /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8973A0C1538846600EAB41E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -191,7 +191,6 @@
 		F8973A36153884EF00EAB41E /* PostgresServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresServer.h; sourceTree = "<group>"; };
 		F8973A3D1538851D00EAB41E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8973A531538869700EAB41E /* Postgres.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Postgres.entitlements; sourceTree = "<group>"; };
-		F8A4B56B15735F26003C00F5 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Postgres/Vendor/Sparkle.framework; sourceTree = "<group>"; };
 		F8C09C4815ACD15C00F571AE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off.png"; sourceTree = "<group>"; };
 		F8C09C4A15ACD15C00F571AE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,6 +237,23 @@
 				83262EAA1D06E65500C4F5E5 /* IconViewSection.m */,
 			);
 			name = IconView;
+			sourceTree = "<group>";
+		};
+		8371BA4D1D1368B700268FD5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8371BA4E1D1368B700268FD5 /* NSFileManager+DirectoryLocations */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8371BA4E1D1368B700268FD5 /* NSFileManager+DirectoryLocations */ = {
+			isa = PBXGroup;
+			children = (
+				8371BA4F1D1368B700268FD5 /* NSFileManager+DirectoryLocations.h */,
+				8371BA501D1368B700268FD5 /* NSFileManager+DirectoryLocations.m */,
+			);
+			path = "NSFileManager+DirectoryLocations";
 			sourceTree = "<group>";
 		};
 		83B9F3E51D09BB0D00CD745B /* Dump / Restore */ = {
@@ -308,26 +324,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F88BDC8315704B22004ECB52 /* NSFileManager+DirectoryLocations */ = {
-			isa = PBXGroup;
-			children = (
-				F88BDC8415704B22004ECB52 /* NSFileManager+DirectoryLocations.h */,
-				F88BDC8515704B22004ECB52 /* NSFileManager+DirectoryLocations.m */,
-			);
-			name = "NSFileManager+DirectoryLocations";
-			path = "Postgres/Vendor/NSFileManager+DirectoryLocations";
-			sourceTree = "<group>";
-		};
 		F89739FD1538846600EAB41E = {
 			isa = PBXGroup;
 			children = (
-				F884C919153CA24400CDCB09 /* Postgres.icns */,
-				36A9A9B81B0DFB0100C7F424 /* src */,
 				F8973A121538846600EAB41E /* Postgres */,
 				F87A4270153AB60C00456130 /* PostgresHelper */,
-				F8973A32153884AC00EAB41E /* Vendor */,
 				F8973A0B1538846600EAB41E /* Frameworks */,
 				F8973A091538846600EAB41E /* Products */,
+				36A9A9B81B0DFB0100C7F424 /* src */,
+				F884C919153CA24400CDCB09 /* Postgres.icns */,
 			);
 			sourceTree = "<group>";
 		};
@@ -348,7 +353,6 @@
 				F8973A3D1538851D00EAB41E /* Foundation.framework */,
 				F8973A0C1538846600EAB41E /* Cocoa.framework */,
 				3609DA071853B31F00665ED2 /* ScriptingBridge.framework */,
-				F8A4B56B15735F26003C00F5 /* Sparkle.framework */,
 				F88BDC9015704C14004ECB52 /* Security.framework */,
 				F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */,
 				F8973A0E1538846600EAB41E /* Other Frameworks */,
@@ -401,6 +405,7 @@
 				36C986ED1861DFCC00308267 /* PGShellProfileUpdater.h */,
 				36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */,
 				83262EA41D06E62F00C4F5E5 /* IconView */,
+				8371BA4D1D1368B700268FD5 /* Extensions */,
 				F8973A131538846600EAB41E /* Supporting Files */,
 			);
 			path = Postgres;
@@ -415,14 +420,6 @@
 				F8973A1A1538846600EAB41E /* Postgres-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F8973A32153884AC00EAB41E /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				F88BDC8315704B22004ECB52 /* NSFileManager+DirectoryLocations */,
-			);
-			name = Vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -620,11 +617,11 @@
 				8313A4FC1D05A8EE0038814C /* DBModel.m in Sources */,
 				83764BC41D09E3C000FAE7E0 /* PGDumpController.m in Sources */,
 				F8973A37153884EF00EAB41E /* PostgresServer.m in Sources */,
+				8371BA511D1368B800268FD5 /* NSFileManager+DirectoryLocations.m in Sources */,
 				36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */,
 				36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */,
 				83800E791CEB071C0078CFEA /* MainWindowController.m in Sources */,
 				832F2D4C1D0844300058B4D4 /* ProgressSheetController.m in Sources */,
-				F88BDC8915704B22004ECB52 /* NSFileManager+DirectoryLocations.m in Sources */,
 				83B4E7A81CF46B9400D24B46 /* AddServerSheetController.m in Sources */,
 				36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */,
 				83B9F3E21D09B45800CD745B /* PGRestoreController.m in Sources */,
