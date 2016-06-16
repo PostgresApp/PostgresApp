@@ -6,8 +6,7 @@
 //
 //
 
-#ifndef PostgresSharedConstants_h
-#define PostgresSharedConstants_h
+//#define BUNDLE_PATH [[NSBundle mainBundle] bundlePath]
+#define BUNDLE_PATH @"/Applications/Postgres.app"
 
-
-#endif /* PostgresSharedConstants_h */
+static NSString* const kPostgresAppServerStatusChangedNotification = @"kPostgresAppServerStatusChangedNotification";
