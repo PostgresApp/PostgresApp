@@ -26,7 +26,7 @@
 @implementation IconView
 
 -(BOOL)isOpaque {
-	return YES;
+	return NO;
 }
 
 -(BOOL)isFlipped {
@@ -35,8 +35,8 @@
 
 - (void)drawRect:(NSRect)dirtyRect {
 	if (!mainSection) [self reloadData];
-	[[NSColor whiteColor] set];
-	NSRectFill(dirtyRect);
+	//[[NSColor whiteColor] set];
+	//NSRectFill(dirtyRect);
 	[self drawRect:dirtyRect ofSection:mainSection atVerticalOffset:TOP_PADDING];
 }
 
