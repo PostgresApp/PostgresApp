@@ -53,7 +53,7 @@
 					
 					self.restoreTask = [[PGRestoreTask alloc] init];
 					self.restoreTask.server = self.server;
-					self.restoreTask.dbName = self.dbName;
+					self.restoreTask.dbName = [self replaceChars:self.dbName];
 					self.restoreTask.filePath = openPanel.URL.path;
 					[self.restoreTask startWithCompletionHandler:^(BOOL success, NSError *error) {
 						[self.parentWindow endSheet:self.progressSheetController.window];
@@ -72,6 +72,11 @@
 #pragma mark - IBActions
 
 - (IBAction)ok:(id)sender {
+	if (![self.window makeFirstResponder:nil]) {
+		NSBeep();
+		return;
+	}
+	
 	[self.parentWindow endSheet:self.window returnCode:NSModalResponseOK];
 }
 
@@ -86,6 +91,14 @@
 - (void)progressSheetCancel:(id)sender {
 	[self.restoreTask cancel];
 	[self.parentWindow endSheet:self.progressSheetController.window];
+}
+
+
+
+#pragma mark - Helper methods
+
+- (NSString *)replaceChars:(NSString *)string {
+	return [string stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
 @end
