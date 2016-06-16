@@ -15,11 +15,12 @@
 #pragma mark - Singleton class methods
 
 + (ServerManager *)sharedManager {
-	static ServerManager *__sharedManager = nil;
-	if (__sharedManager == nil) {
-		__sharedManager = [[[self class] hiddenAlloc] init];
-	}
-	return __sharedManager;
+	static ServerManager *sharedManager = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sharedManager = [[self.class hiddenAlloc] init];
+	});
+	return sharedManager;
 }
 
 
@@ -47,25 +48,27 @@
 
 
 - (void)refreshStatus {
-	for (PostgresServer *srv in self.servers) {
-		[srv serverStatus];
+	for (PostgresServer *server in self.servers) {
+		[server serverStatus];
 	}
 }
 
 
 - (void)startServers {
-	for (PostgresServer *srv in self.servers) {
-		if (srv.runAtStartup) {
-			[srv startWithCompletionHandler:^(BOOL success, NSError *error) {}];
+	for (PostgresServer *server in self.servers) {
+		if (server.runAtStartup) {
+			[server startWithCompletionHandler:^(BOOL success, NSError *error) {
+				NSLog(@"%@ started with success=%d error=%@", server.name, success, error);
+			}];
 		}
 	}
 }
 
 
 - (void)stopServers {
-	for (PostgresServer *srv in self.servers) {
-		if (srv.stopAtQuit) {
-			[srv stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
+	for (PostgresServer *server in self.servers) {
+		if (server.stopAtQuit) {
+			[server stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
 		}
 	}
 }
