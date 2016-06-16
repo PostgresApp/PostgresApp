@@ -27,8 +27,6 @@
 
 @property IBOutlet NSMenu *statusMenu;
 
-- (IBAction)openAbout:(id)sender;
-- (IBAction)openDocumentation:(id)sender;
 - (IBAction)openPostgresApp:(id)sender;
 
 @end

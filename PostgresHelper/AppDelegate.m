@@ -22,6 +22,9 @@
 // THE SOFTWARE.
 
 #import "AppDelegate.h"
+#import "ServerManager.h"
+#import "PostgresServer.h"
+#import "MenuItemViewController.h"
 
 @interface AppDelegate ()
 @property NSStatusItem *statusBarItem;
@@ -29,14 +32,13 @@
 @property (nonatomic) NSImage *templateOffImage;
 @property (nonatomic) NSImage *templateOnImage;
 @property id interfaceThemeObserver;
+@property ServerManager *serverManager;
 @end
 
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-	//[[NSWorkspace sharedWorkspace] launchApplication:@"/Applications/Postgres.app"];
-	//[NSApp terminate:self];
 	__weak AppDelegate *weakSelf = self;
 	self.interfaceThemeObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
 																							   object:nil
@@ -57,6 +59,15 @@
 	self.statusBarItem.menu = self.statusMenu;
 	self.statusBarItem.image = self.templateOffImage;
 	self.statusBarItem.alternateImage = self.templateOnImage;
+	
+	[[ServerManager sharedManager] loadServersForHelperApp];
+	[[ServerManager sharedManager] refreshStatus];
+	[[ServerManager sharedManager] startServers];
+	
+	[self generateMenuItems];
+	
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(serverStatusChanged:) name:kPostgresAppServerStatusChangedNotification object:nil];
+	
 }
 
 
@@ -66,19 +77,50 @@
 
 
 
-#pragma mark IBActions
-
-- (IBAction)openAbout:(id)sender {
-	[NSApp activateIgnoringOtherApps:YES];
-	[NSApp orderFrontStandardAboutPanel:nil];
-}
-
-- (IBAction)openDocumentation:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgresapp.com/documentation"]];
-}
+#pragma mark - IBActions
 
 - (IBAction)openPostgresApp:(id)sender {
-	
+	[[NSWorkspace sharedWorkspace] launchApplication:@"/Applications/Postgres.app"];
+}
+
+- (IBAction)openPsql:(NSMenuItem *)sender {
+	NSString *dbName = sender.title;
+	NSLog(@"%@",dbName);
+}
+
+
+
+#pragma mark - PostgresAppServerStatusChangedNotification
+
+- (void)serverStatusChanged:(id)userInfo {
+	NSLog(@"serverStatusChanged:");
+	[self generateMenuItems];
+}
+
+
+
+#pragma mark - NSMenuItem generataion
+
+- (void)generateMenuItems {
+	NSArray *servers = [[ServerManager sharedManager] servers];
+	NSUInteger idx = 0;
+	for (PostgresServer *server in servers) {
+		[self.statusBarItem.menu insertItem:[self menuItemWithServer:server] atIndex:idx++];
+		
+		for (NSString *dbName in server.databases) {
+			NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:dbName action:@selector(openPsql:) keyEquivalent:@""];
+			[self.statusBarItem.menu insertItem:item atIndex:idx++];
+		}
+	}
+}
+
+- (NSMenuItem *)menuItemWithServer:(PostgresServer *)server {
+	MenuItemViewController *viewController = [[MenuItemViewController alloc] initWithNibName:@"MenuItemView" bundle:nil];
+	viewController.name = server.name;
+	viewController.statusImage = [NSImage imageNamed:(server.isRunning) ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable];
+	NSMenuItem *menuItem = [[NSMenuItem alloc] init];
+	menuItem.view = viewController.view;
+	return menuItem;
 }
 
 
