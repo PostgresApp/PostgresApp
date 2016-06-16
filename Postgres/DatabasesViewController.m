@@ -10,7 +10,6 @@
 #import "PostgresServer.h"
 #import "IconView.h"
 #import "DBModel.h"
-#import <libpq-fe.h>
 
 @implementation DatabasesViewController
 
@@ -20,22 +19,11 @@
 	}
 	
 	_server = server;
+	
 	self.databases = [[NSMutableArray alloc] init];
-	
-	NSString *connectionString = [NSString stringWithFormat:@"postgresql://:%lu", self.server.port];
-	PGconn *conn = PQconnectdb(connectionString.UTF8String);
-	PGresult *result = PQexec(conn, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)");
-	
-	//ConnStatusType status = PQstatus(conn);
-	
-	for (int i=0; i<PQntuples(result); i++) {
-		NSString *value = @(PQgetvalue(result, i, 0));
-		DBModel *child = [[DBModel alloc] init];
-		child.name = value;
-		[self.databases addObject:child];
+	for (NSString *dbName in server.databases) {
+		[self.databases addObject:[[DBModel alloc] initWithName:dbName]];
 	}
-	
-	PQfinish(conn);
 	
 	[self.iconView reloadData];
 	if (self.databases.count > 0) {
