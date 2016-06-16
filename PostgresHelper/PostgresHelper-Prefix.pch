@@ -1,4 +1,5 @@
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 	#import "PostgresHelperConstants.h"
+	#import "PostgresSharedConstants.h"
 #endif
