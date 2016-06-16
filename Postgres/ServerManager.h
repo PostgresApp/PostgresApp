@@ -19,5 +19,6 @@
 - (void)stopServers;
 - (void)saveServers;
 - (void)loadServers;
+- (void)loadServersForHelperApp;
 
 @end

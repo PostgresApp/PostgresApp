@@ -86,4 +86,15 @@
 	}
 }
 
+
+- (void)loadServersForHelperApp {
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.postgresapp.Postgres"];
+	NSData *data = [defaults objectForKey:@"servers"];
+	NSMutableArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	
+	if ([arr count] > 0) {
+		[self.servers addObjectsFromArray:arr];
+	}
+}
+
 @end
