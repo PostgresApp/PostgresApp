@@ -30,6 +30,3 @@
 static NSUInteger const kPostgresAppDefaultPort = 5432;
 static NSUInteger const kPostgresAppMaxLogLines = 10;
 static NSTimeInterval const kPostgresAppTerminationTimeoutInterval = 3.0;
-static NSString* const kAppleInterfaceStyle = @"AppleInterfaceStyle";
-static NSString* const kAppleInterfaceStyleDark = @"Dark";
-static NSString* const kAppleInterfaceThemeChangedNotification = @"AppleInterfaceThemeChangedNotification";
