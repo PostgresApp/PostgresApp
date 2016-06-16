@@ -47,13 +47,12 @@
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
 	// make sure that the app is inside the application directory
-#if !DEBUG
+	#if !DEBUG
 	[[PGApplicationMover sharedApplicationMover] validateApplicationPath];
-#endif
+	#endif
 	// make sure that there is no other version of Postgres.app running
 	[self validateNoOtherVersionsAreRunning];
 }
-
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 	[[ServerManager sharedManager] loadServers];
@@ -67,7 +66,6 @@
 	[self.mainWindowController showWindow:nil];
 }
 
-
 -(void)applicationDidBecomeActive:(NSNotification *)notification {
 	[[ServerManager sharedManager] refreshStatus];
 }
@@ -75,6 +73,10 @@
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
 	[[ServerManager sharedManager] stopServers];
 	return NSTerminateNow;
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+	return YES;
 }
 
 
