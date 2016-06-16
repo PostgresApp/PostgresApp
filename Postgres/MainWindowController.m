@@ -41,11 +41,11 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
 	
-	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:0 context:nil];
-	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.port" options:0 context:nil];
-	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.runAtStartup" options:0 context:nil];
-	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.stopAtQuit" options:0 context:nil];
-	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.isRunning" options:0 context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:NSKeyValueObservingOptionNew context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.port" options:NSKeyValueObservingOptionNew context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.runAtStartup" options:NSKeyValueObservingOptionNew context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.stopAtQuit" options:NSKeyValueObservingOptionNew context:nil];
+	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.isRunning" options:NSKeyValueObservingOptionNew context:nil];
 	[self.serverArrayController addObserver:self forKeyPath:@"selection.logfilePath" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionInitial context:nil];
 	[self.serverArrayController rearrangeObjects];
 }
@@ -72,6 +72,8 @@
 			[self showHideDatabasesView:isRunning];
 			// set server of DatabasesViewController
 			self.databasesViewController.server = self.selectedServer;
+			// post status change to PostgresHelper.app
+			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kPostgresAppServerStatusChangedNotification object:nil];
 		}
 	}
 	else if ([keyPath isEqualToString:@"selection.logfilePath"]) {
@@ -160,7 +162,7 @@
 }
 
 
-- (IBAction)openLogfile:(id)sender {
+- (IBAction)openLogInConsole:(id)sender {
 	PostgresServer *selectedServer = self.selectedServer;
 	if (selectedServer) {
 		NSString *path = selectedServer.logfilePath;
@@ -192,7 +194,7 @@
 }
 
 
-- (IBAction)pg_dump:(id)sender {
+- (IBAction)exportDB:(id)sender {
 	NSString *dbName = self.databasesViewController.selectedDBName;
 	if (!dbName) {
 		return;
@@ -203,7 +205,7 @@
 }
 
 
-- (IBAction)pg_restore:(id)sender {
+- (IBAction)restoreDB:(id)sender {
 	PGRestoreController *restoreController = [[PGRestoreController alloc] initWithServer:self.selectedServer];
 	[restoreController startModalForWindow:self.window];
 }
@@ -251,7 +253,6 @@
 }
 
 
-
 - (IBAction)stopServer:(id)sender {
 	if (![self.window makeFirstResponder:nil]) {
 		NSBeep();
@@ -266,6 +267,11 @@
 			}
 		}];
     }
+}
+
+
+- (IBAction)showSettings:(id)sender {
+	[self.settingsPopover showRelativeToRect:self.iconViewContainer.bounds ofView:self.iconViewContainer preferredEdge:NSRectEdgeMinY];
 }
 
 
@@ -342,7 +348,16 @@
 
 
 - (void)showHideDatabasesView:(BOOL)show {
-	[self.databasesContentBox setContentView:(show) ? self.databasesViewController.view : nil];
+	//[self.databasesContentBox setContentView:(show) ? self.databasesViewController.view : nil];
+	while (self.iconViewContainer.subviews.count) {
+		[self.iconViewContainer.subviews.lastObject removeFromSuperview];
+	}
+	[self.iconViewContainer addSubview:self.databasesViewController.view];
+	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
+	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
+	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
+	
 }
 
 

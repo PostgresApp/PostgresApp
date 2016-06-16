@@ -12,17 +12,19 @@
 
 @property (nonatomic) NSMutableArray *servers;
 @property IBOutlet NSArrayController *serverArrayController;
+@property IBOutlet NSView *iconViewContainer;
 @property IBOutlet NSTextView *logTextView;
-@property IBOutlet NSBox *databasesContentBox;
+@property IBOutlet NSPopover *settingsPopover;
 
 - (IBAction)addServer:(id)sender;
 - (IBAction)removeServer:(id)sender;
 - (IBAction)openPathFolder:(id)sender;
-- (IBAction)openLogfile:(id)sender;
+- (IBAction)openLogInConsole:(id)sender;
 - (IBAction)openPsql:(id)sender;
-- (IBAction)pg_dump:(id)sender;
-- (IBAction)pg_restore:(id)sender;
+- (IBAction)exportDB:(id)sender;
+- (IBAction)restoreDB:(id)sender;
 - (IBAction)startServer:(id)sender;
 - (IBAction)stopServer:(id)sender;
+- (IBAction)showSettings:(id)sender;
 
 @end
