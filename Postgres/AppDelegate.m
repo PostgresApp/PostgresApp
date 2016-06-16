@@ -38,11 +38,6 @@
 
 @interface AppDelegate()
 @property MainWindowController *mainWindowController;
-@property NSStatusItem *statusBarItem;
-@property (readonly) BOOL isDarkMode;
-@property (nonatomic) NSImage *templateOffImage;
-@property (nonatomic) NSImage *templateOnImage;
-@property id interfaceThemeObserver;
 @end
 
 
@@ -61,36 +56,15 @@
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    __weak AppDelegate *weakSelf = self;
-    self.interfaceThemeObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:kAppleInterfaceThemeChangedNotification
-                                                                                           object:nil
-                                                                                            queue:[NSOperationQueue mainQueue]
-                                                                                       usingBlock:^(NSNotification *notification) {
-                                                                                           BOOL darkMode = weakSelf.isDarkMode;
-                                                                                           weakSelf.templateOffImage.template = darkMode;
-                                                                                           weakSelf.templateOnImage.template = darkMode;
-                                                                                       }];
-	
 	[[ServerManager sharedManager] loadServers];
 	[[ServerManager sharedManager] refreshStatus];
 	[[ServerManager sharedManager] startServers];
-	
-	self.templateOffImage = [NSImage imageNamed:@"status-off"];
-	self.templateOnImage = [NSImage imageNamed:@"status-on"];
-	self.templateOffImage.template = self.isDarkMode;
-	self.templateOnImage.template = self.isDarkMode;
-	
-	self.statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-	self.statusBarItem.highlightMode = YES;
-	self.statusBarItem.menu = self.statusMenu;
-    self.statusBarItem.image = self.templateOffImage;
-	self.statusBarItem.alternateImage = self.templateOnImage;
 	
 	[NSApp activateIgnoringOtherApps:YES];
 	[[PGShellProfileUpdater sharedUpdater] checkProfiles];
 	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
-	[self openMainWindow:nil];
+	[self.mainWindowController showWindow:nil];
 }
 
 
@@ -101,39 +75,6 @@
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
 	[[ServerManager sharedManager] stopServers];
 	return NSTerminateNow;
-}
-
-
-- (void)dealloc {
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self.interfaceThemeObserver];
-}
-
-
-
-#pragma mark - IBActions
-
-- (IBAction)selectAbout:(id)sender {
-    // bring application to foreground to have about window display on top of other windows
-    [NSApp activateIgnoringOtherApps:YES];
-    [NSApp orderFrontStandardAboutPanel:nil];
-}
-
-- (IBAction)openDocumentation:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://postgresapp.com/documentation"]];
-}
-
-- (IBAction)openMainWindow:(id)sender {
-	[NSApp activateIgnoringOtherApps:YES];
-    [self.mainWindowController showWindow:nil];
-	[[self.mainWindowController window] makeKeyAndOrderFront:nil];
-}
-
-
-
-#pragma mark - Custom properties
-
-- (BOOL)isDarkMode {
-	return [[[NSUserDefaults standardUserDefaults] objectForKey:kAppleInterfaceStyle] isEqual:kAppleInterfaceStyleDark];
 }
 
 

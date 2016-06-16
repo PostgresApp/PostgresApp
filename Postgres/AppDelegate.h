@@ -30,10 +30,5 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (weak) ServerManager *serverManager;
-@property (weak) IBOutlet NSMenu *statusMenu;
-
-- (IBAction)selectAbout:(id)sender;
-- (IBAction)openDocumentation:(id)sender;
-- (IBAction)openMainWindow:(id)sender;
 
 @end
