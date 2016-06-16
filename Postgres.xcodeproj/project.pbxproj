@@ -11,6 +11,11 @@
 		36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B958C31861AE88007BBB36 /* PGApplicationMover.m */; };
 		36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */; };
 		36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
+		830C82191D12E4A700CF0EEA /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A638FB1CF265BC008D4D1B /* ServerManager.m */; };
+		830C821A1D12E56500CF0EEA /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
+		830C821D1D12EE7200CF0EEA /* MenuItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 830C821C1D12EE7200CF0EEA /* MenuItemViewController.m */; };
+		830C821F1D12EE7A00CF0EEA /* MenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 830C821E1D12EE7A00CF0EEA /* MenuItemView.xib */; };
+		830C82251D13013F00CF0EEA /* PostgresServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F8973A35153884EF00EAB41E /* PostgresServer.m */; };
 		8313A4F71D05A1BB0038814C /* DatabasesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8313A4F61D05A1BB0038814C /* DatabasesViewController.m */; };
 		8313A4F91D05A1C80038814C /* DatabasesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8313A4F81D05A1C80038814C /* DatabasesView.xib */; };
 		8313A4FC1D05A8EE0038814C /* DBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8313A4FB1D05A8EE0038814C /* DBModel.m */; };
@@ -113,6 +118,10 @@
 		36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGShellProfileUpdater.m; sourceTree = "<group>"; };
 		36D70A1119D0157C00B97508 /* RecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoveryAttempter.h; sourceTree = "<group>"; };
 		36D70A1219D0157C00B97508 /* RecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoveryAttempter.m; sourceTree = "<group>"; };
+		830C821B1D12EE7200CF0EEA /* MenuItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemViewController.h; sourceTree = "<group>"; };
+		830C821C1D12EE7200CF0EEA /* MenuItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemViewController.m; sourceTree = "<group>"; };
+		830C821E1D12EE7A00CF0EEA /* MenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemView.xib; sourceTree = "<group>"; };
+		830C82201D12F5DA00CF0EEA /* PostgresSharedConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresSharedConstants.h; sourceTree = "<group>"; };
 		8313A4F51D05A1BB0038814C /* DatabasesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabasesViewController.h; sourceTree = "<group>"; };
 		8313A4F61D05A1BB0038814C /* DatabasesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabasesViewController.m; sourceTree = "<group>"; };
 		8313A4F81D05A1C80038814C /* DatabasesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatabasesView.xib; sourceTree = "<group>"; };
@@ -159,7 +168,7 @@
 		F87A427C153AB60C00456130 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F87A427D153AB60C00456130 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F87A4280153AB60C00456130 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		F883D61315B5E2780017F83A /* PostgresConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConstants.h; sourceTree = "<group>"; };
+		F883D61315B5E2780017F83A /* PostgresAppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresAppConstants.h; sourceTree = "<group>"; };
 		F884C8ED153C76E900CDCB09 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F884C8F3153C7A4C00CDCB09 /* PostgresHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PostgresHelper.entitlements; path = ../PostgresHelper.entitlements; sourceTree = "<group>"; };
 		F884C919153CA24400CDCB09 /* Postgres.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Postgres.icns; sourceTree = "<group>"; };
@@ -279,6 +288,9 @@
 				F87A427C153AB60C00456130 /* AppDelegate.h */,
 				F87A427D153AB60C00456130 /* AppDelegate.m */,
 				F87A427F153AB60C00456130 /* MainMenu.xib */,
+				830C821B1D12EE7200CF0EEA /* MenuItemViewController.h */,
+				830C821C1D12EE7200CF0EEA /* MenuItemViewController.m */,
+				830C821E1D12EE7A00CF0EEA /* MenuItemView.xib */,
 				F87A4271153AB60C00456130 /* Supporting Files */,
 			);
 			path = PostgresHelper;
@@ -358,7 +370,8 @@
 			isa = PBXGroup;
 			children = (
 				F8973A531538869700EAB41E /* Postgres.entitlements */,
-				F883D61315B5E2780017F83A /* PostgresConstants.h */,
+				F883D61315B5E2780017F83A /* PostgresAppConstants.h */,
+				830C82201D12F5DA00CF0EEA /* PostgresSharedConstants.h */,
 				F8973A1E1538846600EAB41E /* AppDelegate.h */,
 				F8973A1F1538846600EAB41E /* AppDelegate.m */,
 				F8973A211538846600EAB41E /* MainMenu.xib */,
@@ -509,6 +522,7 @@
 				F87A4281153AB60C00456130 /* MainMenu.xib in Resources */,
 				83E62D731D0EE8FD002BF53D /* status-off.png in Resources */,
 				83E62D721D0EE8FA002BF53D /* status-on@2x.png in Resources */,
+				830C821F1D12EE7A00CF0EEA /* MenuItemView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,8 +596,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				830C821A1D12E56500CF0EEA /* RecoveryAttempter.m in Sources */,
+				830C82191D12E4A700CF0EEA /* ServerManager.m in Sources */,
 				F87A4277153AB60C00456130 /* main.m in Sources */,
 				F87A427E153AB60C00456130 /* AppDelegate.m in Sources */,
+				830C821D1D12EE7200CF0EEA /* MenuItemViewController.m in Sources */,
+				830C82251D13013F00CF0EEA /* PostgresServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,7 +717,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
+				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
+				OTHER_LDFLAGS = "-lpq";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -713,7 +734,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgresHelper/PostgresHelper-Prefix.pch";
+				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = "PostgresHelper/PostgresHelper-Info.plist";
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
+				OTHER_LDFLAGS = "-lpq";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -755,8 +779,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				POSTGRESAPP_BUILD_VERSION = 1.0;
 				POSTGRESAPP_MINOR_VERSION = 0;
 				POSTGRES_MAJOR_VERSION = 9.6;
@@ -795,7 +822,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = "";
 				POSTGRESAPP_BUILD_VERSION = 1.0;
 				POSTGRESAPP_MINOR_VERSION = 0;
 				POSTGRES_MAJOR_VERSION = 9.6;

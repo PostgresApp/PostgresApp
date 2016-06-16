@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
                 <menuItem title="PostgresHelper" id="56">
@@ -73,18 +73,7 @@
         <customObject id="420" customClass="NSFontManager"/>
         <menu title="Postgres" id="Xwh-MO-3cq" userLabel="Status Menu">
             <items>
-                <menuItem title="About Postgres" id="jvK-BS-hZk">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openAbout:" target="494" id="k3w-tP-Jwe"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Documentation…" id="VrW-2n-ir6">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openDocumentation:" target="494" id="vEj-5N-jF3"/>
-                    </connections>
-                </menuItem>
+                <menuItem isSeparatorItem="YES" id="It5-LJ-Yj1"/>
                 <menuItem title="Open Postgres.app" id="pKp-Xp-fNr">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
