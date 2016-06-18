@@ -55,10 +55,14 @@
 
 
 - (void)startServers {
+	NSLog(@"startServers");
+	
+	
+	
 	for (PostgresServer *server in self.servers) {
 		if (server.runAtStartup) {
 			[server startWithCompletionHandler:^(BOOL success, NSError *error) {
-				NSLog(@"%@ started with success=%d error=%@", server.name, success, error);
+				NSLog(@"%@ started with success=%d error=%@", server.name, success, error.description);
 			}];
 		}
 	}
@@ -68,7 +72,9 @@
 - (void)stopServers {
 	for (PostgresServer *server in self.servers) {
 		if (server.stopAtQuit) {
-			[server stopWithCompletionHandler:^(BOOL success, NSError *error) {}];
+			[server stopWithCompletionHandler:^(BOOL success, NSError *error) {
+				NSLog(@"%@ stopped with success=%d error=%@", server.name, success, error.description);
+			}];
 		}
 	}
 }
