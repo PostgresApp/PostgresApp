@@ -111,6 +111,7 @@
 		0710E97A1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-off@2x.png"; sourceTree = "<group>"; };
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		363E91071D1436DF00AE20BB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
 		36A9E3061B0DFB5500C7F424 /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		36B958C21861AE88007BBB36 /* PGApplicationMover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGApplicationMover.h; sourceTree = "<group>"; };
 		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
@@ -407,6 +408,7 @@
 				83262EA41D06E62F00C4F5E5 /* IconView */,
 				8371BA4D1D1368B700268FD5 /* Extensions */,
 				F8973A131538846600EAB41E /* Supporting Files */,
+				363E91071D1436DF00AE20BB /* Postgres-Bridging-Header.h */,
 			);
 			path = Postgres;
 			sourceTree = "<group>";
@@ -472,6 +474,7 @@
 		F89739FF1538846600EAB41E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
 				TargetAttributes = {
 					F87A426C153AB60C00456130 = {
@@ -834,17 +837,21 @@
 		F8973A271538846600EAB41E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lpq";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -852,17 +859,20 @@
 		F8973A281538846600EAB41E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lpq";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
