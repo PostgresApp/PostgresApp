@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3609DA081853B31F00665ED2 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3609DA071853B31F00665ED2 /* ScriptingBridge.framework */; };
+		363E91091D1436E100AE20BB /* MainWindowBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363E91081D1436E100AE20BB /* MainWindowBackgroundView.swift */; };
+		363E910B1D143A9100AE20BB /* MainWindowSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363E910A1D143A9100AE20BB /* MainWindowSplitView.swift */; };
 		36B958C41861AE88007BBB36 /* PGApplicationMover.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B958C31861AE88007BBB36 /* PGApplicationMover.m */; };
 		36C986EF1861DFCC00308267 /* PGShellProfileUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C986EE1861DFCC00308267 /* PGShellProfileUpdater.m */; };
 		36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
@@ -112,6 +114,8 @@
 		0710E97C1639ADD7006D7FB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/status-on@2x.png"; sourceTree = "<group>"; };
 		3609DA071853B31F00665ED2 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		363E91071D1436DF00AE20BB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
+		363E91081D1436E100AE20BB /* MainWindowBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowBackgroundView.swift; sourceTree = "<group>"; };
+		363E910A1D143A9100AE20BB /* MainWindowSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowSplitView.swift; sourceTree = "<group>"; };
 		36A9E3061B0DFB5500C7F424 /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		36B958C21861AE88007BBB36 /* PGApplicationMover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGApplicationMover.h; sourceTree = "<group>"; };
 		36B958C31861AE88007BBB36 /* PGApplicationMover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGApplicationMover.m; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 				F8973A211538846600EAB41E /* MainMenu.xib */,
 				83800E771CEB071C0078CFEA /* MainWindowController.h */,
 				83800E781CEB071C0078CFEA /* MainWindowController.m */,
+				363E91081D1436E100AE20BB /* MainWindowBackgroundView.swift */,
+				363E910A1D143A9100AE20BB /* MainWindowSplitView.swift */,
 				83800E7E1CEB07580078CFEA /* MainWindow.xib */,
 				83B9F3DE1D099AFF00CD745B /* AlertAccessoryView.xib */,
 				8313A4F51D05A1BB0038814C /* DatabasesViewController.h */,
@@ -609,12 +615,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				363E910B1D143A9100AE20BB /* MainWindowSplitView.swift in Sources */,
 				83A638FC1CF265BC008D4D1B /* ServerManager.m in Sources */,
 				83262EAD1D06E65500C4F5E5 /* IconViewSection.m in Sources */,
 				83E793721CEB5CCE008CD1F2 /* ServerTableCellView.m in Sources */,
 				F8973A191538846600EAB41E /* main.m in Sources */,
 				832F2D6C1D0964D30058B4D4 /* PGRestoreTask.m in Sources */,
 				F8973A201538846600EAB41E /* AppDelegate.m in Sources */,
+				363E91091D1436E100AE20BB /* MainWindowBackgroundView.swift in Sources */,
 				83262EB81D07146600C4F5E5 /* PGDumpTask.m in Sources */,
 				8313A4F71D05A1BB0038814C /* DatabasesViewController.m in Sources */,
 				8313A4FC1D05A8EE0038814C /* DBModel.m in Sources */,

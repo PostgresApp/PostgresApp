@@ -16,6 +16,10 @@
 @property IBOutlet NSTextView *logTextView;
 @property IBOutlet NSPopover *settingsPopover;
 
+@property IBOutlet NSSplitView *splitView;
+@property IBOutlet NSView *serverListView;
+@property IBOutlet NSButton *toggleButton;
+
 - (IBAction)addServer:(id)sender;
 - (IBAction)removeServer:(id)sender;
 - (IBAction)openPathFolder:(id)sender;

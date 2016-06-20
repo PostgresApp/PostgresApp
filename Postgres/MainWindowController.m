@@ -48,6 +48,14 @@
 	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.isRunning" options:NSKeyValueObservingOptionNew context:nil];
 	[self.serverArrayController addObserver:self forKeyPath:@"selection.logfilePath" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionInitial context:nil];
 	[self.serverArrayController rearrangeObjects];
+	
+	if ([ServerManager sharedManager].servers.count == 1) {
+		[self toggleServerListView:nil];
+	}
+	self.window.titleVisibility = NSWindowTitleHidden;
+	self.window.titlebarAppearsTransparent = YES;
+	self.window.styleMask = self.window.styleMask | NSFullSizeContentViewWindowMask;
+	self.window.movableByWindowBackground = YES;
 }
 
 
@@ -391,6 +399,24 @@
 	}
 	
 	[alert beginSheetModalForWindow:window modalDelegate:delegate didEndSelector:didPresentSelector contextInfo:contextInfo];
+}
+
+-(IBAction)toggleServerListView:(id)sender {
+	if (!_serverListView.superview || [_splitView isSubviewCollapsed:_serverListView]) {
+		_serverListView.hidden = NO;
+		[_splitView addSubview:_serverListView];
+		_toggleButton.image = [NSImage imageNamed:NSImageNameLeftFacingTriangleTemplate];
+		NSRect oldFrame = self.window.frame;
+		oldFrame.size.width += _serverListView.frame.size.width + 1;
+		[self.window setFrame:oldFrame display:NO];
+	}
+	else {
+		[_serverListView removeFromSuperview];
+		_toggleButton.image = [NSImage imageNamed:NSImageNameRightFacingTriangleTemplate];
+		NSRect oldFrame = self.window.frame;
+		oldFrame.size.width -= _serverListView.frame.size.width + 1;
+		[self.window setFrame:oldFrame display:NO];
+	}
 }
 
 @end

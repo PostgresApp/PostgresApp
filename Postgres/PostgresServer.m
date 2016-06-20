@@ -398,10 +398,10 @@
 
 - (NSString *)statusMessage {
 	if (self.isRunning) {
-		return [NSString stringWithFormat:@"Running on port %lu", self.port];
+		return [NSString stringWithFormat:@"PostgreSQL %@ – Running on port %lu", self.version, self.port];
 	}
 	else {
-		return @"Stopped";
+		return [NSString stringWithFormat:@"PostgreSQL %@ – Stopped", self.version];
 	}
 }
 
