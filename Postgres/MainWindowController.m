@@ -261,7 +261,8 @@
 
 
 - (IBAction)showSettings:(id)sender {
-	[self.settingsPopover showRelativeToRect:self.iconViewContainer.bounds ofView:self.iconViewContainer preferredEdge:NSRectEdgeMinY];
+	NSView *view = [sender isKindOfClass:[NSView class]] ? sender : self.contentViewController.view;
+	[self.settingsPopover showRelativeToRect:view.bounds ofView:view preferredEdge:NSRectEdgeMaxY];
 }
 
 
