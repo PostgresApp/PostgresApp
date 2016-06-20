@@ -29,20 +29,23 @@
 			NSColor *frameColor = [baseColor shadowWithLevel: 0.4];
 			NSColor *fillColor = [baseColor highlightWithLevel:0.7];
 			
+			CGFloat lineWidth = 1;
+			
 			[fillColor setFill];
 			[frameColor setStroke];
 			for (int i=0; i<4; i++) {
-				NSBezierPath* oval2Path = [NSBezierPath bezierPathWithOvalInRect: NSMakeRect(0.5, 0.5+18*i, 63, 8)];
+				NSBezierPath* oval2Path = [NSBezierPath bezierPathWithOvalInRect: NSMakeRect(0.5*lineWidth, 0.5*lineWidth+(63-lineWidth-8)/3*i, 64-lineWidth, 8)];
 				[oval2Path fill];
+				oval2Path.lineWidth = lineWidth;
 				[oval2Path stroke];
 				if (i<3) {
-					NSRectFillUsingOperation(NSMakeRect(1, 4.5+18*i, 62, 16),NSCompositeCopy);
+					NSRectFillUsingOperation(NSMakeRect(0.5*lineWidth, 4+0.5*lineWidth+(63-lineWidth-8)/3*i, 64-lineWidth, 16),NSCompositeCopy);
 				}
 			}
 			
 			[frameColor setFill];
-			NSRectFillUsingOperation(NSMakeRect(0, 4.5, 1, 3*18), NSCompositeCopy);
-			NSRectFillUsingOperation(NSMakeRect(63, 4.5, 1, 3*18), NSCompositeCopy);
+			NSRectFillUsingOperation(NSMakeRect(0, 4+0.5*lineWidth, lineWidth, 3*(63-lineWidth-8)/3), NSCompositeCopy);
+			NSRectFillUsingOperation(NSMakeRect(64-lineWidth, 4+0.5*lineWidth, lineWidth, 3*(63-lineWidth-8)/3), NSCompositeCopy);
 			return YES;
 		}];
 	});
