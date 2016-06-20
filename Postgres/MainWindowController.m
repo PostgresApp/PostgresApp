@@ -67,25 +67,15 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"arrangedObjects.isRunning"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
-			// show/hide DBView
-			BOOL isRunning = self.selectedServer.isRunning;
-			[self showHideDatabasesView:isRunning];
-			// set server of DatabasesViewController
-			self.databasesViewController.server = self.selectedServer;
+			[self updateDatabaseView];
 			// post status change to PostgresHelper.app
 			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kPostgresAppServerStatusChangedNotification object:nil];
 		}
 	}
 	else if ([keyPath isEqualToString:@"selection.logfilePath"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
-			// start monitoring logfile
-			NSString *logfilePath = self.selectedServer.logfilePath;
-			[self startMonitoringLogFile:logfilePath];
-			// show/hide DBView
-			BOOL isRunning = self.selectedServer.isRunning;
-			[self showHideDatabasesView:isRunning];
-			// set server of DatabasesViewController
-			self.databasesViewController.server = self.selectedServer;
+			[self startMonitoringLogFile:self.selectedServer.logfilePath];
+			[self updateDatabaseView];
 			
 		} else {
 			[self startMonitoringLogFile:nil];
@@ -347,17 +337,22 @@
 }
 
 
-- (void)showHideDatabasesView:(BOOL)show {
-	//[self.databasesContentBox setContentView:(show) ? self.databasesViewController.view : nil];
-	while (self.iconViewContainer.subviews.count) {
-		[self.iconViewContainer.subviews.lastObject removeFromSuperview];
+- (void)updateDatabaseView {
+	if (self.selectedServer.isRunning) {
+		if (!self.databasesViewController.view.superview) {
+			[self.iconViewContainer addSubview:self.databasesViewController.view];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
+		}
+		self.databasesViewController.server = self.selectedServer;
 	}
-	[self.iconViewContainer addSubview:self.databasesViewController.view];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
-	
+	else {
+		while (self.iconViewContainer.subviews.count) {
+			[self.iconViewContainer.subviews.lastObject removeFromSuperview];
+		}
+	}
 }
 
 
