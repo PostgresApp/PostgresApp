@@ -29,8 +29,6 @@
 	if (self.databases.count > 0) {
 		[self.iconView selectItem:self.databases[0] byExtendingSelection:NO];
 	}
-	[self.iconView layoutSubtreeIfNeeded];
-	[self.iconView scrollRectToVisible:NSMakeRect(0, 0, 1, 1)];
 }
 
 

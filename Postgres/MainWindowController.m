@@ -48,6 +48,14 @@
 	[self.serverArrayController addObserver:self forKeyPath:@"arrangedObjects.isRunning" options:NSKeyValueObservingOptionNew context:nil];
 	[self.serverArrayController addObserver:self forKeyPath:@"selection.logfilePath" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionInitial context:nil];
 	[self.serverArrayController rearrangeObjects];
+	
+	if ([ServerManager sharedManager].servers.count == 1) {
+		[self toggleServerListView:nil];
+	}
+	self.window.titleVisibility = NSWindowTitleHidden;
+	self.window.titlebarAppearsTransparent = YES;
+	self.window.styleMask = self.window.styleMask | NSFullSizeContentViewWindowMask;
+	self.window.movableByWindowBackground = YES;
 }
 
 
@@ -67,25 +75,15 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"arrangedObjects.isRunning"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
-			// show/hide DBView
-			BOOL isRunning = self.selectedServer.isRunning;
-			[self showHideDatabasesView:isRunning];
-			// set server of DatabasesViewController
-			self.databasesViewController.server = self.selectedServer;
+			[self updateDatabaseView];
 			// post status change to PostgresHelper.app
 			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kPostgresAppServerStatusChangedNotification object:nil];
 		}
 	}
 	else if ([keyPath isEqualToString:@"selection.logfilePath"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
-			// start monitoring logfile
-			NSString *logfilePath = self.selectedServer.logfilePath;
-			[self startMonitoringLogFile:logfilePath];
-			// show/hide DBView
-			BOOL isRunning = self.selectedServer.isRunning;
-			[self showHideDatabasesView:isRunning];
-			// set server of DatabasesViewController
-			self.databasesViewController.server = self.selectedServer;
+			[self startMonitoringLogFile:self.selectedServer.logfilePath];
+			[self updateDatabaseView];
 			
 		} else {
 			[self startMonitoringLogFile:nil];
@@ -271,7 +269,8 @@
 
 
 - (IBAction)showSettings:(id)sender {
-	[self.settingsPopover showRelativeToRect:self.iconViewContainer.bounds ofView:self.iconViewContainer preferredEdge:NSRectEdgeMinY];
+	NSView *view = [sender isKindOfClass:[NSView class]] ? sender : self.contentViewController.view;
+	[self.settingsPopover showRelativeToRect:view.bounds ofView:view preferredEdge:NSRectEdgeMaxY];
 }
 
 
@@ -347,17 +346,22 @@
 }
 
 
-- (void)showHideDatabasesView:(BOOL)show {
-	//[self.databasesContentBox setContentView:(show) ? self.databasesViewController.view : nil];
-	while (self.iconViewContainer.subviews.count) {
-		[self.iconViewContainer.subviews.lastObject removeFromSuperview];
+- (void)updateDatabaseView {
+	if (self.selectedServer.isRunning) {
+		if (!self.databasesViewController.view.superview) {
+			[self.iconViewContainer addSubview:self.databasesViewController.view];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
+			[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
+		}
+		self.databasesViewController.server = self.selectedServer;
 	}
-	[self.iconViewContainer addSubview:self.databasesViewController.view];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
-	[self.iconViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.iconViewContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.databasesViewController.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
-	
+	else {
+		while (self.iconViewContainer.subviews.count) {
+			[self.iconViewContainer.subviews.lastObject removeFromSuperview];
+		}
+	}
 }
 
 
@@ -395,6 +399,24 @@
 	}
 	
 	[alert beginSheetModalForWindow:window modalDelegate:delegate didEndSelector:didPresentSelector contextInfo:contextInfo];
+}
+
+-(IBAction)toggleServerListView:(id)sender {
+	if (!_serverListView.superview || [_splitView isSubviewCollapsed:_serverListView]) {
+		_serverListView.hidden = NO;
+		[_splitView addSubview:_serverListView];
+		_toggleButton.image = [NSImage imageNamed:NSImageNameLeftFacingTriangleTemplate];
+		NSRect oldFrame = self.window.frame;
+		oldFrame.size.width += _serverListView.frame.size.width + 1;
+		[self.window setFrame:oldFrame display:NO];
+	}
+	else {
+		[_serverListView removeFromSuperview];
+		_toggleButton.image = [NSImage imageNamed:NSImageNameRightFacingTriangleTemplate];
+		NSRect oldFrame = self.window.frame;
+		oldFrame.size.width -= _serverListView.frame.size.width + 1;
+		[self.window setFrame:oldFrame display:NO];
+	}
 }
 
 @end

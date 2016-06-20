@@ -349,6 +349,10 @@
 	[self layoutRenameField];
 }
 
+-(BOOL)mouseDownCanMoveWindow {
+	return NO;
+}
+
 -(void)mouseDown:(NSEvent *)theEvent {
 	NSPoint locationInView = [self convertPoint:theEvent.locationInWindow fromView:nil];
 	
