@@ -76,8 +76,6 @@
 	if ([keyPath isEqualToString:@"arrangedObjects.isRunning"]) {
 		if (self.serverArrayController.selectionIndexes.count > 0) {
 			[self updateDatabaseView];
-			// post status change to PostgresHelper.app
-			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kPostgresAppServerStatusChangedNotification object:nil];
 		}
 	}
 	else if ([keyPath isEqualToString:@"selection.logfilePath"]) {
