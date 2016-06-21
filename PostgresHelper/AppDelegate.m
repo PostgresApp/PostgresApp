@@ -26,7 +26,7 @@
 #import "PostgresServer.h"
 #import "MenuItemViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <NSMenuDelegate>
 @property NSStatusItem *statusBarItem;
 @property (readonly) BOOL isDarkMode;
 @property (nonatomic) NSImage *templateOffImage;
@@ -63,16 +63,6 @@
 	[[ServerManager sharedManager] loadServersForHelperApp];
 	[[ServerManager sharedManager] refreshStatus];
 	[[ServerManager sharedManager] startServers];
-	
-	[self generateMenuItems];
-	
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(serverStatusChanged:) name:kPostgresAppServerStatusChangedNotification object:nil];
-	
-}
-
-
-- (void)dealloc {
-	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self.interfaceThemeObserver];
 }
 
 
@@ -90,16 +80,13 @@
 
 
 
-#pragma mark - PostgresAppServerStatusChangedNotification
-
-- (void)serverStatusChanged:(id)userInfo {
-	NSLog(@"serverStatusChanged:");
-	[self generateMenuItems];
-}
-
-
-
 #pragma mark - NSMenuItem generataion
+
+-(void)menuNeedsUpdate:(NSMenu *)menu {
+	if (menu == self.statusMenu) {
+		[self generateMenuItems];
+	}
+}
 
 - (void)generateMenuItems {
 	NSArray *servers = [[ServerManager sharedManager] servers];
