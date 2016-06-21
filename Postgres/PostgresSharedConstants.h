@@ -8,5 +8,3 @@
 
 //#define BUNDLE_PATH [[NSBundle mainBundle] bundlePath]
 #define BUNDLE_PATH @"/Applications/Postgres.app"
-
-static NSString* const kPostgresAppServerStatusChangedNotification = @"kPostgresAppServerStatusChangedNotification";
