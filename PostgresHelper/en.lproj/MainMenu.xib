@@ -88,6 +88,9 @@
                     </connections>
                 </menuItem>
             </items>
+            <connections>
+                <outlet property="delegate" destination="494" id="Qo3-w9-VnG"/>
+            </connections>
             <point key="canvasLocation" x="-194" y="154.5"/>
         </menu>
     </objects>
