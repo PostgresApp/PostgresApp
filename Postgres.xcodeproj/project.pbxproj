@@ -1,0 +1,398 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
+		83FB571E1D1B05F000A903A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571D1D1B05F000A903A3 /* ViewController.swift */; };
+		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
+		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
+		83FB57311D1B060800A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB57301D1B060800A903A3 /* AppDelegate.swift */; };
+		83FB57331D1B060800A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57321D1B060800A903A3 /* Assets.xcassets */; };
+		83FB57361D1B060800A903A3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57341D1B060800A903A3 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		83FB571D1D1B05F000A903A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		83FB571F1D1B05F000A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		83FB57221D1B05F000A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		83FB57241D1B05F000A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FB572E1D1B060800A903A3 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FB57301D1B060800A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		83FB57321D1B060800A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		83FB57351D1B060800A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		83FB57371D1B060800A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83FB57151D1B05F000A903A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83FB572B1D1B060800A903A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		83FB570F1D1B05F000A903A3 = {
+			isa = PBXGroup;
+			children = (
+				83FB571A1D1B05F000A903A3 /* Postgres */,
+				83FB572F1D1B060800A903A3 /* PostgresHelper */,
+				83FB57191D1B05F000A903A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83FB57191D1B05F000A903A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83FB57181D1B05F000A903A3 /* Postgres.app */,
+				83FB572E1D1B060800A903A3 /* PostgresHelper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		83FB571A1D1B05F000A903A3 /* Postgres */ = {
+			isa = PBXGroup;
+			children = (
+				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
+				83FB571D1D1B05F000A903A3 /* ViewController.swift */,
+				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
+				83FB57211D1B05F000A903A3 /* Main.storyboard */,
+				83FB57241D1B05F000A903A3 /* Info.plist */,
+			);
+			path = Postgres;
+			sourceTree = "<group>";
+		};
+		83FB572F1D1B060800A903A3 /* PostgresHelper */ = {
+			isa = PBXGroup;
+			children = (
+				83FB57301D1B060800A903A3 /* AppDelegate.swift */,
+				83FB57321D1B060800A903A3 /* Assets.xcassets */,
+				83FB57341D1B060800A903A3 /* MainMenu.xib */,
+				83FB57371D1B060800A903A3 /* Info.plist */,
+			);
+			path = PostgresHelper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83FB57171D1B05F000A903A3 /* Postgres */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83FB57271D1B05F000A903A3 /* Build configuration list for PBXNativeTarget "Postgres" */;
+			buildPhases = (
+				83FB57141D1B05F000A903A3 /* Sources */,
+				83FB57151D1B05F000A903A3 /* Frameworks */,
+				83FB57161D1B05F000A903A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Postgres;
+			productName = Postgres;
+			productReference = 83FB57181D1B05F000A903A3 /* Postgres.app */;
+			productType = "com.apple.product-type.application";
+		};
+		83FB572D1D1B060800A903A3 /* PostgresHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83FB57381D1B060800A903A3 /* Build configuration list for PBXNativeTarget "PostgresHelper" */;
+			buildPhases = (
+				83FB572A1D1B060800A903A3 /* Sources */,
+				83FB572B1D1B060800A903A3 /* Frameworks */,
+				83FB572C1D1B060800A903A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PostgresHelper;
+			productName = PostgresHelper;
+			productReference = 83FB572E1D1B060800A903A3 /* PostgresHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83FB57101D1B05F000A903A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = postgresapp;
+				TargetAttributes = {
+					83FB57171D1B05F000A903A3 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					83FB572D1D1B060800A903A3 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 83FB57131D1B05F000A903A3 /* Build configuration list for PBXProject "Postgres" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83FB570F1D1B05F000A903A3;
+			productRefGroup = 83FB57191D1B05F000A903A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83FB57171D1B05F000A903A3 /* Postgres */,
+				83FB572D1D1B060800A903A3 /* PostgresHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		83FB57161D1B05F000A903A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */,
+				83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83FB572C1D1B060800A903A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FB57331D1B060800A903A3 /* Assets.xcassets in Resources */,
+				83FB57361D1B060800A903A3 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83FB57141D1B05F000A903A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FB571E1D1B05F000A903A3 /* ViewController.swift in Sources */,
+				83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83FB572A1D1B060800A903A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FB57311D1B060800A903A3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		83FB57211D1B05F000A903A3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83FB57221D1B05F000A903A3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		83FB57341D1B060800A903A3 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83FB57351D1B060800A903A3 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		83FB57251D1B05F000A903A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		83FB57261D1B05F000A903A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		83FB57281D1B05F000A903A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Postgres/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		83FB57291D1B05F000A903A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Postgres/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		83FB57391D1B060800A903A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PostgresHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		83FB573A1D1B060800A903A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PostgresHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83FB57131D1B05F000A903A3 /* Build configuration list for PBXProject "Postgres" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83FB57251D1B05F000A903A3 /* Debug */,
+				83FB57261D1B05F000A903A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83FB57271D1B05F000A903A3 /* Build configuration list for PBXNativeTarget "Postgres" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83FB57281D1B05F000A903A3 /* Debug */,
+				83FB57291D1B05F000A903A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		83FB57381D1B060800A903A3 /* Build configuration list for PBXNativeTarget "PostgresHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83FB57391D1B060800A903A3 /* Debug */,
+				83FB573A1D1B060800A903A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83FB57101D1B05F000A903A3 /* Project object */;
+}
