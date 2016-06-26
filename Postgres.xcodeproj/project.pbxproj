@@ -7,19 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8309DDDC1D1C051F006F04AE /* PostgresServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309DDDB1D1C051F006F04AE /* PostgresServer.swift */; };
+		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
+		830B4B281D1C289A00F16762 /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* SidebarController.swift */; };
+		8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */; };
+		8353FBE01D1D5E4C002F77E7 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */; };
+		8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */; };
+		8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
-		83FB571E1D1B05F000A903A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571D1D1B05F000A903A3 /* ViewController.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
 		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
 		83FB57311D1B060800A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB57301D1B060800A903A3 /* AppDelegate.swift */; };
 		83FB57331D1B060800A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57321D1B060800A903A3 /* Assets.xcassets */; };
 		83FB57361D1B060800A903A3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57341D1B060800A903A3 /* MainMenu.xib */; };
+		83FB573C1D1B18C900A903A3 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB573B1D1B18C900A903A3 /* MainWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8309DDDB1D1C051F006F04AE /* PostgresServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostgresServer.swift; sourceTree = "<group>"; };
+		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		830B4B271D1C289A00F16762 /* SidebarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
+		8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPopoverController.swift; sourceTree = "<group>"; };
+		8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		83FB571D1D1B05F000A903A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		83FB571F1D1B05F000A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83FB57221D1B05F000A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83FB57241D1B05F000A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -28,6 +41,7 @@
 		83FB57321D1B060800A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83FB57351D1B060800A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		83FB57371D1B060800A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FB573B1D1B18C900A903A3 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +84,14 @@
 			isa = PBXGroup;
 			children = (
 				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
-				83FB571D1D1B05F000A903A3 /* ViewController.swift */,
+				83FB573B1D1B18C900A903A3 /* MainWindowController.swift */,
+				8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */,
+				830B4B271D1C289A00F16762 /* SidebarController.swift */,
+				8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */,
+				8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */,
+				8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */,
+				8309DDDB1D1C051F006F04AE /* PostgresServer.swift */,
+				830B4B251D1C132300F16762 /* ServerManager.swift */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
@@ -191,8 +212,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FB571E1D1B05F000A903A3 /* ViewController.swift in Sources */,
+				830B4B261D1C132300F16762 /* ServerManager.swift in Sources */,
+				8309DDDC1D1C051F006F04AE /* PostgresServer.swift in Sources */,
 				83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */,
+				8353FBE01D1D5E4C002F77E7 /* SplitViewController.swift in Sources */,
+				830B4B281D1C289A00F16762 /* SidebarController.swift in Sources */,
+				83FB573C1D1B18C900A903A3 /* MainWindowController.swift in Sources */,
+				8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */,
+				8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */,
+				8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +411,7 @@
 				83FB57291D1B05F000A903A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		83FB57381D1B060800A903A3 /* Build configuration list for PBXNativeTarget "PostgresHelper" */ = {
 			isa = XCConfigurationList;
@@ -391,6 +420,7 @@
 				83FB573A1D1B060800A903A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
