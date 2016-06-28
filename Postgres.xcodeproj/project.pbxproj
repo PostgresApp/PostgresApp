@@ -13,6 +13,7 @@
 		8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */; };
 		8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */; };
+		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
@@ -30,6 +31,9 @@
 		8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPopoverController.swift; sourceTree = "<group>"; };
+		83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
+		83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorRecoveryAttempter.h; sourceTree = "<group>"; };
+		83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorRecoveryAttempter.m; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,9 +96,12 @@
 				8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */,
 				8309DDDB1D1C051F006F04AE /* PostgresServer.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
+				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
+				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
+				83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */,
 			);
 			path = Postgres;
 			sourceTree = "<group>";
@@ -159,6 +166,7 @@
 				TargetAttributes = {
 					83FB57171D1B05F000A903A3 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					83FB572D1D1B060800A903A3 = {
@@ -218,6 +226,7 @@
 				8353FBE01D1D5E4C002F77E7 /* SplitViewController.swift in Sources */,
 				830B4B281D1C289A00F16762 /* SidebarController.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindowController.swift in Sources */,
+				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */,
 				8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */,
 				8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */,
@@ -344,11 +353,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Postgres/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -357,11 +369,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Postgres/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

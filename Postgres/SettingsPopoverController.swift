@@ -10,6 +10,6 @@ import Cocoa
 
 class SettingsPopoverController: NSViewController, PostgresServerManagerConsumer {
 	
-	dynamic var serverManager: ServerManager?
+	dynamic var serverManager: ServerManager!
 	
 }

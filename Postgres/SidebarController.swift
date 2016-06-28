@@ -10,7 +10,14 @@ import Cocoa
 
 class SidebarController: NSViewController, PostgresServerManagerConsumer {
 	
-	dynamic var serverManager: ServerManager?
+	dynamic var serverManager: ServerManager!
+	
+	
+	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
+		if var target = segue.destinationController as? PostgresServerManagerConsumer {
+			target.serverManager = serverManager
+		}
+	}
 	
 }
 
@@ -31,13 +38,11 @@ class ServerTableCellView: NSTableCellView {
 	
 	
 	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-		
 		switch keyPath! {
-		
 		case "self.objectValue.running":
 			let imgName = (self.objectValue as? PostgresServer)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
 			self.image = NSImage.init(imageLiteralResourceName: imgName)
-		
+			break
 		default:
 			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 		}

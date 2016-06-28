@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		self.validateNoOtherVersionsAreRunning()
 	}
 	
-	func applicationDidFinishLaunching(_ aNotification: Notification) {
+	func applicationDidFinishLaunching(_ notification: Notification) {
 		ServerManager.shared.loadServers()
 		//ServerManager.shared.startServers()
 	}
@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		
 	}
 	
-	func applicationWillTerminate(_ aNotification: Notification) {
+	func applicationWillTerminate(_ notification: Notification) {
 		ServerManager.shared.saveServers()
 	}
 	
@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			if runningCopy != NSRunningApplication.current() {
 				let alert = NSAlert()
 				alert.messageText = "Another copy of Postgres.app is already running."
-				alert.informativeText = "Please quit \(runningCopy.localizedName) before starting this copy."
+				alert.informativeText = "Please quit \(runningCopy.localizedName!) before starting this copy."
 				alert.addButton(withTitle: "OK")
 				alert.runModal()
 				NSApp.terminate(nil)

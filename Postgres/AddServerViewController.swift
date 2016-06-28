@@ -8,12 +8,13 @@
 
 import Cocoa
 
-class AddServerViewController: NSViewController {
+class AddServerViewController: NSViewController, PostgresServerManagerConsumer {
 	
 	let BUNDLE_PATH = "/Applications/Postgres.app"
 	
-	dynamic var name: String = ""
-	dynamic var port: UInt = 0
+	dynamic var serverManager: ServerManager!
+	dynamic var name: String = "New Server"
+	dynamic var port: UInt = 5432
 	dynamic var varPath: String = ""
 	dynamic var versions: [String] = []
 	dynamic var selectedVersionIdx: Int = 0
@@ -55,15 +56,9 @@ class AddServerViewController: NSViewController {
 	@IBAction func createServer(_ sender: AnyObject?) {
 		if !(self.view.window?.makeFirstResponder(nil))! { NSBeep(); return }
 		
-		let server = PostgresServer()
-		server.name = self.name
-		server.version = self.versions[selectedVersionIdx]
-		server.port = self.port
-		server.varPath = self.varPath
-		
-		
-		ServerManager.shared.servers.append(server)
-		ServerManager.shared.selectLast()
+		let server = PostgresServer(name: self.name, version: self.versions[self.selectedVersionIdx], port: self.port, varPath: self.varPath)
+		serverManager.servers.append(server)
+		serverManager.selectLast()
 		
 		self.dismiss(self)
 	}
@@ -94,7 +89,6 @@ class AddServerViewController: NSViewController {
 		var versions: [String] = []
 		while let url = dirEnum?.nextObject() as? URL {
 			if !isFinderAlias(url: url)! {
-				print(url.lastPathComponent!)
 				versions.append(url.lastPathComponent!)
 			}
 		}
@@ -117,8 +111,8 @@ class AddServerViewController: NSViewController {
 			do {
 				try FileManager.default().createDirectory(at: appSupportDirURL!, withIntermediateDirectories: false, attributes: nil)
 			}
-			catch let createDirectoryError as NSError {
-				print("Error creating directory: ", createDirectoryError)
+			catch {
+				//print("Error creating directory: ", createDirectoryError)
 			}
 		}
 		

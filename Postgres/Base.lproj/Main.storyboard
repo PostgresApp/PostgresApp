@@ -652,7 +652,7 @@
                 <windowController id="B8D-0N-5wS" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="mainWindow" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="270"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="290" height="151"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="700" height="270"/>
                     </window>
@@ -662,7 +662,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="-130" y="190.5"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="hrj-MD-yEE">
@@ -670,13 +670,14 @@
                 <splitViewController id="FdD-4s-wdj" customClass="SplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem id="5fB-Ui-Ylv"/>
-                        <splitViewItem id="72Z-Aa-XTd"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="72Z-Aa-XTd"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="9Ez-yc-oCz">
                         <rect key="frame" x="0.0" y="0.0" width="516" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
+                        <outlet property="sideBarItem" destination="72Z-Aa-XTd" id="0xa-Ll-V8H"/>
                         <segue destination="Rgw-vS-n3O" kind="relationship" relationship="splitItems" id="dFK-aU-PCU"/>
                         <segue destination="fKp-yy-u0S" kind="relationship" relationship="splitItems" id="BlM-hb-f1p"/>
                     </connections>
@@ -684,6 +685,19 @@
                 <customObject id="FoV-4N-mhn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="687"/>
+        </scene>
+        <!--Alert View Controller-->
+        <scene sceneID="in2-9T-T5x">
+            <objects>
+                <viewController id="ueE-co-73u" userLabel="Alert View Controller" sceneMemberID="viewController">
+                    <view key="view" id="YgL-A8-5TY">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="200"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="tO5-pB-tG0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-665" y="1757"/>
         </scene>
         <!--MainView Controller-->
         <scene sceneID="56q-Vh-FcR">
@@ -737,7 +751,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="stoptServer:" target="Rgw-vS-n3O" id="Gmf-C0-tkI"/>
+                                    <action selector="stopServer:" target="Rgw-vS-n3O" id="AhY-wF-5v7"/>
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-Bn-2go">
@@ -768,11 +782,7 @@
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
                                 <rect key="frame" x="329" y="256" width="16" height="16"/>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.busy" id="7wL-lM-FNM">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
+                                    <binding destination="n71-mI-16p" name="animate" keyPath="selection.busy" id="mWx-la-BBP"/>
                                 </connections>
                             </progressIndicator>
                         </subviews>
@@ -796,6 +806,9 @@
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" id="yCN-sm-aMF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="ueE-co-73u" kind="sheet" identifier="showError" id="pxb-Sc-b1G"/>
+                    </connections>
                 </viewController>
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Postgres.PostgresServer" id="n71-mI-16p">
@@ -903,17 +916,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llI-10-PQS">
-                                <rect key="frame" x="498" y="13" width="75" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xzj-sg-5r7">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="dismissController:" target="DRA-m0-WI0" id="C6p-cH-Pdp"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
                 </viewController>
@@ -925,7 +927,7 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-104.5" y="1754.5"/>
+            <point key="canvasLocation" x="-80" y="1755"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
@@ -935,13 +937,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="200" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="63" horizontalPageScroll="10" verticalLineScroll="63" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
                                 <rect key="frame" x="0.0" y="61" width="200" height="339"/>
                                 <clipView key="contentView" drawsBackground="NO" id="dFK-VJ-sw2">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="339"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="61" viewBased="YES" id="Kht-WI-z50">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Kht-WI-z50">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -966,14 +968,14 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="16" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="WEY-hy-uaL">
-                                                                    <rect key="frame" x="3" y="13" width="16" height="17"/>
+                                                                    <rect key="frame" x="3" y="15" width="16" height="16"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="eee-nH-1JR"/>
                                                                     <connections>
                                                                         <binding destination="nru-Bg-Wku" name="value" keyPath="image" id="86h-Iz-zqU"/>
                                                                     </connections>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bc6-Nx-1b5">
-                                                                    <rect key="frame" x="25" y="13" width="54" height="17"/>
+                                                                    <rect key="frame" x="25" y="17" width="54" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="&lt;name&gt;" id="ds7-bT-HSy">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -986,11 +988,9 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="WEY-hy-uaL" firstAttribute="leading" secondItem="nru-Bg-Wku" secondAttribute="leading" constant="3" id="0aJ-5R-znM"/>
-                                                                <constraint firstItem="bc6-Nx-1b5" firstAttribute="top" secondItem="nru-Bg-Wku" secondAttribute="top" constant="20" id="Lrl-Lc-mfD"/>
+                                                                <constraint firstItem="WEY-hy-uaL" firstAttribute="centerY" secondItem="nru-Bg-Wku" secondAttribute="centerY" constant="2" id="Ggt-w8-keq"/>
                                                                 <constraint firstItem="bc6-Nx-1b5" firstAttribute="leading" secondItem="WEY-hy-uaL" secondAttribute="trailing" constant="8" id="MqF-OG-aov"/>
-                                                                <constraint firstAttribute="bottom" secondItem="WEY-hy-uaL" secondAttribute="bottom" constant="13" id="b9Q-nO-cwT"/>
-                                                                <constraint firstAttribute="bottom" secondItem="bc6-Nx-1b5" secondAttribute="bottom" constant="13" id="sMt-y1-6kO"/>
-                                                                <constraint firstItem="WEY-hy-uaL" firstAttribute="top" secondItem="nru-Bg-Wku" secondAttribute="top" constant="20" id="vQH-yA-Fa8"/>
+                                                                <constraint firstItem="bc6-Nx-1b5" firstAttribute="centerY" secondItem="nru-Bg-Wku" secondAttribute="centerY" id="z0l-38-saI"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="bc6-Nx-1b5" id="cLI-ok-ukP"/>

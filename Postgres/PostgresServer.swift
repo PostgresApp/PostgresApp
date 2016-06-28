@@ -26,6 +26,11 @@ import Cocoa
 		case NoBinDir
 	}
 	
+	enum ActionStatus {
+		case Success
+		case Failure(NSError)
+	}
+	
 	
 	dynamic var name: String = ""
 	dynamic var version: String = ""
@@ -33,35 +38,25 @@ import Cocoa
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var runAtStartup: Bool = false
-	dynamic var stopAtQuit: Bool = true
+	dynamic var stopAtQuit: Bool = false
 	
-	dynamic private(set) var running: Bool = false
 	dynamic private(set) var busy: Bool = false
+	dynamic private(set) var statusMessage: String = ""
+	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [NSObject] = []
 	
-	dynamic var statusMessage: String {
-		get {
+	dynamic private(set) var running: Bool = false {
+		didSet {
 			if self.running {
-				return "PostgreSQL \(self.version) - Running on port \(self.port)"
+				self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
 			}
 			else {
-				return "PostgreSQL \(self.version) - Stopped"
+				self.statusMessage = "PostgreSQL \(self.version) - Stopped"
 			}
 		}
 	}
 	
-	dynamic var statusMessageExtended: String {
-		get {
-			if self.running {
-				return "PostgreSQL \(self.version) - Running on port \(self.port)"
-			}
-			else {
-				return "PostgreSQL \(self.version) - Stopped"
-			}
-		}
-	}
-	
-	var logfilePath: String {
+	dynamic var logfilePath: String {
 		get {
 			return self.varPath.appending("/postgres-server.log")
 		}
@@ -87,14 +82,47 @@ import Cocoa
 	
 	var serverStatus: ServerStatus {
 		get {
-			return .Error
+			if !FileManager.default().fileExists(atPath: self.binPath) {
+				return .NoBinDir
+			}
+			let task = Task()
+			task.launchPath = self.binPath.appending("/psql")
+			task.arguments = [
+				"-p", String(self.port),
+				"-A",
+				"-q",
+				"-t",
+				"-c", "SHOW data_directory",
+				"postegres"
+			]
+			let outPipe = Pipe()
+			task.standardOutput = outPipe
+			task.standardError = Pipe()
+			task.launch()
+			let taskOutput = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+			task.waitUntilExit()
+			
+			let expectedDataDir = self.varPath
+			let actualDataDir =  taskOutput
+			
+			print("exp=\(expectedDataDir)")
+			print("act=\(actualDataDir)")
+			
+			switch task.terminationStatus {
+			case 0:
+				return .Running
+				
+			case 2:
+				return .Unreachable
+				
+			default:
+				return .Error
+			}
 		}
 	}
 	
 	
-	override init() {
-		// TODO: read port from postgresql.conf
-	}
+	
 	
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
@@ -105,6 +133,8 @@ import Cocoa
 		self.port = port
 		self.binPath = BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath
+		
+		// TODO: read port from postgresql.conf
 	}
 	
 	
@@ -129,7 +159,7 @@ import Cocoa
 	func encode(with aCoder: NSCoder) {
 		aCoder.encode(name, forKey: "name")
 		aCoder.encode(version, forKey: "version")
-		aCoder.encode(port, forKey: "port")
+		aCoder.encode(UInt(port), forKey: "port")
 		aCoder.encode(binPath, forKey: "binPath")
 		aCoder.encode(varPath, forKey: "varPath")
 		aCoder.encode(runAtStartup, forKey: "runAtStartup")
@@ -137,20 +167,48 @@ import Cocoa
 	}
 	
 	
-	func start(completionHandler: (success: Bool, error: NSError?) -> Void) {
+	
+	/*
+	async handlers
+	*/
+	func start(completionHandler: (_: ActionStatus) -> Void) {
+		self.busy = true
+		
 		DispatchQueue.global().async {
-			self.busy = true
-			
 			switch self.dataDirectoryStatus {
 				
 			case .Empty:
-				let result = self.initDatabaseSync()
-				if !result.success {
+				let initRes = self.initDatabaseSync()
+				if case .Failure = initRes {
 					DispatchQueue.main.async {
-						completionHandler(success: result.success, error: result.error)
+						completionHandler(initRes)
 					}
-					return
+					break
 				}
+				
+				let startRes = self.startSync()
+				if case .Failure = startRes {
+					DispatchQueue.main.async {
+						completionHandler(startRes)
+					}
+					break
+				}
+				
+				let createUserRes = self.createUserSync()
+				if case .Failure = createUserRes {
+					DispatchQueue.main.async {
+						completionHandler(createUserRes)
+					}
+					break
+				}
+				
+				let createDBRes = self.createUserDatabaseSync()
+				if case .Failure = createDBRes {
+					DispatchQueue.main.async {
+						completionHandler(createDBRes)
+					}
+				}
+				
 				break
 				
 			case .Incompatible:
@@ -158,72 +216,37 @@ import Cocoa
 				break
 				
 			case .Compatible:
-				let result = self.startSync()
-				if !result.success {
-					DispatchQueue.main.async {
-						completionHandler(success: result.success, error: result.error!)
-					}
-					return
+				let startRes = self.startSync()
+				DispatchQueue.main.async {
+					completionHandler(startRes)
 				}
 				break
 				
 			}
 			
-			
-			self.busy = false
+			DispatchQueue.main.async { self.busy = false }
 		}
 	}
+	
+	
+	func stop(completionHandler: (_: ActionStatus) -> Void) {
+		DispatchQueue.global().async {
+			DispatchQueue.main.async { self.busy = true }
+			
+			let stopRes = self.stopSync()
+			DispatchQueue.main.async {
+				completionHandler(stopRes)
+			}
+			
+			DispatchQueue.main.async { self.busy = false }
+		}
+	}
+	
 	
 	/*
-	- (void)startWithCompletionHandler:(PostgresServerControlCompletionHandler)completionBlock {
-	
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self setIsBusyOnMainThread:YES];
-		
-		NSError *error = nil;
-		PostgresDataDirectoryStatus dataDirStatus = [self statusOfDataDirectory:self.varPath error:&error];
-		
-		if (dataDirStatus == PostgresDataDirectoryEmpty) {
-		BOOL serverDidInit = [self initDatabaseWithError:&error];
-		if (!serverDidInit) {
-		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
-		return;
-		}
-		
-		BOOL serverDidStart = [self startServerWithError:&error];
-		if (!serverDidStart) {
-		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
-		return;
-		}
-		
-		BOOL createdUser = [self createUserWithError:&error];
-		if (!createdUser) {
-		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
-		return;
-		}
-		
-		BOOL createdUserDatabase = [self createUserDatabaseWithError:&error];
-		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(createdUserDatabase, error); });
-		}
-		else if (dataDirStatus == PostgresDataDirectoryCompatible) {
-		BOOL serverDidStart = [self startServerWithError:&error];
-		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(serverDidStart, error); });
-		}
-		else {
-		if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{ completionBlock(NO, error); });
-		}
-		
-		[self setIsBusyOnMainThread:NO];
-	});
-	}
+	sync handlers
 	*/
-	
-	func stop(completionHandler: (success: Bool, error: NSError) -> Void) {
-		
-	}
-	
-	
-	private func startSync() -> (success: Bool, error: NSError?) {
+	private func startSync() -> ActionStatus {
 		let task = Task()
 		task.launchPath = self.binPath.appending("/pg_ctl")
 		task.arguments = [
@@ -231,36 +254,74 @@ import Cocoa
 			"-D", self.varPath,
 			"-w",
 			"-l", self.logfilePath,
-			"-o", String("-p \(self.port)")
+			"-o", "-p", String(self.port)
 		]
-		
 		task.standardOutput = Pipe()
 		task.standardError = Pipe()
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8)
+		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
-		
-		var error: NSError?
-		if task.terminationStatus != 0 {
-			var userInfo: [String: AnyObject] = [:]
-			userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("Could not start PostgreSQL server.", comment: "")
-			userInfo[NSLocalizedRecoverySuggestionErrorKey] = errorDescription
-			userInfo[NSLocalizedRecoveryOptionsErrorKey] = ["OK", "Open Server Log"]
-			userInfo[NSRecoveryAttempterErrorKey] = RecoverAttempter()
-			userInfo["ServerLogRecoveryOptionIndex"] = (1)
-			userInfo["ServerLogPath"] = self.logfilePath
-			error = NSError(domain: "com.postgresapp.Postgres.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
-		}
 		
 		if task.terminationStatus == 0 {
 			self.running = true
+			return .Success
 		}
-		
-		return (task.terminationStatus == 0, error)
+		else {
+			let userInfo: [String: AnyObject] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not start PostgreSQL server.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
+				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
+					if optionIndex == 1 {
+						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+					}
+					return true
+				}),
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
+			return .Failure(error)
+		}
 	}
 	
 	
-	private func initDatabaseSync() -> (success: Bool, error: NSError) {
+	private func stopSync() -> ActionStatus {
+		let task = Task()
+		task.launchPath = self.binPath.appending("/pg_ctl")
+		task.arguments = [
+			"stop",
+			"-m", "f",
+			"-D", self.varPath,
+			"-w",
+		]
+		task.standardOutput = Pipe()
+		task.standardError = Pipe()
+		task.launch()
+		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		task.waitUntilExit()
+		
+		if task.terminationStatus == 0 {
+			self.running = false
+			return .Success
+		}
+		else {
+			let userInfo: [String: AnyObject] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not stop PostgreSQL server.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
+				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
+					if optionIndex == 1 {
+						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+					}
+					return true
+				})
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
+			return .Failure(error)
+		}
+	}
+	
+	
+	private func initDatabaseSync() -> ActionStatus {
 		let task = Task()
 		task.launchPath = self.binPath.appending("/initdb")
 		task.arguments = [
@@ -272,40 +333,97 @@ import Cocoa
 		task.standardOutput = Pipe()
 		task.standardError = Pipe()
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8)
+		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
 		
-		var error: NSError!
-		if task.terminationStatus != 0 {
-			var userInfo: [String: AnyObject] = [:]
-			userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("Could not initialize database cluster.", comment: "")
-			userInfo[NSLocalizedRecoverySuggestionErrorKey] = errorDescription
-			error = NSError(domain: "com.postgresapp.Postgres.initdb", code: Int(task.terminationStatus), userInfo: userInfo)
+		if task.terminationStatus == 0 {
+			return .Success
 		}
-		
-		return (task.terminationStatus == 0, error)
-	}
-	
-}
-
-
-
-class RecoverAttempter: NSObject {
-	
-	override func attemptRecovery(fromError error: NSError, optionIndex recoveryOptionIndex: Int) -> Bool {
-		let userInfo = error.userInfo
-		let serverLogRecoveryOptionIndex: Int? = Int(String(userInfo["ServerLogRecoveryOptionIndex"]))
-		
-		if serverLogRecoveryOptionIndex != 0 && recoveryOptionIndex == serverLogRecoveryOptionIndex! {
-			NSWorkspace.shared().openFile(String(userInfo["ServerLogPath"]), withApplication: "Console")
+		else {
+			let userInfo: [String: AnyObject] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not initialize database cluster.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
+				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
+					if optionIndex == 1 {
+						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+					}
+					return true
+				})
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres.initdb", code: Int(task.terminationStatus), userInfo: userInfo)
+			return .Failure(error)
 		}
-		
-		return false
 	}
 	
 	
-	override func attemptRecovery(fromError error: NSError, optionIndex recoveryOptionIndex: Int, delegate: AnyObject?, didRecoverSelector: Selector?, contextInfo: UnsafeMutablePointer<Void>?) {
-		super.attemptRecovery(fromError: error, optionIndex: recoveryOptionIndex, delegate: delegate, didRecoverSelector: didRecoverSelector, contextInfo: contextInfo)
+	private func createUserSync() -> ActionStatus {
+		let task = Task()
+		task.launchPath = self.binPath.appending("/createuser")
+		task.arguments = [
+			"-U", "postgres",
+			"-p", String(self.port),
+			"--superuser",
+			NSUserName()
+		]
+		task.standardOutput = Pipe()
+		task.standardError = Pipe()
+		task.launch()
+		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		task.waitUntilExit()
+		
+		if task.terminationStatus == 0 {
+			return .Success
+		}
+		else {
+			let userInfo: [String: AnyObject] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not create default user.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
+				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
+					if optionIndex == 1 {
+						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+					}
+					return true
+				})
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres.createuser", code: Int(task.terminationStatus), userInfo: userInfo)
+			return .Failure(error)
+		}
+	}
+	
+	
+	private func createUserDatabaseSync() -> ActionStatus {
+		let task = Task()
+		task.launchPath = self.binPath.appending("/createdb")
+		task.arguments = [
+			"-p", String(self.port),
+			NSUserName()
+		]
+		task.standardOutput = Pipe()
+		task.standardError = Pipe()
+		task.launch()
+		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		task.waitUntilExit()
+		
+		if task.terminationStatus == 0 {
+			return .Success
+		}
+		else {
+			let userInfo: [String: AnyObject] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not create user database.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
+				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
+					if optionIndex == 1 {
+						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+					}
+					return true
+				})
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres.createdb", code: Int(task.terminationStatus), userInfo: userInfo)
+			return .Failure(error)
+		}
 	}
 	
 }

@@ -9,19 +9,27 @@
 import Cocoa
 
 protocol PostgresServerManagerConsumer {
-	var serverManager: ServerManager? { get set }
+	var serverManager: ServerManager! { get set }
 }
 
 class MainWindowController: NSWindowController {
 	
 	override func windowDidLoad() {
 		serverManager = ServerManager.shared
+		
+		if let window = self.window {
+			window.titleVisibility = .hidden
+			window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
+			window.titlebarAppearsTransparent = true
+			window.isMovableByWindowBackground = true
+		}
+		
 		super.windowDidLoad()
 	}
 	
-	var serverManager: ServerManager? {
+	var serverManager: ServerManager! {
 		didSet {
-			func propagate(_ serverManager: ServerManager?, toChildrenOf parent: NSViewController) {
+			func propagate(_ serverManager: ServerManager, toChildrenOf parent: NSViewController) {
 				if var consumer = parent as? PostgresServerManagerConsumer {
 					consumer.serverManager = serverManager
 				}
@@ -29,7 +37,6 @@ class MainWindowController: NSWindowController {
 					propagate(serverManager, toChildrenOf: child)
 				}
 			}
-			
 			propagate(serverManager, toChildrenOf: self.contentViewController!)
 		}
 	}
@@ -38,10 +45,6 @@ class MainWindowController: NSWindowController {
 	
 	
 	// MARK - IBActions
-	
-	@IBAction func addServer(_ sender: AnyObject) {
-		
-	}
 	
 	@IBAction func removeServer(_ sender: AnyObject) {
 		let alert = NSAlert()
@@ -57,7 +60,6 @@ class MainWindowController: NSWindowController {
 		}
 		
 	}
-	
 	
 	
 	

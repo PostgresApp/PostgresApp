@@ -10,25 +10,25 @@ import Cocoa
 
 class SplitViewController: NSSplitViewController {
 	
+	@IBOutlet var sideBarItem: NSSplitViewItem!
+	
+	
 	@IBAction func toggleServerListView(_ sender: NSButton) {
-		let serverListView = self.splitViewItems[0].viewController.view
-		
-		if serverListView.superview != nil || self.splitView.isSubviewCollapsed(serverListView) {
-			serverListView.isHidden = false
-			self.splitView.addSubview(serverListView)
-			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
-			var oldFrame = NSApp.mainWindow?.frame
-			oldFrame?.size.width += serverListView.frame.size.width+1
-			NSApp.mainWindow?.setFrame(oldFrame!, display: false)
+		if self.splitViewItems.contains(sideBarItem) {
+			self.removeSplitViewItem(sideBarItem)
+			var frame = NSApp.mainWindow!.frame
+			frame.size.width -= sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
+			NSApp.mainWindow?.setFrame(frame, display: false)
+			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
 		}
 		else {
-			serverListView.removeFromSuperview()
-			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
-			var oldFrame = NSApp.mainWindow?.frame
-			oldFrame?.size.width -= serverListView.frame.size.width+1
-			NSApp.mainWindow?.setFrame(oldFrame!, display: false)
+			self.addSplitViewItem(sideBarItem)
+			var frame = NSApp.mainWindow!.frame
+			frame.size.width += sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
+			NSApp.mainWindow?.setFrame(frame, display: false)
+			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
 		}
-		
 	}
+	
 	
 }
