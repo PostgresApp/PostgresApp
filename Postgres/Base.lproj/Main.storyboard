@@ -644,7 +644,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Postgres" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="38" y="-85"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -652,7 +652,7 @@
                 <windowController id="B8D-0N-5wS" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="mainWindow" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="0.0" y="0.0" width="290" height="151"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="700" height="270"/>
                     </window>
@@ -662,7 +662,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-130" y="190.5"/>
+            <point key="canvasLocation" x="-55.5" y="190.5"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="hrj-MD-yEE">
@@ -731,6 +731,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="FKt-V6-jos"/>
                                     <segue destination="DRA-m0-WI0" kind="popover" popoverAnchorView="5Be-be-3Q1" popoverBehavior="t" preferredEdge="maxY" id="YYL-Uq-Jxd"/>
                                 </connections>
                             </button>
@@ -742,6 +743,7 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="startServer:" target="Rgw-vS-n3O" id="r7w-iz-FRX"/>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="canRemove" id="HWl-zY-kd8"/>
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
@@ -752,6 +754,7 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="stopServer:" target="Rgw-vS-n3O" id="AhY-wF-5v7"/>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="canRemove" id="Sjf-L3-g8c"/>
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-Bn-2go">
@@ -807,6 +810,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="serverArrayController" destination="n71-mI-16p" id="M90-Xj-V42"/>
                         <segue destination="ueE-co-73u" kind="sheet" identifier="showError" id="pxb-Sc-b1G"/>
                     </connections>
                 </viewController>
@@ -902,11 +906,14 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luV-Hq-Hva">
                                 <rect key="frame" x="114" y="92" width="330" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;path&gt;" id="awD-Y3-BIo">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;varPath&gt;" id="awD-Y3-BIo">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.varPath" id="acz-jX-1qH"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g3c-gM-ofF">
                                 <rect key="frame" x="444" y="83" width="129" height="32"/>
@@ -915,9 +922,15 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="openInFinder:" target="DRA-m0-WI0" id="knU-Hh-lA3"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="serverArrayController" destination="1aH-X1-M4q" id="YqB-hI-V9P"/>
+                    </connections>
                 </viewController>
                 <customObject id="Rvw-Op-Bg8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Postgres.PostgresServer" id="1aH-X1-M4q">
@@ -1012,7 +1025,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="tbT-EC-lRi"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="p1y-Ep-YR9">
-                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
+                                    <rect key="frame" x="0.0" y="323" width="200" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="BBx-ff-fMZ">
@@ -1059,6 +1072,9 @@
                             <constraint firstItem="2oV-nX-Naq" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" constant="20" id="znM-0n-kej"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="serverArrayController" destination="Dsw-zw-YD1" id="WXj-dx-iS3"/>
+                    </connections>
                 </viewController>
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Postgres.PostgresServer" id="Dsw-zw-YD1">
@@ -1217,8 +1233,17 @@ Gw
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="serverArrayController" destination="eGk-uh-ooJ" id="gkl-eD-vvP"/>
+                    </connections>
                 </viewController>
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController id="eGk-uh-ooJ">
+                    <connections>
+                        <binding destination="1Yk-z1-ntp" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="lmx-wh-AVk"/>
+                        <binding destination="1Yk-z1-ntp" name="contentArray" keyPath="serverManager.servers" id="ev5-BJ-3eL"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="735" y="1774"/>
         </scene>

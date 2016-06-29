@@ -13,17 +13,17 @@ import Cocoa
 	let BUNDLE_PATH = "/Applications/Postgres.app"
 	
 	enum DataDirectoryStatus {
-		case Incompatible
 		case Compatible
+		case Incompatible
 		case Empty
 	}
 	
 	enum ServerStatus {
-		case Unreachable
+		case Startable
 		case Running
+		case NoBinDir
 		case WrongDataDirectory
 		case Error
-		case NoBinDir
 	}
 	
 	enum ActionStatus {
@@ -68,7 +68,7 @@ import Cocoa
 			if FileManager.default().fileExists(atPath: pgVersionPath) {
 				do {
 					let fileContents = try String(contentsOfFile: pgVersionPath)
-					if String(fileContents.characters.split(separator: Character("\n")).first!) == self.version {
+					if fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) == self.version {
 						return .Compatible
 					}
 					else {
@@ -85,44 +85,42 @@ import Cocoa
 			if !FileManager.default().fileExists(atPath: self.binPath) {
 				return .NoBinDir
 			}
+			
 			let task = Task()
 			task.launchPath = self.binPath.appending("/psql")
 			task.arguments = [
-				"-p", String(self.port),
+				"-p \(String(self.port))",
 				"-A",
 				"-q",
 				"-t",
 				"-c", "SHOW data_directory",
-				"postegres"
+				"postgres"
 			]
 			let outPipe = Pipe()
 			task.standardOutput = outPipe
 			task.standardError = Pipe()
-			task.launch()
-			let taskOutput = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+			task.launch()			
+			let taskOutput = String(data: (outPipe.fileHandleForReading.readDataToEndOfFile()), encoding: .utf8) ?? "(incorrectly encoded error message)"
 			task.waitUntilExit()
-			
-			let expectedDataDir = self.varPath
-			let actualDataDir =  taskOutput
-			
-			print("exp=\(expectedDataDir)")
-			print("act=\(actualDataDir)")
 			
 			switch task.terminationStatus {
 			case 0:
-				return .Running
+				if taskOutput.characters.count > 0 && taskOutput.substring(to: taskOutput.index(before: taskOutput.endIndex)) == self.varPath {
+					self.running = true
+					return .Running
+				}
+				return .WrongDataDirectory
 				
 			case 2:
-				return .Unreachable
+				self.running = false
+				return .Startable
 				
 			default:
+				self.running = false
 				return .Error
 			}
 		}
 	}
-	
-	
-	
 	
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
@@ -176,7 +174,7 @@ import Cocoa
 		
 		DispatchQueue.global().async {
 			switch self.dataDirectoryStatus {
-				
+			
 			case .Empty:
 				let initRes = self.initDatabaseSync()
 				if case .Failure = initRes {
@@ -208,11 +206,17 @@ import Cocoa
 						completionHandler(createDBRes)
 					}
 				}
-				
 				break
 				
 			case .Incompatible:
-				print("datadir incomp")
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
+					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.data-directory", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					completionHandler(.Failure(error))
+				}
 				break
 				
 			case .Compatible:
@@ -254,7 +258,7 @@ import Cocoa
 			"-D", self.varPath,
 			"-w",
 			"-l", self.logfilePath,
-			"-o", "-p", String(self.port)
+			"-o", String("-p \(String(self.port))"),
 		]
 		task.standardOutput = Pipe()
 		task.standardError = Pipe()

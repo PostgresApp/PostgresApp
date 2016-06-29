@@ -8,29 +8,12 @@
 
 import Cocoa
 
-protocol PostgresServerManagerConsumer {
-	var serverManager: ServerManager! { get set }
-}
-
 class MainWindowController: NSWindowController {
-	
-	override func windowDidLoad() {
-		serverManager = ServerManager.shared
-		
-		if let window = self.window {
-			window.titleVisibility = .hidden
-			window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
-			window.titlebarAppearsTransparent = true
-			window.isMovableByWindowBackground = true
-		}
-		
-		super.windowDidLoad()
-	}
 	
 	var serverManager: ServerManager! {
 		didSet {
 			func propagate(_ serverManager: ServerManager, toChildrenOf parent: NSViewController) {
-				if var consumer = parent as? PostgresServerManagerConsumer {
+				if var consumer = parent as? ServerManagerConsumer {
 					consumer.serverManager = serverManager
 				}
 				for child in parent.childViewControllers {
@@ -42,54 +25,57 @@ class MainWindowController: NSWindowController {
 	}
 	
 	
-	
-	
-	// MARK - IBActions
-	
-	@IBAction func removeServer(_ sender: AnyObject) {
-		let alert = NSAlert()
-		alert.messageText = "Delete Server?"
-		alert.addButton(withTitle: "OK")
-		alert.addButton(withTitle: "Cancel")
-		alert.alertStyle = .warning
-		alert.beginSheetModal(for: self.window!) { (modalResponse) -> Void in
-			if modalResponse == NSAlertFirstButtonReturn {
-				print("OK")
-				self.serverManager?.removeSelectedServer()
-			}
+	override func windowDidLoad() {
+		self.serverManager = ServerManager.shared
+		
+		if let window = self.window {
+			window.titleVisibility = .hidden
+			window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
+			window.titlebarAppearsTransparent = true
+			window.isMovableByWindowBackground = true
 		}
 		
+		super.windowDidLoad()
 	}
 	
 	
+	override func presentError(_ error: NSError, modalFor window: NSWindow, delegate: AnyObject?, didPresent didPresentSelector: Selector?, contextInfo: UnsafeMutablePointer<Void>?) {
+		print("MainWindowController's presentError() called")
+		super.presentError(error, modalFor: window, delegate: delegate, didPresent: didPresentSelector, contextInfo: contextInfo)
+		
+		//		let alert = NSAlert(error: error)
+		//		alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+		//
+		//		if let rawCommandOutput = error.userInfo["RawCommandOutput"] as? String {
+		//			let accessoryView = NSTextView.init(frame: NSMakeRect(0,0,100,100))
+		//			accessoryView.textStorage?.mutableString.setString(rawCommandOutput)
+		//		}
+		//		self.performSegue(withIdentifier: "showError", sender: error)
+	}
 	
+	//	func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
+	//		<#code#>
+	//	}
 	/*
-	- (IBAction)removeServer:(id)sender {
-	NSAlert *alert = [NSAlert alertWithMessageText:@"Delete server?" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@""];
+	-(void)presentError:(NSError *)error modalForWindow:(NSWindow *)window delegate:(id)delegate didPresentSelector:(SEL)didPresentSelector contextInfo:(void *)contextInfo {
+	NSAlert *alert = [NSAlert alertWithError:error];
 	
-	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-	if (returnCode == NSModalResponseOK) {
-	NSUInteger selIdx = self.serverArrayController.selectionIndex;
+	if (error.userInfo[@"RawCommandOutput"]) {
+	NSArray *tlo;
+	[[NSBundle mainBundle] loadNibNamed:@"AlertAccessoryView" owner:nil topLevelObjects:&tlo];
+	for (id obj in tlo) {
+	if ([obj isKindOfClass:[NSScrollView class]]) {
+	((NSTextView*)((NSScrollView*)obj).contentView.documentView).textStorage.mutableString.string = error.userInfo[@"RawCommandOutput"];
+	alert.accessoryView = obj;
+	}
+	}
+	}
 	
-	if ([[self.servers objectAtIndex:selIdx] isRunning]) {
-	[[self.servers objectAtIndex:selIdx] stopWithCompletionHandler:^(BOOL success, NSError *error) {
-	if (!success) {
-	[self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
+	[alert beginSheetModalForWindow:window modalDelegate:delegate didEndSelector:didPresentSelector contextInfo:contextInfo];
 	}
-	}];
-	}
+	*/
 	
-	[self.servers removeObjectAtIndex:selIdx];
-	[self.serverArrayController rearrangeObjects];
-	if (selIdx == self.servers.count) {
-	[self.serverArrayController setSelectionIndex:selIdx-1];
-	} else {
-	[self.serverArrayController setSelectionIndex:selIdx];
+	func errorDidPresent(_: AnyObject) {
+		print("errorDidPresent")
 	}
-	}
-	}];
-	}
-
-*/
-	
 }

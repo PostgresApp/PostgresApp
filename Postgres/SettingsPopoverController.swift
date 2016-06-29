@@ -8,8 +8,25 @@
 
 import Cocoa
 
-class SettingsPopoverController: NSViewController, PostgresServerManagerConsumer {
+class SettingsPopoverController: NSViewController, ServerManagerConsumer {
 	
 	dynamic var serverManager: ServerManager!
+	
+	@IBOutlet var serverArrayController: NSArrayController?
+	
+	
+	@IBAction func openInFinder(_ sender: AnyObject?) {
+		if let varPath = (self.serverArrayController?.selectedObjects.first as? PostgresServer)?.varPath {
+			if NSWorkspace.shared().selectFile(nil, inFileViewerRootedAtPath: varPath) {
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "Folder not found.",
+					NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.missing-folder", code: 0, userInfo: userInfo)
+				self.dismiss(self)
+				NSApp.mainWindow!.windowController?.presentError(error, modalFor: NSApp.mainWindow!, delegate: nil, didPresent: nil, contextInfo: nil)
+			}
+		}
+	}
 	
 }

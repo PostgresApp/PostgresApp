@@ -12,16 +12,19 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
+		// TODO: validate app path and move app if necessary
 		self.validateNoOtherVersionsAreRunning()
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
+		// TODO: check Shell profiles
 		ServerManager.shared.loadServers()
+		ServerManager.shared.refreshServerStatuses()
 		//ServerManager.shared.startServers()
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
-		
+		ServerManager.shared.refreshServerStatuses()
 	}
 	
 	func applicationWillTerminate(_ notification: Notification) {

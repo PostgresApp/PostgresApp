@@ -8,71 +8,86 @@
 
 import Cocoa
 
-class MainViewController: NSViewController, PostgresServerManagerConsumer {
+class MainViewController: NSViewController, ServerManagerConsumer {
 	
 	dynamic var serverManager: ServerManager!
 	
+	@IBOutlet var serverArrayController: NSArrayController?
+	
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
-		serverManager.selected()?.start { (actionStatus) in
-			if case let .Failure(error) = actionStatus {
-				self.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
+		if let server = self.serverArrayController?.selectedObjects.first as! PostgresServer? {
+						
+			switch server.serverStatus {
+			
+			case .Running:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "This PostgreSQL server is already running on port \(server.port)",
+					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before starting again."
+				]
+				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
+				break
+				
+			case .NoBinDir:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
+					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
+				]
+				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
+				break
+				
+			case .WrongDataDirectory:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(server.port)",
+					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
+				]
+				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
+				break
+				
+			case .Error:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "Unknown error",
+					NSLocalizedRecoverySuggestionErrorKey: ""
+				]
+				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
+				break
+			
+			case .Startable:
+				server.start { (actionStatus) in
+					if case let .Failure(error) = actionStatus {
+						self.errorHandler(error: error)
+					}
+				}
+				break
 			}
 		}
 	}
 	
+	
 	@IBAction func stopServer(_ sender: AnyObject?) {
-		serverManager.selected()?.stop { (actionStatus) in
-			if case let .Failure(error) = actionStatus {
-				self.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
+		if let server = self.serverArrayController?.selectedObjects.first as! PostgresServer? {
+			server.stop { (actionStatus) in
+				if case let .Failure(error) = actionStatus {
+					self.view.window?.windowController?.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
+				}
 			}
+		}
+	}
+	
+	
+	private func errorHandler(error: NSError) {
+		if let mainWindowController = self.view.window?.windowController {
+			mainWindowController.presentError(error, modalFor: mainWindowController.window!, delegate: mainWindowController, didPresent: Selector(("errorDidPresent:")), contextInfo: nil)
 		}
 	}
 	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
-		if var target = segue.destinationController as? PostgresServerManagerConsumer {
+		if var target = segue.destinationController as? ServerManagerConsumer {
 			target.serverManager = serverManager
 		}
 	}
 	
-	
-	override func presentError(_ error: NSError, modalFor window: NSWindow, delegate: AnyObject?, didPresent didPresentSelector: Selector?, contextInfo: UnsafeMutablePointer<Void>?) {
-super.presentError(error, modalFor: window, delegate: delegate, didPresent: didPresentSelector, contextInfo: contextInfo)
-		
-		//		let alert = NSAlert(error: error)
-//		alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
-//
-//		if let rawCommandOutput = error.userInfo["RawCommandOutput"] as? String {
-//			let accessoryView = NSTextView.init(frame: NSMakeRect(0,0,100,100))
-//			accessoryView.textStorage?.mutableString.setString(rawCommandOutput)
-//		}
-//		self.performSegue(withIdentifier: "showError", sender: error)
-	}
-	
-//	func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
-//		<#code#>
-//	}
-	/*
-	-(void)presentError:(NSError *)error modalForWindow:(NSWindow *)window delegate:(id)delegate didPresentSelector:(SEL)didPresentSelector contextInfo:(void *)contextInfo {
-		NSAlert *alert = [NSAlert alertWithError:error];
-	
-		if (error.userInfo[@"RawCommandOutput"]) {
-			NSArray *tlo;
-			[[NSBundle mainBundle] loadNibNamed:@"AlertAccessoryView" owner:nil topLevelObjects:&tlo];
-			for (id obj in tlo) {
-				if ([obj isKindOfClass:[NSScrollView class]]) {
-					((NSTextView*)((NSScrollView*)obj).contentView.documentView).textStorage.mutableString.string = error.userInfo[@"RawCommandOutput"];
-					alert.accessoryView = obj;
-				}
-			}
-		}
-	
-		[alert beginSheetModalForWindow:window modalDelegate:delegate didEndSelector:didPresentSelector contextInfo:contextInfo];
-	}
-	*/
-	
-
 }
 
 

@@ -16,6 +16,18 @@ import Foundation
 	dynamic var selectedServerIndices = IndexSet()
 	
 	
+	class func _shared() -> ServerManager {
+		return ServerManager()
+	}
+	
+	
+	func refreshServerStatuses() {
+		for server in self.servers {
+			let _ = server.serverStatus
+		}
+	}
+	
+	
 	func startServers() {
 		for server in self.servers {
 			server.start {_ in }
@@ -27,23 +39,6 @@ import Foundation
 		for server in self.servers {
 			server.stop {_ in }
 		}
-	}
-	
-	
-	func selected() -> PostgresServer? {
-		guard let firstIdx = self.selectedServerIndices.first else { return nil }
-		return self.servers[firstIdx]
-	}
-	
-	
-	func removeSelectedServer() {
-		guard let firstIdx = self.selectedServerIndices.first else { return }
-		self.servers.remove(at: firstIdx)
-	}
-	
-	
-	func selectLast() {
-		selectedServerIndices = IndexSet(integer: servers.count-1)
 	}
 	
 	
@@ -59,4 +54,9 @@ import Foundation
 		self.servers = servers
 	}
 	
+}
+
+
+protocol ServerManagerConsumer {
+	var serverManager: ServerManager! { get set }
 }

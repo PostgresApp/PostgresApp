@@ -16,16 +16,16 @@ class SplitViewController: NSSplitViewController {
 	@IBAction func toggleServerListView(_ sender: NSButton) {
 		if self.splitViewItems.contains(sideBarItem) {
 			self.removeSplitViewItem(sideBarItem)
-			var frame = NSApp.mainWindow!.frame
+			var frame = self.view.window!.frame
 			frame.size.width -= sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			NSApp.mainWindow?.setFrame(frame, display: false)
+			self.view.window?.setFrame(frame, display: false, animate: true)
 			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
 		}
 		else {
 			self.addSplitViewItem(sideBarItem)
-			var frame = NSApp.mainWindow!.frame
+			var frame = self.view.window!.frame
 			frame.size.width += sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			NSApp.mainWindow?.setFrame(frame, display: false)
+			self.view.window?.setFrame(frame, display: false, animate: true)
 			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
 		}
 	}
