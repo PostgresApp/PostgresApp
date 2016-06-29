@@ -30,12 +30,8 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 		alert.alertStyle = .warning
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) -> Void in
 			if modalResponse == NSAlertFirstButtonReturn {
-				//self.serverManager?.removeSelectedServer()
-				//self.serverArrayController?.removeSelectionIndexes((self.serverArrayController?.selectionIndexes)!)
-				//self.serverArrayController?.remove(atArrangedObjectIndexes: ((self.serverArrayController?.selectionIndexes)!))
 				self.serverArrayController!.remove(nil)
 				self.serverArrayController!.rearrangeObjects()
-				print(self.serverArrayController!.content?.count)
 			}
 		}
 		
@@ -64,7 +60,6 @@ class ServerTableCellView: NSTableCellView {
 		case "self.objectValue.running":
 			let imgName = (self.objectValue as? PostgresServer)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
 			self.image = NSImage.init(imageLiteralResourceName: imgName)
-			break
 		default:
 			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 		}
