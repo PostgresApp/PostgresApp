@@ -107,12 +107,12 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 			)
 		)
 		
-		if (createIfNotExists) {
+		if !FileManager.default().fileExists(atPath: appSupportDirURL!.path!) && createIfNotExists {
 			do {
 				try FileManager.default().createDirectory(at: appSupportDirURL!, withIntermediateDirectories: false, attributes: nil)
 			}
-			catch {
-				//print("Error creating directory: ", createDirectoryError)
+			catch let error as NSError  {
+				print("Error creating directory: ", error)
 			}
 		}
 		
