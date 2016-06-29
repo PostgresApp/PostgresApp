@@ -17,48 +17,10 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
 		if let server = self.serverArrayController?.selectedObjects.first as! PostgresServer? {
-						
-			switch server.serverStatus {
-			
-			case .Running:
-				let userInfo: [String: AnyObject] = [
-					NSLocalizedDescriptionKey: "This PostgreSQL server is already running on port \(server.port)",
-					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before starting again."
-				]
-				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
-				break
-				
-			case .NoBinDir:
-				let userInfo: [String: AnyObject] = [
-					NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
-					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
-				]
-				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
-				break
-				
-			case .WrongDataDirectory:
-				let userInfo: [String: AnyObject] = [
-					NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(server.port)",
-					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
-				]
-				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
-				break
-				
-			case .Error:
-				let userInfo: [String: AnyObject] = [
-					NSLocalizedDescriptionKey: "Unknown error",
-					NSLocalizedRecoverySuggestionErrorKey: ""
-				]
-				errorHandler(error: NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo))
-				break
-			
-			case .Startable:
-				server.start { (actionStatus) in
-					if case let .Failure(error) = actionStatus {
-						self.errorHandler(error: error)
-					}
+			server.start { (actionStatus) in
+				if case let .Failure(error) = actionStatus {
+					self.errorHandler(error: error)
 				}
-				break
 			}
 		}
 	}
