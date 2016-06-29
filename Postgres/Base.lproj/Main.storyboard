@@ -731,7 +731,11 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="FKt-V6-jos"/>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="3MD-TC-JU0">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                     <segue destination="DRA-m0-WI0" kind="popover" popoverAnchorView="5Be-be-3Q1" popoverBehavior="t" preferredEdge="maxY" id="YYL-Uq-Jxd"/>
                                 </connections>
                             </button>

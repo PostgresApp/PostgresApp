@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objc class PostgresServer: NSObject, NSCoding {
+class PostgresServer: NSObject, NSCoding {
 	
 	let BUNDLE_PATH = "/Applications/Postgres.app"
 	
@@ -45,12 +45,19 @@ import Cocoa
 	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [NSObject] = []
 	
-	dynamic private(set) var running: Bool = false {
+	dynamic private(set) var running: Bool {
+		set {
+			DispatchQueue.main.async { self._running = newValue }
+		}
+		get {
+			return self._running
+		}
+	}
+	private var _running: Bool = false {
 		didSet {
-			if self.running {
+			if self._running {
 				self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
-			}
-			else {
+			} else {
 				self.statusMessage = "PostgreSQL \(self.version) - Stopped"
 			}
 		}
@@ -70,8 +77,7 @@ import Cocoa
 					let fileContents = try String(contentsOfFile: pgVersionPath)
 					if fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) == self.version {
 						return .Compatible
-					}
-					else {
+					} else {
 						return .Incompatible
 					}
 				} catch {}
@@ -167,7 +173,7 @@ import Cocoa
 	
 	
 	/*
-	async handlers
+	public async handlers
 	*/
 	func start(completionHandler: (_: ActionStatus) -> Void) {
 		self.busy = true
