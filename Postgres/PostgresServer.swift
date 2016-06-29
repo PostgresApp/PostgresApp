@@ -95,7 +95,7 @@ class PostgresServer: NSObject, NSCoding {
 			let task = Task()
 			task.launchPath = self.binPath.appending("/psql")
 			task.arguments = [
-				"-p \(String(self.port))",
+				"-p", String(self.port),
 				"-A",
 				"-q",
 				"-t",
@@ -187,7 +187,6 @@ class PostgresServer: NSObject, NSCoding {
 					DispatchQueue.main.async {
 						completionHandler(initRes)
 					}
-					break
 				}
 				
 				let startRes = self.startSync()
@@ -195,7 +194,6 @@ class PostgresServer: NSObject, NSCoding {
 					DispatchQueue.main.async {
 						completionHandler(startRes)
 					}
-					break
 				}
 				
 				let createUserRes = self.createUserSync()
@@ -203,7 +201,6 @@ class PostgresServer: NSObject, NSCoding {
 					DispatchQueue.main.async {
 						completionHandler(createUserRes)
 					}
-					break
 				}
 				
 				let createDBRes = self.createUserDatabaseSync()
@@ -212,7 +209,6 @@ class PostgresServer: NSObject, NSCoding {
 						completionHandler(createDBRes)
 					}
 				}
-				break
 				
 			case .Incompatible:
 				let userInfo: [String: AnyObject] = [
@@ -223,32 +219,79 @@ class PostgresServer: NSObject, NSCoding {
 				DispatchQueue.main.async {
 					completionHandler(.Failure(error))
 				}
-				break
 				
 			case .Compatible:
-				let startRes = self.startSync()
-				DispatchQueue.main.async {
-					completionHandler(startRes)
+				print(self.serverStatus)
+				switch self.serverStatus {
+				case .Running:
+					let userInfo: [String: AnyObject] = [
+						NSLocalizedDescriptionKey: "This PostgreSQL server is already running on port \(self.port)",
+						NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before starting again."
+					]
+					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+					DispatchQueue.main.async {
+						completionHandler(.Failure(error))
+					}
+					
+				case .NoBinDir:
+					let userInfo: [String: AnyObject] = [
+						NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
+						NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
+					]
+					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+					DispatchQueue.main.async {
+						completionHandler(.Failure(error))
+					}
+					
+				case .WrongDataDirectory:
+					let userInfo: [String: AnyObject] = [
+						NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(self.port)",
+						NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
+					]
+					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+					DispatchQueue.main.async {
+						completionHandler(.Failure(error))
+					}
+					
+				case .Error:
+					let userInfo: [String: AnyObject] = [
+						NSLocalizedDescriptionKey: "Unknown error",
+						NSLocalizedRecoverySuggestionErrorKey: ""
+					]
+					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+					DispatchQueue.main.async {
+						completionHandler(.Failure(error))
+					}
+					
+				case .Startable:
+					let startRes = self.startSync()
+					DispatchQueue.main.async {
+						completionHandler(startRes)
+					}
+					
 				}
-				break
-				
 			}
 			
-			DispatchQueue.main.async { self.busy = false }
+			DispatchQueue.main.async {
+				self.busy = false
+			}
 		}
 	}
 	
 	
 	func stop(completionHandler: (_: ActionStatus) -> Void) {
+		self.busy = true
+		
 		DispatchQueue.global().async {
-			DispatchQueue.main.async { self.busy = true }
 			
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
 				completionHandler(stopRes)
 			}
 			
-			DispatchQueue.main.async { self.busy = false }
+			DispatchQueue.main.async {
+				self.busy = false
+			}
 		}
 	}
 	
@@ -264,7 +307,7 @@ class PostgresServer: NSObject, NSCoding {
 			"-D", self.varPath,
 			"-w",
 			"-l", self.logfilePath,
-			"-o", String("-p \(String(self.port))"),
+			"-o", String("-p \(self.port)"),
 		]
 		task.standardOutput = Pipe()
 		task.standardError = Pipe()
