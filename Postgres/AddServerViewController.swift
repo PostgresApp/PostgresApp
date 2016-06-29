@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class AddServerViewController: NSViewController, PostgresServerManagerConsumer {
+class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	let BUNDLE_PATH = "/Applications/Postgres.app"
 	
@@ -20,6 +20,7 @@ class AddServerViewController: NSViewController, PostgresServerManagerConsumer {
 	dynamic var selectedVersionIdx: Int = 0
 	
 	@IBOutlet var versionsPopup: NSPopUpButton?
+	@IBOutlet var serverArrayController: NSArrayController?
 	
 	
 	override func viewDidLoad() {
@@ -35,7 +36,7 @@ class AddServerViewController: NSViewController, PostgresServerManagerConsumer {
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
 		openPanel.directoryURL = self.applicationSupportDirectoryURL(createIfNotExists: true)
-		openPanel.beginSheetModal(for: NSApp.keyWindow!) { (returnCode) in
+		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
 				let varTmp = openPanel.url!.path!
 				let pgVersionPath = varTmp.appending("/PG_VERSION")
@@ -57,8 +58,7 @@ class AddServerViewController: NSViewController, PostgresServerManagerConsumer {
 		if !(self.view.window?.makeFirstResponder(nil))! { NSBeep(); return }
 		
 		let server = PostgresServer(name: self.name, version: self.versions[self.selectedVersionIdx], port: self.port, varPath: self.varPath)
-		serverManager.servers.append(server)
-		serverManager.selectLast()
+		serverArrayController?.addObject(server)
 		
 		self.dismiss(self)
 	}
