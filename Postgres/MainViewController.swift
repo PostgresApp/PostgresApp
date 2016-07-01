@@ -16,7 +16,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
-		if let server = self.serverArrayController?.selectedObjects.first as! PostgresServer? {
+		if let server = self.serverArrayController?.selectedObjects.first as! Server? {
 			server.start { (actionStatus) in
 				if case let .Failure(error) = actionStatus {
 					self.errorHandler(error: error)
@@ -27,7 +27,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	@IBAction func stopServer(_ sender: AnyObject?) {
-		if let server = self.serverArrayController?.selectedObjects.first as! PostgresServer? {
+		if let server = self.serverArrayController?.selectedObjects.first as! Server? {
 			server.stop { (actionStatus) in
 				if case let .Failure(error) = actionStatus {
 					self.view.window?.windowController?.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
