@@ -1,22 +1,16 @@
 //
-//  PostgresServer.swift
+//  Server.swift
 //  Postgres
 //
-//  Created by Chris on 23/06/16.
+//  Created by Chris on 01/07/16.
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
 
 import Cocoa
 
-class PostgresServer: NSObject, NSCoding {
+class Server: NSObject, NSCoding {
 	
 	let BUNDLE_PATH = "/Applications/Postgres.app"
-	
-	enum DataDirectoryStatus {
-		case Compatible
-		case Incompatible
-		case Empty
-	}
 	
 	enum ServerStatus {
 		case Startable
@@ -24,6 +18,8 @@ class PostgresServer: NSObject, NSCoding {
 		case NoBinDir
 		case WrongDataDirectory
 		case Error
+		case DataDirIncompatible
+		case DataDirEmpty
 	}
 	
 	enum ActionStatus {
@@ -45,20 +41,17 @@ class PostgresServer: NSObject, NSCoding {
 	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [NSObject] = []
 	
-	dynamic private(set) var running: Bool {
-		set {
-			DispatchQueue.main.async { self._running = newValue }
-		}
-		get {
-			return self._running
-		}
-	}
-	private var _running: Bool = false {
+	dynamic private(set) var running: Bool = false {
 		didSet {
-			if self._running {
-				self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
-			} else {
-				self.statusMessage = "PostgreSQL \(self.version) - Stopped"
+			switch self.serverStatus {
+			case .DataDirEmpty:
+				self.statusMessage = "Click Start to create a new database"
+			default:
+				if self.running {
+					self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
+				} else {
+					self.statusMessage = "PostgreSQL \(self.version) - Stopped"
+				}
 			}
 		}
 	}
@@ -69,64 +62,9 @@ class PostgresServer: NSObject, NSCoding {
 		}
 	}
 	
-	var dataDirectoryStatus: DataDirectoryStatus {
-		get {
-			let pgVersionPath = self.varPath.appending("/PG_VERSION")
-			if FileManager.default().fileExists(atPath: pgVersionPath) {
-				do {
-					let fileContents = try String(contentsOfFile: pgVersionPath)
-					if fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) == self.version {
-						return .Compatible
-					} else {
-						return .Incompatible
-					}
-				} catch {}
-			}
-			return .Empty
-		}
-	}
+	private(set) var serverStatus: ServerStatus = .Error
 	
-	var serverStatus: ServerStatus {
-		get {
-			if !FileManager.default().fileExists(atPath: self.binPath) {
-				return .NoBinDir
-			}
-			
-			let task = Task()
-			task.launchPath = self.binPath.appending("/psql")
-			task.arguments = [
-				"-p", String(self.port),
-				"-A",
-				"-q",
-				"-t",
-				"-c", "SHOW data_directory",
-				"postgres"
-			]
-			let outPipe = Pipe()
-			task.standardOutput = outPipe
-			task.standardError = Pipe()
-			task.launch()			
-			let taskOutput = String(data: (outPipe.fileHandleForReading.readDataToEndOfFile()), encoding: .utf8) ?? "(incorrectly encoded error message)"
-			task.waitUntilExit()
-			
-			switch task.terminationStatus {
-			case 0:
-				if taskOutput.characters.count > 0 && taskOutput.substring(to: taskOutput.index(before: taskOutput.endIndex)) == self.varPath {
-					self.running = true
-					return .Running
-				}
-				return .WrongDataDirectory
-				
-			case 2:
-				self.running = false
-				return .Startable
-				
-			default:
-				self.running = false
-				return .Error
-			}
-		}
-	}
+	
 	
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
@@ -179,9 +117,53 @@ class PostgresServer: NSObject, NSCoding {
 		self.busy = true
 		
 		DispatchQueue.global().async {
-			switch self.dataDirectoryStatus {
+			DispatchQueue.main.sync {
+				self.updateServerStatus()
+			}
 			
-			case .Empty:
+			switch self.serverStatus {
+				
+			case .DataDirIncompatible:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
+					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.data-directory", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					completionHandler(.Failure(error))
+				}
+				
+			case .NoBinDir:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
+					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					completionHandler(.Failure(error))
+				}
+				
+			case .WrongDataDirectory:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(self.port)",
+					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					completionHandler(.Failure(error))
+				}
+				
+			case .Error:
+				let userInfo: [String: AnyObject] = [
+					NSLocalizedDescriptionKey: "Unknown error",
+					NSLocalizedRecoverySuggestionErrorKey: ""
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					completionHandler(.Failure(error))
+				}
+				
+			case .DataDirEmpty:
 				let initRes = self.initDatabaseSync()
 				if case .Failure = initRes {
 					DispatchQueue.main.async {
@@ -210,66 +192,17 @@ class PostgresServer: NSObject, NSCoding {
 					}
 				}
 				
-			case .Incompatible:
-				let userInfo: [String: AnyObject] = [
-					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
-					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
-				]
-				let error = NSError(domain: "com.postgresapp.Postgres.data-directory", code: 0, userInfo: userInfo)
+			case .Running:
 				DispatchQueue.main.async {
-					completionHandler(.Failure(error))
+					completionHandler(.Success)
 				}
 				
-			case .Compatible:
-				print(self.serverStatus)
-				switch self.serverStatus {
-				case .Running:
-					let userInfo: [String: AnyObject] = [
-						NSLocalizedDescriptionKey: "This PostgreSQL server is already running on port \(self.port)",
-						NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before starting again."
-					]
-					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
-					DispatchQueue.main.async {
-						completionHandler(.Failure(error))
-					}
-					
-				case .NoBinDir:
-					let userInfo: [String: AnyObject] = [
-						NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
-						NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
-					]
-					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
-					DispatchQueue.main.async {
-						completionHandler(.Failure(error))
-					}
-					
-				case .WrongDataDirectory:
-					let userInfo: [String: AnyObject] = [
-						NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(self.port)",
-						NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
-					]
-					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
-					DispatchQueue.main.async {
-						completionHandler(.Failure(error))
-					}
-					
-				case .Error:
-					let userInfo: [String: AnyObject] = [
-						NSLocalizedDescriptionKey: "Unknown error",
-						NSLocalizedRecoverySuggestionErrorKey: ""
-					]
-					let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
-					DispatchQueue.main.async {
-						completionHandler(.Failure(error))
-					}
-					
-				case .Startable:
-					let startRes = self.startSync()
-					DispatchQueue.main.async {
-						completionHandler(startRes)
-					}
-					
+			case .Startable:
+				let startRes = self.startSync()
+				DispatchQueue.main.async {
+					completionHandler(startRes)
 				}
+				
 			}
 			
 			DispatchQueue.main.async {
@@ -287,13 +220,77 @@ class PostgresServer: NSObject, NSCoding {
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
 				completionHandler(stopRes)
-			}
-			
-			DispatchQueue.main.async {
 				self.busy = false
 			}
 		}
 	}
+	
+	
+	func updateServerStatus() {
+		if !FileManager.default().fileExists(atPath: self.binPath) {
+			self.running = false
+			self.serverStatus = .NoBinDir
+		}
+		
+		let pgVersionPath = self.varPath.appending("/PG_VERSION")
+		guard FileManager.default().fileExists(atPath: pgVersionPath) else {
+			self.running = false
+			self.serverStatus =  .DataDirEmpty
+			return
+		}
+		
+		do {
+			let fileContents = try String(contentsOfFile: pgVersionPath)
+			guard fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) == self.version else {
+				self.running = false
+				self.serverStatus =  .DataDirIncompatible
+				return
+				
+			}
+		} catch {
+			self.running = false
+			self.serverStatus = .Error
+			return
+		}
+		
+		let task = Task()
+		task.launchPath = self.binPath.appending("/psql")
+		task.arguments = [
+			"-p", String(self.port),
+			"-A",
+			"-q",
+			"-t",
+			"-c", "SHOW data_directory",
+			"postgres"
+		]
+		let outPipe = Pipe()
+		task.standardOutput = outPipe
+		task.standardError = Pipe()
+		task.launch()
+		let taskOutput = String(data: (outPipe.fileHandleForReading.readDataToEndOfFile()), encoding: .utf8) ?? "(incorrectly encoded error message)"
+		task.waitUntilExit()
+		
+		switch task.terminationStatus {
+		case 0:
+			if taskOutput.characters.count > 0 && taskOutput.substring(to: taskOutput.index(before: taskOutput.endIndex)) == self.varPath {
+				self.running = true
+				self.serverStatus = .Running
+			} else {
+				self.running = false
+				self.serverStatus = .WrongDataDirectory
+			}
+			
+		case 2:
+			self.running = false
+			self.serverStatus = .Startable
+			
+		default:
+			self.running = false
+			self.serverStatus = .Error
+		}
+	}
+	
+	
 	
 	
 	/*
@@ -316,10 +313,11 @@ class PostgresServer: NSObject, NSCoding {
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
-			self.running = true
+			DispatchQueue.main.sync {
+				self.running = true
+			}
 			return .Success
-		}
-		else {
+		} else {
 			let userInfo: [String: AnyObject] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not start PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -330,7 +328,7 @@ class PostgresServer: NSObject, NSCoding {
 					}
 					return true
 				}),
-			]
+				]
 			let error = NSError(domain: "com.postgresapp.Postgres.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
@@ -353,10 +351,11 @@ class PostgresServer: NSObject, NSCoding {
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
-			self.running = false
+			DispatchQueue.main.sync {
+				self.running = false
+			}
 			return .Success
-		}
-		else {
+		} else {
 			let userInfo: [String: AnyObject] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not stop PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -391,8 +390,7 @@ class PostgresServer: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			return .Success
-		}
-		else {
+		} else {
 			let userInfo: [String: AnyObject] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not initialize database cluster.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -427,8 +425,7 @@ class PostgresServer: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			return .Success
-		}
-		else {
+		} else {
 			let userInfo: [String: AnyObject] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create default user.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -461,8 +458,7 @@ class PostgresServer: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			return .Success
-		}
-		else {
+		} else {
 			let userInfo: [String: AnyObject] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create user database.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -489,3 +485,4 @@ class DatabaseModel {
 	var name: String = ""
 	
 }
+
