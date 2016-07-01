@@ -16,7 +16,7 @@ class SettingsPopoverController: NSViewController, ServerManagerConsumer {
 	
 	
 	@IBAction func openInFinder(_ sender: AnyObject?) {
-		if let varPath = (self.serverArrayController?.selectedObjects.first as? PostgresServer)?.varPath {
+		if let varPath = (self.serverArrayController?.selectedObjects.first as? Server)?.varPath {
 			if NSWorkspace.shared().selectFile(nil, inFileViewerRootedAtPath: varPath) {
 				let userInfo: [String: AnyObject] = [
 					NSLocalizedDescriptionKey: "Folder not found.",
@@ -26,6 +26,14 @@ class SettingsPopoverController: NSViewController, ServerManagerConsumer {
 				self.dismiss(self)
 				NSApp.mainWindow!.windowController?.presentError(error, modalFor: NSApp.mainWindow!, delegate: nil, didPresent: nil, contextInfo: nil)
 			}
+		}
+	}
+	
+	
+	
+	dynamic var path: NSURL {
+		get {
+			return NSURL(fileURLWithPath: (self.serverArrayController?.selectedObjects.first!.varPath)!)
 		}
 	}
 	
