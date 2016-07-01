@@ -646,10 +646,10 @@
             </objects>
             <point key="canvasLocation" x="38" y="-85"/>
         </scene>
-        <!--Window Controller-->
+        <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="mainWindow" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="700" height="270"/>
@@ -686,23 +686,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="687"/>
         </scene>
-        <!--Alert View Controller-->
-        <scene sceneID="in2-9T-T5x">
-            <objects>
-                <viewController id="ueE-co-73u" userLabel="Alert View Controller" sceneMemberID="viewController">
-                    <view key="view" id="YgL-A8-5TY">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="200"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="tO5-pB-tG0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-665" y="1757"/>
-        </scene>
-        <!--MainView Controller-->
+        <!--Main View Controller-->
         <scene sceneID="56q-Vh-FcR">
             <objects>
-                <viewController id="Rgw-vS-n3O" userLabel="MainView Controller" customClass="MainViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Rgw-vS-n3O" customClass="MainViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="MYs-NA-b8f" customClass="MainViewBackgroundView" customModule="Postgres" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -731,11 +718,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="3MD-TC-JU0">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
                                     <segue destination="DRA-m0-WI0" kind="popover" popoverAnchorView="5Be-be-3Q1" popoverBehavior="t" preferredEdge="maxY" id="YYL-Uq-Jxd"/>
                                 </connections>
                             </button>
@@ -815,11 +797,10 @@
                     </view>
                     <connections>
                         <outlet property="serverArrayController" destination="n71-mI-16p" id="M90-Xj-V42"/>
-                        <segue destination="ueE-co-73u" kind="sheet" identifier="showError" id="pxb-Sc-b1G"/>
                     </connections>
                 </viewController>
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="Postgres.PostgresServer" id="n71-mI-16p">
+                <arrayController objectClassName="Postgres.Server" id="n71-mI-16p">
                     <connections>
                         <binding destination="Rgw-vS-n3O" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="ifh-vQ-QUP"/>
                         <binding destination="Rgw-vS-n3O" name="contentArray" keyPath="serverManager.servers" id="x47-sa-N48"/>
@@ -833,7 +814,7 @@
             <objects>
                 <viewController id="DRA-m0-WI0" userLabel="Settings Popover View Controller" customClass="SettingsPopoverController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="717-NZ-0Mq">
-                        <rect key="frame" x="0.0" y="0.0" width="587" height="195"/>
+                        <rect key="frame" x="0.0" y="0.0" width="587" height="222"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7si-6f-kW1">
@@ -843,6 +824,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.runAtStartup" id="kcM-eO-o9n"/>
+                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XAF-tj-z48">
                                 <rect key="frame" x="114" y="18" width="263" height="18"/>
@@ -851,9 +835,12 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.stopAtQuit" id="pAo-YE-n8k"/>
+                                </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KgF-T7-n4A">
-                                <rect key="frame" x="116" y="121" width="58" height="22"/>
+                                <rect key="frame" x="116" y="148" width="58" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="PHy-fD-yw2">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" localizesFormat="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="gFC-TK-kxa">
@@ -869,7 +856,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sLQ-Vg-ezA">
-                                <rect key="frame" x="116" y="153" width="451" height="22"/>
+                                <rect key="frame" x="116" y="180" width="451" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kYj-Bu-SC9">
                                     <font key="font" metaFont="system"/>
@@ -880,17 +867,8 @@
                                     <binding destination="1aH-X1-M4q" name="value" keyPath="selection.name" id="26L-4s-5Ib"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ak2-X1-pvf">
-                                <rect key="frame" x="18" y="92" width="92" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Data Directory" id="Fzc-gv-bD8">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2v-a2-a08">
-                                <rect key="frame" x="18" y="156" width="92" height="17"/>
+                                <rect key="frame" x="18" y="183" width="92" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="cGl-TW-kw3">
                                     <font key="font" metaFont="system"/>
@@ -899,7 +877,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kuv-o9-TI0">
-                                <rect key="frame" x="18" y="124" width="92" height="17"/>
+                                <rect key="frame" x="18" y="151" width="92" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port" id="3QH-4L-gED">
                                     <font key="font" metaFont="system"/>
@@ -907,20 +885,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luV-Hq-Hva">
-                                <rect key="frame" x="114" y="92" width="330" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;varPath&gt;" id="awD-Y3-BIo">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.varPath" id="acz-jX-1qH"/>
-                                </connections>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g3c-gM-ofF">
-                                <rect key="frame" x="444" y="83" width="129" height="32"/>
+                                <rect key="frame" x="110" y="67" width="129" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Open in Finder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kh6-Zt-xtC">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -930,6 +896,27 @@
                                     <action selector="openInFinder:" target="DRA-m0-WI0" id="knU-Hh-lA3"/>
                                 </connections>
                             </button>
+                            <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oI4-H7-IUC">
+                                <rect key="frame" x="116" y="111" width="451" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <pathCell key="cell" selectable="YES" alignment="left" id="HaG-PN-6Nb">
+                                    <font key="font" metaFont="system"/>
+                                    <url key="url" string="file://localhost/Applications/"/>
+                                    <color key="backgroundColor" red="0.89803921568627454" green="0.92549019607843142" blue="0.97254901960784312" alpha="1" colorSpace="deviceRGB"/>
+                                </pathCell>
+                                <connections>
+                                    <binding destination="DRA-m0-WI0" name="value" keyPath="self.path" id="ZWr-pr-PiU"/>
+                                </connections>
+                            </pathControl>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ak2-X1-pvf">
+                                <rect key="frame" x="18" y="113" width="92" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Data Directory" id="Fzc-gv-bD8">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
@@ -937,14 +924,14 @@
                     </connections>
                 </viewController>
                 <customObject id="Rvw-Op-Bg8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="Postgres.PostgresServer" id="1aH-X1-M4q">
+                <arrayController objectClassName="Postgres.Server" avoidsEmptySelection="NO" id="1aH-X1-M4q">
                     <connections>
                         <binding destination="DRA-m0-WI0" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="euI-3F-k0h"/>
                         <binding destination="DRA-m0-WI0" name="contentArray" keyPath="serverManager.servers" id="1An-Gz-aOq"/>
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-80" y="1755"/>
+            <point key="canvasLocation" x="-104.5" y="1753"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
@@ -956,7 +943,7 @@
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
                                 <rect key="frame" x="0.0" y="61" width="200" height="339"/>
-                                <clipView key="contentView" drawsBackground="NO" id="dFK-VJ-sw2">
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="dFK-VJ-sw2">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="339"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -1081,7 +1068,7 @@
                     </connections>
                 </viewController>
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="Postgres.PostgresServer" id="Dsw-zw-YD1">
+                <arrayController objectClassName="Postgres.Server" id="Dsw-zw-YD1">
                     <connections>
                         <binding destination="fKp-yy-u0S" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="ekE-My-6Oj"/>
                         <binding destination="fKp-yy-u0S" name="contentArray" keyPath="serverManager.servers" id="rAJ-aw-Pss"/>
@@ -1237,17 +1224,8 @@ Gw
                             </button>
                         </subviews>
                     </view>
-                    <connections>
-                        <outlet property="serverArrayController" destination="eGk-uh-ooJ" id="gkl-eD-vvP"/>
-                    </connections>
                 </viewController>
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController id="eGk-uh-ooJ">
-                    <connections>
-                        <binding destination="1Yk-z1-ntp" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="lmx-wh-AVk"/>
-                        <binding destination="1Yk-z1-ntp" name="contentArray" keyPath="serverManager.servers" id="ev5-BJ-3eL"/>
-                    </connections>
-                </arrayController>
             </objects>
             <point key="canvasLocation" x="735" y="1774"/>
         </scene>
