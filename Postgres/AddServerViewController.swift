@@ -20,7 +20,6 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	dynamic var selectedVersionIdx: Int = 0
 	
 	@IBOutlet var versionsPopup: NSPopUpButton?
-	@IBOutlet var serverArrayController: NSArrayController?
 	
 	
 	override func viewDidLoad() {
@@ -42,8 +41,7 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 				let pgVersionPath = varTmp.appending("/PG_VERSION")
 				if !FileManager.default().fileExists(atPath: pgVersionPath) {
 					self.varPath = varTmp.appendingFormat("/var-", self.versions[self.selectedVersionIdx])
-				}
-				else {
+				} else {
 					self.varPath = varTmp
 				}
 			}
@@ -57,8 +55,9 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	@IBAction func createServer(_ sender: AnyObject?) {
 		if !(self.view.window?.makeFirstResponder(nil))! { NSBeep(); return }
 		
-		let server = PostgresServer(name: self.name, version: self.versions[self.selectedVersionIdx], port: self.port, varPath: self.varPath)
-		serverArrayController?.addObject(server)
+		let server = Server(name: self.name, version: self.versions[self.selectedVersionIdx], port: self.port, varPath: self.varPath)
+		serverManager.servers.append(server)
+		serverManager.selectedServerIndices = IndexSet(integer:serverManager.servers.indices.last!)
 		
 		self.dismiss(self)
 	}
