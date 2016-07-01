@@ -18,17 +18,15 @@ class SplitViewController: NSSplitViewController {
 			self.removeSplitViewItem(sideBarItem)
 			var frame = self.view.window!.frame
 			frame.size.width -= sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			self.view.window?.setFrame(frame, display: false, animate: true)
+			self.view.window?.setFrame(frame, display: false)
 			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
-		}
-		else {
+		} else {
 			self.addSplitViewItem(sideBarItem)
 			var frame = self.view.window!.frame
 			frame.size.width += sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			self.view.window?.setFrame(frame, display: false, animate: true)
+			self.view.window?.setFrame(frame, display: false)
 			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
 		}
 	}
-	
 	
 }
