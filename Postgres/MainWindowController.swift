@@ -26,7 +26,7 @@ class MainWindowController: NSWindowController {
 	
 	
 	override func windowDidLoad() {
-		self.serverManager = ServerManager.shared
+		self.serverManager = ServerManager.shared()
 		
 		if let window = self.window {
 			window.titleVisibility = .hidden

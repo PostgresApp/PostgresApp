@@ -11,6 +11,9 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 	
+	let serverManager: ServerManager = ServerManager.shared()
+	
+	
 	func applicationWillFinishLaunching(_ notification: Notification) {
 		// TODO: validate app path and move app if necessary
 		self.validateNoOtherVersionsAreRunning()
@@ -18,21 +21,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		// TODO: check Shell profiles
-		ServerManager.shared.loadServers()
-		ServerManager.shared.refreshServerStatuses()
-		//ServerManager.shared.startServers()
+		serverManager.loadServers()
+		serverManager.refreshServerStatuses()
+		serverManager.startServers()
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
-		ServerManager.shared.refreshServerStatuses()
+		serverManager.refreshServerStatuses()
 	}
 	
 	func applicationWillTerminate(_ notification: Notification) {
-		ServerManager.shared.saveServers()
+		serverManager.saveServers()
 	}
 	
 	func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
-		ServerManager.shared.stopServers()
+		serverManager.stopServers()
 		return NSApplicationTerminateReply.terminateNow
 	}
 	

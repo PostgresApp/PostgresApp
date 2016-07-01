@@ -10,34 +10,38 @@ import Foundation
 
 @objc class ServerManager: NSObject {
 	
-	static let shared = ServerManager()
+	private static let _shared = ServerManager()
 	
-	dynamic var servers: [PostgresServer] = []
-	dynamic var selectedServerIndices = IndexSet()
-	
-	
-	class func _shared() -> ServerManager {
-		return ServerManager()
+	static func shared() -> ServerManager {
+		return _shared
 	}
+	
+	
+	dynamic var servers: [Server] = []
+	dynamic var selectedServerIndices = IndexSet()
 	
 	
 	func refreshServerStatuses() {
 		for server in self.servers {
-			let _ = server.serverStatus
+			server.updateServerStatus()
 		}
 	}
 	
 	
 	func startServers() {
 		for server in self.servers {
-			server.start {_ in }
+			if server.runAtStartup {
+				server.start {_ in }
+			}
 		}
 	}
 	
 	
 	func stopServers() {
 		for server in self.servers {
-			server.stop {_ in }
+			if server.stopAtQuit {
+				server.stop {_ in }
+			}
 		}
 	}
 	
@@ -50,7 +54,7 @@ import Foundation
 	
 	func loadServers() {
 		guard let data = UserDefaults.standard().data(forKey: "servers") else { return }
-		guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [PostgresServer] else { return }
+		guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] else { return }
 		self.servers = servers
 	}
 	
