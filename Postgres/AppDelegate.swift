@@ -16,13 +16,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
 		// TODO: validate app path and move app if necessary
-		self.validateNoOtherVersionsAreRunning()
+		validateNoOtherVersionsAreRunning()
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		// TODO: check Shell profiles
 		serverManager.loadServers()
-		serverManager.refreshServerStatuses()
 		serverManager.startServers()
 	}
 	
@@ -60,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				alert.informativeText = "Please quit \(runningCopy.localizedName!) before starting this copy."
 				alert.addButton(withTitle: "OK")
 				alert.runModal()
-				NSApp.terminate(nil)
+				exit(1)
 			}
 		}
 	}
