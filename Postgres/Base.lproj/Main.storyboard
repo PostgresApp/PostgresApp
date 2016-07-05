@@ -718,6 +718,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="canRemove" id="YFu-lj-ZyU"/>
                                     <segue destination="DRA-m0-WI0" kind="popover" popoverAnchorView="5Be-be-3Q1" popoverBehavior="t" preferredEdge="maxY" id="YYL-Uq-Jxd"/>
                                 </connections>
                             </button>
@@ -764,16 +765,38 @@
                                     <action selector="toggleServerListView:" target="ipu-u3-5pp" id="3cB-QR-2n6"/>
                                 </connections>
                             </button>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZSH-3a-3tM">
-                                <rect key="frame" x="0.0" y="0.0" width="500" height="235"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </customView>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
                                 <rect key="frame" x="329" y="256" width="16" height="16"/>
                                 <connections>
                                     <binding destination="n71-mI-16p" name="animate" keyPath="selection.busy" id="mWx-la-BBP"/>
                                 </connections>
                             </progressIndicator>
+                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="235"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <clipView key="contentView" ambiguous="YES" id="Dni-fY-jEd">
+                                    <rect key="frame" x="1" y="1" width="498" height="233"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView ambiguous="YES" id="nrL-ym-6WO">
+                                            <rect key="frame" x="0.0" y="0.0" width="498" height="233"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <segue destination="u5c-ia-qqM" kind="relationship" relationship="Prototype" id="ahz-rl-I8W"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Njw-bN-4ms">
+                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="FfH-lq-wj5">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
@@ -806,6 +829,7 @@
                         <binding destination="Rgw-vS-n3O" name="contentArray" keyPath="serverManager.servers" id="x47-sa-N48"/>
                     </connections>
                 </arrayController>
+                <arrayController id="lfI-VP-uU4"/>
             </objects>
             <point key="canvasLocation" x="-104" y="1276"/>
         </scene>
@@ -853,6 +877,11 @@
                                 </textFieldCell>
                                 <connections>
                                     <binding destination="1aH-X1-M4q" name="value" keyPath="selection.port" id="leJ-Iy-BHv"/>
+                                    <binding destination="1aH-X1-M4q" name="enabled" keyPath="selection.running" id="hVd-CB-srN">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sLQ-Vg-ezA">
@@ -931,7 +960,7 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-104.5" y="1753"/>
+            <point key="canvasLocation" x="-80" y="1811"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
@@ -1228,6 +1257,19 @@ Gw
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="735" y="1774"/>
+        </scene>
+        <!--Collection View Item-->
+        <scene sceneID="2fR-yR-zDC">
+            <objects>
+                <collectionViewItem id="u5c-ia-qqM" sceneMemberID="viewController">
+                    <view key="view" id="2xx-wp-fcR">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </collectionViewItem>
+                <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-505" y="1707"/>
         </scene>
     </scenes>
     <resources>
