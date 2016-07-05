@@ -15,6 +15,7 @@
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8358D53C1D26EBE7007B7904 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */; };
+		83DFC0DE1D26F3570098ADE0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DFC0DD1D26F3570098ADE0 /* Extensions.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
 		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorRecoveryAttempter.m; sourceTree = "<group>"; };
 		8358D53B1D26EBE7007B7904 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
+		83DFC0DD1D26F3570098ADE0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83FB571F1D1B05F000A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
+				83DFC0DD1D26F3570098ADE0 /* Extensions.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
@@ -229,6 +232,7 @@
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */,
 				8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */,
+				83DFC0DE1D26F3570098ADE0 /* Extensions.swift in Sources */,
 				8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
