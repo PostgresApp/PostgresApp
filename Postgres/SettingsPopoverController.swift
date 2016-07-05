@@ -17,7 +17,7 @@ class SettingsPopoverController: NSViewController, ServerManagerConsumer {
 	
 	@IBAction func openInFinder(_ sender: AnyObject?) {
 		if let varPath = (self.serverArrayController?.selectedObjects.first as? Server)?.varPath {
-			if NSWorkspace.shared().selectFile(nil, inFileViewerRootedAtPath: varPath) {
+			if !NSWorkspace.shared().selectFile(nil, inFileViewerRootedAtPath: varPath) {
 				let userInfo: [String: AnyObject] = [
 					NSLocalizedDescriptionKey: "Folder not found.",
 					NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
@@ -31,9 +31,10 @@ class SettingsPopoverController: NSViewController, ServerManagerConsumer {
 	
 	
 	
-	dynamic var path: NSURL {
+	dynamic var path: URL? {
 		get {
-			return NSURL(fileURLWithPath: (self.serverArrayController?.selectedObjects.first!.varPath)!)
+			guard let p = self.serverArrayController?.selectedObjects.first?.varPath else { return nil }
+			return URL(fileURLWithPath: p)
 		}
 	}
 	
