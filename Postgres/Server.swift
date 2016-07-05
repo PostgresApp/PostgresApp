@@ -39,18 +39,20 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var busy: Bool = false
 	dynamic private(set) var statusMessage: String = ""
 	dynamic private(set) var statusMessageExtended: String = ""
-	dynamic private(set) var databases: [NSObject] = []
+	dynamic private(set) var databases: [Database] = [Database(),Database(),Database()]
 	
 	dynamic private(set) var running: Bool = false {
 		didSet {
-			switch self.serverStatus {
+			print("running.didSet")
+			
+			switch serverStatus {
 			case .DataDirEmpty:
-				self.statusMessage = "Click Start to create a new database"
+				statusMessage = "Click Start to create a new database"
 			default:
-				if self.running {
-					self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
+				if running {
+					statusMessage = "PostgreSQL \(version) - Running on port \(port)"
 				} else {
-					self.statusMessage = "PostgreSQL \(self.version) - Stopped"
+					statusMessage = "PostgreSQL \(version) - Stopped"
 				}
 			}
 		}
@@ -58,13 +60,11 @@ class Server: NSObject, NSCoding {
 	
 	dynamic var logfilePath: String {
 		get {
-			return self.varPath.appending("/postgres-server.log")
+			return varPath.appending("/postgres-server.log")
 		}
 	}
 	
 	private(set) var serverStatus: ServerStatus = .Error
-	
-	
 	
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
@@ -91,7 +91,7 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version
 		self.port = port
-		self.binPath = BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
+		self.binPath = BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
 		self.varPath = varPath
 		self.runAtStartup = aDecoder.decodeBool(forKey: "runAtStartup")
 		self.stopAtQuit = aDecoder.decodeBool(forKey: "stopAtQuit")
@@ -114,9 +114,10 @@ class Server: NSObject, NSCoding {
 	public async handlers
 	*/
 	func start(completionHandler: (_: ActionStatus) -> Void) {
-		self.busy = true
+		busy = true
 		
 		DispatchQueue.global().async {
+			
 			DispatchQueue.main.sync {
 				self.updateServerStatus()
 			}
@@ -227,6 +228,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	func updateServerStatus() {
+		print("updateServerStatus")
 		if !FileManager.default().fileExists(atPath: self.binPath) {
 			self.running = false
 			self.serverStatus = .NoBinDir
@@ -289,6 +291,7 @@ class Server: NSObject, NSCoding {
 			self.serverStatus = .Error
 		}
 	}
+	
 	
 	
 	
@@ -480,9 +483,9 @@ class Server: NSObject, NSCoding {
 
 
 
-class DatabaseModel {
+class Database: NSObject {
 	
-	var name: String = ""
+	dynamic var name: String = "Database"
 	
 }
 
