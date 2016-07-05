@@ -23,18 +23,20 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	override func viewDidLoad() {
-		self.loadVersions()
+		loadVersions()
 		super.viewDidLoad()
 	}
 	
 	
 	@IBAction func openChooseFolder(_ sender: AnyObject?) {
 		let openPanel = NSOpenPanel()
+		
 		openPanel.allowsMultipleSelection = false
 		openPanel.canChooseFiles = false
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
-		openPanel.directoryURL = self.applicationSupportDirectoryURL(createIfNotExists: true)
+		openPanel.directoryURL = FileManager.default().applicationSupportDirectoryURL(createIfNotExists: true)
+		
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
 				let varTmp = openPanel.url!.path!
@@ -55,7 +57,7 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	@IBAction func createServer(_ sender: AnyObject?) {
 		if !(self.view.window?.makeFirstResponder(nil))! { NSBeep(); return }
 		
-		let server = Server(name: self.name, version: self.versions[self.selectedVersionIdx], port: self.port, varPath: self.varPath)
+		let server = Server(name: name, version: versions[selectedVersionIdx], port: port, varPath: varPath)
 		serverManager.servers.append(server)
 		serverManager.selectedServerIndices = IndexSet(integer:serverManager.servers.indices.last!)
 		
@@ -64,15 +66,6 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	private func loadVersions() {
-		func isFinderAlias(url: URL) -> Bool? {
-			let aliasUrl = NSURL(fileURLWithPath: url.path!)
-			var isAlias:AnyObject? = nil
-			do {
-				try aliasUrl.getResourceValue(&isAlias, forKey: URLResourceKey.isAliasFileKey)
-			} catch _ {}
-			return isAlias as! Bool?
-		}
-		
 		let versionsPath = BUNDLE_PATH.appending("/Contents/Versions")
 		
 		if !FileManager.default().fileExists(atPath: versionsPath) {
@@ -80,42 +73,18 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 			return
 		}
 		
-		let dirEnum = FileManager.default().enumerator(at: URL.init(fileURLWithPath: versionsPath),
+		let dirEnum = FileManager.default().enumerator(at: URL(fileURLWithPath: versionsPath),
 			                                              includingPropertiesForKeys: [URLResourceKey.isSymbolicLinkKey.rawValue, URLResourceKey.isDirectoryKey.rawValue],
 			                                              options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles],
 			                                              errorHandler: nil
 		)
-		var versions: [String] = []
 		while let url = dirEnum?.nextObject() as? URL {
-			if !isFinderAlias(url: url)! {
+			if !url.isFinderAlias {
 				versions.append(url.lastPathComponent!)
 			}
 		}
 		
-		self.versions = versions
-		self.selectedVersionIdx = versions.count-1
-	}
-	
-	
-	
-	
-	private func applicationSupportDirectoryURL(createIfNotExists: Bool) -> URL {
-		let appSupportDirURL = URL.init(string:
-			String(FileManager.default().urlsForDirectory(.applicationSupportDirectory, inDomains: .userDomainMask)[0]).appending(
-				Bundle.main().infoDictionary?[kCFBundleNameKey as String] as! String
-			)
-		)
-		
-		if !FileManager.default().fileExists(atPath: appSupportDirURL!.path!) && createIfNotExists {
-			do {
-				try FileManager.default().createDirectory(at: appSupportDirURL!, withIntermediateDirectories: false, attributes: nil)
-			}
-			catch let error as NSError  {
-				print("Error creating directory: ", error)
-			}
-		}
-		
-		return appSupportDirURL!
+		selectedVersionIdx = versions.count-1
 	}
 	
 }
