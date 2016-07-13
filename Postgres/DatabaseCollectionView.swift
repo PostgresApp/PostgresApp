@@ -9,8 +9,6 @@
 import Cocoa
 
 
-
-
 class DatabaseItem: NSCollectionViewItem {
 	override var isSelected: Bool {
 		didSet {
@@ -32,31 +30,29 @@ class DatabaseItemView: NSView {
 	override func draw(_ dirtyRect: NSRect) {
 		super.draw(dirtyRect)
 		
-		/*
-		let offset: CGFloat = 10.0
-		var f = self.frame
-		f.size.width -= offset
-		f.size.height -= offset
-		f.origin.x += offset/2
-		f.origin.y += offset/2
+		let offset = CGFloat(10.0)
+		let x = offset
+		let y = offset
+		let w = frame.width - offset*2
+		let h = frame.height - offset*2
 		
-		let path = NSBezierPath(roundedRect: f, xRadius: 10, yRadius: 10)
-		DispatchQueue.main.sync {
+		let rect = CGRect(x: x, y: y, width: w, height: h)
+		let path = NSBezierPath(roundedRect: rect, xRadius: 10, yRadius: 10)
+		
+		(selected ? .gray() : .blue() as NSColor).setStroke()
 		path.stroke()
+	}
+	
+	
+	
+	override func mouseDown(_ event: NSEvent) {
+		super.mouseDown(event)
+		
+		
+		if event.clickCount == 2 {
+			//openPsql()
+			
 		}
-		*/
-		let offset: CGFloat = CGFloat(10.0)
-		let h = frame.height - offset
-		let w = frame.width - offset
-		let x = frame.origin.x - offset/2
-		let y = frame.origin.y - offset/2
-		let color = selected ? NSColor.gray() : NSColor.blue()
-		
-		let drect = CGRect(x: x,y: (h * 0.25),width: (w * 0.5),height: (h * 0.5))
-		let path = NSBezierPath(roundedRect: drect, xRadius: 10, yRadius: 10)
-		
-		color.set()
-		path.stroke()
 		
 	}
 	
