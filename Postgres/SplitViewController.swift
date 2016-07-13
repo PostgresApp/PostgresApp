@@ -14,18 +14,18 @@ class SplitViewController: NSSplitViewController {
 	
 	
 	@IBAction func toggleServerListView(_ sender: NSButton) {
-		if self.splitViewItems.contains(sideBarItem) {
-			self.removeSplitViewItem(sideBarItem)
-			var frame = self.view.window!.frame
-			frame.size.width -= sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			self.view.window?.setFrame(frame, display: false)
-			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
+		if splitViewItems.contains(sideBarItem) {
+			removeSplitViewItem(sideBarItem)
+			var frm = self.view.window!.frame
+			frm.size.width -= sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
+			view.window?.setFrame(frm, display: false)
+			sender.image = NSImage(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
 		} else {
-			self.addSplitViewItem(sideBarItem)
-			var frame = self.view.window!.frame
-			frame.size.width += sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			self.view.window?.setFrame(frame, display: false)
-			sender.image = NSImage.init(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
+			addSplitViewItem(sideBarItem)
+			var frm = self.view.window!.frame
+			frm.size.width += sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
+			view.window?.setFrame(frm, display: false)
+			sender.image = NSImage(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
 		}
 	}
 	
