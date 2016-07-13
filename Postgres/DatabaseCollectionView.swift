@@ -39,7 +39,7 @@ class DatabaseItemView: NSView {
 		let rect = CGRect(x: x, y: y, width: w, height: h)
 		let path = NSBezierPath(roundedRect: rect, xRadius: 10, yRadius: 10)
 		
-		(selected ? .gray() : .blue() as NSColor).setStroke()
+		(selected ? .blue() : .lightGray() as NSColor).setStroke()
 		path.stroke()
 	}
 	
@@ -48,10 +48,8 @@ class DatabaseItemView: NSView {
 	override func mouseDown(_ event: NSEvent) {
 		super.mouseDown(event)
 		
-		
 		if event.clickCount == 2 {
-			//openPsql()
-			
+			NSApp.sendAction(#selector(MainViewController.openPsql(_:)), to: nil, from: self)
 		}
 		
 	}
