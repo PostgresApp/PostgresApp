@@ -39,32 +39,35 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var busy: Bool = false
 	dynamic private(set) var statusMessage: String = ""
 	dynamic private(set) var statusMessageExtended: String = ""
-	dynamic private(set) var databases: [Database] = [Database(),Database(),Database()]
+	dynamic private(set) var databases: [Database] = []
 	
 	dynamic private(set) var running: Bool = false {
 		didSet {
-			print("running.didSet")
-			
 			switch serverStatus {
 			case .DataDirEmpty:
-				statusMessage = "Click Start to create a new database"
+				self.statusMessage = "Click Start to create a new database"
 			default:
-				if running {
-					statusMessage = "PostgreSQL \(version) - Running on port \(port)"
+				if self.running {
+					self.statusMessage = "PostgreSQL \(version) - Running on port \(port)"
 				} else {
-					statusMessage = "PostgreSQL \(version) - Stopped"
+					self.statusMessage = "PostgreSQL \(version) - Stopped"
 				}
 			}
+			
+			self.updateDatabases()
 		}
 	}
 	
 	dynamic var logfilePath: String {
-		get {
-			return varPath.appending("/postgres-server.log")
-		}
+		return self.varPath.appending("/postgres-server.log")
 	}
 	
 	private(set) var serverStatus: ServerStatus = .Error
+	
+	
+	override init() {
+		super.init()
+	}
 	
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
@@ -99,13 +102,13 @@ class Server: NSObject, NSCoding {
 	
 	
 	func encode(with aCoder: NSCoder) {
-		aCoder.encode(name, forKey: "name")
-		aCoder.encode(version, forKey: "version")
-		aCoder.encode(UInt(port), forKey: "port")
-		aCoder.encode(binPath, forKey: "binPath")
-		aCoder.encode(varPath, forKey: "varPath")
-		aCoder.encode(runAtStartup, forKey: "runAtStartup")
-		aCoder.encode(stopAtQuit, forKey: "stopAtQuit")
+		aCoder.encode(self.name, forKey: "name")
+		aCoder.encode(self.version, forKey: "version")
+		aCoder.encode(UInt(self.port), forKey: "port")
+		aCoder.encode(self.binPath, forKey: "binPath")
+		aCoder.encode(self.varPath, forKey: "varPath")
+		aCoder.encode(self.runAtStartup, forKey: "runAtStartup")
+		aCoder.encode(self.stopAtQuit, forKey: "stopAtQuit")
 	}
 	
 	
@@ -114,7 +117,7 @@ class Server: NSObject, NSCoding {
 	public async handlers
 	*/
 	func start(completionHandler: (_: ActionStatus) -> Void) {
-		busy = true
+		self.busy = true
 		
 		DispatchQueue.global().async {
 			
@@ -209,6 +212,7 @@ class Server: NSObject, NSCoding {
 			DispatchQueue.main.async {
 				self.busy = false
 			}
+			
 		}
 	}
 	
@@ -228,7 +232,6 @@ class Server: NSObject, NSCoding {
 	
 	
 	func updateServerStatus() {
-		print("updateServerStatus")
 		if !FileManager.default().fileExists(atPath: self.binPath) {
 			self.running = false
 			self.serverStatus = .NoBinDir
@@ -289,6 +292,33 @@ class Server: NSObject, NSCoding {
 		default:
 			self.running = false
 			self.serverStatus = .Error
+		}
+	}
+	
+	
+	func updateDatabases() {
+		DispatchQueue.main.async {
+	
+			self.databases.removeAll()
+			
+			if self.running {
+				let url = "postgresql://:\(self.port)"
+				let connection = PQconnectdb(url.cString(using: .utf8))
+				
+				if PQstatus(connection) == CONNECTION_OK {
+					
+					let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
+					for i in 0...PQntuples(result)-1 {
+						let value = PQgetvalue(result, i, 0)
+						let name = String(cString: value!)
+						self.databases.append(Database(name))
+					}
+					PQfinish(connection)
+					
+				} else {
+					print("postgresql: CONNECTION_BAD")
+				}
+			}
 		}
 	}
 	
@@ -477,15 +507,65 @@ class Server: NSObject, NSCoding {
 			return .Failure(error)
 		}
 	}
-	
+
 }
 
 
 
-
 class Database: NSObject {
+	dynamic var name: String = ""
 	
-	dynamic var name: String = "Database"
+	dynamic var icon: NSImage {
+		
+		let icon = NSImage(size: NSSize(width: 64, height: 63), flipped: false) { (dstRect) -> Bool in
+			let baseColor = NSColor(calibratedRed: 0.714, green: 0.823, blue: 0.873, alpha: 1)
+			let frameColor = baseColor.shadow(withLevel: 0.4)
+			let fillColor = baseColor.highlight(withLevel: 0.7)
+			
+			frameColor?.setStroke()
+			fillColor?.setFill()
+			
+			let lineWidth = CGFloat(1.0)
+			
+			for i in 0...3 {
+				
+				var y = lineWidth*0.5
+				if i > 0 {
+					y += (63-lineWidth-8) / 3 * CGFloat(i)
+				}
+				
+				let oval = NSBezierPath(ovalIn: NSRect(x: lineWidth*0.5, y: y, width: 64-lineWidth, height: 8.0))
+				
+				oval.lineWidth = lineWidth
+				oval.stroke()
+				oval.fill()
+				
+				if i < 3 {
+					var y1 = 4+lineWidth*0.5
+					if i > 0 {
+						y1 += (63-lineWidth-8) / 3 * CGFloat(i)
+						
+					}
+					
+					NSRectFillUsingOperation(NSRect(x: lineWidth*0.5, y: y1, width: 64-lineWidth, height: 16.0), NSCompositeCopy)
+				}
+			}
+			
+			frameColor?.setFill()
+			NSRectFillUsingOperation(NSRect(x: 0, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositeCopy)
+			NSRectFillUsingOperation(NSRect(x: 64-lineWidth, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositeCopy)
+			
+			return true
+		}
+		
+		return icon
+	}
+	
+	
+	init(_ name: String) {
+		super.init()
+		self.name = name
+	}
 	
 }
 
