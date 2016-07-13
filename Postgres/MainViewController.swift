@@ -13,40 +13,66 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	dynamic var serverManager: ServerManager!
 	
 	@IBOutlet var serverArrayController: NSArrayController?
+	@IBOutlet var databaseArrayController: NSArrayController?
+	@IBOutlet var databaseCollectionView: NSCollectionView?
+	
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.databaseCollectionView?.itemPrototype = storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
+	}
 	
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
-		if let server = serverArrayController?.selectedObjects.first as! Server? {
-			server.start { (actionStatus) in
-				if case let .Failure(error) = actionStatus {
-					self.errorHandler(error: error)
-				}
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
+		server.start { (actionStatus) in
+			if case let .Failure(error) = actionStatus {
+				self.errorHandler(error: error)
 			}
 		}
 	}
 	
 	
 	@IBAction func stopServer(_ sender: AnyObject?) {
-		if let server = serverArrayController?.selectedObjects.first as! Server? {
-			server.stop { (actionStatus) in
-				if case let .Failure(error) = actionStatus {
-					self.view.window?.windowController?.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
-				}
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
+		server.stop { (actionStatus) in
+			if case let .Failure(error) = actionStatus {
+				self.view.window?.windowController?.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
 			}
 		}
 	}
 	
 	
+	@IBAction func openPsql(_ sender: AnyObject?) {
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
+		guard let database = self.databaseArrayController?.selectedObjects.first as? Database else { return }
+		
+		let psqlScript = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
+		
+		let wrapper = ASWrapper()
+		wrapper.runSubroutine("openTerminalApp", parameter: psqlScript)
+	}
+	
+	
+	@IBAction func pgDump(_ sender: AnyObject?) {
+		
+	}
+	
+	
+	@IBAction func pgRestore(_ sender: AnyObject?) {
+		
+	}
+	
+	
 	private func errorHandler(error: NSError) {
-		if let mainWindowController = self.view.window?.windowController {
-			mainWindowController.presentError(error, modalFor: mainWindowController.window!, delegate: mainWindowController, didPresent: Selector(("errorDidPresent:")), contextInfo: nil)
-		}
+		guard let mainWindowController = self.view.window?.windowController else { return }
+		mainWindowController.presentError(error, modalFor: mainWindowController.window!, delegate: mainWindowController, didPresent: Selector(("errorDidPresent:")), contextInfo: nil)
 	}
 	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
 		if var target = segue.destinationController as? ServerManagerConsumer {
-			target.serverManager = serverManager
+			target.serverManager = self.serverManager
 		}
 	}
 	
