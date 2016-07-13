@@ -59,7 +59,7 @@ class ServerTableCellView: NSTableCellView {
 		switch keyPath! {
 		case "self.objectValue.running":
 			let imgName = (self.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
-			self.image = NSImage.init(imageLiteralResourceName: imgName)
+			self.image = NSImage(imageLiteralResourceName: imgName)
 		default:
 			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 		}
