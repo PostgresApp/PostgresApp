@@ -3,3 +3,4 @@
 //
 
 #import "ErrorRecoveryAttempter.h"
+#import <libpq-fe.h>
