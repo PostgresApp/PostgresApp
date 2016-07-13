@@ -47,15 +47,13 @@ class MainWindowController: NSWindowController {
 		//		alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
 		//
 		//		if let rawCommandOutput = error.userInfo["RawCommandOutput"] as? String {
-		//			let accessoryView = NSTextView.init(frame: NSMakeRect(0,0,100,100))
+		//			let accessoryView = NSTextView(frame: NSMakeRect(0,0,100,100))
 		//			accessoryView.textStorage?.mutableString.setString(rawCommandOutput)
 		//		}
 		//		self.performSegue(withIdentifier: "showError", sender: error)
 	}
 	
-	//	func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
-	//		<#code#>
-	//	}
+	
 	/*
 	-(void)presentError:(NSError *)error modalForWindow:(NSWindow *)window delegate:(id)delegate didPresentSelector:(SEL)didPresentSelector contextInfo:(void *)contextInfo {
 	NSAlert *alert = [NSAlert alertWithError:error];
@@ -78,4 +76,9 @@ class MainWindowController: NSWindowController {
 	func errorDidPresent(_: AnyObject) {
 		print("errorDidPresent")
 	}
+	
+	
+	//	func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
+	//
+	//	}
 }
