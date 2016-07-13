@@ -30,7 +30,7 @@ extension URL {
 extension FileManager {
 	
 	public func applicationSupportDirectoryURL(createIfNotExists: Bool) -> URL {
-		let appSupportDirURL = URL.init(string:
+		let appSupportDirURL = URL(string:
 			String(FileManager.default().urlsForDirectory(.applicationSupportDirectory, inDomains: .userDomainMask)[0]).appending(
 				Bundle.main().infoDictionary?[kCFBundleNameKey as String] as! String
 			)
