@@ -15,8 +15,8 @@ extension URL {
 			var isAlias: AnyObject?
 			do {
 				try (self as NSURL).getResourceValue(&isAlias, forKey: .isAliasFileKey)
-			} catch _ {}
-			guard let result = isAlias as! Bool! else { return false }
+			} catch {}
+			guard let result = isAlias as? Bool else { return false }
 			return result
 		}
 	}
@@ -29,7 +29,7 @@ extension URL {
 
 extension FileManager {
 	
-	public func applicationSupportDirectoryURL(createIfNotExists: Bool) -> URL {
+	public func applicationSupportDirectoryURL(createIfNotExists: Bool) throws -> URL {
 		let appSupportDirURL = URL(string:
 			String(FileManager.default().urlsForDirectory(.applicationSupportDirectory, inDomains: .userDomainMask)[0]).appending(
 				Bundle.main().infoDictionary?[kCFBundleNameKey as String] as! String
@@ -41,7 +41,7 @@ extension FileManager {
 				try FileManager.default().createDirectory(at: appSupportDirURL!, withIntermediateDirectories: false, attributes: nil)
 			}
 			catch let error as NSError  {
-				print("Error creating directory: ", error)
+				throw error
 			}
 		}
 		
