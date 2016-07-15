@@ -1315,9 +1315,22 @@ Gw
                             <constraint firstItem="lgD-PF-lfS" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="20" symbolic="YES" id="x5r-mj-lhI"/>
                             <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" id="y9s-MW-Wga"/>
                         </constraints>
+                        <connections>
+                            <outlet property="menu" destination="Klb-oH-gYc" id="00v-GZ-6fM"/>
+                        </connections>
                     </view>
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="Klb-oH-gYc">
+                    <items>
+                        <menuItem title="Item 1" id="Rpw-tk-Dhu">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="print:" target="2xx-wp-fcR" id="i6i-rC-4Wb"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="-451" y="1350"/>
         </scene>
