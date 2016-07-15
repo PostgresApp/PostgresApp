@@ -10,8 +10,6 @@ import Cocoa
 
 class Server: NSObject, NSCoding {
 	
-	let BUNDLE_PATH = "/Applications/Postgres.app"
-	
 	enum ServerStatus {
 		case Startable
 		case Running
@@ -76,7 +74,7 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version
 		self.port = port
-		self.binPath = BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
+		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath
 		
 		// TODO: read port from postgresql.conf
@@ -94,7 +92,7 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version
 		self.port = port
-		self.binPath = BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
+		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
 		self.varPath = varPath
 		self.runAtStartup = aDecoder.decodeBool(forKey: "runAtStartup")
 		self.stopAtQuit = aDecoder.decodeBool(forKey: "stopAtQuit")

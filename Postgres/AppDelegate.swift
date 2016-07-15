@@ -11,6 +11,10 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 	
+	static var BUNDLE_PATH: String {
+		return "/Applications/Postgres.app"
+	}
+	
 	let serverManager: ServerManager = ServerManager.shared()
 	
 	
