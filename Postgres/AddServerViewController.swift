@@ -10,8 +10,6 @@ import Cocoa
 
 class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
-	let BUNDLE_PATH = "/Applications/Postgres.app"
-	
 	dynamic var serverManager: ServerManager!
 	dynamic var name: String = "New Server"
 	dynamic var port: UInt = 5432
@@ -29,13 +27,19 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	@IBAction func openChooseFolder(_ sender: AnyObject?) {
-		let openPanel = NSOpenPanel()
+		var directoryURL = URL(fileURLWithPath: "")
+		do {
+			try directoryURL = FileManager.default().applicationSupportDirectoryURL(createIfNotExists: true)
+		} catch {
+			
+		}
 		
+		let openPanel = NSOpenPanel()
 		openPanel.allowsMultipleSelection = false
 		openPanel.canChooseFiles = false
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
-		openPanel.directoryURL = FileManager.default().applicationSupportDirectoryURL(createIfNotExists: true)
+		openPanel.directoryURL = directoryURL
 		
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
@@ -66,7 +70,7 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	private func loadVersions() {
-		let versionsPath = BUNDLE_PATH.appending("/Contents/Versions")
+		let versionsPath = AppDelegate.BUNDLE_PATH.appending("/Contents/Versions")
 		
 		if !FileManager.default().fileExists(atPath: versionsPath) {
 			print("Folder \(versionsPath) dosn't exist");
