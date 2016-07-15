@@ -51,7 +51,21 @@ class DatabaseItemView: NSView {
 		if event.clickCount == 2 {
 			NSApp.sendAction(#selector(MainViewController.openPsql(_:)), to: nil, from: self)
 		}
-		
 	}
 	
+	
+	override func rightMouseDown(_ event: NSEvent) {
+		super.rightMouseDown(event)
+		
+		guard let m = self.menu else {
+			Swift.print("\(self.className): IBOutlet menu is nil")
+			return
+		}
+		NSMenu.popUpContextMenu(m, with: event, for: self)
+	}
+	
+	
+	@IBAction func contextMenuAction(_ sender: AnyObject?) {
+		Swift.print("contextMenuAction")
+	}
 }
