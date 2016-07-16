@@ -662,7 +662,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-55.5" y="190.5"/>
+            <point key="canvasLocation" x="75" y="186"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="hrj-MD-yEE">
@@ -955,7 +955,7 @@
                                     <color key="backgroundColor" red="0.89803921568627454" green="0.92549019607843142" blue="0.97254901960784312" alpha="1" colorSpace="deviceRGB"/>
                                 </pathCell>
                                 <connections>
-                                    <binding destination="DRA-m0-WI0" name="value" keyPath="self.path" id="ZWr-pr-PiU"/>
+                                    <binding destination="DRA-m0-WI0" name="value" keyPath="self.varPathURL" id="NPd-Rp-8Hk"/>
                                 </connections>
                             </pathControl>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ak2-X1-pvf">
@@ -981,7 +981,7 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-80" y="1811"/>
+            <point key="canvasLocation" x="-104" y="1814"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
