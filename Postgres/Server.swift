@@ -63,10 +63,6 @@ class Server: NSObject, NSCoding {
 	private(set) var serverStatus: ServerStatus = .Error
 	
 	
-	override init() {
-		super.init()
-	}
-	
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
 		self.init()
@@ -88,14 +84,16 @@ class Server: NSObject, NSCoding {
 		guard let version = aDecoder.decodeObject(forKey: "version") as? String else { return }
 		guard let port = aDecoder.decodeObject(forKey: "port") as? UInt else { return }
 		guard let varPath = aDecoder.decodeObject(forKey: "varPath") as? String else { return }
+		let runAtStartup = aDecoder.decodeBool(forKey: "runAtStartup")
+		let stopAtQuit = aDecoder.decodeBool(forKey: "stopAtQuit")
 		
 		self.name = name
 		self.version = version
 		self.port = port
 		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
 		self.varPath = varPath
-		self.runAtStartup = aDecoder.decodeBool(forKey: "runAtStartup")
-		self.stopAtQuit = aDecoder.decodeBool(forKey: "stopAtQuit")
+		self.runAtStartup = runAtStartup
+		self.stopAtQuit = stopAtQuit
 	}
 	
 	
@@ -233,10 +231,12 @@ class Server: NSObject, NSCoding {
 		if !FileManager.default().fileExists(atPath: self.binPath) {
 			self.running = false
 			self.serverStatus = .NoBinDir
+			return
 		}
 		
 		let pgVersionPath = self.varPath.appending("/PG_VERSION")
-		guard FileManager.default().fileExists(atPath: pgVersionPath) else {
+		
+		if !FileManager.default().fileExists(atPath: pgVersionPath) {
 			self.running = false
 			self.serverStatus =  .DataDirEmpty
 			return
@@ -244,7 +244,7 @@ class Server: NSObject, NSCoding {
 		
 		do {
 			let fileContents = try String(contentsOfFile: pgVersionPath)
-			guard fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) == self.version else {
+			guard self.version == fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) else {
 				self.running = false
 				self.serverStatus =  .DataDirIncompatible
 				return
