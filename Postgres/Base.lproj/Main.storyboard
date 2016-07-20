@@ -644,7 +644,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Postgres" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="38" y="-85"/>
+            <point key="canvasLocation" x="54" y="-121"/>
         </scene>
         <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -652,9 +652,9 @@
                 <windowController id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="mainWindow" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="270"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="700" height="270"/>
+                        <value key="minSize" type="size" width="700" height="400"/>
                     </window>
                     <connections>
                         <segue destination="FdD-4s-wdj" kind="relationship" relationship="window.shadowedContentViewController" id="GA9-Op-VkN"/>
@@ -673,7 +673,7 @@
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="72Z-Aa-XTd"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="9Ez-yc-oCz">
-                        <rect key="frame" x="0.0" y="0.0" width="516" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="516" height="201"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
@@ -684,7 +684,7 @@
                 </splitViewController>
                 <customObject id="FoV-4N-mhn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="687"/>
+            <point key="canvasLocation" x="75" y="637.5"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="56q-Vh-FcR">
@@ -797,17 +797,48 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ja-5B-NM6">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8ja-5B-NM6">
                                 <rect key="frame" x="154" y="198" width="102" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Open psql" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jmh-qL-5b9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="openPsql:" target="Rgw-vS-n3O" id="wif-xb-9tX"/>
+                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.running" id="hFF-Jw-eXv">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fm9-bb-Jy9">
+                                <rect key="frame" x="430" y="202" width="53" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="xtd-D6-Fp1">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="8g0-jo-Q3i">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" image="NSActionTemplate" hidden="YES" id="b3o-NX-OV4"/>
+                                            <menuItem title="Dump Database" id="TaB-nC-gt3">
+                                                <connections>
+                                                    <action selector="dumpDatabase:" target="Rgw-vS-n3O" id="vRv-cZ-XvT"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="Restore Database" id="dBC-5s-hek">
+                                                <connections>
+                                                    <action selector="restoreDatabase:" target="Rgw-vS-n3O" id="SFZ-mK-oLZ"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="Delete Database" id="lgZ-fp-dcM">
+                                                <connections>
+                                                    <action selector="deleteDatabase:" target="Rgw-vS-n3O" id="m6M-2H-HEM"/>
+                                                </connections>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
@@ -820,7 +851,10 @@
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="20" id="M45-iy-ELn"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="top" secondItem="UaU-Bn-2go" secondAttribute="bottom" constant="8" id="OV5-Ig-6P1"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="61" id="Oan-M6-tLU"/>
+                            <constraint firstItem="8ja-5B-NM6" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="QO2-wk-hld"/>
+                            <constraint firstItem="Fm9-bb-Jy9" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="20" id="VWj-bu-dq3"/>
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="top" secondItem="4Qp-nq-Rul" secondAttribute="bottom" constant="83" id="Yf0-1w-f2f"/>
+                            <constraint firstAttribute="trailing" secondItem="Fm9-bb-Jy9" secondAttribute="trailing" constant="20" id="Z1B-tk-TVH"/>
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
                             <constraint firstAttribute="bottom" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="eg6-7J-7Nv"/>
                             <constraint firstAttribute="trailing" secondItem="4Qp-nq-Rul" secondAttribute="trailing" constant="20" id="fXk-Qj-kfG"/>
@@ -829,6 +863,7 @@
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="lfK-gJ-QT8"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="mZg-3o-dXY"/>
                             <constraint firstItem="4Qp-nq-Rul" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="20" id="s86-YF-nsv"/>
+                            <constraint firstItem="8ja-5B-NM6" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="20" id="ta7-ii-o9y"/>
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" id="yCN-sm-aMF"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
                         </constraints>
@@ -988,23 +1023,23 @@
             <objects>
                 <viewController id="fKp-yy-u0S" userLabel="Sidebar Controller" customClass="SidebarController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Jbb-lb-c1Z">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
-                                <rect key="frame" x="0.0" y="61" width="200" height="339"/>
+                                <rect key="frame" x="0.0" y="61" width="160" height="339"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="dFK-VJ-sw2">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="339"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="339"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Kht-WI-z50">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="339"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="197" minWidth="40" maxWidth="1000" id="ENA-Ge-iUh">
+                                                <tableColumn width="157" minWidth="40" maxWidth="1000" id="ENA-Ge-iUh">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1018,7 +1053,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="nru-Bg-Wku" customClass="ServerTableCellView" customModule="Postgres" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="1" width="197" height="50"/>
+                                                            <rect key="frame" x="1" y="1" width="157" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="16" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="WEY-hy-uaL">
@@ -1125,7 +1160,7 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="303" y="1276"/>
+            <point key="canvasLocation" x="283" y="1276"/>
         </scene>
         <!--Add Server View Controller-->
         <scene sceneID="in6-2w-5h3">
@@ -1336,6 +1371,7 @@ Gw
         </scene>
     </scenes>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
