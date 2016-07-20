@@ -12,7 +12,7 @@ import Cocoa
 class DatabaseItem: NSCollectionViewItem {
 	override var isSelected: Bool {
 		didSet {
-			let v = view as? DatabaseItemView
+			let v = self.view as? DatabaseItemView
 			v?.selected = isSelected
 		}
 	}
@@ -39,7 +39,7 @@ class DatabaseItemView: NSView {
 		let rect = CGRect(x: x, y: y, width: w, height: h)
 		let path = NSBezierPath(roundedRect: rect, xRadius: 10, yRadius: 10)
 		
-		(selected ? .blue() : .lightGray() as NSColor).setStroke()
+		(self.selected ? .blue() : .lightGray() as NSColor).setStroke()
 		path.stroke()
 	}
 	
