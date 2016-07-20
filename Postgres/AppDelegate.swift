@@ -19,8 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
-		// TODO: validate app path and move app if necessary
-		validateNoOtherVersionsAreRunning()
+		checkApplicationPath()
+		checkOtherVersionsRunning()
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
@@ -48,13 +48,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	
 	
-	private func validateNoOtherVersionsAreRunning() {
+	private func checkApplicationPath() {
+		let actualPath = Bundle.main().bundlePath
+		let expectedPath = "/Applications/Postgres.app"
+		
+		if actualPath != expectedPath {
+			let wrapper = ASWrapper()
+			do {
+				try wrapper.runSubroutine("moveToFolder", parameters: [actualPath, expectedPath])
+			} catch let error as NSError {
+				print(error)
+				let alert = NSAlert()
+				alert.messageText = "Could not move Postgres.app."
+				alert.informativeText = "Please move Postgres.app to the Applications folder manually."
+				alert.addButton(withTitle: "OK")
+				alert.runModal()
+				exit(1)
+			}
+		}
+	}
+	
+	
+	private func checkOtherVersionsRunning() {
+		let bundleIdentifiers = [
+			"com.heroku.postgres",
+			"com.heroku.Postgres",
+			"com.heroku.Postgres93",
+			"com.postgresapp.Postgres",
+			"com.postgresapp.Postgres93"
+		]
+		
 		var runningCopies: [NSRunningApplication] = []
-		runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: "com.heroku.postgres"))
-		runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: "com.heroku.Postgres"))
-		runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: "com.heroku.Postgres93"))
-		runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres"))
-		runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres93"))
+		for bundleID in bundleIdentifiers {
+			runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: bundleID))
+		}
 		
 		for runningCopy in runningCopies {
 			if runningCopy != NSRunningApplication.current() {
