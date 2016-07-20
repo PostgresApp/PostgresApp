@@ -56,12 +56,17 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	}
 	
 	
-	@IBAction func pgDump(_ sender: AnyObject?) {
+	@IBAction func dumpDatabase(_ sender: AnyObject?) {
 		
 	}
 	
 	
-	@IBAction func pgRestore(_ sender: AnyObject?) {
+	@IBAction func restoreDatabase(_ sender: AnyObject?) {
+		
+	}
+	
+	
+	@IBAction func deleteDatabase(_ sender: AnyObject?) {
 		
 	}
 	
