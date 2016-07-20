@@ -50,7 +50,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		let psqlScript = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
 		
 		let wrapper = ASWrapper()
-		wrapper.runSubroutine("openTerminalApp", parameter: psqlScript)
+		wrapper.runSubroutine("openTerminalApp", parameters: [psqlScript])
 	}
 	
 	
