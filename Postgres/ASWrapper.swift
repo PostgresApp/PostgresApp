@@ -10,7 +10,7 @@ import Foundation
 
 class ASWrapper: NSObject {
 	
-	func runSubroutine(_ subroutine: String, parameter: String) {
+	func runSubroutine(_ subroutine: String, parameters: [String]?) {
 		guard let path = Bundle.main().pathForResource("ASSubroutines", ofType: "scpt") else { return }
 		
 		// these constants are defined in Carbon (no need to include)
@@ -21,12 +21,20 @@ class ASWrapper: NSObject {
 		var errorDict: NSDictionary?
 		
 		let script = NSAppleScript(contentsOf: URL(fileURLWithPath: path), error: &errorDict)
-		let params = NSAppleEventDescriptor.list()
-		params.insert(NSAppleEventDescriptor(string: parameter), at: 1)
-		let event = NSAppleEventDescriptor.appleEvent(withEventClass: kASAppleScriptSuite, eventID: kASSubroutineEvent, targetDescriptor: NSAppleEventDescriptor.null(), returnID: AEReturnID(kAutoGenerateReturnID), transactionID: AETransactionID(kAnyTransactionID))
-		event.setDescriptor(NSAppleEventDescriptor(string: subroutine), forKeyword: keyASSubroutineName)
-		event.setDescriptor(params, forKeyword: keyDirectObject)
-		script?.executeAppleEvent(event, error: &errorDict)
+		let paramDescr = NSAppleEventDescriptor.list()
+		
+		if let parameters = parameters {
+			var idx = 1
+			for p in parameters {
+				paramDescr.insert(NSAppleEventDescriptor(string: p), at: idx)
+				idx += 1
+			}
+		}
+		
+		let eventDescr = NSAppleEventDescriptor.appleEvent(withEventClass: kASAppleScriptSuite, eventID: kASSubroutineEvent, targetDescriptor: NSAppleEventDescriptor.null(), returnID: AEReturnID(kAutoGenerateReturnID), transactionID: AETransactionID(kAnyTransactionID))
+		eventDescr.setDescriptor(NSAppleEventDescriptor(string: subroutine), forKeyword: keyASSubroutineName)
+		eventDescr.setDescriptor(paramDescr, forKeyword: keyDirectObject)
+		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
 		if errorDict != nil {
 			print(errorDict)
