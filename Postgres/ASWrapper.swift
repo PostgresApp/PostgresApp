@@ -10,7 +10,7 @@ import Foundation
 
 class ASWrapper: NSObject {
 	
-	func runSubroutine(_ subroutine: String, parameters: [String]?) {
+	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
 		guard let path = Bundle.main().pathForResource("ASSubroutines", ofType: "scpt") else { return }
 		
 		// these constants are defined in Carbon (no need to include)
@@ -36,14 +36,14 @@ class ASWrapper: NSObject {
 		eventDescr.setDescriptor(paramDescr, forKeyword: keyDirectObject)
 		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
-		if errorDict != nil {
-			print(errorDict)
+		if let errorDict = errorDict {
+			throw NSError(domain: "com.postgresapp.Postgres.ASWrapper", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
 		}
 	}
 	
 	
 	private func fourCharCodeFrom(_ string: String) -> FourCharCode {
-		assert(string.characters.count == 4, "String length must be 4")
+		assert(string.characters.count == 4, "\(self.className+"."+#function): Parameter must consist of 4 characters")
 		var result: FourCharCode = 0
 		for char in string.utf16 {
 			result = (result << 8) + FourCharCode(char)
