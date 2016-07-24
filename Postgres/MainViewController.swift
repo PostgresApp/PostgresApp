@@ -70,8 +70,8 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 				progressViewController.statusMessage = "Dumping Database..."
 				self.presentViewControllerAsSheet(progressViewController)
 				
-				progressViewController.databaseTask = DatabaseTask(server, database)
-				progressViewController.databaseTask?.dump(to: savePanel.url!.path!, completionHandler: { (actionStatus) in
+				progressViewController.databaseTask = DatabaseTask(server)
+				progressViewController.databaseTask?.dumpDatabase(name: database.name, to: savePanel.url!.path!, completionHandler: { (actionStatus) in
 					progressViewController.dismiss(self)
 				})
 			}
@@ -97,7 +97,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 				self.presentViewControllerAsSheet(progressViewController)
 				
 				progressViewController.databaseTask = DatabaseTask(server)
-				progressViewController.databaseTask?.restore(from: openPanel.url!.path!, completionHandler: { (actionStatus) in
+				progressViewController.databaseTask?.restoreDatabase(from: openPanel.url!.path!, completionHandler: { (actionStatus) in
 					server.updateDatabases()
 					progressViewController.dismiss(self)
 				})
@@ -106,8 +106,29 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	}
 	
 	
-	@IBAction func deleteDatabase(_ sender: AnyObject?) {
+	@IBAction func dropDatabase(_ sender: AnyObject?) {
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
+		guard let database = self.databaseArrayController?.selectedObjects.first as? Database else { return }
 		
+		let alert = NSAlert()
+		alert.messageText = "Drop Database?"
+		alert.informativeText = "This action can not be undone."
+		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "Cancel")
+		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
+			if modalResponse == NSAlertFirstButtonReturn {
+				
+				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
+				progressViewController.statusMessage = "Dropping Database..."
+				self.presentViewControllerAsSheet(progressViewController)
+				
+				progressViewController.databaseTask = DatabaseTask(server)
+				progressViewController.databaseTask?.dropDatabase(name: database.name, completionHandler: { (actionStatus) in
+					server.updateDatabases()
+					progressViewController.dismiss(self)
+				})
+			}
+		}
 	}
 	
 	
