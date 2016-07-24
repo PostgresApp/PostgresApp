@@ -31,7 +31,7 @@ class ServerManager: NSObject {
 	func startServers() {
 		for server in self.servers {
 			if server.runAtStartup {
-				server.start {_ in }
+				server.start { _ in }
 			}
 		}
 	}
@@ -40,7 +40,7 @@ class ServerManager: NSObject {
 	func stopServers() {
 		for server in self.servers {
 			if server.stopAtQuit {
-				server.stop {_ in }
+				server.stop { _ in }
 			}
 		}
 	}
