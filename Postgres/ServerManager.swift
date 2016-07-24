@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class ServerManager: NSObject {
+class ServerManager: NSObject {
 	
 	private static let _shared = ServerManager()
 	
