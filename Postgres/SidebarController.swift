@@ -27,11 +27,13 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 		alert.messageText = "Delete Server?"
 		alert.addButton(withTitle: "OK")
 		alert.addButton(withTitle: "Cancel")
-		alert.alertStyle = .warning
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) -> Void in
 			if modalResponse == NSAlertFirstButtonReturn {
-				self.serverArrayController!.remove(nil)
-				self.serverArrayController!.rearrangeObjects()
+				if let server = self.serverArrayController?.selectedObjects.first as? Server {
+					server.stop(completionHandler: { _ in })
+				}
+				self.serverArrayController?.remove(nil)
+				self.serverArrayController?.rearrangeObjects()
 			}
 		}
 		
