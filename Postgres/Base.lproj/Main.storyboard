@@ -814,7 +814,7 @@
                             </button>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fm9-bb-Jy9">
                                 <rect key="frame" x="430" y="202" width="53" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="xtd-D6-Fp1">
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="b3o-NX-OV4" id="xtd-D6-Fp1">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="8g0-jo-Q3i">
@@ -830,15 +830,34 @@
                                                     <action selector="restoreDatabase:" target="Rgw-vS-n3O" id="SFZ-mK-oLZ"/>
                                                 </connections>
                                             </menuItem>
-                                            <menuItem title="Delete Database" id="lgZ-fp-dcM">
+                                            <menuItem title="Drop Database" id="lgZ-fp-dcM">
                                                 <connections>
-                                                    <action selector="deleteDatabase:" target="Rgw-vS-n3O" id="m6M-2H-HEM"/>
+                                                    <action selector="dropDatabase:" target="Rgw-vS-n3O" id="2yZ-Ai-sNW"/>
                                                 </connections>
                                             </menuItem>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.running" id="sel-3D-vwF">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rpT-Ah-ngy">
+                                <rect key="frame" x="158" y="301" width="170" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="&lt;statusMessageExtended&gt;" id="gJr-aX-IWr">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.statusMessageExtended" id="klQ-hY-ENF"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
