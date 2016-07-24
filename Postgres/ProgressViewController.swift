@@ -6,4 +6,19 @@
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
 
-import Foundation
+import Cocoa
+
+class ProgressViewController: NSViewController {
+	
+	dynamic var statusMessage: String = ""
+	dynamic private var animateProgressBar = true
+	
+	var databaseTask: DatabaseTask?
+	
+	
+	@IBAction func cancel(_ sender: AnyObject?) {
+		self.databaseTask?.cancel()
+		self.dismiss(self)
+	}
+	
+}
