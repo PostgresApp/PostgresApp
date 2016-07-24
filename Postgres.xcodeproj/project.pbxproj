@@ -20,6 +20,8 @@
 		8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */; };
 		83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ASWrapper.swift */; };
 		83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */; };
+		83A786281D43E8AF009C7329 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A786271D43E8AF009C7329 /* ProgressViewController.swift */; };
+		83AF32181D42C1F100446F50 /* DatabaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF32171D42C1F100446F50 /* DatabaseTask.swift */; };
 		83DFC0DE1D26F3570098ADE0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DFC0DD1D26F3570098ADE0 /* Extensions.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 		8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
 		83969DBA1D369BD1005B9F1C /* ASWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASWrapper.swift; sourceTree = "<group>"; };
 		83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ASSubroutines.applescript; sourceTree = "<group>"; };
+		83A786271D43E8AF009C7329 /* ProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
+		83AF32171D42C1F100446F50 /* DatabaseTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseTask.swift; sourceTree = "<group>"; };
 		83DFC0DD1D26F3570098ADE0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,8 +125,10 @@
 				830B4B271D1C289A00F16762 /* SidebarController.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */,
 				8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */,
+				83A786271D43E8AF009C7329 /* ProgressViewController.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
+				83AF32171D42C1F100446F50 /* DatabaseTask.swift */,
 				83969DBA1D369BD1005B9F1C /* ASWrapper.swift */,
 				83DFC0DD1D26F3570098ADE0 /* Extensions.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
@@ -261,8 +267,10 @@
 				83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */,
 				836CC37E1D2C62F4000D0C13 /* DatabaseCollectionView.swift in Sources */,
+				83A786281D43E8AF009C7329 /* ProgressViewController.swift in Sources */,
 				8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */,
 				83DFC0DE1D26F3570098ADE0 /* Extensions.swift in Sources */,
+				83AF32181D42C1F100446F50 /* DatabaseTask.swift in Sources */,
 				8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
