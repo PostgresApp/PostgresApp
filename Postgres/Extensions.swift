@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension String {
+	
+	public func lastPathComponent(deletingExtension: Bool) -> String {
+		let lastPathComponent = (self as NSString).lastPathComponent as NSString
+		return deletingExtension ? lastPathComponent.deletingPathExtension : lastPathComponent as String
+	}
+	
+}
+
+
+
+
+
 extension URL {
 	
 	public var isFinderAlias: Bool {
