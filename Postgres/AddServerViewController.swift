@@ -40,7 +40,6 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
 		openPanel.directoryURL = directoryURL
-		
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
 				let varTmp = openPanel.url!.path!
