@@ -41,15 +41,18 @@ class Server: NSObject, NSCoding {
 	
 	dynamic private(set) var running: Bool = false {
 		didSet {
+			
+			if self.running {
+				self.statusMessage = "PostgreSQL \(version) - Running on port \(port)"
+			} else {
+				self.statusMessage = "PostgreSQL \(version) - Stopped"
+			}
+			
 			switch serverStatus {
 			case .DataDirEmpty:
-				self.statusMessage = "Click Start to create a new database"
+				self.statusMessageExtended = "Click Start to create a new database"
 			default:
-				if self.running {
-					self.statusMessage = "PostgreSQL \(version) - Running on port \(port)"
-				} else {
-					self.statusMessage = "PostgreSQL \(version) - Stopped"
-				}
+				break
 			}
 			
 			self.updateDatabases()
@@ -72,6 +75,8 @@ class Server: NSObject, NSCoding {
 		self.port = port
 		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath
+		
+		self.updateServerStatus()
 		
 		// TODO: read port from postgresql.conf
 	}
