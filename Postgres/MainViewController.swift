@@ -19,7 +19,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.databaseCollectionView?.itemPrototype = storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
+		self.databaseCollectionView?.itemPrototype = self.storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
 	}
 	
 	
@@ -57,12 +57,52 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	@IBAction func dumpDatabase(_ sender: AnyObject?) {
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
+		guard let database = self.databaseArrayController?.selectedObjects.first as? Database else { return }
 		
+		let savePanel = NSSavePanel()
+		savePanel.directoryURL = URL(string: "~/Desktop")
+		savePanel.nameFieldStringValue = database.name + ".pg_dump"
+		savePanel.beginSheetModal(for: self.view.window!) { (result: Int) in
+			if result == NSFileHandlingPanelOKButton {
+				
+				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
+				progressViewController.statusMessage = "Dumping Database..."
+				self.presentViewControllerAsSheet(progressViewController)
+				
+				progressViewController.databaseTask = DatabaseTask(server, database)
+				progressViewController.databaseTask?.dump(to: savePanel.url!.path!, completionHandler: { (actionStatus) in
+					progressViewController.dismiss(self)
+				})
+			}
+		}
 	}
 	
 	
 	@IBAction func restoreDatabase(_ sender: AnyObject?) {
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
 		
+		let openPanel = NSOpenPanel()
+		openPanel.canChooseFiles = true
+		openPanel.canChooseDirectories = false
+		openPanel.allowsMultipleSelection = false
+		openPanel.resolvesAliases = true
+		openPanel.allowedFileTypes = ["pg_dump"]
+		openPanel.directoryURL = URL(string: "~/Desktop")
+		openPanel.beginSheetModal(for: self.view.window!) { (result: Int) in
+			if result == NSFileHandlingPanelOKButton {
+				
+				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
+				progressViewController.statusMessage = "Restoring Database..."
+				self.presentViewControllerAsSheet(progressViewController)
+				
+				progressViewController.databaseTask = DatabaseTask(server)
+				progressViewController.databaseTask?.restore(from: openPanel.url!.path!, completionHandler: { (actionStatus) in
+					server.updateDatabases()
+					progressViewController.dismiss(self)
+				})
+			}
+		}
 	}
 	
 	
