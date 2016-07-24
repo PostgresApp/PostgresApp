@@ -25,7 +25,7 @@ class SettingsPopoverController: NSViewController, ServerManagerConsumer {
 	@IBAction func openInFinder(_ sender: AnyObject?) {
 		guard let varPath = (self.serverArrayController?.selectedObjects.first as? Server)?.varPath else { return }
 		if !NSWorkspace.shared().selectFile(nil, inFileViewerRootedAtPath: varPath) {
-			let userInfo: [String: AnyObject] = [
+			let userInfo = [
 				NSLocalizedDescriptionKey: "Folder not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
 			]
