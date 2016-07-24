@@ -122,9 +122,9 @@ class Server: NSObject, NSCoding {
 			}
 			
 			switch self.serverStatus {
-				
+			
 			case .DataDirIncompatible:
-				let userInfo: [String: AnyObject] = [
+				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
 				]
@@ -134,7 +134,7 @@ class Server: NSObject, NSCoding {
 				}
 				
 			case .NoBinDir:
-				let userInfo: [String: AnyObject] = [
+				let userInfo = [
 					NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
 					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
 				]
@@ -144,7 +144,7 @@ class Server: NSObject, NSCoding {
 				}
 				
 			case .WrongDataDirectory:
-				let userInfo: [String: AnyObject] = [
+				let userInfo = [
 					NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(self.port)",
 					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
 				]
@@ -154,7 +154,7 @@ class Server: NSObject, NSCoding {
 				}
 				
 			case .Error:
-				let userInfo: [String: AnyObject] = [
+				let userInfo = [
 					NSLocalizedDescriptionKey: "Unknown error",
 					NSLocalizedRecoverySuggestionErrorKey: ""
 				]
@@ -338,9 +338,10 @@ class Server: NSObject, NSCoding {
 			"-o", String("-p \(self.port)"),
 		]
 		task.standardOutput = Pipe()
-		task.standardError = Pipe()
+		let errorPipe = Pipe()
+		task.standardError = errorPipe
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
@@ -349,7 +350,7 @@ class Server: NSObject, NSCoding {
 			}
 			return .Success
 		} else {
-			let userInfo: [String: AnyObject] = [
+			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not start PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -376,9 +377,10 @@ class Server: NSObject, NSCoding {
 			"-w",
 		]
 		task.standardOutput = Pipe()
-		task.standardError = Pipe()
+		let errorPipe = Pipe()
+		task.standardError = errorPipe
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
@@ -387,7 +389,7 @@ class Server: NSObject, NSCoding {
 			}
 			return .Success
 		} else {
-			let userInfo: [String: AnyObject] = [
+			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not stop PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -414,15 +416,16 @@ class Server: NSObject, NSCoding {
 			"--locale=en_US.UTF-8"
 		]
 		task.standardOutput = Pipe()
-		task.standardError = Pipe()
+		let errorPipe = Pipe()
+		task.standardError = errorPipe
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo: [String: AnyObject] = [
+			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not initialize database cluster.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -449,15 +452,16 @@ class Server: NSObject, NSCoding {
 			NSUserName()
 		]
 		task.standardOutput = Pipe()
-		task.standardError = Pipe()
+		let errorPipe = Pipe()
+		task.standardError = errorPipe
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo: [String: AnyObject] = [
+			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create default user.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -482,15 +486,16 @@ class Server: NSObject, NSCoding {
 			NSUserName()
 		]
 		task.standardOutput = Pipe()
-		task.standardError = Pipe()
+		let errorPipe = Pipe()
+		task.standardError = errorPipe
 		task.launch()
-		let errorDescription = String(data: (task.standardError?.fileHandleForReading.readDataToEndOfFile())!, encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo: [String: AnyObject] = [
+			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create user database.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
