@@ -10,13 +10,20 @@ import Foundation
 
 class ASWrapper: NSObject {
 	
+	private let fileName: String
+	
+	init(fileName: String) {
+		self.fileName = fileName
+	}
+	
+	
 	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
-		guard let path = Bundle.main().pathForResource("ASSubroutines", ofType: "scpt") else { return }
+		guard let path = Bundle.main().pathForResource(fileName, ofType: "scpt") else { return }
 		
 		// these constants are defined in Carbon (no need to include)
-		let kASAppleScriptSuite = self.fourCharCodeFrom("ascr")
-		let kASSubroutineEvent = self.fourCharCodeFrom("psbr")
-		let keyASSubroutineName = self.fourCharCodeFrom("snam")
+		let kASAppleScriptSuite = FourCharCode("ascr")
+		let kASSubroutineEvent = FourCharCode("psbr")
+		let keyASSubroutineName = FourCharCode("snam")
 		
 		var errorDict: NSDictionary?
 		
@@ -40,15 +47,14 @@ class ASWrapper: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres.ASWrapper", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
 		}
 	}
-	
-	
-	private func fourCharCodeFrom(_ string: String) -> FourCharCode {
-		assert(string.characters.count == 4, "\(self.className+"."+#function): Parameter must consist of 4 characters")
-		var result: FourCharCode = 0
+}
+
+
+private extension FourCharCode {
+	init(_ string: String) {
+		self = 0
 		for char in string.utf16 {
-			result = (result << 8) + FourCharCode(char)
+			self = (self << 8) + FourCharCode(char)
 		}
-		return result
 	}
-	
 }
