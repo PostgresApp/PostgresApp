@@ -16,7 +16,7 @@ class DatabaseTask: NSObject {
 	}
 	
 	private var server: Server
-	private var task: Task = Task()
+	private var currentTask: Task?
 	
 	
 	init(_ server: Server) {
@@ -34,10 +34,9 @@ class DatabaseTask: NSObject {
 	}
 	
 	
-	func restoreDatabase(from file: String, completionHandler: (_: ActionStatus) -> Void) {
+	func restoreDatabase(name: String, from file: String, completionHandler: (_: ActionStatus) -> Void) {
 		DispatchQueue.global().async {
-			let dbName = file.lastPathComponent(deletingExtension: true)
-			let createRes = self.createDatabaseSync(name: dbName)
+			let createRes = self.createDatabaseSync(name: name)
 			
 			switch createRes {
 			case .Failure(_):
@@ -45,7 +44,7 @@ class DatabaseTask: NSObject {
 					completionHandler(createRes)
 				}
 			case .Success:
-				let restoreRes = self.restoreDatabaseSync(name: dbName, from: file)
+				let restoreRes = self.restoreDatabaseSync(name: name, from: file)
 				DispatchQueue.main.async {
 					completionHandler(restoreRes)
 				}
@@ -65,7 +64,7 @@ class DatabaseTask: NSObject {
 	
 	
 	func cancel() {
-		self.task.terminate()
+		self.currentTask?.terminate()
 		print("DatabaseTask canceled")
 	}
 	
@@ -76,36 +75,40 @@ class DatabaseTask: NSObject {
 	sync handlers
 	*/
 	private func dumpDatabaseSync(name: String, to file: String) -> ActionStatus {
-		self.task.launchPath = self.server.binPath.appending("/pg_dump")
-		self.task.arguments = [
+		let task = Task()
+		self.currentTask = task
+		task.launchPath = self.server.binPath.appending("/pg_dump")
+		task.arguments = [
 			"-p", String(self.server.port),
 			"-F", "c",
 			"-Z", "9",
 			"-f", file,
 			name
 		]
-		self.task.standardOutput = Pipe()
+		task.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		self.task.standardError = errorPipe
-		self.task.launch()
+		task.standardError = errorPipe
+		task.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		self.task.waitUntilExit()
+		task.waitUntilExit()
+		self.currentTask = nil
 		
-		if self.task.terminationStatus == 0 {
+		if task.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not dump database", comment: ""),
 				"RawCommandOutput": errorDescription
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.pg_dump", code: Int(self.task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres.pg_dump", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
 	
 	
 	private func createDatabaseSync(name: String) -> ActionStatus {
-		let task = Task() // This function has its own task!
+		let task = Task()
+		self.currentTask = task
 		task.launchPath = self.server.binPath.appending("/createdb")
 		task.arguments = [
 			"-p", String(self.server.port),
@@ -117,6 +120,7 @@ class DatabaseTask: NSObject {
 		task.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		task.waitUntilExit()
+		self.currentTask = nil
 		
 		if task.terminationStatus == 0 {
 			return .Success
@@ -132,54 +136,60 @@ class DatabaseTask: NSObject {
 	
 	
 	private func restoreDatabaseSync(name: String, from file: String) -> ActionStatus {
-		self.task.launchPath = self.server.binPath.appending("/pg_restore")
-		self.task.arguments = [
+		let task = Task()
+		self.currentTask = task
+		task.launchPath = self.server.binPath.appending("/pg_restore")
+		task.arguments = [
 			"-p", String(self.server.port),
 			"-F", "c",
 			"-d", name,
 			file
 		]
-		self.task.standardOutput = Pipe()
+		task.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		self.task.standardError = errorPipe
-		self.task.launch()
+		task.standardError = errorPipe
+		task.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		self.task.waitUntilExit()
+		task.waitUntilExit()
+		self.currentTask = nil
 		
-		if self.task.terminationStatus == 0 {
+		if task.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not restore database.", comment: ""),
 				"RawCommandOutput": errorDescription
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.pg_restore", code: Int(self.task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres.pg_restore", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
 	
 	
 	private func dropDatabaseSync(name: String) -> ActionStatus {
-		self.task.launchPath = self.server.binPath.appending("/dropdb")
-		self.task.arguments = [
+		let task = Task()
+		self.currentTask = task
+		task.launchPath = self.server.binPath.appending("/dropdb")
+		task.arguments = [
 			"-p", String(self.server.port),
 			name
 		]
-		self.task.standardOutput = Pipe()
+		task.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		self.task.standardError = errorPipe
-		self.task.launch()
+		task.standardError = errorPipe
+		task.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		self.task.waitUntilExit()
+		task.waitUntilExit()
+		self.currentTask = nil
 		
-		if self.task.terminationStatus == 0 {
+		if task.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not drop database.", comment: ""),
 				"RawCommandOutput": errorDescription
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.dropdb", code: Int(self.task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres.dropdb", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
