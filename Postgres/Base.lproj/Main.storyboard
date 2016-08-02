@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A270f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
@@ -59,48 +59,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
-                                            <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
-                                            <connections>
-                                                <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Open Recent" id="tXI-mr-wws">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
-                                                <items>
-                                                    <menuItem title="Clear Menu" id="vNY-rz-j42">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="clearRecentDocuments:" target="Ady-hI-5gd" id="Daa-9d-B3U"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
-                                            <connections>
-                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
-                                            <connections>
-                                                <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
-                                            <connections>
-                                                <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
@@ -772,18 +733,19 @@
                                 </connections>
                             </progressIndicator>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
-                                <rect key="frame" x="0.0" y="0.0" width="500" height="185"/>
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="235"/>
                                 <clipView key="contentView" id="Dni-fY-jEd">
-                                    <rect key="frame" x="0.0" y="0.0" width="500" height="185"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="235"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView selectable="YES" allowsEmptySelection="NO" id="nrL-ym-6WO">
-                                            <rect key="frame" x="0.0" y="0.0" width="500" height="185"/>
+                                        <collectionView selectable="YES" allowsEmptySelection="NO" id="nrL-ym-6WO" customClass="DatabaseCollectionView" customModule="Postgres" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="500" height="235"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <binding destination="lfI-VP-uU4" name="content" keyPath="arrangedObjects" id="Waa-2h-Oey"/>
                                                 <binding destination="lfI-VP-uU4" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Waa-2h-Oey" id="Rcg-jU-nuF"/>
+                                                <outlet property="menu" destination="Nm6-m4-go5" id="0dk-C2-qTv"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
@@ -793,59 +755,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="FfH-lq-wj5">
-                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <rect key="frame" x="484" y="0.0" width="16" height="234"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8ja-5B-NM6">
-                                <rect key="frame" x="154" y="198" width="102" height="32"/>
-                                <buttonCell key="cell" type="push" title="Open psql" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jmh-qL-5b9">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="openPsql:" target="Rgw-vS-n3O" id="wif-xb-9tX"/>
-                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.running" id="hFF-Jw-eXv">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fm9-bb-Jy9">
-                                <rect key="frame" x="430" y="202" width="53" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="b3o-NX-OV4" id="xtd-D6-Fp1">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="8g0-jo-Q3i">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" image="NSActionTemplate" hidden="YES" id="b3o-NX-OV4"/>
-                                            <menuItem title="Dump Database" id="TaB-nC-gt3">
-                                                <connections>
-                                                    <action selector="dumpDatabase:" target="Rgw-vS-n3O" id="vRv-cZ-XvT"/>
-                                                </connections>
-                                            </menuItem>
-                                            <menuItem title="Restore Database" id="dBC-5s-hek">
-                                                <connections>
-                                                    <action selector="restoreDatabase:" target="Rgw-vS-n3O" id="SFZ-mK-oLZ"/>
-                                                </connections>
-                                            </menuItem>
-                                            <menuItem title="Drop Database" id="lgZ-fp-dcM">
-                                                <connections>
-                                                    <action selector="dropDatabase:" target="Rgw-vS-n3O" id="2yZ-Ai-sNW"/>
-                                                </connections>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.running" id="sel-3D-vwF">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rpT-Ah-ngy">
                                 <rect key="frame" x="158" y="301" width="170" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -869,11 +782,8 @@
                             <constraint firstItem="Ao6-Je-0kL" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="128" id="KwP-yp-fMm"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="20" id="M45-iy-ELn"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="top" secondItem="UaU-Bn-2go" secondAttribute="bottom" constant="8" id="OV5-Ig-6P1"/>
-                            <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="61" id="Oan-M6-tLU"/>
-                            <constraint firstItem="8ja-5B-NM6" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="QO2-wk-hld"/>
-                            <constraint firstItem="Fm9-bb-Jy9" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="20" id="VWj-bu-dq3"/>
+                            <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="11" id="Oan-M6-tLU"/>
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="top" secondItem="4Qp-nq-Rul" secondAttribute="bottom" constant="83" id="Yf0-1w-f2f"/>
-                            <constraint firstAttribute="trailing" secondItem="Fm9-bb-Jy9" secondAttribute="trailing" constant="20" id="Z1B-tk-TVH"/>
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
                             <constraint firstAttribute="bottom" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="eg6-7J-7Nv"/>
                             <constraint firstAttribute="trailing" secondItem="4Qp-nq-Rul" secondAttribute="trailing" constant="20" id="fXk-Qj-kfG"/>
@@ -882,7 +792,6 @@
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="lfK-gJ-QT8"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="mZg-3o-dXY"/>
                             <constraint firstItem="4Qp-nq-Rul" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="20" id="s86-YF-nsv"/>
-                            <constraint firstItem="8ja-5B-NM6" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="20" id="ta7-ii-o9y"/>
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" id="yCN-sm-aMF"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
                         </constraints>
@@ -905,6 +814,28 @@
                         <binding destination="n71-mI-16p" name="contentArray" keyPath="selection.databases" id="nCG-FP-EvS"/>
                     </connections>
                 </arrayController>
+                <menu id="Nm6-m4-go5">
+                    <items>
+                        <menuItem title="Dump Database…" id="uDi-J2-xwP">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="dumpDatabase:" target="Rgw-vS-n3O" id="xkf-QG-mv8"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Restore Database…" id="DQF-rs-5Zk">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="restoreDatabase:" target="Rgw-vS-n3O" id="kWY-Vv-AJy"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Drop Database…" id="Gqx-DA-Mwx">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="dropDatabase:" target="Rgw-vS-n3O" id="3As-qj-e5R"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="-104" y="1276"/>
         </scene>
@@ -913,40 +844,29 @@
             <objects>
                 <viewController id="DRA-m0-WI0" userLabel="Settings Popover View Controller" customClass="SettingsPopoverController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="717-NZ-0Mq">
-                        <rect key="frame" x="0.0" y="0.0" width="587" height="222"/>
+                        <rect key="frame" x="0.0" y="0.0" width="509" height="271"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7si-6f-kW1">
-                                <rect key="frame" x="114" y="38" width="265" height="18"/>
+                                <rect key="frame" x="226" y="18" width="265" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Start server when starting Postgres App" bezelStyle="regularSquare" imagePosition="left" inset="2" id="q2i-4q-a4y">
+                                <buttonCell key="cell" type="check" title="Automatically start Server at User Login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="q2i-4q-a4y">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.runAtStartup" id="kcM-eO-o9n"/>
-                                </connections>
-                            </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XAF-tj-z48">
-                                <rect key="frame" x="114" y="18" width="263" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Stop server when quitting Postgres App" bezelStyle="regularSquare" imagePosition="left" inset="2" id="jW3-ri-8yc">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.stopAtQuit" id="pAo-YE-n8k"/>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.startAtLogin" id="Qqo-wr-l5O"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KgF-T7-n4A">
-                                <rect key="frame" x="116" y="148" width="58" height="22"/>
+                                <rect key="frame" x="223" y="203" width="58" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="PHy-fD-yw2">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" localizesFormat="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="gFC-TK-kxa">
                                         <real key="minimum" value="1"/>
                                         <real key="maximum" value="65535"/>
                                     </numberFormatter>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -960,10 +880,10 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sLQ-Vg-ezA">
-                                <rect key="frame" x="116" y="180" width="451" height="22"/>
+                                <rect key="frame" x="223" y="225" width="250" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kYj-Bu-SC9">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -971,57 +891,172 @@
                                     <binding destination="1aH-X1-M4q" name="value" keyPath="selection.name" id="26L-4s-5Ib"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2v-a2-a08">
-                                <rect key="frame" x="18" y="183" width="92" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="cGl-TW-kw3">
-                                    <font key="font" metaFont="system"/>
+                            <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2v-a2-a08">
+                                <rect key="frame" x="18" y="237" width="85" height="14"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="cGl-TW-kw3">
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kuv-o9-TI0">
-                                <rect key="frame" x="18" y="151" width="92" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ak2-X1-pvf">
+                                <rect key="frame" x="18" y="145" width="85" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port" id="3QH-4L-gED">
-                                    <font key="font" metaFont="system"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Data Directory:" id="Fzc-gv-bD8">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EeJ-u8-ipy">
+                                <rect key="frame" x="226" y="164" width="140" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;varPath&gt;" id="xrx-im-J0x">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.varPath" id="OHG-id-jx0"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gho-W8-jCW">
+                                <rect key="frame" x="287" y="203" width="147" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Stop Server to change port" id="Rs4-2l-Ray">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="hidden" keyPath="selection.running" id="BWh-Dp-c7n">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fdJ-RE-WV2">
+                                <rect key="frame" x="18" y="111" width="85" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Config File:" id="iTt-Hv-ZWV">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cae-uS-VkP">
+                                <rect key="frame" x="226" y="129" width="254" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;configFilePath&gt;" id="M6s-Bs-qDG">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.configFilePath" id="Klw-uY-GbQ"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hOY-Mk-Idh">
+                                <rect key="frame" x="18" y="83" width="85" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="HBA File:" id="5eC-Wk-oKp">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T9M-Q3-n9Q">
+                                <rect key="frame" x="226" y="98" width="254" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;hbaFilePath&gt;" id="nZK-QY-dMh">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.hbaFilePath" id="xY4-aZ-wpD"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DEk-Is-PMq">
+                                <rect key="frame" x="18" y="50" width="85" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log File:" id="N00-mx-ZOG">
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g3c-gM-ofF">
-                                <rect key="frame" x="110" y="67" width="129" height="32"/>
+                                <rect key="frame" x="398" y="159" width="89" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Open in Finder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kh6-Zt-xtC">
+                                <buttonCell key="cell" type="roundTextured" title="Open in Finder" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kh6-Zt-xtC">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="openInFinder:" target="DRA-m0-WI0" id="knU-Hh-lA3"/>
+                                    <action selector="openDataDirectory:" target="DRA-m0-WI0" id="w5D-sl-du4"/>
                                 </connections>
                             </button>
-                            <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oI4-H7-IUC">
-                                <rect key="frame" x="116" y="111" width="451" height="22"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fmq-gC-xdg">
+                                <rect key="frame" x="416" y="128" width="71" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <pathCell key="cell" selectable="YES" alignment="left" id="HaG-PN-6Nb">
-                                    <font key="font" metaFont="system"/>
-                                    <url key="url" string="file://localhost/Applications/"/>
-                                    <color key="backgroundColor" red="0.89803921568627454" green="0.92549019607843142" blue="0.97254901960784312" alpha="1" colorSpace="deviceRGB"/>
-                                </pathCell>
+                                <buttonCell key="cell" type="roundTextured" title="Edit" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oj0-4l-LDk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
                                 <connections>
-                                    <binding destination="DRA-m0-WI0" name="value" keyPath="self.varPathURL" id="NPd-Rp-8Hk"/>
+                                    <action selector="openConfigFile:" target="DRA-m0-WI0" id="eVe-I6-wL8"/>
                                 </connections>
-                            </pathControl>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ak2-X1-pvf">
-                                <rect key="frame" x="18" y="113" width="92" height="17"/>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0z-wR-qR9">
+                                <rect key="frame" x="416" y="93" width="71" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Data Directory" id="Fzc-gv-bD8">
-                                    <font key="font" metaFont="system"/>
+                                <buttonCell key="cell" type="roundTextured" title="Edit" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="D1d-Nu-b0K">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openHBAFile:" target="DRA-m0-WI0" id="5LB-D0-uf7"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-it-6UC">
+                                <rect key="frame" x="416" y="60" width="71" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" title="Show Log" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MlM-LM-5mG">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openLogFile:" target="DRA-m0-WI0" id="Lzs-DJ-uhC"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Wq-4V-t7i">
+                                <rect key="frame" x="226" y="65" width="254" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;logFilePath&gt;" id="wFT-Mw-KfA">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="1aH-X1-M4q" name="value" keyPath="selection.logFilePath" id="Zlk-WI-ag0"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kuv-o9-TI0">
+                                <rect key="frame" x="18" y="203" width="85" height="14"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="3QH-4L-gED">
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="C2v-a2-a08" firstAttribute="top" secondItem="717-NZ-0Mq" secondAttribute="top" constant="20" id="C1W-f2-wmp"/>
+                            <constraint firstItem="C2v-a2-a08" firstAttribute="leading" secondItem="717-NZ-0Mq" secondAttribute="leading" constant="20" id="JWF-nx-9cE"/>
+                            <constraint firstItem="Kuv-o9-TI0" firstAttribute="leading" secondItem="717-NZ-0Mq" secondAttribute="leading" constant="20" id="gQV-3y-SfO"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="serverArrayController" destination="1aH-X1-M4q" id="YqB-hI-V9P"/>
@@ -1035,7 +1070,7 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-104" y="1814"/>
+            <point key="canvasLocation" x="-143.5" y="1838.5"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
@@ -1221,6 +1256,7 @@ DQ
                                     <menu key="menu" id="UuA-xc-5Pu"/>
                                 </popUpButtonCell>
                                 <connections>
+                                    <action selector="versionChanged:" target="1Yk-z1-ntp" id="vqW-Xs-VQO"/>
                                     <binding destination="1Yk-z1-ntp" name="selectedIndex" keyPath="selectedVersionIdx" previousBinding="fcC-ha-AbX" id="LDy-Wg-2gN"/>
                                     <binding destination="1Yk-z1-ntp" name="content" keyPath="versions" id="fcC-ha-AbX"/>
                                 </connections>
@@ -1369,22 +1405,9 @@ Gw
                             <constraint firstItem="lgD-PF-lfS" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="20" symbolic="YES" id="x5r-mj-lhI"/>
                             <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" id="y9s-MW-Wga"/>
                         </constraints>
-                        <connections>
-                            <outlet property="menu" destination="Klb-oH-gYc" id="00v-GZ-6fM"/>
-                        </connections>
                     </view>
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <menu id="Klb-oH-gYc">
-                    <items>
-                        <menuItem title="Item 1" id="Rpw-tk-Dhu">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="print:" target="2xx-wp-fcR" id="i6i-rC-4Wb"/>
-                            </connections>
-                        </menuItem>
-                    </items>
-                </menu>
             </objects>
             <point key="canvasLocation" x="-451" y="1350"/>
         </scene>
@@ -1436,9 +1459,70 @@ Gw
             </objects>
             <point key="canvasLocation" x="-682" y="1573.5"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="KLS-AK-wN0">
+            <objects>
+                <windowController storyboardIdentifier="DatabaseNameSheet" id="nOh-4w-IZh" customClass="DatabaseNameSheetController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="qDF-ty-h1w">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="163" y="199" width="480" height="84"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                    </window>
+                    <connections>
+                        <segue destination="GQc-Yx-WHv" kind="relationship" relationship="window.shadowedContentViewController" id="xah-AA-n6m"/>
+                    </connections>
+                </windowController>
+                <customObject id="3sA-d5-sg2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-721" y="1852"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Lhh-yB-BPb">
+            <objects>
+                <viewController id="GQc-Yx-WHv" sceneMemberID="viewController">
+                    <view key="view" id="5S1-8F-DV1">
+                        <rect key="frame" x="0.0" y="0.0" width="339" height="62"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XO9-YH-gdm">
+                                <rect key="frame" x="18" y="23" width="40" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name" id="9Kh-FI-dbZ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6x2-Up-sf1">
+                                <rect key="frame" x="64" y="20" width="200" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="GOm-lT-a1H">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hjM-d1-MgU">
+                                <rect key="frame" x="266" y="13" width="59" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QYt-ul-iWB">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="5SO-Te-ts2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-721" y="2102"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
