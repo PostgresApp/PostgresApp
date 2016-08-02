@@ -31,41 +31,25 @@ class Server: NSObject, NSCoding {
 	dynamic var port: UInt = 0
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
-	dynamic var runAtStartup: Bool = false
-	dynamic var stopAtQuit: Bool = false
+	dynamic var startAtLogin: Bool = false
+	dynamic var configFilePath: String {
+		return self.varPath.appending("/postgresql.conf")
+	}
+	dynamic var hbaFilePath: String {
+		return self.varPath.appending("/pg_hba.conf")
+	}
+	dynamic var logFilePath: String {
+		return self.varPath.appending("/postgresql.log")
+	}
 	
 	dynamic private(set) var busy: Bool = false
+	dynamic private(set) var running: Bool = false
 	dynamic private(set) var statusMessage: String = ""
 	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [Database] = []
 	
-	dynamic private(set) var running: Bool = false {
-		didSet {
-			
-			if self.running {
-				self.statusMessage = "PostgreSQL \(version) - Running on port \(port)"
-			} else {
-				self.statusMessage = "PostgreSQL \(version) - Stopped"
-			}
-			
-			switch serverStatus {
-			case .DataDirEmpty:
-				self.statusMessageExtended = "Click Start to create a new database"
-			default:
-				break
-			}
-			
-			self.updateDatabases()
-		}
-	}
-	
-	dynamic var logfilePath: String {
-		return self.varPath.appending("/postgres-server.log")
-	}
-	
 	private(set) var serverStatus: ServerStatus = .Error
-	
-	
+
 	
 	convenience init(name: String, version: String, port: UInt, varPath: String) {
 		self.init()
@@ -89,16 +73,14 @@ class Server: NSObject, NSCoding {
 		guard let version = aDecoder.decodeObject(forKey: "version") as? String else { return }
 		guard let port = aDecoder.decodeObject(forKey: "port") as? UInt else { return }
 		guard let varPath = aDecoder.decodeObject(forKey: "varPath") as? String else { return }
-		let runAtStartup = aDecoder.decodeBool(forKey: "runAtStartup")
-		let stopAtQuit = aDecoder.decodeBool(forKey: "stopAtQuit")
+		let startAtLogin = aDecoder.decodeBool(forKey: "startAtLogin")
 		
 		self.name = name
 		self.version = version
 		self.port = port
 		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
 		self.varPath = varPath
-		self.runAtStartup = runAtStartup
-		self.stopAtQuit = stopAtQuit
+		self.startAtLogin = startAtLogin
 	}
 	
 	
@@ -108,8 +90,7 @@ class Server: NSObject, NSCoding {
 		aCoder.encode(UInt(self.port), forKey: "port")
 		aCoder.encode(self.binPath, forKey: "binPath")
 		aCoder.encode(self.varPath, forKey: "varPath")
-		aCoder.encode(self.runAtStartup, forKey: "runAtStartup")
-		aCoder.encode(self.stopAtQuit, forKey: "stopAtQuit")
+		aCoder.encode(self.startAtLogin, forKey: "startAtLogin")
 	}
 	
 	
@@ -217,7 +198,8 @@ class Server: NSObject, NSCoding {
 		}
 	}
 	
-	
+	/// Attempts to stop the server (in a background thread)
+	/// - parameter completionHandler: This block will be called on the main thread when the server has stopped.
 	func stop(completionHandler: (_: ActionStatus) -> Void) {
 		self.busy = true
 		
@@ -231,11 +213,14 @@ class Server: NSObject, NSCoding {
 		}
 	}
 	
-	
+	/// Checks if the server is running.
+	/// Must be called only from the main thread.
 	func updateServerStatus() {
 		if !FileManager.default().fileExists(atPath: self.binPath) {
 			self.running = false
 			self.serverStatus = .NoBinDir
+			self.statusMessage = "No binaries found."
+			self.databases.removeAll()
 			return
 		}
 		
@@ -244,6 +229,8 @@ class Server: NSObject, NSCoding {
 		if !FileManager.default().fileExists(atPath: pgVersionPath) {
 			self.running = false
 			self.serverStatus =  .DataDirEmpty
+			self.statusMessage = "Click ‘Start’ to initialise the server."
+			self.databases.removeAll()
 			return
 		}
 		
@@ -252,14 +239,19 @@ class Server: NSObject, NSCoding {
 			guard self.version == fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) else {
 				self.running = false
 				self.serverStatus =  .DataDirIncompatible
+				self.statusMessage = "Database directory incompatible."
+				self.databases.removeAll()
 				return
 				
 			}
 		} catch {
 			self.running = false
 			self.serverStatus = .Error
+			self.statusMessage = "Could not determine data directory version."
+			self.databases.removeAll()
 			return
 		}
+		
 		
 		let task = Task()
 		task.launchPath = self.binPath.appending("/psql")
@@ -283,45 +275,52 @@ class Server: NSObject, NSCoding {
 			if taskOutput.characters.count > 0 && taskOutput.substring(to: taskOutput.index(before: taskOutput.endIndex)) == self.varPath {
 				self.running = true
 				self.serverStatus = .Running
+				self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
+				self.loadDatabases()
+				return
 			} else {
 				self.running = false
 				self.serverStatus = .WrongDataDirectory
+				self.statusMessage = "A different server is running on port \(self.port)."
+				self.databases.removeAll()
+				return
 			}
 			
 		case 2:
 			self.running = false
 			self.serverStatus = .Startable
-			
+			self.statusMessage = "Not running."
+			self.databases.removeAll()
+			return
+
 		default:
 			self.running = false
 			self.serverStatus = .Error
+			self.statusMessage = "Server status could not be determined."
+			self.databases.removeAll()
+			return
 		}
 	}
 	
 	
-	func updateDatabases() {
-		DispatchQueue.main.async {
-	
-			self.databases.removeAll()
+	func loadDatabases() {
+		self.databases.removeAll()
+		
+		let url = "postgresql://:\(self.port)"
+		let connection = PQconnectdb(url.cString(using: .utf8))
+		
+		if PQstatus(connection) == CONNECTION_OK {
 			
-			if self.running {
-				let url = "postgresql://:\(self.port)"
-				let connection = PQconnectdb(url.cString(using: .utf8))
-				
-				if PQstatus(connection) == CONNECTION_OK {
-					
-					let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
-					for i in 0...PQntuples(result)-1 {
-						let value = PQgetvalue(result, i, 0)
-						let name = String(cString: value!)
-						self.databases.append(Database(name))
-					}
-					PQfinish(connection)
-					
-				} else {
-					print("postgresql: CONNECTION_BAD")
-				}
+			let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
+			for i in 0...PQntuples(result)-1 {
+				let value = PQgetvalue(result, i, 0)
+				let name = String(cString: value!)
+				self.databases.append(Database(name))
 			}
+			PQfinish(connection)
+			
+		} else {
+			print("postgresql: CONNECTION_BAD")
 		}
 	}
 	
@@ -339,7 +338,7 @@ class Server: NSObject, NSCoding {
 			"start",
 			"-D", self.varPath,
 			"-w",
-			"-l", self.logfilePath,
+			"-l", self.logFilePath,
 			"-o", String("-p \(self.port)"),
 		]
 		task.standardOutput = Pipe()
@@ -351,7 +350,7 @@ class Server: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			DispatchQueue.main.sync {
-				self.running = true
+				self.updateServerStatus()
 			}
 			return .Success
 		} else {
@@ -361,7 +360,7 @@ class Server: NSObject, NSCoding {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				}),
@@ -390,7 +389,7 @@ class Server: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			DispatchQueue.main.sync {
-				self.running = false
+				self.updateServerStatus()
 			}
 			return .Success
 		} else {
@@ -400,7 +399,7 @@ class Server: NSObject, NSCoding {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -436,7 +435,7 @@ class Server: NSObject, NSCoding {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -472,7 +471,7 @@ class Server: NSObject, NSCoding {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -506,7 +505,7 @@ class Server: NSObject, NSCoding {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logfilePath, withApplication: "Console")
+						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -515,7 +514,7 @@ class Server: NSObject, NSCoding {
 			return .Failure(error)
 		}
 	}
-
+	
 }
 
 
