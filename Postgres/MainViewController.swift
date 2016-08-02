@@ -49,7 +49,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		
 		let psqlScript = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
 		
-		let wrapper = ASWrapper()
+		let wrapper = ASWrapper(fileName: "ASSubroutines")
 		do {
 			try wrapper.runSubroutine("openTerminalApp", parameters: [psqlScript])
 		} catch {}
@@ -89,17 +89,23 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		openPanel.resolvesAliases = true
 		openPanel.allowedFileTypes = ["pg_dump"]
 		openPanel.directoryURL = URL(string: "~/Desktop")
-		openPanel.beginSheetModal(for: self.view.window!) { (result: Int) in
-			if result == NSFileHandlingPanelOKButton {
+		openPanel.beginSheetModal(for: self.view.window!) { (fileSheetResponse) in
+			if fileSheetResponse == NSFileHandlingPanelOKButton {
 				
-				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
-				progressViewController.statusMessage = "Restoring Database..."
-				self.presentViewControllerAsSheet(progressViewController)
-				
-				progressViewController.databaseTask = DatabaseTask(server)
-				progressViewController.databaseTask?.restoreDatabase(from: openPanel.url!.path!, completionHandler: { (actionStatus) in
-					server.updateDatabases()
-					progressViewController.dismiss(self)
+				guard let databaseNameSheetController = self.storyboard?.instantiateController(withIdentifier: "DatabaseNameSheet") as? DatabaseNameSheetController else { return }
+				//self.presentViewControllerAsSheet(databaseNameViewController)
+				self.view.window!.beginSheet(databaseNameSheetController.window!, completionHandler: { (nameSheetResponse) in
+					
+					guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
+					progressViewController.statusMessage = "Restoring Database..."
+					self.presentViewControllerAsSheet(progressViewController)
+					
+					progressViewController.databaseTask = DatabaseTask(server)
+					progressViewController.databaseTask?.restoreDatabase(name: "foo", from: openPanel.url!.path!, completionHandler: { (actionStatus) in
+						server.loadDatabases()
+						progressViewController.dismiss(self)
+					})
+					
 				})
 			}
 		}
@@ -113,8 +119,9 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		let alert = NSAlert()
 		alert.messageText = "Drop Database?"
 		alert.informativeText = "This action can not be undone."
-		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "Drop Database")
 		alert.addButton(withTitle: "Cancel")
+		alert.buttons.first?.keyEquivalent = ""
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSAlertFirstButtonReturn {
 				
@@ -124,7 +131,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 				
 				progressViewController.databaseTask = DatabaseTask(server)
 				progressViewController.databaseTask?.dropDatabase(name: database.name, completionHandler: { (actionStatus) in
-					server.updateDatabases()
+					server.loadDatabases()
 					progressViewController.dismiss(self)
 				})
 			}
@@ -163,5 +170,17 @@ class MainViewBackgroundView: NSView {
 		}
 	}
 	
+}
+
+
+
+class DatabaseNameSheetController: NSWindowController {
+	
+	dynamic var databaseName: String = ""
+	
+	
+	@IBAction func ok(_ sender: AnyObject?) {
+		self.window!.sheetParent!.endSheet(self.window!)
+	}
 	
 }
