@@ -17,50 +17,62 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	dynamic var versions: [String] = []
 	dynamic var selectedVersionIdx: Int = 0
 	
+	private var version: String {
+		return versions[selectedVersionIdx]
+	}
+	
 	@IBOutlet var versionsPopup: NSPopUpButton?
 	
 	
 	override func viewDidLoad() {
 		loadVersions()
+		if let path = FileManager().applicationSupportDirectoryPath(createIfNotExists: true) {
+			self.varPath = path.appending("/var-\(self.version)")
+		}
 		super.viewDidLoad()
 	}
 	
 	
+	@IBAction func versionChanged(_ sender: AnyObject?) {
+		self.varPath = self.varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: RegularExpression.escapedTemplate(for: self.version), options: .regularExpressionSearch)
+	}
+	
+	
 	@IBAction func openChooseFolder(_ sender: AnyObject?) {
-		var directoryURL = URL(fileURLWithPath: "")
-		do {
-			try directoryURL = FileManager.default().applicationSupportDirectoryURL(createIfNotExists: true)
-		} catch {
-			
-		}
-		
 		let openPanel = NSOpenPanel()
 		openPanel.allowsMultipleSelection = false
 		openPanel.canChooseFiles = false
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
-		openPanel.directoryURL = directoryURL
+		openPanel.directoryURL = URL(fileURLWithPath: self.varPath)
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
-				let varTmp = openPanel.url!.path!
-				let pgVersionPath = varTmp.appending("/PG_VERSION")
-				if !FileManager.default().fileExists(atPath: pgVersionPath) {
-					self.varPath = varTmp.appendingFormat("/var-", self.versions[self.selectedVersionIdx])
-				} else {
-					self.varPath = varTmp
-				}
+				self.varPath = openPanel.url!.path!
 			}
 		}
 	}
+	
 	
 	@IBAction func cancel(_ sender: AnyObject?) {
 		self.dismiss(self)
 	}
 	
+	
 	@IBAction func createServer(_ sender: AnyObject?) {
-		if !(self.view.window?.makeFirstResponder(nil))! { NSBeep(); return }
+		guard self.view.window!.makeFirstResponder(nil) else { NSBeep(); return }
 		
-		let server = Server(name: name, version: versions[selectedVersionIdx], port: port, varPath: varPath)
+		for server in self.serverManager.servers {
+			if server.varPath == self.varPath {
+				let alert = NSAlert()
+				alert.messageText = "The Data Directory is already in use by server \"\(server.name)\"."
+				alert.informativeText = "Please choose a different location."
+				alert.addButton(withTitle: "OK")
+				alert.beginSheetModal(for: self.view.window!)
+				return
+			}
+		}
+		
+		let server = Server(name: self.name, version: self.version, port: self.port, varPath: self.varPath)
 		serverManager.servers.append(server)
 		serverManager.selectedServerIndices = IndexSet(integer:serverManager.servers.indices.last!)
 		
@@ -70,24 +82,39 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	private func loadVersions() {
 		let versionsPath = AppDelegate.BUNDLE_PATH.appending("/Contents/Versions")
-		
-		if !FileManager.default().fileExists(atPath: versionsPath) {
-			print("Folder \(versionsPath) dosn't exist");
-			return
+		guard let dirEnum = FileManager().enumerator(at: URL(fileURLWithPath: versionsPath),
+			                                              includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue],
+			                                              options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]
+		) else { return }
+		while let url = dirEnum.nextObject() as? URL {
+			do {
+				let resourceValues = try url.resourceValues(forKeys: [.isDirectoryKey])
+				guard resourceValues.isDirectory == true else { continue }
+			} catch { continue }
+			versions.append(url.lastPathComponent!)
 		}
+		self.selectedVersionIdx = versions.count-1
+	}
+	
+}
+
+
+
+private extension FileManager {
+	func applicationSupportDirectoryPath(createIfNotExists: Bool) -> String? {
+		guard let url = self.urlsForDirectory(.applicationSupportDirectory, inDomains: .userDomainMask).first else { return nil }
+		let bundleName = Bundle.main().objectForInfoDictionaryKey(kCFBundleNameKey as String) as! String
+		let path = try! url.appendingPathComponent(bundleName).path!
 		
-		let dirEnum = FileManager.default().enumerator(at: URL(fileURLWithPath: versionsPath),
-			                                              includingPropertiesForKeys: [URLResourceKey.isSymbolicLinkKey.rawValue, URLResourceKey.isDirectoryKey.rawValue],
-			                                              options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles],
-			                                              errorHandler: nil
-		)
-		while let url = dirEnum?.nextObject() as? URL {
-			if !url.isFinderAlias {
-				versions.append(url.lastPathComponent!)
+		if !self.fileExists(atPath: path) && createIfNotExists {
+			do {
+				try self.createDirectory(atPath: path, withIntermediateDirectories: false)
+			}
+			catch {
+				return nil
 			}
 		}
 		
-		selectedVersionIdx = versions.count-1
+		return path
 	}
-	
 }
