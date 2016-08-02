@@ -37,11 +37,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		serverManager.saveServers()
 	}
 	
-	func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
-		serverManager.stopServers()
-		return NSApplicationTerminateReply.terminateNow
-	}
-	
 	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
 		return true
 	}
@@ -53,7 +48,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		let expectedPath = "/Applications/Postgres.app"
 		
 		if actualPath != expectedPath {
-			let wrapper = ASWrapper()
+			
+			let wrapper = ASWrapper(fileName: "ASSubroutines")
 			do {
 				try wrapper.runSubroutine("moveToFolder", parameters: [actualPath, expectedPath])
 			} catch let error as NSError {
