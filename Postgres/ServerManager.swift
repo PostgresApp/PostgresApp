@@ -30,17 +30,8 @@ class ServerManager: NSObject {
 	
 	func startServers() {
 		for server in self.servers {
-			if server.runAtStartup {
+			if server.startAtLogin {
 				server.start { _ in }
-			}
-		}
-	}
-	
-	
-	func stopServers() {
-		for server in self.servers {
-			if server.stopAtQuit {
-				server.stop { _ in }
 			}
 		}
 	}
