@@ -30,7 +30,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
 		server.start { (actionStatus) in
 			if case let .Failure(error) = actionStatus {
-				self.errorHandler(error: error)
+				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 			}
 		}
 	}
@@ -75,12 +75,6 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		do {
 			try wrapper.runSubroutine("openTerminalApp", parameters: [psqlScript])
 		} catch {}
-	}
-	
-	
-	private func errorHandler(error: NSError) {
-		guard let mainWindowController = self.view.window?.windowController else { return }
-		mainWindowController.presentError(error, modalFor: mainWindowController.window!, delegate: mainWindowController, didPresent: Selector(("errorDidPresent:")), contextInfo: nil)
 	}
 	
 	
