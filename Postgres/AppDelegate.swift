@@ -24,7 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		// TODO: check Shell profiles
 		serverManager.loadServers()
 		serverManager.startServers()
 	}
