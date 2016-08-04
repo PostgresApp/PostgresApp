@@ -30,5 +30,7 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>LatestStablePostgresVersion</key>
+	<string>$(LATEST_STABLE_PG_VERSION)</string>
 </dict>
 </plist>
