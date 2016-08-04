@@ -26,7 +26,7 @@ class MainWindowController: NSWindowController {
 	
 	
 	override func windowDidLoad() {
-		self.serverManager = ServerManager.shared()
+		self.serverManager = ServerManager.shared
 		
 		if let window = self.window {
 			window.titleVisibility = .hidden
@@ -38,20 +38,4 @@ class MainWindowController: NSWindowController {
 		super.windowDidLoad()
 	}
 	
-	
-	override func presentError(_ error: NSError, modalFor window: NSWindow, delegate: AnyObject?, didPresent didPresentSelector: Selector?, contextInfo: UnsafeMutablePointer<Void>?) {
-		print("MainWindowController's presentError() called")
-		
-		if let rawCommandOutput = error.userInfo["RawCommandOutput"] as? String {
-			// present rawCommandOutput in custom error sheet
-			print("Error with rawCommandOutput detected: \(rawCommandOutput)")
-		} else {
-			super.presentError(error, modalFor: window, delegate: delegate, didPresent: didPresentSelector, contextInfo: contextInfo)
-		}
-	}
-	
-	
-	func errorDidPresent(_: AnyObject) {
-		print("errorDidPresent")
-	}
 }
