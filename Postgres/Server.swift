@@ -61,6 +61,12 @@ class Server: NSObject, NSCoding {
 		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath ?? ""
 		
+		if self.varPath == "" {
+			if let path = FileManager().applicationSupportDirectoryPath(createIfNotExists: true) {
+				self.varPath = path.appending("/var-\(self.version)")
+			}
+		}
+		
 		self.updateServerStatus()
 		
 		// TODO: read port from postgresql.conf
@@ -98,7 +104,7 @@ class Server: NSObject, NSCoding {
 	/*
 	public async handlers
 	*/
-	func start(completionHandler: (_: ActionStatus) -> Void) {
+	func start(closure: (_: ActionStatus) -> Void) {
 		self.busy = true
 		
 		DispatchQueue.global().async {
@@ -116,7 +122,7 @@ class Server: NSObject, NSCoding {
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.data-directory", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
-					completionHandler(.Failure(error))
+					closure(.Failure(error))
 				}
 				
 			case .NoBinDir:
@@ -126,7 +132,7 @@ class Server: NSObject, NSCoding {
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
-					completionHandler(.Failure(error))
+					closure(.Failure(error))
 				}
 				
 			case .WrongDataDirectory:
@@ -136,7 +142,7 @@ class Server: NSObject, NSCoding {
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
-					completionHandler(.Failure(error))
+					closure(.Failure(error))
 				}
 				
 			case .Error:
@@ -146,47 +152,47 @@ class Server: NSObject, NSCoding {
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
-					completionHandler(.Failure(error))
+					closure(.Failure(error))
 				}
 				
 			case .DataDirEmpty:
 				let initRes = self.initDatabaseSync()
 				if case .Failure = initRes {
 					DispatchQueue.main.async {
-						completionHandler(initRes)
+						closure(initRes)
 					}
 				}
 				
 				let startRes = self.startSync()
 				if case .Failure = startRes {
 					DispatchQueue.main.async {
-						completionHandler(startRes)
+						closure(startRes)
 					}
 				}
 				
 				let createUserRes = self.createUserSync()
 				if case .Failure = createUserRes {
 					DispatchQueue.main.async {
-						completionHandler(createUserRes)
+						closure(createUserRes)
 					}
 				}
 				
 				let createDBRes = self.createUserDatabaseSync()
 				if case .Failure = createDBRes {
 					DispatchQueue.main.async {
-						completionHandler(createDBRes)
+						closure(createDBRes)
 					}
 				}
 				
 			case .Running:
 				DispatchQueue.main.async {
-					completionHandler(.Success)
+					closure(.Success)
 				}
 				
 			case .Startable:
 				let startRes = self.startSync()
 				DispatchQueue.main.async {
-					completionHandler(startRes)
+					closure(startRes)
 				}
 				
 			}
@@ -199,15 +205,15 @@ class Server: NSObject, NSCoding {
 	}
 	
 	/// Attempts to stop the server (in a background thread)
-	/// - parameter completionHandler: This block will be called on the main thread when the server has stopped.
-	func stop(completionHandler: (_: ActionStatus) -> Void) {
+	/// - parameter closure: This block will be called on the main thread when the server has stopped.
+	func stop(closure: (_: ActionStatus) -> Void) {
 		self.busy = true
 		
 		DispatchQueue.global().async {
 			
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
-				completionHandler(stopRes)
+				closure(stopRes)
 				self.busy = false
 			}
 		}

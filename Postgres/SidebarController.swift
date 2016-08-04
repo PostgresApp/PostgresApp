@@ -31,7 +31,7 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) -> Void in
 			if modalResponse == NSAlertFirstButtonReturn {
 				if let server = self.serverArrayController?.selectedObjects.first as? Server {
-					server.stop(completionHandler: { _ in })
+					server.stop(closure: { _ in })
 				}
 				self.serverArrayController?.remove(nil)
 				self.serverArrayController?.rearrangeObjects()

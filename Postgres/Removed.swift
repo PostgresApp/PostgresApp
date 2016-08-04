@@ -18,40 +18,40 @@ class DatabaseTask: NSObject {
 	}
 	
 	
-	func dumpDatabase(name: String, to file: String, completionHandler: (_: ActionStatus) -> Void) {
+	func dumpDatabase(name: String, to file: String, closure: (_: ActionStatus) -> Void) {
 		DispatchQueue.global().async {
 			let dumpRes = self.dumpDatabaseSync(name: name, to: file)
 			DispatchQueue.main.async(execute: {
-				completionHandler(dumpRes)
+				closure(dumpRes)
 			})
 		}
 	}
 	
 	
-	func restoreDatabase(name: String, from file: String, completionHandler: (_: ActionStatus) -> Void) {
+	func restoreDatabase(name: String, from file: String, closure: (_: ActionStatus) -> Void) {
 		DispatchQueue.global().async {
 			let createRes = self.createDatabaseSync(name: name)
 			
 			switch createRes {
 			case .Failure(_):
 				DispatchQueue.main.async {
-					completionHandler(createRes)
+					closure(createRes)
 				}
 			case .Success:
 				let restoreRes = self.restoreDatabaseSync(name: name, from: file)
 				DispatchQueue.main.async {
-					completionHandler(restoreRes)
+					closure(restoreRes)
 				}
 			}
 		}
 	}
 	
 	
-	func dropDatabase(name: String, completionHandler: (_: ActionStatus) -> Void) {
+	func dropDatabase(name: String, closure: (_: ActionStatus) -> Void) {
 		DispatchQueue.global().async {
 			let dropRes = self.dropDatabaseSync(name: name)
 			DispatchQueue.main.async {
-				completionHandler(dropRes)
+				closure(dropRes)
 			}
 		}
 	}
@@ -254,7 +254,7 @@ class DatabaseCollectionView: NSCollectionView {
 			self.presentViewControllerAsSheet(progressViewController)
 			
 			progressViewController.databaseTask = DatabaseTask(server)
-			progressViewController.databaseTask?.dumpDatabase(name: database.name, to: savePanel.url!.path!, completionHandler: { (actionStatus) in
+			progressViewController.databaseTask?.dumpDatabase(name: database.name, to: savePanel.url!.path!, closure: { (actionStatus) in
 				progressViewController.dismiss(self)
 			})
 		}
@@ -277,14 +277,14 @@ class DatabaseCollectionView: NSCollectionView {
 			
 			guard let databaseNameSheetController = self.storyboard?.instantiateController(withIdentifier: "DatabaseNameSheet") as? DatabaseNameSheetController else { return }
 			//self.presentViewControllerAsSheet(databaseNameViewController)
-			self.view.window!.beginSheet(databaseNameSheetController.window!, completionHandler: { (nameSheetResponse) in
+			self.view.window!.beginSheet(databaseNameSheetController.window!, closure: { (nameSheetResponse) in
 				
 				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
 				progressViewController.statusMessage = "Restoring Database..."
 				self.presentViewControllerAsSheet(progressViewController)
 				
 				progressViewController.databaseTask = DatabaseTask(server)
-				progressViewController.databaseTask?.restoreDatabase(name: "foo", from: openPanel.url!.path!, completionHandler: { (actionStatus) in
+				progressViewController.databaseTask?.restoreDatabase(name: "foo", from: openPanel.url!.path!, closure: { (actionStatus) in
 					server.loadDatabases()
 					progressViewController.dismiss(self)
 				})
@@ -313,7 +313,7 @@ class DatabaseCollectionView: NSCollectionView {
 			self.presentViewControllerAsSheet(progressViewController)
 			
 			progressViewController.databaseTask = DatabaseTask(server)
-			progressViewController.databaseTask?.dropDatabase(name: database.name, completionHandler: { (actionStatus) in
+			progressViewController.databaseTask?.dropDatabase(name: database.name, closure: { (actionStatus) in
 				server.loadDatabases()
 				progressViewController.dismiss(self)
 			})
