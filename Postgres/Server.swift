@@ -184,6 +184,10 @@ class Server: NSObject, NSCoding {
 					}
 				}
 				
+				DispatchQueue.main.async {
+					closure(.Success)
+				}
+				
 			case .Running:
 				DispatchQueue.main.async {
 					closure(.Success)
@@ -198,6 +202,7 @@ class Server: NSObject, NSCoding {
 			}
 			
 			DispatchQueue.main.async {
+				self.updateServerStatus()
 				self.busy = false
 			}
 			
@@ -210,7 +215,6 @@ class Server: NSObject, NSCoding {
 		self.busy = true
 		
 		DispatchQueue.global().async {
-			
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
 				closure(stopRes)
