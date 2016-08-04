@@ -5,7 +5,7 @@
 //  Created by Chris on 22/06/16.
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
-
+import ServiceManagement
 import Cocoa
 
 @NSApplicationMain
@@ -36,11 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func applicationWillTerminate(_ notification: Notification) {
 		serverManager.saveServers()
 	}
-	
-	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-		return true
-	}
-	
 	
 	
 	private func checkApplicationPath() {
