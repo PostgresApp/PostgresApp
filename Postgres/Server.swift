@@ -32,6 +32,7 @@ class Server: NSObject, NSCoding {
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var startAtLogin: Bool = false
+	
 	dynamic var configFilePath: String {
 		return self.varPath.appending("/postgresql.conf")
 	}
@@ -49,22 +50,21 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var databases: [Database] = []
 	
 	private(set) var serverStatus: ServerStatus = .Error
-
 	
-	convenience init(name: String, version: String, port: UInt, varPath: String) {
+	
+	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil) {
 		self.init()
 		
 		self.name = name
-		self.version = version
+		self.version = version ?? Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as? String ?? "9.5"
 		self.port = port
 		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
-		self.varPath = varPath
+		self.varPath = varPath ?? ""
 		
 		self.updateServerStatus()
 		
 		// TODO: read port from postgresql.conf
 	}
-	
 	
 	required convenience init(coder aDecoder: NSCoder) {
 		self.init()
