@@ -15,6 +15,9 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	@IBOutlet var serverArrayController: NSArrayController?
 	@IBOutlet var databaseArrayController: NSArrayController?
 	@IBOutlet var databaseCollectionView: NSCollectionView?
+	@IBOutlet var toggleSidebarButton: NSButton!
+	
+	private var settingsWindowControllers: [SettingsWindowController] = []
 	
 	
 	override func viewDidLoad() {
@@ -43,6 +46,25 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	}
 	
 	
+	@IBAction func openServerSettings(_ sender: AnyObject?) {
+		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
+		
+		for wc in self.settingsWindowControllers {
+			if wc.server == server {
+				wc.showWindow(self)
+				return
+			}
+		}
+		
+		if let newWinCtrlr = self.storyboard?.instantiateController(withIdentifier: "SettingsWindow") as? SettingsWindowController {
+			newWinCtrlr.server = server
+			self.settingsWindowControllers.append(newWinCtrlr)
+			newWinCtrlr.showWindow(nil)
+		}
+		
+	}
+	
+	
 	@IBAction func openPsql(_ sender: AnyObject?) {
 		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
 		guard let database = self.databaseArrayController?.selectedObjects.first as? Database else { return }
@@ -53,89 +75,6 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		do {
 			try wrapper.runSubroutine("openTerminalApp", parameters: [psqlScript])
 		} catch {}
-	}
-	
-	
-	@IBAction func dumpDatabase(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
-		guard let database = self.databaseArrayController?.selectedObjects.first as? Database else { return }
-		
-		let savePanel = NSSavePanel()
-		savePanel.directoryURL = URL(string: "~/Desktop")
-		savePanel.nameFieldStringValue = database.name + ".pg_dump"
-		savePanel.beginSheetModal(for: self.view.window!) { (result: Int) in
-			if result == NSFileHandlingPanelOKButton {
-				
-				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
-				progressViewController.statusMessage = "Dumping Database..."
-				self.presentViewControllerAsSheet(progressViewController)
-				
-				progressViewController.databaseTask = DatabaseTask(server)
-				progressViewController.databaseTask?.dumpDatabase(name: database.name, to: savePanel.url!.path!, completionHandler: { (actionStatus) in
-					progressViewController.dismiss(self)
-				})
-			}
-		}
-	}
-	
-	
-	@IBAction func restoreDatabase(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
-		
-		let openPanel = NSOpenPanel()
-		openPanel.canChooseFiles = true
-		openPanel.canChooseDirectories = false
-		openPanel.allowsMultipleSelection = false
-		openPanel.resolvesAliases = true
-		openPanel.allowedFileTypes = ["pg_dump"]
-		openPanel.directoryURL = URL(string: "~/Desktop")
-		openPanel.beginSheetModal(for: self.view.window!) { (fileSheetResponse) in
-			if fileSheetResponse == NSFileHandlingPanelOKButton {
-				
-				guard let databaseNameSheetController = self.storyboard?.instantiateController(withIdentifier: "DatabaseNameSheet") as? DatabaseNameSheetController else { return }
-				//self.presentViewControllerAsSheet(databaseNameViewController)
-				self.view.window!.beginSheet(databaseNameSheetController.window!, completionHandler: { (nameSheetResponse) in
-					
-					guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
-					progressViewController.statusMessage = "Restoring Database..."
-					self.presentViewControllerAsSheet(progressViewController)
-					
-					progressViewController.databaseTask = DatabaseTask(server)
-					progressViewController.databaseTask?.restoreDatabase(name: "foo", from: openPanel.url!.path!, completionHandler: { (actionStatus) in
-						server.loadDatabases()
-						progressViewController.dismiss(self)
-					})
-					
-				})
-			}
-		}
-	}
-	
-	
-	@IBAction func dropDatabase(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
-		guard let database = self.databaseArrayController?.selectedObjects.first as? Database else { return }
-		
-		let alert = NSAlert()
-		alert.messageText = "Drop Database?"
-		alert.informativeText = "This action can not be undone."
-		alert.addButton(withTitle: "Drop Database")
-		alert.addButton(withTitle: "Cancel")
-		alert.buttons.first?.keyEquivalent = ""
-		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
-			if modalResponse == NSAlertFirstButtonReturn {
-				
-				guard let progressViewController = self.storyboard?.instantiateController(withIdentifier: "ProgressView") as? ProgressViewController else { return }
-				progressViewController.statusMessage = "Dropping Database..."
-				self.presentViewControllerAsSheet(progressViewController)
-				
-				progressViewController.databaseTask = DatabaseTask(server)
-				progressViewController.databaseTask?.dropDatabase(name: database.name, completionHandler: { (actionStatus) in
-					server.loadDatabases()
-					progressViewController.dismiss(self)
-				})
-			}
-		}
 	}
 	
 	
@@ -150,7 +89,6 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 			target.serverManager = self.serverManager
 		}
 	}
-	
 }
 
 
@@ -164,23 +102,11 @@ class MainViewBackgroundView: NSView {
 		NSColor.white().setFill()
 		NSRectFill(dirtyRect)
 		
-		let imageRect = NSRect(x: 20, y: self.bounds.maxY-20-128, width: 128, height: 128)
+		let xPos: CGFloat = 20, yPos: CGFloat = 20
+		let imageRect = NSRect(x: xPos, y: self.bounds.maxY-yPos-128, width: 128, height: 128)
 		if imageRect.intersects(dirtyRect) {
 			NSApp.applicationIconImage.draw(in: imageRect)
 		}
-	}
-	
-}
-
-
-
-class DatabaseNameSheetController: NSWindowController {
-	
-	dynamic var databaseName: String = ""
-	
-	
-	@IBAction func ok(_ sender: AnyObject?) {
-		self.window!.sheetParent!.endSheet(self.window!)
 	}
 	
 }
