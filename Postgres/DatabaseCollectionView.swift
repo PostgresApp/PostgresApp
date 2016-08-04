@@ -8,37 +8,6 @@
 
 import Cocoa
 
-class DatabaseCollectionView: NSCollectionView {
-	
-	override func rightMouseDown(_ event: NSEvent) {
-		let mousePoint = self.convert(event.locationInWindow, from: nil)
-		for i in 0..<self.content.count {
-			let frame = self.frameForItem(at: i)
-			if self.mouse(mousePoint, in: frame) {
-				self.selectionIndexes = [i]
-				break
-			}
-		}
-		
-		super.rightMouseDown(event)
-	}
-	
-	
-	override func menu(for event: NSEvent) -> NSMenu? {
-		let mousePoint = self.convert(event.locationInWindow, from: nil)
-		for i in 0..<self.content.count {
-			let frame = self.frameForItem(at: i)
-			if self.mouse(mousePoint, in: frame) {
-				return self.menu
-			}
-		}
-		return nil
-	}
-	
-}
-
-
-
 class DatabaseItem: NSCollectionViewItem {
 	override var isSelected: Bool {
 		didSet {
@@ -58,7 +27,6 @@ class DatabaseItemView: NSView {
 		}
 	}
 	
-	
 	override func draw(_ dirtyRect: NSRect) {
 		if self.selected {
 			let offset = CGFloat(10.0)
@@ -74,7 +42,6 @@ class DatabaseItemView: NSView {
 		}
 	}
 	
-	
 	override func mouseDown(_ event: NSEvent) {
 		if event.clickCount == 2 {
 			NSApp.sendAction(#selector(MainViewController.openPsql(_:)), to: nil, from: self)
@@ -82,6 +49,4 @@ class DatabaseItemView: NSView {
 			super.mouseDown(event)
 		}
 	}
-	
-	
 }
