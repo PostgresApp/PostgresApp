@@ -24,8 +24,9 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 	
 	@IBAction func removeServer(_ sender: AnyObject) {
 		let alert = NSAlert()
-		alert.messageText = "Delete Server?"
-		alert.addButton(withTitle: "OK")
+		alert.messageText = "Do you want to remove the server from the sidebar?"
+		alert.informativeText = "Postgres.app will not delete the data directory."
+		alert.addButton(withTitle: "Remove Server")
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) -> Void in
 			if modalResponse == NSAlertFirstButtonReturn {
@@ -36,7 +37,6 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 				self.serverArrayController?.rearrangeObjects()
 			}
 		}
-		
 	}
 	
 }
