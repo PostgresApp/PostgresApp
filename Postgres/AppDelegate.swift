@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		return "/Applications/Postgres.app"
 	}
 	
-	let serverManager: ServerManager = ServerManager.shared()
+	let serverManager: ServerManager = ServerManager.shared
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
