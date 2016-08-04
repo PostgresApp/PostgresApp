@@ -10,12 +10,7 @@ import Foundation
 
 class ServerManager: NSObject {
 	
-	private static let _shared = ServerManager()
-	
-	static func shared() -> ServerManager {
-		return _shared
-	}
-	
+	static let shared = ServerManager()
 	
 	dynamic var servers: [Server] = []
 	dynamic var selectedServerIndices = IndexSet()
