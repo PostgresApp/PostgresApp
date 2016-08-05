@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830658E51D536F2E00BA1752 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		830B4B281D1C289A00F16762 /* SidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* SidebarController.swift */; };
 		8320CCC01D2DBDCB001C931C /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
 		8320CCC11D2DBDF9001C931C /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
 		8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */; };
-		8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */; };
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8358D53C1D26EBE7007B7904 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
 		836CC37E1D2C62F4000D0C13 /* DatabaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC37D1D2C62F4000D0C13 /* DatabaseCollectionView.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */; };
 		83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ASWrapper.swift */; };
 		83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */; };
-		83A786281D43E8AF009C7329 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A786271D43E8AF009C7329 /* ProgressViewController.swift */; };
-		83AF32181D42C1F100446F50 /* DatabaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF32171D42C1F100446F50 /* DatabaseTask.swift */; };
+		83D90C101D53574C006836B5 /* Removed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D90C0F1D53574C006836B5 /* Removed.swift */; };
+		83F3647E1D5204D30096F1F5 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F3647D1D5204D30096F1F5 /* SettingsWindowController.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
 		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
@@ -32,24 +32,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
-		830B4B271D1C289A00F16762 /* SidebarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarController.swift; sourceTree = "<group>"; };
+		830B4B271D1C289A00F16762 /* SidebarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SidebarController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.9.dylib; path = ../../../../../Applications/Postgres.app/Contents/Versions/9.6/lib/libpq.5.9.dylib; sourceTree = "<group>"; };
 		8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpq.5.6.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libpq.5.6.tbd; sourceTree = DEVELOPER_DIR; };
-		833361EC1D31C52500FFE9F5 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		8353FBDD1D1D57C8002F77E7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8353FBDF1D1D5E4C002F77E7 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
-		8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPopoverController.swift; sourceTree = "<group>"; };
 		83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
 		83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorRecoveryAttempter.h; sourceTree = "<group>"; };
 		83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorRecoveryAttempter.m; sourceTree = "<group>"; };
-		8358D53B1D26EBE7007B7904 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		8358D53B1D26EBE7007B7904 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Server.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		836CC37D1D2C62F4000D0C13 /* DatabaseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseCollectionView.swift; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
 		83969DBA1D369BD1005B9F1C /* ASWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASWrapper.swift; sourceTree = "<group>"; };
 		83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ASSubroutines.applescript; sourceTree = "<group>"; };
-		83A786271D43E8AF009C7329 /* ProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
-		83AF32171D42C1F100446F50 /* DatabaseTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseTask.swift; sourceTree = "<group>"; };
+		83D90C0F1D53574C006836B5 /* Removed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Removed.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		83F3647D1D5204D30096F1F5 /* SettingsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83FB571F1D1B05F000A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,7 +85,6 @@
 		836CC37F1D2D6A0D000D0C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				833361EC1D31C52500FFE9F5 /* ScriptingBridge.framework */,
 				8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */,
 				8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */,
 			);
@@ -122,12 +120,11 @@
 				836CC37D1D2C62F4000D0C13 /* DatabaseCollectionView.swift */,
 				830B4B271D1C289A00F16762 /* SidebarController.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServerViewController.swift */,
-				8353FBE11D1D7111002F77E7 /* SettingsPopoverController.swift */,
-				83A786271D43E8AF009C7329 /* ProgressViewController.swift */,
+				83F3647D1D5204D30096F1F5 /* SettingsWindowController.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
-				83AF32171D42C1F100446F50 /* DatabaseTask.swift */,
 				83969DBA1D369BD1005B9F1C /* ASWrapper.swift */,
+				830658E41D536F2E00BA1752 /* Extensions.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */,
@@ -135,6 +132,7 @@
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
 				83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */,
+				83D90C0F1D53574C006836B5 /* Removed.swift */,
 			);
 			path = Postgres;
 			sourceTree = "<group>";
@@ -259,14 +257,14 @@
 				83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */,
 				830B4B281D1C289A00F16762 /* SidebarController.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindowController.swift in Sources */,
+				83F3647E1D5204D30096F1F5 /* SettingsWindowController.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
 				83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */,
+				830658E51D536F2E00BA1752 /* Extensions.swift in Sources */,
+				83D90C101D53574C006836B5 /* Removed.swift in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServerViewController.swift in Sources */,
 				836CC37E1D2C62F4000D0C13 /* DatabaseCollectionView.swift in Sources */,
-				83A786281D43E8AF009C7329 /* ProgressViewController.swift in Sources */,
-				8353FBE21D1D7111002F77E7 /* SettingsPopoverController.swift in Sources */,
-				83AF32181D42C1F100446F50 /* DatabaseTask.swift in Sources */,
 				8353FBDE1D1D57C8002F77E7 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LATEST_STABLE_PG_VERSION = 9.5;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -380,6 +379,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LATEST_STABLE_PG_VERSION = 9.5;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;

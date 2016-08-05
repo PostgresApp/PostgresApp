@@ -622,7 +622,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="81" y="178"/>
+            <point key="canvasLocation" x="75" y="173"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="hrj-MD-yEE">
@@ -1117,7 +1117,7 @@
                 </viewController>
                 <customObject id="fJg-xC-ad6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="686" y="1204"/>
+            <point key="canvasLocation" x="686" y="1084"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
