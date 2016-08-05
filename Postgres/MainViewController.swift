@@ -40,7 +40,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
 		server.stop { (actionStatus) in
 			if case let .Failure(error) = actionStatus {
-				self.view.window?.windowController?.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
+				self.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
 			}
 		}
 	}
