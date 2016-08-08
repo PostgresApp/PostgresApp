@@ -11,13 +11,15 @@ import Cocoa
 class Server: NSObject, NSCoding {
 	
 	enum ServerStatus {
-		case Startable
-		case Running
-		case NoBinDir
-		case WrongDataDirectory
-		case Error
+		case NoBinaries
+		case PortInUse
+		case DataDirInUse
 		case DataDirIncompatible
 		case DataDirEmpty
+		case Running
+		case Startable
+		case StalePidFile
+		case Unknown
 	}
 	
 	enum ActionStatus {
@@ -34,13 +36,13 @@ class Server: NSObject, NSCoding {
 	dynamic var startAtLogin: Bool = false
 	
 	dynamic var configFilePath: String {
-		return self.varPath.appending("/postgresql.conf")
+		return varPath.appending("/postgresql.conf")
 	}
 	dynamic var hbaFilePath: String {
-		return self.varPath.appending("/pg_hba.conf")
+		return varPath.appending("/pg_hba.conf")
 	}
 	dynamic var logFilePath: String {
-		return self.varPath.appending("/postgresql.log")
+		return varPath.appending("/postgresql.log")
 	}
 	
 	dynamic private(set) var busy: Bool = false
@@ -49,7 +51,7 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [Database] = []
 	
-	private(set) var serverStatus: ServerStatus = .Error
+	private(set) var serverStatus: ServerStatus = .Unknown
 	
 	
 	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil) {
@@ -61,13 +63,13 @@ class Server: NSObject, NSCoding {
 		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath ?? ""
 		
-		if self.varPath == "" {
+		if varPath == "" {
 			if let path = FileManager().applicationSupportDirectoryPath(createIfNotExists: true) {
-				self.varPath = path.appending("/var-\(self.version)")
+				self.varPath = path.appending("/var-\(version)")
 			}
 		}
 		
-		self.updateServerStatus()
+		updateServerStatus()
 		
 		// TODO: read port from postgresql.conf
 	}
@@ -91,21 +93,19 @@ class Server: NSObject, NSCoding {
 	
 	
 	func encode(with aCoder: NSCoder) {
-		aCoder.encode(self.name, forKey: "name")
-		aCoder.encode(self.version, forKey: "version")
-		aCoder.encode(UInt(self.port), forKey: "port")
-		aCoder.encode(self.binPath, forKey: "binPath")
-		aCoder.encode(self.varPath, forKey: "varPath")
-		aCoder.encode(self.startAtLogin, forKey: "startAtLogin")
+		aCoder.encode(name, forKey: "name")
+		aCoder.encode(version, forKey: "version")
+		aCoder.encode(UInt(port), forKey: "port")
+		aCoder.encode(binPath, forKey: "binPath")
+		aCoder.encode(varPath, forKey: "varPath")
+		aCoder.encode(startAtLogin, forKey: "startAtLogin")
 	}
 	
 	
 	
-	/*
-	public async handlers
-	*/
+	// MARK: Async handlers
 	func start(closure: (_: ActionStatus) -> Void) {
-		self.busy = true
+		busy = true
 		
 		DispatchQueue.global().async {
 			
@@ -115,17 +115,7 @@ class Server: NSObject, NSCoding {
 			
 			switch self.serverStatus {
 			
-			case .DataDirIncompatible:
-				let userInfo = [
-					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
-					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
-				]
-				let error = NSError(domain: "com.postgresapp.Postgres.data-directory", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
-				
-			case .NoBinDir:
+			case .NoBinaries:
 				let userInfo = [
 					NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
 					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
@@ -135,7 +125,17 @@ class Server: NSObject, NSCoding {
 					closure(.Failure(error))
 				}
 				
-			case .WrongDataDirectory:
+			case .PortInUse:
+				let userInfo = [
+					NSLocalizedDescriptionKey: "The specified port is already in use by another process.",
+					NSLocalizedRecoverySuggestionErrorKey: "Choose a different port or kill this process."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					closure(.Failure(error))
+				}
+				
+			case .DataDirInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(self.port)",
 					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
@@ -145,10 +145,10 @@ class Server: NSObject, NSCoding {
 					closure(.Failure(error))
 				}
 				
-			case .Error:
+			case .DataDirIncompatible:
 				let userInfo = [
-					NSLocalizedDescriptionKey: "Unknown error",
-					NSLocalizedRecoverySuggestionErrorKey: ""
+					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
+					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
@@ -156,31 +156,31 @@ class Server: NSObject, NSCoding {
 				}
 				
 			case .DataDirEmpty:
-				let initRes = self.initDatabaseSync()
-				if case .Failure = initRes {
+				let initResult = self.initDatabaseSync()
+				if case .Failure = initResult {
 					DispatchQueue.main.async {
-						closure(initRes)
+						closure(initResult)
 					}
 				}
 				
-				let startRes = self.startSync()
-				if case .Failure = startRes {
+				let startResult = self.startSync()
+				if case .Failure = startResult {
 					DispatchQueue.main.async {
-						closure(startRes)
+						closure(startResult)
 					}
 				}
 				
-				let createUserRes = self.createUserSync()
-				if case .Failure = createUserRes {
+				let createUserResult = self.createUserSync()
+				if case .Failure = createUserResult {
 					DispatchQueue.main.async {
-						closure(createUserRes)
+						closure(createUserResult)
 					}
 				}
 				
-				let createDBRes = self.createUserDatabaseSync()
-				if case .Failure = createDBRes {
+				let createDBResult = self.createUserDatabaseSync()
+				if case .Failure = createDBResult {
 					DispatchQueue.main.async {
-						closure(createDBRes)
+						closure(createDBResult)
 					}
 				}
 				
@@ -199,6 +199,26 @@ class Server: NSObject, NSCoding {
 					closure(startRes)
 				}
 				
+			case .StalePidFile:
+				let userInfo = [
+					NSLocalizedDescriptionKey: "The data directory contains an old postmaster.pid file",
+					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not runnnig anymore, otherwise your data directory will be corrupted."
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					closure(.Failure(error))
+				}
+
+			case .Unknown:
+				let userInfo = [
+					NSLocalizedDescriptionKey: "Unknown server status",
+					NSLocalizedRecoverySuggestionErrorKey: ""
+				]
+				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				DispatchQueue.main.async {
+					closure(.Failure(error))
+				}
+				
 			}
 			
 			DispatchQueue.main.async {
@@ -212,7 +232,7 @@ class Server: NSObject, NSCoding {
 	/// Attempts to stop the server (in a background thread)
 	/// - parameter closure: This block will be called on the main thread when the server has stopped.
 	func stop(closure: (_: ActionStatus) -> Void) {
-		self.busy = true
+		busy = true
 		
 		DispatchQueue.global().async {
 			let stopRes = self.stopSync()
@@ -226,130 +246,161 @@ class Server: NSObject, NSCoding {
 	/// Checks if the server is running.
 	/// Must be called only from the main thread.
 	func updateServerStatus() {
-		if !FileManager.default().fileExists(atPath: self.binPath) {
-			self.running = false
-			self.serverStatus = .NoBinDir
-			self.statusMessage = "No binaries found."
-			self.databases.removeAll()
+		if !FileManager.default().fileExists(atPath: binPath) {
+			running = false
+			serverStatus = .NoBinaries
+			statusMessage = "No binaries found"
+			databases.removeAll()
 			return
 		}
 		
-		let pgVersionPath = self.varPath.appending("/PG_VERSION")
+		let pgVersionPath = varPath.appending("/PG_VERSION")
 		
 		if !FileManager.default().fileExists(atPath: pgVersionPath) {
-			self.running = false
-			self.serverStatus =  .DataDirEmpty
-			self.statusMessage = "Click ‘Start’ to initialise the server."
-			self.databases.removeAll()
+			running = false
+			serverStatus = .DataDirEmpty
+			statusMessage = "Click ‘Start’ to initialize the server"
+			databases.removeAll()
 			return
 		}
 		
 		do {
 			let fileContents = try String(contentsOfFile: pgVersionPath)
-			guard self.version == fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) else {
-				self.running = false
-				self.serverStatus =  .DataDirIncompatible
-				self.statusMessage = "Database directory incompatible."
-				self.databases.removeAll()
+			if version != fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) {
+				running = false
+				serverStatus = .DataDirIncompatible
+				statusMessage = "Database directory incompatible"
+				databases.removeAll()
 				return
-				
 			}
 		} catch {
-			self.running = false
-			self.serverStatus = .Error
-			self.statusMessage = "Could not determine data directory version."
-			self.databases.removeAll()
+			running = false
+			serverStatus = .Unknown
+			statusMessage = "Could not determine data directory version"
+			databases.removeAll()
 			return
 		}
 		
 		
-		let task = Task()
-		task.launchPath = self.binPath.appending("/psql")
-		task.arguments = [
-			"-p", String(self.port),
-			"-A",
-			"-q",
-			"-t",
-			"-c", "SHOW data_directory",
-			"postgres"
-		]
-		let outPipe = Pipe()
-		task.standardOutput = outPipe
-		task.standardError = Pipe()
-		task.launch()
-		let taskOutput = String(data: (outPipe.fileHandleForReading.readDataToEndOfFile()), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		task.waitUntilExit()
-		
-		switch task.terminationStatus {
-		case 0:
-			if taskOutput.characters.count > 0 && taskOutput.substring(to: taskOutput.index(before: taskOutput.endIndex)) == self.varPath {
-				self.running = true
-				self.serverStatus = .Running
-				self.statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
-				self.loadDatabases()
-				return
-			} else {
-				self.running = false
-				self.serverStatus = .WrongDataDirectory
-				self.statusMessage = "A different server is running on port \(self.port)."
-				self.databases.removeAll()
+		let pidFilePath = varPath.appending("/postmaster.pid")
+		if FileManager.default().fileExists(atPath: pidFilePath) {
+			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
+				running = false
+				serverStatus = .Unknown
+				statusMessage = "Could not read PID file"
+				databases.removeAll()
 				return
 			}
 			
-		case 2:
-			self.running = false
-			self.serverStatus = .Startable
-			self.statusMessage = "Not running."
-			self.databases.removeAll()
+			let firstLine = pidFileContents.components(separatedBy: .newlines).first!
+			guard let pid = Int32(firstLine) else {
+				running = false
+				serverStatus = .Unknown
+				statusMessage = "First line of PID file is not an integer"
+				databases.removeAll()
+				return
+			}
+			
+			var buffer = [CChar](repeating: 0, count: 1024)
+			proc_pidpath(pid, &buffer, UInt32(buffer.count))
+			let processPath = String(cString: buffer)
+			
+			if processPath == binPath.appending("/postgres") {
+				running = true
+				serverStatus = .Running
+				statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
+				databases.removeAll()
+				loadDatabases()
+				return
+			}
+			else if processPath.hasSuffix("postgres") || processPath.hasSuffix("postmaster") {
+				running = false
+				serverStatus = .DataDirInUse
+				statusMessage = "The data directory is in use by another server"
+				databases.removeAll()
+				return
+			}
+			else if !processPath.isEmpty {
+				running = false
+				serverStatus = .StalePidFile
+				statusMessage = "Old postmaster.pid file detected"
+				databases.removeAll()
+				return
+			}
+		}
+		
+		if portInUse() {
+			running = false
+			serverStatus = .PortInUse
+			statusMessage = "Port in use by another process"
+			databases.removeAll()
 			return
-
-		default:
-			self.running = false
-			self.serverStatus = .Error
-			self.statusMessage = "Server status could not be determined."
-			self.databases.removeAll()
+		} else {
+			running = false
+			serverStatus = .Startable
+			statusMessage = "Not running"
+			databases.removeAll()
 			return
 		}
+		
 	}
 	
 	
 	func loadDatabases() {
-		self.databases.removeAll()
+		databases.removeAll()
 		
-		let url = "postgresql://:\(self.port)"
+		let url = "postgresql://:\(port)"
 		let connection = PQconnectdb(url.cString(using: .utf8))
 		
 		if PQstatus(connection) == CONNECTION_OK {
-			
 			let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
-			for i in 0...PQntuples(result)-1 {
-				let value = PQgetvalue(result, i, 0)
-				let name = String(cString: value!)
-				self.databases.append(Database(name))
+			for i in 0..<PQntuples(result) {
+				guard let value = PQgetvalue(result, i, 0) else { continue }
+				let name = String(cString: value)
+				databases.append(Database(name))
 			}
 			PQfinish(connection)
-			
-		} else {
-			print("postgresql: CONNECTION_BAD")
 		}
 	}
 	
 	
+	private func portInUse() -> Bool {
+		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
+		if sock <= 0 {
+			return false
+		}
+		
+		var listenAddress = sockaddr_in()
+		listenAddress.sin_family = UInt8(AF_INET)
+		listenAddress.sin_port = in_port_t(self.port).bigEndian
+		listenAddress.sin_len = UInt8(sizeofValue(listenAddress))
+		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
+		
+		func make_sockaddr(_ p: UnsafePointer<sockaddr_in>) -> UnsafePointer<sockaddr> { return UnsafePointer<sockaddr>(p) }
+		
+		let bindRes = Darwin.bind(sock, make_sockaddr(&listenAddress), socklen_t(sizeofValue(listenAddress)))
+		let saved_errno = errno
+		
+		close(sock)
+		
+		if bindRes == -1 && saved_errno == EADDRINUSE {
+			return true
+		}
+		
+		return false
+	}
 	
 	
-	
-	/*
-	sync handlers
-	*/
+	// MARK: Sync handlers
 	private func startSync() -> ActionStatus {
 		let task = Task()
-		task.launchPath = self.binPath.appending("/pg_ctl")
+		task.launchPath = binPath.appending("/pg_ctl")
 		task.arguments = [
 			"start",
-			"-D", self.varPath,
+			"-D", varPath,
 			"-w",
-			"-l", self.logFilePath,
-			"-o", String("-p \(self.port)"),
+			"-l", logFilePath,
+			"-o", String("-p \(port)"),
 		]
 		task.standardOutput = Pipe()
 		let errorPipe = Pipe()
@@ -360,7 +411,7 @@ class Server: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			DispatchQueue.main.sync {
-				self.updateServerStatus()
+				updateServerStatus()
 			}
 			return .Success
 		} else {
@@ -383,11 +434,11 @@ class Server: NSObject, NSCoding {
 	
 	private func stopSync() -> ActionStatus {
 		let task = Task()
-		task.launchPath = self.binPath.appending("/pg_ctl")
+		task.launchPath = binPath.appending("/pg_ctl")
 		task.arguments = [
 			"stop",
 			"-m", "f",
-			"-D", self.varPath,
+			"-D", varPath,
 			"-w",
 		]
 		task.standardOutput = Pipe()
@@ -399,7 +450,7 @@ class Server: NSObject, NSCoding {
 		
 		if task.terminationStatus == 0 {
 			DispatchQueue.main.sync {
-				self.updateServerStatus()
+				updateServerStatus()
 			}
 			return .Success
 		} else {
@@ -422,9 +473,9 @@ class Server: NSObject, NSCoding {
 	
 	private func initDatabaseSync() -> ActionStatus {
 		let task = Task()
-		task.launchPath = self.binPath.appending("/initdb")
+		task.launchPath = binPath.appending("/initdb")
 		task.arguments = [
-			"-D", self.varPath,
+			"-D", varPath,
 			"-U", "postgres",
 			"--encoding=UTF-8",
 			"--locale=en_US.UTF-8"
@@ -458,10 +509,10 @@ class Server: NSObject, NSCoding {
 	
 	private func createUserSync() -> ActionStatus {
 		let task = Task()
-		task.launchPath = self.binPath.appending("/createuser")
+		task.launchPath = binPath.appending("/createuser")
 		task.arguments = [
 			"-U", "postgres",
-			"-p", String(self.port),
+			"-p", String(port),
 			"--superuser",
 			NSUserName()
 		]
@@ -494,9 +545,9 @@ class Server: NSObject, NSCoding {
 	
 	private func createUserDatabaseSync() -> ActionStatus {
 		let task = Task()
-		task.launchPath = self.binPath.appending("/createdb")
+		task.launchPath = binPath.appending("/createdb")
 		task.arguments = [
-			"-p", String(self.port),
+			"-p", String(port),
 			NSUserName()
 		]
 		task.standardOutput = Pipe()
