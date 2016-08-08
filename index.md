@@ -33,6 +33,7 @@ Done! You now have a PostgreSQL server running on your Mac.
 To use the command line programs, [set up your `$PATH`](documentation/cli-tools.html).
 If you prefer a graphical app, check out the [list of GUI tools](documentation/gui-tools.html).
 
+If you get an error saying “the identity of the developer cannot be confirmed”, please make sure you didn't skip step 2. (<a href="https://github.com/PostgresApp/PostgresApp/issues/272">more info</a>)
 
 What's In The Box?
 ------------------
