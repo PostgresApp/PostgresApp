@@ -49,19 +49,50 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 	@IBAction func openServerSettings(_ sender: AnyObject?) {
 		guard let server = self.serverArrayController?.selectedObjects.first as? Server else { return }
 		
+		var oldController: NSWindowController?
+		
 		for wc in self.settingsWindowControllers {
 			if wc.server == server {
-				wc.showWindow(self)
-				return
+				if wc.window!.isVisible {
+					wc.showWindow(nil)
+					return
+				} else {
+					oldController = wc
+				}
 			}
 		}
 		
-		if let newWinCtrlr = self.storyboard?.instantiateController(withIdentifier: "SettingsWindow") as? SettingsWindowController {
-			newWinCtrlr.server = server
-			self.settingsWindowControllers.append(newWinCtrlr)
-			newWinCtrlr.showWindow(nil)
+		guard let windowController = (oldController ?? self.storyboard?.instantiateController(withIdentifier: "SettingsWindow")) as? SettingsWindowController else {
+			return
 		}
 		
+		windowController.server = server
+		self.settingsWindowControllers.append(windowController)
+		
+		let newWindow = windowController.window!
+		var newWindowFrame = newWindow.frame
+		newWindowFrame.origin = self.view.window!.frame.origin
+		newWindow.setFrameOrigin(newWindowFrame.origin)
+		let visibleFrame = newWindow.screen!.visibleFrame
+		
+		for window in NSApp.windows {
+			if window == newWindow { continue }
+			let windowFrame = window.frame
+			if windowFrame.minX == newWindowFrame.minX && windowFrame.maxY == newWindowFrame.maxY {
+				newWindowFrame.origin.x += 20
+				newWindowFrame.origin.y -= 20
+				if newWindowFrame.maxX >= visibleFrame.maxX {
+					newWindowFrame.origin.x = 20
+					newWindowFrame.origin.y = visibleFrame.maxY - 20 - newWindowFrame.height;
+				}
+				if newWindowFrame.minY <= visibleFrame.minY {
+					newWindowFrame.origin.y = visibleFrame.minY
+				}
+				newWindow.setFrameOrigin(newWindowFrame.origin)
+			}
+		}
+		
+		windowController.showWindow(nil)
 	}
 	
 	
