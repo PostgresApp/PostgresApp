@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainWindowController: NSWindowController {
+class MainWindowController: NSWindowController, NSWindowDelegate {
 	
 	var serverManager: ServerManager! {
 		didSet {
@@ -36,6 +36,11 @@ class MainWindowController: NSWindowController {
 		}
 		
 		super.windowDidLoad()
+	}
+	
+	
+	func windowWillClose(_ notification: Notification) {
+		NSApp.terminate(nil)
 	}
 	
 }
