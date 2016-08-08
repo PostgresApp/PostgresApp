@@ -615,6 +615,9 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="700" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="bt1-Ha-O4t"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="FdD-4s-wdj" kind="relationship" relationship="window.shadowedContentViewController" id="GA9-Op-VkN"/>
@@ -691,7 +694,20 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="startServer:" target="Rgw-vS-n3O" id="r7w-iz-FRX"/>
-                                    <binding destination="n71-mI-16p" name="enabled" keyPath="canRemove" id="HWl-zY-kd8"/>
+                                    <binding destination="n71-mI-16p" name="enabled2" keyPath="selection.busy" previousBinding="Y7j-oj-0N7" id="XPc-Ge-UwC">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="Y7j-oj-0N7">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
@@ -702,7 +718,16 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="stopServer:" target="Rgw-vS-n3O" id="AhY-wF-5v7"/>
-                                    <binding destination="n71-mI-16p" name="enabled" keyPath="canRemove" id="Sjf-L3-g8c"/>
+                                    <binding destination="n71-mI-16p" name="enabled2" keyPath="selection.busy" previousBinding="WEm-zn-Hjy" id="bRo-Xk-7O8">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="WEm-zn-Hjy"/>
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-Bn-2go">
@@ -1217,7 +1242,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="removeServer:" target="EH7-jo-yIM" id="U81-Oe-nFF"/>
+                                    <action selector="removeServer:" target="fKp-yy-u0S" id="aKh-hk-haY"/>
                                     <binding destination="Dsw-zw-YD1" name="enabled" keyPath="canRemove" id="WZT-U8-RgD"/>
                                 </connections>
                             </button>
@@ -1228,7 +1253,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="addServer:" target="EH7-jo-yIM" id="pzC-ee-vUj"/>
                                     <binding destination="Dsw-zw-YD1" name="enabled" keyPath="canAdd" id="eao-nH-a1L"/>
                                     <segue destination="1Yk-z1-ntp" kind="sheet" id="W2h-aF-Jjc"/>
                                 </connections>
