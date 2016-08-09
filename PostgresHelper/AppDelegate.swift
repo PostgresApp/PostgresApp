@@ -53,7 +53,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		}
 		
 		serverManager.loadServersForHelperApp()
-		serverManager.refreshServerStatuses()
+		
+		// TODO: handle errors?
+		serverManager.startServers()
 	}
 	
 	
