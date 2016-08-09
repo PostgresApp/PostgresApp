@@ -1,5 +1,5 @@
 //
-//  AddServerViewController.swift
+//  AddServer.swift
 //  Postgres
 //
 //  Created by Chris on 24/06/16.
@@ -20,8 +20,6 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	private var version: String {
 		return versions[selectedVersionIdx]
 	}
-	
-	@IBOutlet var versionsPopup: NSPopUpButton?
 	
 	
 	override func viewDidLoad() {

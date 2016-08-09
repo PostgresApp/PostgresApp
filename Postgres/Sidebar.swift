@@ -1,5 +1,5 @@
 //
-//  SidebarController.swift
+//  Sidebar.swift
 //  Postgres
 //
 //  Created by Chris on 23/06/16.
@@ -12,7 +12,7 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 	
 	dynamic var serverManager: ServerManager!
 	
-	@IBOutlet var serverArrayController: NSArrayController?
+	@IBOutlet var serverArrayController: NSArrayController!
 	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
@@ -30,11 +30,11 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) -> Void in
 			if modalResponse == NSAlertFirstButtonReturn {
-				if let server = self.serverArrayController?.selectedObjects.first as? Server {
+				if let server = self.serverArrayController.selectedObjects.first as? Server {
 					server.stop(closure: { _ in })
 				}
-				self.serverArrayController?.remove(nil)
-				self.serverArrayController?.rearrangeObjects()
+				self.serverArrayController.remove(nil)
+				self.serverArrayController.rearrangeObjects()
 			}
 		}
 	}
@@ -52,13 +52,11 @@ class ServerTableCellView: NSTableCellView {
 		self.addObserver(self, forKeyPath: "self.objectValue.running", options: [.new], context: nil)
 	}
 	
-	deinit {
-		self.removeObserver(self, forKeyPath: "self.objectValue.running")
-	}
-	
 	
 	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-		switch keyPath! {
+		guard let keyPath = keyPath else { return }
+		
+		switch keyPath {
 		case "self.objectValue.running":
 			let imgName = (self.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
 			self.image = NSImage(imageLiteralResourceName: imgName)

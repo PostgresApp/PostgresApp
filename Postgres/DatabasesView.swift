@@ -1,5 +1,5 @@
 //
-//  DatabaseCollectionView.swift
+//  DatabasesView.swift
 //  Postgres
 //
 //  Created by Chris on 05/07/16.

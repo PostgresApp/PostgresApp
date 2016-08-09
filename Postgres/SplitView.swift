@@ -1,5 +1,5 @@
 //
-//  SplitViewController.swift
+//  SplitView.swift
 //  Postgres
 //
 //  Created by Chris on 24/06/16.

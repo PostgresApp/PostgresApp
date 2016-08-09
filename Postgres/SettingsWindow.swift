@@ -1,5 +1,5 @@
 //
-//  SettingsWindowController.swift
+//  SettingsWindow.swift
 //  Postgres
 //
 //  Created by Chris on 03/08/2016.
