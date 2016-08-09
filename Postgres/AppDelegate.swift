@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 	
-	static var BUNDLE_PATH: String {
+	static var PG_APP_PATH: String {
 		return "/Applications/Postgres.app"
 	}
 	

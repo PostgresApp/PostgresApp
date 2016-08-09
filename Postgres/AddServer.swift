@@ -81,7 +81,7 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	private func loadVersions() {
-		let versionsPath = AppDelegate.BUNDLE_PATH.appending("/Contents/Versions")
+		let versionsPath = AppDelegate.PG_APP_PATH.appending("/Contents/Versions")
 		guard let dirEnum = FileManager().enumerator(at: URL(fileURLWithPath: versionsPath),
 			                                              includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue],
 			                                              options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]

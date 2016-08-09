@@ -60,7 +60,7 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version ?? Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as? String ?? "9.5"
 		self.port = port
-		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
+		self.binPath = AppDelegate.PG_APP_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath ?? ""
 		
 		if varPath == "" {
@@ -86,7 +86,7 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version
 		self.port = port
-		self.binPath = AppDelegate.BUNDLE_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
+		self.binPath = AppDelegate.PG_APP_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
 		self.varPath = varPath
 		self.startAtLogin = startAtLogin
 	}
