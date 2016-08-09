@@ -25,7 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		serverManager.loadServers()
-		serverManager.startServers()
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
