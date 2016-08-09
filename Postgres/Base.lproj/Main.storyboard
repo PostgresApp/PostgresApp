@@ -754,7 +754,11 @@
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
                                 <rect key="frame" x="329" y="256" width="16" height="16"/>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="animate" keyPath="selection.busy" id="mWx-la-BBP"/>
+                                    <binding destination="n71-mI-16p" name="animate" keyPath="selection.busy" id="Lvv-K0-uSO">
+                                        <dictionary key="options">
+                                            <integer key="NSNoSelectionPlaceholder" value="0"/>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </progressIndicator>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
