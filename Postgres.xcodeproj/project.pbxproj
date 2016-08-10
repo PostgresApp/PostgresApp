@@ -15,6 +15,7 @@
 		36C986F11861FB9C00308267 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C986F01861FB9C00308267 /* PreferenceWindow.xib */; };
 		36C986F41861FBB200308267 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C986F31861FBB200308267 /* PreferenceWindowController.m */; };
 		36D70A1319D0157C00B97508 /* RecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D70A1219D0157C00B97508 /* RecoveryAttempter.m */; };
+		36DE6B051D5B56060092EBE0 /* releasebuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = 36DE6B041D5B56060092EBE0 /* releasebuild.sh */; };
 		F81386711538E586003A83F9 /* PostgresConnectionURLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */; };
 		F87A426F153AB60C00456130 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8973A0C1538846600EAB41E /* Cocoa.framework */; };
 		F87A4275153AB60C00456130 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F87A4273153AB60C00456130 /* InfoPlist.strings */; };
@@ -103,6 +104,7 @@
 		36C986F31861FBB200308267 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		36D70A1119D0157C00B97508 /* RecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoveryAttempter.h; sourceTree = "<group>"; };
 		36D70A1219D0157C00B97508 /* RecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoveryAttempter.m; sourceTree = "<group>"; };
+		36DE6B041D5B56060092EBE0 /* releasebuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = releasebuild.sh; path = ../releasebuild.sh; sourceTree = "<group>"; };
 		F813866F1538E586003A83F9 /* PostgresConnectionURLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostgresConnectionURLValueTransformer.h; sourceTree = "<group>"; };
 		F81386701538E586003A83F9 /* PostgresConnectionURLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostgresConnectionURLValueTransformer.m; sourceTree = "<group>"; };
 		F87A426D153AB60C00456130 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 		36A9A9B81B0DFB0100C7F424 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				36DE6B041D5B56060092EBE0 /* releasebuild.sh */,
 				36A9E3061B0DFB5500C7F424 /* makefile */,
 				36A9159E1B0DFB9000C7F424 /* postgresql-icu-patch-2.diff */,
 			);
@@ -439,6 +442,7 @@
 				F883D61015B5CEB60017F83A /* WelcomeWindow.xib in Resources */,
 				0710E97D1639ADD7006D7FB2 /* status-off@2x.png in Resources */,
 				0710E97F1639ADD7006D7FB2 /* status-on@2x.png in Resources */,
+				36DE6B051D5B56060092EBE0 /* releasebuild.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
