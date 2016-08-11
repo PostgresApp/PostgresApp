@@ -19,20 +19,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
+		#if !DEBUG
 		checkApplicationPath()
-		checkOtherVersionsRunning()
+		#endif
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		serverManager.loadServers()
+		NotificationCenter.default().addObserver(forName: Server.ChangeNotificationName, object: nil, queue: OperationQueue.main()) { _ in
+			self.serverManager.saveServers()
+		}
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
 		serverManager.refreshServerStatuses()
-	}
-	
-	func applicationWillTerminate(_ notification: Notification) {
-		serverManager.saveServers()
 	}
 	
 	
@@ -58,30 +58,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	
-	private func checkOtherVersionsRunning() {
-		let bundleIdentifiers = [
-			"com.heroku.postgres",
-			"com.heroku.Postgres",
-			"com.heroku.Postgres93",
-			"com.postgresapp.Postgres",
-			"com.postgresapp.Postgres93"
-		]
-		
-		var runningCopies: [NSRunningApplication] = []
-		for bundleID in bundleIdentifiers {
-			runningCopies.append(contentsOf: NSRunningApplication.runningApplications(withBundleIdentifier: bundleID))
-		}
-		
-		for runningCopy in runningCopies {
-			if runningCopy != NSRunningApplication.current() {
-				let alert = NSAlert()
-				alert.messageText = "Another copy of Postgres.app is already running."
-				alert.informativeText = "Please quit \(runningCopy.localizedName!) before starting this copy."
-				alert.addButton(withTitle: "OK")
-				alert.runModal()
-				exit(1)
-			}
-		}
+	@IBAction func updateStatusItem(_ sender: AnyObject?) {
+		print("updateStatusItem")
+		//DistributedNotificationCenter.default().post(name: StatusItemDidChangeNotificationName, object: nil, userInfo: nil)
+		DistributedNotificationCenter.default().postNotificationName(StatusItemDidChangeNotificationName, object: nil, userInfo: nil, deliverImmediately: true)
 	}
 	
 }
