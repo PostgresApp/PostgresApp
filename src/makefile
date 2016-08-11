@@ -8,6 +8,7 @@ POSTGRES_VERSION=9.3.13
 POSTGRES_MAJOR_VERSION=9.3
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
+# (version 1.11.5 fails to link with iconv)
 GDAL_VERSION=1.11.4
 
 # http://trac.osgeo.org/geos/
