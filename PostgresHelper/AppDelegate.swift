@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
-		validatePostgresApp()
+		NSBeep()
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
@@ -39,24 +39,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		templateOffImage.isTemplate = isDarkMode
 		templateOnImage.isTemplate = isDarkMode
 		
-		statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
-		statusItem.highlightMode = true
-		statusItem.menu = statusMenu
-		statusItem.image = templateOffImage
-		statusItem.alternateImage = templateOnImage
-		
 		DistributedNotificationCenter.default().addObserver(forName: InterfaceThemeChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.templateOffImage.isTemplate = self.isDarkMode
 			self.templateOnImage.isTemplate = self.isDarkMode
 		}
+		
+		self.updateStatusItem()
 		
 		let serverManager = ServerManager()
 		serverManager.loadServers()
 		serverManager.startServers()
 		
 		DistributedNotificationCenter.default().addObserver(forName: StatusItemDidChangeNotificationName, object: nil, queue: OperationQueue.main()) { _ in
-			guard let showStatusItem = UserDefaults.mainDefaults()?.bool(forKey: "ShowStatusItem") else { return }
-			print("showStatusItem: \(showStatusItem)")
+			self.updateStatusItem()
+		}
+	}
+	
+	
+	private func updateStatusItem() {
+		guard let showStatusItem = UserDefaults.mainDefaults()?.bool(forKey: "ShowStatusItem") else { return }
+		if showStatusItem {
+			self.statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+			self.statusItem.highlightMode = true
+			self.statusItem.menu = statusMenu
+			self.statusItem.image = templateOffImage
+			self.statusItem.alternateImage = templateOnImage
+		} else {
+			self.statusItem = nil
 		}
 	}
 	
@@ -87,22 +96,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	@IBAction func openPostgresApp(_ sender: AnyObject?) {
-		validatePostgresApp()
 		NSWorkspace.shared().launchApplication(AppDelegate.PG_APP_PATH)
 	}
-	
-	
-	private func validatePostgresApp() {
-		if !FileManager.default().fileExists(atPath: AppDelegate.PG_APP_PATH) {
-			let alert = NSAlert()
-			alert.messageText = "Postgres.app not found"
-			alert.informativeText = "Make sure Postgres.app is inside your Applications folder."
-			alert.addButton(withTitle: "OK")
-			alert.runModal()
-			exit(1)
-		}
-	}
-	
 	
 }
 
