@@ -26,13 +26,6 @@
                         <action selector="openPostgresApp:" target="Voe-Tx-rLC" id="V2K-EA-fTM"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="3dF-s0-Njw"/>
-                <menuItem title="Quit PostgresHelper" id="Oqz-d6-MGV">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="terminate:" target="-1" id="hja-0t-hva"/>
-                    </connections>
-                </menuItem>
                 <menuItem isSeparatorItem="YES" id="8no-U0-Fdt"/>
             </items>
             <connections>

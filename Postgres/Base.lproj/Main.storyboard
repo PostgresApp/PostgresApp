@@ -615,17 +615,75 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="700" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <contentBorderThickness minY="32"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="bt1-Ha-O4t"/>
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="FdD-4s-wdj" kind="relationship" relationship="window.shadowedContentViewController" id="GA9-Op-VkN"/>
+                        <segue destination="tLA-Sm-LiQ" kind="relationship" relationship="window.shadowedContentViewController" id="Waa-TV-qqR"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="173"/>
+            <point key="canvasLocation" x="54" y="178"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="VZ3-e5-TNn">
+            <objects>
+                <splitViewController id="tLA-Sm-LiQ" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="Cxu-av-mGO"/>
+                        <splitViewItem holdingPriority="1000" id="oUf-AY-yEX"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" id="9Vi-8T-RmD">
+                        <rect key="frame" x="0.0" y="247" width="450" height="53"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </splitView>
+                    <connections>
+                        <segue destination="FdD-4s-wdj" kind="relationship" relationship="splitItems" id="9hw-8D-CE4"/>
+                        <segue destination="2dy-He-Bdq" kind="relationship" relationship="splitItems" id="MVq-31-itv"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="d52-be-3kH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="54" y="530"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Qg0-R1-L62">
+            <objects>
+                <viewController id="2dy-He-Bdq" sceneMemberID="viewController">
+                    <view key="view" id="jKD-dq-4CQ">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="31"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-ZY-UDJ">
+                                <rect key="frame" x="18" y="3" width="214" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ike-zz-M38"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Show Postgres.app in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cE4-84-unA">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="updateStatusItem:" target="cMb-32-Geg" id="oTL-df-4qa"/>
+                                    <binding destination="Qbe-VJ-VIy" name="value" keyPath="values.ShowStatusItem" id="Iwg-hs-s9T"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wg7-ZY-UDJ" secondAttribute="trailing" constant="20" id="2HS-G8-R6w"/>
+                            <constraint firstAttribute="bottom" secondItem="wg7-ZY-UDJ" secondAttribute="bottom" constant="5" id="FaU-Yg-LHK"/>
+                            <constraint firstItem="wg7-ZY-UDJ" firstAttribute="top" secondItem="jKD-dq-4CQ" secondAttribute="top" constant="5" id="YyT-D6-wE9"/>
+                            <constraint firstItem="wg7-ZY-UDJ" firstAttribute="leading" secondItem="jKD-dq-4CQ" secondAttribute="leading" constant="20" id="ech-9L-BMt"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="cMb-32-Geg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="Qbe-VJ-VIy"/>
+            </objects>
+            <point key="canvasLocation" x="660" y="530"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="hrj-MD-yEE">
@@ -648,7 +706,7 @@
                 </splitViewController>
                 <customObject id="FoV-4N-mhn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="637.5"/>
+            <point key="canvasLocation" x="54" y="771"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="56q-Vh-FcR">
@@ -869,7 +927,7 @@
                 </windowController>
                 <customObject id="U4C-cl-867" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="686" y="686"/>
+            <point key="canvasLocation" x="686" y="984"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Seh-Pd-4Pk">
@@ -1146,7 +1204,7 @@
                 </viewController>
                 <customObject id="fJg-xC-ad6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="686" y="1084"/>
+            <point key="canvasLocation" x="686" y="1414"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">

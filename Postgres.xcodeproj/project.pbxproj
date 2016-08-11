@@ -10,6 +10,8 @@
 		830658E51D536F2E00BA1752 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* Sidebar.swift */; };
+		830D1A1E1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
+		830D1A1F1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
 		8320CCC01D2DBDCB001C931C /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
 		8320CCC11D2DBDF9001C931C /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
 		8353FBDE1D1D57C8002F77E7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* MainView.swift */; };
@@ -43,6 +45,7 @@
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		830B4B271D1C289A00F16762 /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Sidebar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedNotifications.swift; sourceTree = "<group>"; };
 		8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.9.dylib; path = ../../../../../Applications/Postgres.app/Contents/Versions/9.6/lib/libpq.5.9.dylib; sourceTree = "<group>"; };
 		8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpq.5.6.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libpq.5.6.tbd; sourceTree = DEVELOPER_DIR; };
 		8353FBDD1D1D57C8002F77E7 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
+				830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */,
 				83FB573B1D1B18C900A903A3 /* MainWindow.swift */,
 				8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */,
 				8353FBDD1D1D57C8002F77E7 /* MainView.swift */,
@@ -274,6 +278,7 @@
 				8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */,
 				83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
+				830D1A1E1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
@@ -297,6 +302,7 @@
 				83BCCA0B1D5A1AA00064A69D /* ErrorRecoveryAttempter.m in Sources */,
 				838BD46F1D5A2F8D005B3FDF /* MenuItemView.swift in Sources */,
 				83FB57311D1B060800A903A3 /* AppDelegate.swift in Sources */,
+				830D1A1F1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
