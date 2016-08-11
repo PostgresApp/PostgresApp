@@ -8,7 +8,11 @@
 
 import Cocoa
 
+
+
 class Server: NSObject, NSCoding {
+	
+	static let ChangeNotificationName = NSNotification.Name("ServerDidChange")
 	
 	enum ServerStatus {
 		case NoBinaries
@@ -28,12 +32,24 @@ class Server: NSObject, NSCoding {
 	}
 	
 	
-	dynamic var name: String = ""
+	dynamic var name: String = "" {
+		didSet {
+			NotificationCenter.default().post(name: Server.ChangeNotificationName, object: self)
+		}
+	}
 	dynamic var version: String = ""
-	dynamic var port: UInt = 0
+	dynamic var port: UInt = 0 {
+		didSet {
+			NotificationCenter.default().post(name: Server.ChangeNotificationName, object: self)
+		}
+	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
-	dynamic var startAtLogin: Bool = false
+	dynamic var startAtLogin: Bool = false {
+		didSet {
+			NotificationCenter.default().post(name: Server.ChangeNotificationName, object: self)
+		}
+	}
 	
 	dynamic var configFilePath: String {
 		return varPath.appending("/postgresql.conf")
@@ -117,7 +133,7 @@ class Server: NSObject, NSCoding {
 			
 			case .NoBinaries:
 				let userInfo = [
-					NSLocalizedDescriptionKey: "The binaries for this PostgreSQL server were not found",
+					NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
@@ -127,8 +143,8 @@ class Server: NSObject, NSCoding {
 				
 			case .PortInUse:
 				let userInfo = [
-					NSLocalizedDescriptionKey: "The specified port is already in use by another process.",
-					NSLocalizedRecoverySuggestionErrorKey: "Choose a different port or kill this process."
+					NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
+					NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
@@ -137,8 +153,7 @@ class Server: NSObject, NSCoding {
 				
 			case .DataDirInUse:
 				let userInfo = [
-					NSLocalizedDescriptionKey: "There is already a PostgreSQL server running on port \(self.port)",
-					NSLocalizedRecoverySuggestionErrorKey: "Please stop this server before.\n\nIf you want to use multiple servers, configure them to use different ports."
+					NSLocalizedDescriptionKey: NSLocalizedString("There is already a PostgreSQL server running in this data directory", comment: ""),
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
@@ -201,17 +216,17 @@ class Server: NSObject, NSCoding {
 				
 			case .StalePidFile:
 				let userInfo = [
-					NSLocalizedDescriptionKey: "The data directory contains an old postmaster.pid file",
+					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an old postmaster.pid file", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not runnnig anymore, otherwise your data directory will be corrupted."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
-
+				
 			case .Unknown:
 				let userInfo = [
-					NSLocalizedDescriptionKey: "Unknown server status",
+					NSLocalizedDescriptionKey: NSLocalizedString("Unknown server status", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: ""
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
