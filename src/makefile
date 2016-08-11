@@ -30,7 +30,7 @@ PROJ_VERSION=4.9.2
 DATUMGRID_VERSION=1.5
 
 #see http://omahaproxy.appspot.com for latest stable v8 version
-V8_VERSION=3.18
+V8_VERSION=3.18.5.15
 
 # https://github.com/plv8/plv8/releases
 PLV8_VERSION=1.4.8
@@ -400,9 +400,12 @@ plv8-${PLV8_VERSION}.tar.gz:
 $(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/Makefile
 	cp bin/libv8.dylib $(PREFIX)/lib/libv8.dylib
 
-v8-${V8_VERSION}/Makefile:
-	svn export --force "http://v8.googlecode.com/svn/branches/$(V8_VERSION)/" "v8-$(V8_VERSION)"
+v8-${V8_VERSION}/Makefile: v8-${V8_VERSION}.tar.gz
+	$(TAR) $<
 	touch $@
+
+v8-${V8_VERSION}.tar.gz:
+	/usr/bin/curl -L10 --silent --show-error -o "v8-${V8_VERSION}.tar.gz" "https://github.com/v8/v8/archive/${V8_VERSION}.tar.gz"
 
 clean-plv8:
 	rm -Rf plv8js v8-${V8_VERSION} plv8-${PLV8_VERSION}
