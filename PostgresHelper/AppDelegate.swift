@@ -19,8 +19,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	let InterfaceStyleDark = "Dark"
 	let InterfaceThemeChangedNotification = "AppleInterfaceThemeChangedNotification" as NSNotification.Name
 	
-	let serverManager = ServerManager.shared
-	
 	var statusItem: NSStatusItem!
 	var templateOffImage: NSImage!
 	var templateOnImage: NSImage!
@@ -47,21 +45,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		statusItem.image = templateOffImage
 		statusItem.alternateImage = templateOnImage
 		
-		DistributedNotificationCenter.default().addObserver(forName: InterfaceThemeChangedNotification, object: nil, queue: OperationQueue.main()) { (notification) in
+		DistributedNotificationCenter.default().addObserver(forName: InterfaceThemeChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.templateOffImage.isTemplate = self.isDarkMode
 			self.templateOnImage.isTemplate = self.isDarkMode
 		}
 		
-		serverManager.loadServersForHelperApp()
-		
-		// TODO: handle errors?
+		let serverManager = ServerManager()
+		serverManager.loadServers()
 		serverManager.startServers()
+		
+		DistributedNotificationCenter.default().addObserver(forName: StatusItemDidChangeNotificationName, object: nil, queue: OperationQueue.main()) { _ in
+			guard let showStatusItem = UserDefaults.mainDefaults()?.bool(forKey: "ShowStatusItem") else { return }
+			print("showStatusItem: \(showStatusItem)")
+		}
 	}
 	
 	
 	func menuNeedsUpdate(_ menu: NSMenu) {
 		guard menu == statusMenu else { return }
 		
+		let serverManager = ServerManager()
+		serverManager.loadServers()
 		serverManager.refreshServerStatuses()
 		
 		for item in statusMenu.items {
