@@ -43,26 +43,23 @@ class ServerManager: NSObject {
 		NSKeyedUnarchiver.setClass(Server.self, forClassName: "Server")
 		let loadServersError = NSError(domain: "", code: 0)
 		do {
-			guard let data = UserDefaults.standard().data(forKey: "servers") else { throw loadServersError }
-			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] where !servers.isEmpty else { throw loadServersError }
-			self.servers = servers
-		} catch {
-			self.servers.append(Server(name: "Default Server"))
-		}
-	}
-	
-	
-	func loadServersForHelperApp() {
-		NSKeyedUnarchiver.setClass(Server.self, forClassName: "Server")
-		let loadServersError = NSError(domain: "", code: 0)
-		do {
-			guard let defaults = UserDefaults(suiteName: "com.postgresapp.Postgres") else { throw loadServersError }
+			guard let defaults = UserDefaults.mainDefaults() else { throw loadServersError }
 			guard let data = defaults.data(forKey: "servers") else { throw loadServersError }
 			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] where !servers.isEmpty else { throw loadServersError }
 			self.servers = servers
 		} catch {}
 	}
 	
+}
+
+extension UserDefaults {
+	static func mainDefaults() -> UserDefaults? {
+		if Bundle.main().bundleIdentifier == "com.postgresapp.Postgres" {
+			return UserDefaults.standard()
+		} else {
+			return UserDefaults(suiteName: "com.postgresapp.Postgres")
+		}
+	}
 }
 
 
