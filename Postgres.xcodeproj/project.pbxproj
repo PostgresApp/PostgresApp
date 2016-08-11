@@ -14,6 +14,7 @@
 		830D1A1F1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
 		8320CCC01D2DBDCB001C931C /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
 		8320CCC11D2DBDF9001C931C /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
+		8332859B1D5CBEB3001EA003 /* PostgresHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FB572E1D1B060800A903A3 /* PostgresHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8353FBDE1D1D57C8002F77E7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* MainView.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
@@ -40,6 +41,29 @@
 		83FB57361D1B060800A903A3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57341D1B060800A903A3 /* MainMenu.xib */; };
 		83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB573B1D1B18C900A903A3 /* MainWindow.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		833285961D5CBE51001EA003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83FB57101D1B05F000A903A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83FB572D1D1B060800A903A3;
+			remoteInfo = PostgresHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8332859A1D5CBE88001EA003 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				8332859B1D5CBEB3001EA003 /* PostgresHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -178,10 +202,12 @@
 				83FB57141D1B05F000A903A3 /* Sources */,
 				83FB57151D1B05F000A903A3 /* Frameworks */,
 				83FB57161D1B05F000A903A3 /* Resources */,
+				8332859A1D5CBE88001EA003 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				833285971D5CBE51001EA003 /* PBXTargetDependency */,
 			);
 			name = Postgres;
 			productName = Postgres;
@@ -307,6 +333,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		833285971D5CBE51001EA003 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83FB572D1D1B060800A903A3 /* PostgresHelper */;
+			targetProxy = 833285961D5CBE51001EA003 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		83FB57211D1B05F000A903A3 /* Main.storyboard */ = {
