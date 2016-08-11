@@ -7,3 +7,5 @@
 //
 
 import Foundation
+
+let StatusItemDidChangeNotificationName = NSNotification.Name("com.posgresapp.Postgres.StatusItemDidChange")
