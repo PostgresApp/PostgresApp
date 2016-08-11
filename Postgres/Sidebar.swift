@@ -35,6 +35,7 @@ class SidebarController: NSViewController, ServerManagerConsumer {
 				}
 				self.serverArrayController.remove(nil)
 				self.serverArrayController.rearrangeObjects()
+				NotificationCenter.default().post(name: Server.ChangeNotificationName, object: nil)
 			}
 		}
 	}
