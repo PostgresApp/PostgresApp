@@ -8,8 +8,7 @@ POSTGRES_VERSION=9.3.14
 POSTGRES_MAJOR_VERSION=9.3
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-# (version 1.11.5 fails to link with iconv)
-GDAL_VERSION=1.11.4
+GDAL_VERSION=1.11.5
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.4.2
@@ -23,7 +22,7 @@ LIBJASPER_VERSION=1.900.1
 LIBUUID_VERSION=1.6.2
 
 # http://xmlsoft.org/news.html
-LIBXML2_VERSION=2.9.3
+LIBXML2_VERSION=2.9.4
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.0.1t
@@ -154,7 +153,7 @@ $(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 	touch $(PREFIX)/lib/libxml2.dylib
 
 libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
-	cd libxml2-${LIBXML2_VERSION} && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+	cd libxml2-${LIBXML2_VERSION} && export PATH="$(PREFIX)/bin:/bin:/usr/bin" && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
 
 libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.gz
 	$(TAR) libxml2-${LIBXML2_VERSION}.tar.gz
