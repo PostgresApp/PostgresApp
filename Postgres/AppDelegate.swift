@@ -31,15 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			self.serverManager.saveServers()
 		}
 		
-		let registerStatus = LSRegisterURL(try! Bundle.main().bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresHelper.app"), true)
-		if registerStatus != noErr {
-			print("Failed to register HelperApp")
-		}
-		let res = SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", true)
-		if !res {
+		if !SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", true) {
 			print("Failed to launch HelperApp")
 		}
-		
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {

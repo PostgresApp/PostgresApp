@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  ServerView.swift
 //  Postgres
 //
 //  Created by Chris on 24/06/16.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainViewController: NSViewController, ServerManagerConsumer {
+class ServerViewController: NSViewController, ServerManagerConsumer {
 	
 	dynamic var serverManager: ServerManager!
 	
@@ -116,7 +116,7 @@ class MainViewController: NSViewController, ServerManagerConsumer {
 
 
 
-class MainViewBackgroundView: NSView {
+class ServerViewBackgroundView: NSView {
 	
 	override var isOpaque: Bool { return true }
 	override var mouseDownCanMoveWindow: Bool { return true }
