@@ -202,7 +202,7 @@ class ProgressViewController: NSViewController {
 	
 	@IBAction func cancel(_ sender: AnyObject?) {
 		self.databaseTask?.cancel()
-		self.dismiss(self)
+		self.dismiss(nil)
 	}
 	
 }
@@ -255,7 +255,7 @@ class DatabaseCollectionView: NSCollectionView {
 			
 			progressViewController.databaseTask = DatabaseTask(server)
 			progressViewController.databaseTask?.dumpDatabase(name: database.name, to: savePanel.url!.path!, closure: { (actionStatus) in
-				progressViewController.dismiss(self)
+				progressViewController.dismiss(nil)
 			})
 		}
 	}
@@ -286,7 +286,7 @@ class DatabaseCollectionView: NSCollectionView {
 				progressViewController.databaseTask = DatabaseTask(server)
 				progressViewController.databaseTask?.restoreDatabase(name: "foo", from: openPanel.url!.path!, closure: { (actionStatus) in
 					server.loadDatabases()
-					progressViewController.dismiss(self)
+					progressViewController.dismiss(nil)
 				})
 				
 			})
@@ -315,7 +315,7 @@ class DatabaseCollectionView: NSCollectionView {
 			progressViewController.databaseTask = DatabaseTask(server)
 			progressViewController.databaseTask?.dropDatabase(name: database.name, closure: { (actionStatus) in
 				server.loadDatabases()
-				progressViewController.dismiss(self)
+				progressViewController.dismiss(nil)
 			})
 		}
 	}
