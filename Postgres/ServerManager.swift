@@ -13,7 +13,6 @@ class ServerManager: NSObject {
 	static let shared = ServerManager()
 	
 	dynamic var servers: [Server] = []
-	dynamic var selectedServerIndices = IndexSet()
 	
 	
 	func refreshServerStatuses() {
@@ -47,7 +46,9 @@ class ServerManager: NSObject {
 			guard let data = defaults.data(forKey: "servers") else { throw loadServersError }
 			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] where !servers.isEmpty else { throw loadServersError }
 			self.servers = servers
-		} catch {}
+		} catch {
+			self.servers.append(Server(name: "Default Server"))
+		}
 	}
 	
 }
@@ -60,9 +61,4 @@ extension UserDefaults {
 			return UserDefaults(suiteName: "com.postgresapp.Postgres")
 		}
 	}
-}
-
-
-protocol ServerManagerConsumer {
-	var serverManager: ServerManager! { get set }
 }
