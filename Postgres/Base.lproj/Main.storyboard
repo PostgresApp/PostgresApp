@@ -708,7 +708,7 @@
             </objects>
             <point key="canvasLocation" x="54" y="771"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Server View Controller-->
         <scene sceneID="56q-Vh-FcR">
             <objects>
                 <viewController id="Rgw-vS-n3O" customClass="ServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
@@ -896,8 +896,8 @@
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Postgres.Server" id="n71-mI-16p">
                     <connections>
-                        <binding destination="Rgw-vS-n3O" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="ifh-vQ-QUP"/>
-                        <binding destination="Rgw-vS-n3O" name="contentArray" keyPath="serverManager.servers" id="x47-sa-N48"/>
+                        <binding destination="Rgw-vS-n3O" name="selectionIndexes" keyPath="mainWindowModel.selectedServerIndices" id="ifh-vQ-QUP"/>
+                        <binding destination="Rgw-vS-n3O" name="contentArray" keyPath="mainWindowModel.serverManager.servers" id="x47-sa-N48"/>
                     </connections>
                 </arrayController>
                 <arrayController objectClassName="Postgres.Database" id="lfI-VP-uU4">
@@ -1342,8 +1342,8 @@
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Postgres.Server" id="Dsw-zw-YD1">
                     <connections>
-                        <binding destination="fKp-yy-u0S" name="selectionIndexes" keyPath="serverManager.selectedServerIndices" id="ekE-My-6Oj"/>
-                        <binding destination="fKp-yy-u0S" name="contentArray" keyPath="serverManager.servers" id="rAJ-aw-Pss"/>
+                        <binding destination="fKp-yy-u0S" name="selectionIndexes" keyPath="mainWindowModel.selectedServerIndices" id="ekE-My-6Oj"/>
+                        <binding destination="fKp-yy-u0S" name="contentArray" keyPath="mainWindowModel.serverManager.servers" id="rAJ-aw-Pss"/>
                     </connections>
                 </arrayController>
             </objects>

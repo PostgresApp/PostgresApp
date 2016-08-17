@@ -8,16 +8,16 @@
 
 import Cocoa
 
-class SidebarController: NSViewController, ServerManagerConsumer {
+class SidebarController: NSViewController, MainWindowModelConsumer {
 	
-	dynamic var serverManager: ServerManager!
+	dynamic var mainWindowModel: MainWindowModel!
 	
 	@IBOutlet var serverArrayController: NSArrayController!
 	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
-		if var target = segue.destinationController as? ServerManagerConsumer {
-			target.serverManager = serverManager
+		if var target = segue.destinationController as? MainWindowModelConsumer {
+			target.mainWindowModel = mainWindowModel
 		}
 	}
 	

@@ -10,23 +10,23 @@ import Cocoa
 
 class MainWindowController: NSWindowController, NSWindowDelegate {
 	
-	var serverManager: ServerManager! {
+	var mainWindowModel: MainWindowModel! {
 		didSet {
-			func propagate(_ serverManager: ServerManager, toChildrenOf parent: NSViewController) {
-				if var consumer = parent as? ServerManagerConsumer {
-					consumer.serverManager = serverManager
+			func propagate(_ mainWindowModel: MainWindowModel, toChildrenOf parent: NSViewController) {
+				if var consumer = parent as? MainWindowModelConsumer {
+					consumer.mainWindowModel = mainWindowModel
 				}
 				for child in parent.childViewControllers {
-					propagate(serverManager, toChildrenOf: child)
+					propagate(mainWindowModel, toChildrenOf: child)
 				}
 			}
-			propagate(serverManager, toChildrenOf: self.contentViewController!)
+			propagate(mainWindowModel, toChildrenOf: self.contentViewController!)
 		}
 	}
 	
 	
 	override func windowDidLoad() {
-		self.serverManager = ServerManager.shared
+		self.mainWindowModel = MainWindowModel()
 		
 		if let window = self.window {
 			window.titleVisibility = .hidden

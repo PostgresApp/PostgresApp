@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class ServerViewController: NSViewController, ServerManagerConsumer {
+class ServerViewController: NSViewController, MainWindowModelConsumer {
 	
-	dynamic var serverManager: ServerManager!
+	dynamic var mainWindowModel: MainWindowModel!
 	
 	@IBOutlet var serverArrayController: NSArrayController!
 	@IBOutlet var databaseArrayController: NSArrayController!
@@ -106,12 +106,6 @@ class ServerViewController: NSViewController, ServerManagerConsumer {
 		} catch {}
 	}
 	
-	
-	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
-		if var target = segue.destinationController as? ServerManagerConsumer {
-			target.serverManager = self.serverManager
-		}
-	}
 }
 
 

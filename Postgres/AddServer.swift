@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class AddServerViewController: NSViewController, ServerManagerConsumer {
+class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
-	dynamic var serverManager: ServerManager!
+	dynamic var mainWindowModel: MainWindowModel!
 	dynamic var name: String = "New Server"
 	dynamic var port: UInt = 5432
 	dynamic var varPath: String = ""
@@ -54,14 +54,14 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 	
 	
 	@IBAction func cancel(_ sender: AnyObject?) {
-		self.dismiss(self)
+		self.dismiss(nil)
 	}
 	
 	
 	@IBAction func createServer(_ sender: AnyObject?) {
 		guard self.view.window!.makeFirstResponder(nil) else { NSBeep(); return }
 		
-		for server in self.serverManager.servers {
+		for server in self.mainWindowModel.serverManager.servers {
 			if server.varPath == self.varPath {
 				let alert = NSAlert()
 				alert.messageText = "The Data Directory is already in use by server \"\(server.name)\"."
@@ -73,12 +73,12 @@ class AddServerViewController: NSViewController, ServerManagerConsumer {
 		}
 		
 		let server = Server(name: self.name, version: self.version, port: self.port, varPath: self.varPath)
-		serverManager.servers.append(server)
-		serverManager.selectedServerIndices = IndexSet(integer:serverManager.servers.indices.last!)
+		mainWindowModel.serverManager.servers.append(server)
+		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
 		NotificationCenter.default().post(name: Server.ChangeNotificationName, object: nil)
 		
-		self.dismiss(self)
+		self.dismiss(nil)
 	}
 	
 	

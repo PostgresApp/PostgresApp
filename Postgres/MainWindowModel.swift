@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+class MainWindowModel: NSObject {
+	dynamic var serverManager = ServerManager.shared
+	dynamic var selectedServerIndices = IndexSet()
+	dynamic var sidebarVisible = false
+	dynamic var showMenuItem = false {
+		didSet {
+			print("showMenuItem changed to \(showMenuItem)")
+		}
+	}
+}
+
+protocol MainWindowModelConsumer {
+	var mainWindowModel: MainWindowModel! { get set }
+}
