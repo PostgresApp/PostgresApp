@@ -42,13 +42,13 @@ class SplitViewController: NSSplitViewController {
 		if splitViewItems.contains(sideBarItem) {
 			if !sideBarVisible {
 				removeSplitViewItem(sideBarItem)
-				(self.mainViewItem.viewController as? MainViewController)?.toggleSidebarButton.image = NSImage(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
+				(self.mainViewItem.viewController as? ServerViewController)?.toggleSidebarButton.image = NSImage(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
 				
 			}
 		} else {
 			if sideBarVisible {
 				addSplitViewItem(sideBarItem)
-				(self.mainViewItem.viewController as? MainViewController)?.toggleSidebarButton.image = NSImage(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
+				(self.mainViewItem.viewController as? ServerViewController)?.toggleSidebarButton.image = NSImage(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
 			}
 		}
 		super.restoreState(with: coder)
