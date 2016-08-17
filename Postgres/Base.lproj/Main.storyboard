@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A270f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A286a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
@@ -711,8 +711,8 @@
         <!--Main View Controller-->
         <scene sceneID="56q-Vh-FcR">
             <objects>
-                <viewController id="Rgw-vS-n3O" customClass="MainViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="MYs-NA-b8f" customClass="MainViewBackgroundView" customModule="Postgres" customModuleProvider="target">
+                <viewController id="Rgw-vS-n3O" customClass="ServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="MYs-NA-b8f" customClass="ServerViewBackgroundView" customModule="Postgres" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>

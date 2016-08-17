@@ -44,7 +44,7 @@ class DatabaseItemView: NSView {
 	
 	override func mouseDown(_ event: NSEvent) {
 		if event.clickCount == 2 {
-			NSApp.sendAction(#selector(MainViewController.openPsql(_:)), to: nil, from: self)
+			NSApp.sendAction(#selector(ServerViewController.openPsql(_:)), to: nil, from: self)
 		} else {
 			super.mouseDown(event)
 		}
