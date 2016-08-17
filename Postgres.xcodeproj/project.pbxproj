@@ -15,7 +15,7 @@
 		8320CCC01D2DBDCB001C931C /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
 		8320CCC11D2DBDF9001C931C /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
 		8332859B1D5CBEB3001EA003 /* PostgresHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FB572E1D1B060800A903A3 /* PostgresHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8353FBDE1D1D57C8002F77E7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* MainView.swift */; };
+		8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* ServerView.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8358D53C1D26EBE7007B7904 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
@@ -72,7 +72,7 @@
 		830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedNotifications.swift; sourceTree = "<group>"; };
 		8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.9.dylib; path = ../../../../../Applications/Postgres.app/Contents/Versions/9.6/lib/libpq.5.9.dylib; sourceTree = "<group>"; };
 		8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpq.5.6.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libpq.5.6.tbd; sourceTree = DEVELOPER_DIR; };
-		8353FBDD1D1D57C8002F77E7 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		8353FBDD1D1D57C8002F77E7 /* ServerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerView.swift; sourceTree = "<group>"; };
 		8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
 		83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorRecoveryAttempter.h; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 				830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */,
 				83FB573B1D1B18C900A903A3 /* MainWindow.swift */,
 				8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */,
-				8353FBDD1D1D57C8002F77E7 /* MainView.swift */,
+				8353FBDD1D1D57C8002F77E7 /* ServerView.swift */,
 				836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */,
 				830B4B271D1C289A00F16762 /* Sidebar.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServer.swift */,
@@ -314,7 +314,7 @@
 				83D90C101D53574C006836B5 /* Removed.swift in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */,
 				836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */,
-				8353FBDE1D1D57C8002F77E7 /* MainView.swift in Sources */,
+				8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
