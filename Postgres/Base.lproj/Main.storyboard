@@ -649,10 +649,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="530"/>
         </scene>
-        <!--View Controller-->
+        <!--Bottom Bar Controller-->
         <scene sceneID="Qg0-R1-L62">
             <objects>
-                <viewController id="2dy-He-Bdq" sceneMemberID="viewController">
+                <viewController id="2dy-He-Bdq" customClass="BottomBarController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="jKD-dq-4CQ">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="31"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -668,22 +668,48 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="updateStatusItem:" target="cMb-32-Geg" id="oTL-df-4qa"/>
-                                    <binding destination="Qbe-VJ-VIy" name="value" keyPath="values.ShowStatusItem" id="Iwg-hs-s9T"/>
+                                    <binding destination="tqv-0D-9ph" name="value" keyPath="values.HideStatusMenu" id="jH5-Tz-3gA">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a5h-vw-DJV">
+                                <rect key="frame" x="388" y="-2" width="48" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="4cj-fB-8tn"/>
+                                    <constraint firstAttribute="width" constant="36" id="fUl-rm-eVA"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" bezelStyle="rounded" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7OQ-nq-m6h">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="2dy-He-Bdq" name="image" keyPath="mainWindowModel.sidebarVisible" id="JI9-tU-Yo6">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">Postgres.SidebarButtonImageTransformer</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="2dy-He-Bdq" name="value" keyPath="mainWindowModel.sidebarVisible" id="jgJ-Z5-Vjm"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wg7-ZY-UDJ" secondAttribute="trailing" constant="20" id="2HS-G8-R6w"/>
                             <constraint firstAttribute="bottom" secondItem="wg7-ZY-UDJ" secondAttribute="bottom" constant="5" id="FaU-Yg-LHK"/>
+                            <constraint firstAttribute="bottom" secondItem="a5h-vw-DJV" secondAttribute="bottom" constant="5" id="Gfk-nf-LNX"/>
                             <constraint firstItem="wg7-ZY-UDJ" firstAttribute="top" secondItem="jKD-dq-4CQ" secondAttribute="top" constant="5" id="YyT-D6-wE9"/>
                             <constraint firstItem="wg7-ZY-UDJ" firstAttribute="leading" secondItem="jKD-dq-4CQ" secondAttribute="leading" constant="20" id="ech-9L-BMt"/>
+                            <constraint firstItem="a5h-vw-DJV" firstAttribute="top" secondItem="jKD-dq-4CQ" secondAttribute="top" constant="5" id="scB-BB-0If"/>
+                            <constraint firstAttribute="trailing" secondItem="a5h-vw-DJV" secondAttribute="trailing" constant="20" symbolic="YES" id="sqS-mW-8V6"/>
                         </constraints>
                     </view>
                 </viewController>
                 <customObject id="cMb-32-Geg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController representsSharedInstance="YES" id="Qbe-VJ-VIy"/>
+                <userDefaultsController representsSharedInstance="YES" id="tqv-0D-9ph"/>
             </objects>
-            <point key="canvasLocation" x="660" y="530"/>
+            <point key="canvasLocation" x="660" y="529.5"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="hrj-MD-yEE">
@@ -799,16 +825,6 @@
                                     <binding destination="n71-mI-16p" name="value" keyPath="selection.name" id="cjw-Q2-p4g"/>
                                 </connections>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Qp-nq-Rul">
-                                <rect key="frame" x="441" y="352" width="45" height="32"/>
-                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSLeftFacingTriangleTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AMM-NS-fgJ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="toggleServerListView:" target="ipu-u3-5pp" id="3cB-QR-2n6"/>
-                                </connections>
-                            </button>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
                                 <rect key="frame" x="329" y="256" width="16" height="16"/>
                                 <connections>
@@ -864,6 +880,7 @@
                         <constraints>
                             <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="8" symbolic="YES" id="0vd-yH-ocS"/>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
+                            <constraint firstItem="NJh-WV-lPO" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="124" id="2Y4-BS-H4m"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" id="9zl-rG-E4N"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="124" id="Alz-6T-enV"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="Dj0-gb-Coy"/>
@@ -873,15 +890,12 @@
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="20" id="M45-iy-ELn"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="top" secondItem="UaU-Bn-2go" secondAttribute="bottom" constant="8" id="OV5-Ig-6P1"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="11" id="Oan-M6-tLU"/>
-                            <constraint firstItem="NJh-WV-lPO" firstAttribute="top" secondItem="4Qp-nq-Rul" secondAttribute="bottom" constant="83" id="Yf0-1w-f2f"/>
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
                             <constraint firstAttribute="bottom" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="eg6-7J-7Nv"/>
-                            <constraint firstAttribute="trailing" secondItem="4Qp-nq-Rul" secondAttribute="trailing" constant="20" id="fXk-Qj-kfG"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="gNC-Vl-NXa"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="lXX-nh-hjU"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="lfK-gJ-QT8"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="160" id="mZg-3o-dXY"/>
-                            <constraint firstItem="4Qp-nq-Rul" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="20" id="s86-YF-nsv"/>
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" id="yCN-sm-aMF"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
                         </constraints>
@@ -890,7 +904,6 @@
                         <outlet property="databaseArrayController" destination="lfI-VP-uU4" id="Grj-wL-Zdc"/>
                         <outlet property="databaseCollectionView" destination="nrL-ym-6WO" id="AkN-x7-p0O"/>
                         <outlet property="serverArrayController" destination="n71-mI-16p" id="M90-Xj-V42"/>
-                        <outlet property="toggleSidebarButton" destination="4Qp-nq-Rul" id="AAS-UR-Qxc"/>
                     </connections>
                 </viewController>
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1547,7 +1560,6 @@ Gw
     </scenes>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
     </resources>

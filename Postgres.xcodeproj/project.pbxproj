@@ -26,13 +26,13 @@
 		838BD46F1D5A2F8D005B3FDF /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838BD46E1D5A2F8D005B3FDF /* MenuItemView.swift */; };
 		83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ASWrapper.swift */; };
 		83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */; };
+		83A8CE821D64DBA2005FF107 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8CE811D64DBA2005FF107 /* BottomBar.swift */; };
 		83BCCA031D5A18BF0064A69D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		83BCCA081D5A19210064A69D /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
 		83BCCA091D5A19250064A69D /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
 		83BCCA0A1D5A1A5D0064A69D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
 		83BCCA0B1D5A1AA00064A69D /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		83BCCA0C1D5A1D140064A69D /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
-		83D90C101D53574C006836B5 /* Removed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D90C0F1D53574C006836B5 /* Removed.swift */; };
 		83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
@@ -86,8 +86,8 @@
 		838BD46E1D5A2F8D005B3FDF /* MenuItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		83969DBA1D369BD1005B9F1C /* ASWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASWrapper.swift; sourceTree = "<group>"; };
 		83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ASSubroutines.applescript; sourceTree = "<group>"; };
+		83A8CE811D64DBA2005FF107 /* BottomBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
 		83BCCA041D5A18EF0064A69D /* PostgresHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresHelper-Bridging-Header.h"; sourceTree = "<group>"; };
-		83D90C0F1D53574C006836B5 /* Removed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Removed.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,11 +156,11 @@
 			isa = PBXGroup;
 			children = (
 				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
-				830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */,
 				83FB573B1D1B18C900A903A3 /* MainWindow.swift */,
 				838B8D361D649CB30050EF03 /* MainWindowModel.swift */,
 				8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */,
 				8353FBDD1D1D57C8002F77E7 /* ServerView.swift */,
+				83A8CE811D64DBA2005FF107 /* BottomBar.swift */,
 				836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */,
 				830B4B271D1C289A00F16762 /* Sidebar.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServer.swift */,
@@ -169,6 +169,7 @@
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
 				83969DBA1D369BD1005B9F1C /* ASWrapper.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
+				830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */,
@@ -176,7 +177,6 @@
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
 				83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */,
-				83D90C0F1D53574C006836B5 /* Removed.swift */,
 			);
 			path = Postgres;
 			sourceTree = "<group>";
@@ -304,6 +304,7 @@
 			files = (
 				830B4B261D1C132300F16762 /* ServerManager.swift in Sources */,
 				83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */,
+				83A8CE821D64DBA2005FF107 /* BottomBar.swift in Sources */,
 				8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */,
 				83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
@@ -315,7 +316,6 @@
 				83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */,
 				838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */,
 				830658E51D536F2E00BA1752 /* Extensions.swift in Sources */,
-				83D90C101D53574C006836B5 /* Removed.swift in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */,
 				836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */,
 				8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */,
