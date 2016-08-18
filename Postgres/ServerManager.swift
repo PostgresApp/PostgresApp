@@ -39,6 +39,8 @@ class ServerManager: NSObject {
 	
 	
 	func loadServers() {
+		self.servers.removeAll()
+		
 		NSKeyedUnarchiver.setClass(Server.self, forClassName: "Server")
 		let loadServersError = NSError(domain: "", code: 0)
 		do {
@@ -46,9 +48,7 @@ class ServerManager: NSObject {
 			guard let data = defaults.data(forKey: "Servers") else { throw loadServersError }
 			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] where !servers.isEmpty else { throw loadServersError }
 			self.servers = servers
-		} catch {
-			self.servers.append(Server(name: "Default Server"))
-		}
+		} catch {}
 	}
 	
 }
