@@ -29,6 +29,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		serverManager.loadServers()
+		if serverManager.servers.isEmpty {
+			serverManager.servers.append(Server(name: "Default Server"))
+			serverManager.saveServers()
+		}
+		
 		NotificationCenter.default().addObserver(forName: Server.changedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.serverManager.saveServers()
 		}
