@@ -36,6 +36,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		mainWindowModel = MainWindowModel()
 		self.addObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", options: [.new], context: nil)
 		
+		mainWindowModel.sidebarVisible = mainWindowModel.serverManager.servers.count > 1
+		
 		super.windowDidLoad()
 	}
 	
