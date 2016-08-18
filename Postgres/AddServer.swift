@@ -24,9 +24,8 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	override func viewDidLoad() {
 		loadVersions()
-		if let path = FileManager().applicationSupportDirectoryPath(createIfNotExists: true) {
-			self.varPath = path.appending("/var-\(self.version)")
-		}
+		self.varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(self.version)")
+		
 		super.viewDidLoad()
 	}
 	
@@ -42,9 +41,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		openPanel.canChooseFiles = false
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
-		if let path = FileManager().applicationSupportDirectoryPath(createIfNotExists: true) {
-			openPanel.directoryURL = URL(fileURLWithPath: path)
-		}
+		openPanel.directoryURL = URL(fileURLWithPath: FileManager().applicationSupportDirectoryPath())
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
 				self.varPath = openPanel.url!.path!

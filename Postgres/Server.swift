@@ -74,15 +74,14 @@ class Server: NSObject, NSCoding {
 		self.init()
 		
 		self.name = name
-		self.version = version ?? Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as? String ?? "9.5"
+		self.version = version ?? Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as! String
 		self.port = port
 		self.binPath = AppDelegate.PG_APP_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
 		self.varPath = varPath ?? ""
 		
-		if varPath == "" {
-			if let path = FileManager().applicationSupportDirectoryPath(createIfNotExists: true) {
-				self.varPath = path.appending("/var-\(version)")
-			}
+		if self.varPath == "" {
+			let path = FileManager().applicationSupportDirectoryPath()
+			self.varPath = path.appending("/var-\(self.version)")
 		}
 		
 		updateServerStatus()
