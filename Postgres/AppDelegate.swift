@@ -17,6 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	let serverManager: ServerManager = ServerManager.shared
+	var hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
@@ -25,16 +26,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		#endif
 	}
 	
+	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		serverManager.loadServers()
-		NotificationCenter.default().addObserver(forName: Server.ChangeNotificationName, object: nil, queue: OperationQueue.main()) { _ in
+		NotificationCenter.default().addObserver(forName: Server.changedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.serverManager.saveServers()
 		}
 		
+		NotificationCenter.default().addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main()) { _ in
+			let hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
+			if self.hideStatusMenu != hideStatusMenu {
+				DistributedNotificationCenter.default().postNotificationName(HideStatusMenuChangedNotification, object: nil, userInfo: nil, deliverImmediately: true)
+				self.hideStatusMenu = hideStatusMenu
+			}
+		}
+		
 		if !SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", true) {
-			print("Failed to launch HelperApp")
+			print("Failed to enable HelperApp as login item")
 		}
 	}
+	
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
 		serverManager.refreshServerStatuses()
@@ -60,11 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				exit(1)
 			}
 		}
-	}
-	
-	
-	@IBAction func updateStatusItem(_ sender: AnyObject?) {
-		DistributedNotificationCenter.default().postNotificationName(StatusItemDidChangeNotificationName, object: nil, userInfo: nil, deliverImmediately: true)
 	}
 	
 }

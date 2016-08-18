@@ -35,7 +35,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 				}
 				self.serverArrayController.remove(nil)
 				self.serverArrayController.rearrangeObjects()
-				NotificationCenter.default().post(name: Server.ChangeNotificationName, object: nil)
+				NotificationCenter.default().post(name: Server.changedNotification, object: nil)
 			}
 		}
 	}
@@ -50,7 +50,11 @@ class ServerTableCellView: NSTableCellView {
 	
 	
 	override func awakeFromNib() {
-		self.addObserver(self, forKeyPath: "self.objectValue.running", options: [.new], context: nil)
+		self.addObserver(self, forKeyPath: "objectValue.running", options: [.new], context: nil)
+	}
+	
+	deinit {
+		self.removeObserver(self, forKeyPath: "objectValue.running")
 	}
 	
 	
@@ -58,7 +62,7 @@ class ServerTableCellView: NSTableCellView {
 		guard let keyPath = keyPath else { return }
 		
 		switch keyPath {
-		case "self.objectValue.running":
+		case "objectValue.running":
 			let imgName = (self.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
 			self.image = NSImage(imageLiteralResourceName: imgName)
 		default:

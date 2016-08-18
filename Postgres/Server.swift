@@ -12,7 +12,7 @@ import Cocoa
 
 class Server: NSObject, NSCoding {
 	
-	static let ChangeNotificationName = NSNotification.Name("ServerDidChange")
+	static let changedNotification = NSNotification.Name("ServerDidChange")
 	
 	enum ServerStatus {
 		case NoBinaries
@@ -34,20 +34,20 @@ class Server: NSObject, NSCoding {
 	
 	dynamic var name: String = "" {
 		didSet {
-			NotificationCenter.default().post(name: Server.ChangeNotificationName, object: self)
+			NotificationCenter.default().post(name: Server.changedNotification, object: self)
 		}
 	}
 	dynamic var version: String = ""
 	dynamic var port: UInt = 0 {
 		didSet {
-			NotificationCenter.default().post(name: Server.ChangeNotificationName, object: self)
+			NotificationCenter.default().post(name: Server.changedNotification, object: self)
 		}
 	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var startAtLogin: Bool = false {
 		didSet {
-			NotificationCenter.default().post(name: Server.ChangeNotificationName, object: self)
+			NotificationCenter.default().post(name: Server.changedNotification, object: self)
 		}
 	}
 	

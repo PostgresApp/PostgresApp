@@ -76,7 +76,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
-		NotificationCenter.default().post(name: Server.ChangeNotificationName, object: nil)
+		NotificationCenter.default().post(name: Server.changedNotification, object: nil)
 		
 		self.dismiss(nil)
 	}

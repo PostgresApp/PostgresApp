@@ -8,4 +8,4 @@
 
 import Foundation
 
-let StatusItemDidChangeNotificationName = NSNotification.Name("com.posgresapp.Postgres.StatusItemDidChange")
+let HideStatusMenuChangedNotification = NSNotification.Name("com.posgresapp.Postgres.HideStatusMenuChangedNotification")

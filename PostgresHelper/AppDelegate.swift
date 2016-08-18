@@ -28,10 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	@IBOutlet weak var statusMenu: NSMenu!
 	
-	
-	func applicationWillFinishLaunching(_ notification: Notification) {
-		NSBeep()
-	}
+	let serverManager = ServerManager.shared
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		templateOffImage = NSImage(named: "statusicon-off")
@@ -44,28 +41,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 			self.templateOnImage.isTemplate = self.isDarkMode
 		}
 		
-		self.updateStatusItem()
-		
-		let serverManager = ServerManager()
-		serverManager.loadServers()
-		serverManager.startServers()
-		
-		DistributedNotificationCenter.default().addObserver(forName: StatusItemDidChangeNotificationName, object: nil, queue: OperationQueue.main()) { _ in
+		DistributedNotificationCenter.default().addObserver(forName: HideStatusMenuChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.updateStatusItem()
 		}
+		
+		updateStatusItem()
+		
+		serverManager.loadServers()
+		serverManager.startServers()
 	}
 	
 	
 	private func updateStatusItem() {
-		guard let showStatusItem = UserDefaults.mainDefaults()?.bool(forKey: "ShowStatusItem") else { return }
-		if showStatusItem {
+		guard let hideStatusMenu = UserDefaults.shared()?.bool(forKey: "HideStatusMenu") else { return }
+		if hideStatusMenu {
+			self.statusItem = nil
+		} else {
 			self.statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
 			self.statusItem.highlightMode = true
 			self.statusItem.menu = statusMenu
 			self.statusItem.image = templateOffImage
 			self.statusItem.alternateImage = templateOnImage
-		} else {
-			self.statusItem = nil
 		}
 	}
 	
@@ -73,7 +69,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	func menuNeedsUpdate(_ menu: NSMenu) {
 		guard menu == statusMenu else { return }
 		
-		let serverManager = ServerManager()
 		serverManager.loadServers()
 		serverManager.refreshServerStatuses()
 		
