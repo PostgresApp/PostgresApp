@@ -15,7 +15,6 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBOutlet var serverArrayController: NSArrayController!
 	@IBOutlet var databaseArrayController: NSArrayController!
 	@IBOutlet var databaseCollectionView: NSCollectionView!
-	@IBOutlet var toggleSidebarButton: NSButton!
 	
 	private var settingsWindowControllers: [SettingsWindowController] = []
 	
