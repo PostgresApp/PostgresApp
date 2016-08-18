@@ -6,18 +6,15 @@
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class MainWindowModel: NSObject {
 	dynamic var serverManager = ServerManager.shared
 	dynamic var selectedServerIndices = IndexSet()
 	dynamic var sidebarVisible = false
-	dynamic var showMenuItem = false {
-		didSet {
-			print("showMenuItem changed to \(showMenuItem)")
-		}
-	}
 }
+
+
 
 protocol MainWindowModelConsumer {
 	var mainWindowModel: MainWindowModel! { get set }

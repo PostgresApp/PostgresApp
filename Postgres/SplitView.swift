@@ -8,50 +8,39 @@
 
 import Cocoa
 
-class SplitViewController: NSSplitViewController {
+class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	
+	dynamic var mainWindowModel: MainWindowModel!
 	@IBOutlet var sideBarItem: NSSplitViewItem!
 	@IBOutlet var mainViewItem: NSSplitViewItem!
 	
 	
-	@IBAction func toggleServerListView(_ sender: NSButton) {
-		if splitViewItems.contains(sideBarItem) {
-			removeSplitViewItem(sideBarItem)
-			var frm = self.view.window!.frame
-			frm.size.width -= sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			view.window?.setFrame(frm, display: false)
-			sender.image = NSImage(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
-		} else {
-			addSplitViewItem(sideBarItem)
-			var frm = self.view.window!.frame
-			frm.size.width += sideBarItem.viewController.view.frame.size.width + self.splitView.dividerThickness
-			view.window?.setFrame(frm, display: false)
-			sender.image = NSImage(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
+	override func awakeFromNib() {
+		self.addObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", options: [.new], context: nil)
+	}
+	
+	deinit {
+		self.removeObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", context: nil)
+	}
+	
+	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
+		switch keyPath {
+		case .some("mainWindowModel.sidebarVisible"):
+			updateServerListView()
+		default:
+			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 		}
-		self.invalidateRestorableState()
+		
 	}
 	
 	
-	override func encodeRestorableState(with coder: NSCoder) {
-		coder.encode(splitViewItems.contains(sideBarItem), forKey: "sideBarVisible")
-		super.encodeRestorableState(with: coder)
-	}
-	
-	override func restoreState(with coder: NSCoder) {
-		let sideBarVisible = coder.decodeBool(forKey: "sideBarVisible")
-		if splitViewItems.contains(sideBarItem) {
-			if !sideBarVisible {
-				removeSplitViewItem(sideBarItem)
-				(self.mainViewItem.viewController as? ServerViewController)?.toggleSidebarButton.image = NSImage(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
-				
-			}
-		} else {
-			if sideBarVisible {
-				addSplitViewItem(sideBarItem)
-				(self.mainViewItem.viewController as? ServerViewController)?.toggleSidebarButton.image = NSImage(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
-			}
+	private func updateServerListView() {
+		if mainWindowModel.sidebarVisible && !splitViewItems.contains(sideBarItem) {
+			self.addSplitViewItem(sideBarItem)
+			(sideBarItem.viewController as! SidebarController).mainWindowModel = self.mainWindowModel
+		} else if !mainWindowModel.sidebarVisible && splitViewItems.contains(sideBarItem) {
+			self.removeSplitViewItem(sideBarItem)
 		}
-		super.restoreState(with: coder)
 	}
 	
 }
