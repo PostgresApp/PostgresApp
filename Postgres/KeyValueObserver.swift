@@ -10,8 +10,11 @@ import Foundation
 
 class KeyValueObserver: NSObject {
 	
-	class func observe(_ object: NSObject, keyPath: String, options: NSKeyValueObservingOptions, callback: (() -> Void)) -> KeyValueObserver {
-		let observer = KeyValueObserver(object, keyPath, options, callback)
+	typealias KVOCallback = ([NSKeyValueChangeKey : AnyObject]?) -> Void
+	
+	
+	class func observe(_ object: NSObject, keyPath: String, options: NSKeyValueObservingOptions, callback: KVOCallback) -> KeyValueObserver {
+		let observer = KeyValueObserver(object, keyPath, callback)
 		object.addObserver(observer, forKeyPath: keyPath, options: options, context: nil)
 		return observer
 	}
@@ -19,13 +22,12 @@ class KeyValueObserver: NSObject {
 	
 	private let object: NSObject
 	private let keyPath: String
-	private let options: NSKeyValueObservingOptions
-	private let callback: () -> Void
+	private let callback: KVOCallback
 	
-	private init(_ object: NSObject, _ keyPath: String, _ options: NSKeyValueObservingOptions, _ callback: (() -> Void)) {
+	
+	private init(_ object: NSObject, _ keyPath: String, _ callback: KVOCallback) {
 		self.object = object
 		self.keyPath = keyPath
-		self.options = options
 		self.callback = callback
 	}
 	
@@ -35,8 +37,7 @@ class KeyValueObserver: NSObject {
 	
 	
 	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-		callback()
+		callback(change)
 	}
-	
 	
 }

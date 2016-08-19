@@ -51,7 +51,7 @@ class ServerTableCellView: NSTableCellView {
 	
 	
 	override func awakeFromNib() {
-		keyValueObserver = KeyValueObserver.observe(self, keyPath: "objectValue.running", options: .new) {
+		keyValueObserver = KeyValueObserver.observe(self, keyPath: "objectValue.running", options: .new) { _ in
 			let imgName = (self.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
 			self.image = NSImage(imageLiteralResourceName: imgName)
 		}
