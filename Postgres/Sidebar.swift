@@ -28,10 +28,10 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 		alert.informativeText = "Postgres.app will not delete the data directory."
 		alert.addButton(withTitle: "Remove Server")
 		alert.addButton(withTitle: "Cancel")
-		alert.beginSheetModal(for: self.view.window!) { (modalResponse) -> Void in
+		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSAlertFirstButtonReturn {
 				if let server = self.serverArrayController.selectedObjects.first as? Server {
-					server.stop(closure: { _ in })
+					server.stop { _ in }
 				}
 				self.serverArrayController.remove(nil)
 				self.serverArrayController.rearrangeObjects()
@@ -47,28 +47,14 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 class ServerTableCellView: NSTableCellView {
 	
 	dynamic private(set) var image: NSImage!
+	var keyValueObserver: KeyValueObserver!
 	
 	
 	override func awakeFromNib() {
-		self.addObserver(self, forKeyPath: "objectValue.running", options: [.new], context: nil)
-	}
-	
-	deinit {
-		self.removeObserver(self, forKeyPath: "objectValue.running")
-	}
-	
-	
-	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-		guard let keyPath = keyPath else { return }
-		
-		switch keyPath {
-		case "objectValue.running":
+		keyValueObserver = KeyValueObserver.observe(self, keyPath: "objectValue.running", options: .new) {
 			let imgName = (self.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
 			self.image = NSImage(imageLiteralResourceName: imgName)
-		default:
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 		}
-		
 	}
 	
 }

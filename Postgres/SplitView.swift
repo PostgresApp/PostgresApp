@@ -11,26 +11,17 @@ import Cocoa
 class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	
 	dynamic var mainWindowModel: MainWindowModel!
+	var modelObserver: KeyValueObserver!
+	
 	@IBOutlet var sideBarItem: NSSplitViewItem!
 	@IBOutlet var mainViewItem: NSSplitViewItem!
 	
 	
 	override func awakeFromNib() {
-		self.addObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", options: [.new], context: nil)
-	}
-	
-	deinit {
-		self.removeObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", context: nil)
-	}
-	
-	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-		switch keyPath {
-		case .some("mainWindowModel.sidebarVisible"):
-			updateServerListView()
-		default:
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+		modelObserver = KeyValueObserver.observe(mainWindowModel, keyPath: "sidebarVisible", options: .new) {
+			print("SplitViewController: model changed")
+			self.updateServerListView()
 		}
-		
 	}
 	
 	

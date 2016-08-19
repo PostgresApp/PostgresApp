@@ -24,41 +24,25 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		}
 	}
 	
+	var modelObserver: KeyValueObserver!
+	
 	
 	override func windowDidLoad() {
-		if let window = self.window {
-			window.titleVisibility = .hidden
-			window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
-			window.titlebarAppearsTransparent = true
-			window.isMovableByWindowBackground = true
-		}
+		guard let window = self.window else { return }
+		window.titleVisibility = .hidden
+		window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
+		window.titlebarAppearsTransparent = true
+		window.isMovableByWindowBackground = true
 		
 		mainWindowModel = MainWindowModel()
-		self.addObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", options: [.new], context: nil)
+		modelObserver = KeyValueObserver.observe(mainWindowModel, keyPath: "sidebarVisible", options: .new) {
+			print("MainWindowController: model changed")
+			self.invalidateRestorableState()
+		}
 		
 		mainWindowModel.sidebarVisible = mainWindowModel.serverManager.servers.count > 1
 		
 		super.windowDidLoad()
-	}
-	
-	
-	deinit {
-		self.removeObserver(self, forKeyPath: "mainWindowModel.sidebarVisible", context: nil)
-	}
-	
-	
-	func windowWillClose(_ notification: Notification) {
-		NSApp.terminate(nil)
-	}
-	
-	
-	override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-		switch keyPath {
-		case .some("mainWindowModel.sidebarVisible"):
-			self.invalidateRestorableState()
-		default:
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-		}
 	}
 	
 	
@@ -72,4 +56,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		super.restoreState(with: coder)
 	}
 	
+	
+	func windowWillClose(_ notification: Notification) {
+		NSApp.terminate(nil)
+	}
 }
