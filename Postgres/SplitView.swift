@@ -17,10 +17,13 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	@IBOutlet var mainViewItem: NSSplitViewItem!
 	
 	
-	override func awakeFromNib() {
-		modelObserver = KeyValueObserver.observe(mainWindowModel, keyPath: "sidebarVisible", options: .new) { _ in
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		modelObserver = self.observe("mainWindowModel.sidebarVisible", options: .initial) { [weak self] _ in
 			print("SplitViewController: model changed")
-			self.updateServerListView()
+			guard self?.mainWindowModel != nil else { return }
+			self?.updateServerListView()
 		}
 	}
 	

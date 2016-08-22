@@ -35,10 +35,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		window.isMovableByWindowBackground = true
 		
 		mainWindowModel = MainWindowModel()
-		modelObserver = KeyValueObserver.observe(mainWindowModel, keyPath: "sidebarVisible", options: .new) { _ in 
+		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
 			print("MainWindowController: model changed")
-			self.invalidateRestorableState()
+			self?.invalidateRestorableState()
 		}
+		
 		
 		mainWindowModel.sidebarVisible = mainWindowModel.serverManager.servers.count > 1
 		

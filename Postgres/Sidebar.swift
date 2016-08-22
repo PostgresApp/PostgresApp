@@ -30,7 +30,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSAlertFirstButtonReturn {
-				if let server = self.serverArrayController.selectedObjects.first as? Server {
+				if let server = self.mainWindowModel.firstSelectedServer {
 					server.stop { _ in }
 				}
 				self.serverArrayController.remove(nil)
@@ -51,9 +51,9 @@ class ServerTableCellView: NSTableCellView {
 	
 	
 	override func awakeFromNib() {
-		keyValueObserver = KeyValueObserver.observe(self, keyPath: "objectValue.running", options: .new) { _ in
-			let imgName = (self.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
-			self.image = NSImage(imageLiteralResourceName: imgName)
+		keyValueObserver = self.observe("objectValue.running", options: .initial) { [weak self] _ in
+			let imgName = (self?.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
+			self?.image = NSImage(imageLiteralResourceName: imgName)
 		}
 	}
 	
