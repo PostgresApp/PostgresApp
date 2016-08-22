@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		serverManager.loadServers()
 		if serverManager.servers.isEmpty {
-			serverManager.servers.append(Server(name: "Default Server"))
+			serverManager.servers.append(Server("Default Server"))
 			serverManager.saveServers()
 		}
 		
