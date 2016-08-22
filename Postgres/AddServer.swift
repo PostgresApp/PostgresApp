@@ -24,14 +24,14 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	override func viewDidLoad() {
 		loadVersions()
-		self.varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(self.version)")
+		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(self.version)")
 		
 		super.viewDidLoad()
 	}
 	
 	
 	@IBAction func versionChanged(_ sender: AnyObject?) {
-		self.varPath = self.varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: RegularExpression.escapedTemplate(for: self.version), options: .regularExpressionSearch)
+		varPath = varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: RegularExpression.escapedTemplate(for: version), options: .regularExpressionSearch)
 	}
 	
 	
@@ -69,7 +69,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 			}
 		}
 		
-		let server = Server(name: self.name, version: self.version, port: self.port, varPath: self.varPath)
+		let server = Server(name, version, port, varPath)
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
@@ -81,10 +81,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	private func loadVersions() {
 		let versionsPath = AppDelegate.PG_APP_PATH.appending("/Contents/Versions")
-		guard let dirEnum = FileManager().enumerator(at: URL(fileURLWithPath: versionsPath),
-			                                              includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue],
-			                                              options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]
-		) else { return }
+		guard let dirEnum = FileManager().enumerator(at: URL(fileURLWithPath: versionsPath), includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
 		while let url = dirEnum.nextObject() as? URL {
 			do {
 				let resourceValues = try url.resourceValues(forKeys: [.isDirectoryKey])
@@ -92,7 +89,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 			} catch { continue }
 			versions.append(url.lastPathComponent!)
 		}
-		self.selectedVersionIdx = versions.count-1
+		selectedVersionIdx = versions.count-1
 	}
 	
 }
