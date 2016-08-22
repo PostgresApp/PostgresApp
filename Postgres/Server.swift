@@ -76,7 +76,7 @@ class Server: NSObject, NSCoding {
 	private(set) var serverStatus: ServerStatus = .Unknown
 	
 	
-	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil) {
+	convenience init(_ name: String, _ version: String? = nil, _ port: UInt = 5432, _ varPath: String? = nil) {
 		self.init()
 		
 		self.name = name
