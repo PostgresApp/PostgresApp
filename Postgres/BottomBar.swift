@@ -8,22 +8,18 @@
 
 import Cocoa
 
-class BottomBarController: NSViewController, MainWindowModelConsumer {
+class BottomBarSplitViewController: NSSplitViewController {
 	
-	dynamic var mainWindowModel: MainWindowModel!
+	override func splitView(_ splitView: NSSplitView, effectiveRect proposedEffectiveRect: NSRect, forDrawnRect drawnRect: NSRect, ofDividerAt dividerIndex: Int) -> NSRect {
+		return NSZeroRect
+	}
 	
 }
 
 
 
-class SidebarButtonImageTransformer: ValueTransformer {
+class BottomBarController: NSViewController, MainWindowModelConsumer {
 	
-	override func transformedValue(_ value: AnyObject?) -> AnyObject? {
-		if value as? Bool == true {
-			return NSImage(imageLiteralResourceName: NSImageNameLeftFacingTriangleTemplate)
-		} else {
-			return NSImage(imageLiteralResourceName: NSImageNameRightFacingTriangleTemplate)
-		}
-	}
+	dynamic var mainWindowModel: MainWindowModel!
 	
 }
