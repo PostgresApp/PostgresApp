@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A286a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
@@ -901,21 +901,20 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="databaseArrayController" destination="lfI-VP-uU4" id="Grj-wL-Zdc"/>
                         <outlet property="databaseCollectionView" destination="nrL-ym-6WO" id="AkN-x7-p0O"/>
-                        <outlet property="serverArrayController" destination="n71-mI-16p" id="M90-Xj-V42"/>
                     </connections>
                 </viewController>
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="Postgres.Server" id="n71-mI-16p">
+                <arrayController objectClassName="Postgres.Server" id="n71-mI-16p" userLabel="Server Array Controller">
                     <connections>
                         <binding destination="Rgw-vS-n3O" name="selectionIndexes" keyPath="mainWindowModel.selectedServerIndices" id="ifh-vQ-QUP"/>
                         <binding destination="Rgw-vS-n3O" name="contentArray" keyPath="mainWindowModel.serverManager.servers" id="x47-sa-N48"/>
                     </connections>
                 </arrayController>
-                <arrayController objectClassName="Postgres.Database" id="lfI-VP-uU4">
+                <arrayController objectClassName="Postgres.Database" id="lfI-VP-uU4" userLabel="Database Array Controller">
                     <connections>
                         <binding destination="n71-mI-16p" name="contentArray" keyPath="selection.databases" id="nCG-FP-EvS"/>
+                        <binding destination="n71-mI-16p" name="selectionIndexes" keyPath="selection.selectedDatabaseIndices" id="M9a-TU-8ig"/>
                     </connections>
                 </arrayController>
             </objects>

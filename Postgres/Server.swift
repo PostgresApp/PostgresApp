@@ -66,6 +66,12 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var statusMessage: String = ""
 	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [Database] = []
+	dynamic var selectedDatabaseIndices = IndexSet()
+	
+	var firstSelectedDatabase: Database? {
+		guard let firstIndex = selectedDatabaseIndices.first else { return nil }
+		return databases[firstIndex]
+	}
 	
 	private(set) var serverStatus: ServerStatus = .Unknown
 	

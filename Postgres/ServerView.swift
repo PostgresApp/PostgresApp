@@ -12,8 +12,6 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	dynamic var mainWindowModel: MainWindowModel!
 	
-	@IBOutlet var serverArrayController: NSArrayController!
-	@IBOutlet var databaseArrayController: NSArrayController!
 	@IBOutlet var databaseCollectionView: NSCollectionView!
 	
 	private var settingsWindowControllers: [SettingsWindowController] = []
@@ -21,12 +19,12 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.databaseCollectionView.itemPrototype = self.storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
+		databaseCollectionView.itemPrototype = self.storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
 	}
 	
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController.selectedObjects.first as? Server else { return }
+		guard let server = mainWindowModel.firstSelectedServer else { return }
 		server.start { (actionStatus) in
 			if case let .Failure(error) = actionStatus {
 				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
@@ -36,17 +34,17 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	@IBAction func stopServer(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController.selectedObjects.first as? Server else { return }
+		guard let server = mainWindowModel.firstSelectedServer else { return }
 		server.stop { (actionStatus) in
 			if case let .Failure(error) = actionStatus {
-				self.presentError(error, modalFor: self.view.window!, delegate: self, didPresent: nil, contextInfo: nil)
+				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 			}
 		}
 	}
 	
 	
 	@IBAction func openServerSettings(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController.selectedObjects.first as? Server else { return }
+		guard let server = mainWindowModel.firstSelectedServer else { return }
 		
 		var oldController: NSWindowController?
 		
@@ -94,8 +92,8 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	@IBAction func openPsql(_ sender: AnyObject?) {
-		guard let server = self.serverArrayController.selectedObjects.first as? Server else { return }
-		guard let database = self.databaseArrayController.selectedObjects.first as? Database else { return }
+		guard let server = mainWindowModel.firstSelectedServer else { return }
+		guard let database = server.firstSelectedDatabase else { return }
 		
 		let psqlScript = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
 		
