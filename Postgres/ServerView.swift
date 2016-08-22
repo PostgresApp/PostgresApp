@@ -10,10 +10,9 @@ import Cocoa
 
 class ServerViewController: NSViewController, MainWindowModelConsumer {
 	
-	dynamic var mainWindowModel: MainWindowModel!
-	
 	@IBOutlet var databaseCollectionView: NSCollectionView!
 	
+	dynamic var mainWindowModel: MainWindowModel!
 	private var settingsWindowControllers: [SettingsWindowController] = []
 	
 	
@@ -48,7 +47,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		
 		var oldController: NSWindowController?
 		
-		for wc in self.settingsWindowControllers {
+		for wc in settingsWindowControllers {
 			if wc.server == server {
 				if wc.window!.isVisible {
 					wc.showWindow(nil)
@@ -61,7 +60,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		
 		if let windowController = (oldController ?? self.storyboard?.instantiateController(withIdentifier: "SettingsWindow")) as? SettingsWindowController {
 			windowController.server = server
-			self.settingsWindowControllers.append(windowController)
+			settingsWindowControllers.append(windowController)
 			
 			let newWindow = windowController.window!
 			var newWindowFrame = newWindow.frame
