@@ -13,8 +13,8 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	dynamic var mainWindowModel: MainWindowModel!
 	var modelObserver: KeyValueObserver!
 	
+	@IBOutlet var serverViewItem: NSSplitViewItem!
 	@IBOutlet var sideBarItem: NSSplitViewItem!
-	@IBOutlet var mainViewItem: NSSplitViewItem!
 	
 	
 	override func viewDidLoad() {
@@ -26,6 +26,9 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 			self?.updateServerListView()
 		}
 	}
+	
+	
+	
 	
 	
 	private func updateServerListView() {
