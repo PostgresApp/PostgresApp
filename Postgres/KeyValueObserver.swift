@@ -16,7 +16,7 @@ class KeyValueObserver: NSObject {
 	private let keyPath: String
 	private let callback: KVOCallback
 	
-	private init(_ object: NSObject, _ keyPath: String, _ callback: KVOCallback) {
+	init(_ object: NSObject, _ keyPath: String, _ callback: KVOCallback) {
 		self.object = object
 		self.keyPath = keyPath
 		self.callback = callback
