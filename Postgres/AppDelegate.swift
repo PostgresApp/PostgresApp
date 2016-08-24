@@ -40,12 +40,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		
 		NotificationCenter.default().addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main()) { _ in
 			let hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
-			if self.hideStatusMenu != hideStatusMenu {
+			if hideStatusMenu != self.hideStatusMenu {
 				DistributedNotificationCenter.default().postNotificationName(HideStatusMenuChangedNotification, object: nil, userInfo: nil, deliverImmediately: true)
 				self.hideStatusMenu = hideStatusMenu
 			}
 		}
 		
+		if LSRegisterURL(try! Bundle.main().bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresHelper.app"), true) != noErr {
+			print("Failed to register HelperApp url")
+		}
 		if !SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", true) {
 			print("Failed to enable HelperApp as login item")
 		}
@@ -57,24 +60,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	
+	@IBAction func showHelp(_ sender: AnyObject?) {
+		NSWorkspace.shared().open(URL(string: "http://postgresapp.com/documentation/")!)
+	}
+	
+	
 	private func checkApplicationPath() {
 		let actualPath = Bundle.main().bundlePath
 		let expectedPath = "/Applications/Postgres.app"
 		
 		if actualPath != expectedPath {
+			let alert = NSAlert()
 			
-			let wrapper = ASWrapper(fileName: "ASSubroutines")
-			do {
-				try wrapper.runSubroutine("moveToFolder", parameters: [actualPath, expectedPath])
-			} catch let error as NSError {
-				print(error)
-				let alert = NSAlert()
-				alert.messageText = "Could not move Postgres.app."
-				alert.informativeText = "Please move Postgres.app to the Applications folder manually."
-				alert.addButton(withTitle: "OK")
-				alert.runModal()
-				exit(1)
+			if !actualPath.hasSuffix("Postgres.app") {
+				alert.messageText = "Postgres.app has been renamed."
+				alert.informativeText = "Please set the name of the app to 'Postgres.app'."
+			} else {
+				alert.messageText = "Postgres.app must be inside your Applications folder."
+				alert.informativeText = "Please move Postgres.app to the Applications folder."
 			}
+			
+			alert.addButton(withTitle: "OK")
+			alert.runModal()
+			exit(1)
 		}
 	}
 	
