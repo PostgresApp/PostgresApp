@@ -12,8 +12,6 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 	
 	dynamic var mainWindowModel: MainWindowModel!
 	
-	@IBOutlet var serverArrayController: NSArrayController!
-	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
 		if var target = segue.destinationController as? MainWindowModelConsumer {
@@ -33,8 +31,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 				if let server = self.mainWindowModel.firstSelectedServer {
 					server.stop { _ in }
 				}
-				self.serverArrayController.remove(nil)
-				self.serverArrayController.rearrangeObjects()
+				self.mainWindowModel.removeSelectedServer()
 				NotificationCenter.default().post(name: Server.changedNotification, object: nil)
 			}
 		}
@@ -51,9 +48,16 @@ class ServerTableCellView: NSTableCellView {
 	
 	
 	override func awakeFromNib() {
-		keyValueObserver = self.observe("objectValue.running", options: .initial) { [weak self] _ in
-			let imgName = (self?.objectValue as? Server)?.running == true ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable
-			self?.image = NSImage(imageLiteralResourceName: imgName)
+		keyValueObserver = self.observe("objectValue.serverStatus", options: .initial) { [weak self] _ in
+			guard let server = self?.objectValue as? Server else { return }
+			switch server.serverStatus {
+			case .Unknown:
+				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+			case .Running:
+				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+			default:
+				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+			}
 		}
 	}
 	
