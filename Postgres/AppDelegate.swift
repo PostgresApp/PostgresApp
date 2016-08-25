@@ -24,16 +24,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		#if !DEBUG
 		checkApplicationPath()
 		#endif
+		
+		serverManager.loadServers()
+		serverManager.createDefaultServer()
+		serverManager.refreshServerStatuses()
 	}
 	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		serverManager.loadServers()
-		if serverManager.servers.isEmpty {
-			serverManager.servers.append(Server("Default Server"))
-			serverManager.saveServers()
-		}
-		
 		NotificationCenter.default().addObserver(forName: Server.changedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.serverManager.saveServers()
 		}
@@ -46,12 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 		
-		if LSRegisterURL(try! Bundle.main().bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresHelper.app"), true) != noErr {
-			print("Failed to register HelperApp url")
-		}
-		if !SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", true) {
-			print("Failed to enable HelperApp as login item")
-		}
+		enableHelperApp(false)
 	}
 	
 	
@@ -83,6 +76,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			alert.addButton(withTitle: "OK")
 			alert.runModal()
 			exit(1)
+		}
+	}
+	
+	
+	private func enableHelperApp(_ enabled: Bool) {
+		let helperAppURL = try! Bundle.main().bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresHelper.app")
+		if LSRegisterURL(helperAppURL, true) != noErr {
+			print("Failed to register HelperApp url")
+		}
+		if SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", enabled) == false {
+			print("Failed to enable HelperApp as login item")
 		}
 	}
 	
