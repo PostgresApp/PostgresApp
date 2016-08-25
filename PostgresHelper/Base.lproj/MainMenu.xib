@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A270f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A304a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
@@ -20,10 +20,10 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu id="bB6-p6-NEz">
             <items>
-                <menuItem title="Open Postgres.app" id="K4T-Wf-NTo">
+                <menuItem title="Open Postgres" id="K4T-Wf-NTo">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="openPostgresApp:" target="Voe-Tx-rLC" id="V2K-EA-fTM"/>
+                        <action selector="openPostgresApp:" target="Voe-Tx-rLC" id="fET-Ek-daY"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="8no-U0-Fdt"/>

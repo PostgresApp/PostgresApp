@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		return "/Applications/Postgres.app"
 	}
 	
+	let serverManager = ServerManager.shared
+	
 	let InterfaceStyle = "AppleInterfaceStyle"
 	let InterfaceStyleDark = "Dark"
 	let InterfaceThemeChangedNotification = "AppleInterfaceThemeChangedNotification" as NSNotification.Name
@@ -28,7 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	@IBOutlet weak var statusMenu: NSMenu!
 	
-	let serverManager = ServerManager.shared
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		templateOffImage = NSImage(named: "statusicon-off")
@@ -55,27 +56,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	private func updateStatusItem() {
 		guard let hideStatusMenu = UserDefaults.shared()?.bool(forKey: "HideStatusMenu") else { return }
 		if hideStatusMenu {
-			self.statusItem = nil
+			statusItem = nil
 		} else {
-			self.statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
-			self.statusItem.highlightMode = true
-			self.statusItem.menu = statusMenu
-			self.statusItem.image = templateOffImage
-			self.statusItem.alternateImage = templateOnImage
+			statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+			statusItem.highlightMode = true
+			statusItem.menu = statusMenu
+			statusItem.image = templateOffImage
+			statusItem.alternateImage = templateOnImage
 		}
 	}
 	
 	
 	func menuNeedsUpdate(_ menu: NSMenu) {
+		print("menu needs update")
 		guard menu == statusMenu else { return }
 		
 		serverManager.loadServers()
 		serverManager.refreshServerStatuses()
 		
-		for item in statusMenu.items {
-			if let view = item.view where view.isKind(of: MenuItemView.self) {
-				statusMenu.removeItem(item)
-			}
+		for item in statusMenu.items where item.view is MenuItemView {
+			statusMenu.removeItem(item)
 		}
 		
 		for server in serverManager.servers {
@@ -91,8 +91,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	@IBAction func openPostgresApp(_ sender: AnyObject?) {
-		NSWorkspace.shared().launchApplication(AppDelegate.PG_APP_PATH)
+		let postgresAppURL = try! Bundle.main().bundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+		if !NSWorkspace.shared().launchApplication(postgresAppURL.path!) {
+			let alert = NSAlert()
+			alert.messageText = "Could not launch Postgres.app"
+			alert.runModal()
+		}
 	}
+	
 	
 }
 
