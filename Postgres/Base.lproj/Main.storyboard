@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A304a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
@@ -590,7 +590,7 @@
                                     <items>
                                         <menuItem title="Postgres Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="showHelp:" target="Voe-Tx-rLC" id="TVS-vm-8ku"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -628,10 +628,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="178"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Bottom Bar Split View Controller-->
         <scene sceneID="VZ3-e5-TNn">
             <objects>
-                <splitViewController id="tLA-Sm-LiQ" sceneMemberID="viewController">
+                <splitViewController id="tLA-Sm-LiQ" customClass="BottomBarSplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem id="Cxu-av-mGO"/>
                         <splitViewItem holdingPriority="1000" id="oUf-AY-yEX"/>
@@ -658,11 +658,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-ZY-UDJ">
-                                <rect key="frame" x="18" y="3" width="214" height="25"/>
+                                <rect key="frame" x="18" y="3" width="188" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ike-zz-M38"/>
                                 </constraints>
-                                <buttonCell key="cell" type="check" title="Show Postgres.app in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cE4-84-unA">
+                                <buttonCell key="cell" type="check" title="Show Postgres in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cE4-84-unA">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -676,21 +676,16 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a5h-vw-DJV">
-                                <rect key="frame" x="388" y="-2" width="48" height="32"/>
+                                <rect key="frame" x="394" y="3" width="36" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4cj-fB-8tn"/>
                                     <constraint firstAttribute="width" constant="36" id="fUl-rm-eVA"/>
                                 </constraints>
-                                <buttonCell key="cell" type="push" bezelStyle="rounded" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7OQ-nq-m6h">
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="right-sidebar" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7OQ-nq-m6h">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="2dy-He-Bdq" name="image" keyPath="mainWindowModel.sidebarVisible" id="JI9-tU-Yo6">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">Postgres.SidebarButtonImageTransformer</string>
-                                        </dictionary>
-                                    </binding>
                                     <binding destination="2dy-He-Bdq" name="value" keyPath="mainWindowModel.sidebarVisible" id="jgJ-Z5-Vjm"/>
                                 </connections>
                             </button>
@@ -716,15 +711,18 @@
             <objects>
                 <splitViewController id="FdD-4s-wdj" customClass="SplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem id="5fB-Ui-Ylv" userLabel="Main View Item"/>
-                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="72Z-Aa-XTd"/>
+                        <splitViewItem id="5fB-Ui-Ylv" userLabel="Server View Item"/>
+                        <splitViewItem holdingPriority="251" id="72Z-Aa-XTd"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="9Ez-yc-oCz">
                         <rect key="frame" x="0.0" y="0.0" width="516" height="201"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="FdD-4s-wdj" id="7HP-dx-fVl"/>
+                        </connections>
                     </splitView>
                     <connections>
-                        <outlet property="mainViewItem" destination="5fB-Ui-Ylv" id="F4g-EO-9q3"/>
+                        <outlet property="serverViewItem" destination="5fB-Ui-Ylv" id="Fer-Ec-hKO"/>
                         <outlet property="sideBarItem" destination="72Z-Aa-XTd" id="0xa-Ll-V8H"/>
                         <segue destination="Rgw-vS-n3O" kind="relationship" relationship="splitItems" id="dFK-aU-PCU"/>
                         <segue destination="fKp-yy-u0S" kind="relationship" relationship="splitItems" id="BlM-hb-f1p"/>
@@ -750,7 +748,13 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.statusMessage" id="l9g-vO-6Yg"/>
+                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.statusMessage" id="OjH-JY-Nci">
+                                        <dictionary key="options">
+                                            <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </textField>
                             <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-xy-oRd">
@@ -822,7 +826,11 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.name" id="cjw-Q2-p4g"/>
+                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.name" id="kAZ-Sq-9e6">
+                                        <dictionary key="options">
+                                            <string key="NSNoSelectionPlaceholder">No server selected</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </textField>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
@@ -873,7 +881,13 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.statusMessageExtended" id="klQ-hY-ENF"/>
+                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.statusMessageExtended" id="BIT-UW-dEB">
+                                        <dictionary key="options">
+                                            <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </textField>
                         </subviews>
@@ -1223,23 +1237,23 @@
             <objects>
                 <viewController id="fKp-yy-u0S" userLabel="Sidebar Controller" customClass="SidebarController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Jbb-lb-c1Z">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
-                                <rect key="frame" x="0.0" y="61" width="160" height="339"/>
+                                <rect key="frame" x="0.0" y="33" width="150" height="367"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="dFK-VJ-sw2">
-                                    <rect key="frame" x="0.0" y="0.0" width="160" height="339"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="367"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Kht-WI-z50">
-                                            <rect key="frame" x="0.0" y="0.0" width="160" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="157" minWidth="40" maxWidth="1000" id="ENA-Ge-iUh">
+                                                <tableColumn width="147" minWidth="40" maxWidth="1000" id="ENA-Ge-iUh">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1253,7 +1267,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="nru-Bg-Wku" customClass="ServerTableCellView" customModule="Postgres" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="1" width="157" height="50"/>
+                                                            <rect key="frame" x="1" y="1" width="147" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="16" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="WEY-hy-uaL">
@@ -1309,9 +1323,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4tL-aA-EIb">
+                                <rect key="frame" x="0.0" y="30" width="150" height="5"/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <font key="titleFont" metaFont="system"/>
+                            </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2oV-nX-Naq">
-                                <rect key="frame" x="14" y="13" width="47" height="32"/>
-                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oHf-Qh-b0f">
+                                <rect key="frame" x="70" y="0.0" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="MaK-0O-woz"/>
+                                    <constraint firstAttribute="width" constant="32" id="N7c-E3-6KA"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon-remove" imagePosition="only" alignment="center" inset="2" id="oHf-Qh-b0f">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1321,8 +1345,12 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-Fg-SZa">
-                                <rect key="frame" x="61" y="13" width="47" height="32"/>
-                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8Nm-K3-zU0">
+                                <rect key="frame" x="110" y="0.0" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="4fX-Xi-XXj"/>
+                                    <constraint firstAttribute="height" constant="32" id="U2r-Us-E8R"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon-add" imagePosition="only" alignment="center" inset="2" id="8Nm-K3-zU0">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1334,22 +1362,23 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="0MA-ty-Dek"/>
-                            <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="2oV-nX-Naq" secondAttribute="trailing" constant="12" id="1Ah-W5-uq8"/>
-                            <constraint firstAttribute="bottom" secondItem="2oV-nX-Naq" secondAttribute="bottom" constant="20" id="6xp-kb-eaY"/>
-                            <constraint firstItem="lhI-Fg-SZa" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" constant="20" id="COb-eG-LMj"/>
+                            <constraint firstAttribute="bottom" secondItem="lhI-Fg-SZa" secondAttribute="bottom" id="39Y-3r-2b6"/>
+                            <constraint firstItem="lhI-Fg-SZa" firstAttribute="top" secondItem="4tL-aA-EIb" secondAttribute="bottom" id="3ZD-o4-183"/>
+                            <constraint firstAttribute="bottom" secondItem="2oV-nX-Naq" secondAttribute="bottom" id="9L2-c8-Sl9"/>
+                            <constraint firstItem="2oV-nX-Naq" firstAttribute="top" secondItem="4tL-aA-EIb" secondAttribute="bottom" id="F91-36-QzF"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="Has-5z-2v7"/>
-                            <constraint firstAttribute="bottom" secondItem="lhI-Fg-SZa" secondAttribute="bottom" constant="20" id="MPl-4m-RAa"/>
-                            <constraint firstItem="2oV-nX-Naq" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" constant="20" id="MiK-Vj-BXg"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="Mq2-yO-CMl"/>
+                            <constraint firstAttribute="trailing" secondItem="lhI-Fg-SZa" secondAttribute="trailing" constant="8" id="NWe-KV-cZK"/>
+                            <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="2oV-nX-Naq" secondAttribute="trailing" constant="8" id="UWa-4c-whE"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="dxx-TZ-TUu"/>
+                            <constraint firstAttribute="bottom" secondItem="2oV-nX-Naq" secondAttribute="bottom" id="geG-ko-mqp"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="hbg-rI-crw"/>
+                            <constraint firstAttribute="trailing" secondItem="4tL-aA-EIb" secondAttribute="trailing" id="il2-gt-leA"/>
+                            <constraint firstItem="4tL-aA-EIb" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" id="pL5-UP-oz5"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="uX4-fq-6xw"/>
-                            <constraint firstItem="2oV-nX-Naq" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" constant="20" id="znM-0n-kej"/>
+                            <constraint firstItem="4tL-aA-EIb" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="xnY-Ik-rgC"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="serverArrayController" destination="Dsw-zw-YD1" id="WXj-dx-iS3"/>
-                    </connections>
                 </viewController>
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Postgres.Server" id="Dsw-zw-YD1">
@@ -1558,8 +1587,9 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
+        <image name="icon-add" width="32" height="32"/>
+        <image name="icon-remove" width="32" height="32"/>
+        <image name="right-sidebar" width="18" height="14"/>
     </resources>
 </document>
