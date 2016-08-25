@@ -10,7 +10,8 @@ import Cocoa
 
 class Server: NSObject, NSCoding {
 	
-	static let changedNotification = NSNotification.Name("ServerDidChange")
+	static let propertyChangedNotification = NSNotification.Name("ServerPropertyDidChange")
+	static let statusChangedNotification = NSNotification.Name("ServerStatusDidChange")
 	
 	@objc enum ServerStatus: Int {
 		case NoBinaries
@@ -32,20 +33,20 @@ class Server: NSObject, NSCoding {
 	
 	dynamic var name: String = "" {
 		didSet {
-			NotificationCenter.default().post(name: Server.changedNotification, object: self)
+			NotificationCenter.default().post(name: Server.propertyChangedNotification, object: self)
 		}
 	}
 	dynamic var version: String = ""
 	dynamic var port: UInt = 0 {
 		didSet {
-			NotificationCenter.default().post(name: Server.changedNotification, object: self)
+			NotificationCenter.default().post(name: Server.propertyChangedNotification, object: self)
 		}
 	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var startAtLogin: Bool = false {
 		didSet {
-			NotificationCenter.default().post(name: Server.changedNotification, object: self)
+			NotificationCenter.default().post(name: Server.propertyChangedNotification, object: self)
 		}
 	}
 	dynamic var configFilePath: String {
