@@ -51,7 +51,17 @@ class ServerManager: NSObject {
 		} catch {}
 	}
 	
+	
+	func createDefaultServer() {
+		if servers.isEmpty {
+			servers.append(Server("Postgres"))
+			saveServers()
+		}
+	}
+	
 }
+
+
 
 extension UserDefaults {
 	static func shared() -> UserDefaults? {
