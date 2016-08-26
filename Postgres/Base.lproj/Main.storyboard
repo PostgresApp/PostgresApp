@@ -1274,7 +1274,7 @@ IA
                                                                     <rect key="frame" x="3" y="15" width="16" height="16"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="eee-nH-1JR"/>
                                                                     <connections>
-                                                                        <binding destination="nru-Bg-Wku" name="value" keyPath="image" id="86h-Iz-zqU"/>
+                                                                        <binding destination="nru-Bg-Wku" name="value" keyPath="statusImage" id="rhf-Ys-G2i"/>
                                                                     </connections>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bc6-Nx-1b5">

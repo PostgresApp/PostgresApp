@@ -43,7 +43,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 
 class ServerTableCellView: NSTableCellView {
 	
-	dynamic private(set) var image: NSImage!
+	dynamic private(set) var statusImage: NSImage!
 	var keyValueObserver: KeyValueObserver!
 	
 	
@@ -52,11 +52,11 @@ class ServerTableCellView: NSTableCellView {
 			guard let server = self?.objectValue as? Server else { return }
 			switch server.serverStatus {
 			case .Unknown:
-				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+				self?.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
 			case .Running:
-				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+				self?.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
 			default:
-				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+				self?.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
 			}
 		}
 	}
