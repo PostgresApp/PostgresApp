@@ -10,8 +10,11 @@ import Cocoa
 
 class Server: NSObject, NSCoding {
 	
-	static let propertyChangedNotification = NSNotification.Name("ServerPropertyDidChange")
-	static let statusChangedNotification = NSNotification.Name("ServerStatusDidChange")
+	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
+	
+	static let PropertyChangedNotification = NSNotification.Name("Server.PropertyChangedNotification")
+	static let StatusChangedNotification = NSNotification.Name("Server.StatusChangedNotification")
+	
 	
 	@objc enum ServerStatus: Int {
 		case NoBinaries
@@ -33,20 +36,20 @@ class Server: NSObject, NSCoding {
 	
 	dynamic var name: String = "" {
 		didSet {
-			NotificationCenter.default().post(name: Server.propertyChangedNotification, object: self)
+			NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
 	dynamic var version: String = ""
 	dynamic var port: UInt = 0 {
 		didSet {
-			NotificationCenter.default().post(name: Server.propertyChangedNotification, object: self)
+			NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var startAtLogin: Bool = false {
 		didSet {
-			NotificationCenter.default().post(name: Server.propertyChangedNotification, object: self)
+			NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
 	dynamic var configFilePath: String {
@@ -79,13 +82,8 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version ?? Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as! String
 		self.port = port
-		self.binPath = AppDelegate.PG_APP_PATH.appendingFormat("/Contents/Versions/%@/bin", self.version)
-		self.varPath = varPath ?? ""
-		
-		if self.varPath == "" {
-			let path = FileManager().applicationSupportDirectoryPath()
-			self.varPath = path.appending("/var-\(self.version)")
-		}
+		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", self.version)
+		self.varPath = varPath ?? FileManager().applicationSupportDirectoryPath().appendingFormat("/var-%@", self.version)
 		
 		updateServerStatus()
 		
@@ -104,7 +102,7 @@ class Server: NSObject, NSCoding {
 		self.name = name
 		self.version = version
 		self.port = port
-		self.binPath = AppDelegate.PG_APP_PATH.appendingFormat("/Contents/Versions/%@/bin", version)
+		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", version)
 		self.varPath = varPath
 		self.startAtLogin = startAtLogin
 	}

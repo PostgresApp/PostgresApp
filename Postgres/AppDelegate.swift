@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		NotificationCenter.default().addObserver(forName: Server.propertyChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
+		NotificationCenter.default().addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.serverManager.saveServers()
 		}
 		
@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 		
-		DistributedNotificationCenter.default().addObserver(forName: Server.statusChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
+		DistributedNotificationCenter.default().addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
 			self.serverManager.refreshServerStatuses()
 		}
 		

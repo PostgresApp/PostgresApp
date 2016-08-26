@@ -73,21 +73,20 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
-		NotificationCenter.default().post(name: Server.propertyChangedNotification, object: nil)
+		NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: nil)
 		
 		self.dismiss(nil)
 	}
 	
 	
 	private func loadVersions() {
-		let versionsPath = AppDelegate.PG_APP_PATH.appending("/Contents/Versions")
-		guard let dirEnum = FileManager().enumerator(at: URL(fileURLWithPath: versionsPath), includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
-		while let url = dirEnum.nextObject() as? URL {
+		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
+		while let itemURL = versionsPathEnum.nextObject() as? URL {
 			do {
-				let resourceValues = try url.resourceValues(forKeys: [.isDirectoryKey])
+				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
 				guard resourceValues.isDirectory == true else { continue }
 			} catch { continue }
-			versions.append(url.lastPathComponent!)
+			versions.append(itemURL.lastPathComponent!)
 		}
 		selectedVersionIdx = versions.count-1
 	}

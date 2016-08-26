@@ -32,7 +32,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 					server.stop { _ in }
 				}
 				self.mainWindowModel.removeSelectedServer()
-				NotificationCenter.default().post(name: Server.propertyChangedNotification, object: nil)
+				NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: nil)
 			}
 		}
 	}
