@@ -28,9 +28,6 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	}
 	
 	
-	
-	
-	
 	private func updateServerListView() {
 		if mainWindowModel.sidebarVisible && !splitViewItems.contains(sideBarItem) {
 			self.addSplitViewItem(sideBarItem)
