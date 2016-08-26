@@ -68,7 +68,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	func menuNeedsUpdate(_ menu: NSMenu) {
-		print("menu needs update")
 		guard menu == statusMenu else { return }
 		
 		serverManager.loadServers()
