@@ -32,10 +32,10 @@ class MenuItemViewController: NSViewController {
 				this.statusIcon = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
 				this.actionButtonTitle = "Start"
 			case .Running:
-				this.statusIcon = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+				this.statusIcon = NSImage(named: "icon-running")
 				this.actionButtonTitle = "Stop"
 			default:
-				this.statusIcon = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+				this.statusIcon = NSImage(named: "icon-stopped")
 				this.actionButtonTitle = "Start"
 			}
 		}
