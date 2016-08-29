@@ -11,6 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
+	let serverManager = ServerManager.shared
+	
 	let InterfaceStyle = "AppleInterfaceStyle"
 	let InterfaceStyleDark = "Dark"
 	let InterfaceThemeChangedNotification = "AppleInterfaceThemeChangedNotification" as NSNotification.Name
@@ -22,21 +24,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		return (UserDefaults.standard().object(forKey: InterfaceStyle) as? String) == InterfaceStyleDark
 	}
 	
-	@IBOutlet weak var statusMenu: NSMenu!
-	
-	let serverManager = ServerManager.shared
+	@IBOutlet var statusMenu: NSMenu!
 	
 	
-	func applicationDidFinishLaunching(_ notification: Notification) {
+	func applicationWillFinishLaunching(_ notification: Notification) {
 		serverManager.loadServers()
 		serverManager.startServers()
-		
-		templateOffImage.isTemplate = isDarkMode
-		templateOnImage.isTemplate = isDarkMode
-		
+	}
+
+	func applicationDidFinishLaunching(_ notification: Notification) {
 		DistributedNotificationCenter.default().addObserver(forName: InterfaceThemeChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
-			self.templateOffImage.isTemplate = self.isDarkMode
-			self.templateOnImage.isTemplate = self.isDarkMode
+			self.updateStatusItem()
 		}
 		
 		DistributedNotificationCenter.default().addObserver(forName: HideStatusMenuChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
@@ -52,9 +50,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		if hideStatusMenu {
 			statusItem = nil
 		} else {
-			statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
-			statusItem!.highlightMode = true
-			statusItem!.menu = statusMenu
+			if statusItem == nil {
+				statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+				statusItem!.highlightMode = true
+				statusItem!.menu = statusMenu
+			}
+			templateOffImage.isTemplate = isDarkMode
+			templateOnImage.isTemplate = isDarkMode
 			statusItem!.image = templateOffImage
 			statusItem!.alternateImage = templateOnImage
 		}
@@ -90,7 +92,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 			alert.runModal()
 		}
 	}
-	
 	
 }
 
