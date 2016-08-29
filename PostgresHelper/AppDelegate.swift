@@ -11,29 +11,26 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
-	static var PG_APP_PATH: String {
-		return "/Applications/Postgres.app"
-	}
-	
-	let serverManager = ServerManager.shared
-	
 	let InterfaceStyle = "AppleInterfaceStyle"
 	let InterfaceStyleDark = "Dark"
 	let InterfaceThemeChangedNotification = "AppleInterfaceThemeChangedNotification" as NSNotification.Name
 	
-	var statusItem: NSStatusItem!
-	var templateOffImage: NSImage!
-	var templateOnImage: NSImage!
+	var statusItem: NSStatusItem?
+	var templateOffImage = NSImage(named: "statusicon-off")!
+	var templateOnImage = NSImage(named: "statusicon-on")!
 	var isDarkMode: Bool {
 		return (UserDefaults.standard().object(forKey: InterfaceStyle) as? String) == InterfaceStyleDark
 	}
 	
 	@IBOutlet weak var statusMenu: NSMenu!
 	
+	let serverManager = ServerManager.shared
+	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		templateOffImage = NSImage(named: "statusicon-off")
-		templateOnImage = NSImage(named: "statusicon-on")
+		serverManager.loadServers()
+		serverManager.startServers()
+		
 		templateOffImage.isTemplate = isDarkMode
 		templateOnImage.isTemplate = isDarkMode
 		
@@ -47,9 +44,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		}
 		
 		updateStatusItem()
-		
-		serverManager.loadServers()
-		serverManager.startServers()
 	}
 	
 	
@@ -59,10 +53,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 			statusItem = nil
 		} else {
 			statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
-			statusItem.highlightMode = true
-			statusItem.menu = statusMenu
-			statusItem.image = templateOffImage
-			statusItem.alternateImage = templateOnImage
+			statusItem!.highlightMode = true
+			statusItem!.menu = statusMenu
+			statusItem!.image = templateOffImage
+			statusItem!.alternateImage = templateOnImage
 		}
 	}
 	
@@ -78,8 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		}
 		
 		for server in serverManager.servers {
-			guard let menuItemViewController = MenuItemViewController(nibName: "MenuItemView", bundle: nil) else { return }
-			menuItemViewController.server = server
+			guard let menuItemViewController = MenuItemViewController(server) else { return }
 			
 			let menuItem = NSMenuItem()
 			menuItem.view = menuItemViewController.view

@@ -10,54 +10,55 @@ import Cocoa
 
 class MenuItemViewController: NSViewController {
 	
-	dynamic var server: Server?
-	dynamic private(set) var image: NSImage!
-	dynamic private(set) var showErrorImage = false
+	dynamic var server: Server!
+	dynamic private(set) var actionButtonTitle: String?
+	dynamic private(set) var statusIcon: NSImage?
+	dynamic private(set) var errorIconVisible = false
 	dynamic private(set) var errorTooltip = ""
 	var keyValueObserver: KeyValueObserver!
 	
 	
+	convenience init?(_ server: Server) {
+		self.init(nibName: "MenuItemView", bundle: nil)
+		self.server = server
+	}
+	
+	
 	override func awakeFromNib() {
 		keyValueObserver = self.observe("server.serverStatus", options: .initial) { [weak self] _ in
-			guard let server = self?.server else { return }
-			switch server.serverStatus {
+			guard let this = self else { return }
+			switch this.server.serverStatus {
 			case .Unknown:
-				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+				this.statusIcon = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+				this.actionButtonTitle = "Start"
 			case .Running:
-				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+				this.statusIcon = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+				this.actionButtonTitle = "Stop"
 			default:
-				self?.image = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+				this.statusIcon = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+				this.actionButtonTitle = "Start"
 			}
 		}
 	}
 	
 	
-	@IBAction func startServer(_ sender: AnyObject?) {
-		guard let server = self.server else { return }
-		server.start { (actionStatus) in
-			DistributedNotificationCenter.default().post(name: Server.statusChangedNotification, object: nil)
-			if case let .Failure(error) = actionStatus {
-				self.showErrorImage = true
-				self.errorTooltip = error.localizedDescription
-			} else {
-				self.showErrorImage = false
-				self.errorTooltip = ""
-			}
+	@IBAction func serverAction(_ sender: AnyObject?) {
+		if !server.running {
+			server.start(closure: serverActionCompleted)
+		} else {
+			server.stop(closure: serverActionCompleted)
 		}
 	}
 	
 	
-	@IBAction func stopServer(_ sender: AnyObject?) {
-		guard let server = self.server else { return }
-		server.stop { (actionStatus) in
-			DistributedNotificationCenter.default().post(name: Server.statusChangedNotification, object: nil)
-			if case let .Failure(error) = actionStatus {
-				self.showErrorImage = true
-				self.errorTooltip = error.localizedDescription
-			} else {
-				self.showErrorImage = false
-				self.errorTooltip = ""
-			}
+	private func serverActionCompleted(actionStatus: Server.ActionStatus) {
+		DistributedNotificationCenter.default().post(name: Server.StatusChangedNotification, object: nil)
+		if case let .Failure(error) = actionStatus {
+			self.errorIconVisible = true
+			self.errorTooltip = error.localizedDescription
+		} else {
+			self.errorIconVisible = false
+			self.errorTooltip = ""
 		}
 	}
 	
