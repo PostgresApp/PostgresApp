@@ -54,7 +54,8 @@ class ServerManager: NSObject {
 	
 	func createDefaultServer() {
 		if servers.isEmpty {
-			servers.append(Server("Postgres"))
+			let version = Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as! String
+			servers.append(Server("PostgreSQL \(version)"))
 			saveServers()
 		}
 	}
