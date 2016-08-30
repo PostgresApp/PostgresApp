@@ -12,10 +12,6 @@ import ServiceManagement
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 	
-	static var PG_APP_PATH: String {
-		return "/Applications/Postgres.app"
-	}
-	
 	let serverManager: ServerManager = ServerManager.shared
 	var hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
 	
