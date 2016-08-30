@@ -44,7 +44,7 @@ class ASWrapper: NSObject {
 		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
 		if let errorDict = errorDict {
-			throw NSError(domain: "com.postgresapp.Postgres.ASWrapper", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
+			throw NSError(domain: "com.postgresapp.Postgres2.ASWrapper", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
 		}
 	}
 }

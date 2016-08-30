@@ -66,10 +66,10 @@ class ServerManager: NSObject {
 
 extension UserDefaults {
 	static func shared() -> UserDefaults? {
-		if Bundle.main().bundleIdentifier == "com.postgresapp.Postgres" {
+		if Bundle.main().bundleIdentifier == "com.postgresapp.Postgres2" {
 			return UserDefaults.standard()
 		} else {
-			return UserDefaults(suiteName: "com.postgresapp.Postgres")
+			return UserDefaults(suiteName: "com.postgresapp.Postgres2")
 		}
 	}
 }

@@ -34,7 +34,7 @@ class SettingsViewController: NSViewController {
 				NSLocalizedDescriptionKey: "Folder not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.missing-folder", code: 0, userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.missing-folder", code: 0, userInfo: userInfo)
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
@@ -46,7 +46,7 @@ class SettingsViewController: NSViewController {
 				NSLocalizedDescriptionKey: "File not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.missing-file", code: 0, userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.missing-file", code: 0, userInfo: userInfo)
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
@@ -58,7 +58,7 @@ class SettingsViewController: NSViewController {
 				NSLocalizedDescriptionKey: "File not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.missing-file", code: 0, userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.missing-file", code: 0, userInfo: userInfo)
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
@@ -70,7 +70,7 @@ class SettingsViewController: NSViewController {
 				NSLocalizedDescriptionKey: "File not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.missing-file", code: 0, userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.missing-file", code: 0, userInfo: userInfo)
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}

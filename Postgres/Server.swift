@@ -136,7 +136,7 @@ class Server: NSObject, NSCoding {
 					NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
 				]
-				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
@@ -146,7 +146,7 @@ class Server: NSObject, NSCoding {
 					NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
 				]
-				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
@@ -155,7 +155,7 @@ class Server: NSObject, NSCoding {
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("There is already a PostgreSQL server running in this data directory", comment: ""),
 				]
-				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
@@ -165,7 +165,7 @@ class Server: NSObject, NSCoding {
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
 				]
-				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
@@ -219,7 +219,7 @@ class Server: NSObject, NSCoding {
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an old postmaster.pid file", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not runnnig anymore, otherwise your data directory will be corrupted."
 				]
-				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
@@ -229,7 +229,7 @@ class Server: NSObject, NSCoding {
 					NSLocalizedDescriptionKey: NSLocalizedString("Unknown server status", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: ""
 				]
-				let error = NSError(domain: "com.postgresapp.Postgres.server-status", code: 0, userInfo: userInfo)
+				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
 				DispatchQueue.main.async {
 					closure(.Failure(error))
 				}
@@ -441,7 +441,7 @@ class Server: NSObject, NSCoding {
 					return true
 				}),
 				]
-			let error = NSError(domain: "com.postgresapp.Postgres.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
@@ -480,7 +480,7 @@ class Server: NSObject, NSCoding {
 					return true
 				})
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
@@ -516,7 +516,7 @@ class Server: NSObject, NSCoding {
 					return true
 				})
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.initdb", code: Int(task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.initdb", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
@@ -552,7 +552,7 @@ class Server: NSObject, NSCoding {
 					return true
 				})
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.createuser", code: Int(task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.createuser", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
@@ -586,7 +586,7 @@ class Server: NSObject, NSCoding {
 					return true
 				})
 			]
-			let error = NSError(domain: "com.postgresapp.Postgres.createdb", code: Int(task.terminationStatus), userInfo: userInfo)
+			let error = NSError(domain: "com.postgresapp.Postgres2.createdb", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
