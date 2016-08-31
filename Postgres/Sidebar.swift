@@ -49,14 +49,16 @@ class ServerTableCellView: NSTableCellView {
 	
 	override func awakeFromNib() {
 		keyValueObserver = self.observe("objectValue.serverStatus", options: .initial) { [weak self] _ in
-			guard let server = self?.objectValue as? Server else { return }
+			guard let this = self else { return }
+			guard let server = this.objectValue as? Server else { return }
+			
 			switch server.serverStatus {
 			case .Unknown:
-				self?.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
 			case .Running:
-				self?.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
 			default:
-				self?.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
 			}
 		}
 	}
