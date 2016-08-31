@@ -34,13 +34,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		window.titlebarAppearsTransparent = true
 		window.isMovableByWindowBackground = true
 		
-		mainWindowModel = MainWindowModel()
+		let model = MainWindowModel()
+		model.sidebarVisible = model.serverManager.servers.count > 1
+		mainWindowModel = model
+		
 		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
 			guard let this = self else { return }
 			this.invalidateRestorableState()
 		}
-		
-		mainWindowModel.sidebarVisible = mainWindowModel.serverManager.servers.count > 1
 		
 		super.windowDidLoad()
 	}
