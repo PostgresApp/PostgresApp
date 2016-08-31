@@ -214,6 +214,7 @@
 				83FB57161D1B05F000A903A3 /* Resources */,
 				8332859A1D5CBE88001EA003 /* CopyFiles */,
 				831C84AE1D771B6C00FA5F59 /* CopyFiles */,
+				36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */,
 			);
 			buildRules = (
 			);
@@ -304,6 +305,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy PostgreSQL Executables, Libraries, etc.";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "source \"${SRCROOT}\"/Postgres/CopyBinaries.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83FB57141D1B05F000A903A3 /* Sources */ = {
