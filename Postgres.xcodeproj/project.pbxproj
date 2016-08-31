@@ -12,8 +12,6 @@
 		830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* Sidebar.swift */; };
 		830D1A1E1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
 		830D1A1F1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
-		8320CCC01D2DBDCB001C931C /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
-		8320CCC11D2DBDF9001C931C /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
 		8332859B1D5CBEB3001EA003 /* PostgresHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FB572E1D1B060800A903A3 /* PostgresHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* ServerView.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
@@ -29,8 +27,6 @@
 		83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
 		83A8CE821D64DBA2005FF107 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8CE811D64DBA2005FF107 /* BottomBar.swift */; };
 		83BCCA031D5A18BF0064A69D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
-		83BCCA081D5A19210064A69D /* libpq.5.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */; };
-		83BCCA091D5A19250064A69D /* libpq.5.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */; };
 		83BCCA0A1D5A1A5D0064A69D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
 		83BCCA0B1D5A1AA00064A69D /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		83BCCA0C1D5A1D140064A69D /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
@@ -73,8 +69,6 @@
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		830B4B271D1C289A00F16762 /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Sidebar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedNotifications.swift; sourceTree = "<group>"; };
-		8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.9.dylib; path = ../../../../../Applications/Postgres.app/Contents/Versions/9.6/lib/libpq.5.9.dylib; sourceTree = "<group>"; };
-		8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpq.5.6.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libpq.5.6.tbd; sourceTree = DEVELOPER_DIR; };
 		8353FBDD1D1D57C8002F77E7 /* ServerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerView.swift; sourceTree = "<group>"; };
 		8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -110,8 +104,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8320CCC11D2DBDF9001C931C /* libpq.5.9.dylib in Frameworks */,
-				8320CCC01D2DBDCB001C931C /* libpq.5.6.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,8 +111,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83BCCA091D5A19250064A69D /* libpq.5.6.tbd in Frameworks */,
-				83BCCA081D5A19210064A69D /* libpq.5.9.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,8 +120,6 @@
 		836CC37F1D2D6A0D000D0C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8320CCBD1D2DBD5E001C931C /* libpq.5.9.dylib */,
-				8320CCBF1D2DBDCB001C931C /* libpq.5.6.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -411,9 +399,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LATEST_STABLE_PG_VERSION = 9.5;
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lpq";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -453,8 +443,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LATEST_STABLE_PG_VERSION = 9.5;
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-lpq";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
@@ -470,7 +462,6 @@
 				INFOPLIST_FILE = Postgres/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
@@ -489,7 +480,6 @@
 				INFOPLIST_FILE = Postgres/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
