@@ -1,10 +1,19 @@
-# Postgres.app
+# Postgres.app Version 2
 
-Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down.
+This is a complete rewrite of Postgres.app
+
+- Modern User Interface
+- Improved Error Messages & Status Reporting
+- Run Multiple Versions of PostgreSQL simultaneously
+- Written in Swift!
+
+If you are looking for the current/old version of Postgres.app, please switch to the pg9X branches!
+
+Most of this README is outdated and needs to be updated for the new version.
 
 ## Download
 
-The latest version is available from the [Postgres.app website](http://postgresapp.com/).
+You can download Postgres.app from the [Postgres.app website](http://postgresapp.com/).
 
 Older versions and pre-releases are available in the releases section on github.
 
@@ -19,6 +28,8 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 
 ## How To Build
+
+*Note: This section is outdated*
 
 If you want to tweak the GUI only, just make sure you have a compiled copy of Postgres.app in your applications folder.
 Open the XCode file and start hacking!
@@ -78,9 +89,7 @@ See [the documentation](http://postgresapp.com/documentation) for more info.
 
 If you find a bug, please [open an issue](https://github.com/PostgresApp/PostgresApp/issues).
 
-Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Craig Kerstiens](https://github.com/craigkerstiens).
-
-Postgres.app was created by [Mattt Thompson](https://github.com/mattt).
+Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Chris Pastl](https://github.com/chrispysoft).
 
 
 ## License
