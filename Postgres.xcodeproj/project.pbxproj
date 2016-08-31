@@ -543,6 +543,7 @@
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2Helper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresHelper/PostgresHelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -561,6 +562,7 @@
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2Helper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresHelper/PostgresHelper-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
