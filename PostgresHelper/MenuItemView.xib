@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A304a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -14,60 +13,88 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="MenuItemView" customModule="PostgresHelper" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="287" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="220" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <stackView distribution="equalSpacing" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RYL-rR-pt8">
-                    <rect key="frame" x="20" y="7" width="247" height="18"/>
+                <stackView distribution="equalSpacing" orientation="horizontal" alignment="centerY" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RYL-rR-pt8">
+                    <rect key="frame" x="20" y="7" width="180" height="19"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0QI-tI-P6b">
-                            <rect key="frame" x="0.0" y="2" width="14" height="14"/>
+                            <rect key="frame" x="0.0" y="1" width="16" height="16"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="14" id="Et1-h4-5pH"/>
-                                <constraint firstAttribute="height" constant="14" id="aS1-h8-RVo"/>
+                                <constraint firstAttribute="width" constant="16" id="Et1-h4-5pH"/>
+                                <constraint firstAttribute="height" constant="16" id="aS1-h8-RVo"/>
                             </constraints>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="OLg-DH-nX3"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="statusIcon" id="GuH-r1-1UR"/>
                             </connections>
                         </imageView>
-                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ENv-Ye-fU0">
-                            <rect key="frame" x="20" y="2" width="124" height="14"/>
-                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="&lt;serverName&gt;" id="tbS-lM-0dc">
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                            <connections>
-                                <binding destination="-2" name="value" keyPath="server.name" id="Nva-fG-rlb"/>
-                            </connections>
-                        </textField>
-                        <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="cfG-od-pB1">
-                            <rect key="frame" x="150" y="1" width="16" height="16"/>
-                            <connections>
-                                <binding destination="-2" name="hidden" keyPath="server.busy" id="Ceq-R1-zIs">
-                                    <dictionary key="options">
-                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                    </dictionary>
-                                </binding>
-                                <binding destination="-2" name="animate" keyPath="server.busy" id="ESL-SC-8GH"/>
-                            </connections>
-                        </progressIndicator>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Tt-ju-AYn">
-                            <rect key="frame" x="174" y="2" width="14" height="14"/>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="DNQ-DX-whb">
+                            <rect key="frame" x="20" y="0.0" width="49" height="19"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ENv-Ye-fU0">
+                                    <rect key="frame" x="-2" y="2" width="53" height="17"/>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="&lt;serverName&gt;" id="tbS-lM-0dc">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="-2" name="value" keyPath="server.name" id="Nva-fG-rlb"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="14" id="49l-ce-K0b"/>
-                                <constraint firstAttribute="width" constant="14" id="tHv-wa-EVP"/>
+                                <constraint firstItem="ENv-Ye-fU0" firstAttribute="leading" secondItem="DNQ-DX-whb" secondAttribute="leading" id="9di-Jp-amm"/>
+                                <constraint firstAttribute="trailing" secondItem="ENv-Ye-fU0" secondAttribute="trailing" id="PxO-E8-eEr"/>
+                                <constraint firstAttribute="bottom" secondItem="ENv-Ye-fU0" secondAttribute="bottom" constant="2" id="tcE-6k-U6E"/>
+                                <constraint firstItem="ENv-Ye-fU0" firstAttribute="top" secondItem="DNQ-DX-whb" secondAttribute="top" id="wFL-KH-Agp"/>
                             </constraints>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="icon-caution" id="mZ3-lL-m8r"/>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="UZ1-As-Ed3">
+                            <rect key="frame" x="73" y="1" width="24" height="16"/>
+                            <subviews>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Tt-ju-AYn">
+                                    <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="49l-ce-K0b"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="67j-ht-dLu"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="JYf-hZ-oSV"/>
+                                        <constraint firstAttribute="width" constant="16" id="tHv-wa-EVP"/>
+                                    </constraints>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="icon-caution" id="mZ3-lL-m8r"/>
+                                    <connections>
+                                        <binding destination="-2" name="hidden" keyPath="errorIconVisible" id="6oA-jK-xv5">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="toolTip" keyPath="errorTooltip" id="Y13-sa-yEW"/>
+                                        <binding destination="-2" name="hidden2" keyPath="server.busy" previousBinding="6oA-jK-xv5" id="MYo-Ge-BoF">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="2Tt-ju-AYn" secondAttribute="trailing" constant="8" id="2jA-Vh-3aj"/>
+                                <constraint firstItem="2Tt-ju-AYn" firstAttribute="top" secondItem="UZ1-As-Ed3" secondAttribute="top" id="SdJ-nJ-LyF"/>
+                                <constraint firstAttribute="bottom" secondItem="2Tt-ju-AYn" secondAttribute="bottom" id="i3X-dE-At8"/>
+                                <constraint firstItem="2Tt-ju-AYn" firstAttribute="leading" secondItem="UZ1-As-Ed3" secondAttribute="leading" id="pSE-cj-4Fy"/>
+                            </constraints>
                             <connections>
-                                <binding destination="-2" name="hidden" keyPath="errorIconVisible" id="6oA-jK-xv5">
+                                <binding destination="-2" name="hidden" keyPath="errorIconVisible" id="vd0-dm-lUs">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                     </dictionary>
                                 </binding>
-                                <binding destination="-2" name="toolTip" keyPath="errorTooltip" id="Y13-sa-yEW"/>
-                                <binding destination="-2" name="hidden2" keyPath="server.busy" previousBinding="6oA-jK-xv5" id="MYo-Ge-BoF">
+                                <binding destination="-2" name="hidden2" keyPath="server.busy" previousBinding="vd0-dm-lUs" id="e0o-Ns-GEg">
                                     <dictionary key="options">
                                         <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                         <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -76,9 +103,44 @@
                                     </dictionary>
                                 </binding>
                             </connections>
-                        </imageView>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="CX7-X5-24r">
+                            <rect key="frame" x="101" y="1" width="24" height="16"/>
+                            <subviews>
+                                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="cfG-od-pB1">
+                                    <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="16" id="Hjm-Ui-30E"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="fZU-cZ-qvP"/>
+                                        <constraint firstAttribute="height" constant="16" id="ihF-tp-Iyj"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="mDq-Gn-Bh2"/>
+                                    </constraints>
+                                    <connections>
+                                        <binding destination="-2" name="hidden" keyPath="server.busy" id="Ceq-R1-zIs">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="animate" keyPath="server.busy" id="ESL-SC-8GH"/>
+                                    </connections>
+                                </progressIndicator>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="cfG-od-pB1" firstAttribute="leading" secondItem="CX7-X5-24r" secondAttribute="leading" id="2WP-pf-0CP"/>
+                                <constraint firstAttribute="bottom" secondItem="cfG-od-pB1" secondAttribute="bottom" id="YtW-6c-IvG"/>
+                                <constraint firstItem="cfG-od-pB1" firstAttribute="top" secondItem="CX7-X5-24r" secondAttribute="top" id="dVE-wn-HxV"/>
+                                <constraint firstAttribute="trailing" secondItem="cfG-od-pB1" secondAttribute="trailing" constant="8" id="ib4-hL-jde"/>
+                            </constraints>
+                            <connections>
+                                <binding destination="-2" name="hidden" keyPath="server.busy" id="nNb-yP-eTf">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </customView>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aE4-CH-UqD">
-                            <rect key="frame" x="191" y="-6" width="61" height="28"/>
+                            <rect key="frame" x="124" y="-6" width="61" height="28"/>
                             <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vVa-lU-wYa">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="smallSystem"/>
@@ -95,7 +157,7 @@
                         </button>
                     </subviews>
                     <visibilityPriorities>
-                        <integer value="1000"/>
+                        <real value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
@@ -112,10 +174,10 @@
             </subviews>
             <constraints>
                 <constraint firstItem="RYL-rR-pt8" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="2eQ-i7-0MH"/>
-                <constraint firstItem="RYL-rR-pt8" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="ObH-Xy-TbC"/>
                 <constraint firstAttribute="trailing" secondItem="RYL-rR-pt8" secondAttribute="trailing" constant="20" symbolic="YES" id="RN4-fW-ZUT"/>
+                <constraint firstItem="RYL-rR-pt8" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="cpp-sU-6ce"/>
             </constraints>
-            <point key="canvasLocation" x="-269" y="-41"/>
+            <point key="canvasLocation" x="-456" y="-257"/>
         </customView>
     </objects>
     <resources>
