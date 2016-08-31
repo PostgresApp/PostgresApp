@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+      <item>
+        <title>Postgres 2.0.1</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>This is a test.</li>
+              <li>There is no update available.</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Wed, 31 Aug 2014 15:20:11 +0000</pubDate>
+        <enclosure 
+        	url="https://example.com" 
+        	sparkle:version="2.0.1" 
+        	length="123" 
+        	type="application/octet-stream"
+        	sparkle:dsaSignature="abc"
+        	/>
+      </item>
+  </channel>
+</rss>
