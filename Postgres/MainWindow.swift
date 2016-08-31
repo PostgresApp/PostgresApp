@@ -36,10 +36,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		
 		mainWindowModel = MainWindowModel()
 		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
-			print("MainWindowController: model changed")
-			self?.invalidateRestorableState()
+			guard let this = self else { return }
+			this.invalidateRestorableState()
 		}
-		
 		
 		mainWindowModel.sidebarVisible = mainWindowModel.serverManager.servers.count > 1
 		
