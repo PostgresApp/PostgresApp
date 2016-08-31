@@ -60,6 +60,15 @@ class ServerManager: NSObject {
 		}
 	}
 	
+	
+	func numberOfRunningServers() -> Int {
+		var runningServers = 0
+		for server in servers where server.running {
+			runningServers += 1
+		}
+		return runningServers
+	}
+	
 }
 
 
