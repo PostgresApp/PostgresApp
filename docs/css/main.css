@@ -1,0 +1,104 @@
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.container {
+	position: relative;
+}
+
+header {
+  margin-top: 25px;
+  text-align: center;
+}
+
+hgroup h1 {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+hgroup h2 {
+  border: none;
+  margin-top: 1em;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+hgroup h3 {
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 0.5em;
+}
+
+h2 {
+  border-bottom: 1px solid #ccc;
+  margin-top: 2em;
+  padding-bottom: 0.125em;
+}
+
+.share {
+  text-align: center;
+  margin: 80px 0 45px;
+}
+
+.buttons {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.buttons .btn {
+  margin: 10px 3px;
+}
+
+body {
+	margin-bottom: 100px;
+}
+
+#requirements {
+	text-align: center;
+	color: #aaa;
+	font-style: italic;
+}
+
+#index-lang-links {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+}
+
+#index-lang-links li {
+	list-style: none;
+	display: inline; 
+	padding: 5px;
+	border: 1px solid #ddd;
+}
+
+#index-lang-links li.current {
+	border: 1px solid #999;
+}
+
+#index-lang-links li.current a {
+	color: #666;
+}
+
+.nav .lang-link {
+	font-size: 12px;
+	margin-left: 100px;
+}
+
+.nav .lang-link + .lang-link {
+	margin-left: 0px;
+}
+
+
+.nav .lang-link.current a {
+	color: #fff;
+}

@@ -1,0 +1,21 @@
+---
+---
+
+{% assign url = "https://github.com/PostgresApp/PostgresApp/releases/latest" %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="refresh" content="1;url={{ url }}">
+    <meta name"robots" content="noindex">
+    <title>Page Redirection</title>
+  </head>
+  <body>
+      If you are not redirected automatically, follow the <a href="{{ url }}">link to the latest release</a>.
+
+      <script type="text/javascript">
+        window.location.href = "{{ url }}";
+      </script>
+  </body>
+</html>

@@ -3,3 +3,5 @@ src/*
 Postgres/Vendor/postgres/*
 .DS_Store
 xcuserdata
+docs/_site
+Gemfile.lock
