@@ -53,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	
-	@IBAction func showHelp(_ sender: AnyObject?) {
+	@IBAction func openHelp(_ sender: AnyObject?) {
 		NSWorkspace.shared().open(URL(string: "http://postgresapp.com/documentation/")!)
 	}
 	
@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		if LSRegisterURL(helperAppURL, true) != noErr {
 			print("Failed to register HelperApp url")
 		}
-		if SMLoginItemSetEnabled("com.postgresapp.PostgresHelper", enabled) == false {
+		if SMLoginItemSetEnabled("com.postgresapp.Postgres2Helper", enabled) == false {
 			print("Failed to enable HelperApp as login item")
 		}
 	}
