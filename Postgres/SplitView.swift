@@ -20,7 +20,7 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		modelObserver = self.observe("mainWindowModel.sidebarVisible", options: .initial) { [weak self] _ in
+		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
 			guard let this = self where this.mainWindowModel != nil else { return }
 			this.updateServerListView()
 		}
