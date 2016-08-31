@@ -48,7 +48,7 @@ class ServerTableCellView: NSTableCellView {
 	
 	
 	override func awakeFromNib() {
-		keyValueObserver = self.observe("objectValue.serverStatus", options: .initial) { [weak self] _ in
+		keyValueObserver = self.observe("objectValue.serverStatus") { [weak self] _ in
 			guard let this = self else { return }
 			guard let server = this.objectValue as? Server else { return }
 			
@@ -56,9 +56,9 @@ class ServerTableCellView: NSTableCellView {
 			case .Unknown:
 				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
 			case .Running:
-				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusAvailable)
+				this.statusImage = NSImage(named: "icon-running")
 			default:
-				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusUnavailable)
+				this.statusImage = NSImage(named: "icon-stopped")
 			}
 		}
 	}
