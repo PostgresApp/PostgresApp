@@ -73,10 +73,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 			statusMenu.removeItem(item)
 		}
 		
+		
+		var maxStringWidth: CGFloat = 0
+		for server in serverManager.servers {
+			let stringWidth = (server.name as NSString).size(withAttributes: [NSFontAttributeName: NSFont.systemFont(ofSize: 12)]).width
+			maxStringWidth = max(stringWidth, maxStringWidth)
+		}
+		
 		for server in serverManager.servers {
 			guard let menuItemViewController = MenuItemViewController(server) else { return }
 			
 			let menuItem = NSMenuItem()
+			
+			menuItemViewController.view.setFrameSize(NSSize(width: min(max(150+maxStringWidth, 200), 300), height: 32))
 			menuItem.view = menuItemViewController.view
 			
 			statusMenu.addItem(menuItem)
