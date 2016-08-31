@@ -17,9 +17,9 @@
         </description>
         <pubDate>Wed, 31 Aug 2014 15:20:11 +0000</pubDate>
         <enclosure 
-        	url="https://example.com" 
+        	url="https://eggerapps-downloads.s3.amazonaws.com/Postgres-v2.0.zip" 
         	sparkle:version="2.0.1" 
-        	length="123" 
+        	length="179510144" 
         	type="application/octet-stream"
         	sparkle:dsaSignature="abc"
         	/>
