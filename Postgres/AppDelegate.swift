@@ -8,9 +8,10 @@
 
 import Cocoa
 import ServiceManagement
+import Sparkle
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
 	var hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
@@ -44,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			self.serverManager.refreshServerStatuses()
 		}
 		
-		enableHelperApp(false)
+		enableHelperApp(true)
 	}
 	
 	
@@ -88,6 +89,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		if SMLoginItemSetEnabled("com.postgresapp.Postgres2Helper", enabled) == false {
 			print("Failed to enable HelperApp as login item")
 		}
+	}
+	
+	
+	
+	// SUUpdater delegate methods
+	func updater(_ updater: SUUpdater!, willInstallUpdate item: SUAppcastItem!) {
+		print("updaterWillInstallUpdate")
+		
+		let lock = ConditionLock(condition: serverManager.numberOfRunningServers())
+		
+		for server in serverManager.servers where server.running {
+			server.stop { _ in
+				lock.lock()
+				lock.unlock(withCondition: lock.condition-1)
+			}
+		}
+		
+		lock.lock(whenCondition: 0)
+		lock.unlock()
 	}
 	
 }
