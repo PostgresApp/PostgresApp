@@ -32,5 +32,7 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>https://postgresapp.com/sparkle/updates.xml</string>
 </dict>
 </plist>
