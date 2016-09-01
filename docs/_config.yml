@@ -13,8 +13,8 @@ downloadLocation94: https://github.com/PostgresApp/PostgresApp/releases/download
 postgresqlVersion94: 9.4.9
 postgisVersion94: 2.1.8
 
-downloadLocation96: https://github.com/PostgresApp/PostgresApp/releases/download/9.6beta4.1/Postgres-9.6beta4.1.zip
-postgresqlVersion96: 9.6beta4
+downloadLocation96: https://github.com/PostgresApp/PostgresApp/releases/download/9.6rc1/Postgres-9.6rc1.zip
+postgresqlVersion96: 9.6rc1
 postgisVersion96: 2.2.2
 
 
