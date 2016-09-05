@@ -10,11 +10,10 @@
 		830658E51D536F2E00BA1752 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* Sidebar.swift */; };
-		830D1A1E1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
-		830D1A1F1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */; };
+		830D62CC1D77297800570BFC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D62CB1D77297800570BFC /* Preferences.swift */; };
 		831C84AD1D771B4800FA5F59 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; };
 		831C84AF1D771B6E00FA5F59 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8332859B1D5CBEB3001EA003 /* PostgresHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FB572E1D1B060800A903A3 /* PostgresHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* ServerView.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
@@ -22,36 +21,33 @@
 		836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServer.swift */; };
 		838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B8D361D649CB30050EF03 /* MainWindowModel.swift */; };
-		838BD46D1D5A2F74005B3FDF /* MenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 838BD46C1D5A2F74005B3FDF /* MenuItemView.xib */; };
-		838BD46F1D5A2F8D005B3FDF /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838BD46E1D5A2F8D005B3FDF /* MenuItemView.swift */; };
 		83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ASWrapper.swift */; };
 		83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */; };
+		83999C671D7DA3C300B8A1D6 /* PostgresLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83C19C2A1D7D977000F4862D /* PostgresLoginHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83999C691D7DA42B00B8A1D6 /* PostgresMenuHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83C19C4E1D7D9A7D00F4862D /* PostgresMenuHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
+		83999C6B1D7DA8E300B8A1D6 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
+		83999C6C1D7DA8EA00B8A1D6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
+		83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
 		83A8CE821D64DBA2005FF107 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8CE811D64DBA2005FF107 /* BottomBar.swift */; };
-		83BCCA031D5A18BF0064A69D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
-		83BCCA0A1D5A1A5D0064A69D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
-		83BCCA0B1D5A1AA00064A69D /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
-		83BCCA0C1D5A1D140064A69D /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
-		83DE2CEA1D6F1D96009500FA /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
+		83C19C2D1D7D977000F4862D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C19C2C1D7D977000F4862D /* main.swift */; };
+		83C19C2F1D7D977000F4862D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83C19C2E1D7D977000F4862D /* Assets.xcassets */; };
+		83C19C511D7D9A7D00F4862D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C19C501D7D9A7D00F4862D /* AppDelegate.swift */; };
+		83C19C561D7D9A7D00F4862D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83C19C541D7D9A7D00F4862D /* MainMenu.xib */; };
+		83C19C5C1D7D9AAE00F4862D /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C19C5B1D7D9AAE00F4862D /* MenuItemView.swift */; };
+		83C19C621D7D9C2500F4862D /* MenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83C19C611D7D9C2500F4862D /* MenuItemView.xib */; };
+		83C19C671D7D9CCF00F4862D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83C19C661D7D9CCF00F4862D /* Assets.xcassets */; };
+		83C19C681D7D9D1900F4862D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
+		83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
+		83C19C6A1D7D9D2300F4862D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
+		83C19C6C1D7D9D2E00F4862D /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
 		83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
 		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
-		83FB57311D1B060800A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB57301D1B060800A903A3 /* AppDelegate.swift */; };
-		83FB57331D1B060800A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57321D1B060800A903A3 /* Assets.xcassets */; };
-		83FB57361D1B060800A903A3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57341D1B060800A903A3 /* MainMenu.xib */; };
 		83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB573B1D1B18C900A903A3 /* MainWindow.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		833285961D5CBE51001EA003 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83FB57101D1B05F000A903A3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83FB572D1D1B060800A903A3;
-			remoteInfo = PostgresHelper;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		831C84AE1D771B6C00FA5F59 /* CopyFiles */ = {
@@ -70,7 +66,17 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				8332859B1D5CBEB3001EA003 /* PostgresHelper.app in CopyFiles */,
+				83999C671D7DA3C300B8A1D6 /* PostgresLoginHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83999C681D7DA41600B8A1D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				83999C691D7DA42B00B8A1D6 /* PostgresMenuHelper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +86,7 @@
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		830B4B271D1C289A00F16762 /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Sidebar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedNotifications.swift; sourceTree = "<group>"; };
+		830D62CB1D77297800570BFC /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		831C84AC1D771B4800FA5F59 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Postgres/Vendor/Sparkle.framework; sourceTree = "<group>"; };
 		8353FBDD1D1D57C8002F77E7 /* ServerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerView.swift; sourceTree = "<group>"; };
 		8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
@@ -91,40 +97,52 @@
 		836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabasesView.swift; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServer.swift; sourceTree = "<group>"; };
 		838B8D361D649CB30050EF03 /* MainWindowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowModel.swift; sourceTree = "<group>"; };
-		838BD46C1D5A2F74005B3FDF /* MenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemView.xib; sourceTree = "<group>"; };
-		838BD46E1D5A2F8D005B3FDF /* MenuItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		83969DBA1D369BD1005B9F1C /* ASWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASWrapper.swift; sourceTree = "<group>"; };
 		83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ASSubroutines.applescript; sourceTree = "<group>"; };
+		83999C731D7DAA5B00B8A1D6 /* PostgresLoginHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresLoginHelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		83A544E21D6682C700603068 /* KeyValueObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
 		83A8CE811D64DBA2005FF107 /* BottomBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
-		83BCCA041D5A18EF0064A69D /* PostgresHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresHelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		83C19C2A1D7D977000F4862D /* PostgresLoginHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresLoginHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83C19C2C1D7D977000F4862D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		83C19C2E1D7D977000F4862D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		83C19C331D7D977000F4862D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83C19C4E1D7D9A7D00F4862D /* PostgresMenuHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresMenuHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83C19C501D7D9A7D00F4862D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		83C19C551D7D9A7D00F4862D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		83C19C571D7D9A7D00F4862D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83C19C5B1D7D9AAE00F4862D /* MenuItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		83C19C611D7D9C2500F4862D /* MenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemView.xib; sourceTree = "<group>"; };
+		83C19C631D7D9C6300F4862D /* PostgresMenuHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresMenuHelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		83C19C661D7D9CCF00F4862D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83FB571F1D1B05F000A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83FB57221D1B05F000A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83FB57241D1B05F000A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83FB572E1D1B060800A903A3 /* PostgresHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostgresHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		83FB57301D1B060800A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		83FB57321D1B060800A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		83FB57351D1B060800A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		83FB57371D1B060800A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83FB573B1D1B18C900A903A3 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		83C19C271D7D977000F4862D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83C19C4B1D7D9A7D00F4862D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83FB57151D1B05F000A903A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				831C84AD1D771B4800FA5F59 /* Sparkle.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83FB572B1D1B060800A903A3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,11 +157,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		83C19C2B1D7D977000F4862D /* PostgresLoginHelper */ = {
+			isa = PBXGroup;
+			children = (
+				83C19C2C1D7D977000F4862D /* main.swift */,
+				83C19C2E1D7D977000F4862D /* Assets.xcassets */,
+				83C19C331D7D977000F4862D /* Info.plist */,
+				83999C731D7DAA5B00B8A1D6 /* PostgresLoginHelper-Bridging-Header.h */,
+			);
+			path = PostgresLoginHelper;
+			sourceTree = "<group>";
+		};
+		83C19C4F1D7D9A7D00F4862D /* PostgresMenuHelper */ = {
+			isa = PBXGroup;
+			children = (
+				83C19C501D7D9A7D00F4862D /* AppDelegate.swift */,
+				83C19C5B1D7D9AAE00F4862D /* MenuItemView.swift */,
+				83C19C661D7D9CCF00F4862D /* Assets.xcassets */,
+				83C19C541D7D9A7D00F4862D /* MainMenu.xib */,
+				83C19C611D7D9C2500F4862D /* MenuItemView.xib */,
+				83C19C571D7D9A7D00F4862D /* Info.plist */,
+				83C19C631D7D9C6300F4862D /* PostgresMenuHelper-Bridging-Header.h */,
+			);
+			path = PostgresMenuHelper;
+			sourceTree = "<group>";
+		};
 		83FB570F1D1B05F000A903A3 = {
 			isa = PBXGroup;
 			children = (
 				83FB571A1D1B05F000A903A3 /* Postgres */,
-				83FB572F1D1B060800A903A3 /* PostgresHelper */,
+				83C19C2B1D7D977000F4862D /* PostgresLoginHelper */,
+				83C19C4F1D7D9A7D00F4862D /* PostgresMenuHelper */,
 				83FB57191D1B05F000A903A3 /* Products */,
 				836CC37F1D2D6A0D000D0C13 /* Frameworks */,
 			);
@@ -153,7 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				83FB57181D1B05F000A903A3 /* Postgres.app */,
-				83FB572E1D1B060800A903A3 /* PostgresHelper.app */,
+				83C19C2A1D7D977000F4862D /* PostgresLoginHelper.app */,
+				83C19C4E1D7D9A7D00F4862D /* PostgresMenuHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,8 +220,8 @@
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
 				83969DBA1D369BD1005B9F1C /* ASWrapper.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
-				830D1A1D1D5C8B4D00B25719 /* SharedNotifications.swift */,
 				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
+				830D62CB1D77297800570BFC /* Preferences.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */,
@@ -188,23 +233,43 @@
 			path = Postgres;
 			sourceTree = "<group>";
 		};
-		83FB572F1D1B060800A903A3 /* PostgresHelper */ = {
-			isa = PBXGroup;
-			children = (
-				83FB57301D1B060800A903A3 /* AppDelegate.swift */,
-				838BD46E1D5A2F8D005B3FDF /* MenuItemView.swift */,
-				83FB57321D1B060800A903A3 /* Assets.xcassets */,
-				83FB57341D1B060800A903A3 /* MainMenu.xib */,
-				838BD46C1D5A2F74005B3FDF /* MenuItemView.xib */,
-				83FB57371D1B060800A903A3 /* Info.plist */,
-				83BCCA041D5A18EF0064A69D /* PostgresHelper-Bridging-Header.h */,
-			);
-			path = PostgresHelper;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		83C19C291D7D977000F4862D /* PostgresLoginHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83C19C361D7D977000F4862D /* Build configuration list for PBXNativeTarget "PostgresLoginHelper" */;
+			buildPhases = (
+				83C19C261D7D977000F4862D /* Sources */,
+				83C19C271D7D977000F4862D /* Frameworks */,
+				83C19C281D7D977000F4862D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PostgresLoginHelper;
+			productName = PostgresLoginHelper;
+			productReference = 83C19C2A1D7D977000F4862D /* PostgresLoginHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		83C19C4D1D7D9A7D00F4862D /* PostgresMenuHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83C19C581D7D9A7D00F4862D /* Build configuration list for PBXNativeTarget "PostgresMenuHelper" */;
+			buildPhases = (
+				83C19C4A1D7D9A7D00F4862D /* Sources */,
+				83C19C4B1D7D9A7D00F4862D /* Frameworks */,
+				83C19C4C1D7D9A7D00F4862D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PostgresMenuHelper;
+			productName = PostgresMenuHelper;
+			productReference = 83C19C4E1D7D9A7D00F4862D /* PostgresMenuHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
 		83FB57171D1B05F000A903A3 /* Postgres */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83FB57271D1B05F000A903A3 /* Build configuration list for PBXNativeTarget "Postgres" */;
@@ -215,32 +280,15 @@
 				8332859A1D5CBE88001EA003 /* CopyFiles */,
 				831C84AE1D771B6C00FA5F59 /* CopyFiles */,
 				36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */,
+				83999C681D7DA41600B8A1D6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				833285971D5CBE51001EA003 /* PBXTargetDependency */,
 			);
 			name = Postgres;
 			productName = Postgres;
 			productReference = 83FB57181D1B05F000A903A3 /* Postgres.app */;
-			productType = "com.apple.product-type.application";
-		};
-		83FB572D1D1B060800A903A3 /* PostgresHelper */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83FB57381D1B060800A903A3 /* Build configuration list for PBXNativeTarget "PostgresHelper" */;
-			buildPhases = (
-				83FB572A1D1B060800A903A3 /* Sources */,
-				83FB572B1D1B060800A903A3 /* Frameworks */,
-				83FB572C1D1B060800A903A3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PostgresHelper;
-			productName = PostgresHelper;
-			productReference = 83FB572E1D1B060800A903A3 /* PostgresHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -253,12 +301,18 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = postgresapp;
 				TargetAttributes = {
-					83FB57171D1B05F000A903A3 = {
+					83C19C291D7D977000F4862D = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 4LRBA67NV4;
+						ProvisioningStyle = Automatic;
+					};
+					83C19C4D1D7D9A7D00F4862D = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 4LRBA67NV4;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
-					83FB572D1D1B060800A903A3 = {
+					83FB57171D1B05F000A903A3 = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
@@ -279,28 +333,37 @@
 			projectRoot = "";
 			targets = (
 				83FB57171D1B05F000A903A3 /* Postgres */,
-				83FB572D1D1B060800A903A3 /* PostgresHelper */,
+				83C19C291D7D977000F4862D /* PostgresLoginHelper */,
+				83C19C4D1D7D9A7D00F4862D /* PostgresMenuHelper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		83C19C281D7D977000F4862D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83C19C2F1D7D977000F4862D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83C19C4C1D7D9A7D00F4862D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83C19C561D7D9A7D00F4862D /* MainMenu.xib in Resources */,
+				83C19C671D7D9CCF00F4862D /* Assets.xcassets in Resources */,
+				83C19C621D7D9C2500F4862D /* MenuItemView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83FB57161D1B05F000A903A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */,
 				83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83FB572C1D1B060800A903A3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83FB57331D1B060800A903A3 /* Assets.xcassets in Resources */,
-				83FB57361D1B060800A903A3 /* MainMenu.xib in Resources */,
-				838BD46D1D5A2F74005B3FDF /* MenuItemView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +387,32 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		83C19C261D7D977000F4862D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */,
+				83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */,
+				83999C6B1D7DA8E300B8A1D6 /* ServerManager.swift in Sources */,
+				83C19C2D1D7D977000F4862D /* main.swift in Sources */,
+				83999C6C1D7DA8EA00B8A1D6 /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83C19C4A1D7D9A7D00F4862D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83C19C6A1D7D9D2300F4862D /* Extensions.swift in Sources */,
+				834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */,
+				83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */,
+				83C19C5C1D7D9AAE00F4862D /* MenuItemView.swift in Sources */,
+				83C19C681D7D9D1900F4862D /* Server.swift in Sources */,
+				83C19C6C1D7D9D2E00F4862D /* KeyValueObserver.swift in Sources */,
+				83C19C511D7D9A7D00F4862D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83FB57141D1B05F000A903A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -334,10 +423,10 @@
 				8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */,
 				83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
-				830D1A1E1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */,
 				83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */,
+				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
 				83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */,
@@ -349,32 +438,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83FB572A1D1B060800A903A3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83BCCA0C1D5A1D140064A69D /* ServerManager.swift in Sources */,
-				83BCCA031D5A18BF0064A69D /* Extensions.swift in Sources */,
-				83BCCA0A1D5A1A5D0064A69D /* Server.swift in Sources */,
-				83BCCA0B1D5A1AA00064A69D /* ErrorRecoveryAttempter.m in Sources */,
-				838BD46F1D5A2F8D005B3FDF /* MenuItemView.swift in Sources */,
-				83FB57311D1B060800A903A3 /* AppDelegate.swift in Sources */,
-				830D1A1F1D5C8B4D00B25719 /* SharedNotifications.swift in Sources */,
-				83DE2CEA1D6F1D96009500FA /* KeyValueObserver.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		833285971D5CBE51001EA003 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83FB572D1D1B060800A903A3 /* PostgresHelper */;
-			targetProxy = 833285961D5CBE51001EA003 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
+		83C19C541D7D9A7D00F4862D /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83C19C551D7D9A7D00F4862D /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		83FB57211D1B05F000A903A3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -383,17 +457,84 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		83FB57341D1B060800A903A3 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				83FB57351D1B060800A903A3 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		83C19C341D7D977000F4862D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4LRBA67NV4;
+				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresLoginHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PostgresLoginHelper/PostgresLoginHelper-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		83C19C351D7D977000F4862D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4LRBA67NV4;
+				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresLoginHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PostgresLoginHelper/PostgresLoginHelper-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		83C19C591D7D9A7D00F4862D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4LRBA67NV4;
+				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresMenuHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PostgresMenuHelper/PostgresMenuHelper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		83C19C5A1D7D9A7D00F4862D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4LRBA67NV4;
+				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresMenuHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PostgresMenuHelper/PostgresMenuHelper-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		83FB57251D1B05F000A903A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -432,6 +573,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				LATEST_STABLE_PG_VERSION = 9.5;
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -476,6 +618,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				LATEST_STABLE_PG_VERSION = 9.5;
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -497,10 +640,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Postgres/Vendor",
 				);
-				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = Postgres/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
@@ -520,10 +661,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Postgres/Vendor",
 				);
-				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				INFOPLIST_FILE = Postgres/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
@@ -531,46 +670,27 @@
 			};
 			name = Release;
 		};
-		83FB57391D1B060800A903A3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
-				INFOPLIST_FILE = PostgresHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2Helper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "PostgresHelper/PostgresHelper-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		83FB573A1D1B060800A903A3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
-				INFOPLIST_FILE = PostgresHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2Helper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "PostgresHelper/PostgresHelper-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		83C19C361D7D977000F4862D /* Build configuration list for PBXNativeTarget "PostgresLoginHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83C19C341D7D977000F4862D /* Debug */,
+				83C19C351D7D977000F4862D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83C19C581D7D9A7D00F4862D /* Build configuration list for PBXNativeTarget "PostgresMenuHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83C19C591D7D9A7D00F4862D /* Debug */,
+				83C19C5A1D7D9A7D00F4862D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		83FB57131D1B05F000A903A3 /* Build configuration list for PBXProject "Postgres" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -585,15 +705,6 @@
 			buildConfigurations = (
 				83FB57281D1B05F000A903A3 /* Debug */,
 				83FB57291D1B05F000A903A3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83FB57381D1B060800A903A3 /* Build configuration list for PBXNativeTarget "PostgresHelper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83FB57391D1B060800A903A3 /* Debug */,
-				83FB573A1D1B060800A903A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
