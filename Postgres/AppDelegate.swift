@@ -14,7 +14,7 @@ import Sparkle
 class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
-	var hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
+	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
@@ -29,23 +29,47 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		NotificationCenter.default().addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
+		print("hideMenuHelperApp=\(hideMenuHelperApp)")
+		print("hideMenuHelperApp=\(UserDefaults.standard.bool(forKey: "HideMenuHelperApp"))")
+		
+		
+		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.saveServers()
 		}
 		
-		NotificationCenter.default().addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main()) { _ in
-			let hideStatusMenu = UserDefaults.standard().bool(forKey: "HideStatusMenu")
-			if hideStatusMenu != self.hideStatusMenu {
-				DistributedNotificationCenter.default().postNotificationName(HideStatusMenuChangedNotification, object: nil, userInfo: nil, deliverImmediately: true)
-				self.hideStatusMenu = hideStatusMenu
-			}
-		}
-		
-		DistributedNotificationCenter.default().addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main()) { _ in
+		DistributedNotificationCenter.default.addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.refreshServerStatuses()
 		}
 		
-		enableHelperApp(true)
+		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
+			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+			if self.hideMenuHelperApp != hideMenuHelperApp {
+				self.hideMenuHelperApp = hideMenuHelperApp
+				
+				if self.hideMenuHelperApp {
+					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.PostgresMenuHelper")
+					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
+						app.terminate()
+					}
+				} else {
+					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+					NSWorkspace.shared().open(url)
+				}
+			}
+		}
+		
+		
+		//CHECK: enable PostgresLoginHelper if the main App is inside Applications folder
+		if Bundle.main.bundlePath == "/Applications/Postgres.app" {
+			enableLoginHelperApp(true)
+		} else {
+			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+			print("hideMenuHelperApp=\(hideMenuHelperApp)")
+			if !hideMenuHelperApp {
+				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+				NSWorkspace.shared().open(url)
+			}
+		}
 	}
 	
 	
@@ -60,7 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	
 	private func checkApplicationPath() {
-		let actualPath = Bundle.main().bundlePath
+		let actualPath = Bundle.main.bundlePath
 		let expectedPath = "/Applications/Postgres.app"
 		
 		if actualPath != expectedPath {
@@ -81,13 +105,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	
-	private func enableHelperApp(_ enabled: Bool) {
-		let helperAppURL = try! Bundle.main().bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresHelper.app")
-		if LSRegisterURL(helperAppURL, true) != noErr {
-			print("Failed to register HelperApp url")
+	private func enableLoginHelperApp(_ enabled: Bool) {
+		let helperAppURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresLoginHelper.app")
+		if LSRegisterURL(helperAppURL as CFURL, true) != noErr {
+			print("Failed to register PostgresLoginHelper URL")
 		}
-		if SMLoginItemSetEnabled("com.postgresapp.Postgres2Helper", enabled) == false {
-			print("Failed to enable HelperApp as login item")
+		if SMLoginItemSetEnabled("com.postgresapp.PostgresLoginHelper" as CFString, enabled) == false {
+			print("Failed to enable PostgresLoginHelper as login item")
 		}
 	}
 	
@@ -97,17 +121,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	func updater(_ updater: SUUpdater!, willInstallUpdate item: SUAppcastItem!) {
 		print("updaterWillInstallUpdate")
 		
-		let lock = ConditionLock(condition: serverManager.numberOfRunningServers())
-		
 		for server in serverManager.servers where server.running {
-			server.stop { _ in
-				lock.lock()
-				lock.unlock(withCondition: lock.condition-1)
-			}
+			let _ = server.stopSync()
 		}
-		
-		lock.lock(whenCondition: 0)
-		lock.unlock()
 	}
 	
 }
