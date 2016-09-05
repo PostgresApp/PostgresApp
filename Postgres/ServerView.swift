@@ -112,7 +112,7 @@ class ServerViewBackgroundView: NSView {
 	override var mouseDownCanMoveWindow: Bool { return true }
 	
 	override func draw(_ dirtyRect: NSRect) {
-		NSColor.white().setFill()
+		NSColor.white.setFill()
 		NSRectFill(dirtyRect)
 		
 		let x: CGFloat = 20, y: CGFloat = 20

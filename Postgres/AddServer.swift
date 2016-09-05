@@ -31,7 +31,8 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	@IBAction func versionChanged(_ sender: AnyObject?) {
-		varPath = varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: RegularExpression.escapedTemplate(for: version), options: .regularExpressionSearch)
+		//varPath = varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: NSRegularExpression.escapedTemplate(for: version), options: .regularExpressionSearch)
+		varPath = varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: NSRegularExpression.escapedPattern(for: version))
 	}
 	
 	
@@ -44,7 +45,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		openPanel.directoryURL = URL(fileURLWithPath: FileManager().applicationSupportDirectoryPath())
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == NSModalResponseOK {
-				self.varPath = openPanel.url!.path!
+				self.varPath = openPanel.url!.path
 			}
 		}
 	}
@@ -73,20 +74,20 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
-		NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: nil)
+		NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: nil)
 		
 		self.dismiss(nil)
 	}
 	
 	
 	private func loadVersions() {
-		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
+		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
 		while let itemURL = versionsPathEnum.nextObject() as? URL {
 			do {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
 				guard resourceValues.isDirectory == true else { continue }
 			} catch { continue }
-			versions.append(itemURL.lastPathComponent!)
+			versions.append(itemURL.lastPathComponent)
 		}
 		selectedVersionIdx = versions.count-1
 	}

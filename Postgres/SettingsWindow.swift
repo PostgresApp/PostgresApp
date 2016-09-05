@@ -13,7 +13,7 @@ class SettingsWindowController: NSWindowController {
 	dynamic var server: Server?
 	
 	
-	override func showWindow(_ sender: AnyObject?) {
+	override func showWindow(_ sender: Any?) {
 		super.showWindow(sender)
 		(self.contentViewController as? SettingsViewController)?.server = self.server
 	}

@@ -36,20 +36,20 @@ class Server: NSObject, NSCoding {
 	
 	dynamic var name: String = "" {
 		didSet {
-			NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: self)
+			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
 	dynamic var version: String = ""
 	dynamic var port: UInt = 0 {
 		didSet {
-			NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: self)
+			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var startAtLogin: Bool = false {
 		didSet {
-			NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: self)
+			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
 	dynamic var configFilePath: String {
@@ -80,7 +80,7 @@ class Server: NSObject, NSCoding {
 		self.init()
 		
 		self.name = name
-		self.version = version ?? Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as! String
+		self.version = version ?? Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
 		self.port = port
 		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", self.version)
 		self.varPath = varPath ?? FileManager().applicationSupportDirectoryPath().appendingFormat("/var-%@", self.version)
@@ -120,7 +120,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	// MARK: Async handlers
-	func start(closure: (ActionStatus) -> Void) {
+	func start(closure: @escaping (ActionStatus) -> Void) {
 		busy = true
 		
 		DispatchQueue.global().async {
@@ -246,7 +246,7 @@ class Server: NSObject, NSCoding {
 	
 	/// Attempts to stop the server (in a background thread)
 	/// - parameter closure: This block will be called on the main thread when the server has stopped.
-	func stop(closure: (ActionStatus) -> Void) {
+	func stop(closure: @escaping (ActionStatus) -> Void) {
 		busy = true
 		
 		DispatchQueue.global().async {
@@ -261,7 +261,7 @@ class Server: NSObject, NSCoding {
 	/// Checks if the server is running.
 	/// Must be called only from the main thread.
 	func updateServerStatus() {
-		if !FileManager.default().fileExists(atPath: binPath) {
+		if !FileManager.default.fileExists(atPath: binPath) {
 			serverStatus = .NoBinaries
 			running = false
 			statusMessage = "No binaries found"
@@ -271,7 +271,7 @@ class Server: NSObject, NSCoding {
 		
 		let pgVersionPath = varPath.appending("/PG_VERSION")
 		
-		if !FileManager.default().fileExists(atPath: pgVersionPath) {
+		if !FileManager.default.fileExists(atPath: pgVersionPath) {
 			serverStatus = .DataDirEmpty
 			running = false
 			statusMessage = "Click ‘Start’ to initialize the server"
@@ -298,7 +298,7 @@ class Server: NSObject, NSCoding {
 		
 		
 		let pidFilePath = varPath.appending("/postmaster.pid")
-		if FileManager.default().fileExists(atPath: pidFilePath) {
+		if FileManager.default.fileExists(atPath: pidFilePath) {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
 				serverStatus = .Unknown
 				running = false
@@ -388,17 +388,23 @@ class Server: NSObject, NSCoding {
 		var listenAddress = sockaddr_in()
 		listenAddress.sin_family = UInt8(AF_INET)
 		listenAddress.sin_port = in_port_t(self.port).bigEndian
-		listenAddress.sin_len = UInt8(sizeofValue(listenAddress))
+		listenAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
 		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
 		
-		func make_sockaddr(_ p: UnsafePointer<sockaddr_in>) -> UnsafePointer<sockaddr> { return UnsafePointer<sockaddr>(p) }
 		
-		let bindRes = Darwin.bind(sock, make_sockaddr(&listenAddress), socklen_t(sizeofValue(listenAddress)))
-		let saved_errno = errno
+		//let bindRes = Darwin.bind(sock, make_sockaddr(&listenAddress), socklen_t(MemoryLayout<sockaddr_in>.size))
+		
+		let bindRes = withUnsafePointer(to: &listenAddress) { (sockaddrPointer: UnsafePointer<sockaddr_in>) in
+			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { (sockaddrPointer2: UnsafeMutablePointer<sockaddr>) in
+				Darwin.bind(sock, sockaddrPointer2, socklen_t(MemoryLayout<sockaddr_in>.stride))
+			}
+		}
+		
+		let bindErrNo = errno
 		
 		close(sock)
 		
-		if bindRes == -1 && saved_errno == EADDRINUSE {
+		if bindRes == -1 && bindErrNo == EADDRINUSE {
 			return true
 		}
 		
@@ -408,7 +414,7 @@ class Server: NSObject, NSCoding {
 	
 	// MARK: Sync handlers
 	private func startSync() -> ActionStatus {
-		let task = Task()
+		let task = Process()
 		task.launchPath = binPath.appending("/pg_ctl")
 		task.arguments = [
 			"start",
@@ -440,15 +446,15 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				}),
-				]
+				] as [String : Any]
 			let error = NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
 	}
 	
 	
-	private func stopSync() -> ActionStatus {
-		let task = Task()
+	func stopSync() -> ActionStatus {
+		let task = Process()
 		task.launchPath = binPath.appending("/pg_ctl")
 		task.arguments = [
 			"stop",
@@ -479,7 +485,7 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			]
+			] as [String : Any]
 			let error = NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
@@ -487,7 +493,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	private func initDatabaseSync() -> ActionStatus {
-		let task = Task()
+		let task = Process()
 		task.launchPath = binPath.appending("/initdb")
 		task.arguments = [
 			"-D", varPath,
@@ -515,7 +521,7 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			]
+			] as [String : Any]
 			let error = NSError(domain: "com.postgresapp.Postgres2.initdb", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
@@ -523,7 +529,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	private func createUserSync() -> ActionStatus {
-		let task = Task()
+		let task = Process()
 		task.launchPath = binPath.appending("/createuser")
 		task.arguments = [
 			"-U", "postgres",
@@ -551,7 +557,7 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			]
+			] as [String : Any]
 			let error = NSError(domain: "com.postgresapp.Postgres2.createuser", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
@@ -559,7 +565,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	private func createUserDatabaseSync() -> ActionStatus {
-		let task = Task()
+		let task = Process()
 		task.launchPath = binPath.appending("/createdb")
 		task.arguments = [
 			"-p", String(port),
@@ -585,7 +591,7 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			]
+			] as [String : Any]
 			let error = NSError(domain: "com.postgresapp.Postgres2.createdb", code: Int(task.terminationStatus), userInfo: userInfo)
 			return .Failure(error)
 		}
@@ -630,13 +636,13 @@ class Database: NSObject {
 						
 					}
 					
-					NSRectFillUsingOperation(NSRect(x: lineWidth*0.5, y: y1, width: 64-lineWidth, height: 16.0), NSCompositeCopy)
+					NSRectFillUsingOperation(NSRect(x: lineWidth*0.5, y: y1, width: 64-lineWidth, height: 16.0), NSCompositingOperation.copy)
 				}
 			}
 			
 			frameColor?.setFill()
-			NSRectFillUsingOperation(NSRect(x: 0, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositeCopy)
-			NSRectFillUsingOperation(NSRect(x: 64-lineWidth, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositeCopy)
+			NSRectFillUsingOperation(NSRect(x: 0, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositingOperation.copy)
+			NSRectFillUsingOperation(NSRect(x: 64-lineWidth, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositingOperation.copy)
 			
 			return true
 		}

@@ -18,7 +18,7 @@ class ASWrapper: NSObject {
 	
 	
 	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
-		guard let path = Bundle.main().pathForResource(fileName, ofType: "scpt") else { return }
+		guard let path = Bundle.main.path(forResource: fileName, ofType: "scpt") else { return }
 		
 		// these constants are defined in Carbon (no need to include)
 		let kASAppleScriptSuite = FourCharCode("ascr")

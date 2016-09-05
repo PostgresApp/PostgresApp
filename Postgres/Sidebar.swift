@@ -13,7 +13,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 	dynamic var mainWindowModel: MainWindowModel!
 	
 	
-	override func prepare(for segue: NSStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
 		if var target = segue.destinationController as? MainWindowModelConsumer {
 			target.mainWindowModel = mainWindowModel
 		}
@@ -32,7 +32,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 					server.stop { _ in }
 				}
 				self.mainWindowModel.removeSelectedServer()
-				NotificationCenter.default().post(name: Server.PropertyChangedNotification, object: nil)
+				NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: nil)
 			}
 		}
 	}

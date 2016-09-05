@@ -34,7 +34,7 @@ class ServerManager: NSObject {
 	func saveServers() {
 		NSKeyedArchiver.setClassName("Server", for: Server.self)
 		let data = NSKeyedArchiver.archivedData(withRootObject: self.servers)
-		UserDefaults.standard().set(data, forKey: "Servers")
+		UserDefaults.standard.set(data, forKey: "Servers")
 	}
 	
 	
@@ -46,7 +46,7 @@ class ServerManager: NSObject {
 		do {
 			guard let defaults = UserDefaults.shared() else { throw loadServersError }
 			guard let data = defaults.data(forKey: "Servers") else { throw loadServersError }
-			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] where !servers.isEmpty else { throw loadServersError }
+			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] , !servers.isEmpty else { throw loadServersError }
 			self.servers = servers
 		} catch {}
 	}
@@ -54,7 +54,7 @@ class ServerManager: NSObject {
 	
 	func createDefaultServer() {
 		if servers.isEmpty {
-			let version = Bundle.main().objectForInfoDictionaryKey("LatestStablePostgresVersion") as! String
+			let version = Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
 			servers.append(Server("PostgreSQL \(version)"))
 			saveServers()
 		}
@@ -75,8 +75,8 @@ class ServerManager: NSObject {
 
 extension UserDefaults {
 	static func shared() -> UserDefaults? {
-		if Bundle.main().bundleIdentifier == "com.postgresapp.Postgres2" {
-			return UserDefaults.standard()
+		if Bundle.main.bundleIdentifier == "com.postgresapp.Postgres2" {
+			return UserDefaults.standard
 		} else {
 			return UserDefaults(suiteName: "com.postgresapp.Postgres2")
 		}

@@ -21,7 +21,7 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 		super.viewDidLoad()
 		
 		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
-			guard let this = self where this.mainWindowModel != nil else { return }
+			guard let this = self, this.mainWindowModel != nil else { return }
 			this.updateServerListView()
 		}
 	}
