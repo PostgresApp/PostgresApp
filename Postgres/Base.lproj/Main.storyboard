@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
     </dependencies>
     <scenes>
+        <!--Window Controller-->
+        <scene sceneID="0N7-6B-mUe">
+            <objects>
+                <windowController id="0CQ-HC-63t" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="gu1-ua-1f6">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="294" y="313" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+                    </window>
+                    <connections>
+                        <segue destination="F90-nP-753" kind="relationship" relationship="window.shadowedContentViewController" id="gDC-sY-9mk"/>
+                    </connections>
+                </windowController>
+                <customObject id="irj-fp-CtB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="715" y="-459"/>
+        </scene>
+        <!--Preferences View Controller-->
+        <scene sceneID="qij-K2-cCG">
+            <objects>
+                <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="yPx-aT-K8a">
+                        <rect key="frame" x="0.0" y="0.0" width="239" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="dq5-QX-tff">
+                                <rect key="frame" x="18" y="18" width="203" height="18"/>
+                                <buttonCell key="cell" type="check" title="Use iTerm instead of Terminal" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ax0-c5-cDI">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="F90-nP-753" name="enabled" keyPath="iTermFound" id="inm-bH-NND"/>
+                                    <binding destination="F90-nP-753" name="value" keyPath="useITerm" id="F63-03-epw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="dq5-QX-tff" firstAttribute="leading" secondItem="yPx-aT-K8a" secondAttribute="leading" constant="20" symbolic="YES" id="H1M-KQ-ckt"/>
+                            <constraint firstAttribute="trailing" secondItem="dq5-QX-tff" secondAttribute="trailing" constant="20" symbolic="YES" id="MDt-gR-Mnk"/>
+                            <constraint firstItem="dq5-QX-tff" firstAttribute="top" secondItem="yPx-aT-K8a" secondAttribute="top" constant="20" symbolic="YES" id="NCb-8L-VRJ"/>
+                            <constraint firstAttribute="bottom" secondItem="dq5-QX-tff" secondAttribute="bottom" constant="20" symbolic="YES" id="yNN-Bh-k8I"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="PPT-qH-eGw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="716" y="-148"/>
+        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -22,7 +72,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="0CQ-HC-63t" kind="show" id="PFZ-iz-T8N"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Check for Updates…" id="jgT-3h-PCr">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -678,8 +732,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="updateStatusItem:" target="cMb-32-Geg" id="oTL-df-4qa"/>
-                                    <binding destination="tqv-0D-9ph" name="value" keyPath="values.HideStatusMenu" id="jH5-Tz-3gA">
+                                    <binding destination="tqv-0D-9ph" name="value" keyPath="values.HideMenuHelperApp" id="VV2-pF-EfP">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -768,11 +821,8 @@ IA
                                     </binding>
                                 </connections>
                             </textField>
-                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-xy-oRd">
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-xy-oRd">
                                 <rect key="frame" x="20" y="244" width="468" height="5"/>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <font key="titleFont" metaFont="system"/>
                             </box>
                             <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Be-be-3Q1">
                                 <rect key="frame" x="154" y="248" width="144" height="32"/>
@@ -1167,17 +1217,11 @@ IA
                                     <action selector="openHBAFile:" target="buw-cX-kU8" id="hCs-EE-niy"/>
                                 </connections>
                             </button>
-                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oRG-00-QiV">
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="oRG-00-QiV">
                                 <rect key="frame" x="0.0" y="170" width="361" height="5"/>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <font key="titleFont" metaFont="system"/>
                             </box>
-                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pLa-GF-SdJ">
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pLa-GF-SdJ">
                                 <rect key="frame" x="0.0" y="45" width="361" height="5"/>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <font key="titleFont" metaFont="system"/>
                             </box>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yRA-hK-TVz">
                                 <rect key="frame" x="300" y="62" width="41" height="19"/>
@@ -1270,7 +1314,7 @@ IA
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Kht-WI-z50">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="367"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1346,11 +1390,8 @@ IA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4tL-aA-EIb">
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4tL-aA-EIb">
                                 <rect key="frame" x="0.0" y="30" width="150" height="5"/>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <font key="titleFont" metaFont="system"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2oV-nX-Naq">
                                 <rect key="frame" x="70" y="0.0" width="32" height="32"/>
