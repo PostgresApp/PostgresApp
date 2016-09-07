@@ -21,7 +21,7 @@
                 </windowController>
                 <customObject id="irj-fp-CtB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="715" y="-459"/>
+            <point key="canvasLocation" x="938" y="-115"/>
         </scene>
         <!--Preferences View Controller-->
         <scene sceneID="qij-K2-cCG">
@@ -63,7 +63,7 @@
                 </viewController>
                 <customObject id="PPT-qH-eGw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="715" y="-121.5"/>
+            <point key="canvasLocation" x="938" y="207"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -686,9 +686,9 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Postgres Control Center" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="400"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="152"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <contentBorderThickness minY="32"/>
                         <connections>
@@ -696,33 +696,56 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="tLA-Sm-LiQ" kind="relationship" relationship="window.shadowedContentViewController" id="Waa-TV-qqR"/>
+                        <segue destination="it9-uo-REU" kind="relationship" relationship="window.shadowedContentViewController" id="Tqo-gc-d5p"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="178"/>
+            <point key="canvasLocation" x="54" y="54"/>
         </scene>
-        <!--Bottom Bar Split View Controller-->
-        <scene sceneID="VZ3-e5-TNn">
+        <!--Split View Controller-->
+        <scene sceneID="tQl-Oo-dqS">
             <objects>
-                <splitViewController id="tLA-Sm-LiQ" customClass="BottomBarSplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController id="it9-uo-REU" customClass="SplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem id="Cxu-av-mGO"/>
-                        <splitViewItem holdingPriority="1000" id="oUf-AY-yEX"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="6Bj-x8-Nwv"/>
+                        <splitViewItem id="VeG-YL-T7r"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" id="9Vi-8T-RmD">
-                        <rect key="frame" x="0.0" y="247" width="450" height="53"/>
+                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="QG8-SB-dWs">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
-                        <segue destination="FdD-4s-wdj" kind="relationship" relationship="splitItems" id="9hw-8D-CE4"/>
-                        <segue destination="2dy-He-Bdq" kind="relationship" relationship="splitItems" id="MVq-31-itv"/>
+                        <outlet property="serverViewItem" destination="VeG-YL-T7r" id="w3k-tx-fdQ"/>
+                        <outlet property="sideBarItem" destination="6Bj-x8-Nwv" id="3oq-ty-1ZJ"/>
+                        <segue destination="fKp-yy-u0S" kind="relationship" relationship="splitItems" id="IUS-Pj-Lg1"/>
+                        <segue destination="l7q-iZ-vit" kind="relationship" relationship="splitItems" id="Nof-nL-oSN"/>
                     </connections>
                 </splitViewController>
-                <customObject id="d52-be-3kH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Of8-cv-Q7z" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="530"/>
+            <point key="canvasLocation" x="54" y="393"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="myU-PH-rgF">
+            <objects>
+                <splitViewController id="l7q-iZ-vit" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="MIW-Cu-ODv"/>
+                        <splitViewItem id="EZc-eF-go6"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" id="zRM-53-r9N">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </splitView>
+                    <connections>
+                        <segue destination="Rgw-vS-n3O" kind="relationship" relationship="splitItems" id="pLD-WV-YsV"/>
+                        <segue destination="2dy-He-Bdq" kind="relationship" relationship="splitItems" id="oif-i5-SxZ"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="VIm-ma-W4C" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="229" y="892"/>
         </scene>
         <!--Bottom Bar Controller-->
         <scene sceneID="Qg0-R1-L62">
@@ -733,7 +756,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-ZY-UDJ">
-                                <rect key="frame" x="18" y="3" width="188" height="25"/>
+                                <rect key="frame" x="244" y="3" width="188" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ike-zz-M38"/>
                                 </constraints>
@@ -750,7 +773,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a5h-vw-DJV">
-                                <rect key="frame" x="394" y="3" width="36" height="24"/>
+                                <rect key="frame" x="20" y="3" width="36" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4cj-fB-8tn"/>
                                     <constraint firstAttribute="width" constant="36" id="fUl-rm-eVA"/>
@@ -765,46 +788,19 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wg7-ZY-UDJ" secondAttribute="trailing" constant="20" id="2HS-G8-R6w"/>
                             <constraint firstAttribute="bottom" secondItem="wg7-ZY-UDJ" secondAttribute="bottom" constant="5" id="FaU-Yg-LHK"/>
                             <constraint firstAttribute="bottom" secondItem="a5h-vw-DJV" secondAttribute="bottom" constant="5" id="Gfk-nf-LNX"/>
+                            <constraint firstAttribute="trailing" secondItem="wg7-ZY-UDJ" secondAttribute="trailing" constant="20" symbolic="YES" id="Kzl-rF-Zs2"/>
                             <constraint firstItem="wg7-ZY-UDJ" firstAttribute="top" secondItem="jKD-dq-4CQ" secondAttribute="top" constant="5" id="YyT-D6-wE9"/>
-                            <constraint firstItem="wg7-ZY-UDJ" firstAttribute="leading" secondItem="jKD-dq-4CQ" secondAttribute="leading" constant="20" id="ech-9L-BMt"/>
+                            <constraint firstItem="a5h-vw-DJV" firstAttribute="leading" secondItem="jKD-dq-4CQ" secondAttribute="leading" constant="20" symbolic="YES" id="baR-mU-6dQ"/>
                             <constraint firstItem="a5h-vw-DJV" firstAttribute="top" secondItem="jKD-dq-4CQ" secondAttribute="top" constant="5" id="scB-BB-0If"/>
-                            <constraint firstAttribute="trailing" secondItem="a5h-vw-DJV" secondAttribute="trailing" constant="20" symbolic="YES" id="sqS-mW-8V6"/>
                         </constraints>
                     </view>
                 </viewController>
                 <customObject id="cMb-32-Geg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="tqv-0D-9ph"/>
             </objects>
-            <point key="canvasLocation" x="660" y="529.5"/>
-        </scene>
-        <!--Split View Controller-->
-        <scene sceneID="hrj-MD-yEE">
-            <objects>
-                <splitViewController id="FdD-4s-wdj" customClass="SplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <splitViewItems>
-                        <splitViewItem id="5fB-Ui-Ylv" userLabel="Server View Item"/>
-                        <splitViewItem holdingPriority="251" id="72Z-Aa-XTd"/>
-                    </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="9Ez-yc-oCz">
-                        <rect key="frame" x="0.0" y="0.0" width="516" height="201"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <outlet property="delegate" destination="FdD-4s-wdj" id="7HP-dx-fVl"/>
-                        </connections>
-                    </splitView>
-                    <connections>
-                        <outlet property="serverViewItem" destination="5fB-Ui-Ylv" id="Fer-Ec-hKO"/>
-                        <outlet property="sideBarItem" destination="72Z-Aa-XTd" id="0xa-Ll-V8H"/>
-                        <segue destination="Rgw-vS-n3O" kind="relationship" relationship="splitItems" id="dFK-aU-PCU"/>
-                        <segue destination="fKp-yy-u0S" kind="relationship" relationship="splitItems" id="BlM-hb-f1p"/>
-                    </connections>
-                </splitViewController>
-                <customObject id="FoV-4N-mhn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="54" y="771"/>
+            <point key="canvasLocation" x="487" y="1302"/>
         </scene>
         <!--Server View Controller-->
         <scene sceneID="56q-Vh-FcR">
@@ -1015,7 +1011,7 @@ IA
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-104" y="1276"/>
+            <point key="canvasLocation" x="-11" y="1486"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="syE-si-wMu">
@@ -1036,7 +1032,7 @@ IA
                 </windowController>
                 <customObject id="U4C-cl-867" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="686" y="984"/>
+            <point key="canvasLocation" x="928" y="981"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Seh-Pd-4Pk">
@@ -1307,24 +1303,27 @@ IA
                 </viewController>
                 <customObject id="fJg-xC-ad6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="686" y="1414"/>
+            <point key="canvasLocation" x="928" y="1463"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
             <objects>
                 <viewController id="fKp-yy-u0S" userLabel="Sidebar Controller" customClass="SidebarController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Jbb-lb-c1Z">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="iNx-kT-V4g">
+                                <rect key="frame" x="0.0" y="275" width="150" height="25"/>
+                            </visualEffectView>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
-                                <rect key="frame" x="0.0" y="33" width="150" height="367"/>
+                                <rect key="frame" x="0.0" y="33" width="150" height="242"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="dFK-VJ-sw2">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="367"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="242"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Kht-WI-z50">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="367"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="242"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1389,10 +1388,9 @@ IA
                                 </clipView>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="Vtj-V1-DdI"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="tbT-EC-lRi"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="p1y-Ep-YR9">
-                                    <rect key="frame" x="0.0" y="323" width="200" height="16"/>
+                                    <rect key="frame" x="0.0" y="251" width="150" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="BBx-ff-fMZ">
@@ -1404,7 +1402,7 @@ IA
                                 <rect key="frame" x="0.0" y="30" width="150" height="5"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2oV-nX-Naq">
-                                <rect key="frame" x="70" y="0.0" width="32" height="32"/>
+                                <rect key="frame" x="40" y="0.0" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="MaK-0O-woz"/>
                                     <constraint firstAttribute="width" constant="32" id="N7c-E3-6KA"/>
@@ -1419,7 +1417,7 @@ IA
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-Fg-SZa">
-                                <rect key="frame" x="110" y="0.0" width="32" height="32"/>
+                                <rect key="frame" x="8" y="0.0" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="4fX-Xi-XXj"/>
                                     <constraint firstAttribute="height" constant="32" id="U2r-Us-E8R"/>
@@ -1435,20 +1433,22 @@ IA
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="0MA-ty-Dek"/>
+                            <constraint firstItem="iNx-kT-V4g" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="0sV-s2-9sC"/>
                             <constraint firstAttribute="bottom" secondItem="lhI-Fg-SZa" secondAttribute="bottom" id="39Y-3r-2b6"/>
                             <constraint firstItem="lhI-Fg-SZa" firstAttribute="top" secondItem="4tL-aA-EIb" secondAttribute="bottom" id="3ZD-o4-183"/>
                             <constraint firstAttribute="bottom" secondItem="2oV-nX-Naq" secondAttribute="bottom" id="9L2-c8-Sl9"/>
+                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" constant="25" id="Bcj-Wj-daD"/>
                             <constraint firstItem="2oV-nX-Naq" firstAttribute="top" secondItem="4tL-aA-EIb" secondAttribute="bottom" id="F91-36-QzF"/>
+                            <constraint firstAttribute="trailing" secondItem="iNx-kT-V4g" secondAttribute="trailing" id="GF0-xh-jTQ"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="Has-5z-2v7"/>
+                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="iNx-kT-V4g" secondAttribute="bottom" id="JuA-1Q-Lb6"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="Mq2-yO-CMl"/>
-                            <constraint firstAttribute="trailing" secondItem="lhI-Fg-SZa" secondAttribute="trailing" constant="8" id="NWe-KV-cZK"/>
-                            <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="2oV-nX-Naq" secondAttribute="trailing" constant="8" id="UWa-4c-whE"/>
-                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="dxx-TZ-TUu"/>
+                            <constraint firstItem="4tL-aA-EIb" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" id="byE-Bm-ho2"/>
+                            <constraint firstItem="iNx-kT-V4g" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="cly-dQ-iYT"/>
+                            <constraint firstItem="2oV-nX-Naq" firstAttribute="leading" secondItem="lhI-Fg-SZa" secondAttribute="trailing" id="gHG-hG-nkM"/>
                             <constraint firstAttribute="bottom" secondItem="2oV-nX-Naq" secondAttribute="bottom" id="geG-ko-mqp"/>
-                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="hbg-rI-crw"/>
                             <constraint firstAttribute="trailing" secondItem="4tL-aA-EIb" secondAttribute="trailing" id="il2-gt-leA"/>
-                            <constraint firstItem="4tL-aA-EIb" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" id="pL5-UP-oz5"/>
+                            <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" constant="8" id="rps-Bo-Ltp"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="uX4-fq-6xw"/>
                             <constraint firstItem="4tL-aA-EIb" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="xnY-Ik-rgC"/>
                         </constraints>
@@ -1462,7 +1462,7 @@ IA
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="283" y="1276"/>
+            <point key="canvasLocation" x="-130" y="892"/>
         </scene>
         <!--Add Server View Controller-->
         <scene sceneID="in6-2w-5h3">
@@ -1615,7 +1615,7 @@ Gw
                 </viewController>
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="284" y="1774"/>
+            <point key="canvasLocation" x="-589" y="1008"/>
         </scene>
         <!--Database Item-->
         <scene sceneID="2fR-yR-zDC">
@@ -1657,7 +1657,7 @@ Gw
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-451" y="1350"/>
+            <point key="canvasLocation" x="-348" y="1622"/>
         </scene>
     </scenes>
     <resources>
