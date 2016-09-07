@@ -10,21 +10,37 @@ import Cocoa
 
 class PreferencesViewController: NSViewController {
 	
-	dynamic var iTermFound: Bool {
-		return FileManager.default.fileExists(atPath: "/Applications/iTerm.app")
+	let preferencesManager = PreferencesManager.shared
+	
+	let clientAppURLs = [
+		URL(fileURLWithPath: "/Applications/Utilities/Terminal.app"),
+		URL(fileURLWithPath: "/Applications/iTerm.app"),
+		URL(fileURLWithPath: "/Applications/Postico.app")
+	]
+	
+	dynamic var clientAppNames: [String] {
+		var result = [String]()
+		for app in clientAppURLs {
+			result.append(app.deletingPathExtension().lastPathComponent)
+		}
+		return result
 	}
 	
-	dynamic var useITerm: Bool {
-		get {
-			return UserDefaults.standard.bool(forKey: "UseITerm")
-		}
-		set {
-			UserDefaults.standard.set(newValue, forKey: "UseITerm")
+	dynamic var selectionIndex = 0 {
+		didSet {
+			preferencesManager.clientAppURL = clientAppURLs[selectionIndex]
 		}
 	}
 	
+}
+
+
+
+
+class PreferencesManager {
 	
+	static let shared = PreferencesManager()
 	
-	
+	var clientAppURL: URL!
 	
 }
