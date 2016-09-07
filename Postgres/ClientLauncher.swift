@@ -1,5 +1,5 @@
 //
-//  ASWrapper.swift
+//  ClientLauncher.swift
 //  Postgres
 //
 //  Created by Chris on 13/07/16.
@@ -8,17 +8,13 @@
 
 import Foundation
 
-class ASWrapper: NSObject {
+class ClientLauncher: NSObject {
 	
-	private let fileName: String
-	
-	init(fileName: String) {
-		self.fileName = fileName
-	}
+	private let scriptPath = "ClientLauncher"
 	
 	
 	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
-		guard let path = Bundle.main.path(forResource: fileName, ofType: "scpt") else { return }
+		guard let path = Bundle.main.path(forResource: scriptPath, ofType: "scpt") else { return }
 		
 		// these constants are defined in Carbon (no need to include)
 		let kASAppleScriptSuite = FourCharCode("ascr")
@@ -44,7 +40,7 @@ class ASWrapper: NSObject {
 		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
 		if let errorDict = errorDict {
-			throw NSError(domain: "com.postgresapp.Postgres2.ASWrapper", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
 		}
 	}
 }
