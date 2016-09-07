@@ -128,11 +128,12 @@ class ServerViewBackgroundView: NSView {
 		NSColor.white.setFill()
 		NSRectFill(dirtyRect)
 		
-		let x: CGFloat = 20, y: CGFloat = 20
-		let imageRect = NSRect(x: x, y: self.bounds.maxY-y-128, width: 128, height: 128)
+		let imgSize = CGFloat(96)
+		let x: CGFloat = self.bounds.maxX-imgSize-20, y: CGFloat = 20
+		let imageRect = NSRect(x: x, y: self.bounds.maxY-y-imgSize, width: imgSize, height: imgSize)
 		if imageRect.intersects(dirtyRect) {
 			NSApp.applicationIconImage.draw(in: imageRect)
 		}
 	}
-	
 }
+
