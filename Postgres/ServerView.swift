@@ -94,12 +94,25 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		guard let database = server.firstSelectedDatabase else { return }
 		
-		let psqlScript = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
+		let clientApp = "iTerm"
+		let routine = "open_\(clientApp)"
+		var param: String!
 		
-		let wrapper = ASWrapper(fileName: "ASSubroutines")
+		switch clientApp {
+		case "Terminal", "iTerm":
+			param = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
+		case "Postico":
+			param = "postgres://localhost:\(server.port)/chris?nickname=Postgres+(\(database.name))"
+		default:
+			return
+		}
+		
+		let launcher = ClientLauncher()
 		do {
-			try wrapper.runSubroutine("openTerminalApp", parameters: [psqlScript])
-		} catch {}
+			try launcher.runSubroutine(routine, parameters: [param])
+		} catch let error {
+			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+		}
 	}
 	
 }
