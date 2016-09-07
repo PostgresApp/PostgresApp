@@ -66,7 +66,6 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var running: Bool = false
 	dynamic private(set) var serverStatus: ServerStatus = .Unknown
 	dynamic private(set) var statusMessage: String = ""
-	dynamic private(set) var statusMessageExtended: String = ""
 	dynamic private(set) var databases: [Database] = []
 	dynamic var selectedDatabaseIndices = IndexSet()
 	
