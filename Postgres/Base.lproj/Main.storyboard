@@ -28,32 +28,42 @@
             <objects>
                 <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="yPx-aT-K8a">
-                        <rect key="frame" x="0.0" y="0.0" width="239" height="54"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="61"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="dq5-QX-tff">
-                                <rect key="frame" x="18" y="18" width="203" height="18"/>
-                                <buttonCell key="cell" type="check" title="Use iTerm instead of Terminal" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ax0-c5-cDI">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
+                                <rect key="frame" x="18" y="22" width="134" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Open Databases with" id="edI-G0-pds">
                                     <font key="font" metaFont="system"/>
-                                </buttonCell>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
+                                <rect key="frame" x="163" y="17" width="220" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="3kL-IY-fuZ">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="5i1-UV-qpz"/>
+                                            <menuItem title="Item 2" id="eks-r8-d9J"/>
+                                            <menuItem title="Item 3" id="QmJ-Os-DjT"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
                                 <connections>
-                                    <binding destination="F90-nP-753" name="enabled" keyPath="iTermFound" id="inm-bH-NND"/>
-                                    <binding destination="F90-nP-753" name="value" keyPath="useITerm" id="F63-03-epw"/>
+                                    <binding destination="F90-nP-753" name="content" keyPath="clientAppNames" id="aGW-Xo-aSK"/>
                                 </connections>
-                            </button>
+                            </popUpButton>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="dq5-QX-tff" firstAttribute="leading" secondItem="yPx-aT-K8a" secondAttribute="leading" constant="20" symbolic="YES" id="H1M-KQ-ckt"/>
-                            <constraint firstAttribute="trailing" secondItem="dq5-QX-tff" secondAttribute="trailing" constant="20" symbolic="YES" id="MDt-gR-Mnk"/>
-                            <constraint firstItem="dq5-QX-tff" firstAttribute="top" secondItem="yPx-aT-K8a" secondAttribute="top" constant="20" symbolic="YES" id="NCb-8L-VRJ"/>
-                            <constraint firstAttribute="bottom" secondItem="dq5-QX-tff" secondAttribute="bottom" constant="20" symbolic="YES" id="yNN-Bh-k8I"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="PPT-qH-eGw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="716" y="-148"/>
+            <point key="canvasLocation" x="715" y="-121.5"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -800,8 +810,8 @@
         <scene sceneID="56q-Vh-FcR">
             <objects>
                 <viewController id="Rgw-vS-n3O" customClass="ServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="MYs-NA-b8f" customClass="ServerViewBackgroundView" customModule="Postgres" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="400"/>
+                    <view key="view" id="MYs-NA-b8f" customClass="ServerViewBackgroundView" customModule="Postgres" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="508" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nOw-Qm-BYd">

@@ -21,8 +21,8 @@
 		836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServer.swift */; };
 		838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B8D361D649CB30050EF03 /* MainWindowModel.swift */; };
-		83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ASWrapper.swift */; };
-		83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */; };
+		83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */; };
+		83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */; };
 		83999C671D7DA3C300B8A1D6 /* PostgresLoginHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83C19C2A1D7D977000F4862D /* PostgresLoginHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		83999C691D7DA42B00B8A1D6 /* PostgresMenuHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83C19C4E1D7D9A7D00F4862D /* PostgresMenuHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
@@ -97,8 +97,8 @@
 		836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabasesView.swift; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServer.swift; sourceTree = "<group>"; };
 		838B8D361D649CB30050EF03 /* MainWindowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowModel.swift; sourceTree = "<group>"; };
-		83969DBA1D369BD1005B9F1C /* ASWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASWrapper.swift; sourceTree = "<group>"; };
-		83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ASSubroutines.applescript; sourceTree = "<group>"; };
+		83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientLauncher.swift; sourceTree = "<group>"; };
+		83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ClientLauncher.applescript; sourceTree = "<group>"; };
 		83999C731D7DAA5B00B8A1D6 /* PostgresLoginHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresLoginHelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		83A544E21D6682C700603068 /* KeyValueObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
 		83A8CE811D64DBA2005FF107 /* BottomBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
@@ -218,13 +218,13 @@
 				83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
-				83969DBA1D369BD1005B9F1C /* ASWrapper.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
 				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
 				830D62CB1D77297800570BFC /* Preferences.swift */,
+				83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */,
+				83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
-				83969DC21D36A3EA005B9F1C /* ASSubroutines.applescript */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
@@ -421,7 +421,7 @@
 				83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */,
 				83A8CE821D64DBA2005FF107 /* BottomBar.swift in Sources */,
 				8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */,
-				83969DC31D36A3EA005B9F1C /* ASSubroutines.applescript in Sources */,
+				83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */,
@@ -429,7 +429,7 @@
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
-				83969DBB1D369BD1005B9F1C /* ASWrapper.swift in Sources */,
+				83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */,
 				838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */,
 				830658E51D536F2E00BA1752 /* Extensions.swift in Sources */,
 				8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */,
