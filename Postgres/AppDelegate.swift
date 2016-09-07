@@ -29,10 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		print("hideMenuHelperApp=\(hideMenuHelperApp)")
-		print("hideMenuHelperApp=\(UserDefaults.standard.bool(forKey: "HideMenuHelperApp"))")
-		
-		
 		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.saveServers()
 		}
@@ -59,7 +55,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 		
 		
-		//CHECK: enable PostgresLoginHelper if the main App is inside Applications folder
 		if Bundle.main.bundlePath == "/Applications/Postgres.app" {
 			enableLoginHelperApp(true)
 		} else {
@@ -68,6 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			if !hideMenuHelperApp {
 				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
 				NSWorkspace.shared().open(url)
+				NSApp.activate(ignoringOtherApps: true)
 			}
 		}
 	}
