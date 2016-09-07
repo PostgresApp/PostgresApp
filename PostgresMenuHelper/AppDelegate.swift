@@ -78,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	@IBAction func quitPostgresMenuHelper(_ sender: AnyObject?) {
 		for server in serverManager.servers where server.running {
-			server.stopSync()
+			let _ = server.stopSync()
 		}
 		
 		for app in NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2") {
