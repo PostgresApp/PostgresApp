@@ -94,15 +94,16 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		guard let database = server.firstSelectedDatabase else { return }
 		
-		let clientApp = "iTerm"
-		let routine = "open_\(clientApp)"
+		
+		let clientAppName = UserDefaults.standard.object(forKey: "ClientAppName") as? String ?? "Terminal"
+		let routine = "open_\(clientAppName)"
 		var param: String!
 		
-		switch clientApp {
+		switch clientAppName {
 		case "Terminal", "iTerm":
 			param = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
 		case "Postico":
-			param = "postgres://localhost:\(server.port)/chris?nickname=Postgres+(\(database.name))"
+			param = String(format: "postgres://localhost:%u/%@", server.port, database.name)
 		default:
 			return
 		}
