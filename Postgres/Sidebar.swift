@@ -64,3 +64,16 @@ class ServerTableCellView: NSTableCellView {
 	}
 	
 }
+
+
+
+class ServerIconImageCell: NSImageCell {
+	
+	override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
+		if self.backgroundStyle == .dark {
+			super.draw(withFrame: cellFrame, in: controlView)
+		} else {
+			self.image?.draw(in: cellFrame)
+		}
+	}
+}
