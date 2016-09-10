@@ -13,27 +13,17 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	dynamic var mainWindowModel: MainWindowModel!
 	var modelObserver: KeyValueObserver!
 	
-	@IBOutlet var serverViewItem: NSSplitViewItem!
-	@IBOutlet var sideBarItem: NSSplitViewItem!
-	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
 			guard let this = self, this.mainWindowModel != nil else { return }
-			this.updateServerListView()
+			this.toggleSidebar(nil)
 		}
 	}
 	
 	
-	private func updateServerListView() {
-		if mainWindowModel.sidebarVisible && !splitViewItems.contains(sideBarItem) {
-			self.addSplitViewItem(sideBarItem)
-			(sideBarItem.viewController as! SidebarController).mainWindowModel = self.mainWindowModel
-		} else if !mainWindowModel.sidebarVisible && splitViewItems.contains(sideBarItem) {
-			self.removeSplitViewItem(sideBarItem)
-		}
-	}
+	
 	
 }
