@@ -38,23 +38,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		model.sidebarVisible = model.serverManager.servers.count > 1
 		mainWindowModel = model
 		
-		modelObserver = self.observe("mainWindowModel.sidebarVisible") { [weak self] _ in
-			guard let this = self else { return }
-			this.invalidateRestorableState()
-		}
-		
 		super.windowDidLoad()
-	}
-	
-	
-	override func encodeRestorableState(with coder: NSCoder) {
-		super.encodeRestorableState(with: coder)
-		coder.encode(mainWindowModel.sidebarVisible, forKey: "SidebarVisible")
-	}
-	
-	override func restoreState(with coder: NSCoder) {
-		mainWindowModel.sidebarVisible = coder.decodeBool(forKey: "SidebarVisible")
-		super.restoreState(with: coder)
 	}
 	
 	

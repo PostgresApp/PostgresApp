@@ -300,7 +300,7 @@
             <objects>
                 <splitViewController id="it9-uo-REU" customClass="SplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="gtw-Ta-XCg"/>
+                        <splitViewItem canCollapse="YES" collapsed="YES" holdingPriority="260" behavior="sidebar" id="gtw-Ta-XCg"/>
                         <splitViewItem id="Q5R-ud-P97"/>
                     </splitViewItems>
                     <splitView key="splitView" wantsLayer="YES" misplaced="YES" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="QG8-SB-dWs">
@@ -308,6 +308,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
+                        <outlet property="sidebarItem" destination="gtw-Ta-XCg" id="W7P-1C-aUy"/>
                         <segue destination="fKp-yy-u0S" kind="relationship" relationship="splitItems" id="2v9-8r-UUa"/>
                         <segue destination="Rgw-vS-n3O" kind="relationship" relationship="splitItems" id="M6O-5h-g8D"/>
                     </connections>
