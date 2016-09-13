@@ -31,8 +31,8 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	@IBAction func versionChanged(_ sender: AnyObject?) {
-		//varPath = varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: NSRegularExpression.escapedTemplate(for: version), options: .regularExpressionSearch)
-		varPath = varPath.replacingOccurrences(of: "\\d+(\\.\\d+)?$", with: NSRegularExpression.escapedPattern(for: version))
+		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
+		varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedPattern(for: version))
 	}
 	
 	
