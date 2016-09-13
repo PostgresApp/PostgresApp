@@ -24,8 +24,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		}
 	}
 	
-	var modelObserver: KeyValueObserver!
-	
 	
 	override func windowDidLoad() {
 		guard let window = self.window else { return }
