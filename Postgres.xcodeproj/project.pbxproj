@@ -208,8 +208,8 @@
 		83FB571A1D1B05F000A903A3 /* Postgres */ = {
 			isa = PBXGroup;
 			children = (
-				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
 				839A38271D88494A00E9591A /* main.swift */,
+				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
 				83FB573B1D1B18C900A903A3 /* MainWindow.swift */,
 				838B8D361D649CB30050EF03 /* MainWindowModel.swift */,
 				8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */,
