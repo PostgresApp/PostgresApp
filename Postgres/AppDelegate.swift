@@ -10,7 +10,6 @@ import Cocoa
 import ServiceManagement
 import Sparkle
 
-@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
@@ -18,13 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
-		#if !DEBUG
-		checkApplicationPath()
-		#endif
-		
-		serverManager.loadServers()
-		serverManager.createDefaultServer()
-		serverManager.refreshServerStatuses()
 	}
 	
 	
@@ -79,28 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	
-	private func checkApplicationPath() {
-		let actualPath = Bundle.main.bundlePath
-		let expectedPath = "/Applications/Postgres.app"
-		
-		if actualPath != expectedPath {
-			let alert = NSAlert()
-			
-			if !actualPath.hasSuffix("Postgres.app") {
-				alert.messageText = "Postgres.app has been renamed."
-				alert.informativeText = "Please set the name of the app to 'Postgres.app'."
-			} else {
-				alert.messageText = "Postgres.app must be inside your Applications folder."
-				alert.informativeText = "Please move Postgres.app to the Applications folder."
-			}
-			
-			alert.addButton(withTitle: "OK")
-			alert.runModal()
-			exit(1)
-		}
-	}
-	
-	
 	private func enableLoginHelperApp(_ enabled: Bool) {
 		let helperAppURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresLoginHelper.app")
 		if LSRegisterURL(helperAppURL as CFURL, true) != noErr {
@@ -118,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		print("updaterWillInstallUpdate")
 		
 		for server in serverManager.servers where server.running {
-			let _ = server.stopSync()
+			_ = server.stopSync()
 		}
 	}
 	
