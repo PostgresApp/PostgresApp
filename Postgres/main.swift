@@ -6,12 +6,10 @@
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
 
-import Foundation
-import AppKit
-
+import Cocoa
 
 #if !DEBUG
-private func checkApplicationPath() {
+func checkApplicationPath() {
 	let actualPath = Bundle.main.bundlePath
 	let expectedPath = "/Applications/Postgres.app"
 	
@@ -31,7 +29,6 @@ private func checkApplicationPath() {
 		exit(1)
 	}
 }
-
 checkApplicationPath()
 #endif
 
@@ -39,5 +36,6 @@ checkApplicationPath()
 ServerManager.shared.loadServers()
 ServerManager.shared.createDefaultServer()
 ServerManager.shared.refreshServerStatuses()
+
 
 _ = NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv)
