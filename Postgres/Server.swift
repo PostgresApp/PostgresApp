@@ -604,8 +604,7 @@ class Database: NSObject {
 	dynamic var name: String = ""
 	
 	dynamic var icon: NSImage {
-		
-		let icon = NSImage(size: NSSize(width: 64, height: 63), flipped: false) { (dstRect) -> Bool in
+		return NSImage(size: NSSize(width: 64, height: 63), flipped: false) { (dstRect) -> Bool in
 			let baseColor = NSColor(calibratedRed: 0.714, green: 0.823, blue: 0.873, alpha: 1)
 			let frameColor = baseColor.shadow(withLevel: 0.4)
 			let fillColor = baseColor.highlight(withLevel: 0.7)
@@ -616,14 +615,12 @@ class Database: NSObject {
 			let lineWidth = CGFloat(1.0)
 			
 			for i in 0...3 {
-				
 				var y = lineWidth*0.5
 				if i > 0 {
 					y += (63-lineWidth-8) / 3 * CGFloat(i)
 				}
 				
 				let oval = NSBezierPath(ovalIn: NSRect(x: lineWidth*0.5, y: y, width: 64-lineWidth, height: 8.0))
-				
 				oval.lineWidth = lineWidth
 				oval.stroke()
 				oval.fill()
@@ -632,9 +629,7 @@ class Database: NSObject {
 					var y1 = 4+lineWidth*0.5
 					if i > 0 {
 						y1 += (63-lineWidth-8) / 3 * CGFloat(i)
-						
 					}
-					
 					NSRectFillUsingOperation(NSRect(x: lineWidth*0.5, y: y1, width: 64-lineWidth, height: 16.0), NSCompositingOperation.copy)
 				}
 			}
@@ -645,8 +640,6 @@ class Database: NSObject {
 			
 			return true
 		}
-		
-		return icon
 	}
 	
 	
