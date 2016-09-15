@@ -11,10 +11,12 @@ import Cocoa
 class MenuItemViewController: NSViewController {
 	
 	dynamic var server: Server!
+	
 	dynamic private(set) var actionButtonTitle: String?
 	dynamic private(set) var statusIcon: NSImage?
 	dynamic private(set) var errorIconVisible = false
 	dynamic private(set) var errorTooltip = ""
+	
 	var keyValueObserver: KeyValueObserver!
 	
 	
@@ -52,7 +54,6 @@ class MenuItemViewController: NSViewController {
 	
 	
 	private func serverActionCompleted(actionStatus: Server.ActionStatus) {
-		DistributedNotificationCenter.default().post(name: Server.StatusChangedNotification, object: nil)
 		if case let .Failure(error) = actionStatus {
 			self.errorIconVisible = true
 			self.errorTooltip = error.localizedDescription
@@ -60,6 +61,8 @@ class MenuItemViewController: NSViewController {
 			self.errorIconVisible = false
 			self.errorTooltip = ""
 		}
+		
+		DistributedNotificationCenter.default().post(name: Server.StatusChangedNotification, object: nil)
 	}
 	
 }
