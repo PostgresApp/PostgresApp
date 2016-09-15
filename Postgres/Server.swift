@@ -118,7 +118,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	// MARK: Async handlers
-	func start(closure: @escaping (ActionStatus) -> Void) {
+	func start(_ completion: @escaping (ActionStatus) -> Void) {
 		busy = true
 		updateServerStatus()
 		
@@ -207,7 +207,7 @@ class Server: NSObject, NSCoding {
 			
 			DispatchQueue.main.async {
 				self.updateServerStatus()
-				closure(statusResult)
+				completion(statusResult)
 				self.busy = false
 			}
 			
@@ -216,15 +216,15 @@ class Server: NSObject, NSCoding {
 	
 	
 	/// Attempts to stop the server (in a background thread)
-	/// - parameter closure: This block will be called on the main thread when the server has stopped.
-	func stop(closure: @escaping (ActionStatus) -> Void) {
+	/// - parameter completion: This block will be called on the main thread when the server has stopped.
+	func stop(_ completion: @escaping (ActionStatus) -> Void) {
 		busy = true
 		
 		DispatchQueue.global().async {
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
 				self.updateServerStatus()
-				closure(stopRes)
+				completion(stopRes)
 				self.busy = false
 			}
 		}

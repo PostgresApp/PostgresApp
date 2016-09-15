@@ -44,9 +44,9 @@ class MenuItemViewController: NSViewController {
 	
 	@IBAction func serverAction(_ sender: AnyObject?) {
 		if !server.running {
-			server.start(closure: serverActionCompleted)
+			server.start(serverActionCompleted)
 		} else {
-			server.stop(closure: serverActionCompleted)
+			server.stop(serverActionCompleted)
 		}
 	}
 	
