@@ -121,12 +121,11 @@ class Server: NSObject, NSCoding {
 	// MARK: Async handlers
 	func start(closure: @escaping (ActionStatus) -> Void) {
 		busy = true
+		self.updateServerStatus()
 		
 		DispatchQueue.global().async {
 			
-			DispatchQueue.main.sync {
-				self.updateServerStatus()
-			}
+			let status: ActionStatus
 			
 			switch self.serverStatus {
 			
@@ -136,9 +135,8 @@ class Server: NSObject, NSCoding {
 					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
+				status = .Failure(error)
+				return
 				
 			case .PortInUse:
 				let userInfo = [
@@ -146,18 +144,14 @@ class Server: NSObject, NSCoding {
 					NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
+				status = .Failure(error)
 				
 			case .DataDirInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("There is already a PostgreSQL server running in this data directory", comment: ""),
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
+				status = .Failure(error)
 				
 			case .DataDirIncompatible:
 				let userInfo = [
@@ -165,53 +159,41 @@ class Server: NSObject, NSCoding {
 					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
+				status = .Failure(error)
 				
 			case .DataDirEmpty:
 				let initResult = self.initDatabaseSync()
 				if case .Failure = initResult {
-					DispatchQueue.main.async {
-						closure(initResult)
-					}
+					status = initResult
+					break
 				}
 				
 				let startResult = self.startSync()
 				if case .Failure = startResult {
-					DispatchQueue.main.async {
-						closure(startResult)
-					}
+					status = startResult
+					break
 				}
 				
 				let createUserResult = self.createUserSync()
-				if case .Failure = createUserResult {
-					DispatchQueue.main.async {
-						closure(createUserResult)
-					}
+				guard case .Success = createUserResult else {
+					status = createUserResult
+					break
 				}
 				
 				let createDBResult = self.createUserDatabaseSync()
 				if case .Failure = createDBResult {
-					DispatchQueue.main.async {
-						closure(createDBResult)
-					}
+					status = createDBResult
+					break
 				}
 				
-				DispatchQueue.main.async {
-					closure(.Success)
-				}
+				status = .Success
 				
 			case .Running:
-				DispatchQueue.main.async {
-					closure(.Success)
-				}
+				status = .Success
 				
 			case .Startable:
 				let startRes = self.startSync()
-				DispatchQueue.main.async {
-					closure(startRes)
-				}
+				status = startRes
 				
 			case .StalePidFile:
 				let userInfo = [
@@ -219,9 +201,7 @@ class Server: NSObject, NSCoding {
 					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not runnnig anymore, otherwise your data directory will be corrupted."
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
+				status = .Failure(error)
 				
 			case .Unknown:
 				let userInfo = [
@@ -229,14 +209,13 @@ class Server: NSObject, NSCoding {
 					NSLocalizedRecoverySuggestionErrorKey: ""
 				]
 				let error = NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-				DispatchQueue.main.async {
-					closure(.Failure(error))
-				}
+				status = .Failure(error)
 				
 			}
 			
 			DispatchQueue.main.async {
 				self.updateServerStatus()
+				closure(status)
 				self.busy = false
 			}
 			
@@ -251,6 +230,7 @@ class Server: NSObject, NSCoding {
 		DispatchQueue.global().async {
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
+				self.updateServerStatus()
 				closure(stopRes)
 				self.busy = false
 			}
@@ -430,9 +410,6 @@ class Server: NSObject, NSCoding {
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
-			DispatchQueue.main.sync {
-				updateServerStatus()
-			}
 			return .Success
 		} else {
 			let userInfo = [
@@ -469,9 +446,6 @@ class Server: NSObject, NSCoding {
 		task.waitUntilExit()
 		
 		if task.terminationStatus == 0 {
-			DispatchQueue.main.sync {
-				updateServerStatus()
-			}
 			return .Success
 		} else {
 			let userInfo = [
