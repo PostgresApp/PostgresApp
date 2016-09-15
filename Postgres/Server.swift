@@ -61,6 +61,12 @@ class Server: NSObject, NSCoding {
 	dynamic var logFilePath: String {
 		return varPath.appending("/postgresql.log")
 	}
+	private var pidFilePath: String {
+		return varPath.appending("/postmaster.pid")
+	}
+	private var pgVersionPath: String {
+		return varPath.appending("/PG_VERSION")
+	}
 	
 	dynamic private(set) var busy: Bool = false
 	dynamic private(set) var running: Bool = false
@@ -216,7 +222,7 @@ class Server: NSObject, NSCoding {
 	
 	
 	/// Attempts to stop the server (in a background thread)
-	/// - parameter completion: This block will be called on the main thread when the server has stopped.
+	/// - parameter completion: This closure will be called on the main thread when the server has stopped.
 	func stop(_ completion: @escaping (ActionStatus) -> Void) {
 		busy = true
 		
@@ -242,8 +248,6 @@ class Server: NSObject, NSCoding {
 			return
 		}
 		
-		let pgVersionPath = varPath.appending("/PG_VERSION")
-		
 		if !FileManager.default.fileExists(atPath: pgVersionPath) {
 			serverStatus = .DataDirEmpty
 			running = false
@@ -253,8 +257,8 @@ class Server: NSObject, NSCoding {
 		}
 		
 		do {
-			let fileContents = try String(contentsOfFile: pgVersionPath)
-			if version != fileContents.substring(to: fileContents.index(before: fileContents.endIndex)) {
+			let versionFileContent = try String(contentsOfFile: pgVersionPath)
+			if version != versionFileContent.substring(to: versionFileContent.index(before: versionFileContent.endIndex)) {
 				serverStatus = .DataDirIncompatible
 				running = false
 				statusMessage = "Database directory incompatible"
@@ -269,8 +273,6 @@ class Server: NSObject, NSCoding {
 			return
 		}
 		
-		
-		let pidFilePath = varPath.appending("/postmaster.pid")
 		if FileManager.default.fileExists(atPath: pidFilePath) {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
 				serverStatus = .Unknown
@@ -323,18 +325,47 @@ class Server: NSObject, NSCoding {
 			statusMessage = "Port in use by another process"
 			databases.removeAll()
 			return
-		} else {
-			serverStatus = .Startable
-			running = false
-			statusMessage = "Not running"
-			databases.removeAll()
-			return
 		}
 		
+		serverStatus = .Startable
+		running = false
+		statusMessage = "Not running"
+		databases.removeAll()
 	}
 	
 	
-	func loadDatabases() {
+	/// Checks if the port is in use by another process.
+	private func portInUse() -> Bool {
+		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
+		if sock <= 0 {
+			return false
+		}
+		
+		var listenAddress = sockaddr_in()
+		listenAddress.sin_family = UInt8(AF_INET)
+		listenAddress.sin_port = in_port_t(port).bigEndian
+		listenAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
+		
+		let bindRes = withUnsafePointer(to: &listenAddress) { (sockaddrPointer: UnsafePointer<sockaddr_in>) in
+			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { (sockaddrPointer2: UnsafeMutablePointer<sockaddr>) in
+				Darwin.bind(sock, sockaddrPointer2, socklen_t(MemoryLayout<sockaddr_in>.stride))
+			}
+		}
+		
+		let bindErr = Darwin.errno
+		close(sock)
+		
+		if bindRes == -1 && bindErr == EADDRINUSE {
+			return true
+		}
+		
+		return false
+	}
+	
+	
+	/// Loads the databases from the servers.
+	private func loadDatabases() {
 		databases.removeAll()
 		
 		let url = "postgresql://:\(port)"
@@ -349,39 +380,6 @@ class Server: NSObject, NSCoding {
 			}
 			PQfinish(connection)
 		}
-	}
-	
-	
-	private func portInUse() -> Bool {
-		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
-		if sock <= 0 {
-			return false
-		}
-		
-		var listenAddress = sockaddr_in()
-		listenAddress.sin_family = UInt8(AF_INET)
-		listenAddress.sin_port = in_port_t(self.port).bigEndian
-		listenAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
-		
-		
-		//let bindRes = Darwin.bind(sock, make_sockaddr(&listenAddress), socklen_t(MemoryLayout<sockaddr_in>.size))
-		
-		let bindRes = withUnsafePointer(to: &listenAddress) { (sockaddrPointer: UnsafePointer<sockaddr_in>) in
-			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { (sockaddrPointer2: UnsafeMutablePointer<sockaddr>) in
-				Darwin.bind(sock, sockaddrPointer2, socklen_t(MemoryLayout<sockaddr_in>.stride))
-			}
-		}
-		
-		let bindErrNo = errno
-		
-		close(sock)
-		
-		if bindRes == -1 && bindErrNo == EADDRINUSE {
-			return true
-		}
-		
-		return false
 	}
 	
 	
@@ -406,7 +404,7 @@ class Server: NSObject, NSCoding {
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo = [
+			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not start PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -415,9 +413,9 @@ class Server: NSObject, NSCoding {
 						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
-				}),
-				] as [String: Any]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo))
+				})
+			]
+			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
 		}
 	}
 	
@@ -441,7 +439,7 @@ class Server: NSObject, NSCoding {
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo = [
+			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not stop PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -451,8 +449,8 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			] as [String: Any]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: Int(task.terminationStatus), userInfo: userInfo))
+			]
+			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
 		}
 	}
 	
@@ -476,7 +474,7 @@ class Server: NSObject, NSCoding {
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo = [
+			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not initialize database cluster.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -486,8 +484,8 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			] as [String: Any]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.initdb", code: Int(task.terminationStatus), userInfo: userInfo))
+			]
+			return .Failure(NSError(domain: "com.postgresapp.Postgres2.initdb", code: 0, userInfo: userInfo))
 		}
 	}
 	
@@ -511,7 +509,7 @@ class Server: NSObject, NSCoding {
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo = [
+			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create default user.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -521,8 +519,8 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			] as [String: Any]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createuser", code: Int(task.terminationStatus), userInfo: userInfo))
+			]
+			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createuser", code: 0, userInfo: userInfo))
 		}
 	}
 	
@@ -544,7 +542,7 @@ class Server: NSObject, NSCoding {
 		if task.terminationStatus == 0 {
 			return .Success
 		} else {
-			let userInfo = [
+			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create user database.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
@@ -554,8 +552,8 @@ class Server: NSObject, NSCoding {
 					}
 					return true
 				})
-			] as [String: Any]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createdb", code: Int(task.terminationStatus), userInfo: userInfo))
+			]
+			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo))
 		}
 	}
 	
