@@ -16,7 +16,7 @@ class KeyValueObserver: NSObject {
 	private let keyPath: String
 	private let callback: KVOCallback
 	
-	init(_ object: NSObject, _ keyPath: String, _ callback: KVOCallback) {
+	init(_ object: NSObject, _ keyPath: String, _ callback: @escaping KVOCallback) {
 		self.object = object
 		self.keyPath = keyPath
 		self.callback = callback
@@ -36,7 +36,7 @@ class KeyValueObserver: NSObject {
 
 
 extension NSObject {
-	func observe(_ keyPath: String, options: NSKeyValueObservingOptions = [], callback: KeyValueObserver.KVOCallback) -> KeyValueObserver {
+	func observe(_ keyPath: String, options: NSKeyValueObservingOptions = [], callback: @escaping KeyValueObserver.KVOCallback) -> KeyValueObserver {
 		let observer = KeyValueObserver(self, keyPath, callback)
 		self.addObserver(observer, forKeyPath: keyPath, options: options, context: nil)
 		return observer
