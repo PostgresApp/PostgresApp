@@ -474,7 +474,6 @@
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresLoginHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -493,7 +492,6 @@
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresLoginHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -513,7 +511,6 @@
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresMenuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -534,7 +531,6 @@
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresMenuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -584,7 +580,7 @@
 				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				LATEST_STABLE_PG_VERSION = 9.5;
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lpq";
@@ -629,7 +625,7 @@
 				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
 				LATEST_STABLE_PG_VERSION = 9.5;
 				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-lpq";
 				SDKROOT = macosx;
