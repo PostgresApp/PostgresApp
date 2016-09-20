@@ -63,6 +63,10 @@ class ServerTableCellView: NSTableCellView {
 		}
 	}
 	
+	deinit {
+		self.removeObserver(keyValueObserver, forKeyPath: keyValueObserver.keyPath)
+	}
+	
 }
 
 

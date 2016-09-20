@@ -12,20 +12,13 @@ class KeyValueObserver: NSObject {
 	
 	typealias KVOCallback = ([NSKeyValueChangeKey: Any]?) -> Void
 	
-	private let object: NSObject
-	private let keyPath: String
+	let keyPath: String
 	private let callback: KVOCallback
 	
-	init(_ object: NSObject, _ keyPath: String, _ callback: @escaping KVOCallback) {
-		self.object = object
+	init(_ keyPath: String, _ callback: @escaping KVOCallback) {
 		self.keyPath = keyPath
 		self.callback = callback
 	}
-	
-	deinit {
-		object.removeObserver(self, forKeyPath: keyPath)
-	}
-	
 	
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		callback(change)
@@ -37,7 +30,7 @@ class KeyValueObserver: NSObject {
 
 extension NSObject {
 	func observe(_ keyPath: String, options: NSKeyValueObservingOptions = [], callback: @escaping KeyValueObserver.KVOCallback) -> KeyValueObserver {
-		let observer = KeyValueObserver(self, keyPath, callback)
+		let observer = KeyValueObserver(keyPath, callback)
 		self.addObserver(observer, forKeyPath: keyPath, options: options, context: nil)
 		return observer
 	}

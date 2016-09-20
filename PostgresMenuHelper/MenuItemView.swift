@@ -25,6 +25,10 @@ class MenuItemViewController: NSViewController {
 		self.server = server
 	}
 	
+	deinit {
+		self.removeObserver(keyValueObserver, forKeyPath: keyValueObserver.keyPath)
+	}
+	
 	
 	override func awakeFromNib() {
 		keyValueObserver = self.observe("server.serverStatus", options: .initial) { [weak self] _ in
