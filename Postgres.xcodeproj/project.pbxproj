@@ -284,6 +284,7 @@
 				831C84AE1D771B6C00FA5F59 /* CopyFiles */,
 				36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */,
 				83999C681D7DA41600B8A1D6 /* CopyFiles */,
+				83DAAECA1D92DBD500D5BC3C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -388,6 +389,19 @@
 			shellPath = /bin/bash;
 			shellScript = "source \"${SRCROOT}\"/Postgres/CopyBinaries.sh";
 		};
+		83DAAECA1D92DBD500D5BC3C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -e\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/LoginItems/PostgresLoginHelper.app/Contents/Frameworks\"\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/PostgresMenuHelper.app/Contents/Frameworks\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -473,7 +487,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresLoginHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -491,7 +505,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresLoginHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -510,7 +524,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresMenuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -530,7 +544,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4LRBA67NV4;
 				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.PostgresMenuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
