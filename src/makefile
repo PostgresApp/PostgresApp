@@ -355,7 +355,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/autogen.sh $(SHAREDPREFIX)/lib/libgdal.dylib $(SHAREDPREFIX)/lib/libgeos.dylib $(SHAREDPREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(SHAREDPREFIX)/include/json/json_object_iterator.h
 	cd postgis-${POSTGIS_VERSION} && ./autogen.sh && ./configure --prefix="$(SHAREDPREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(SHAREDPREFIX)/bin/geos-config" --with-projdir="$(SHAREDPREFIX)" --with-gdaldir="$(SHAREDPREFIX)" --with-jsondir="$(SHAREDPREFIX)"
-	/usr/bin/sed -i -e 's#/usr/local$$#”$(PREFIX)"#g' postgis-${POSTGIS_VERSION}/liblwgeom/Makefile
+	/usr/bin/sed -i -e 's#/usr/local$$#"$(PREFIX)"#g' postgis-${POSTGIS_VERSION}/liblwgeom/Makefile
 	touch $@
 
 postgis-${POSTGIS_VERSION}/autogen.sh: postgis-${POSTGIS_VERSION}.tar.gz
