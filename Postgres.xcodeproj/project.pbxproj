@@ -11,8 +11,8 @@
 		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* Sidebar.swift */; };
 		830D62CC1D77297800570BFC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D62CB1D77297800570BFC /* Preferences.swift */; };
-		831C84AD1D771B4800FA5F59 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; };
-		831C84AF1D771B6E00FA5F59 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8324D9AA1D9402A10066DCDB /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; };
+		8324D9AB1D9402A10066DCDB /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* ServerView.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
@@ -51,14 +51,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		831C84AE1D771B6C00FA5F59 /* CopyFiles */ = {
+		8324D9AC1D9402A20066DCDB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				831C84AF1D771B6E00FA5F59 /* Sparkle.framework in CopyFiles */,
+				8324D9AB1D9402A10066DCDB /* Sparkle.framework in Embed Frameworks */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8332859A1D5CBE88001EA003 /* CopyFiles */ = {
@@ -144,7 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				831C84AD1D771B4800FA5F59 /* Sparkle.framework in Frameworks */,
+				8324D9AA1D9402A10066DCDB /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,10 +282,10 @@
 				83FB57151D1B05F000A903A3 /* Frameworks */,
 				83FB57161D1B05F000A903A3 /* Resources */,
 				8332859A1D5CBE88001EA003 /* CopyFiles */,
-				831C84AE1D771B6C00FA5F59 /* CopyFiles */,
 				36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */,
 				83999C681D7DA41600B8A1D6 /* CopyFiles */,
 				83DAAECA1D92DBD500D5BC3C /* ShellScript */,
+				8324D9AC1D9402A20066DCDB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
