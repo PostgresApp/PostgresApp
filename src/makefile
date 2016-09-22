@@ -43,8 +43,9 @@ JSONC_VERSION=0.11
 LIBTIFF_VERSION=4.0.6
 
 
-#path configuration
+# path configuration
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
+SHAREDPREFIX=/Applications/Postgres.app/Contents/Versions/shared
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
 #compiler options
@@ -76,8 +77,8 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(SHAREDPREFIX)/lib/libssl.dylib $(SHAREDPREFIX)/lib/libxml2.dylib postgresql-$(POSTGRES_VERSION)/configure 
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(SHAREDPREFIX)/include" --with-libraries="$(SHAREDPREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs
 # patch makefile to fix python linker flags
 	cd postgresql-$(POSTGRES_VERSION)/src; mv Makefile.global Makefile.global.old; sed 's@^python_libspec.*@python_libspec = '"`python-config --ldflags`"'@' Makefile.global.old >Makefile.global
 
@@ -96,14 +97,14 @@ clean-postgresql:
 ####### OpenSSL #########
 #########################
 
-openssl: $(PREFIX)/lib/libssl.dylib
+openssl: $(SHAREDPREFIX)/lib/libssl.dylib
 
-$(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
+$(SHAREDPREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION} install_sw
 
 openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib no-asm no-krb5 shared
+	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${SHAREDPREFIX}" darwin64-x86_64-cc zlib no-asm no-krb5 shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
@@ -119,15 +120,15 @@ clean-openssl:
 ######## LibXML2 ########
 #########################
 
-libxml2: $(PREFIX)/lib/libxml2.dylib
+libxml2: $(SHAREDPREFIX)/lib/libxml2.dylib
 
-$(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
+$(SHAREDPREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 	make -C libxml2-${LIBXML2_VERSION} install-exec
 	make -C libxml2-${LIBXML2_VERSION}/include install
-	touch $(PREFIX)/lib/libxml2.dylib
+	touch $(SHAREDPREFIX)/lib/libxml2.dylib
 
 libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
-	cd libxml2-${LIBXML2_VERSION} && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+	cd libxml2-${LIBXML2_VERSION} && ./configure --prefix="$(SHAREDPREFIX)" --disable-dependency-tracking
 
 libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.gz
 	$(TAR) libxml2-${LIBXML2_VERSION}.tar.gz
@@ -143,13 +144,13 @@ clean-libxml2:
 ####### LibEdit #########
 #########################
 
-libedit: $(PREFIX)/lib/libedit.dylib
+libedit: $(SHAREDPREFIX)/lib/libedit.dylib
 
-$(PREFIX)/lib/libedit.dylib: libedit-$(LIBEDIT_VERSION)/Makefile
+$(SHAREDPREFIX)/lib/libedit.dylib: libedit-$(LIBEDIT_VERSION)/Makefile
 	make -C "libedit-$(LIBEDIT_VERSION)" install
 
 libedit-$(LIBEDIT_VERSION)/Makefile: libedit-$(LIBEDIT_VERSION)/configure
-	cd libedit-$(LIBEDIT_VERSION) && ./configure --prefix="$(PREFIX)"
+	cd libedit-$(LIBEDIT_VERSION) && ./configure --prefix="$(SHAREDPREFIX)"
 
 libedit-$(LIBEDIT_VERSION)/configure: libedit-$(LIBEDIT_VERSION).tar.gz
 	$(TAR) "libedit-${LIBEDIT_VERSION}.tar.gz"
@@ -166,13 +167,13 @@ clean-libedit:
 ####### LibJasper #######
 #########################
 
-libjasper: $(PREFIX)/lib/libjasper.dylib
+libjasper: $(SHAREDPREFIX)/lib/libjasper.dylib
 
-$(PREFIX)/lib/libjasper.dylib: jasper-${LIBJASPER_VERSION}.uuid/Makefile
+$(SHAREDPREFIX)/lib/libjasper.dylib: jasper-${LIBJASPER_VERSION}.uuid/Makefile
 	make -C jasper-${LIBJASPER_VERSION}.uuid install
 
 jasper-${LIBJASPER_VERSION}.uuid/Makefile: jasper-${LIBJASPER_VERSION}.uuid/configure
-	cd jasper-${LIBJASPER_VERSION}.uuid && ./configure --prefix="$(PREFIX)" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic
+	cd jasper-${LIBJASPER_VERSION}.uuid && ./configure --prefix="$(SHAREDPREFIX)" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic
 
 
 jasper-${LIBJASPER_VERSION}.uuid/configure: jasper-$(LIBJASPER_VERSION).uuid.tar.gz
@@ -190,13 +191,13 @@ clean-libjasper:
 #######  libjpeg  #######
 #########################
 
-libjpeg: $(PREFIX)/lib/libjpeg.dylib
+libjpeg: $(SHAREDPREFIX)/lib/libjpeg.dylib
 
-$(PREFIX)/lib/libjpeg.dylib: jpeg-$(JPEG_VERSION)/Makefile
+$(SHAREDPREFIX)/lib/libjpeg.dylib: jpeg-$(JPEG_VERSION)/Makefile
 	make -C jpeg-$(JPEG_VERSION) install
 
 jpeg-$(JPEG_VERSION)/Makefile: jpeg-$(JPEG_VERSION)/configure
-	cd jpeg-$(JPEG_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+	cd jpeg-$(JPEG_VERSION) && ./configure --prefix="$(SHAREDPREFIX)" --disable-dependency-tracking
 
 jpeg-$(JPEG_VERSION)/configure: jpegsrc.v$(JPEG_VERSION).tar.gz
 	$(TAR) jpegsrc.v$(JPEG_VERSION).tar.gz
@@ -214,13 +215,13 @@ clean-libjpeg:
 
 # Depends on postgresql
 
-libgeos: $(PREFIX)/lib/libgeos.dylib
+libgeos: $(SHAREDPREFIX)/lib/libgeos.dylib
 
-$(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/Makefile
+$(SHAREDPREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/Makefile
 	make -C geos-${GEOS_VERSION} install
 
 geos-${GEOS_VERSION}/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
-	cd geos-${GEOS_VERSION} && ./configure --prefix="$(PREFIX)"
+	cd geos-${GEOS_VERSION} && ./configure --prefix="$(SHAREDPREFIX)"
 
 #geos needs to be patched
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
@@ -241,13 +242,13 @@ clean-libgeos:
 
 # Depends on libproj, libjasper, postgresql, libjpeg, libtiff
 
-libgdal: $(PREFIX)/lib/libgdal.dylib
+libgdal: $(SHAREDPREFIX)/lib/libgdal.dylib
 
-$(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
+$(SHAREDPREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/include/json/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-static-proj4="$(PWD)/proj-$(PROJ_VERSION)/src/.libs"
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(SHAREDPREFIX)/include/json/json_object_iterator.h $(SHAREDPREFIX)/lib/libproj.dylib $(SHAREDPREFIX)/lib/libjasper.dylib  $(SHAREDPREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(SHAREDPREFIX)/lib/libtiff.dylib
+	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(SHAREDPREFIX)" --with-jasper="$(SHAREDPREFIX)" --with-libjson-c="$(SHAREDPREFIX)" --with-static-proj4="$(PWD)/proj-$(PROJ_VERSION)/src/.libs"
 	touch $@
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
@@ -267,13 +268,13 @@ clean-libgdal:
 
 # Depends on postgresql
 
-libproj: $(PREFIX)/lib/libproj.dylib
+libproj: $(SHAREDPREFIX)/lib/libproj.dylib
 
-$(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
+$(SHAREDPREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
 	make -C proj-$(PROJ_VERSION) install
 
 proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql
-	cd proj-$(PROJ_VERSION) && ./configure --prefix="$(PREFIX)"
+	cd proj-$(PROJ_VERSION) && ./configure --prefix="$(SHAREDPREFIX)"
 
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz proj-datumgrid-$(DATUMGRID_VERSION).zip
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
@@ -295,13 +296,13 @@ clean-libproj:
 ###### JSON-c ###########
 #########################
 
-$(PREFIX)/include/json/json_object_iterator.h: json-c-$(JSONC_VERSION)/Makefile
+$(SHAREDPREFIX)/include/json/json_object_iterator.h: json-c-$(JSONC_VERSION)/Makefile
 	make -C json-c-$(JSONC_VERSION) install
-	cp json-c-$(JSONC_VERSION)/json_object_iterator.h "$(PREFIX)/include/json/json_object_iterator.h"
+	cp json-c-$(JSONC_VERSION)/json_object_iterator.h "$(SHAREDPREFIX)/include/json/json_object_iterator.h"
 
 
 json-c-$(JSONC_VERSION)/Makefile: json-c-$(JSONC_VERSION)/configure
-	cd json-c-$(JSONC_VERSION) && ./configure --prefix="$(PREFIX)"
+	cd json-c-$(JSONC_VERSION) && ./configure --prefix="$(SHAREDPREFIX)"
 
 json-c-$(JSONC_VERSION)/configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
@@ -318,13 +319,13 @@ clean-json-c:
 ####### libtiff #########
 #########################
 
-libtiff: $(PREFIX)/lib/libtiff.dylib
+libtiff: $(SHAREDPREFIX)/lib/libtiff.dylib
 
-$(PREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
+$(SHAREDPREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
 	make -C tiff-$(LIBTIFF_VERSION) install
 
 tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure
-	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(SHAREDPREFIX)" --disable-dependency-tracking
 
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
@@ -342,9 +343,9 @@ clean-libtiff:
 
 #depends on libgdal, libgeos, libjpeg, postgresql, jsonc
 
-postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so $(SHAREDPREFIX)/lib/liblwgeom.dylib
 
-$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
+$(SHAREDPREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom install
 
@@ -352,9 +353,9 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/autogen.sh $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/include/json/json_object_iterator.h
-	cd postgis-${POSTGIS_VERSION} && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)"
-	/usr/bin/sed -i -e 's#/usr/local$$#"$(PREFIX)"#g' postgis-${POSTGIS_VERSION}/liblwgeom/Makefile
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/autogen.sh $(SHAREDPREFIX)/lib/libgdal.dylib $(SHAREDPREFIX)/lib/libgeos.dylib $(SHAREDPREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(SHAREDPREFIX)/include/json/json_object_iterator.h
+	cd postgis-${POSTGIS_VERSION} && ./autogen.sh && ./configure --prefix="$(SHAREDPREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(SHAREDPREFIX)/bin/geos-config" --with-projdir="$(SHAREDPREFIX)" --with-gdaldir="$(SHAREDPREFIX)" --with-jsondir="$(SHAREDPREFIX)"
+	/usr/bin/sed -i -e 's#/usr/local$$#”$(PREFIX)"#g' postgis-${POSTGIS_VERSION}/liblwgeom/Makefile
 	touch $@
 
 postgis-${POSTGIS_VERSION}/autogen.sh: postgis-${POSTGIS_VERSION}.tar.gz
@@ -372,11 +373,11 @@ clean-postgis:
 ######## PLV8 ############
 ##########################
 
-plv8: $(PREFIX)/lib/postgresql/plv8.so
+plv8: $(SHAREDPREFIX)/lib/postgresql/plv8.so
 
-$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install 
-#	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
+$(SHAREDPREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(SHAREDPREFIX)/lib/libv8.dylib
+	export PGHOME="$(SHAREDPREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install 
+#	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(SHAREDPREFIX)/lib/libv8.dylib" "$(SHAREDPREFIX)/lib/postgresql/plv8.so"
 
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
@@ -389,16 +390,16 @@ plv8-${PLV8_VERSION}.tar.gz:
 # Unfortunately, plv8 only builds with outdated v8, but outdated v8 no longer builds with recent clang
 # As a workaround, we include libv8 binary built with older clang in repository
 #
-#$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/out/x64.release/libv8.dylib
-#	cp v8-${V8_VERSION}/out/x64.release/libv8.dylib $(PREFIX)/lib/libv8.dylib
-#	/usr/bin/install_name_tool -id "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib"
+#$(SHAREDPREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/out/x64.release/libv8.dylib
+#	cp v8-${V8_VERSION}/out/x64.release/libv8.dylib $(SHAREDPREFIX)/lib/libv8.dylib
+#	/usr/bin/install_name_tool -id "$(SHAREDPREFIX)/lib/libv8.dylib" "$(SHAREDPREFIX)/lib/libv8.dylib"
 #
 #v8-${V8_VERSION}/out/x64.release/libv8.dylib: v8-${V8_VERSION}/Makefile
 #	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} dependencies
 #	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; export DYLD_LIBRARY_PATH=$(CURDIR)/v8-${V8_VERSION}/out/x64.release; make -C v8-${V8_VERSION} library=shared werror=no x64.release
 
-$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/Makefile
-	cp bin/libv8.dylib $(PREFIX)/lib/libv8.dylib
+$(SHAREDPREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/Makefile
+	cp bin/libv8.dylib $(SHAREDPREFIX)/lib/libv8.dylib
 
 v8-${V8_VERSION}/Makefile:
 	svn export --force "http://v8.googlecode.com/svn/branches/$(V8_VERSION)/" "v8-$(V8_VERSION)"
