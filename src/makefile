@@ -69,8 +69,8 @@ clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj 
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	make -C "postgresql-$(POSTGRES_VERSION)" world
-	make -C "postgresql-$(POSTGRES_VERSION)" install-world
+	make -C "postgresql-$(POSTGRES_VERSION)" all contrib
+	make -C "postgresql-$(POSTGRES_VERSION)" install
 	
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so

@@ -87,9 +87,18 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
 				guard resourceValues.isDirectory == true else { continue }
 			} catch { continue }
-			versions.append(itemURL.lastPathComponent)
+			let folderName = itemURL.lastPathComponent
+			if isPostgresVersion(folderName) {
+				versions.append(folderName)
+			}
 		}
 		selectedVersionIdx = versions.count-1
+	}
+	
+	
+	private func isPostgresVersion(_ s: String) -> Bool {
+		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
+		return regex.numberOfMatches(in: s, options: [], range: NSRange(0..<s.utf16.count)) != 0
 	}
 	
 }
