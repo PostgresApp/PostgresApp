@@ -13,7 +13,7 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 
 <div class="buttons">
 	<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
-	<a href="/docs/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
+	<a href="https://postgresapp.com/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
 	<a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
 </div>
 
