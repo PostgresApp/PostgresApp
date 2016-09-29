@@ -79,7 +79,7 @@ Jede Hilfe ist willkommen! Hier sind ein paar Vorschläge wie du zum Projekt bei
 - Beantworte Fragen auf [Stack Overflow](http://stackoverflow.com/questions/tagged/postgres.app)
 - Teste [neue Versionen](https://github.com/PostgresApp/PostgresApp/releases) der App
 - Korrigiere Fehler, mach Verbesserungen, und [sende einen Pull-Request](https://github.com/PostgresApp/PostgresApp/pulls)
-- Verbessere die [Dokumentation](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation)
+- Verbessere die [Dokumentation](https://github.com/PostgresApp/postgresapp/tree/master/docs/documentation)
 - Hilf mit bei der Übersetzung der Webseite
 
 Wenn du mitmachen willst, kannst du auch jederzeit ein Email an Jakob Egger schreiben: <jakob@eggerapps.at>.
