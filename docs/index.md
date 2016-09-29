@@ -13,7 +13,7 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 
 <div class="buttons">
 	<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
-	<a href="/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
+	<a href="https://postgresapp.com/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
 	<a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
 </div>
 
@@ -77,7 +77,7 @@ Want to contribute to the project? Here are some great ways you can help:
 - Answer [questions on Stack Overflow](http://stackoverflow.com/questions/tagged/postgres.app)
 - Test [pre-release versions](https://github.com/PostgresApp/PostgresApp/releases) of the app
 - Fork Postgres.app, fix a bug, and [send a pull request](https://github.com/PostgresApp/PostgresApp/pulls)
-- Improve the [documentation](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation)
+- Improve the [documentation](https://github.com/PostgresApp/postgresapp/tree/master/docs/documentation)
 
 For more information on how you can contribute, email Jakob Egger: <jakob@eggerapps.at>.
 
