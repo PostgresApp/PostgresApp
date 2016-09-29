@@ -3,8 +3,6 @@ layout: documentation
 title: Alternatives for migrating data when upgrading Postgres.app
 ---
 
-## Alternatives for migrating data when upgrading Postgres.app
-
 When upgrading to a new major version of PostgreSQL, you need to migrate your data.
 The easiest way to migrate your data is using pg_dumpall,
 but there are alternative methods that can be useful
@@ -12,6 +10,8 @@ when you have very large databases,
 or if you want to migrate only parts of the database.
 
 ### Migrate data using `pg_dumpall`
+
+This is the easiest way to migrate your data. 
 
 1.	Make sure that the old version of Postgres.app is running
 1.	Create a compressed SQL dump of your server (this could take some time):<br>
@@ -22,7 +22,7 @@ or if you want to migrate only parts of the database.
 
 ### Migrate data using `pg_dump`
 
-This is the recommended way to migrate your data.
+This method lets you select which databases you'd like to migrate.
 
 1. While the old version of Postgres.app is running, use `psql --list` to show the list of databases
 1. For each database you want to migrate use `pg_dump database_name > database_name.sql` to create a dump of your database

@@ -3,13 +3,13 @@ layout: documentation
 title: Alternative Methoden zur Migration von Daten bei einem Update von Postgres.app
 ---
 
-## Alternative Methoden zur Migration von Daten bei einem Update von Postgres.app
-
 Bei einem Update zu einer neuen "Major Version" von PostgreSQL (zb. 9.5 auf 9.6) musst du deine Daten manuell migrieren.
 Am einfachsten geht das mit pg_dumpall, aber es gibt auch alternative Methoden.
 Die können nützlich sein, wenn du eine sehr große Datenbank hast, oder nur einen Teil deiner Daten migrieren willst.
 
-### Migration mit `pg_dumpall` (empfohlen)
+### Migration mit `pg_dumpall`
+
+Diese Methode ist am einfachsten.
 
 1.	Stelle sicher dass die alte Version von Postgres.app noch läuft
 1.	Erstelle einen komprimierten SQL-Dump von deinem Server (das kann eine Weile dauern):<br>
@@ -19,6 +19,8 @@ Die können nützlich sein, wenn du eine sehr große Datenbank hast, oder nur ei
 	`gunzip <postgresapp.sql.gz | psql`
 
 ### Migration mit `pg_dump`
+
+Mit dieser Methode kannst du auswählen, welche Datenbanken du migrieren willst.
 
 1. Stelle sicher dass die alte Version von Postgres.app noch läuft, und hol dir eine Liste von Datenbanken mit dem Kommando `psql --list`.
 1. Erstelle einen Dump von jeder Datenbank die du migrieren willst mit `pg_dump datenbankname > datenbankname.sql`
