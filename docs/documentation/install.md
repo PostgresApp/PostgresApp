@@ -17,7 +17,7 @@ If you'd like to use the command line tools delivered with Postgres.app, see the
 - Binaries: `/Applications/Postgres.app/Contents/Versions/latest/bin`
 - Headers: `/Applications/Postgres.app/Contents/Versions/latest/include`
 - Libraries: `/Applications/Postgres.app/Contents/Versions/latest/lib`
-- Default data directory: `~/Library/Application Support/Postgres/var-9.5`
+- Default data directory: `~/Library/Application Support/Postgres/var-9.6`
 
 ## Upgrading From A Previous Version
 

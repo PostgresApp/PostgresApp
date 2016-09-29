@@ -16,10 +16,10 @@ Natürlich gibt es aber auch [graphische Clients für PostgreSQL](gui-tools.html
 
 ### Wichtige Verzeichnise
 
-- Binaries: `/Applications/Postgres.app/Contents/Versions/9.5/bin`
-- Header: `/Applications/Postgres.app/Contents/Versions/9.5/include`
-- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.5/lib`
-- Datenverzeichnis (data directory): `~/Library/Application Support/Postgres/var-9.5`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/9.6/bin`
+- Header: `/Applications/Postgres.app/Contents/Versions/9.6/include`
+- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.6/lib`
+- Datenverzeichnis (data directory): `~/Library/Application Support/Postgres/var-9.6`
 
 ## Upgrade von einer früheren Version
 
