@@ -11,6 +11,9 @@ cd src
 
 make clean
 
-time make
+time caffeinate make
+
+time caffeinate make check
+
 
 say "I'm finished building Postgres app!"
