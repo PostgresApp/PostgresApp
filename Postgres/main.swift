@@ -34,6 +34,7 @@ checkApplicationPath()
 
 
 ServerManager.shared.loadServers()
+ServerManager.shared.checkForExistsingDataDirectories()
 ServerManager.shared.createDefaultServer()
 ServerManager.shared.refreshServerStatuses()
 

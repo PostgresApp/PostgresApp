@@ -6,7 +6,7 @@
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class ServerManager: NSObject {
 	
@@ -67,6 +67,33 @@ class ServerManager: NSObject {
 			runningServers += 1
 		}
 		return runningServers
+	}
+	
+	
+	func checkForExistsingDataDirectories() {
+		let dataDirsPath = FileManager.default.applicationSupportDirectoryPath()
+		guard let dataDirsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: dataDirsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
+		while let itemURL = dataDirsPathEnum.nextObject() as? URL {
+			do {
+				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
+				guard resourceValues.isDirectory == true else { continue }
+			} catch { continue }
+			
+			let folderName = itemURL.lastPathComponent
+			var dataDirHasServer = false
+			for server in servers where server.varPath == folderName {
+				dataDirHasServer = true
+			}
+			
+			if !dataDirHasServer {
+				let alert = NSAlert()
+				alert.messageText = "Detected Data Directory"
+				alert.informativeText = "Postgres.app detected the Data Directory \"\(folderName)\" from a previous version. Do you want to import it?"
+				alert.addButton(withTitle: "OK")
+				alert.addButton(withTitle: "Cancel")
+				//alert.runModal()
+			}
+		}
 	}
 	
 }
