@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2327e" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <scenes>
         <!--Window Controller-->
@@ -322,11 +321,11 @@
             <objects>
                 <viewController id="Rgw-vS-n3O" customClass="ServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="MYs-NA-b8f" customClass="ServerViewBackgroundView" customModule="Postgres" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="308"/>
+                        <rect key="frame" x="0.0" y="0.0" width="456" height="358"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nOw-Qm-BYd">
-                                <rect key="frame" x="18" y="224" width="113" height="17"/>
+                                <rect key="frame" x="18" y="274" width="113" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="&lt;statusMessage&gt;" id="b63-cF-nqs">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -343,10 +342,10 @@ IA
                                 </connections>
                             </textField>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-xy-oRd">
-                                <rect key="frame" x="20" y="142" width="360" height="5"/>
+                                <rect key="frame" x="20" y="192" width="416" height="5"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NJh-WV-lPO">
-                                <rect key="frame" x="14" y="146" width="70" height="32"/>
+                                <rect key="frame" x="303" y="196" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qfD-hk-jvh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -370,7 +369,7 @@ IA
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
-                                <rect key="frame" x="84" y="146" width="69" height="32"/>
+                                <rect key="frame" x="373" y="196" width="69" height="32"/>
                                 <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -390,7 +389,7 @@ IA
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-Bn-2go">
-                                <rect key="frame" x="18" y="249" width="94" height="29"/>
+                                <rect key="frame" x="18" y="299" width="94" height="29"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" focusRingType="none" title="&lt;name&gt;" id="6ai-mn-WOf">
                                     <font key="font" size="24" name=".AppleSystemUIFont"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -405,13 +404,13 @@ IA
                                 </connections>
                             </textField>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
-                                <rect key="frame" x="0.0" y="33" width="400" height="100"/>
+                                <rect key="frame" x="0.0" y="33" width="456" height="150"/>
                                 <clipView key="contentView" id="Dni-fY-jEd">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="456" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsEmptySelection="NO" id="nrL-ym-6WO">
-                                            <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="456" height="150"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
@@ -422,7 +421,7 @@ IA
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="gAu-PZ-hHU"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="gAu-PZ-hHU"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Njw-bN-4ms">
                                     <rect key="frame" x="0.0" y="86" width="400" height="16"/>
@@ -434,7 +433,7 @@ IA
                                 </scroller>
                             </scrollView>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Scd-hP-8Y9">
-                                <rect key="frame" x="213" y="151" width="25" height="25"/>
+                                <rect key="frame" x="162" y="200" width="25" height="25"/>
                                 <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7ZS-lN-IhC">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -444,7 +443,7 @@ IA
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Be-be-3Q1">
-                                <rect key="frame" x="242" y="146" width="144" height="32"/>
+                                <rect key="frame" x="14" y="196" width="144" height="32"/>
                                 <buttonCell key="cell" type="push" title="Server Settings…" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="DlM-u9-5ko">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -454,25 +453,11 @@ IA
                                     <binding destination="n71-mI-16p" name="enabled" keyPath="canRemove" id="YFu-lj-ZyU"/>
                                 </connections>
                             </button>
-                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
-                                <rect key="frame" x="155" y="156" width="16" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="TiN-qb-ptl"/>
-                                    <constraint firstAttribute="height" constant="16" id="yd5-dd-lXS"/>
-                                </constraints>
-                                <connections>
-                                    <binding destination="n71-mI-16p" name="animate" keyPath="selection.busy" id="Lvv-K0-uSO">
-                                        <dictionary key="options">
-                                            <integer key="NSNoSelectionPlaceholder" value="0"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </progressIndicator>
                             <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="gZH-Ls-EES">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="456" height="32"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p5e-OX-5Sl">
-                                        <rect key="frame" x="194" y="7" width="188" height="18"/>
+                                        <rect key="frame" x="250" y="7" width="188" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show Postgres in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7zP-gL-1SS">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -508,35 +493,49 @@ IA
                                 </constraints>
                             </visualEffectView>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-G7-PlW">
-                                <rect key="frame" x="0.0" y="30" width="400" height="5"/>
+                                <rect key="frame" x="0.0" y="30" width="456" height="5"/>
                             </box>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
+                                <rect key="frame" x="285" y="206" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="TiN-qb-ptl"/>
+                                    <constraint firstAttribute="height" constant="16" id="yd5-dd-lXS"/>
+                                </constraints>
+                                <connections>
+                                    <binding destination="n71-mI-16p" name="animate" keyPath="selection.busy" id="Lvv-K0-uSO">
+                                        <dictionary key="options">
+                                            <integer key="NSNoSelectionPlaceholder" value="0"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
+                            <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="Scd-hP-8Y9" secondAttribute="bottom" constant="8" id="3EL-EL-pxp"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="6Kb-Hx-SS9"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="Dj0-gb-Coy"/>
+                            <constraint firstAttribute="trailing" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="20" symbolic="YES" id="G45-OP-QqP"/>
                             <constraint firstAttribute="trailing" secondItem="gZH-Ls-EES" secondAttribute="trailing" id="HW0-UL-GFs"/>
                             <constraint firstAttribute="trailing" secondItem="Jak-G7-PlW" secondAttribute="trailing" id="I7w-9K-gmh"/>
-                            <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="JAl-7E-eMS"/>
-                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="baseline" secondItem="NJh-WV-lPO" secondAttribute="baseline" id="JpC-bm-6CY"/>
+                            <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="LIo-bi-N8O"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="30" id="M45-iy-ELn"/>
-                            <constraint firstItem="NJh-WV-lPO" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="May-jy-AeT"/>
+                            <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="O4B-Da-WRU"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="top" secondItem="UaU-Bn-2go" secondAttribute="bottom" constant="8" id="OV5-Ig-6P1"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="11" id="Oan-M6-tLU"/>
-                            <constraint firstItem="Scd-hP-8Y9" firstAttribute="baseline" secondItem="8iz-Ak-ysG" secondAttribute="baseline" id="OvK-cy-iFd"/>
-                            <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="NJh-WV-lPO" secondAttribute="bottom" constant="8" id="Pyq-Tv-Fsv"/>
+                            <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" symbolic="YES" id="Qk8-EX-0Sz"/>
+                            <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="12" symbolic="YES" id="T5e-vS-Ain"/>
                             <constraint firstItem="gZH-Ls-EES" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="Ung-sc-fcJ"/>
-                            <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="12" symbolic="YES" id="YQe-Us-XfO"/>
+                            <constraint firstItem="NJh-WV-lPO" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="WPI-HZ-5w4"/>
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
                             <constraint firstAttribute="bottom" secondItem="gZH-Ls-EES" secondAttribute="bottom" id="dJO-gT-qX0"/>
-                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="gvP-vH-K8k"/>
-                            <constraint firstItem="5Be-be-3Q1" firstAttribute="baseline" secondItem="Scd-hP-8Y9" secondAttribute="baseline" id="lGp-Rq-PF3"/>
+                            <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
+                            <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="8iz-Ak-ysG" secondAttribute="bottom" constant="8" id="gRW-ef-sZK"/>
+                            <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="100" id="iUQ-Be-SZE"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="lXX-nh-hjU"/>
+                            <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="NJh-WV-lPO" secondAttribute="bottom" constant="8" id="mJI-f4-MMF"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="mZg-3o-dXY"/>
-                            <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="8" id="mcM-L7-RAH"/>
-                            <constraint firstAttribute="trailing" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="20" id="o8q-wE-5FA"/>
-                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="12" symbolic="YES" id="uU5-8a-GnE"/>
-                            <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="12" symbolic="YES" id="uu7-Wc-Bs2"/>
+                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="12" symbolic="YES" id="mkW-ek-XLM"/>
                             <constraint firstItem="gZH-Ls-EES" firstAttribute="top" secondItem="Jak-G7-PlW" secondAttribute="bottom" id="wGQ-Q8-W8y"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="top" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="yrZ-nQ-69f"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
@@ -860,17 +859,17 @@ IA
             <objects>
                 <viewController id="fKp-yy-u0S" userLabel="Sidebar Controller" customClass="SidebarController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Jbb-lb-c1Z">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="358"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
-                                <rect key="frame" x="0.0" y="33" width="150" height="242"/>
+                                <rect key="frame" x="0.0" y="33" width="150" height="300"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="dFK-VJ-sw2">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="242"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Kht-WI-z50">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="242"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1017,7 +1016,7 @@ IA
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-221" y="1031"/>
+            <point key="canvasLocation" x="-222" y="1031"/>
         </scene>
         <!--Add Server View Controller-->
         <scene sceneID="in6-2w-5h3">
@@ -1212,7 +1211,7 @@ Gw
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="487" y="1117"/>
+            <point key="canvasLocation" x="527" y="1146"/>
         </scene>
     </scenes>
     <resources>
