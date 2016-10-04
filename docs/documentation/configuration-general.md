@@ -31,10 +31,10 @@ Restart Postgres.app after changing these files.
 
 ## Useful Directories
 
-- Default data directory: `~/Library/Application\ Support/Postgres/var-9.5`
-- Binaries: `/Applications/Postgres.app/Contents/Versions/9.5/bin`
-- Headers: `/Applications/Postgres.app/Contents/Versions/9.5/include`
-- Libraries: `/Applications/Postgres.app/Contents/Versions/9.5/lib`
-- Man pages: `/Applications/Postgres.app/Contents/Versions/9.5/share`
-- Config: `~/Library/Application\ Support/Postgres/var-9.5/postgresql.conf`
+- Default data directory: `~/Library/Application\ Support/Postgres/var-9.6`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/9.6/bin`
+- Headers: `/Applications/Postgres.app/Contents/Versions/9.6/include`
+- Libraries: `/Applications/Postgres.app/Contents/Versions/9.6/lib`
+- Man pages: `/Applications/Postgres.app/Contents/Versions/9.6/share`
+- Config: `~/Library/Application\ Support/Postgres/var-9.6/postgresql.conf`
 

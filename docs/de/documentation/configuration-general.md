@@ -35,10 +35,10 @@ Nach Änderungen an diesen Konfigurationsdateien musst du Postgres.app neu start
 
 ## Wichtige Verzeichnisse
 
-- Datenverzeichnis: `~/Library/Application\ Support/Postgres/var-9.5` (Kann in den Einstellungen geändert werden)
-- Ausführbare Dateien: `/Applications/Postgres.app/Contents/Versions/9.5/bin`
-- Header: `/Applications/Postgres.app/Contents/Versions/9.5/include`
-- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.5/lib`
-- Man-Seiten: `/Applications/Postgres.app/Contents/Versions/9.5/share`
-- Konfiguration: `~/Library/Application\ Support/Postgres/var-9.5/postgresql.conf`
+- Datenverzeichnis: `~/Library/Application\ Support/Postgres/var-9.6` (Kann in den Einstellungen geändert werden)
+- Ausführbare Dateien: `/Applications/Postgres.app/Contents/Versions/9.6/bin`
+- Header: `/Applications/Postgres.app/Contents/Versions/9.6/include`
+- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.6/lib`
+- Man-Seiten: `/Applications/Postgres.app/Contents/Versions/9.6/share`
+- Konfiguration: `~/Library/Application\ Support/Postgres/var-9.6/postgresql.conf`
 

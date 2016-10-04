@@ -53,7 +53,7 @@ Suchst du eine bestimmte Version von PostgreSQL?
 
 <a href="{{ site.downloadLocation94 }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion94}}</a> mit PostGIS {{site.postgisVersion94}}
 
-<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion}}</a> mit PostGIS {{site.postgisVersion}}
+<a href="{{ site.downloadLocation95 }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion95}}</a> mit PostGIS {{site.postgisVersion95}}
 
 <a href="{{ site.downloadLocation96 }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-default" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span> PostgreSQL {{site.postgresqlVersion96}}</a> mit PostGIS {{site.postgisVersion96}}
 
@@ -79,7 +79,7 @@ Jede Hilfe ist willkommen! Hier sind ein paar Vorschläge wie du zum Projekt bei
 - Beantworte Fragen auf [Stack Overflow](http://stackoverflow.com/questions/tagged/postgres.app)
 - Teste [neue Versionen](https://github.com/PostgresApp/PostgresApp/releases) der App
 - Korrigiere Fehler, mach Verbesserungen, und [sende einen Pull-Request](https://github.com/PostgresApp/PostgresApp/pulls)
-- Verbessere die [Dokumentation](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation)
+- Verbessere die [Dokumentation](https://github.com/PostgresApp/postgresapp/tree/master/docs/documentation)
 - Hilf mit bei der Übersetzung der Webseite
 
 Wenn du mitmachen willst, kannst du auch jederzeit ein Email an Jakob Egger schreiben: <jakob@eggerapps.at>.
