@@ -76,7 +76,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 					newWindowFrame.origin.y -= 20
 					if newWindowFrame.maxX >= visibleFrame.maxX {
 						newWindowFrame.origin.x = 20
-						newWindowFrame.origin.y = visibleFrame.maxY - 20 - newWindowFrame.height;
+						newWindowFrame.origin.y = visibleFrame.maxY - 20 - newWindowFrame.height
 					}
 					if newWindowFrame.minY <= visibleFrame.minY {
 						newWindowFrame.origin.y = visibleFrame.minY
