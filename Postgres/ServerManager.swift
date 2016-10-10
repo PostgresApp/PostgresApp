@@ -55,22 +55,13 @@ class ServerManager: NSObject {
 	func createDefaultServer() {
 		if servers.isEmpty {
 			let version = Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
-			servers.append(Server("PostgreSQL \(version)"))
+			servers.append(Server(name: "PostgreSQL \(version)"))
 			saveServers()
 		}
 	}
 	
 	
-	func numberOfRunningServers() -> Int {
-		var runningServers = 0
-		for server in servers where server.running {
-			runningServers += 1
-		}
-		return runningServers
-	}
-	
-	
-	func checkForExistsingDataDirectories() {
+	func checkForExistingDataDirectories() {
 		let dataDirsPath = FileManager.default.applicationSupportDirectoryPath()
 		guard let dataDirsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: dataDirsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
 		while let itemURL = dataDirsPathEnum.nextObject() as? URL {
@@ -79,19 +70,21 @@ class ServerManager: NSObject {
 				guard resourceValues.isDirectory == true else { continue }
 			} catch { continue }
 			
-			let folderName = itemURL.lastPathComponent
 			var dataDirHasServer = false
-			for server in servers where server.varPath == folderName {
-				dataDirHasServer = true
-			}
+			for server in servers where server.varPath == itemURL.path { dataDirHasServer = true }
 			
 			if !dataDirHasServer {
-				let alert = NSAlert()
-				alert.messageText = "Detected Data Directory"
-				alert.informativeText = "Postgres.app detected the Data Directory \"\(folderName)\" from a previous version. Do you want to import it?"
-				alert.addButton(withTitle: "OK")
-				alert.addButton(withTitle: "Cancel")
-				//alert.runModal()
+				let dataDirName = itemURL.lastPathComponent
+				let pgVersionPath = itemURL.appendingPathComponent("PG_VERSION").path
+				
+				do {
+					let versionFileContent = try String(contentsOfFile: pgVersionPath)
+					let version = versionFileContent.substring(to: versionFileContent.index(before: versionFileContent.endIndex))
+					servers.append(Server(name: "PostgreSQL \(version)", version: version, varPath: itemURL.path))
+					saveServers()
+				} catch {
+					NSLog("Import of data directory failed: No valid PG_VERSION file in \(dataDirName)")
+				}
 			}
 		}
 	}
