@@ -33,9 +33,20 @@ checkApplicationPath()
 #endif
 
 
+func isFirstLaunch() -> Bool {
+	if UserDefaults.standard.bool(forKey: "alreadyLaunched") == false {
+		UserDefaults.standard.set(true, forKey: "alreadyLaunched")
+		return true
+	}
+	return false
+}
+
+
 ServerManager.shared.loadServers()
-ServerManager.shared.checkForExistsingDataDirectories()
-ServerManager.shared.createDefaultServer()
+if isFirstLaunch() {
+	ServerManager.shared.checkForExistingDataDirectories()
+	ServerManager.shared.createDefaultServer()
+}
 ServerManager.shared.refreshServerStatuses()
 
 
