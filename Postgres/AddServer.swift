@@ -70,7 +70,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 			}
 		}
 		
-		let server = Server(name, version, port, varPath)
+		let server = Server(name: name, version: version, port: port, varPath: varPath)
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		

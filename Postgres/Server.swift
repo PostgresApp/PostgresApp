@@ -81,7 +81,7 @@ class Server: NSObject, NSCoding {
 	}
 	
 	
-	convenience init(_ name: String, _ version: String? = nil, _ port: UInt = 5432, _ varPath: String? = nil) {
+	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil) {
 		self.init()
 		
 		self.name = name
