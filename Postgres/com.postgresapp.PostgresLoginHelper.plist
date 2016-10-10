@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	This configuration file is used by Postgres.app
+
+	This configuration starts the PostgresLoginHelper as soon as you log in.
+	
+	The login helper does two things:
+	  1. It starts your servers that are configured to be started automatically
+	  2. If necessary, it starts the PostgresMenuHelper app (which shows the elephant in your menu bar)
+	
+	Postgres.app created this file automatically.
+	-->
+
+    <key>Label</key>
+    <string>com.postgresapp.PostgresLoginHelper</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Applications/Postgres.app/Contents/Library/LoginItems/PostgresLoginHelper.app/Contents/MacOS/PostgresLoginHelper</string>
+    </array>
+    
+    <key>KeepAlive</key>
+    <false/>
+    
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
