@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2327e" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2338c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
@@ -572,7 +572,7 @@ IA
                         <rect key="contentRect" x="294" y="313" width="361" height="256"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
                         <connections>
-                            <binding destination="cP3-z9-HGm" name="title" keyPath="self.server.name" id="pmz-wO-FSI"/>
+                            <binding destination="cP3-z9-HGm" name="title" keyPath="server.name" id="tSe-KE-KRW"/>
                         </connections>
                     </window>
                     <connections>
@@ -599,7 +599,7 @@ IA
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.name" id="jCe-s6-xXD"/>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.name" id="3FH-jD-jB0"/>
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Zf-OI-5D1">
@@ -626,7 +626,7 @@ IA
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.varPath" id="ebA-XA-8MV"/>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.varPath" id="Eyv-hY-Hvz"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ik7-Xf-IkN">
@@ -637,7 +637,7 @@ IA
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="hidden" keyPath="self.server.running" id="Epd-sY-jw6">
+                                    <binding destination="buw-cX-kU8" name="hidden" keyPath="server.running" id="L1E-JY-eno">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -660,7 +660,7 @@ IA
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.configFilePath" id="TJa-Hx-jrP"/>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.configFilePath" id="NAS-Vd-gn9"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o8T-uu-UWn">
@@ -679,7 +679,7 @@ IA
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.hbaFilePath" id="6Gt-lc-FRo"/>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.hbaFilePath" id="Z33-JL-cch"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85i-r8-gPa">
@@ -698,7 +698,7 @@ IA
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.logFilePath" id="svv-U0-0OM"/>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.logFilePath" id="pU9-9Y-Paj"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4cs-Wv-SXu">
@@ -724,22 +724,22 @@ IA
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.port" id="d4n-tC-dqh"/>
-                                    <binding destination="buw-cX-kU8" name="enabled" keyPath="self.server.running" id="TJV-ca-lhR">
+                                    <binding destination="buw-cX-kU8" name="enabled" keyPath="server.running" id="6d5-W4-xnZ">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.port" id="mVP-qG-Cda"/>
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m0L-aG-Cns">
                                 <rect key="frame" x="88" y="17" width="255" height="18"/>
-                                <buttonCell key="cell" type="check" title="Automatically start server at user login" bezelStyle="regularSquare" imagePosition="left" alignment="justified" controlSize="small" lineBreakMode="truncatingTail" state="on" inset="2" id="eNi-TD-DQe">
+                                <buttonCell key="cell" type="check" title="Automatically start server on login" bezelStyle="regularSquare" imagePosition="left" alignment="justified" controlSize="small" lineBreakMode="truncatingTail" inset="2" id="eNi-TD-DQe">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="self.server.startAtLogin" id="0ys-cr-71d"/>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.startOnLogin" id="ker-SD-Ntz"/>
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ATE-VB-Qzl">
