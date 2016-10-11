@@ -28,8 +28,8 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSAlertFirstButtonReturn {
-				if let server = self.mainWindowModel.firstSelectedServer {
-					server.stop { _ in }
+				if let server = self.mainWindowModel.firstSelectedServer, server.running {
+					let _ = server.stopSync()
 				}
 				self.mainWindowModel.removeSelectedServer()
 				NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: nil)
