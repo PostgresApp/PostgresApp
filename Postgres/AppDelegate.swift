@@ -7,17 +7,12 @@
 //
 
 import Cocoa
-import ServiceManagement
 import Sparkle
 
 class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-	
-	
-	func applicationWillFinishLaunching(_ notification: Notification) {
-	}
 	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
@@ -46,17 +41,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			}
 		}
 		
+		createLaunchAgent()
 		
-		if Bundle.main.bundlePath == "/Applications/Postgres.app" {
-			enableLoginHelperApp(true)
-		} else {
-			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-			print("hideMenuHelperApp=\(hideMenuHelperApp)")
-			if !hideMenuHelperApp {
-				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-				NSWorkspace.shared().open(url)
-				NSApp.activate(ignoringOtherApps: true)
-			}
+		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
+			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+			NSWorkspace.shared().open(url)
+			NSApp.activate(ignoringOtherApps: true)
 		}
 	}
 	
@@ -71,13 +61,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	
-	private func enableLoginHelperApp(_ enabled: Bool) {
-		let helperAppURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/PostgresLoginHelper.app")
-		if LSRegisterURL(helperAppURL as CFURL, true) != noErr {
-			print("Failed to register PostgresLoginHelper URL")
+	private func createLaunchAgent() {
+		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
+		let laName = "com.postgresapp.Postgres2LoginHelper"
+		if !FileManager.default.fileExists(atPath: laPath) {
+			do {
+				try FileManager.default.createDirectory(atPath: laPath, withIntermediateDirectories: true, attributes: nil)
+			} catch let error as NSError {
+				NSLog("Could not create directory at \(laPath): \(error)")
+				return
+			}
 		}
-		if SMLoginItemSetEnabled("com.postgresapp.PostgresLoginHelper" as CFString, enabled) == false {
-			print("Failed to enable PostgresLoginHelper as login item")
+		
+		let plistPath = laPath+"/"+laName+".plist"
+		let attributes: [String: Any] = [FileAttributeKey.posixPermissions.rawValue: NSNumber(value: 0o600)]
+		do {
+			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
+			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
+				NSLog("Could not create plist file at \(plistPath)")
+			}
+		} catch let error as NSError {
+			NSLog("Error getting data of original plist file: \(error)")
 		}
 	}
 	
