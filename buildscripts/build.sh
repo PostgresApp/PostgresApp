@@ -8,14 +8,19 @@ BGIMG_PATH=background-image/folder_bg.png
 DMG_SRC_PATH=Postgres
 DMG_DST_PATH=~/Desktop/Postgres.dmg
 
+# remove old builds (if exist)
+#[ -e "$ARCHIVE_PATH" ] && rm -r "$ARCHIVE_PATH"
+#[ -e "$DMG_SRC_PATH/Postgres.app" ] && rm -r "$DMG_SRC_PATH/Postgres.app"
+[ -e "$DMG_DST_PATH" ] && rm "$DMG_DST_PATH"
+
 # get signing identity
 SIGN_ID=$(security find-certificate -a -c "Developer ID Application" -Z | grep -o -e 'Developer ID [^"]*' | head -n 1)
 
 # build the archive
-# xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH"
+#xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH"
 
 # export and code sign
-# xcodebuild -exportArchive -exportFormat APP -archivePath "$ARCHIVE_PATH" -exportPath "$DMG_SRC_PATH/Postgres.app" -exportSigningIdentity "$SIGN_ID"
+#xcodebuild -exportArchive -exportFormat APP -archivePath "$ARCHIVE_PATH" -exportPath "$DMG_SRC_PATH/Postgres.app" -exportSigningIdentity "$SIGN_ID"
 
 # create dmg
 vendor/create-dmg-master/create-dmg \
