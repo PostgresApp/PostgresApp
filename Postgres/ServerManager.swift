@@ -24,7 +24,7 @@ class ServerManager: NSObject {
 	
 	func startServers() {
 		for server in self.servers {
-			if server.startAtLogin {
+			if server.startOnLogin {
 				server.start { _ in }
 			}
 		}
@@ -55,7 +55,7 @@ class ServerManager: NSObject {
 	func createDefaultServer() {
 		if servers.isEmpty {
 			let version = Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
-			servers.append(Server(name: "PostgreSQL \(version)"))
+			servers.append(Server(name: "PostgreSQL \(version)", startOnLogin: true))
 			saveServers()
 		}
 	}
