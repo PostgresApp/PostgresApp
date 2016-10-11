@@ -139,7 +139,6 @@ class Server: NSObject, NSCoding {
 					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				return
 				
 			case .PortInUse:
 				let userInfo = [
