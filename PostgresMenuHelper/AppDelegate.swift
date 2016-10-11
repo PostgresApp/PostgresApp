@@ -21,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		return UserDefaults.standard.object(forKey: "AppleInterfaceStyle") as? String == "Dark"
 	}
 	
+	var menuItemViewControllers: [MenuItemViewController] = []
+	
 	@IBOutlet var statusMenu: NSMenu!
 	
 	
@@ -43,6 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		serverManager.loadServers()
 		serverManager.refreshServerStatuses()
 		
+		menuItemViewControllers.removeAll()
+		
 		for item in statusMenu.items where item.view is MenuItemView {
 			statusMenu.removeItem(item)
 		}
@@ -55,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		
 		for server in serverManager.servers {
 			guard let menuItemViewController = MenuItemViewController(server) else { return }
+			menuItemViewControllers.append(menuItemViewController)
 			
 			let menuItem = NSMenuItem()
 			
