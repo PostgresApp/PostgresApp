@@ -47,7 +47,7 @@ class Server: NSObject, NSCoding {
 	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
-	dynamic var startAtLogin: Bool = false {
+	dynamic var startOnLogin: Bool = false {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
@@ -81,7 +81,7 @@ class Server: NSObject, NSCoding {
 	}
 	
 	
-	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil) {
+	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil, startOnLogin: Bool = false) {
 		self.init()
 		
 		self.name = name
@@ -89,6 +89,7 @@ class Server: NSObject, NSCoding {
 		self.port = port
 		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", self.version)
 		self.varPath = varPath ?? FileManager().applicationSupportDirectoryPath().appendingFormat("/var-%@", self.version)
+		self.startOnLogin = startOnLogin
 		
 		updateServerStatus()
 		
@@ -102,14 +103,14 @@ class Server: NSObject, NSCoding {
 		guard let version = aDecoder.decodeObject(forKey: "version") as? String else { return }
 		guard let port = aDecoder.decodeObject(forKey: "port") as? UInt else { return }
 		guard let varPath = aDecoder.decodeObject(forKey: "varPath") as? String else { return }
-		let startAtLogin = aDecoder.decodeBool(forKey: "startAtLogin")
+		let startOnLogin = aDecoder.decodeBool(forKey: "startOnLogin")
 		
 		self.name = name
 		self.version = version
 		self.port = port
 		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", version)
 		self.varPath = varPath
-		self.startAtLogin = startAtLogin
+		self.startOnLogin = startOnLogin
 	}
 	
 	
@@ -119,7 +120,7 @@ class Server: NSObject, NSCoding {
 		aCoder.encode(UInt(port), forKey: "port")
 		aCoder.encode(binPath, forKey: "binPath")
 		aCoder.encode(varPath, forKey: "varPath")
-		aCoder.encode(startAtLogin, forKey: "startAtLogin")
+		aCoder.encode(startOnLogin, forKey: "startOnLogin")
 	}
 	
 	
