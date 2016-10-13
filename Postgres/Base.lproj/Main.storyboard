@@ -345,7 +345,7 @@ IA
                                 <rect key="frame" x="20" y="192" width="416" height="5"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NJh-WV-lPO">
-                                <rect key="frame" x="303" y="196" width="70" height="32"/>
+                                <rect key="frame" x="372" y="196" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qfD-hk-jvh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -366,26 +366,6 @@ IA
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                </connections>
-                            </button>
-                            <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
-                                <rect key="frame" x="373" y="196" width="69" height="32"/>
-                                <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="stopServer:" target="Rgw-vS-n3O" id="AhY-wF-5v7"/>
-                                    <binding destination="n71-mI-16p" name="enabled2" keyPath="selection.busy" previousBinding="WEm-zn-Hjy" id="bRo-Xk-7O8">
-                                        <dictionary key="options">
-                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                            <integer key="NSNullPlaceholder" value="-1"/>
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="WEm-zn-Hjy"/>
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-Bn-2go">
@@ -509,13 +489,34 @@ IA
                                     </binding>
                                 </connections>
                             </progressIndicator>
+                            <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
+                                <rect key="frame" x="303" y="196" width="69" height="32"/>
+                                <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="stopServer:" target="Rgw-vS-n3O" id="AhY-wF-5v7"/>
+                                    <binding destination="n71-mI-16p" name="enabled2" keyPath="selection.busy" previousBinding="WEm-zn-Hjy" id="bRo-Xk-7O8">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="WEm-zn-Hjy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" symbolic="YES" id="1PI-17-WIV"/>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="Scd-hP-8Y9" secondAttribute="bottom" constant="8" id="3EL-EL-pxp"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="6Kb-Hx-SS9"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="Dj0-gb-Coy"/>
-                            <constraint firstAttribute="trailing" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="20" symbolic="YES" id="G45-OP-QqP"/>
+                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="GLd-1a-TYI"/>
                             <constraint firstAttribute="trailing" secondItem="gZH-Ls-EES" secondAttribute="trailing" id="HW0-UL-GFs"/>
                             <constraint firstAttribute="trailing" secondItem="Jak-G7-PlW" secondAttribute="trailing" id="I7w-9K-gmh"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="LIo-bi-N8O"/>
@@ -523,10 +524,9 @@ IA
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="O4B-Da-WRU"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="top" secondItem="UaU-Bn-2go" secondAttribute="bottom" constant="8" id="OV5-Ig-6P1"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="11" id="Oan-M6-tLU"/>
-                            <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" symbolic="YES" id="Qk8-EX-0Sz"/>
+                            <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" symbolic="YES" id="SZP-un-Xue"/>
                             <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="12" symbolic="YES" id="T5e-vS-Ain"/>
                             <constraint firstItem="gZH-Ls-EES" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="Ung-sc-fcJ"/>
-                            <constraint firstItem="NJh-WV-lPO" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="WPI-HZ-5w4"/>
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
                             <constraint firstAttribute="bottom" secondItem="gZH-Ls-EES" secondAttribute="bottom" id="dJO-gT-qX0"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
@@ -535,7 +535,7 @@ IA
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="lXX-nh-hjU"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="NJh-WV-lPO" secondAttribute="bottom" constant="8" id="mJI-f4-MMF"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="mZg-3o-dXY"/>
-                            <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="12" symbolic="YES" id="mkW-ek-XLM"/>
+                            <constraint firstAttribute="trailing" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="20" id="rkl-In-o7n"/>
                             <constraint firstItem="gZH-Ls-EES" firstAttribute="top" secondItem="Jak-G7-PlW" secondAttribute="bottom" id="wGQ-Q8-W8y"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="top" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="yrZ-nQ-69f"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
@@ -724,12 +724,12 @@ IA
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
+                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.port" id="mVP-qG-Cda"/>
                                     <binding destination="buw-cX-kU8" name="enabled" keyPath="server.running" id="6d5-W4-xnZ">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="buw-cX-kU8" name="value" keyPath="server.port" id="mVP-qG-Cda"/>
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m0L-aG-Cns">
