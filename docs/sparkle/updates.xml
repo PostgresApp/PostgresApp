@@ -17,8 +17,9 @@
         </description>
         <pubDate>Wed, 31 Aug 2014 15:20:11 +0000</pubDate>
         <enclosure 
-        	url="https://github.com/PostgresApp/PostgresApp/releases/download/untagged-b302cd1ce5cbb610f358/Postgres-2.0.dmg" 
-        	sparkle:version="2.0.1" 
+        	url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0-alpha.1/Postgres-2.0.dmg" 
+        	sparkle:version="2" 
+        	sparkle:shortVersionString="2.0 Alpha X" 
         	length="" 
         	type="application/octet-stream"
         	sparkle:dsaSignature="MC0CFEQPz+p8MLQLc20oUONd/sUZt68QAhUArgL3HmkQe8QKnRcnD+lDUkbw5LE="
