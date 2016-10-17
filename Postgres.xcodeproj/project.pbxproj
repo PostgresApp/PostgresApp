@@ -15,6 +15,8 @@
 		8324D9AB1D9402A10066DCDB /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 831C84AC1D771B4800FA5F59 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8348A1ED1DB4ED5E0039A024 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8348A1EC1DB4ED5E0039A024 /* dsa_pub.pem */; };
+		8348A1F11DB52E9A0039A024 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8348A1F01DB52E9A0039A024 /* ValueTransformers.swift */; };
+		8348A1F21DB52E9A0039A024 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8348A1F01DB52E9A0039A024 /* ValueTransformers.swift */; };
 		8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDD1D1D57C8002F77E7 /* ServerView.swift */; };
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
@@ -93,6 +95,7 @@
 		830D62CB1D77297800570BFC /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		831C84AC1D771B4800FA5F59 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Postgres/Vendor/Sparkle.framework; sourceTree = "<group>"; };
 		8348A1EC1DB4ED5E0039A024 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		8348A1F01DB52E9A0039A024 /* ValueTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		8353FBDD1D1D57C8002F77E7 /* ServerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerView.swift; sourceTree = "<group>"; };
 		8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Postgres-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 				830D62CB1D77297800570BFC /* Preferences.swift */,
 				83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */,
 				83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */,
+				8348A1F01DB52E9A0039A024 /* ValueTransformers.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
@@ -436,6 +440,7 @@
 				83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */,
 				83C19C5C1D7D9AAE00F4862D /* MenuItemView.swift in Sources */,
 				83C19C681D7D9D1900F4862D /* Server.swift in Sources */,
+				8348A1F21DB52E9A0039A024 /* ValueTransformers.swift in Sources */,
 				83C19C6C1D7D9D2E00F4862D /* KeyValueObserver.swift in Sources */,
 				83C19C511D7D9A7D00F4862D /* AppDelegate.swift in Sources */,
 			);
@@ -457,6 +462,7 @@
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
+				8348A1F11DB52E9A0039A024 /* ValueTransformers.swift in Sources */,
 				83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */,
 				838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */,
 				830658E51D536F2E00BA1752 /* Extensions.swift in Sources */,

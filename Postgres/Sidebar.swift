@@ -41,36 +41,6 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 
 
 
-class ServerTableCellView: NSTableCellView {
-	
-	dynamic private(set) var statusImage: NSImage!
-	var keyValueObserver: KeyValueObserver!
-	
-	
-	override func awakeFromNib() {
-		keyValueObserver = self.observe("objectValue.serverStatus") { [weak self] _ in
-			guard let this = self else { return }
-			guard let server = this.objectValue as? Server else { return }
-			
-			switch server.serverStatus {
-			case .Unknown:
-				this.statusImage = NSImage(imageLiteralResourceName: NSImageNameStatusNone)
-			case .Running:
-				this.statusImage = NSImage(named: "icon-running")
-			default:
-				this.statusImage = NSImage(named: "icon-stopped")
-			}
-		}
-	}
-	
-	deinit {
-		self.removeObserver(keyValueObserver, forKeyPath: keyValueObserver.keyPath)
-	}
-	
-}
-
-
-
 class ServerIconImageCell: NSImageCell {
 	
 	override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {

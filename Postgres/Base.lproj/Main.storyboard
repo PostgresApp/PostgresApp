@@ -325,18 +325,19 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nOw-Qm-BYd">
-                                <rect key="frame" x="18" y="274" width="113" height="17"/>
+                                <rect key="frame" x="42" y="274" width="113" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="&lt;statusMessage&gt;" id="b63-cF-nqs">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.statusMessage" id="OjH-JY-Nci">
+                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.serverStatus" id="4P2-PK-R0M">
                                         <dictionary key="options">
                                             <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
 IA
 </string>
+                                            <string key="NSValueTransformerName">Postgres.ServerStatusStatusMessageTransformer</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -364,6 +365,11 @@ IA
                                     <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="Y7j-oj-0N7">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="fOm-ZK-GfF">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">Postgres.ServerStatusButtonTitleTransformer</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -509,11 +515,30 @@ IA
                                     <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="WEm-zn-Hjy"/>
                                 </connections>
                             </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="chP-0M-fyI">
+                                <rect key="frame" x="20" y="275" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="05Y-F4-1cV"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="14O-fL-qTz"/>
+                                    <constraint firstAttribute="width" constant="16" id="Y6P-ux-N8B"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="byH-Qs-j0M"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="fR9-aU-uVK"/>
+                                <connections>
+                                    <binding destination="n71-mI-16p" name="value" keyPath="selection.serverStatus" id="egB-iO-Ag0">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">Postgres.ServerStatusImageTransformer</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="chP-0M-fyI" secondAttribute="trailing" constant="8" symbolic="YES" id="0H7-Ct-TeX"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" symbolic="YES" id="1PI-17-WIV"/>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="Scd-hP-8Y9" secondAttribute="bottom" constant="8" id="3EL-EL-pxp"/>
+                            <constraint firstItem="chP-0M-fyI" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="3qL-Tc-ouM"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="6Kb-Hx-SS9"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="Dj0-gb-Coy"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="GLd-1a-TYI"/>
@@ -532,9 +557,9 @@ IA
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="8iz-Ak-ysG" secondAttribute="bottom" constant="8" id="gRW-ef-sZK"/>
                             <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="100" id="iUQ-Be-SZE"/>
+                            <constraint firstItem="nOw-Qm-BYd" firstAttribute="centerY" secondItem="chP-0M-fyI" secondAttribute="centerY" id="jfY-Gr-SzP"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="lXX-nh-hjU"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="NJh-WV-lPO" secondAttribute="bottom" constant="8" id="mJI-f4-MMF"/>
-                            <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="mZg-3o-dXY"/>
                             <constraint firstAttribute="trailing" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="20" id="rkl-In-o7n"/>
                             <constraint firstItem="gZH-Ls-EES" firstAttribute="top" secondItem="Jak-G7-PlW" secondAttribute="bottom" id="wGQ-Q8-W8y"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="top" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="yrZ-nQ-69f"/>
@@ -888,7 +913,7 @@ IA
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="nru-Bg-Wku" customClass="ServerTableCellView" customModule="Postgres" customModuleProvider="target">
+                                                        <tableCellView id="nru-Bg-Wku">
                                                             <rect key="frame" x="1" y="1" width="147" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -896,7 +921,11 @@ IA
                                                                     <rect key="frame" x="8" y="17" width="16" height="16"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="eee-nH-1JR" customClass="ServerIconImageCell" customModule="Postgres" customModuleProvider="target"/>
                                                                     <connections>
-                                                                        <binding destination="nru-Bg-Wku" name="value" keyPath="statusImage" id="rhf-Ys-G2i"/>
+                                                                        <binding destination="nru-Bg-Wku" name="value" keyPath="objectValue.serverStatus" id="56c-Ix-cmM">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">Postgres.ServerStatusTemplateImageTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
                                                                     </connections>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bc6-Nx-1b5">
