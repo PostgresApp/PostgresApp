@@ -71,7 +71,6 @@ class Server: NSObject, NSCoding {
 	dynamic private(set) var busy: Bool = false
 	dynamic private(set) var running: Bool = false
 	dynamic private(set) var serverStatus: ServerStatus = .Unknown
-	dynamic private(set) var statusMessage: String = ""
 	dynamic private(set) var databases: [Database] = []
 	dynamic var selectedDatabaseIndices = IndexSet()
 	
@@ -243,7 +242,6 @@ class Server: NSObject, NSCoding {
 		if !FileManager.default.fileExists(atPath: binPath) {
 			serverStatus = .NoBinaries
 			running = false
-			statusMessage = "No binaries found"
 			databases.removeAll()
 			return
 		}
@@ -251,7 +249,6 @@ class Server: NSObject, NSCoding {
 		if !FileManager.default.fileExists(atPath: pgVersionPath) {
 			serverStatus = .DataDirEmpty
 			running = false
-			statusMessage = "Click ‘Start’ to initialize the server"
 			databases.removeAll()
 			return
 		}
@@ -261,14 +258,12 @@ class Server: NSObject, NSCoding {
 			if version != versionFileContent.substring(to: versionFileContent.index(before: versionFileContent.endIndex)) {
 				serverStatus = .DataDirIncompatible
 				running = false
-				statusMessage = "Database directory incompatible"
 				databases.removeAll()
 				return
 			}
 		} catch {
 			serverStatus = .Unknown
 			running = false
-			statusMessage = "Could not determine data directory version"
 			databases.removeAll()
 			return
 		}
@@ -277,7 +272,6 @@ class Server: NSObject, NSCoding {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
 				serverStatus = .Unknown
 				running = false
-				statusMessage = "Could not read PID file"
 				databases.removeAll()
 				return
 			}
@@ -286,7 +280,6 @@ class Server: NSObject, NSCoding {
 			guard let pid = Int32(firstLine) else {
 				serverStatus = .Unknown
 				running = false
-				statusMessage = "First line of PID file is not an integer"
 				databases.removeAll()
 				return
 			}
@@ -298,7 +291,6 @@ class Server: NSObject, NSCoding {
 			if processPath == binPath.appending("/postgres") {
 				serverStatus = .Running
 				running = true
-				statusMessage = "PostgreSQL \(self.version) - Running on port \(self.port)"
 				databases.removeAll()
 				loadDatabases()
 				return
@@ -306,14 +298,12 @@ class Server: NSObject, NSCoding {
 			else if processPath.hasSuffix("postgres") || processPath.hasSuffix("postmaster") {
 				serverStatus = .DataDirInUse
 				running = false
-				statusMessage = "The data directory is in use by another server"
 				databases.removeAll()
 				return
 			}
 			else if !processPath.isEmpty {
 				serverStatus = .StalePidFile
 				running = false
-				statusMessage = "Old postmaster.pid file detected"
 				databases.removeAll()
 				return
 			}
@@ -322,14 +312,12 @@ class Server: NSObject, NSCoding {
 		if portInUse() {
 			serverStatus = .PortInUse
 			running = false
-			statusMessage = "Port in use by another process"
 			databases.removeAll()
 			return
 		}
 		
 		serverStatus = .Startable
 		running = false
-		statusMessage = "Not running"
 		databases.removeAll()
 	}
 	
