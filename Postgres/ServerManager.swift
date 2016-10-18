@@ -16,14 +16,14 @@ class ServerManager: NSObject {
 	
 	
 	func refreshServerStatuses() {
-		for server in self.servers {
+		for server in servers {
 			server.updateServerStatus()
 		}
 	}
 	
 	
 	func startServers() {
-		for server in self.servers {
+		for server in servers {
 			if server.startOnLogin {
 				server.start { _ in }
 			}
@@ -32,23 +32,27 @@ class ServerManager: NSObject {
 	
 	
 	func saveServers() {
-		NSKeyedArchiver.setClassName("Server", for: Server.self)
-		let data = NSKeyedArchiver.archivedData(withRootObject: self.servers)
-		UserDefaults.standard.set(data, forKey: "Servers")
+		var plists: [[AnyHashable: Any]] = []
+		for server in servers {
+			plists.append(server.asPropertyList)
+		}
+		UserDefaults.standard.set(plists, forKey: "Servers")
 	}
 	
 	
 	func loadServers() {
-		self.servers.removeAll()
-		
-		NSKeyedUnarchiver.setClass(Server.self, forClassName: "Server")
-		let loadServersError = NSError(domain: "", code: 0)
-		do {
-			guard let defaults = UserDefaults.shared() else { throw loadServersError }
-			guard let data = defaults.data(forKey: "Servers") else { throw loadServersError }
-			guard let servers = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Server] , !servers.isEmpty else { throw loadServersError }
-			self.servers = servers
-		} catch {}
+		servers.removeAll()
+		guard let plists = UserDefaults.shared().array(forKey: "Servers") as? [[AnyHashable: Any]] else {
+			NSLog("PostgresApp could not load servers from user defaults.")
+			return
+		}
+		for plist in plists {
+			guard let server = Server(propertyList: plist) else {
+				NSLog("PostgresApp could not load server from user defaults.")
+				continue
+			}
+			servers.append(server)
+		}
 	}
 	
 	
@@ -94,11 +98,11 @@ class ServerManager: NSObject {
 
 
 extension UserDefaults {
-	static func shared() -> UserDefaults? {
+	static func shared() -> UserDefaults {
 		if Bundle.main.bundleIdentifier == "com.postgresapp.Postgres2" {
 			return UserDefaults.standard
 		} else {
-			return UserDefaults(suiteName: "com.postgresapp.Postgres2")
+			return UserDefaults(suiteName: "com.postgresapp.Postgres2")!
 		}
 	}
 }

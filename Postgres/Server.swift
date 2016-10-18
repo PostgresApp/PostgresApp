@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class Server: NSObject, NSCoding {
+class Server: NSObject {
 	
 	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
 	
@@ -20,11 +20,11 @@ class Server: NSObject, NSCoding {
 		case NoBinaries
 		case PortInUse
 		case DataDirInUse
-		case DataDirIncompatible
 		case DataDirEmpty
 		case Running
 		case Startable
 		case StalePidFile
+		case PidFileUnreadable
 		case Unknown
 	}
 	
@@ -39,7 +39,6 @@ class Server: NSObject, NSCoding {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-	dynamic var version: String = ""
 	dynamic var port: UInt = 0 {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
@@ -79,47 +78,41 @@ class Server: NSObject, NSCoding {
 		return databases[firstIndex]
 	}
 	
+	var asPropertyList: [AnyHashable: Any] {
+		var result: [AnyHashable: Any] = [:]
+		result["name"] = self.name
+		result["port"] = self.port
+		result["binPath"] = self.binPath
+		result["varPath"] = self.varPath
+		result["startOnLogin"] = self.startOnLogin
+		return result
+	}
 	
-	convenience init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil, startOnLogin: Bool = false) {
-		self.init()
-		
+	
+	init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil, startOnLogin: Bool = false) {
+		super.init()
+		let effectiveVersion = version ?? Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
 		self.name = name
-		self.version = version ?? Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
 		self.port = port
-		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", self.version)
-		self.varPath = varPath ?? FileManager().applicationSupportDirectoryPath().appendingFormat("/var-%@", self.version)
+		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", effectiveVersion)
+		self.varPath = varPath ?? FileManager().applicationSupportDirectoryPath().appendingFormat("/var-%@", effectiveVersion)
 		self.startOnLogin = startOnLogin
-		
 		updateServerStatus()
-		
-		// TODO: read port from postgresql.conf
 	}
 	
-	required convenience init(coder aDecoder: NSCoder) {
-		self.init()
-		
-		guard let name = aDecoder.decodeObject(forKey: "name") as? String else { return }
-		guard let version = aDecoder.decodeObject(forKey: "version") as? String else { return }
-		guard let port = aDecoder.decodeObject(forKey: "port") as? UInt else { return }
-		guard let varPath = aDecoder.decodeObject(forKey: "varPath") as? String else { return }
-		let startOnLogin = aDecoder.decodeBool(forKey: "startOnLogin")
-		
+	init?(propertyList: [AnyHashable: Any]) {
+		guard let name = propertyList["name"] as? String,
+		let port = propertyList["port"] as? UInt,
+		let binPath = propertyList["binPath"] as? String,
+		let varPath = propertyList["varPath"] as? String
+		else {
+			return nil
+		}
 		self.name = name
-		self.version = version
 		self.port = port
-		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", version)
+		self.binPath = binPath
 		self.varPath = varPath
-		self.startOnLogin = startOnLogin
-	}
-	
-	
-	func encode(with aCoder: NSCoder) {
-		aCoder.encode(name, forKey: "name")
-		aCoder.encode(version, forKey: "version")
-		aCoder.encode(UInt(port), forKey: "port")
-		aCoder.encode(binPath, forKey: "binPath")
-		aCoder.encode(varPath, forKey: "varPath")
-		aCoder.encode(startOnLogin, forKey: "startOnLogin")
+		self.startOnLogin = propertyList["startOnLogin"] as? Bool ?? false
 	}
 	
 	
@@ -150,13 +143,6 @@ class Server: NSObject, NSCoding {
 			case .DataDirInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("There is already a PostgreSQL server running in this data directory", comment: ""),
-				]
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
-			case .DataDirIncompatible:
-				let userInfo = [
-					NSLocalizedDescriptionKey: NSLocalizedString("The data directory is not compatible with this version of PostgreSQL server.", comment: ""),
-					NSLocalizedRecoverySuggestionErrorKey: "Please create a new Server."
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
@@ -201,10 +187,15 @@ class Server: NSObject, NSCoding {
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
+			case .PidFileUnreadable:
+				let userInfo = [
+					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an unreadable postmaster.pid file", comment: "")
+				]
+				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				
 			case .Unknown:
 				let userInfo = [
-					NSLocalizedDescriptionKey: NSLocalizedString("Unknown server status", comment: ""),
-					NSLocalizedRecoverySuggestionErrorKey: ""
+					NSLocalizedDescriptionKey: NSLocalizedString("Unknown server status", comment: "")
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
@@ -253,24 +244,9 @@ class Server: NSObject, NSCoding {
 			return
 		}
 		
-		do {
-			let versionFileContent = try String(contentsOfFile: pgVersionPath)
-			if version != versionFileContent.substring(to: versionFileContent.index(before: versionFileContent.endIndex)) {
-				serverStatus = .DataDirIncompatible
-				running = false
-				databases.removeAll()
-				return
-			}
-		} catch {
-			serverStatus = .Unknown
-			running = false
-			databases.removeAll()
-			return
-		}
-		
 		if FileManager.default.fileExists(atPath: pidFilePath) {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
-				serverStatus = .Unknown
+				serverStatus = .PidFileUnreadable
 				running = false
 				databases.removeAll()
 				return
@@ -278,7 +254,7 @@ class Server: NSObject, NSCoding {
 			
 			let firstLine = pidFileContents.components(separatedBy: .newlines).first!
 			guard let pid = Int32(firstLine) else {
-				serverStatus = .Unknown
+				serverStatus = .PidFileUnreadable
 				running = false
 				databases.removeAll()
 				return
