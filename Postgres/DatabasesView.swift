@@ -28,7 +28,7 @@ class DatabaseItemView: NSView {
 	}
 	
 	override func draw(_ dirtyRect: NSRect) {
-		if self.selected {
+		if selected {
 			let offset = CGFloat(10.0)
 			let x = offset
 			let y = offset

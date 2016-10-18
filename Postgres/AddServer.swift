@@ -24,7 +24,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	override func viewDidLoad() {
 		loadVersions()
-		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(self.version)")
+		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(version)")
 		
 		super.viewDidLoad()
 	}
@@ -59,7 +59,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBAction func createServer(_ sender: AnyObject?) {
 		guard self.view.window!.makeFirstResponder(nil) else { NSBeep(); return }
 		
-		for server in self.mainWindowModel.serverManager.servers {
+		for server in mainWindowModel.serverManager.servers {
 			if server.varPath == self.varPath {
 				let alert = NSAlert()
 				alert.messageText = "The Data Directory is already in use by server \"\(server.name)\"."
