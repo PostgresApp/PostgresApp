@@ -55,17 +55,17 @@ class ServerStatusStatusMessageTransformer: ValueTransformer {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
 		case .NoBinaries:
-			return "No binaries found"
+			return "Binaries not found"
 		case .DataDirEmpty:
-			return "Click ‘Initialize’ to init the server"
-		case .DataDirIncompatible:
-			return "Database directory incompatible"
+			return "Empty data directory"
 		case .DataDirInUse:
-			return "The data directory is in use by another server"
+			return "Data directory in use"
 		case .StalePidFile:
-			return "Old postmaster.pid file detected"
+			return "Stale postmaster.pid file"
+		case .PidFileUnreadable:
+			return "Unreadable postmaster.pid file"
 		case .PortInUse:
-			return "Port in use by another process"
+			return "Port in use"
 		case .Startable:
 			return "Not running"
 		case .Running:
