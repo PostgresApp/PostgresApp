@@ -367,8 +367,12 @@ IA
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="fOm-ZK-GfF">
+                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="cyT-1a-WOt">
                                         <dictionary key="options">
+                                            <string key="NSMultipleValuesPlaceholder">Start</string>
+                                            <string key="NSNoSelectionPlaceholder">Start</string>
+                                            <string key="NSNotApplicablePlaceholder">Start</string>
+                                            <string key="NSNullPlaceholder">Start</string>
                                             <string key="NSValueTransformerName">Postgres.ServerStatusButtonTitleTransformer</string>
                                         </dictionary>
                                     </binding>
