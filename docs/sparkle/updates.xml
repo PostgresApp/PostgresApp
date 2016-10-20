@@ -5,6 +5,32 @@
     <link>https://postgresapp.com/sparkle/updates.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
+    <item>
+        <title>Postgres 2.0 Beta 1</title>
+        <description>
+          <![CDATA[
+          	<p>
+          		This is the first public beta of the all new Postgres.app!
+          	</p>
+          	<p>
+          		This build includes 2 versions of PostgreSQL:
+          	</p>
+            <ul>
+              <li>PostgreSQL 9.6 (with PostGIS 2.3)</li>
+              <li>PostgreSQL 9.5.4 (with PostGIS 2.2.2)</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Thu, 20 Oct 2016 17:20:00 +0100</pubDate>
+        <enclosure 
+        	url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0-beta.1/Postgres-2.0.Beta.1.dmg" 
+        	sparkle:version="9" 
+        	sparkle:shortVersionString="2.0 Beta 1" 
+        	length="" 
+        	type="application/octet-stream"
+        	sparkle:dsaSignature="MCwCFEcwMgu3DaqnibSu4xIY+puNVetEAhRCWPtJFEsP5FwnhAojg3bG3IJl3Q=="
+        	/>
+      </item>
       <item>
         <title>Postgres 2.0 Alpha 1</title>
         <description>
