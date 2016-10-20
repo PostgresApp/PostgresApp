@@ -44,8 +44,8 @@ func isFirstLaunch() -> Bool {
 ServerManager.shared.loadServers()
 if isFirstLaunch() {
 	ServerManager.shared.checkForExistingDataDirectories()
-	ServerManager.shared.createDefaultServer()
 }
+ServerManager.shared.createDefaultServer()
 ServerManager.shared.refreshServerStatuses()
 
 
