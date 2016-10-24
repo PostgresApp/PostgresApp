@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2338c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
@@ -960,6 +960,8 @@ IA
                                             <connections>
                                                 <binding destination="Dsw-zw-YD1" name="content" keyPath="arrangedObjects" id="Sye-8o-FrV"/>
                                                 <binding destination="Dsw-zw-YD1" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Sye-8o-FrV" id="bHj-ue-Ov7"/>
+                                                <outlet property="dataSource" destination="Dsw-zw-YD1" id="kwN-bY-lY0"/>
+                                                <outlet property="delegate" destination="Dsw-zw-YD1" id="dgF-Nb-HBv"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -1042,10 +1044,11 @@ IA
                     </view>
                 </viewController>
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="Postgres.Server" id="Dsw-zw-YD1">
+                <arrayController objectClassName="Postgres.Server" id="Dsw-zw-YD1" customClass="DnDArrayController" customModule="Postgres" customModuleProvider="target">
                     <connections>
                         <binding destination="fKp-yy-u0S" name="selectionIndexes" keyPath="mainWindowModel.selectedServerIndices" id="ekE-My-6Oj"/>
                         <binding destination="fKp-yy-u0S" name="contentArray" keyPath="mainWindowModel.serverManager.servers" id="rAJ-aw-Pss"/>
+                        <outlet property="tableView" destination="Kht-WI-z50" id="D0H-j6-USv"/>
                     </connections>
                 </arrayController>
             </objects>
