@@ -16,11 +16,13 @@ on open_iTerm(cmnd)
 		activate
 		if number of windows = 0 then
 			create window with default profile command cmnd
-			else
-			create tab with default profile command cmnd
+		else
+			tell current window
+				create tab with default profile command cmnd
+			end tell
 		end if
 	end tell
-end openITerm
+end open_iTerm
 
 
 on open_Postico(theURL)
