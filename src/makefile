@@ -41,7 +41,7 @@ PLV8_VERSION=1.4.8
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.12.1
 
-# http://www.remotesensing.org/libtiff/
+# http://download.osgeo.org/libtiff/
 LIBTIFF_VERSION=4.0.6
 
 
@@ -357,7 +357,7 @@ tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	touch $@
 
 tiff-$(LIBTIFF_VERSION).tar.gz:
-	$(CURL) ftp://ftp.remotesensing.org/pub/libtiff/tiff-$(LIBTIFF_VERSION).tar.gz
+	$(CURL) http://download.osgeo.org/libtiff/tiff-$(LIBTIFF_VERSION).tar.gz
 
 clean-libtiff:
 	rm -Rf tiff-$(LIBTIFF_VERSION)
