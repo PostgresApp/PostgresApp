@@ -15,6 +15,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 	
 	
+	func applicationWillFinishLaunching(_ notification: Notification) {
+		UserDefaults.standard.register(defaults: ["ClientAppName": "Terminal"])
+	}
+	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.saveServers()
@@ -49,7 +53,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			NSApp.activate(ignoringOtherApps: true)
 		}
 	}
-	
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
 		serverManager.refreshServerStatuses()
