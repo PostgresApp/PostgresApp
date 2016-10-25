@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 			statusMenu.removeItem(item)
 		}
 		
-		var maxStringWidth: CGFloat = 0
+		var maxStringWidth = CGFloat(0)
 		for server in serverManager.servers {
 			let stringWidth = (server.name as NSString).size(withAttributes: [NSFontAttributeName: NSFont.systemFont(ofSize: 12)]).width
 			maxStringWidth = max(stringWidth, maxStringWidth)
