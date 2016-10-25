@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
@@ -280,8 +280,9 @@
                 <windowController id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="0.0" y="0.0" width="700" height="200"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="600" height="200"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="600" height="200"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="bt1-Ha-O4t"/>
                         </connections>
@@ -303,7 +304,7 @@
                         <splitViewItem id="Q5R-ud-P97"/>
                     </splitViewItems>
                     <splitView key="splitView" wantsLayer="YES" misplaced="YES" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="QG8-SB-dWs">
-                        <rect key="frame" x="0.0" y="0.0" width="700" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
@@ -321,7 +322,7 @@
             <objects>
                 <viewController id="Rgw-vS-n3O" customClass="ServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="MYs-NA-b8f" customClass="ServerViewBackgroundView" customModule="Postgres" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="456" height="358"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="358"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nOw-Qm-BYd">
@@ -343,10 +344,10 @@ IA
                                 </connections>
                             </textField>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-xy-oRd">
-                                <rect key="frame" x="20" y="192" width="416" height="5"/>
+                                <rect key="frame" x="20" y="192" width="410" height="5"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NJh-WV-lPO">
-                                <rect key="frame" x="372" y="196" width="70" height="32"/>
+                                <rect key="frame" x="366" y="196" width="70" height="32"/>
                                 <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qfD-hk-jvh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -394,13 +395,13 @@ IA
                                 </connections>
                             </textField>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
-                                <rect key="frame" x="0.0" y="33" width="456" height="150"/>
+                                <rect key="frame" x="0.0" y="33" width="450" height="150"/>
                                 <clipView key="contentView" id="Dni-fY-jEd">
-                                    <rect key="frame" x="0.0" y="0.0" width="456" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsEmptySelection="NO" id="nrL-ym-6WO">
-                                            <rect key="frame" x="0.0" y="0.0" width="456" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
@@ -411,10 +412,10 @@ IA
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="gAu-PZ-hHU"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="gAu-PZ-hHU"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Njw-bN-4ms">
-                                    <rect key="frame" x="0.0" y="86" width="400" height="16"/>
+                                    <rect key="frame" x="0.0" y="134" width="450" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="FfH-lq-wj5">
@@ -444,10 +445,10 @@ IA
                                 </connections>
                             </button>
                             <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="gZH-Ls-EES">
-                                <rect key="frame" x="0.0" y="0.0" width="456" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="32"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p5e-OX-5Sl">
-                                        <rect key="frame" x="250" y="7" width="188" height="18"/>
+                                        <rect key="frame" x="244" y="7" width="188" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show Postgres in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7zP-gL-1SS">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -483,10 +484,10 @@ IA
                                 </constraints>
                             </visualEffectView>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-G7-PlW">
-                                <rect key="frame" x="0.0" y="30" width="456" height="5"/>
+                                <rect key="frame" x="0.0" y="30" width="450" height="5"/>
                             </box>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
-                                <rect key="frame" x="285" y="206" width="16" height="16"/>
+                                <rect key="frame" x="279" y="206" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="TiN-qb-ptl"/>
                                     <constraint firstAttribute="height" constant="16" id="yd5-dd-lXS"/>
@@ -500,7 +501,7 @@ IA
                                 </connections>
                             </progressIndicator>
                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
-                                <rect key="frame" x="303" y="196" width="69" height="32"/>
+                                <rect key="frame" x="297" y="196" width="69" height="32"/>
                                 <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -560,7 +561,7 @@ IA
                             <constraint firstAttribute="bottom" secondItem="gZH-Ls-EES" secondAttribute="bottom" id="dJO-gT-qX0"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="8iz-Ak-ysG" secondAttribute="bottom" constant="8" id="gRW-ef-sZK"/>
-                            <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="100" id="iUQ-Be-SZE"/>
+                            <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="94" id="iUQ-Be-SZE"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="centerY" secondItem="chP-0M-fyI" secondAttribute="centerY" constant="-1" id="jfY-Gr-SzP"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="lXX-nh-hjU"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="NJh-WV-lPO" secondAttribute="bottom" constant="8" id="mJI-f4-MMF"/>
@@ -589,7 +590,7 @@ IA
                 </arrayController>
                 <userDefaultsController representsSharedInstance="YES" id="wBe-GR-afW"/>
             </objects>
-            <point key="canvasLocation" x="204" y="1031"/>
+            <point key="canvasLocation" x="129" y="1032"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="syE-si-wMu">
@@ -1052,7 +1053,7 @@ IA
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-222" y="1031"/>
+            <point key="canvasLocation" x="-171" y="1032"/>
         </scene>
         <!--Add Server View Controller-->
         <scene sceneID="in6-2w-5h3">
@@ -1205,19 +1206,19 @@ Gw
                 </viewController>
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-221" y="1474"/>
+            <point key="canvasLocation" x="-196" y="1502"/>
         </scene>
         <!--Database Item-->
         <scene sceneID="2fR-yR-zDC">
             <objects>
                 <collectionViewItem storyboardIdentifier="DatabaseCollectionViewItem" id="u5c-ia-qqM" customClass="DatabaseItem" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2xx-wp-fcR" customClass="DatabaseItemView" customModule="Postgres" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                        <rect key="frame" x="0.0" y="0.0" width="128" height="136"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qvm-Kq-IOd">
-                                <rect key="frame" x="-2" y="20" width="132" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="&lt;name&gt;" id="6C1-M2-FuD">
+                            <textField identifier="DBNameLabel" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qvm-Kq-IOd">
+                                <rect key="frame" x="6" y="44" width="116" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="charWrapping" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="&lt;name&gt;" id="6C1-M2-FuD">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1226,28 +1227,18 @@ Gw
                                     <binding destination="u5c-ia-qqM" name="value" keyPath="representedObject.name" id="EOe-XN-8dc"/>
                                 </connections>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lgD-PF-lfS">
-                                <rect key="frame" x="32" y="45" width="64" height="63"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="bPd-Jb-f5T"/>
-                                <connections>
-                                    <binding destination="u5c-ia-qqM" name="value" keyPath="representedObject.icon" id="9Ws-Ep-h3K"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Qvm-Kq-IOd" firstAttribute="leading" secondItem="2xx-wp-fcR" secondAttribute="leading" id="K8S-Go-yOu"/>
-                            <constraint firstItem="lgD-PF-lfS" firstAttribute="leading" secondItem="2xx-wp-fcR" secondAttribute="leading" constant="32" id="NEZ-JZ-QeQ"/>
-                            <constraint firstItem="Qvm-Kq-IOd" firstAttribute="top" secondItem="lgD-PF-lfS" secondAttribute="bottom" constant="8" symbolic="YES" id="T1r-3a-aHh"/>
-                            <constraint firstAttribute="bottom" secondItem="Qvm-Kq-IOd" secondAttribute="bottom" constant="20" symbolic="YES" id="Wzr-6q-mZe"/>
-                            <constraint firstItem="lgD-PF-lfS" firstAttribute="centerX" secondItem="Qvm-Kq-IOd" secondAttribute="centerX" id="tjv-LE-3L7"/>
-                            <constraint firstItem="lgD-PF-lfS" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="20" symbolic="YES" id="x5r-mj-lhI"/>
-                            <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" id="y9s-MW-Wga"/>
+                            <constraint firstItem="Qvm-Kq-IOd" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="75" id="G93-zC-osj"/>
+                            <constraint firstItem="Qvm-Kq-IOd" firstAttribute="leading" secondItem="2xx-wp-fcR" secondAttribute="leading" constant="8" id="K8S-Go-yOu"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Qvm-Kq-IOd" secondAttribute="bottom" constant="7" id="Wzr-6q-mZe"/>
+                            <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" constant="8" id="y9s-MW-Wga"/>
                         </constraints>
                     </view>
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="527" y="1146"/>
+            <point key="canvasLocation" x="536" y="1124"/>
         </scene>
     </scenes>
     <resources>
