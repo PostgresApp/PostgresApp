@@ -101,7 +101,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		
 		switch clientAppName {
 		case "Terminal", "iTerm":
-			param = String(format: "'%@/psql' -p%u -d %@", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
+			param = String(format: "\"%@/psql\" -p%u -d \"%@\"", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
 		case "Postico":
 			param = String(format: "postgres://localhost:%u/%@", server.port, database.name)
 		default:
