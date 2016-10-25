@@ -5,6 +5,7 @@
 //  Created by Chris on 18/10/2016.
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
+//  Inspired by https://github.com/yconst/YCHarness/blob/master/RSRTVArrayController.m
 
 import Cocoa
 
