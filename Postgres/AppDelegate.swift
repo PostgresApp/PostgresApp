@@ -41,7 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			}
 			
 			let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
-			if (self.startLoginHelper != startLoginHelper) {
+			if self.startLoginHelper != startLoginHelper {
 				self.startLoginHelper = startLoginHelper
 				if self.startLoginHelper {
 					self.createLaunchAgent()
