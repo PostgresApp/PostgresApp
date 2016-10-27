@@ -15,8 +15,10 @@ if Bundle.main.bundlePath.hasPrefix("/Applications/Postgres.app") {
 	serverManager.startServers()
 	
 	// launch PostgresMenuHelper
-	let menuHelperAppURL = URL(fileURLWithPath: "/Applications/Postgres.app/Contents/MacOS/PostgresMenuHelper.app")
-	if !NSWorkspace.shared().open(menuHelperAppURL) {
-		print("Failed to launch MenuHelperApp")
+	if UserDefaults.shared.bool(forKey: "HideMenuHelperApp") == false {
+		let menuHelperAppURL = URL(fileURLWithPath: "/Applications/Postgres.app/Contents/MacOS/PostgresMenuHelper.app")
+		if !NSWorkspace.shared().open(menuHelperAppURL) {
+			print("Failed to launch MenuHelperApp")
+		}
 	}
 }
