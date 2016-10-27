@@ -42,7 +42,7 @@ class ServerManager: NSObject {
 	
 	func loadServers() {
 		servers.removeAll()
-		guard let plists = UserDefaults.shared().array(forKey: "Servers") as? [[AnyHashable: Any]] else {
+		guard let plists = UserDefaults.shared.array(forKey: "Servers") as? [[AnyHashable: Any]] else {
 			NSLog("PostgresApp could not load servers from user defaults.")
 			return
 		}
@@ -95,14 +95,3 @@ class ServerManager: NSObject {
 	
 }
 
-
-
-extension UserDefaults {
-	static func shared() -> UserDefaults {
-		if Bundle.main.bundleIdentifier == "com.postgresapp.Postgres2" {
-			return UserDefaults.standard
-		} else {
-			return UserDefaults(suiteName: "com.postgresapp.Postgres2")!
-		}
-	}
-}

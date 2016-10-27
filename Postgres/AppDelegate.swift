@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	
 	func applicationWillFinishLaunching(_ notification: Notification) {
-		UserDefaults.standard.register(defaults: ["ClientAppName": "Terminal"])
+		UserDefaults.standard.registerPostgresDefaults()
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
