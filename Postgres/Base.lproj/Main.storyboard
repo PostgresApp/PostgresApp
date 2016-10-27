@@ -26,18 +26,10 @@
         <scene sceneID="qij-K2-cCG">
             <objects>
                 <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="yPx-aT-K8a">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="61"/>
+                    <view key="view" misplaced="YES" id="yPx-aT-K8a">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
-                                <rect key="frame" x="18" y="20" width="134" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Open Databases with" id="edI-G0-pds">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
                                 <rect key="frame" x="156" y="17" width="127" height="26"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
@@ -56,23 +48,44 @@
                                     <binding destination="KVx-oV-dzR" name="selectedValue" keyPath="values.ClientAppName" previousBinding="aGW-Xo-aSK" id="LeC-Yv-p02"/>
                                 </connections>
                             </popUpButton>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ON-LL-Ciy">
+                                <rect key="frame" x="18" y="59" width="264" height="18"/>
+                                <buttonCell key="cell" type="check" title="Automatically start Postgres on Login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BZf-5n-IZj">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="IHn-fa-Gdb" name="value" keyPath="values.StartLoginHelper" id="0eb-7I-zwf"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
+                                <rect key="frame" x="18" y="23" width="134" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Open Databases with" id="edI-G0-pds">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="9Gf-kd-fUZ" firstAttribute="top" secondItem="yPx-aT-K8a" secondAttribute="top" constant="20" symbolic="YES" id="5bn-bc-XXX"/>
-                            <constraint firstItem="5a3-Mr-g2e" firstAttribute="top" secondItem="yPx-aT-K8a" secondAttribute="top" constant="20" symbolic="YES" id="Gq3-zf-MoV"/>
-                            <constraint firstAttribute="bottom" secondItem="9Gf-kd-fUZ" secondAttribute="bottom" constant="20" symbolic="YES" id="NtB-pd-8bJ"/>
+                            <constraint firstAttribute="trailing" secondItem="0ON-LL-Ciy" secondAttribute="trailing" constant="20" symbolic="YES" id="0Sk-Np-atE"/>
+                            <constraint firstItem="9Gf-kd-fUZ" firstAttribute="baseline" secondItem="5a3-Mr-g2e" secondAttribute="baseline" id="0eA-KI-dLr"/>
+                            <constraint firstItem="0ON-LL-Ciy" firstAttribute="top" secondItem="yPx-aT-K8a" secondAttribute="top" constant="20" symbolic="YES" id="Er9-cy-7TW"/>
+                            <constraint firstItem="0ON-LL-Ciy" firstAttribute="leading" secondItem="yPx-aT-K8a" secondAttribute="leading" constant="20" symbolic="YES" id="GXs-d2-C2h"/>
                             <constraint firstItem="5a3-Mr-g2e" firstAttribute="leading" secondItem="yPx-aT-K8a" secondAttribute="leading" constant="20" symbolic="YES" id="R5g-ld-OM8"/>
+                            <constraint firstAttribute="bottom" secondItem="9Gf-kd-fUZ" secondAttribute="bottom" constant="20" symbolic="YES" id="UY8-QH-sS3"/>
                             <constraint firstItem="9Gf-kd-fUZ" firstAttribute="leading" secondItem="5a3-Mr-g2e" secondAttribute="trailing" constant="8" symbolic="YES" id="ZZY-tc-O5Q"/>
-                            <constraint firstAttribute="bottom" secondItem="5a3-Mr-g2e" secondAttribute="bottom" constant="20" symbolic="YES" id="cud-11-vWb"/>
                             <constraint firstAttribute="trailing" secondItem="9Gf-kd-fUZ" secondAttribute="trailing" constant="20" symbolic="YES" id="hKY-Qd-7FG"/>
                             <constraint firstItem="9Gf-kd-fUZ" firstAttribute="leading" secondItem="5a3-Mr-g2e" secondAttribute="trailing" constant="8" symbolic="YES" id="lYj-bk-91t"/>
+                            <constraint firstItem="9Gf-kd-fUZ" firstAttribute="top" secondItem="0ON-LL-Ciy" secondAttribute="bottom" constant="20" id="rwl-XW-fpe"/>
                         </constraints>
                     </view>
                 </viewController>
                 <customObject id="PPT-qH-eGw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController id="KVx-oV-dzR"/>
+                <userDefaultsController id="IHn-fa-Gdb"/>
             </objects>
-            <point key="canvasLocation" x="938" y="194"/>
+            <point key="canvasLocation" x="938" y="180"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -764,7 +777,7 @@ IA
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m0L-aG-Cns">
                                 <rect key="frame" x="88" y="17" width="255" height="18"/>
-                                <buttonCell key="cell" type="check" title="Automatically start server on login" bezelStyle="regularSquare" imagePosition="left" alignment="justified" controlSize="small" lineBreakMode="truncatingTail" inset="2" id="eNi-TD-DQe">
+                                <buttonCell key="cell" type="check" title="Automatically start server" bezelStyle="regularSquare" imagePosition="left" alignment="justified" controlSize="small" lineBreakMode="truncatingTail" inset="2" id="eNi-TD-DQe">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>

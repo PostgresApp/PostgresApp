@@ -13,11 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-	
-	
-	func applicationWillFinishLaunching(_ notification: Notification) {
-		UserDefaults.standard.registerPostgresDefaults()
-	}
+	var startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
@@ -43,14 +39,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 					NSWorkspace.shared().open(url)
 				}
 			}
+			
+			let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
+			if (self.startLoginHelper != startLoginHelper) {
+				self.startLoginHelper = startLoginHelper
+				if self.startLoginHelper {
+					self.createLaunchAgent()
+				} else {
+					self.destroyLaunchAgent()
+				}
+			}
 		}
 		
-		createLaunchAgent()
+		if startLoginHelper {
+			createLaunchAgent()
+		} else {
+			destroyLaunchAgent()
+		}
 		
 		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
 			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
 			NSWorkspace.shared().open(url)
 			NSApp.activate(ignoringOtherApps: true)
+		}
+		
+		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
+			server.start { _ in }
 		}
 	}
 	
@@ -88,6 +102,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 	}
 	
+	private func destroyLaunchAgent() {
+		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
+		let laName = "com.postgresapp.Postgres2LoginHelper"
+		let plistPath = laPath+"/"+laName+".plist"
+		if FileManager.default.fileExists(atPath: laPath) {
+			do {
+				try FileManager.default.removeItem(atPath: plistPath)
+			} catch let error as NSError {
+				NSLog("Could not delete launch agent \(laPath): \(error)")
+			}
+		}
+	}
+	
+
 	
 	
 	// SUUpdater delegate methods

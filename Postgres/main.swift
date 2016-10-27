@@ -8,6 +8,8 @@
 
 import Cocoa
 
+UserDefaults.standard.registerPostgresDefaults()
+
 #if !DEBUG
 func checkApplicationPath() {
 	let actualPath = Bundle.main.bundlePath
