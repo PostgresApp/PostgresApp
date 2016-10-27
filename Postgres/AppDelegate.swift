@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 				self.hideMenuHelperApp = hideMenuHelperApp
 				
 				if self.hideMenuHelperApp {
-					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.PostgresMenuHelper")
+					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
 					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
 						app.terminate()
 					}
