@@ -6,6 +6,28 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres 2.0 Beta 3</title>
+		<description>
+			<![CDATA[
+				<p>This is the beta 3 update of the all new Postgres.app!</p>
+				<p>This build includes 2 versions of PostgreSQL:</p>
+				<ul>
+				<li>PostgreSQL 9.6.1 (with PostGIS 2.3)</li>
+				<li>PostgreSQL 9.5.5 (with PostGIS 2.2.3)</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 7 Nov 2016 17:00:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0-beta.3/Postgres-2.0.Beta.3.dmg"
+		sparkle:version="13"
+		sparkle:shortVersionString="2.0 Beta 3"
+		length=""
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC4CFQCkSGBsNJqHpenKFnQzbDTuZhhlrwIVAJov08P8N1CRk6BynYGWJ4Co6paU"
+		/>
+	</item>
+	<item>
 		<title>Postgres 2.0 Beta 2</title>
 		<description>
 			<![CDATA[
