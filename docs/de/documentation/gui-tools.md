@@ -62,6 +62,7 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [Toad Mac Edition](https://itunes.apple.com/app/toad/id747961939?l=en&mt=12)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 - [Woolly](http://woollyapp.com)
+- [DBGlass](http://dbglass.web-pal.com)
 
 
 In den meisten Clients angeben musst du folgende Parameter angeben um mit Postgres.app zu verbinden:

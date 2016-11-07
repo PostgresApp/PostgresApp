@@ -312,7 +312,7 @@ class Server: NSObject {
 		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
 		
 		let bindRes = withUnsafePointer(to: &listenAddress) { (sockaddrPointer: UnsafePointer<sockaddr_in>) in
-			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { (sockaddrPointer2: UnsafeMutablePointer<sockaddr>) in
+			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { sockaddrPointer2 in
 				Darwin.bind(sock, sockaddrPointer2, socklen_t(MemoryLayout<sockaddr_in>.stride))
 			}
 		}

@@ -31,6 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		statusItem.menu = statusMenu
 		statusItem.image = templateOffImage
 		statusItem.alternateImage = templateOnImage
+		templateOffImage.isTemplate = isDarkMode
+		templateOnImage.isTemplate = isDarkMode
 		
 		DistributedNotificationCenter.default().addObserver(forName: Notification.Name("AppleInterfaceThemeChangedNotification"), object: nil, queue: OperationQueue.main) { _ in
 			self.templateOffImage.isTemplate = self.isDarkMode
