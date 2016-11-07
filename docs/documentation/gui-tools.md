@@ -63,6 +63,7 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 - [Woolly](http://woollyapp.com)
+- [DBGlass](http://dbglass.web-pal.com)
 
 
 Most GUI applications will expect you to provide the following connection parameters to connect to Postgres.app:
