@@ -97,6 +97,6 @@ PLV8 verwendet eine [BSD Lizenz](http://opensource.org/licenses/BSD-3-Clause).
 Impressum
 ------------
 
-Postgres.app wird von derzeit von [Jakob Egger](https://github.com/jakob) weiterentwickelt und betreut.
+Postgres.app wird von derzeit von [Jakob Egger](https://github.com/jakob) und [Chris Pastl](https://github.com/chrispysoft) weiterentwickelt und betreut.
 
 Postgres.app wurde ursprünglich von [Mattt Thompson](https://github.com/mattt) entwickelt.
