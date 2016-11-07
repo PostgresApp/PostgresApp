@@ -20,8 +20,6 @@ header {
 
 hgroup h1 {
   font-size: 4em;
-  font-weight: 700;
-  margin-bottom: 0.5em;
 }
 
 hgroup h2 {
@@ -101,4 +99,8 @@ body {
 
 .nav .lang-link.current a {
 	color: #fff;
+}
+
+body {
+	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
