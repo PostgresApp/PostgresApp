@@ -9,11 +9,14 @@
 		<title>Postgres 2.0 Beta 3</title>
 		<description>
 			<![CDATA[
-				<p>This is the beta 3 update of the all new Postgres.app!</p>
+				<p>This beta 3 update of Postgres.app includes the following features:</p>
+				<ul>
+					<li>bugfix for dark mode (Thanks to Adam Hartford)</li>
+				</ul>
 				<p>This build includes 2 versions of PostgreSQL:</p>
 				<ul>
-				<li>PostgreSQL 9.6.1 (with PostGIS 2.3)</li>
-				<li>PostgreSQL 9.5.5 (with PostGIS 2.2.3)</li>
+					<li>PostgreSQL 9.6.1 (with PostGIS 2.3)</li>
+					<li>PostgreSQL 9.5.5 (with PostGIS 2.2.3)</li>
 				</ul>
 			]]>
 		</description>
