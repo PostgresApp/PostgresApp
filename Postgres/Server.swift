@@ -12,8 +12,8 @@ class Server: NSObject {
 	
 	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
 	
-	static let PropertyChangedNotification = NSNotification.Name("Server.PropertyChangedNotification")
-	static let StatusChangedNotification = NSNotification.Name("Server.StatusChangedNotification")
+	static let PropertyChangedNotification = Notification.Name("Server.PropertyChangedNotification")
+	static let StatusChangedNotification = Notification.Name("Server.StatusChangedNotification")
 	
 	
 	@objc enum ServerStatus: Int {
