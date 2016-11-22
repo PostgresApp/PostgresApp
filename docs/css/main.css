@@ -1,69 +1,67 @@
 
 /* Customize container */
+@media (max-width: 767px) {
+  	header {
+		background: url(/img/PostgresAppIconLarge.png) no-repeat center top;
+   		background-size:  180px 180px;
+    	margin: 20px auto 0;
+		padding: 180px 0 0 0;
+	}
+	header h1, header h2, header ul {
+		text-align: center;
+	}
+}
+
 @media (min-width: 768px) {
   .container {
     max-width: 730px;
+    margin: 0 auto;
   }
-}
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-.container {
-	position: relative;
-}
-
-header {
-  margin-top: 25px;
-  text-align: center;
+  	header {
+		background: url(/img/PostgresAppIconLarge.png) no-repeat left top;
+   		background-size:  180px 180px;
+    	margin: 20px auto 0;
+		padding: 20px 0 0 200px;
+		max-width: 530px;
+    	min-height: 180px;
+	}
 }
 
-hgroup h1 {
-  font-size: 4em;
+header h1 {
+	font-weight: normal;
+	font-size: 36px;
+	margin: 0;
 }
 
-hgroup h2 {
-  border: none;
-  margin-top: 1em;
-  font-size: 1.5em;
-  font-weight: 400;
+header h2 {
+	font-weight: normal;
+	font-size: 16px;
+	margin: 5px 0 0;
 }
 
-hgroup h3 {
-  font-size: 1.5em;
-  font-style: italic;
-  font-weight: 300;
-  margin-top: 0.5em;
+header ul {
+	padding: 0;
+	margin: 20px 0 0;
 }
 
-h2 {
-  border-bottom: 1px solid #ccc;
-  margin-top: 2em;
-  padding-bottom: 0.125em;
+header li {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
 }
 
-.share {
-  text-align: center;
-  margin: 80px 0 45px;
+header li a {
+	display: block;
+	background: rgba(50,90,180,1);
+	color: white;
+	text-decoration: none;
+	padding: 6px 17px;
+	border-radius: 3px;
+	margin: 5px 2px;
 }
 
-.buttons {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.buttons .btn {
-  margin: 10px 3px;
-}
-
-body {
-	margin-bottom: 100px;
-}
-
-#requirements {
-	text-align: center;
-	color: #aaa;
-	font-style: italic;
+header li a:active {
+	background: rgba(120,0,0,1);
 }
 
 #index-lang-links {
@@ -87,20 +85,104 @@ body {
 	color: #666;
 }
 
-.nav .lang-link {
-	font-size: 12px;
-	margin-left: 100px;
-}
-
-.nav .lang-link + .lang-link {
-	margin-left: 0px;
-}
-
-
-.nav .lang-link.current a {
-	color: #fff;
-}
-
 body {
 	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+	margin-bottom: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.installInstructions {
+	counter-reset: my-badass-counter;
+}
+
+.installInstructions li {
+	position: relative;
+	padding: 4px 0 10px 0;
+	margin: 0;
+	min-height: 50px;
+	list-style: none;
+}
+
+.installInstructions li:before {
+	content: counter(my-badass-counter);
+	counter-increment: my-badass-counter;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font: bold 50px/1 Sans-Serif;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	text-align: center;
+	padding: 0;
+	border: 5px solid rgba(0,0,0,1);
+	opacity: 0.2;
+}
+
+.installInstructions li {
+	padding-left: 50px;
+}
+
+
+ul.clientApps {
+	display: block;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+.clientApps li {
+	display: inline-block;
+	padding: 0;
+	margin: 10px 30px;
+}
+
+.clientApps a {
+	display: block;
+	padding-top: 125px;
+	text-align: center;
+	min-width: 120px;
+}
+
+
+.clientApps #pgadmin a {
+	background: url(/img/pgadmin_icon.png) no-repeat center top;
+	background-size: 120px 120px;
+}
+
+.clientApps #postico a {
+	background: url(/img/postico_icon.png) no-repeat center top;
+	background-size: 120px 120px;
+}
+
+
+
+.settingsTable {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid gray;
+	border-collapse: collapse;
+}
+
+.settingsTable td {
+	border: 1px solid gray;
+	padding: 3px;
+}
+
+.settingsTable td nth-child(1) {
+	width: 40%;
+}
+
+.settingsTable td nth-child(2) {
+	width: 60%;
 }

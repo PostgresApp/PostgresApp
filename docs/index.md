@@ -4,47 +4,85 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 ---
 
 <header>
-	<img src="/img/PostgresAppIconLarge.png" width="192" height="192" alt="Postgres.app Icon" itemprop="image">
 	<hgroup>
-	  <h1 itemprop="name">Postgres.app</h1>
-	  <h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
+	  	<h1 itemprop="name">Postgres.app</h1>
+	  	<h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
+		<ul class="buttons">
+			<li><a href="{{ site.downloadLocation }}">Download</a></li>
+			<li><a href="https://postgresapp.com/documentation/">Documentation</a></li>
+			<li><a href="https://github.com/postgresapp/postgresapp">Github</a></li>
+		</ul>
 	</hgroup>
 </header>
 
-<div class="buttons">
-	<a href="{{ site.downloadLocation }}" onclick="trackOutboundLink(this.href,'download');return false;" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
-	<a href="https://postgresapp.com/documentation/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-book"></span> Documentation</a>
-	<a href="https://github.com/postgresapp/postgresapp" onclick="trackOutboundLink(this.href);return false;" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cloud"></span> Github</a>
-</div>
 
-<div id="requirements">
-	PostgresApp contains PostgreSQL {{site.postgresqlVersion}} (other versions see below)<br>
-	Postgres.app runs on OS X 10.7 or later.
-</div>
+Postgres.app includes PostgreSQL and popular extensions like [PostGIS](http://postgis.net) for geo data and [plv8](https://github.com/plv8/plv8) for Javascript - all inside a standard Mac app, no Installer required.
+
+Postgres.app has a beautiful user interface and a convenient menu bar item.
+You never need to touch the command line to use it – but of course we do include all the necessary [command-line tools](documentation/cli-tools.html) and header files for advanced users.
+
+Postgres.app [updates automatically](foo), so you get bugfixes as fast as possible.
+
+The new Postgres.app requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [older versions](foo) of Postgres.app.
 
 
-Quick Installation Guide
+<ul class="installInstructions">
+	<li>Download -> Move to Applications folder -> Double Click<p>If you don't move Postgres.app to the Applications folder, you will see a warning about an unidentified developer and won't be able to open it.</p></li>
+	<li>Click "Initialize" to create a new server</li>
+	<li>Optional: Configure you $PATH to use the included command line tools:</li>
+</ul>
+
+Done! You now have a PostgreSQL server running on your Mac with these default settings:
+
+<table class="settingsTable">
+	<tr>
+		<td>Host</td>
+		<td>localhost</td>
+	</tr>
+	<tr>
+		<td>Port</td>
+		<td>5432</td>
+	</tr>
+	<tr>
+		<td>User</td>
+		<td>(your system user name)</td>
+	</tr>
+	<tr>
+		<td>Database</td>
+		<td>(same as user)</td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td>(none)</td>
+	</tr>
+	<tr>
+		<td>URL</td>
+		<td>postgres://localhost</td>
+	</tr>
+</table>
+
+To connect with psql, just double click a database. To connect from the command line, just type 'psql'. If you'd rather use a graphical client, see below.
+
+NOTE: These instructions assume that you've never installed PostgreSQL on your Mac before. If you have previously installed PostgreSQL using either Postgres.app, homebrew, the EnterpriseDB installers, or any other source, please follow the instructions for upgrading PostgreSQL instead.
+
+
+Graphical Clients
 -----------------
-1. Download
-2. Move to `/Applications`
-3. Double Click
 
-Done! You now have a PostgreSQL server running on your Mac.
-To use the command line programs, [set up your `$PATH`](documentation/cli-tools.html).
-If you prefer a graphical app, check out the [list of GUI tools](documentation/gui-tools.html).
+<ul class="clientApps">
+	<li id="pgadmin"><a href="#">pgAdmin</a></li>
+	<li id="postico"><a href="#">Postico</a></li>
+</ul>
 
-If you get an error saying “the identity of the developer cannot be confirmed”, please make sure you didn't skip step 2. (<a href="https://github.com/PostgresApp/PostgresApp/issues/272">more info</a>)
+pgAdmin 4 is a feature rich open source PostgreSQL client. It has support for almost every feature in PostgreSQL. The only downside is that the cross-plattform UI really doesn't live up to the expectations of a native Mac app.
 
-What's In The Box?
-------------------
+Postico on the other hand, is a very modern Mac app. It's mode by the same people that maintain Postgres.app (and we think you'll like it!). We put a lot of effort into making it easy to use! However, it doesn't have the extensive feature set of pgAdmin, and it's a commercial app rather than open source.
 
-Postgres.app contains a full-featured PostgreSQL installation in a single package:
+Aside from those two options, there are a lot more to choose from! Check the documentation for a list of amazing Mac apps for PostgreSQL.
 
-- [PostgreSQL](http://www.postgresql.org) {{site.postgresqlVersion}}
-- [PostGIS](http://postgis.net) {{site.postgisVersion}}
-- Procedural languages: [PL/pgSQL](http://www.postgresql.org/docs/current/static/plpgsql.html), [PL/Perl](http://www.postgresql.org/docs/current/static/plperl.html), [PL/Python](http://www.postgresql.org/docs/current/static/plpython.html), and [PLV8 (Javascript)](https://github.com/plv8/plv8)
-- Popular extensions, including [hstore](http://www.postgresql.org/docs/current/static/hstore.html) and [uuid-ossp](http://www.postgresql.org/docs/current/static/uuid-ossp.html), and more
-- A number of [command-line utilities](documentation/cli-tools.html) for managing PostgreSQL and working with GIS data
+
+
+
 
 Other versions
 --------------
