@@ -1,3 +1,9 @@
+body {
+	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+	margin-bottom: 100px;
+	font-size: 14px;
+	line-height: 1.5em;
+}
 
 /* Customize container */
 @media (max-width: 767px) {
@@ -5,7 +11,7 @@
 		background: url(/img/PostgresAppIconLarge.png) no-repeat center top;
    		background-size:  180px 180px;
     	margin: 20px auto 0;
-		padding: 180px 0 0 0;
+		padding: 200px 0 0 0;
 	}
 	header h1, header h2, header ul {
 		text-align: center;
@@ -20,15 +26,15 @@
   	header {
 		background: url(/img/PostgresAppIconLarge.png) no-repeat left top;
    		background-size:  180px 180px;
-    	margin: 20px auto 0;
-		padding: 20px 0 0 200px;
+    	margin: 60px auto 0;
+		padding: 30px 0 0 220px;
 		max-width: 530px;
     	min-height: 180px;
 	}
 }
 
 header h1 {
-	font-weight: normal;
+	font-weight: 300;
 	font-size: 36px;
 	margin: 0;
 }
@@ -36,7 +42,7 @@ header h1 {
 header h2 {
 	font-weight: normal;
 	font-size: 16px;
-	margin: 5px 0 0;
+	margin: 15px 0 0;
 }
 
 header ul {
@@ -61,7 +67,15 @@ header li a {
 }
 
 header li a:active {
-	background: rgba(120,0,0,1);
+	background: rgba(10,50,140,1);
+}
+
+.container > h2 {
+	text-align: center;
+	font-weight: 300;
+	font-size: 30px;
+	margin: 65px 0 25px;
+	text-decoration: underline;
 }
 
 #index-lang-links {
@@ -85,81 +99,100 @@ header li a:active {
 	color: #666;
 }
 
-body {
-	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-	margin-bottom: 100px;
+
+ul.instructions {
+	counter-reset: instruction-counter;
+	margin: 0;
+	padding: 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-.installInstructions {
-	counter-reset: my-badass-counter;
-}
-
-.installInstructions li {
+ul.instructions li {
 	position: relative;
 	padding: 4px 0 10px 0;
 	margin: 0;
-	min-height: 50px;
+	min-height: 75px;
 	list-style: none;
 }
 
-.installInstructions li:before {
-	content: counter(my-badass-counter);
-	counter-increment: my-badass-counter;
+ul.instructions li::before {
+	content: counter(instruction-counter);
+	counter-increment: instruction-counter;
 	position: absolute;
+  	top: 50%;
 	left: 0;
-	top: 0;
-	font: bold 50px/1 Sans-Serif;
-	width: 50px;
-	height: 50px;
+  	transform: translate(0,-50%);
+	width: 60px;
+	height: 60px;
 	border-radius: 50px;
+	font-size: 60px;
+	line-height: 1em;
 	text-align: center;
 	padding: 0;
 	border: 5px solid rgba(0,0,0,1);
 	opacity: 0.2;
 }
 
-.installInstructions li {
-	padding-left: 50px;
+ul.instructions li {
+	padding: 0 0 0 85px;
+	margin: 0 0 25px;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+ul.instructions li p, ul.instructions li pre {
+	margin: 0;
+	padding: 3px 0;
+}
+
+pre {
+	font-family: Menlo, fixed-width;
+	color: rgb(120,120,120);
+	font-size: 11px;
+}
+
+tt {
+	font-family: Menlo, fixed-width;
+	color: rgb(120,120,120);
+	font-size: 0.9em;
+}
+
+.subdued {
+	opacity: 0.4;
+	font-style: italic;
+	font-size: 0.9em;
+	line-height: 1.2em;
 }
 
 
-ul.clientApps {
+ul.clients {
 	display: block;
 	padding: 0;
 	margin: 0;
 	text-align: center;
 }
 
-.clientApps li {
+ul.clients li {
 	display: inline-block;
 	padding: 0;
 	margin: 10px 30px;
 }
 
-.clientApps a {
+ul.clients a {
 	display: block;
-	padding-top: 125px;
+	padding-top: 115px;
 	text-align: center;
 	min-width: 120px;
+	color: black;
+	text-decoration: none;
 }
 
-
-.clientApps #pgadmin a {
+ul.clients #pgadmin a {
 	background: url(/img/pgadmin_icon.png) no-repeat center top;
 	background-size: 120px 120px;
 }
 
-.clientApps #postico a {
+ul.clients #postico a {
 	background: url(/img/postico_icon.png) no-repeat center top;
 	background-size: 120px 120px;
 }
