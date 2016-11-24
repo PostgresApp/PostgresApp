@@ -1,6 +1,5 @@
 body {
 	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-	margin-bottom: 100px;
 	font-size: 14px;
 	line-height: 1.5em;
 }
@@ -59,15 +58,40 @@ header li {
 header li a {
 	display: block;
 	background: rgba(50,90,180,1);
-	color: white;
+	color: white !important;
 	text-decoration: none;
 	padding: 6px 17px;
 	border-radius: 3px;
 	margin: 5px 2px;
+	position: relative;
 }
 
 header li a:active {
 	background: rgba(10,50,140,1);
+}
+
+a:link {
+	color: rgba(50,90,180,1);
+}
+
+header li a span.note {
+	position: absolute;
+	left: 100%;
+	top: 50%;
+	transform: translateY(-100%) rotate(-3deg);
+	color: rgb(180, 180, 180);
+	display: block;
+	white-space: nowrap;
+	padding-left: 5px;
+}
+
+header li a span.note::before {
+	content: "← ";
+	font-style: normal;
+}
+
+header li a span.note::after {
+	content: "!";
 }
 
 .container > h2 {
@@ -151,7 +175,7 @@ pre {
 	font-size: 11px;
 }
 
-tt {
+tt, code {
 	font-family: Menlo, fixed-width;
 	color: rgb(120,120,120);
 	font-size: 0.9em;
@@ -203,13 +227,14 @@ ul.clients #postico a {
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
-	border: 1px solid gray;
 	border-collapse: collapse;
+	border: 4px solid rgb(220,220,220);
+	border-radius: 5px;
 }
 
 .settingsTable td {
-	border: 1px solid gray;
-	padding: 3px;
+	border: 4px solid rgb(220,220,220);
+	padding: 6px;
 }
 
 .settingsTable td nth-child(1) {
@@ -219,3 +244,115 @@ ul.clients #postico a {
 .settingsTable td nth-child(2) {
 	width: 60%;
 }
+
+table.settings {
+	min-width: 70%;
+	margin: 0 auto;
+	border-collapse: separate;
+    border-spacing: 0;
+}
+
+table.settings tr td {
+	border-top: 4px solid rgb(220,220,220);
+	border-left: 4px solid rgb(220,220,220);
+	padding: 5px 9px;
+}
+
+table.settings tr td:last-child {
+	border-right: 4px solid rgb(220,220,220);
+}
+
+@media (min-width: 768px) {
+	table.settings tr td:last-child {
+		width: 70%;
+	}
+}
+
+
+table.settings tr:last-child td {
+	border-bottom: 4px solid rgb(220,220,220);
+}
+
+table.settings tr:first-child td:first-child { border-top-left-radius: 8px; }
+table.settings tr:first-child td:last-child { border-top-right-radius: 8px; }
+table.settings tr:last-child td:first-child { border-bottom-left-radius: 8px; }
+table.settings tr:last-child td:last-child { border-bottom-right-radius: 8px; }
+
+.light {
+	color: rgb(180,180,180);
+	font-style: italic;
+}
+
+
+ul.footer {
+	margin: 80px 0 30px;
+	padding: 0;
+	text-align: center;
+}
+
+ul.footer li {
+	display: inline;
+	opacity: 0.8;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
+}
+
+ul.footer li + li:before {
+	content: "·";
+	margin: 0 10px;
+/*	color: rgb(180,180,180);*/
+}
+
+
+dl.connect-info {
+	list-style: none;
+	margin: 20px 30px 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	border: 4px solid rgb(50,90,180);
+	border: 4px solid rgb(220,220,220);
+	border-radius: 10px;
+}
+
+dl.connect-info dd p {
+	font-size: 13px;
+	line-height: 17px;
+	margin: 1em 0 0;
+}
+
+dl.connect-info dt {
+	order: 1;
+	border-right: 4px solid rgb(220,220,220);
+	border-bottom: 4px solid rgb(220,220,220);
+	padding: 3px 10px;
+	color: rgb(120,120,120);
+	color: rgb(180,180,180);
+	margin: 0;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+dl.connect-info dt.active {
+	background: rgb(50,90,180);
+	background: rgb(220,220,220);
+	color: #666;
+	z-index: 10;
+}
+
+dl.connect-info dd {
+	display: none;
+}
+
+dl.connect-info dt.active + dd {
+	order: 2;
+	width: 100%;
+	padding: 10px 20px;
+	margin: 0;
+	display: block;
+	min-height: 250px;
+}
+
+

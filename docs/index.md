@@ -9,8 +9,10 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 	  	<h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
 		<ul class="buttons">
 			<li><a href="{{ site.downloadLocation }}">Download</a></li>
-			<li><a href="https://postgresapp.com/documentation/">Documentation</a></li>
-			<li><a href="https://github.com/postgresapp/postgresapp">Github</a></li>
+			<li><a href="documentation/">Documentation</a></li>
+			<li>
+				<a href="{{ site.github.repository_url }}">Github <span class="note">{{ site.github.public_repositories[0].stargazers_count }} stars</span></a>
+			</li>
 		</ul>
 	</hgroup>
 </header>
@@ -51,7 +53,7 @@ Installing Postgres.app
 
 Done! You now have a PostgreSQL server running on your Mac with these default settings:
 
-<table class="settingsTable">
+<table class="settings">
 	<tr>
 		<td>Host</td>
 		<td>localhost</td>
@@ -62,23 +64,23 @@ Done! You now have a PostgreSQL server running on your Mac with these default se
 	</tr>
 	<tr>
 		<td>User</td>
-		<td>(your system user name)</td>
+		<td class="light">your system user name</td>
 	</tr>
 	<tr>
 		<td>Database</td>
-		<td>(same as user)</td>
+		<td class="light">same as user</td>
 	</tr>
 	<tr>
 		<td>Password</td>
-		<td>(none)</td>
+		<td class="light">none</td>
 	</tr>
 	<tr>
-		<td>URL</td>
-		<td>postgres://localhost</td>
+		<td>Connection URL</td>
+		<td>postgresql://localhost</td>
 	</tr>
 </table>
 
-To connect with psql, double click a database. To connect directly from the command line, type <tt>psql</tt>. If you'd rather use a graphical client, see below.
+To connect with psql, double click a database. To connect directly from the command line, type `psql`. If you'd rather use a graphical client, see below.
 
 NOTE: These instructions assume that you've never installed PostgreSQL on your Mac before.
 If you have previously installed PostgreSQL using Postgres.app, homebrew, or the EnterpriseDB installer, please follow the [instructions for upgrading PostgreSQL](#) instead.
@@ -86,6 +88,10 @@ If you have previously installed PostgreSQL using Postgres.app, homebrew, or the
 
 Graphical Clients
 -----------------
+
+Postgres.app includes `psql`, a versatile command line client for PostgreSQL.
+But it's not the only option; there are plenty of great graphical clients available for PostgreSQL.
+Two popular tools are:
 
 <ul class="clients">
 	<li id="pgadmin"><a href="https://www.pgadmin.org">pgAdmin 4</a></li>
@@ -103,6 +109,76 @@ However, it doesn't have the extensive feature set of pgAdmin, and it's a commer
 
 Aside from those two options, there are a lot more to choose from! Check the documentation for a [list of amazing Mac apps for PostgreSQL](#).
 
+
+How to connect
+--------------
+
+After your PostgreSQL server is up and running, you'll probably want to connect to it from your application.
+Here's how to connect to PostgreSQL from popular programming languages and frameworks:
+
+<dl class="connect-info">
+	<dt class="active" onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">PHP</dt>
+	<dd>
+			<p>
+				To connect from PHP, make sure that you have the PostgreSQL PDO driver.
+				The version included with macOS doesn't support PostgreSQL.
+				I recommend <a href="https://www.mamp.info">MAMP</a> for an easy way to install a current version of PHP that supports PostgreSQL.
+			</p>
+			<pre>&lt;?php
+    $db = new PDO('pgsql:host=localhost;dbname=jakob');
+    $statement = $db->prepare("SELECT * FROM people WHERE name ILIKE 'j%'");
+    $statement->execute();
+    while ($row = $statement->fetch()) {
+        echo "&lt;p>" . htmlspecialchars($row["name"]) . "&lt;/p>"
+    }
+?></pre>
+	</dd>
+	
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Python</dt>
+	<dd>
+		<p>
+			To connect to a PostgreSQL server with Python, please first install the psycopg2 library:
+		</p>
+		<pre>pip install psycopg2</pre>
+		
+		<p>To connect with SQLAlchemy:</p>
+		<pre>from sqlalchemy import create_engine
+engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')</pre>
+	</dd>
+	
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Ruby on Rails</dt>
+	<dd>
+	</dd>
+	
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Java</dt>
+	<dd>
+		<ol>
+			<li>
+				Download and install the <a href="https://jdbc.postgresql.org/download.html">PostgreSQL JDBC driver</a>
+			</li>
+			<li>
+				Connect to the JDBC URL <tt>jdbc:postgresql://localhost/DATABASENAME</tt>
+			</li>
+		</ol>
+	</dd>
+	
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">C</dt>
+	<dd>
+		<p>
+			libpq is the native C client library for connecting to PostgreSQL.
+		</p>
+		<pre>PGconn *conn = PQconnectdb("postgresql://localhost/DATABASENAME");
+</pre>
+	</dd>
+	
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Swift</dt>
+	<dd>
+		<p>
+			You can use the C API in Swift.
+		</p>
+		<pre>let conn = PQconnectdb("postgresql://localhost/DATABASENAME")</pre>
+	</dd>
+</dl>
 
 
 
