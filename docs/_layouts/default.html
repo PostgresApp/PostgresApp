@@ -22,6 +22,20 @@
 
     {{ content }}
 
+
+	<ul class=footer>
+		<li>
+			Follow <a href="https://twitter.com/PostgresApp">@PostgresApp</a>
+		</li>
+		<li>
+			Find us on <a href="{{ site.github.repository_url }}">Github</a> 
+		</li>
+		<li>
+			Spotted a typo?
+			<a href="{{ site.github.repository_url }}/tree/master/docs/{{ page.path }}">edit this page</a>
+		</li>
+	</ul>
   </body>
-  <!-- Source Repository: PostgresApp/PostgresApp -->
+  <!-- Repository: {{ site.github.repository_url }} -->
+  <!-- Page Path: {{ page.path }} -->
 </html>
