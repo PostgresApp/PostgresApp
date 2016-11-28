@@ -342,30 +342,31 @@ class Server: NSObject {
 				let name = String(cString: value)
 				databases.append(Database(name))
 			}
-			PQfinish(connection)
+			PQclear(result)
 		}
+		PQfinish(connection)
 	}
 	
 	
 	// MARK: Sync handlers
 	private func startSync() -> ActionStatus {
-		let task = Process()
-		task.launchPath = binPath.appending("/pg_ctl")
-		task.arguments = [
+		let process = Process()
+		process.launchPath = binPath.appending("/pg_ctl")
+		process.arguments = [
 			"start",
 			"-D", varPath,
 			"-w",
 			"-l", logFilePath,
 			"-o", String("-p \(port)"),
 		]
-		task.standardOutput = Pipe()
+		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		task.standardError = errorPipe
-		task.launch()
+		process.standardError = errorPipe
+		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		task.waitUntilExit()
+		process.waitUntilExit()
 		
-		if task.terminationStatus == 0 {
+		if process.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo: [String: Any] = [
@@ -385,22 +386,22 @@ class Server: NSObject {
 	
 	
 	func stopSync() -> ActionStatus {
-		let task = Process()
-		task.launchPath = binPath.appending("/pg_ctl")
-		task.arguments = [
+		let process = Process()
+		process.launchPath = binPath.appending("/pg_ctl")
+		process.arguments = [
 			"stop",
 			"-m", "f",
 			"-D", varPath,
 			"-w",
 		]
-		task.standardOutput = Pipe()
+		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		task.standardError = errorPipe
-		task.launch()
+		process.standardError = errorPipe
+		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		task.waitUntilExit()
+		process.waitUntilExit()
 		
-		if task.terminationStatus == 0 {
+		if process.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo: [String: Any] = [
@@ -420,22 +421,22 @@ class Server: NSObject {
 	
 	
 	private func initDatabaseSync() -> ActionStatus {
-		let task = Process()
-		task.launchPath = binPath.appending("/initdb")
-		task.arguments = [
+		let process = Process()
+		process.launchPath = binPath.appending("/initdb")
+		process.arguments = [
 			"-D", varPath,
 			"-U", "postgres",
 			"--encoding=UTF-8",
 			"--locale=en_US.UTF-8"
 		]
-		task.standardOutput = Pipe()
+		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		task.standardError = errorPipe
-		task.launch()
+		process.standardError = errorPipe
+		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		task.waitUntilExit()
+		process.waitUntilExit()
 		
-		if task.terminationStatus == 0 {
+		if process.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo: [String: Any] = [
@@ -455,22 +456,22 @@ class Server: NSObject {
 	
 	
 	private func createUserSync() -> ActionStatus {
-		let task = Process()
-		task.launchPath = binPath.appending("/createuser")
-		task.arguments = [
+		let process = Process()
+		process.launchPath = binPath.appending("/createuser")
+		process.arguments = [
 			"-U", "postgres",
 			"-p", String(port),
 			"--superuser",
 			NSUserName()
 		]
-		task.standardOutput = Pipe()
+		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		task.standardError = errorPipe
-		task.launch()
+		process.standardError = errorPipe
+		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		task.waitUntilExit()
+		process.waitUntilExit()
 		
-		if task.terminationStatus == 0 {
+		if process.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo: [String: Any] = [
@@ -490,20 +491,20 @@ class Server: NSObject {
 	
 	
 	private func createUserDatabaseSync() -> ActionStatus {
-		let task = Process()
-		task.launchPath = binPath.appending("/createdb")
-		task.arguments = [
+		let process = Process()
+		process.launchPath = binPath.appending("/createdb")
+		process.arguments = [
 			"-p", String(port),
 			NSUserName()
 		]
-		task.standardOutput = Pipe()
+		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
-		task.standardError = errorPipe
-		task.launch()
+		process.standardError = errorPipe
+		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-		task.waitUntilExit()
+		process.waitUntilExit()
 		
-		if task.terminationStatus == 0 {
+		if process.terminationStatus == 0 {
 			return .Success
 		} else {
 			let userInfo: [String: Any] = [
