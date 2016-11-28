@@ -120,17 +120,30 @@ Here's how to connect to PostgreSQL from popular programming languages and frame
 	<dt class="active" onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">PHP</dt>
 	<dd>
 			<p>
-				To connect from PHP, make sure that you have the PostgreSQL PDO driver.
+				To connect from PHP, make sure that it supports PostgreSQL.
 				The version included with macOS doesn't support PostgreSQL.
-				I recommend <a href="https://www.mamp.info">MAMP</a> for an easy way to install a current version of PHP that supports PostgreSQL.
+				I recommend <a href="https://www.mamp.info">MAMP</a> for an easy way to install a current version of PHP that works.
+			</p>
+			<p>
+				You can use PDO:
 			</p>
 			<pre>&lt;?php
-    $db = new PDO('pgsql:host=localhost;dbname=jakob');
-    $statement = $db->prepare("SELECT * FROM people WHERE name ILIKE 'j%'");
-    $statement->execute();
-    while ($row = $statement->fetch()) {
-        echo "&lt;p>" . htmlspecialchars($row["name"]) . "&lt;/p>"
-    }
+$db = new PDO('pgsql:host=localhost');
+$statement = $db->prepare("SELECT datname FROM pg_database");
+$statement->execute();
+while ($row = $statement->fetch()) {
+    echo "&lt;p>" . htmlspecialchars($row["datname"]) . "&lt;/p>\n";
+}
+?></pre>
+			<p>
+				Or the <tt>pg_connect()</tt> functions:
+			</p>
+			<pre>&lt;?php
+$conn = pg_connect("postgresql://localhost");
+$result = pg_query($conn, "SELECT datname FROM pg_database;");
+while ($row = pg_fetch_row($result)) {
+    echo "&lt;p>" . htmlspecialchars($row[0]) . "&lt;/p>\n";
+}
 ?></pre>
 	</dd>
 	
@@ -143,7 +156,7 @@ Here's how to connect to PostgreSQL from popular programming languages and frame
 		
 		<p>To connect with SQLAlchemy:</p>
 		<pre>from sqlalchemy import create_engine
-engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')</pre>
+engine = create_engine('postgresql://localhost')</pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Ruby on Rails</dt>
@@ -157,7 +170,7 @@ engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')</pre>
 				Download and install the <a href="https://jdbc.postgresql.org/download.html">PostgreSQL JDBC driver</a>
 			</li>
 			<li>
-				Connect to the JDBC URL <tt>jdbc:postgresql://localhost/DATABASENAME</tt>
+				Connect to the JDBC URL <tt>jdbc:postgresql://localhost</tt>
 			</li>
 		</ol>
 	</dd>
@@ -165,18 +178,74 @@ engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')</pre>
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">C</dt>
 	<dd>
 		<p>
-			libpq is the native C client library for connecting to PostgreSQL.
+			libpq is the native C client library for connecting to PostgreSQL. It's really easy to use:
 		</p>
-		<pre>PGconn *conn = PQconnectdb("postgresql://localhost/DATABASENAME");
-</pre>
+		<pre>#include &lt;libpq-fe.h>
+int main() {
+    PGconn *conn = PQconnectdb("postgresql://localhost");
+    if (PQstatus(conn) == CONNECTION_OK) {
+        PGresult *result = PQexec(conn, "SELECT datname FROM pg_database");
+        for (int i = 0; i &lt; PQntuples(result); i++) {
+            char *value = PQgetvalue(result, i, 0);
+            if (value) printf("%s\n", value);
+        }
+        PQclear(result);
+    }
+    PQfinish(conn);
+}</pre>
+		<p>Now compile the file with clang and run it:</p>
+		<pre>clang main.c -I$(pg_config --includedir) -L$(pg_config --libdir) -lpq
+./a.out</pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Swift</dt>
 	<dd>
 		<p>
-			You can use the C API in Swift.
+			You can just use the C API in Swift! First include libpq in your bridging header:
 		</p>
-		<pre>let conn = PQconnectdb("postgresql://localhost/DATABASENAME")</pre>
+		<pre>#import &lt;libpq-fe.h></pre>
+		<p>
+			Then make sure to link with libpq.
+		</p>
+		<p>
+			On iOS, you'll need to build libpq yourself.
+		</p>
+		<p>
+			On macOS you can use the system provided libpq (does not support SSL) or use libpq provided by Postgres.app
+			by adding the following build settings:
+		</p>
+		<table>
+			<tr>
+				<th>
+					Other Linker Flags
+				</th>
+				<td>
+					<tt>-lpq</tt>
+				</td>
+			</tr>
+			<tr>
+				<th>Header Search Paths</th>
+				<td><tt>/Applications/Postgres.app/Contents/Versions/latest/include</tt></td>
+			</tr>
+			<tr>
+				<th>Library Search Paths</th>
+				<td><tt>/Applications/Postgres.app/Contents/Versions/latest/lib</tt></td>
+			</tr>
+		</table>
+		<p>
+			Now you can use the <a href="https://www.postgresql.org/docs/current/static/libpq.html">libpq C library</a> to connect to PostgreSQL:
+		</p>
+		<pre>let conn = PQconnectdb("postgresql://localhost".cString(using: .utf8))
+if PQstatus(conn) == CONNECTION_OK {
+    let result = PQexec(conn, "SELECT datname FROM pg_database WHERE datallowconn")
+    for i in 0 ..&lt; PQntuples(result) {
+        guard let value = PQgetvalue(result, i, 0) else { continue }
+        let dbname = String(cString: value)
+        print(dbname)
+    }
+    PQclear(result)
+}
+PQfinish(conn)</pre>
 	</dd>
 </dl>
 
