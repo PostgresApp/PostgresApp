@@ -122,10 +122,10 @@ Here's how to connect to PostgreSQL from popular programming languages and frame
 			<p>
 				To connect from PHP, make sure that it supports PostgreSQL.
 				The version included with macOS doesn't support PostgreSQL.
-				I recommend <a href="https://www.mamp.info">MAMP</a> for an easy way to install a current version of PHP that works.
+				We recommend <a href="https://www.mamp.info">MAMP</a> for an easy way to install a current version of PHP that works.
 			</p>
 			<p>
-				You can use PDO:
+				You can use PDO (object oriented):
 			</p>
 			<pre>&lt;?php
 $db = new PDO('pgsql:host=localhost');
@@ -136,7 +136,7 @@ while ($row = $statement->fetch()) {
 }
 ?></pre>
 			<p>
-				Or the <tt>pg_connect()</tt> functions:
+				Or the <tt>pg_connect()</tt> functions (procedural):
 			</p>
 			<pre>&lt;?php
 $conn = pg_connect("postgresql://localhost");
@@ -152,15 +152,72 @@ while ($row = pg_fetch_row($result)) {
 		<p>
 			To connect to a PostgreSQL server with Python, please first install the psycopg2 library:
 		</p>
-		<pre>pip install psycopg2</pre>
-		
-		<p>To connect with SQLAlchemy:</p>
-		<pre>from sqlalchemy import create_engine
-engine = create_engine('postgresql://localhost')</pre>
+		<pre>
+pip install psycopg2
+		</pre>
+		<h3>Django</h3>
+		<p>In your settings.py, add an entry to your DATABASES setting:</p>
+		<pre>
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "[YOUR_DATABASE_NAME]",
+        "USER": "[YOUR_USER_NAME]",
+        "PASSWORD": "",
+        "HOST": "localhost",
+        "PORT": "",
+    }
+}
+		</pre>
+		<h3>Flask</h3>
+		<p>When using the <a href="https://packages.python.org/Flask-SQLAlchemy/">Flask-SQLAlchemy</a> extension you can add to your application code:</p>
+		<pre>
+from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/[YOUR_DATABASE_NAME]'
+db = SQLAlchemy(app)
+		</pre>
+		<h3>SQLAlchemy</h3>
+		<pre>
+from sqlalchemy import create_engine
+engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')
+		</pre>
 	</dd>
 	
-	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Ruby on Rails</dt>
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Ruby</dt>
 	<dd>
+		<p>To install the pg gem, make sure you have set up your $PATH correctly (see <a href="documentation/cli-tools.html">Command-Line Tools</a>), then execute the following command:</p>
+		<pre>sudo ARCHFLAGS="-arch x86_64" gem install pg</pre>
+		
+		<h3>Rails</h3>
+		<p>In config/database.yml, use the following settings:</p>
+		<pre>
+development:
+    adapter: postgresql
+    database: [YOUR_DATABASE_NAME]
+    host: localhost
+		</pre>
+		<h3>Sinatra</h3>
+		<p>In config.ru or your application code:</p>
+		<pre>
+set :database, "postgres://localhost/[YOUR_DATABASE_NAME]"
+		</pre>
+		<h3>ActiveRecord</h3>
+		<p>Install the activerecord gem and require 'active_record', and establish a database connection:</p>
+		<pre>
+ActiveRecord::Base.establish_connection("postgres://localhost/[YOUR_DATABASE_NAME]")
+		</pre>
+		<h3>DataMapper</h3>
+		<p>Install and require the datamapper and do_postgres gems, and create a database connection:</p>
+		<pre>
+DataMapper.setup(:default, "postgres://localhost/[YOUR_DATABASE_NAME]")
+		</pre>
+		<h3>Sequel</h3>
+		<p>Install and require the sequel gem, and create a database connection:</p>
+		<pre>
+DB = Sequel.connect("postgres://localhost/[YOUR_DATABASE_NAME]")
+		</pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Java</dt>
@@ -173,6 +230,7 @@ engine = create_engine('postgresql://localhost')</pre>
 				Connect to the JDBC URL <tt>jdbc:postgresql://localhost</tt>
 			</li>
 		</ol>
+		<p>For more information see the official <a href="https://jdbc.postgresql.org/documentation/head/index.html">PostgreSQL JDBC documentation</a>.</p>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">C</dt>
@@ -254,9 +312,15 @@ PQfinish(conn)</pre>
 Support
 -------
 
-The quickest way to get help is to ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter, or to [open an issue](https://github.com/postgresapp/postgresapp/issues) on Github.
+We have a list of common problems in the [troubleshooting section](/documentation/troubleshooting.html) in the documentation.
 
-When reporting bugs, let us know which version of Postgres.app & OS X you are using, and be sure to include detailed error messages, even if your issue seems similar to another one.
+For general questions concerning PostgreSQL, have a look at the [official PostgreSQL documentation](https://www.postgresql.org/docs/current/static/).
+
+If you have a question concerning Postgres.app that is not answered by the [Postgres.app documentation](documentation/),
+you can ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter, 
+or [open an issue](https://github.com/postgresapp/postgresapp/issues) on Github.
+
+When reporting bugs, let us know which version of Postgres.app & macOS you are using, and be sure to include detailed error messages, even if your issue seems similar to another one.
 
 
 

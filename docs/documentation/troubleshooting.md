@@ -3,9 +3,43 @@ layout: documentation
 title: Troubleshooting
 ---
 
-### Make sure you run the latest version of Postgres.app
+### Common errors
 
-Check the Github [releases page](https://github.com/PostgresApp/PostgresApp/releases) to see if you have the latest version of Postgres.app.
+The following list contains all errors which may occur while you're using Postgres.app.  
+
+***The binaries for this PostgreSQL server were not found***  
+Postgres.app needs several binary files to work. This error is thrown when one or more binaries are not found at the expected path.
+To solve this error, create a new server and use the same port number and data directory as the broken server.
+
+***Port [number] is already in use***  
+The PostgreSQL server attempts to use a port, which is already in use by another server.
+To solve this error, you can either use a different port or terminate the server which uses this port.
+
+***There is already a PostgreSQL server running in this data directory***  
+Each data directory can be only used by one server at the same time. This error occurs when you try to start a server,
+which attempts to access a data directory which is already in use by another server. To proceed, you have to terminate the blocking server first.
+
+***The data directory contains an old postmaster.pid file / The data directory contains an unreadable postmaster.pid file***  
+Every PostgreSQL data directory contains a postmaster.pid file which contains the process id of the according server.
+Open Activity Monitor, search for the process id in the postmaster.pid file and kill the affected process including its child processes.
+Now, try again to start the server.
+
+***Could not initialize database cluster***  
+When you attempt to start a new server the first time, Postgres.app creates a new database cluster, user und user database first.
+This error means that something went wrong while creating the database cluster.
+Create a new server and try again.
+
+***Could not create default user***  
+When you attempt to start a new server the first time, Postgres.app creates a new database cluster, user und user database first.
+This error means that something went wrong while creating the default user.
+Create a new server and try again.
+
+***Could not create user database***  
+When you attempt to start a new server the first time, Postgres.app creates a new database cluster, user und user database first.
+This error means that something went wrong while creating user database.
+Create a new server and try again.
+
+
 
 ### Check the server log
 
