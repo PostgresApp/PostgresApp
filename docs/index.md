@@ -24,13 +24,13 @@ we've even included popular extensions like [PostGIS](http://postgis.net) for ge
 
 
 Postgres.app has a beautiful user interface and a convenient menu bar item.
-You never need to touch the command line to use it – but of course we do include all the necessary [command line tools](documentation/cli-tools.html) and header files for advanced users.
+You never need to touch the command line to use it – but of course we do include all the necessary [command line tools](/documentation/cli-tools.html) and header files for advanced users.
 
 
 
-Postgres.app [updates automatically](foo), so you get bugfixes as soon as possible.
+Postgres.app updates automatically, so you get bugfixes as soon as possible.
 
-The current version requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [older versions](foo) of Postgres.app.
+The current version requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [older versions](/documentations/older-versions.html) of Postgres.app.
 
 
 
@@ -83,7 +83,7 @@ Done! You now have a PostgreSQL server running on your Mac with these default se
 To connect with psql, double click a database. To connect directly from the command line, type `psql`. If you'd rather use a graphical client, see below.
 
 NOTE: These instructions assume that you've never installed PostgreSQL on your Mac before.
-If you have previously installed PostgreSQL using Postgres.app, homebrew, or the EnterpriseDB installer, please follow the [instructions for upgrading PostgreSQL](#) instead.
+If you have previously installed PostgreSQL using Postgres.app, homebrew, or the EnterpriseDB installer, please follow the [instructions for upgrading PostgreSQL](/documentation/install.html#upgrading) instead.
 
 
 Graphical Clients
@@ -107,7 +107,7 @@ It's made by the same people that maintain Postgres.app, and we think you'll lik
 We put a lot of effort into making it a joy to use.
 However, it doesn't have the extensive feature set of pgAdmin, and it's a commercial app rather than open source.
 
-Aside from those two options, there are a lot more to choose from! Check the documentation for a [list of amazing Mac apps for PostgreSQL](#).
+Aside from those two options, there are a lot more to choose from! Check the documentation for a [list of amazing Mac apps for PostgreSQL](/documentation/gui-tools.html).
 
 
 How to connect
@@ -140,7 +140,7 @@ while ($row = $statement->fetch()) {
 			</p>
 			<pre>&lt;?php
 $conn = pg_connect("postgresql://localhost");
-$result = pg_query($conn, "SELECT datname FROM pg_database;");
+$result = pg_query($conn, "SELECT datname FROM pg_database");
 while ($row = pg_fetch_row($result)) {
     echo "&lt;p>" . htmlspecialchars($row[0]) . "&lt;/p>\n";
 }
@@ -187,7 +187,7 @@ engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Ruby</dt>
 	<dd>
-		<p>To install the pg gem, make sure you have set up your $PATH correctly (see <a href="documentation/cli-tools.html">Command-Line Tools</a>), then execute the following command:</p>
+		<p>To install the pg gem, make sure you have set up your <tt>$PATH</tt> correctly (see <a href="documentation/cli-tools.html">Command-Line Tools</a>), then execute the following command:</p>
 		<pre>sudo ARCHFLAGS="-arch x86_64" gem install pg</pre>
 		
 		<h3>Rails</h3>
@@ -274,12 +274,8 @@ int main() {
 		</p>
 		<table>
 			<tr>
-				<th>
-					Other Linker Flags
-				</th>
-				<td>
-					<tt>-lpq</tt>
-				</td>
+				<th>Other Linker Flags</th>
+				<td><tt>-lpq</tt></td>
 			</tr>
 			<tr>
 				<th>Header Search Paths</th>
@@ -316,7 +312,7 @@ We have a list of common problems in the [troubleshooting section](/documentatio
 
 For general questions concerning PostgreSQL, have a look at the [official PostgreSQL documentation](https://www.postgresql.org/docs/current/static/).
 
-If you have a question concerning Postgres.app that is not answered by the [Postgres.app documentation](documentation/),
+If you have a question concerning Postgres.app that is not answered by the [Postgres.app documentation](/documentation/),
 you can ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter, 
 or [open an issue](https://github.com/postgresapp/postgresapp/issues) on Github.
 

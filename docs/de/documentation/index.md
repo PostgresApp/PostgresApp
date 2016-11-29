@@ -10,14 +10,6 @@ Ob du lieber auf der Kommandozeile arbeitest order graphische Benutzeroberfläch
 
 - [Installation, Upgrade und Deinstallation](install.html)
 - [Andere PostgreSQL-Installationen entfernen](remove.html)
-- [Programme für die Kommandozeile](cli-tools.html)
-- [Graphische Oberflächen für PostgreSQL](gui-tools.html)
-- Konfiguration
- - [Allgemein](configuration-general.html)
- - [Ruby](configuration-ruby.html)
- - [Python](configuration-python.html)
- - [PHP](configuration-php.html)
- - [Java](configuration-java.html)
 - [Fehlerbehebung & Support](troubleshooting.html)
 
 ## Weiterführende Informationen

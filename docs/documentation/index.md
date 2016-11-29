@@ -9,14 +9,6 @@ Whether you're a command line aficionado, prefer GUIs, or just want to start mak
 
 - [Installing, Upgrading and Uninstalling](install.html)
 - [Removing other PostgreSQL installations](remove.html)
-- [Command Line Tools](cli-tools.html)
-- [GUI Applications](gui-tools.html)
-- Configuration
- - [General](configuration-general.html)
- - [Ruby](configuration-ruby.html)
- - [Python](configuration-python.html)
- - [PHP](configuration-php.html)
- - [Java](configuration-java.html)
 - [Troubleshooting & Support](troubleshooting.html)
 
 ## Additional Resources

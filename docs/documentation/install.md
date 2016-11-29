@@ -19,7 +19,7 @@ If you'd like to use the command line tools delivered with Postgres.app, see the
 - Libraries: `/Applications/Postgres.app/Contents/Versions/latest/lib`
 - Default data directory: `~/Library/Application Support/Postgres/var-9.6`
 
-## Upgrading From A Previous Version
+## <a name="upgrading"></a>Upgrading From A Previous Version
 
 PostgreSQL releases a major new version approximately once a year. Major releases are denoted by increasing the second digit of the version number (eg. PostgreSQL version 9.5 to 9.6). Minor updates are released every quarter (eg. 9.5 to 9.5.1).
 
