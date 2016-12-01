@@ -26,20 +26,21 @@ Every PostgreSQL data directory contains a postmaster.pid file which contains th
 Open Activity Monitor, search for the process id in the postmaster.pid file and kill the affected process including its child processes.
 Now, try again to start the server.
 
-***Could not initialize database cluster***  
+***Could not initialize database cluster / Could not create default user  / Could not create user database***  
 When you attempt to start a new server the first time, Postgres.app creates a new database cluster, user und user database first.
-This error means that something went wrong while creating the database cluster.
+This error means that something went wrong while creating the database cluster / default user / user database.
 Create a new server and try again.
 
-***Could not create default user***  
-When you attempt to start a new server the first time, Postgres.app creates a new database cluster, user und user database first.
-This error means that something went wrong while creating the default user.
-Create a new server and try again.
+***File [or Folder] not found. It will be created the first time you start the server.***
+Data directories and all its contents are only created when you start a server the first time.
+This error occurs when you attempt to open a data directory (or file) which doesn't exist yet.
+Start the server first and try again.
 
-***Could not create user database***  
-When you attempt to start a new server the first time, Postgres.app creates a new database cluster, user und user database first.
-This error means that something went wrong while creating user database.
-Create a new server and try again.
+***Unknown Error***
+This error should not occur.
+Please let us know when you encounter this error and provide a detailed description what lead to this error.
+
+
 
 
 
