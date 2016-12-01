@@ -40,7 +40,7 @@ PLV8_VERSION=1.4.8
 JSONC_VERSION=0.12.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.0.6
+LIBTIFF_VERSION=4.0.7
 
 
 #path configuration
