@@ -28,7 +28,7 @@ LIBXML2_VERSION=2.9.4
 OPENSSL_VERSION=1.0.2k
 
 # http://proj4.org/download.html
-PROJ_VERSION=4.9.2
+PROJ_VERSION=4.9.3
 DATUMGRID_VERSION=1.5
 
 #see http://omahaproxy.appspot.com for latest stable v8 version
