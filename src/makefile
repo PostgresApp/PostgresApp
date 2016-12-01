@@ -39,8 +39,8 @@ PLV8_VERSION=1.4.8
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.12.1
 
-# http://download.osgeo.org/libtiff/
-LIBTIFF_VERSION=4.0.6
+# http://simplesystems.org/libtiff/
+LIBTIFF_VERSION=4.0.7
 
 
 #path configuration
