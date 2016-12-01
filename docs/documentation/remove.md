@@ -3,7 +3,7 @@ layout: documentation
 title: Removing Existing PostgreSQL Installations
 ---
 
-## Removing Existing PostgreSQL Installations
+## Removing existing PostgreSQL Installations
 
 Postgres.app can't start when another server is already running on the same port (default: 5432).
 We recommend to uninstall other PostgreSQL installations before using Postgres.app.

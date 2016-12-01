@@ -3,6 +3,8 @@ layout: documentation
 title: Troubleshooting
 ---
 
+## Troubleshooting
+
 ### Common errors
 
 The following list contains all errors which may occur while you're using Postgres.app.  

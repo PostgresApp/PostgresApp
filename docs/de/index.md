@@ -9,7 +9,7 @@ title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 	  	<h2 itemprop="description">Der schnellste Weg zu PostgreSQL am Mac</h2>
 		<ul class="buttons">
 			<li><a href="{{ site.downloadLocation }}">Download</a></li>
-			<li><a href="documentation/">Documentation</a></li>
+			<li><a href="documentation/">Dokumentation</a></li>
 			<li>
 				<a href="{{ site.github.repository_url }}">Github <span class="note">{{ site.github.public_repositories[0].stargazers_count }} stars</span></a>
 			</li>
@@ -24,11 +24,11 @@ Im Paket sind außerdem populäre Erweiterungen wie zB [PostGIS](http://postgis.
 
 Postgres.app hat ein innovatives user interface und ist über ein eigenes Statusmenü steuerbar.
 Die umständliche und komplizierte Steuerung über das Terminal entfällt somit,
-für fortgeschrittene User_innen wurden jedoch sämtliche [Command Line Tools](/documentation/cli-tools.html) und Header Dateien inkludiert.
+für fortgeschrittene User_innen wurden jedoch sämtliche [Command Line Tools](/de/documentation/cli-tools.html) und Header Dateien inkludiert.
 
 Postgres.app ist mit einer auto-update Funktion ausgestattet, somit erhältst du sofort alle Updates und Bugfixes.
 
-Die aktuelle Version erfordert macOS 10.10 oder neuer und wird mit den PostgreSQL Versionen 9.5 und 9.6 ausgeliefert. Ältere Versionen können [hier](/documentations/older-versions.html) heruntergeladen werden.
+Die aktuelle Version erfordert macOS 10.10 oder neuer und wird mit den PostgreSQL Versionen 9.5 und 9.6 ausgeliefert. Ältere Versionen können [hier](/de/documentation/older-versions.html) heruntergeladen werden.
 
 
 
@@ -80,10 +80,10 @@ Fertig! Auf deinem Mac läuft nun ein PostgreSQL Server mit diesen Einstellungen
 
 Um eine Verbindung zu einer Datenbank herzustellen, doppelklicke auf das gewünschte Datenbank-Symbol.
 Wenn du dich mittels psql direkt aus dem terminal verbinden möchtest, gib `psql` ein.
-Eine Liste mit graphischen Datenbank-Clients findest du weiter unten. 
+Eine Liste mit graphischen Datenbank-Clients findest du im folgenden Abschnitt. 
 
 WICHTIG: Diese Anleitung setzt voraus, dass du PostgreSQL zuvor noch nicht auf deinem Mac installiert hast.
-Folge [dieser Anleitung](/documentation/install.html#upgrading), wenn du PostgreSQL schon einmal installiert hast (zB via Postgres.app, homebrew, oder EnterpriseDB),
+Folge [dieser Anleitung](/de/documentation/install.html#upgrading), wenn du PostgreSQL schon einmal installiert hast (zB via Postgres.app, homebrew, oder EnterpriseDB),
 
 
 Graphische Clients
@@ -105,7 +105,7 @@ Es wurde von den selben Personen entwickelt, die auch Postgres.app betreuen.
 Wir haben bei der Entwicklung von Postico sehr viel Zeit investiert um dir bei der Verwendung von PostgreSQL viel Freude zu bereiten.
 Dennoch kann Postico leider nicht den vollen Funktionsumfang von pgAdmin bieten und wird im Gegensatz dazu als kommerzielle Version vertrieben.
 
-Abgesehen von diesen beiden Optionen findest du in der Dokumentation [eine Liste mit zahlreichen anderen Mac Apps für PostgreSQL](/documentation/gui-tools.html).
+Abgesehen von diesen beiden Optionen findest du in der Dokumentation [eine Liste mit zahlreichen anderen Mac Apps für PostgreSQL](/de/documentation/gui-tools.html).
 
 
 Verbindung zum Server
@@ -304,11 +304,11 @@ PQfinish(conn)</pre>
 Support
 -------
 
-Eine Liste mit häufigen Errors und Problemen findest du in der Dokumentation unter [troubleshooting section](/documentation/troubleshooting.html).
+Eine Liste mit häufigen Errors und Problemen findest du in der Dokumentation unter [troubleshooting](/de/documentation/troubleshooting.html).
 
 Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/static/) werfen.
 
-Solltest du eine Frage zu Postgres.app haben, die nicht in der [Postgres.app Dokumentation](/documentation/) beantwortet ist,
+Solltest du eine Frage zu Postgres.app haben, die nicht in der [Postgres.app Dokumentation](/de/documentation/) beantwortet ist,
 kannst du entweder auf Twitter unter [@PostgresApp](https://twitter.com/PostgresApp) eine Frage stellen,
 oder auf Github ein [neues Issue](https://github.com/postgresapp/postgresapp/issues) eröffnen.
 
@@ -319,7 +319,7 @@ Lizenz
 -------
 
 Postgres.app, PostgreSQL und alle verwendeten Extensions sind unter der [PostgreSQL License](http://www.postgresql.org/about/licence/) veröffentlicht. 
-Die veröffentlichten binaries enthalten auch noch ([OpenSSL License](#)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), und plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
+Die veröffentlichten binaries enthalten auch noch OpenSSL ([OpenSSL Lizenz](https://www.openssl.org/source/license.html)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), und plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
 
 Postgres.app wird derzeit von [Jakob Egger](https://github.com/jakob) und [Chris Pastl](https://github.com/chrispysoft) weiterentwickelt und betreut.
 Postgres.app wurde ursprünglich von [Mattt Thompson](https://github.com/mattt) entwickelt.

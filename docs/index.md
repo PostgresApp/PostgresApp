@@ -30,7 +30,7 @@ You never need to touch the command line to use it – but of course we do inclu
 
 Postgres.app updates automatically, so you get bugfixes as soon as possible.
 
-The current version requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [older versions](/documentations/older-versions.html) of Postgres.app.
+The current version requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [older versions](/documentation/older-versions.html) of Postgres.app.
 
 
 
@@ -324,6 +324,6 @@ License
 -------
 
 Postgres.app, PostgreSQL, and its extensions are released under the [PostgreSQL License](http://www.postgresql.org/about/licence/). 
-The released binaries also include OpenSSL ([OpenSSL License](#)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), and plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
+The released binaries also include OpenSSL ([OpenSSL License](https://www.openssl.org/source/license.html)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), and plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
 
 Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Chris Pastl](https://github.com/chrispysoft). It was originally created by [Mattt Thompson](https://github.com/mattt).

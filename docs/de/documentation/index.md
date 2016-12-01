@@ -3,17 +3,31 @@ layout: documentation.de
 title: Postgres.app Dokumentation
 ---
 
-Postgres.app is der einfachste Weg wenn du mit PostgreSQL am Mac loslegen willst.
-Öffne die App, und der Server startet; schließe die App, und der Server fährt wieder runter.
+<header>
+	<hgroup>
+	  	<h1 itemprop="name">Postgres.app</h1>
+	  	<h2 itemprop="description">Der schnellste Weg zu PostgreSQL am Mac</h2>
+		<ul class="buttons">
+			<li><a href="{{ site.downloadLocation }}">Download</a></li>
+			<li><a href="../">Home</a></li>
+			<li>
+				<a href="{{ site.github.repository_url }}">Github <span class="note">{{ site.github.public_repositories[0].stargazers_count }} stars</span></a>
+			</li>
+		</ul>
+	</hgroup>
+</header>
 
-Ob du lieber auf der Kommandozeile arbeitest order graphische Benutzeroberflächen bevorzugst: mit Postgres.app zu verbinden ist ganz einfach.
+## Dokumentation
 
 - [Installation, Upgrade und Deinstallation](install.html)
 - [Andere PostgreSQL-Installationen entfernen](remove.html)
+- [Migrating data](migrating-data.html)
+- [CLI Tools](cli-tools.html)
+- [GUI Apps](gui-tools.html)
 - [Fehlerbehebung & Support](troubleshooting.html)
 
 ## Weiterführende Informationen
 
 - [PostgreSQL Webseite](http://www.postgresql.org/) - Die offizielle Webseite von PostgreSQL (Englisch)
 - [PostgreSQL Documentation](http://www.postgresql.org/docs/current/static/index.html) - Das offizielle Benutzerhandbuch für PostgreSQL (Englisch)
-
+- [Postgres Guide](http://postgresguide.com/) - Leicht verständliche PostgreSQL Doku für Anfänger_innen und Fortgeschrittene (Englisch)

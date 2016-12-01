@@ -3,6 +3,8 @@ layout: documentation
 title: Alternatives for migrating data when upgrading Postgres.app
 ---
 
+## Migrating Data
+
 When upgrading to a new major version of PostgreSQL, you need to migrate your data.
 The easiest way to migrate your data is using pg_dumpall,
 but there are alternative methods that can be useful
