@@ -3,21 +3,6 @@ layout: index
 title: Postgres.app – the easiest way to get started with PostgreSQL on the Mac
 ---
 
-<header>
-	<hgroup>
-	  	<h1 itemprop="name">Postgres.app</h1>
-	  	<h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
-		<ul class="buttons">
-			<li><a href="{{ site.downloadLocation }}">Download</a></li>
-			<li><a href="documentation/">Documentation</a></li>
-			<li>
-				<a href="{{ site.github.repository_url }}">Github <span class="note">{{ site.github.public_repositories[0].stargazers_count }} stars</span></a>
-			</li>
-		</ul>
-	</hgroup>
-</header>
-
-
 Postgres.app is a full-featured PostgreSQL installation packaged as a standard Mac app.
 It includes everything you need to get started:
 we've even included popular extensions like [PostGIS](http://postgis.net) for geo data and [plv8](https://github.com/plv8/plv8) for Javascript.
@@ -47,7 +32,7 @@ Installing Postgres.app
 	</li>
 	<li>
 		<p>Configure your <tt>$PATH</tt> to use the included command line tools (optional):</p>
-		<pre>echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp</pre>
+		<pre><code>echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp</code></pre>
 	</li>
 </ul>
 
@@ -127,24 +112,24 @@ Here's how to connect to PostgreSQL from popular programming languages and frame
 			<p>
 				You can use PDO (object oriented):
 			</p>
-			<pre>&lt;?php
+			<pre><code>&lt;?php
 $db = new PDO('pgsql:host=localhost');
 $statement = $db->prepare("SELECT datname FROM pg_database");
 $statement->execute();
 while ($row = $statement->fetch()) {
     echo "&lt;p>" . htmlspecialchars($row["datname"]) . "&lt;/p>\n";
 }
-?></pre>
+?></code></pre>
 			<p>
 				Or the <tt>pg_connect()</tt> functions (procedural):
 			</p>
-			<pre>&lt;?php
+			<pre><code>&lt;?php
 $conn = pg_connect("postgresql://localhost");
 $result = pg_query($conn, "SELECT datname FROM pg_database");
 while ($row = pg_fetch_row($result)) {
     echo "&lt;p>" . htmlspecialchars($row[0]) . "&lt;/p>\n";
 }
-?></pre>
+?></code></pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Python</dt>
@@ -152,12 +137,12 @@ while ($row = pg_fetch_row($result)) {
 		<p>
 			To connect to a PostgreSQL server with Python, please first install the psycopg2 library:
 		</p>
-		<pre>
+		<pre><code>
 pip install psycopg2
-		</pre>
+		</code></pre>
 		<h3>Django</h3>
 		<p>In your settings.py, add an entry to your DATABASES setting:</p>
-		<pre>
+		<pre><code>
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
@@ -168,56 +153,56 @@ DATABASES = {
         "PORT": "",
     }
 }
-		</pre>
+		</code></pre>
 		<h3>Flask</h3>
 		<p>When using the <a href="https://packages.python.org/Flask-SQLAlchemy/">Flask-SQLAlchemy</a> extension you can add to your application code:</p>
-		<pre>
+		<pre><code>
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/[YOUR_DATABASE_NAME]'
 db = SQLAlchemy(app)
-		</pre>
+		</code></pre>
 		<h3>SQLAlchemy</h3>
-		<pre>
+		<pre><code>
 from sqlalchemy import create_engine
 engine = create_engine('postgresql://localhost/[YOUR_DATABASE_NAME]')
-		</pre>
+		</code></pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Ruby</dt>
 	<dd>
 		<p>To install the pg gem, make sure you have set up your <tt>$PATH</tt> correctly (see <a href="documentation/cli-tools.html">Command-Line Tools</a>), then execute the following command:</p>
-		<pre>sudo ARCHFLAGS="-arch x86_64" gem install pg</pre>
+		<pre><code>sudo ARCHFLAGS="-arch x86_64" gem install pg</code></pre>
 		
 		<h3>Rails</h3>
 		<p>In config/database.yml, use the following settings:</p>
-		<pre>
+		<pre><code>
 development:
     adapter: postgresql
     database: [YOUR_DATABASE_NAME]
     host: localhost
-		</pre>
+		</code></pre>
 		<h3>Sinatra</h3>
 		<p>In config.ru or your application code:</p>
-		<pre>
+		<pre><code>
 set :database, "postgres://localhost/[YOUR_DATABASE_NAME]"
-		</pre>
+		</code></pre>
 		<h3>ActiveRecord</h3>
 		<p>Install the activerecord gem and require 'active_record', and establish a database connection:</p>
-		<pre>
+		<pre><code>
 ActiveRecord::Base.establish_connection("postgres://localhost/[YOUR_DATABASE_NAME]")
-		</pre>
+		</code></pre>
 		<h3>DataMapper</h3>
 		<p>Install and require the datamapper and do_postgres gems, and create a database connection:</p>
-		<pre>
+		<pre><code>
 DataMapper.setup(:default, "postgres://localhost/[YOUR_DATABASE_NAME]")
-		</pre>
+		</code></pre>
 		<h3>Sequel</h3>
 		<p>Install and require the sequel gem, and create a database connection:</p>
-		<pre>
+		<pre><code>
 DB = Sequel.connect("postgres://localhost/[YOUR_DATABASE_NAME]")
-		</pre>
+		</code></pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Java</dt>
@@ -238,7 +223,7 @@ DB = Sequel.connect("postgres://localhost/[YOUR_DATABASE_NAME]")
 		<p>
 			libpq is the native C client library for connecting to PostgreSQL. It's really easy to use:
 		</p>
-		<pre>#include &lt;libpq-fe.h>
+		<pre><code>#include &lt;libpq-fe.h>
 int main() {
     PGconn *conn = PQconnectdb("postgresql://localhost");
     if (PQstatus(conn) == CONNECTION_OK) {
@@ -250,10 +235,10 @@ int main() {
         PQclear(result);
     }
     PQfinish(conn);
-}</pre>
+}</code></pre>
 		<p>Now compile the file with clang and run it:</p>
-		<pre>clang main.c -I$(pg_config --includedir) -L$(pg_config --libdir) -lpq
-./a.out</pre>
+		<pre><code>clang main.c -I$(pg_config --includedir) -L$(pg_config --libdir) -lpq
+./a.out</code></pre>
 	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Swift</dt>
@@ -261,7 +246,7 @@ int main() {
 		<p>
 			You can just use the C API in Swift! First include libpq in your bridging header:
 		</p>
-		<pre>#import &lt;libpq-fe.h></pre>
+		<pre><code>#import &lt;libpq-fe.h></code></pre>
 		<p>
 			Then make sure to link with libpq.
 		</p>
@@ -289,7 +274,7 @@ int main() {
 		<p>
 			Now you can use the <a href="https://www.postgresql.org/docs/current/static/libpq.html">libpq C library</a> to connect to PostgreSQL:
 		</p>
-		<pre>let conn = PQconnectdb("postgresql://localhost".cString(using: .utf8))
+		<pre><code>let conn = PQconnectdb("postgresql://localhost".cString(using: .utf8))
 if PQstatus(conn) == CONNECTION_OK {
     let result = PQexec(conn, "SELECT datname FROM pg_database WHERE datallowconn")
     for i in 0 ..&lt; PQntuples(result) {
@@ -299,7 +284,7 @@ if PQstatus(conn) == CONNECTION_OK {
     }
     PQclear(result)
 }
-PQfinish(conn)</pre>
+PQfinish(conn)</code></pre>
 	</dd>
 </dl>
 

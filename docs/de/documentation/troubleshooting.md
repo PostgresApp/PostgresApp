@@ -3,9 +3,46 @@ layout: documentation.de
 title: Fehlerbehebung
 ---
 
-### Lade die neuste Version von Postgres.app
+## Troubleshooting
 
-Sie auf Github bei den [Releases](https://github.com/PostgresApp/PostgresApp/releases) nach ob du tatsächlich die aktuellste Version verwendest.
+### Häufige Fehlermeldungen
+
+Die folgende Liste enthält alle Fehlermeldungen die bei der Benutzung von Postgres.app auftreten können. 
+
+***The binaries for this PostgreSQL server were not found***  
+Postgres.app benötigt mehrere Binärdateien um reibungslos zu funktionieren. Dieser Error tritt auf wenn ein oder mehrere Binaries nicht gefunden werden.
+Um den Fehler zu beseitigen musst du einen neuen Server mit der selben Portnummer und Data Directory erstellen. Versuch danach erneut, den Server zu starten.
+
+***Port [number] is already in use***  
+Dieser Fehler tritt auf wenn der angegebene Port bereits von einem anderen Server verwendet wird.
+Ändere entweder die Portnummer oder stoppe den Server, der diesen Port gerade benutzt.
+
+***There is already a PostgreSQL server running in this data directory***  
+Jede Data Directory kann nur von einem Server zur selben Zeit benutzt werden. Dieser Fehler triff auf, wenn dein Server auf eine Data Directroy zugreifen will, die bereits in Verwendung ist.
+Um fortfahren zu können musst du den anderen Server zuerst beenden.
+
+***The data directory contains an old postmaster.pid file / The data directory contains an unreadable postmaster.pid file***  
+Jede Data Directory enthält eine postmaster.pid Datei, welche die Prozess ID des jeweiligen Servers beinhaltet.
+Öffne die Aktivitäts Anzeige, suche nach dem Prozess mit dieser ID und beende diesen Prozess mitsamt allen Kind-Prozessen.
+Jetzt solltest du deinen Server starten können.
+
+***Could not initialize database cluster / Could not create default user  / Could not create user database***  
+Wenn ein neuer Server das erste mal gestartet wird erzeugt Postgres.app zunächst ein neues Datenbank Cluster sowie einen User und eine User Datenbank.
+Dieser Fehler bedeutet dass das Datenbank Cluster / der User / die User Datenbank nicht erstellt werden konnte.
+Erstelle einen neuen Server und versuche es erneut.
+
+***File [or Folder] not found. It will be created the first time you start the server.***
+Die Data Directories und sämtliche Datendateien werden erst erstellt wenn du den Server das erste mal startest.
+Dieser Fehler tritt auf, wenn du die Data Directories oder Dateien öffnen willst, diese aber noch nicht existieren.
+Starte zuerst den Server und versuche es erneut.
+
+***Unknown Error***
+Dieser Fehler sollte idR nicht auftreten.
+Falls doch, schicke und bitte eine detaillierte Beschreibung, wie es dazu kam.
+
+
+
+
 
 ### Schau in die Logdateien
 
@@ -40,4 +77,8 @@ Du kannst es auch über Twitter versuchen: [@PostgresApp](https://twitter.com/Po
 Falls du die Lösung für ein Problem findest, hilf uns!
 Schreib's gleich in die Dokumentation!
 Diese Dokumentation findest du [auch auf Github](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation).
+
+### Lade die neuste Version von Postgres.app
+
+Sie auf Github bei den [Releases](https://github.com/PostgresApp/PostgresApp/releases) nach ob du tatsächlich die aktuellste Version verwendest.
 

@@ -18,10 +18,10 @@ body {
 }
 
 @media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-    margin: 0 auto;
-  }
+	.container {
+		max-width: 730px;
+		margin: 0 auto;
+	}
   	header {
 		background: url(/img/PostgresAppIconLarge.png) no-repeat left top;
    		background-size:  180px 180px;
@@ -93,6 +93,11 @@ header li a span.note::before {
 header li a span.note::after {
 	content: "!";
 }
+
+header li.selected a {
+	background: rgba(50,0,0,1);
+}
+
 
 .container > h2 {
 	text-align: center;
@@ -170,9 +175,7 @@ ul.instructions li p, ul.instructions li pre {
 }
 
 pre {
-	font-family: Menlo, fixed-width;
-	color: rgb(120,120,120);
-	font-size: 11px;
+	font-size: 13px;
 }
 
 tt, code {
@@ -355,4 +358,11 @@ dl.connect-info dt.active + dd {
 	min-height: 250px;
 }
 
+.documentation h4 {
+	font-style: italic;
+	margin-bottom: 0px;
+}
 
+.documentation p {
+	margin-top: 0px;
+}

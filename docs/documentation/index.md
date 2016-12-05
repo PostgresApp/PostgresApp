@@ -3,21 +3,6 @@ layout: documentation
 title: Postgres.app Documentation
 ---
 
-<header>
-	<hgroup>
-	  	<h1 itemprop="name">Postgres.app</h1>
-	  	<h2 itemprop="description">The easiest way to get started with PostgreSQL on the Mac</h2>
-		<ul class="buttons">
-			<li><a href="{{ site.downloadLocation }}">Download</a></li>
-			<li><a href="../">Home</a></li>
-			<li>
-				<a href="{{ site.github.repository_url }}">Github <span class="note">{{ site.github.public_repositories[0].stargazers_count }} stars</span></a>
-			</li>
-		</ul>
-	</hgroup>
-</header>
-
-
 ## Documentation
 
 - [Installing, Upgrading and Uninstalling](install.html)

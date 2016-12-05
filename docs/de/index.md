@@ -1,32 +1,18 @@
 ---
-layout: index
+layout: index-de
 title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 ---
 
-<header>
-	<hgroup>
-	  	<h1 itemprop="name">Postgres.app</h1>
-	  	<h2 itemprop="description">Der schnellste Weg zu PostgreSQL am Mac</h2>
-		<ul class="buttons">
-			<li><a href="{{ site.downloadLocation }}">Download</a></li>
-			<li><a href="documentation/">Dokumentation</a></li>
-			<li>
-				<a href="{{ site.github.repository_url }}">Github <span class="note">{{ site.github.public_repositories[0].stargazers_count }} stars</span></a>
-			</li>
-		</ul>
-	</hgroup>
-</header>
-
 
 Postgres.app enthält eine vollständige Installation von PostgreSQL die keine Wünsche offen lässt.
-Im Paket sind außerdem populäre Erweiterungen wie zB [PostGIS](http://postgis.net) für Geo-Daten und [plv8](https://github.com/plv8/plv8) für Javascript enthalten.
+Mit dabei sind auch populäre Erweiterungen wie zB [PostGIS](http://postgis.net) für Geo-Daten und [plv8](https://github.com/plv8/plv8) für Javascript.
 
 
-Postgres.app hat ein innovatives user interface und ist über ein eigenes Statusmenü steuerbar.
-Die umständliche und komplizierte Steuerung über das Terminal entfällt somit,
-für fortgeschrittene User_innen wurden jedoch sämtliche [Command Line Tools](/de/documentation/cli-tools.html) und Header Dateien inkludiert.
+Postgres.app hat eine innovative Benutzeroberfläche und ist über ein eigenes Statusmenü steuerbar.
+Die Verwendung des Terminals ist nicht notwendig,
+für fortgeschrittene User_innen sind jedoch sämtliche [Command Line Tools](/de/documentation/cli-tools.html) und Header Dateien inkludiert.
 
-Postgres.app ist mit einer auto-update Funktion ausgestattet, somit erhältst du sofort alle Updates und Bugfixes.
+Postgres.app hat eine automatische Updatefunktion. Neue Versionen werden zeitgleich mit neuen Releases von PostgreSQL bereitgestellt.
 
 Die aktuelle Version erfordert macOS 10.10 oder neuer und wird mit den PostgreSQL Versionen 9.5 und 9.6 ausgeliefert. Ältere Versionen können [hier](/de/documentation/older-versions.html) heruntergeladen werden.
 
@@ -37,8 +23,8 @@ Installation
 
 <ul class="instructions">
 	<li>
-		<p>Download &nbsp; ➜ &nbsp; In Applications Ordner bewegen &nbsp; ➜ &nbsp; Doppelklick</p>
-		<p class="subdued">Postgres.app kann nur geöffnet werden, wenn du sie zuvor in den Applications Ordner bewegt hast. (Sonst wird folgende Warnmeldung angezeigt: "unidentified developer")</p>
+		<p>Download &nbsp; ➜ &nbsp; in den Programme-Ordner bewegen &nbsp; ➜ &nbsp; Doppelklick</p>
+		<p class="subdued">Wenn du Postgres.app nicht in den Programme-Ordner bewegst, erscheint beim Öffnen eine Fehlermeldung dass „die Identität des Entwicklers nicht bestätigt werden konnte“.</p>
 	</li>
 	<li>
 		<p>Klicke auf "Initialize" um einen neuen Server zu erstellen</p>
@@ -97,13 +83,12 @@ Zwei populäre Apps sind:
 	<li id="postico"><a href="https://eggerapps.at/postico/">Postico</a></li>
 </ul>
 
-[pgAdmin 4](https://www.pgadmin.org) ist ein open source PostgreSQL cross-plattform client, welcher nahezu alle Features von PostgreSQL unterstützt.
-Der einzige Nachteil ist das etwas altmodische UI, welches nicht die Erwartungen einer modernen und nativen Mac App erfüllt.
+[pgAdmin 4](https://www.pgadmin.org) ist ein Cross-Plattform Open Source PostgreSQL Client, welcher nahezu alle Features von PostgreSQL unterstützt.
+Der einzige Nachteil ist das etwas altmodische UI, welches nicht den Erwartungen einer modernen und nativen Mac App entspricht.
 
-[Postico](https://eggerapps.at/postico/) ist eine sehr moderne und innovative Mac App.
-Es wurde von den selben Personen entwickelt, die auch Postgres.app betreuen.
+[Postico](https://eggerapps.at/postico/) ist eine moderne Mac App.
+Es wird von den selben Personen entwickelt, die auch Postgres.app betreuen.
 Wir haben bei der Entwicklung von Postico sehr viel Zeit investiert um dir bei der Verwendung von PostgreSQL viel Freude zu bereiten.
-Dennoch kann Postico leider nicht den vollen Funktionsumfang von pgAdmin bieten und wird im Gegensatz dazu als kommerzielle Version vertrieben.
 
 Abgesehen von diesen beiden Optionen findest du in der Dokumentation [eine Liste mit zahlreichen anderen Mac Apps für PostgreSQL](/de/documentation/gui-tools.html).
 
@@ -112,7 +97,7 @@ Verbindung zum Server
 --------------
 
 Nachdem dein PostgreSQL Server aufgesetzt wurde möchtest du vielleicht eine Verbindung von deiner Applikation aus herstellen.
-Die folgende Liste enthält einige Code-Beispiele der populärsten Programmiersprachen und Frameworks:
+Die folgende Liste enthält einige Code-Beispiele für populäre Programmiersprachen und Frameworks:
 
 <dl class="connect-info">
 	<dt class="active" onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">PHP</dt>
@@ -285,7 +270,7 @@ int main() {
 			</tr>
 		</table>
 		<p>Jetztz kannst du auf die <a href="https://www.postgresql.org/docs/current/static/libpq.html">libpq C library</a> zugreifen:</p>
-		<pre>let conn = PQconnectdb("postgresql://localhost".cString(using: .utf8))
+		<pre>let conn = PQconnectdb("postgresql://localhost")
 if PQstatus(conn) == CONNECTION_OK {
     let result = PQexec(conn, "SELECT datname FROM pg_database WHERE datallowconn")
     for i in 0 ..&lt; PQntuples(result) {
@@ -304,7 +289,7 @@ PQfinish(conn)</pre>
 Support
 -------
 
-Eine Liste mit häufigen Errors und Problemen findest du in der Dokumentation unter [troubleshooting](/de/documentation/troubleshooting.html).
+Eine Liste mit häufigen Fehlermeldungen findest du in der Dokumentation unter [Troubleshooting](/de/documentation/troubleshooting.html).
 
 Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/static/) werfen.
 
