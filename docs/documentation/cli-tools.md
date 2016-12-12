@@ -2,7 +2,11 @@
 layout: documentation
 title: Using Command Line Tools with Postgres.app
 ---
-## Configure your `$PATH`
+
+## CLI Tools
+
+
+### Configure your `$PATH`
 
 Postgres.app includes many command line tools. If you want to use them, you must configure the `$PATH` variable.
 
@@ -20,7 +24,7 @@ set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 
 You can now check if the path is set up correctly by typing `which psql`.
 
-## Tools provided by Postgres.app
+### Tools provided by Postgres.app
 
 The following tools come with Postgres.app:
 
@@ -30,11 +34,11 @@ The following tools come with Postgres.app:
 - PostGIS: `pgsql2shp` `raster2pgsql` `shp2pgsql`
 
 
-## Man pages
+### Man pages
 
 Postgres.app ships with man pages. If you've configured your `PATH` as described above, just type `man psql` to read the official docs.
 
-## System provided tools
+### System provided tools
 
 `psql` is the PostgreSQL command-line interface to your database. Mac OS 10.7 and 10.8 ship with an older version of PostgreSQL, which can be started with the following command:
 

@@ -3,7 +3,7 @@ layout: documentation
 title: Troubleshooting
 ---
 
-## Troubleshooting
+## Troubleshooting & Support
 
 ### Common errors
 

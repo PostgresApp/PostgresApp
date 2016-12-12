@@ -2,11 +2,14 @@
 layout: documentation.de
 title: Programme für die Kommandozeile
 ---
-## Konfiguriere deinen `$PATH`
+
+## CLI Tools
+
+### Konfiguriere deine `$PATH` Variable
 
 Postgres.app beinhaltet auch einige Tools für die Kommandozeile. Damit du sie verwenden kannst, musst du die `$PATH` Variable konfigurieren.
 
-Wenn du **bash** verwendest (Standardshell unter OS X), füge die folgende Zeile zur Datei `~/.bash_profile` hinzu:
+Wenn du **bash** verwendest (Standardshell unter macOS), füge die folgende Zeile zur Datei `~/.bash_profile` hinzu:
 
 ```bash
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
@@ -20,7 +23,7 @@ set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 
 Du kannst überprüfen ob der Pfad korrekt konfiguriert ist in dem du den Befehl `which psql` ausführst.
 
-## Mitgelieferte Tools
+### Mitgelieferte Tools
 
 Die folgenden Tools sind bei Postgres.app dabei:
 
@@ -30,6 +33,6 @@ Die folgenden Tools sind bei Postgres.app dabei:
 - PostGIS: `pgsql2shp` `raster2pgsql` `shp2pgsql`
 
 
-## Man-Seiten
+### Man-Seiten
 
 Postgres.app beinhaltet natürlich auch Man-Seiten. Solange der Pfad wie oben beschrieben richtig konfiguriert ist, kann man zB. mit `man psql` jederzeit die offizielle Bedienungsanleitung lesen.

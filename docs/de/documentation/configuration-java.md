@@ -1,5 +1,5 @@
 ---
-layout: documentation
+layout: documentation.de
 title: Postgres.app mit Java verwenden
 ---
 
