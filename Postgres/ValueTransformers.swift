@@ -42,6 +42,18 @@ class ServerStatusButtonTitleTransformer: ValueTransformer {
 		switch status {
 		case .DataDirEmpty:
 			return "Initialize"
+		default:
+			return "Start"
+		}
+	}
+}
+
+class ServerStatusMenuItemButtonTitleTransformer: ValueTransformer {
+	override func transformedValue(_ value: Any?) -> Any? {
+		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
+		switch status {
+		case .DataDirEmpty:
+			return "Initialize"
 		case .Running:
 			return "Stop"
 		default:

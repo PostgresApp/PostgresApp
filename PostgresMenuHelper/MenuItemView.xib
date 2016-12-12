@@ -158,7 +158,7 @@
                                 </binding>
                                 <binding destination="-2" name="title" keyPath="server.serverStatus" id="vah-Fz-9bW">
                                     <dictionary key="options">
-                                        <string key="NSValueTransformerName">PostgresMenuHelper.ServerStatusButtonTitleTransformer</string>
+                                        <string key="NSValueTransformerName">PostgresMenuHelper.ServerStatusMenuItemButtonTitleTransformer</string>
                                     </dictionary>
                                 </binding>
                             </connections>
