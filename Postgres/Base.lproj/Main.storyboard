@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C63a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Window Controller-->
@@ -381,12 +382,8 @@ IA
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="cyT-1a-WOt">
+                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="WAd-ih-Cko">
                                         <dictionary key="options">
-                                            <string key="NSMultipleValuesPlaceholder">Start</string>
-                                            <string key="NSNoSelectionPlaceholder">Start</string>
-                                            <string key="NSNotApplicablePlaceholder">Start</string>
-                                            <string key="NSNullPlaceholder">Start</string>
                                             <string key="NSValueTransformerName">Postgres.ServerStatusButtonTitleTransformer</string>
                                         </dictionary>
                                     </binding>
