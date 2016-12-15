@@ -27,11 +27,20 @@ do
 		# copy postgis binaries
 		cp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 
-		# copy dynamic libraries only (no need for static libraries)
+		# copy all dynamic libraries
 		cd "${SOURCE_VERSIONS_DIR}/${VERSION}/lib/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -af *.dylib "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -afR postgresql "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+
+		# copy static libraries where a dynamic one doesn't exist
+		for file in *.a
+		do
+			if  [ ! -f "${file%.*}.dylib" ]
+			then
+				cp -af $file "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+			fi
+		done
 
 		# copy include, share
 		rm -f "${TARGET_VERSIONS_DIR}/${VERSION}/include/json"
