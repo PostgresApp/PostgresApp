@@ -116,6 +116,15 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		}
 	}
 	
+	
+	
+	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+		if let target = segue.destinationController as? SettingsViewController {
+			guard let server = mainWindowModel.firstSelectedServer else { return }
+			target.server = server
+		}
+	}
+	
 }
 
 

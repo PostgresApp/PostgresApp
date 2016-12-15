@@ -51,7 +51,7 @@
 		83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		83C19C6A1D7D9D2300F4862D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		83C19C6C1D7D9D2E00F4862D /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
-		83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */; };
+		83F3647E1D5204D30096F1F5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F3647D1D5204D30096F1F5 /* SettingsView.swift */; };
 		83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB571B1D1B05F000A903A3 /* AppDelegate.swift */; };
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
 		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
@@ -130,7 +130,7 @@
 		83C19C611D7D9C2500F4862D /* MenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemView.xib; sourceTree = "<group>"; };
 		83C19C631D7D9C6300F4862D /* PostgresMenuHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresMenuHelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		83C19C661D7D9CCF00F4862D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
+		83F3647D1D5204D30096F1F5 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		83FB57181D1B05F000A903A3 /* Postgres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Postgres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FB571B1D1B05F000A903A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83FB571F1D1B05F000A903A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */,
 				830B4B271D1C289A00F16762 /* Sidebar.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServer.swift */,
-				83F3647D1D5204D30096F1F5 /* SettingsWindow.swift */,
+				83F3647D1D5204D30096F1F5 /* SettingsView.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
 				360E961B1DC20D5E005D8C69 /* UserDefaults.swift */,
@@ -239,11 +239,11 @@
 				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
 				830D62CB1D77297800570BFC /* Preferences.swift */,
 				83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */,
-				83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */,
 				8348A1F01DB52E9A0039A024 /* ValueTransformers.swift */,
+				83BB11591DB680DA00772E8D /* DnDArrayController.swift */,
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
-				83BB11591DB680DA00772E8D /* DnDArrayController.swift */,
+				83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
@@ -321,7 +321,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = postgresapp;
 				TargetAttributes = {
 					83C19C291D7D977000F4862D = {
@@ -468,7 +468,7 @@
 				360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
-				83F3647E1D5204D30096F1F5 /* SettingsWindow.swift in Sources */,
+				83F3647E1D5204D30096F1F5 /* SettingsView.swift in Sources */,
 				83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */,
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
@@ -596,8 +596,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -647,8 +649,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";

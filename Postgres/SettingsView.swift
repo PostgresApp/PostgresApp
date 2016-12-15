@@ -8,20 +8,6 @@
 
 import Cocoa
 
-class SettingsWindowController: NSWindowController {
-	
-	dynamic var server: Server?
-	
-	
-	override func showWindow(_ sender: Any?) {
-		super.showWindow(sender)
-		(self.contentViewController as? SettingsViewController)?.server = self.server
-	}
-	
-}
-
-
-
 class SettingsViewController: NSViewController {
 	
 	dynamic var server: Server?
@@ -73,9 +59,5 @@ class SettingsViewController: NSViewController {
 			let error = NSError(domain: "com.postgresapp.Postgres2.missing-file", code: 0, userInfo: userInfo)
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
-	}
-	
-	@IBAction func done(_ sender: AnyObject?) {
-		self.view.window?.close()
 	}
 }
