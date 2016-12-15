@@ -147,6 +147,15 @@ class Server: NSObject {
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .DataDirEmpty:
+				if self.portInUse() {
+					let userInfo = [
+						NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
+						NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
+					]
+					statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+					break
+				}
+				
 				let initResult = self.initDatabaseSync()
 				if case .Failure = initResult {
 					statusResult = initResult
