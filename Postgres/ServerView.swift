@@ -13,7 +13,6 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBOutlet var databaseCollectionView: NSCollectionView!
 	
 	dynamic var mainWindowModel: MainWindowModel!
-	private var settingsWindowControllers: [SettingsWindowController] = []
 	
 	
 	override func viewDidLoad() {
@@ -38,54 +37,6 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 			if case let .Failure(error) = actionStatus {
 				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 			}
-		}
-	}
-	
-	
-	@IBAction func openServerSettings(_ sender: AnyObject?) {
-		guard let server = mainWindowModel.firstSelectedServer else { return }
-		
-		var oldController: NSWindowController?
-		
-		for wc in settingsWindowControllers {
-			if wc.server == server {
-				if wc.window!.isVisible {
-					wc.showWindow(nil)
-					return
-				} else {
-					oldController = wc
-				}
-			}
-		}
-		
-		if let windowController = (oldController ?? self.storyboard?.instantiateController(withIdentifier: "SettingsWindow")) as? SettingsWindowController {
-			windowController.server = server
-			settingsWindowControllers.append(windowController)
-			
-			let newWindow = windowController.window!
-			var newWindowFrame = newWindow.frame
-			newWindowFrame.origin = self.view.window!.frame.origin
-			newWindow.setFrameOrigin(newWindowFrame.origin)
-			let visibleFrame = newWindow.screen!.visibleFrame
-			
-			for window in NSApp.windows {
-				if window == newWindow { continue }
-				let windowFrame = window.frame
-				if windowFrame.minX == newWindowFrame.minX && windowFrame.maxY == newWindowFrame.maxY {
-					newWindowFrame.origin.x += 20
-					newWindowFrame.origin.y -= 20
-					if newWindowFrame.maxX >= visibleFrame.maxX {
-						newWindowFrame.origin.x = 20
-						newWindowFrame.origin.y = visibleFrame.maxY - 20 - newWindowFrame.height
-					}
-					if newWindowFrame.minY <= visibleFrame.minY {
-						newWindowFrame.origin.y = visibleFrame.minY
-					}
-					newWindow.setFrameOrigin(newWindowFrame.origin)
-				}
-			}
-			
-			windowController.showWindow(nil)
 		}
 	}
 	
@@ -115,7 +66,6 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
-	
 	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
