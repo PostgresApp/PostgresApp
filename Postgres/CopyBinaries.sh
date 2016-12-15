@@ -32,7 +32,7 @@ do
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -af *.dylib "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -afR postgresql "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
-
+		
 		# copy static libraries where a dynamic one doesn't exist
 		for file in *.a
 		do
