@@ -6,12 +6,39 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres 2.0 Beta 4</title>
+		<description>
+			<![CDATA[
+				<p>This beta 4 update of Postgres.app includes the following features:</p>
+				<ul>
+					<li>bugfix for Stop button #362 (thanks to @ultimate-deej)</li>
+					<li>better error handling when initialising new servers</li>
+					<li>new server settings popover</li>
+				</ul>
+				<p>This build includes 2 versions of PostgreSQL:</p>
+				<ul>
+					<li>PostgreSQL 9.6.1 (with PostGIS 2.3.1)</li>
+					<li>PostgreSQL 9.5.5 (with PostGIS 2.2.4)</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 15 Dec 2016 16:30:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0-beta.4/Postgres-2.0.Beta.4.dmg"
+		sparkle:version="14"
+		sparkle:shortVersionString="2.0 Beta 4"
+		length=""
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFC2uzDfMd6i2vIeYzT+DluqTlvVIAhRfDvlJHnFitxyjEfIq13oOGxXVxw=="
+		/>
+	</item>
+	<item>
 		<title>Postgres 2.0 Beta 3</title>
 		<description>
 			<![CDATA[
 				<p>This beta 3 update of Postgres.app includes the following features:</p>
 				<ul>
-					<li>bugfix for dark mode (Thanks to Adam Hartford)</li>
+					<li>bugfix for dark mode (thanks to Adam Hartford)</li>
 				</ul>
 				<p>This build includes 2 versions of PostgreSQL:</p>
 				<ul>
