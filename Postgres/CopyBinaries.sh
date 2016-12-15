@@ -21,11 +21,20 @@ cp gdal* nearblack ogr2ogr ogrinfo ogrtindex testepsg "$EXECUTABLE_TARGET_DIR/bi
 #copy postgis binaries
 cp raster2pgsql shp2pgsql "$EXECUTABLE_TARGET_DIR/bin/"
 
-# copy dynamic libraries only (no need for static libraries)
+# copy all dynamic libraries
 cd "${ORIG_INSTALL_ROOT}/lib/"
 mkdir -p "$EXECUTABLE_TARGET_DIR/lib/"
 cp -af *.dylib "$EXECUTABLE_TARGET_DIR/lib/"
 cp -afR postgresql "$EXECUTABLE_TARGET_DIR/lib/"
+
+# copy static libraries where a dynamic one doesn't exist
+for file in *.a
+do
+    if  [ ! -f "${file%.*}.dylib" ]
+    then
+        cp -af $file "$EXECUTABLE_TARGET_DIR/lib/"
+    fi
+done
 
 #copy include, share
 rm -f "$EXECUTABLE_TARGET_DIR/include/json"
