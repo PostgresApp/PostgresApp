@@ -1,5 +1,5 @@
 ---
-layout: index-de
+layout: index
 title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 ---
 

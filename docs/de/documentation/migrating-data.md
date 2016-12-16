@@ -1,5 +1,5 @@
 ---
-layout: documentation.de
+layout: documentation
 title: Alternative Methoden zur Migration von Daten bei einem Update von Postgres.app
 ---
 

@@ -11,9 +11,17 @@ body {
    		background-size:  180px 180px;
     	margin: 20px auto 0;
 		padding: 200px 0 0 0;
+		position: relative;
 	}
 	header h1, header h2, header ul {
 		text-align: center;
+	}
+	#title-link-1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		height: 200px;
 	}
 }
 
@@ -29,7 +37,21 @@ body {
 		padding: 30px 0 0 220px;
 		max-width: 530px;
     	min-height: 180px;
+		position: relative;
 	}
+	#title-link-1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 20px;
+		width: 200px;
+	}
+}
+
+#title-link-1, #title-link-2 {
+	display: block;
+	text-decoration: inherit;
+	color: inherit;
 }
 
 header h1 {
@@ -99,13 +121,17 @@ header li.selected a {
 }
 
 
-.container > h2 {
-	text-align: center;
+.body h2 {
 	font-weight: 300;
 	font-size: 30px;
 	margin: 65px 0 25px;
+}
+
+.index h2 {
+	text-align: center;
 	text-decoration: underline;
 }
+
 
 #index-lang-links {
 	position: absolute;

@@ -1,5 +1,5 @@
 ---
-layout: documentation.de
+layout: documentation
 title: Programme für die Kommandozeile
 ---
 

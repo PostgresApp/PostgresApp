@@ -26,3 +26,20 @@ postgisVersion96: 2.3.0
 
 
 languages: [en, de]
+
+strings: {
+	de: {
+		subtitle: Der schnellste Weg zu PostgreSQL am Mac,
+		download-button: Download,
+		docs-button: Dokumentation,
+		github-button: Github,
+		stars: Sterne,
+	},
+	en: {
+		subtitle: The easiest way to get started with PostgreSQL on the Mac,
+		download-button: Download,
+		docs-button: Documentation,
+		github-button: Github,
+		stars: Stars,
+	}
+}
