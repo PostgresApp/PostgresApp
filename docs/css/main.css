@@ -132,26 +132,51 @@ header li.selected a {
 	text-decoration: underline;
 }
 
+.body h3 {
+	font-weight: 300;
+	font-size: 24px;
+	margin: 40px 0 15px;
+}
 
-#index-lang-links {
+#lang-links {
 	position: absolute;
-	top: 30px;
+	top: 10px;
 	right: 30px;
 }
 
-#index-lang-links li {
+#lang-links li {
 	list-style: none;
-	display: inline; 
-	padding: 5px;
-	border: 1px solid #ddd;
+	float: left; 
+	padding: 0 8px;
+	border: 3px solid #ddd;
+	margin: 0 -3px 0 0;
+	background: #fcfcfc;
 }
 
-#index-lang-links li.current {
-	border: 1px solid #999;
+#lang-links li:first-child {
+	border-top-left-radius: 7px;
+	border-bottom-left-radius: 7px;
+	padding-left: 8px;
 }
 
-#index-lang-links li.current a {
+#lang-links li:last-child {
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
+	padding-right: 8px;
+}
+
+#lang-links li.current {
+	background: #ddd;
+}
+
+#lang-links li.current a {
 	color: #666;
+}
+
+#lang-links li a {
+	font-weight: 600;
+	color: #ccc;
+	text-decoration: none;
 }
 
 
