@@ -15,7 +15,7 @@ Most of this README is outdated and needs to be updated for the new version.
 
 You can download Postgres.app from the [Postgres.app website](http://postgresapp.com/).
 
-Older versions and pre-releases are available in the releases section on github.
+Older versions and pre-releases are available in the releases section on GitHub.
 
 ## Documentation
 
