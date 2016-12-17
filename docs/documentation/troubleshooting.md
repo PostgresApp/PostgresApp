@@ -5,7 +5,7 @@ title: Troubleshooting
 
 ### Make sure you run the latest version of Postgres.app
 
-Check the Github [releases page](https://github.com/PostgresApp/PostgresApp/releases) to see if you have the latest version of Postgres.app.
+Check the GitHub [releases page](https://github.com/PostgresApp/PostgresApp/releases) to see if you have the latest version of Postgres.app.
 
 ### Check the server log
 
@@ -32,9 +32,9 @@ If you somehow mess up your Postgres.app installation, here's how to start fresh
 
 ### Technical Support
 
-If you run into any issues using Postgres.app, your first stop should be the [issue tracker](https://github.com/postgresapp/postgresapp/issues) on Github.
+If you run into any issues using Postgres.app, your first stop should be the [issue tracker](https://github.com/postgresapp/postgresapp/issues) on GitHub.
 You can also ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter.
 
 ### Help others
 
-If you encounter an issue and find a way to fix it, consider contributing to this documentation. This page is [hosted on Github](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation). Fork it, improve it and send a pull request!
+If you encounter an issue and find a way to fix it, consider contributing to this documentation. This page is [hosted on GitHub](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation). Fork it, improve it and send a pull request!
