@@ -117,7 +117,8 @@ For debugging, it is often useful to try starting the server manually:
 
 ### Resetting Postgres.app
 
-If you somehow mess up your Postgres.app installation, here's how to start fresh:
+If you somehow mess up your Postgres.app installation, here's how to start fresh.  
+***CAUTION: This will delete all your databases, tables and data!***
 
 1. Quit Postgres.app
 2. Open Activity Monitor, see if any processes name `postgres` are running. If so, kill them. Kill the process with the lowest pid first; child processes are respawned automatically after killing them.
