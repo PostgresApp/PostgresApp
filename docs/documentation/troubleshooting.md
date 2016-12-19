@@ -76,11 +76,36 @@ Please open an issue on Github and provide a detailed description what lead to t
 
 
 
-
-
 ### Check the server log
 
 The server log is inside the data directory in a file named `postgres-server.log`.
+
+Here are some errors that could appear:
+
+#### Could not create listen socket for "localhost"  
+Usually this error is caused by broken `/etc/hosts` file.
+The problem could be a missing `localhost` entry, syntax errors or incorrect whitespace.
+
+For reference, here is what this file should look like by default on macOS:
+
+	##
+	# Host Database
+	#
+	# localhost is used to configure the loopback interface
+	# when the system is booting.  Do not change this entry.
+	##
+	127.0.0.1	localhost
+	255.255.255.255	broadcasthost
+	::1             localhost 
+
+
+#### Could not translate host name "localhost", service "5432" to address: nodename nor servname provided, or not known
+This error is also caused by a broken `/etc/hosts` file (see above)
+
+#### database files are incompatible with server: The database cluster was initialized with PG_CONTROL_VERSION x, but the server was compiled with PG_CONTROL_VERSION y
+This error usually happens when you try to start a server that was initialized with a prerelease version of PostgreSQL.
+The on disk data format sometimes changes between pre-release versions.
+You need to start the server with the version you initialized it with, then dump the database, then create a new server with the new version and restore.
 
 ### Try starting the server manually
 
