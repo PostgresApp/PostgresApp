@@ -24,6 +24,11 @@
 			{% assign lang = 'en' %}
 		{% endif %}
 	{% endfor %}
+	{% if lang == 'en' %}
+		{% assign langPathPrefix = '' %}
+	{% else %}
+		{% assign langPathPrefix = lang | prepend: '/' %}
+	{% endif %}
     {% assign pathComponents = page.path | split: '/' %}{% for pathComponent in pathComponents limit: 1 %}{% if pathComponent.size == 2 %}{% assign basename = page.path | remove_first: pathComponent | remove_first: '/' %}{% else %}{% assign basename = page.path %}{% endif %}{% endfor %}{% for lang in site.languages %}{% if lang == 'en' %}{% assign langPath = basename %}{% else %}{% assign langPath = basename | prepend: '/' | prepend: lang %}{% endif %}{% assign langPages = site.pages | where: 'path', langPath %}{% for langPage in langPages %}{%if page.path != langPage.path%}<link rel="alternate" hreflang="{{lang}}" href="{{ langPage.url | remove: 'index.html'}}">{%endif%}{% endfor %}{% endfor %}
   </head>
   <body>
@@ -31,14 +36,14 @@
 	<div class="container">
 		<header>
 			<hgroup>
-				<a id="title-link-1" href="/"><!-- this link covers the Postgres.app image --></a>
-				<a id="title-link-2" href="/">
+				<a id="title-link-1" href="{{langPathPrefix}}/"><!-- this link covers the Postgres.app image --></a>
+				<a id="title-link-2" href="{{langPathPrefix}}/">
 		  			<h1 itemprop="name">Postgres.app</h1>
 		  			<h2 itemprop="description">{{site.strings[lang].subtitle}}</h2>
 				</a>
 				<ul class="buttons">
 					<li><a href="{{ site.downloadLocation }}">{{site.strings[lang].download-button}}</a></li>
-					<li><a href="/documentation/">{{site.strings[lang].docs-button}}</a></li>
+					<li><a href="{{langPathPrefix}}/documentation/">{{site.strings[lang].docs-button}}</a></li>
 					<li>
 						<a href="{{ site.github.repository_url }}">{{site.strings[lang].github-button}} <span class="note">{{ site.github.public_repositories[0].stargazers_count }} {{site.strings[lang].stars}}</span></a>
 					</li>
