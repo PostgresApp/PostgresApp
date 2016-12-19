@@ -15,7 +15,7 @@ You never need to touch the command line to use it – but of course we do inclu
 
 Postgres.app updates automatically, so you get bugfixes as soon as possible.
 
-The current version requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [other versions](all-versions.html) of Postgres.app.
+The current version requires macOS 10.10 or later and comes with PostgreSQL versions 9.5 and 9.6, but we also maintain [other versions](documentation/all-versions.html) of Postgres.app.
 
 
 
@@ -68,7 +68,8 @@ Done! You now have a PostgreSQL server running on your Mac with these default se
 To connect with psql, double click a database. To connect directly from the command line, type `psql`. If you'd rather use a graphical client, see below.
 
 NOTE: These instructions assume that you've never installed PostgreSQL on your Mac before.
-If you have previously installed PostgreSQL using Postgres.app, homebrew, or the EnterpriseDB installer, please follow the [instructions for upgrading PostgreSQL](/documentation/install.html#upgrading) instead.
+If you have previously installed PostgreSQL using homebrew, MacPorts, the EnterpriseDB installer, consider [removing other PostgreSQL installations](documentation/remove.html) first.
+We also have [instructions for upgrading from older versions of Postgres.app](documentation/update.html).
 
 
 Graphical Clients

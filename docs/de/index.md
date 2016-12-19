@@ -15,7 +15,7 @@ für fortgeschrittene User_innen sind jedoch sämtliche [Command Line Tools](/de
 Postgres.app hat eine automatische Updatefunktion. Neue Versionen werden zeitgleich mit neuen Releases von PostgreSQL bereitgestellt.
 
 Die aktuelle Version erfordert macOS 10.10 oder neuer und wird mit den PostgreSQL Versionen 9.5 und 9.6 ausgeliefert.
-Wir bieten aber auch [andere Versionen](/de/all-versions.html) zum Download an.
+Wir bieten aber auch [andere Versionen](documentation/all-versions.html) zum Download an.
 
 
 
