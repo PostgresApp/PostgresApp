@@ -70,7 +70,8 @@ Wenn du dich mittels psql direkt aus dem terminal verbinden möchtest, gib `psql
 Eine Liste mit graphischen Datenbank-Clients findest du im folgenden Abschnitt. 
 
 WICHTIG: Diese Anleitung setzt voraus, dass du PostgreSQL zuvor noch nicht auf deinem Mac installiert hast.
-Folge [dieser Anleitung](/de/documentation/install.html#upgrading), wenn du PostgreSQL schon einmal installiert hast (zB via Postgres.app, homebrew, oder EnterpriseDB),
+Falls du schon eine andere Version von PostgreSQL installiert hast (zb. homebrew, MacPorts, EnterpriseDB), dann empfehlen wir vorher die [andere PostgreSQL-Installation zu entfernen](documentation/remove.html).
+Wir haben auch eine Anleitung zum [Upgrade von einer alten Version von Postgres.app](documentation/update.html).
 
 
 Graphische Clients

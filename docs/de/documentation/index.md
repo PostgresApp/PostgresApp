@@ -5,9 +5,10 @@ title: Postgres.app Dokumentation
 
 ## Dokumentation
 
-- [Installation, Upgrade und Deinstallation](install.html)
-- [Andere PostgreSQL-Installationen entfernen](remove.html)
+- [Installation und Deinstallation](install.html)
+- [Postgres.app aktualisieren](update.html)
 - [Datenmigration](migrating-data.html)
+- [Andere PostgreSQL-Installationen entfernen](remove.html)
 - [CLI Tools](cli-tools.html)
 - [GUI Apps](gui-tools.html)
 - [Fehlerbehebung & Support](troubleshooting.html)
