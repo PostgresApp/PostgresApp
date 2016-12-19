@@ -133,4 +133,4 @@ You can also ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter.
 
 ### Help others
 
-If you encounter an issue and find a way to fix it, consider contributing to this documentation. This page is [hosted on Github](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation). Fork it, improve it and send a pull request!
+If you encounter an issue and find a way to fix it, consider contributing to this documentation. This page is hosted on Github.

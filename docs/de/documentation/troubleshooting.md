@@ -15,7 +15,7 @@ Sämtliche PostgreSQL Binärdateien sind im Bundle von Postgres.app enthalten (V
 Dieser Fehler bedeutet, dass die Binärdateien nicht gefunden wurden. Das kann passieren, wenn eine zukünftige Version von Postgres.app die Server-Version deiner Datenbank nicht mehr enthält.
 Die Fehlermeldung kann außerdem auftreten, wenn du ältere Binaries manuell hinzufügst und die App danach updatest.
 
-Um diesen Fehler zu beseitigen musst sicherstellen, dass sich die richtigen Binärdateien in diesem Ordner befinden: `/Applications/Postgres.app/Contents/Versions/`
+Um diesen Fehler zu beseitigen musst du sicherstellen, dass sich die richtigen Binärdateien in diesem Ordner befinden: `/Applications/Postgres.app/Contents/Versions/`
 
 #### Port [number] is already in use
 Dieser Fehler bedeutet, dass bereits ein anderer PostgreSQL-Server auf deinem Mac läuft.
@@ -38,11 +38,19 @@ In diesem Fall musst du die Datei `postmaster.pid` löschen bevor du den Server 
 
 Achtung: Wenn du die Datei `postmaster.pid` löschst während der Server läuft, können unangenehme Dinge passieren!
 
-#### Could not initialize database cluster / Could not create default user  / Could not create user database
+#### Could not initialize database cluster
 Dieser Fehler bedeutet, dass der Befehl `initdb` nicht erfolgreich war. Dies sollte im Normalfall nicht passieren; wenn doch, eröffne ein neues Issue auf Github.
 Zur Fehlersuche kannst du den folgenden Befehl manuell ausführen:
 
-`/Applications/Postgres.app/Contents/Versions/latest/bin/initdb -D "DATA DIRECTORY" -U postgres --encoding=UTF-8 --locale=en_US.UTF-8`
+    /Applications/Postgres.app/Contents/Versions/latest/bin/initdb -D "DATA DIRECTORY" -U postgres --encoding=UTF-8 --locale=en_US.UTF-8
+
+#### Could not create default user  / Could not create user database
+Nachdem die Data Directory initialisiert wurde, erstellt Postgres.app einen Standard-User und eine Datenbank. Dieser Fehler bedeutet, dass hierbei etwas schief gelaufen ist. Weitere Infos findest du im Server-Log (diese Datei befindet sich im Data Directory).
+
+Du kannst versuchen, den Standard-User und die Datenbank manuell zu erstellen:
+
+    /Applications/Postgres.app/Contents/Versions/latest/bin/createuser -U postgres -p PORT --superuser USERNAME
+    /Applications/Postgres.app/Contents/Versions/latest/bin/createdb -U USERNAME -p PORT DATABASENAME
 
 #### File [or Folder] not found. It will be created the first time you start the server.
 Data Directories und die darin enthaltenen Dateien werden erst erstellt, wenn der Server das erste mal gestartet wird.
@@ -113,7 +121,7 @@ Du kannst auch twittern: [@PostgresApp](https://twitter.com/PostgresApp).
 ### Hilf anderen
 
 Falls du die Lösung für ein Problem findest, hilf uns und schreib's gleich in die Dokumentation!
-Diese Dokumentation findest du [auch auf Github](https://github.com/PostgresApp/postgresapp.github.io/tree/master/documentation).
+Diese Dokumentation findest du auch auf Github.
 
 
 
