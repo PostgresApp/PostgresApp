@@ -61,14 +61,14 @@
 
 	<ul class=footer>
 		<li>
-			Follow <a href="https://twitter.com/PostgresApp">@PostgresApp</a>
+			{{site.strings[lang].follow}} <a href="https://twitter.com/PostgresApp">@PostgresApp</a>
 		</li>
 		<li>
-			Find us on <a href="{{ site.github.repository_url }}">Github</a> 
+			{{site.strings[lang].find-us}} <a href="{{ site.github.repository_url }}">Github</a> 
 		</li>
 		<li>
-			Spotted a typo?
-			<a href="{{ site.github.repository_url }}/tree/master/docs/{{ page.path }}">edit this page</a>
+			{{site.strings[lang].typo}}
+			<a href="{{ site.github.repository_url }}/tree/master/docs/{{ page.path }}">{{site.strings[lang].edit-page}}</a>
 		</li>
 	</ul>
   </body>

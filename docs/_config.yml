@@ -50,6 +50,10 @@ strings: {
 		docs-button: Dokumentation,
 		github-button: Github,
 		stars: Sterne,
+		follow: Folge,
+		find-us: Finde uns auf,
+		typo: "Feler gefunden?",
+		edit-page: Bearbeite diese Seite,
 	},
 	en: {
 		subtitle: The easiest way to get started with PostgreSQL on the Mac,
@@ -57,5 +61,9 @@ strings: {
 		docs-button: Documentation,
 		github-button: Github,
 		stars: Stars,
+		follow: Follow,
+		find-us: Find us on,
+		typo: "Spotted a typo?",
+		edit-page: edit this page,
 	}
 }
