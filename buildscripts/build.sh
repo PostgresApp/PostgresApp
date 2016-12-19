@@ -12,11 +12,11 @@ BUILD_NO_NEW=$(($(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PROJECT_
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NO_NEW" "$PROJECT_ROOT"/Postgres/Info.plist
 
 PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
-ARCHIVE_PATH=~/Documents/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres.xcarchive
+ARCHIVE_PATH=~/Documents/Developer/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png
-DMG_SRC_PATH=~/Documents/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres
-DMG_DST_PATH=~/Documents/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres-$VERSION.dmg
-SIGNATURE_PATH=~/Documents/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/signature.txt
+DMG_SRC_PATH=~/Documents/Developer/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres
+DMG_DST_PATH=~/Documents/Developer/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres-$VERSION.dmg
+SIGNATURE_PATH=~/Documents/Developer/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/signature.txt
 
 # get signing identity
 SIGN_ID=$(security find-certificate -a -c "Developer ID Application" -Z | grep -o -e 'Developer ID [^"]*' | head -n 1)
