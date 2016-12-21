@@ -19,7 +19,11 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		tableView.register(forDraggedTypes: [draggedType])
+		
+		// awakeFromNib() should only be called after tableView has been set.
+		// However, this is not true on macOS 10.10: awakeFromNib() is called multiple times, including before tableView is set.
+		// To avoid a crash, we can't implicitly force unwrap tableView
+		tableView?.register(forDraggedTypes: [draggedType])
 	}
 	
 	
