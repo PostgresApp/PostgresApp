@@ -6,6 +6,36 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.0.1</title>
+		<description>
+			<![CDATA[
+				<p>This is the official release of the all new Postgres.app!</p>
+				<p>Feature highlights include:</p>
+				<ul>
+				<li>all new UI</li>
+				<li>automatic updates</li>
+				<li>run multiple servers simultaneously</li>
+				</ul>
+				<p>The following versions of PostgreSQL are included inside the package:</p>
+				<ul>
+				<li>PostgreSQL 9.6.1 (with PostGIS 2.3.1)</li>
+				<li>PostgreSQL 9.5.5 (with PostGIS 2.2.4)</li>
+				</ul>
+				<p>Postgres.app 2.0 requires macOS 10.10 or later.</p>
+				<p>Version 2.0.1 fixes a crash on macOS 10.10.</p>
+			]]>
+		</description>
+		<pubDate>Wed, 21 Dec 2016 18:30:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0.1/Postgres-2.0.1.dmg"
+		sparkle:version="18"
+		sparkle:shortVersionString="2.0.1"
+		length=""
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFH0gOUpztt5czgjsqgaX9L95jYI9AhRsyhyk3vTiCJsAZwxe4bJmvN1hBQ=="
+		/>
+	</item>
+	<item>
 		<title>Postgres.app 2.0</title>
 		<description>
 			<![CDATA[
