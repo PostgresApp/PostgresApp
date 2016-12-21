@@ -1,25 +1,69 @@
 name: Postgres.app
-description: "Postgres.app is the easiest way to get started with PostgreSQL on the Mac. Open the app, and you have a PostgreSQL server ready and awaiting new connections. Close the app, and the server shuts down."
+description: "Postgres.app is a full featured PostgreSQL installation packaged as a standard Mac app."
 
-downloadLocation: https://github.com/PostgresApp/PostgresApp/releases/download/9.6.1.1/Postgres-9.6.1.1.zip
-postgresqlVersion: 9.6.1
-postgisVersion: 2.3.1
+gems: ['jekyll-github-metadata']
+repository: postgresapp/postgresapp
 
-downloadLocation93: https://github.com/PostgresApp/PostgresApp/releases/download/9.3.15/Postgres-9.3.15.zip
-postgresqlVersion93: 9.3.15
-postgisVersion93: 2.1.8
+downloadLocation: https://github.com/PostgresApp/PostgresApp/releases/download/v2.0-beta.4/Postgres-2.0.Beta.4.dmg
+releaseNotesLocation: https://github.com/PostgresApp/PostgresApp/releases/v2.0-beta.4/
+postgresappVersion: 2.0 Beta 4
+postgresappMinSystemVersion: "10.10"
+postgresqlVersions: [
+	{ postgres: "9.6.1", postgis: "2.3.1" },
+	{ postgres: "9.5.5", postgis: "2.2.4" },
+]
 
-downloadLocation94: https://github.com/PostgresApp/PostgresApp/releases/download/9.4.10/Postgres-9.4.10.zip
-postgresqlVersion94: 9.4.10
-postgisVersion94: 2.1.8
-
-downloadLocation95: https://github.com/PostgresApp/PostgresApp/releases/download/9.5.5.1/Postgres-9.5.5.1.zip
-postgresqlVersion95: 9.5.5
-postgisVersion95: 2.2.4
-
-downloadLocation96: https://github.com/PostgresApp/PostgresApp/releases/download/9.6.1.1/Postgres-9.6.1.1.zip
-postgresqlVersion96: 9.6.1
-postgisVersion96: 2.3.1
-
+legacyMinSystemVersion: "10.7"
+legacyVersions: [
+	{
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.3.15/Postgres-9.3.15.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.3.15/",
+		postgresqlVersion: "9.3.15",
+		postgisVersion: "2.1.8",
+	},
+	{
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.4.10/Postgres-9.4.10.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.4.10/",
+		postgresqlVersion: "9.4.10",
+		postgisVersion: "2.1.8",
+	},
+	{
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.5.5.1/Postgres-9.5.5.1.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.5.5.1/",
+		postgresqlVersion: "9.5.5",
+		postgisVersion: "2.2.4",
+	},
+	{
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.6.1.1/Postgres-9.6.1.1.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.6.1.1/",
+		postgresqlVersion: "9.6.1",
+		postgisVersion: "2.3.1",
+	},
+]
 
 languages: [en, de]
+
+strings: {
+	de: {
+		subtitle: Der schnellste Weg zu PostgreSQL am Mac,
+		download-button: Download,
+		docs-button: Dokumentation,
+		github-button: Github,
+		stars: Sterne,
+		follow: Folge,
+		find-us: Finde uns auf,
+		typo: "Feler gefunden?",
+		edit-page: Bearbeite diese Seite,
+	},
+	en: {
+		subtitle: The easiest way to get started with PostgreSQL on the Mac,
+		download-button: Download,
+		docs-button: Documentation,
+		github-button: Github,
+		stars: Stars,
+		follow: Follow,
+		find-us: Find us on,
+		typo: "Spotted a typo?",
+		edit-page: edit this page,
+	}
+}

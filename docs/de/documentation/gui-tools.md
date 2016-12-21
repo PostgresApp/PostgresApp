@@ -1,46 +1,9 @@
 ---
-layout: documentation.de
+layout: documentation
 title: GUI Tools für PostgreSQL am Mac
 ---
 
-Mittlerweile gibt es eine beachtliche Auswahl an grafischen Clients für Postgres am Mac.
-Auf dieser Seite findest du eine Übersicht welche Apps es gibt und wie man mit Postgres.app verbindet.
-
-
-## Postico
-
-<a href="https://eggerapps.at/postico/" style="float:right;">
-<img src="https://eggerapps.at/postico/img/icon_256x256.png" alt="Postico App Icon" style="width: 128px;height:128px;">
-</a>
-
-[Postico](https://eggerapps.at/postico/) ist ein sehr moderner und benutzerfreundlicher Client für OS X.
-Entwickelt wird Postico von Jakob Egger, dem aktuellen Maintainer von Postgres.app.
-
-Postico bietet eine intuitive Oberfläche zum Erstellen und Bearbeiten von Tabellen.
-Selbstverständlich gibt es aber auch einen mächtigen SQL Editor für komplexere Abfragen.
-
-
-Um mit Postgres.app zu verbinden, ist keine Konfiguration notwendig. Klicke einfach auf "Connect".
-
-## pgAdmin
-
-<a href="http://pgadmin.org/" style="float:right;min-height:110px;">
-<img src="http://www.postgresql.org/media/img/about/press/elephant.png" alt="PostgreSQL logo" style="width: 110px;margin: 0 10px;">
-</a>
-
-[pgAdmin](http://pgadmin.org) ist ein Open Source client mit vielen, vielen Funktionen.
-
-Um mit Postgres.app zu verbinden, musst du zuerst eine neue Verbindung erstellen. Klicke dazu auf das Steckdosensymbol links oben.
-
-
-Das einzige notwendige Feld ist "Name". Ich schlage "Postgres.app" vor.
-Die restlichen Felder sollten standardmäßig schon richtig ausgefüllt sein (Siehe oben).
-Bestätige mit "OK".
-
-Um zu verbinden musst du dann die Verbindung in der Seitenleiste doppelklicken.
-
-
-## Weitere Programme
+## GUI Client Apps
 
 In den letzten Jahren hat sich für Postgres-User am Mac viel getan:
 Wie gesagt gibt es mittlerweile eine beachtliche Anzahl an Clients.
@@ -65,13 +28,5 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [DBGlass](http://dbglass.web-pal.com)
 
 
-In den meisten Clients angeben musst du folgende Parameter angeben um mit Postgres.app zu verbinden:
-
-- **Host:** localhost
-- **Port:** 5432 (default)
-- **Benutzer:** *dein lokaler Benutzername*
-- **Passwort:** *leer*
-- **Datenbank:** *gleich wie Benutzername*
-
+Die standard Verbindungs-Parameter findest du [hier](../).
 Falls du eine Verbindungs-URL angeben musst: `postgresql://BENUTZERNAME@localhost/BENUTZERNAME`
-

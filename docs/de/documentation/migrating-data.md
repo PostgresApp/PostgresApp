@@ -3,6 +3,8 @@ layout: documentation
 title: Alternative Methoden zur Migration von Daten bei einem Update von Postgres.app
 ---
 
+## Datenmigration
+
 Bei einem Update zu einer neuen "Major Version" von PostgreSQL (zb. 9.5 auf 9.6) musst du deine Daten manuell migrieren.
 Am einfachsten geht das mit pg_dumpall, aber es gibt auch alternative Methoden.
 Die können nützlich sein, wenn du eine sehr große Datenbank hast, oder nur einen Teil deiner Daten migrieren willst.

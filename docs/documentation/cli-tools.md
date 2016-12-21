@@ -2,25 +2,27 @@
 layout: documentation
 title: Using Command Line Tools with Postgres.app
 ---
-## Configure your `$PATH`
+
+## CLI Tools
+
+
+### Configure your `$PATH`
 
 Postgres.app includes many command line tools. If you want to use them, you must configure the `$PATH` variable.
 
-If you are using **bash** (default shell on OS X), add the following line to `~/.bash_profile`:
+The easiest way to configure your PATH is to execute the following command:
 
 ```bash
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 ```
 
-If you're using the **fish** shell, add the following to your `config.fish` (normally located at `~/.config/fish/config.fish`):
+Don't forget to close the Terminal window and open a new one for changes to take effect.
 
-```bash
-set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
-```
+Of course, you could also just edit your `.profile` file instead.
 
-You can now check if the path is set up correctly by typing `which psql`.
+Whatever method you use, you can check if the path is set up correctly by typing `which psql`.
 
-## Tools provided by Postgres.app
+### Tools provided by Postgres.app
 
 The following tools come with Postgres.app:
 
@@ -30,14 +32,14 @@ The following tools come with Postgres.app:
 - PostGIS: `pgsql2shp` `raster2pgsql` `shp2pgsql`
 
 
-## Man pages
+### Man pages
 
 Postgres.app ships with man pages. If you've configured your `PATH` as described above, just type `man psql` to read the official docs.
 
-## System provided tools
+### System provided tools
 
 `psql` is the PostgreSQL command-line interface to your database. Mac OS 10.7 and 10.8 ship with an older version of PostgreSQL, which can be started with the following command:
 
 ```bash
-$ psql -h localhost
+psql -h localhost
 ```

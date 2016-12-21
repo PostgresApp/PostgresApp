@@ -1,5 +1,5 @@
 ---
-layout: documentation.de
+layout: documentation
 title: Andere PostgreSQL Installationen entfernen
 ---
 

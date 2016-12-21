@@ -1,106 +1,419 @@
+body {
+	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+	font-size: 14px;
+	line-height: 1.5em;
+}
 
 /* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-.container-narrow > hr {
-  margin: 30px 0;
+@media (max-width: 767px) {
+  	header {
+		background: url(/img/PostgresAppIconLarge.png) no-repeat center top;
+   		background-size:  180px 180px;
+    	margin: 20px auto 0;
+		padding: 200px 0 0 0;
+		position: relative;
+	}
+	header h1, header h2, header ul {
+		text-align: center;
+	}
+	#title-link-1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		height: 200px;
+	}
 }
 
-.container {
+@media (min-width: 768px) {
+	.container {
+		max-width: 730px;
+		margin: 0 auto;
+	}
+  	header {
+		background: url(/img/PostgresAppIconLarge.png) no-repeat left top;
+   		background-size:  180px 180px;
+    	margin: 60px auto 0;
+		padding: 30px 0 0 220px;
+		max-width: 530px;
+    	min-height: 180px;
+		position: relative;
+	}
+	#title-link-1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 20px;
+		width: 200px;
+	}
+}
+
+#title-link-1, #title-link-2 {
+	display: block;
+	text-decoration: inherit;
+	color: inherit;
+}
+
+header h1 {
+	font-weight: 300;
+	font-size: 36px;
+	margin: 0;
+}
+
+header h2 {
+	font-weight: normal;
+	font-size: 16px;
+	margin: 15px 0 0;
+}
+
+header ul {
+	padding: 0;
+	margin: 20px 0 0;
+}
+
+header li {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+}
+
+header li a {
+	display: block;
+	background: rgba(50,90,180,1);
+	color: white !important;
+	text-decoration: none;
+	padding: 6px 17px;
+	border-radius: 3px;
+	margin: 5px 2px;
 	position: relative;
 }
 
-header {
-  margin-top: 25px;
-  text-align: center;
+header li a:active {
+	background: rgba(10,50,140,1);
 }
 
-hgroup h1 {
-  font-size: 4em;
+a:link {
+	color: rgba(50,90,180,1);
 }
 
-hgroup h2 {
-  border: none;
-  margin-top: 1em;
-  font-size: 1.5em;
-  font-weight: 400;
-}
-
-hgroup h3 {
-  font-size: 1.5em;
-  font-style: italic;
-  font-weight: 300;
-  margin-top: 0.5em;
-}
-
-h2 {
-  border-bottom: 1px solid #ccc;
-  margin-top: 2em;
-  padding-bottom: 0.125em;
-}
-
-.share {
-  text-align: center;
-  margin: 80px 0 45px;
-}
-
-.buttons {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.buttons .btn {
-  margin: 10px 3px;
-}
-
-body {
-	margin-bottom: 100px;
-}
-
-#requirements {
-	text-align: center;
-	color: #aaa;
-	font-style: italic;
-}
-
-#index-lang-links {
+header li a span.note {
 	position: absolute;
-	top: 30px;
+	left: 100%;
+	top: 50%;
+	transform: translateY(-100%) rotate(-3deg);
+	color: rgb(180, 180, 180);
+	display: block;
+	white-space: nowrap;
+	padding-left: 5px;
+}
+
+header li a span.note::before {
+	content: "← ";
+	font-style: normal;
+}
+
+header li a span.note::after {
+	content: "!";
+}
+
+header li.selected a {
+	background: rgba(50,0,0,1);
+}
+
+
+.body h2 {
+	font-weight: 300;
+	font-size: 30px;
+	margin: 65px 0 25px;
+}
+
+.index h2 {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.body h3 {
+	font-weight: 300;
+	font-size: 24px;
+	margin: 40px 0 15px;
+}
+
+#lang-links {
+	position: absolute;
+	top: 10px;
 	right: 30px;
 }
 
-#index-lang-links li {
+#lang-links li {
 	list-style: none;
-	display: inline; 
-	padding: 5px;
-	border: 1px solid #ddd;
+	float: left; 
+	padding: 0 8px;
+	border: 3px solid #ddd;
+	margin: 0 -3px 0 0;
+	background: #fcfcfc;
 }
 
-#index-lang-links li.current {
-	border: 1px solid #999;
+#lang-links li:first-child {
+	border-top-left-radius: 7px;
+	border-bottom-left-radius: 7px;
+	padding-left: 8px;
 }
 
-#index-lang-links li.current a {
+#lang-links li:last-child {
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
+	padding-right: 8px;
+}
+
+#lang-links li.current {
+	background: #ddd;
+}
+
+#lang-links li.current a {
 	color: #666;
 }
 
-.nav .lang-link {
+#lang-links li a {
+	font-weight: 600;
+	color: #ccc;
+	text-decoration: none;
+}
+
+
+ul.instructions {
+	counter-reset: instruction-counter;
+	margin: 0;
+	padding: 0;
+}
+
+ul.instructions li {
+	position: relative;
+	padding: 4px 0 10px 0;
+	margin: 0;
+	min-height: 75px;
+	list-style: none;
+}
+
+ul.instructions li::before {
+	content: counter(instruction-counter);
+	counter-increment: instruction-counter;
+	position: absolute;
+  	top: 50%;
+	left: 0;
+  	transform: translate(0,-50%);
+	width: 60px;
+	height: 60px;
+	border-radius: 50px;
+	font-size: 60px;
+	line-height: 1em;
+	text-align: center;
+	padding: 0;
+	border: 5px solid rgba(0,0,0,1);
+	opacity: 0.2;
+}
+
+ul.instructions li {
+	padding: 0 0 0 85px;
+	margin: 0 0 25px;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+ul.instructions li p, ul.instructions li pre {
+	margin: 0;
+	padding: 3px 0;
+}
+
+pre {
+	font-size: 13px;
+}
+
+tt, code {
+	font-family: Menlo, fixed-width;
+	color: rgb(120,120,120);
+	font-size: 0.9em;
+}
+
+.subdued {
+	opacity: 0.4;
+	font-style: italic;
+	font-size: 0.9em;
+	line-height: 1.2em;
+}
+
+
+ul.clients {
+	display: block;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+ul.clients li {
+	display: inline-block;
+	padding: 0;
+	margin: 10px 30px;
+}
+
+ul.clients a {
+	display: block;
+	padding-top: 115px;
+	text-align: center;
+	min-width: 120px;
+	color: black;
+	text-decoration: none;
+}
+
+ul.clients #pgadmin a {
+	background: url(/img/pgadmin_icon.png) no-repeat center top;
+	background-size: 120px 120px;
+}
+
+ul.clients #postico a {
+	background: url(/img/postico_icon.png) no-repeat center top;
+	background-size: 120px 120px;
+}
+
+
+
+.settingsTable {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	border-collapse: collapse;
+	border: 4px solid rgb(220,220,220);
+	border-radius: 5px;
+}
+
+.settingsTable td {
+	border: 4px solid rgb(220,220,220);
+	padding: 6px;
+}
+
+.settingsTable td nth-child(1) {
+	width: 40%;
+}
+
+.settingsTable td nth-child(2) {
+	width: 60%;
+}
+
+table.settings {
+	min-width: 70%;
+	margin: 0 auto;
+	border-collapse: separate;
+    border-spacing: 0;
+}
+
+table.settings tr td {
+	border-top: 4px solid rgb(220,220,220);
+	border-left: 4px solid rgb(220,220,220);
+	padding: 5px 9px;
+}
+
+table.settings tr td:last-child {
+	border-right: 4px solid rgb(220,220,220);
+}
+
+@media (min-width: 768px) {
+	table.settings tr td:last-child {
+		width: 70%;
+	}
+}
+
+
+table.settings tr:last-child td {
+	border-bottom: 4px solid rgb(220,220,220);
+}
+
+table.settings tr:first-child td:first-child { border-top-left-radius: 8px; }
+table.settings tr:first-child td:last-child { border-top-right-radius: 8px; }
+table.settings tr:last-child td:first-child { border-bottom-left-radius: 8px; }
+table.settings tr:last-child td:last-child { border-bottom-right-radius: 8px; }
+
+.light {
+	color: rgb(180,180,180);
+	font-style: italic;
+}
+
+
+ul.footer {
+	margin: 80px 0 30px;
+	padding: 0;
+	text-align: center;
+}
+
+ul.footer li {
+	display: inline;
+	opacity: 0.8;
 	font-size: 12px;
-	margin-left: 100px;
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
 }
 
-.nav .lang-link + .lang-link {
-	margin-left: 0px;
+ul.footer li + li:before {
+	content: "·";
+	margin: 0 10px;
+/*	color: rgb(180,180,180);*/
 }
 
 
-.nav .lang-link.current a {
-	color: #fff;
+dl.connect-info {
+	list-style: none;
+	margin: 20px 30px 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	border: 4px solid rgb(50,90,180);
+	border: 4px solid rgb(220,220,220);
+	border-radius: 10px;
 }
 
-body {
-	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+dl.connect-info dd p {
+	font-size: 13px;
+	line-height: 17px;
+	margin: 1em 0 0;
+}
+
+dl.connect-info dt {
+	order: 1;
+	border-right: 4px solid rgb(220,220,220);
+	border-bottom: 4px solid rgb(220,220,220);
+	padding: 3px 10px;
+	color: rgb(120,120,120);
+	color: rgb(180,180,180);
+	margin: 0;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+dl.connect-info dt.active {
+	background: rgb(50,90,180);
+	background: rgb(220,220,220);
+	color: #666;
+	z-index: 10;
+}
+
+dl.connect-info dd {
+	display: none;
+}
+
+dl.connect-info dt.active + dd {
+	order: 2;
+	width: 100%;
+	padding: 10px 20px;
+	margin: 0;
+	display: block;
+	min-height: 250px;
+}
+
+.documentation h4 {
+	font-style: italic;
+	margin-bottom: 0px;
+}
+
+.documentation p {
+	margin-top: 0px;
 }
