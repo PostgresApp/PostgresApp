@@ -14,6 +14,7 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [Datagrip](https://www.jetbrains.com/datagrip/)
 - [Datazenit](https://datazenit.com/)
 - [DBeaver](http://dbeaver.jkiss.org/)
+- [DBGlass](http://dbglass.web-pal.com)
 - [DbVisualizer](https://www.dbvis.com/)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
@@ -24,8 +25,6 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
 - [Toad Mac Edition](https://itunes.apple.com/app/toad/id747961939?l=en&mt=12)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
-- [Woolly](http://woollyapp.com)
-- [DBGlass](http://dbglass.web-pal.com)
 
 
 Die standard Verbindungs-Parameter findest du [hier](../).

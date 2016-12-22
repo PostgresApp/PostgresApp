@@ -13,6 +13,7 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [Datagrip](https://www.jetbrains.com/datagrip/)
 - [Datazenit](https://datazenit.com/)
 - [DBeaver](http://dbeaver.jkiss.org/)
+- [DBGlass](http://dbglass.web-pal.com)
 - [DbVisualizer](https://www.dbvis.com/)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
@@ -20,11 +21,9 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [PostgreSQL Manager](https://itunes.apple.com/at/app/postgresql-manager/id875191518?mt=12)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
-- [Toad Mac Edition](https://itunes.apple.com/app/toad/id747961939?l=en&mt=12)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
+- [Toad Mac Edition](https://itunes.apple.com/app/toad/id747961939?l=en&mt=12)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
-- [Woolly](http://woollyapp.com)
-- [DBGlass](http://dbglass.web-pal.com)
 
 
 The default connection parameters are described [here](../).
