@@ -107,6 +107,33 @@ You need to start the server with the version you initialized it with, then dump
 
 ### Errors when connecting to the PostgreSQL server
 
+#### psql: FATAL: role "USERNAME" does not exist
+By default, Postgres.app creates a PostgreSQL user with the same user as your system user name.
+When this error occurs, it means that this user does not exist.
+You can create it by executing the following command in the Terminal:
+
+1. Make sure [your $PATH is configured correctly](cli-tools.html)
+2. Execute the command `createuser -U postgres -s $USER`
+
+- `-U postgres` tells createuser to connect with the `postgres` user name
+- `-s` tells createuser to create a super user
+- `$USER` is a variable containing your system user name, and tells createuser the name of the postgres user you want to create
+
+#### psql: FATAL: database "USERNAME" does not exist
+By default, psql tries to connect to a database with the same name as your local user.
+This error means that this database does not exist. This can have several possible reasons:
+
+- Postgres.app failed to create the default database when initializing the server
+- You deleted the default database
+- Your user name is different from the user name that initialized the server
+
+There are multiple ways to fix this problem:
+
+1. Make sure [your $PATH is configured correctly](cli-tools.html)
+2. You can create the missing database using the command `createdb $USER`, or
+3. You can connect to a different database, eg. `psql postgres` to connect to the other default database
+
+
 #### Could not translate host name "localhost", service "5432" to address: nodename nor servname provided, or not known
 Usually this error is caused by broken `/etc/hosts` file.
 The problem could be a missing `localhost` entry, syntax errors or incorrect whitespace.
@@ -123,7 +150,7 @@ For reference, here is what this file should look like by default on macOS:
 	255.255.255.255	broadcasthost
 	::1             localhost 
 
-#### FATAL:  could not open relation mapping file "global/pg_filenode.map": No such file or directory
+#### psql: FATAL:  could not open relation mapping file "global/pg_filenode.map": No such file or directory
 This error can occur when you delete the data directory while the PostgreSQL server is still running.
 To fix it, kill all PostgreSQL processes or restart your computer.
 Then start a new PostgreSQL server.

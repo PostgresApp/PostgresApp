@@ -93,6 +93,36 @@ Danach kannst deine Datenbanken exportieren (dump), einen neuen Server mit der a
 
 ### Fehler beim Verbinden mit dem PostgreSQL server
 
+#### psql: FATAL: role "USERNAME" does not exist
+Normalerweise erstellt Postgres.app einen PostgreSQL-Benutzer mit demselben Name wie dein macOS-Benutzername.
+Wenn dieser Fehler auftritt, existiert dieser PostgreSQL-Benutzer nicht.
+Du kannst ihn aber einfach erstellen:
+
+1. Stelle sicher, dass dein [$PATH richtig konfiguriert ist](cli-tools.html)
+2. Führe den Befehl `createuser -U postgres -s $USER` im Terminal aus
+
+Was bedeuted dieser Befehl?
+
+- `-U postgres` ist der Benutzername mit dem wir verbinden
+- `-s` bedeutet das wir einen Superuser erstellen wollen
+- `$USER` ist der Name des PostgreSQL-Benutzers, den wir erstellen wollen (gleich wie macOS-Benutzername)
+
+#### psql: FATAL: database "USERNAME" does not exist
+Standardmäßig versucht psql mit einer Datenbank zu verbinden, die den selben Namen wie dein System-Benutzer hat.
+Dieser Fehler bedeutet, dass diese Datenbank nicht existiert.
+Das kann mehrere Gründe haben:
+
+- Postgres.app konnte diese Datenbank beim initialisieren nicht erstellen
+- Die Datenbank wurde gelöscht
+- Dein Benutzername hat sich geändert
+
+Du kannst das Problem folgenderweise beheben:
+
+1. Stelle sicher, dass dein [$PATH richtig konfiguriert ist](cli-tools.html)
+2. Erstelle die fehlende Datenbank einfach mit `createdb $USER`, oder
+3. Verbinde mit einer anderen Datenbank, zB. `psql postgres`
+
+
 #### Could not translate host name "localhost", service "5432" to address: nodename nor servname provided, or not known
 Dieser Fehler wird normalerweise durch eine beschädigte `/etc/hosts`-Datei ausgelöst.
 Die häufigsten Ursachen sind zB ein fehlender `localhost`-Eintrag, Syntax-Errors oder falsche Leerzeichen.
