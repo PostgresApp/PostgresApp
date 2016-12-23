@@ -62,7 +62,7 @@ Dieser Fehler sollte nicht auftreten! Falls doch, schicke uns bitte eine detaill
 
 
 
-### Schau in die Logdatei
+### Fehler in der Server-Logdatei
 
 Die Logdatei befindet sich im Data Directory und heißt `postgres-server.log`.
 Hier sind die häufigsten Fehler:
@@ -84,9 +84,6 @@ Unter macOS sieht die Datei folgendermaßen aus:
 	::1             localhost 
 
 
-#### Could not translate host name "localhost", service "5432" to address: nodename nor servname provided, or not known
-Dieser Fehler wird ebenfalls durch eine beschädigte `/etc/hosts`-Datei verursacht (siehe oben).
-
 #### database files are incompatible with server: The database cluster was initialized with PG_CONTROL_VERSION x, but the server was compiled with PG_CONTROL_VERSION y
 Dieser Fehler tritt üblicherweise auf, wenn du einen Server starten willst, welcher mit einer Prerelease-Version von PostgreSQL erstellt wurde.
 (Das Datenformat wird manchmal zwischen zwei Prerelease-Versionen geändert.)
@@ -94,8 +91,33 @@ In diesem Fall musst du den Server mit der selben Version starten, mit welcher e
 Danach kannst deine Datenbanken exportieren (dump), einen neuen Server mit der aktuellen Version erstellen und die Datenbanken wieder importieren (restore).
 
 
+### Fehler beim Verbinden mit dem PostgreSQL server
 
-### Starte den Server manuell
+#### Could not translate host name "localhost", service "5432" to address: nodename nor servname provided, or not known
+Dieser Fehler wird normalerweise durch eine beschädigte `/etc/hosts`-Datei ausgelöst.
+Die häufigsten Ursachen sind zB ein fehlender `localhost`-Eintrag, Syntax-Errors oder falsche Leerzeichen.
+
+Unter macOS sieht die Datei folgendermaßen aus:
+
+	##
+	# Host Database
+	#
+	# localhost is used to configure the loopback interface
+	# when the system is booting.  Do not change this entry.
+	##
+	127.0.0.1	localhost
+	255.255.255.255	broadcasthost
+	::1             localhost 
+
+
+#### FATAL:  could not open relation mapping file "global/pg_filenode.map": No such file or directory
+Dieser Fehler kann auftreten, wenn du das Datenverzeichnis löscht, während der Server noch läuft.
+Bitte stoppe alle `postgres`-Prozesse. Am einfachsten geht das in dem du den Computer neu startest.
+Dann starte einen neuen PostgreSQL Server.
+
+
+
+### Manuelles Starten des Servers
 
 Zum Debuggen ist es oft hilfreich, den Server über die Kommandozeile zu starten:
 
