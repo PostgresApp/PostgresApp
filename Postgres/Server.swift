@@ -435,6 +435,7 @@ class Server: NSObject {
 		process.arguments = [
 			"-D", varPath,
 			"-U", "postgres",
+			"--data-checksums",
 			"--encoding=UTF-8",
 			"--locale=en_US.UTF-8"
 		]
