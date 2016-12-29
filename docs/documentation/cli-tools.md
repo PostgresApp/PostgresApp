@@ -18,7 +18,12 @@ echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/pat
 
 Don't forget to close the Terminal window and open a new one for changes to take effect.
 
-Of course, you could also just edit your `.profile` file instead.
+Of course, you could also just edit your `.profile` file instead:
+
+```
+# .zshrc, for example
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+```
 
 Whatever method you use, you can check if the path is set up correctly by typing `which psql`.
 
