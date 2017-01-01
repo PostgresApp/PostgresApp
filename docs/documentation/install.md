@@ -14,7 +14,7 @@ These libraries can't be found if you change the path.
 If you'd like to use the command line tools delivered with Postgres.app, execute the following command in Terminal to configure your `$PATH`, and then close & reopen the window:
 
 ```bash
-echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
+sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 ```
 
 For more details, see the [section on Command Line Tools](cli-tools.html).
