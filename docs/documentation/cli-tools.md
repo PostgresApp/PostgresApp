@@ -13,6 +13,7 @@ Postgres.app includes many command line tools. If you want to use them, you must
 The easiest way to configure your PATH is to execute the following command:
 
 ```bash
+sudo mkdir -p /etc/paths.d &&
 echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 ```
 

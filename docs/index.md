@@ -32,7 +32,7 @@ Installing Postgres.app
 	</li>
 	<li>
 		<p>Configure your <tt>$PATH</tt> to use the included command line tools (optional):</p>
-		<pre><code>echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp</code></pre>
+		<pre><code>sudo mkdir -p /etc/paths.d &&<br/>echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp</code></pre>
 	</li>
 </ul>
 

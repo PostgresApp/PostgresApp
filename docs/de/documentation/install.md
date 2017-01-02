@@ -16,7 +16,7 @@ Wenn du von der Kommandozeile aus arbeiten willst, solltest du deinen `$PATH` ko
 Am einfachsten geht das mit:
 
 ```bash
-echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
+sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 ```
 
 Für Details siehe [Command Line Tools](cli-tools.html).

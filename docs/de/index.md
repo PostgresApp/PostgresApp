@@ -32,7 +32,7 @@ Installation
 	</li>
 	<li>
 		<p>Optional: Um die Command Line Tools nutzen zu können, musst du deinen <tt>$PATH</tt> konfigurieren:</p>
-		<pre>echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp</pre>
+		<pre><code>sudo mkdir -p /etc/paths.d &&<br/>echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp</code></pre>
 	</li>
 </ul>
 
