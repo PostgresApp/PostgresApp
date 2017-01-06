@@ -20,7 +20,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 	}
 	
 	
-	@IBAction func removeServer(_ sender: AnyObject?) {
+	@IBAction func removeServer(_ sender: AnyObject) {
 		let alert = NSAlert()
 		alert.messageText = "Do you want to remove the server from the sidebar?"
 		alert.informativeText = "Postgres.app will not delete the data directory."
