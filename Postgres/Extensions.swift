@@ -21,4 +21,15 @@ extension FileManager {
 		
 		return path
 	}
+	
+	func applicationExists(_ appName: String) -> Bool {
+		var appPath = "/Applications/"
+		switch appName {
+		case "Terminal":
+			appPath += "Utilities/"+appName+".app"
+		default:
+			appPath += appName+".app"
+		}
+		return self.fileExists(atPath: appPath)
+	}
 }

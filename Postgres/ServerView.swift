@@ -9,7 +9,6 @@
 import Cocoa
 
 class ServerViewController: NSViewController, MainWindowModelConsumer {
-	
 	@IBOutlet var databaseCollectionView: NSCollectionView!
 	
 	dynamic var mainWindowModel: MainWindowModel!
@@ -45,12 +44,21 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		guard let database = server.firstSelectedDatabase else { return }
 		
+		let clientApp = UserDefaults.standard.object(forKey: "ClientAppName") as? String ?? "Terminal"
+		guard FileManager.default.applicationExists(clientApp) else {
+			let userInfo = [
+				NSLocalizedDescriptionKey: "\"\(clientApp)\" not found.",
+				NSLocalizedRecoverySuggestionErrorKey: "Please select a different database client in the preferences."
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres2.missing-client-app", code: 0, userInfo: userInfo)
+			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+			return
+		}
 		
-		let clientAppName = UserDefaults.standard.object(forKey: "ClientAppName") as? String ?? "Terminal"
-		let routine = "open_\(clientAppName)"
-		var param: String!
+		let routine = "open_"+clientApp
+		var param: String
 		
-		switch clientAppName {
+		switch clientApp {
 		case "Terminal", "iTerm":
 			param = String(format: "\"%@/psql\" -p%u -d \"%@\"", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
 		case "Postico":
@@ -80,7 +88,6 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 
 
 class ServerViewBackgroundView: NSView {
-	
 	override var isOpaque: Bool { return true }
 	override var mouseDownCanMoveWindow: Bool { return true }
 	
