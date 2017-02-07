@@ -25,7 +25,7 @@ LIBUUID_VERSION=1.6.2
 LIBXML2_VERSION=2.9.4
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.0.1u
+OPENSSL_VERSION=1.0.2k
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.2
