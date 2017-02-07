@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Postgres.app Scriptable Terminology">
+	<suite name="Postgres.app Scripting Suite" code="PAss" description="Standard suite for application communication.">
+		<command name="openPreferences" code="PAssOpen" description="Opens the Preferences.">
+			<cocoa class="Postgres.OpenPrefsScriptCommand"/>
+			<result type="boolean" description="Returns the result."/>
+		</command>
+		<command name="checkForUpdates" code="PAssChec" description="Checks for updates.">
+			<cocoa class="Postgres.CheckForUpdatesScriptCommand"/>
+			<result type="boolean" description="Returns the result."/>
+		</command>
+	</suite>
+</dictionary>

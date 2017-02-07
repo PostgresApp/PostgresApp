@@ -107,7 +107,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <segue destination="0CQ-HC-63t" kind="show" id="PFZ-iz-T8N"/>
+                                                <segue destination="0CQ-HC-63t" kind="show" identifier="openPreferences" id="PFZ-iz-T8N"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Check for Updates…" id="jgT-3h-PCr">
@@ -278,7 +278,11 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Postgres" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Postgres" customModuleProvider="target">
+                    <connections>
+                        <outlet property="sparkleUpdater" destination="Bsl-R6-Brt" id="0Iu-wq-WeQ"/>
+                    </connections>
+                </customObject>
                 <customObject id="Bsl-R6-Brt" customClass="SUUpdater">
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="2YS-7H-tb1"/>

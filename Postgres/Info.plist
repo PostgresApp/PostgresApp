@@ -36,5 +36,9 @@
 	<string>https://postgresapp.com/sparkle/updates.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>OSAScriptingDefinition</key>
+	<string>PostgresAppScriptable</string>
 </dict>
 </plist>

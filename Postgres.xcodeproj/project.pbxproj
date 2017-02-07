@@ -24,6 +24,8 @@
 		8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */; };
 		83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		8358D53C1D26EBE7007B7904 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8358D53B1D26EBE7007B7904 /* Server.swift */; };
+		835954281E4A301F00D1F0DF /* PostgresAppScriptable.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 835954271E4A301F00D1F0DF /* PostgresAppScriptable.sdef */; };
+		8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835954291E4A30FD00D1F0DF /* ScriptCommands.swift */; };
 		836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServer.swift */; };
 		838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B8D361D649CB30050EF03 /* MainWindowModel.swift */; };
@@ -107,6 +109,8 @@
 		83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorRecoveryAttempter.h; sourceTree = "<group>"; };
 		83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorRecoveryAttempter.m; sourceTree = "<group>"; };
 		8358D53B1D26EBE7007B7904 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Server.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		835954271E4A301F00D1F0DF /* PostgresAppScriptable.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PostgresAppScriptable.sdef; sourceTree = "<group>"; };
+		835954291E4A30FD00D1F0DF /* ScriptCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptCommands.swift; sourceTree = "<group>"; };
 		836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabasesView.swift; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServer.swift; sourceTree = "<group>"; };
 		838B8D361D649CB30050EF03 /* MainWindowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowModel.swift; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 				83543E261D2136E800F764CB /* ErrorRecoveryAttempter.h */,
 				83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */,
 				83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */,
+				835954271E4A301F00D1F0DF /* PostgresAppScriptable.sdef */,
+				835954291E4A30FD00D1F0DF /* ScriptCommands.swift */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
@@ -387,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8348A1ED1DB4ED5E0039A024 /* dsa_pub.pem in Resources */,
+				835954281E4A301F00D1F0DF /* PostgresAppScriptable.sdef in Resources */,
 				83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */,
 				83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */,
 				83B1A80B1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist in Resources */,
@@ -468,6 +475,7 @@
 				360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
+				8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsView.swift in Sources */,
 				83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */,
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,

@@ -26,6 +26,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 	
 	
 	override func windowDidLoad() {
+		super.windowDidLoad()
+		
 		guard let window = self.window else { return }
 		window.titleVisibility = .hidden
 		window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
@@ -35,8 +37,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		let model = MainWindowModel()
 		model.sidebarVisible = model.serverManager.servers.count > 1
 		mainWindowModel = model
-		
-		super.windowDidLoad()
 	}
 	
 	

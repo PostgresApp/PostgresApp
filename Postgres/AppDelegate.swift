@@ -15,6 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 	var startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 	
+	@IBOutlet var sparkleUpdater: SUUpdater!
+	
+	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.saveServers()
@@ -66,6 +69,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
 		}
+		
+		
+		// register notifications for Scripting
+		NotificationCenter.default.addObserver(forName: ScriptCommands.OpenPrefsScriptCommandNotification, object: nil, queue: OperationQueue.main) { _ in
+			print("received OpenPrefsScriptCommandNotification")
+			
+		}
+		NotificationCenter.default.addObserver(forName: ScriptCommands.CheckForUpdatesScriptCommandNotification, object: nil, queue: OperationQueue.main) { _ in
+			self.sparkleUpdater.checkForUpdates(nil)
+		}
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
@@ -115,7 +128,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 	}
 	
-
 	
 	
 	// SUUpdater delegate methods

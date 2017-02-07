@@ -83,6 +83,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	}
 	
 	
+	@IBAction func openPreferences(_ sender: AnyObject?) {
+		let script = NSAppleScript(source: "tell application \"Postgres\" to openPreferences")!
+		script.executeAndReturnError(nil)
+	}
+	
+	
+	@IBAction func checkForUpdates(_ sender: AnyObject?) {
+		let script = NSAppleScript(source: "tell application \"Postgres\" to checkForUpdates")!
+		script.executeAndReturnError(nil)
+	}
+	
+	
 	@IBAction func quitPostgresMenuHelper(_ sender: AnyObject?) {
 		for server in serverManager.servers where server.running {
 			_ = server.stopSync()
