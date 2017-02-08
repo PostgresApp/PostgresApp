@@ -2,7 +2,7 @@
 
 # Remove existing Postgres.app in Applications folder (since we need that path for building)
 
-rm -Rf /Applications/Postgres.app
+rm -Rf /Applications/Postgres.app/Contents/Versions/9.3
 
 
 # Build PostgreSQL, PostGIS, etc.
