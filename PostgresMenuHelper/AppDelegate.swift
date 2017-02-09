@@ -23,6 +23,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	var menuItemViewControllers: [MenuItemViewController] = []
 	
+	var mainApp: SBApplication {
+		let mainAppURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+		let mainApp = SBApplication(url: mainAppURL)!
+		return mainApp
+	}
+	
 	@IBOutlet var statusMenu: NSMenu!
 	
 	
@@ -74,26 +80,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	@IBAction func openPostgresApp(_ sender: AnyObject?) {
-		let postgresAppPath = "/Applications/Postgres.app"
-		if !NSWorkspace.shared().launchApplication(postgresAppPath) {
-			let alert = NSAlert()
-			alert.messageText = "Could not launch Postgres.app"
-			alert.runModal()
-		}
+		mainApp.activate()
 	}
-	
 	
 	@IBAction func openPreferences(_ sender: AnyObject?) {
-		let script = NSAppleScript(source: "tell application \"Postgres\" to openPreferences")!
-		script.executeAndReturnError(nil)
+		mainApp.openPreferences()
 	}
-	
 	
 	@IBAction func checkForUpdates(_ sender: AnyObject?) {
-		let script = NSAppleScript(source: "tell application \"Postgres\" to checkForUpdates")!
-		script.executeAndReturnError(nil)
+		mainApp.checkForUpdates()
 	}
-	
 	
 	@IBAction func quitPostgresMenuHelper(_ sender: AnyObject?) {
 		for server in serverManager.servers where server.running {

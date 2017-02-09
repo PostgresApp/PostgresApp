@@ -8,21 +8,17 @@
 
 import Cocoa
 
-class ScriptCommands {
-	static let OpenPrefsScriptCommandNotification = Notification.Name("ScriptCommands.OpenPrefsScriptCommandNotification")
-	static let CheckForUpdatesScriptCommandNotification = Notification.Name("ScriptCommands.CheckForUpdatesScriptCommandNotification")
-}
-
 class OpenPrefsScriptCommand: NSScriptCommand {
 	override func performDefaultImplementation() -> Any? {
-		NotificationCenter.default.post(name: ScriptCommands.OpenPrefsScriptCommandNotification, object: nil)
-		return true
+		let delegate = NSApp.delegate as! AppDelegate
+		return delegate.showPreferences()
 	}
 }
 
 class CheckForUpdatesScriptCommand: NSScriptCommand {
 	override func performDefaultImplementation() -> Any? {
-		NotificationCenter.default.post(name: ScriptCommands.CheckForUpdatesScriptCommandNotification, object: nil)
+		let appDelegate = NSApp.delegate as! AppDelegate
+		appDelegate.sparkleUpdater.checkForUpdates(self)
 		return true
 	}
 }
