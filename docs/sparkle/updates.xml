@@ -6,6 +6,33 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.0.2</title>
+		<description>
+			<![CDATA[
+				<p>Upgrade to the latest maintenance releases of PostgreSQL!</p>
+				<p>This is the latest and greatest version of Postgres.app for Macs running macOS 10.10 or later. It includes two versions of PostgreSQL:</p>
+				<ul>
+					<li>PostgreSQL 9.6.2 with PostGIS 2.3.2</li>
+					<li>PostgreSQL 9.5.6 with PostGIS 2.2.4</li>
+				</ul>
+				<p>In addition, this release also contains minor UI tweaks:</p>
+				<ul>
+					<li>configuration files are no longer opened in TextEdit (to avoid typographic quotes) <a href="https://github.com/PostgresApp/PostgresApp/issues/368">#368</a></li>
+					<li>the elephant menu now contains "show preferences" and "check for updates" commands <a href="https://github.com/PostgresApp/PostgresApp/issues/373">#373</a></li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 9 Feb 2016 13:30:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0.2/Postgres-2.0.2.dmg"
+		sparkle:version="20"
+		sparkle:shortVersionString="2.0.2"
+		length=""
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC4CFQDPdBstcdGrP63QDGAXuHUpxl3Q3gIVAKDtgvs1e5+KRRdT+8jBdn9ZvP/Y"
+		/>
+	</item>
+	<item>
 		<title>Postgres.app 2.0.1</title>
 		<description>
 			<![CDATA[
