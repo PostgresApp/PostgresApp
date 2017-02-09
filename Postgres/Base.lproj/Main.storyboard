@@ -280,6 +280,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Postgres" customModuleProvider="target">
                     <connections>
+                        <outlet property="preferencesMenuItem" destination="BOF-NM-1cW" id="oUC-O5-DJa"/>
                         <outlet property="sparkleUpdater" destination="Bsl-R6-Brt" id="0Iu-wq-WeQ"/>
                     </connections>
                 </customObject>
@@ -290,7 +291,7 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="-121"/>
+            <point key="canvasLocation" x="112" y="-215"/>
         </scene>
         <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -757,32 +758,32 @@ IA
                             </textField>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ATE-VB-Qzl">
                                 <rect key="frame" x="300" y="140" width="41" height="19"/>
-                                <buttonCell key="cell" type="roundTextured" title="Open" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1nM-dk-7RN">
+                                <buttonCell key="cell" type="roundTextured" title="Show" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1nM-dk-7RN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="openDataDirectory:" target="buw-cX-kU8" id="ldo-yh-KXr"/>
+                                    <action selector="showDataDirectory:" target="buw-cX-kU8" id="NpM-s5-t7q"/>
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vyw-y6-Nrh">
                                 <rect key="frame" x="300" y="114" width="41" height="19"/>
-                                <buttonCell key="cell" type="roundTextured" title="Edit" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sYR-L7-LO2">
+                                <buttonCell key="cell" type="roundTextured" title="Show" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sYR-L7-LO2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="openConfigFile:" target="buw-cX-kU8" id="RWJ-x3-voP"/>
+                                    <action selector="showConfigFile:" target="buw-cX-kU8" id="hUl-wU-er7"/>
                                 </connections>
                             </button>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vlq-tM-1z1">
                                 <rect key="frame" x="300" y="88" width="41" height="19"/>
-                                <buttonCell key="cell" type="roundTextured" title="Edit" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UDk-UB-h8l">
+                                <buttonCell key="cell" type="roundTextured" title="Show" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UDk-UB-h8l">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="openHBAFile:" target="buw-cX-kU8" id="hCs-EE-niy"/>
+                                    <action selector="showHBAFile:" target="buw-cX-kU8" id="SjH-d3-Woo"/>
                                 </connections>
                             </button>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="oRG-00-QiV">
@@ -793,7 +794,7 @@ IA
                             </box>
                             <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yRA-hK-TVz">
                                 <rect key="frame" x="300" y="62" width="41" height="19"/>
-                                <buttonCell key="cell" type="roundTextured" title="Show" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hVG-r7-WGZ">
+                                <buttonCell key="cell" type="roundTextured" title="Open" bezelStyle="texturedRounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hVG-r7-WGZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>

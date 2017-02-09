@@ -13,7 +13,7 @@ class SettingsViewController: NSViewController {
 	dynamic var server: Server?
 	
 	
-	@IBAction func openDataDirectory(_ sender: AnyObject?) {
+	@IBAction func showDataDirectory(_ sender: AnyObject?) {
 		guard let path = self.server?.varPath else { return }
 		if !NSWorkspace.shared().selectFile(path, inFileViewerRootedAtPath: "") {
 			let userInfo = [
@@ -25,9 +25,9 @@ class SettingsViewController: NSViewController {
 		}
 	}
 	
-	@IBAction func openConfigFile(_ sender: AnyObject?) {
+	@IBAction func showConfigFile(_ sender: AnyObject?) {
 		guard let path = self.server?.configFilePath else { return }
-		if !NSWorkspace.shared().openFile(path, withApplication: "TextEdit") {
+		if !NSWorkspace.shared().selectFile(path, inFileViewerRootedAtPath: "") {
 			let userInfo = [
 				NSLocalizedDescriptionKey: "File not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
@@ -37,9 +37,9 @@ class SettingsViewController: NSViewController {
 		}
 	}
 	
-	@IBAction func openHBAFile(_ sender: AnyObject?) {
+	@IBAction func showHBAFile(_ sender: AnyObject?) {
 		guard let path = self.server?.hbaFilePath else { return }
-		if !NSWorkspace.shared().openFile(path, withApplication: "TextEdit") {
+		if !NSWorkspace.shared().selectFile(path, inFileViewerRootedAtPath: "") {
 			let userInfo = [
 				NSLocalizedDescriptionKey: "File not found.",
 				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
