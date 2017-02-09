@@ -22,12 +22,12 @@
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 9 Feb 2016 13:30:00 +0100</pubDate>
+		<pubDate>Thu, 9 Feb 2017 13:30:00 +0100</pubDate>
 		<enclosure
 		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0.2/Postgres-2.0.2.dmg"
 		sparkle:version="20"
 		sparkle:shortVersionString="2.0.2"
-		length=""
+		length="90690517"
 		type="application/octet-stream"
 		sparkle:dsaSignature="MC4CFQDPdBstcdGrP63QDGAXuHUpxl3Q3gIVAKDtgvs1e5+KRRdT+8jBdn9ZvP/Y"
 		/>
