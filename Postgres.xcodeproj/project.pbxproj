@@ -96,6 +96,7 @@
 
 /* Begin PBXFileReference section */
 		360E961B1DC20D5E005D8C69 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		830377B71E4C820A008E6896 /* PostgresApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostgresApplication.h; sourceTree = "<group>"; };
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		830B4B271D1C289A00F16762 /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Sidebar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -198,6 +199,7 @@
 				83C19C611D7D9C2500F4862D /* MenuItemView.xib */,
 				83C19C571D7D9A7D00F4862D /* Info.plist */,
 				83C19C631D7D9C6300F4862D /* PostgresMenuHelper-Bridging-Header.h */,
+				830377B71E4C820A008E6896 /* PostgresApplication.h */,
 			);
 			path = PostgresMenuHelper;
 			sourceTree = "<group>";
