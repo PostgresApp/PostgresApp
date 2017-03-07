@@ -16,6 +16,7 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [DBeaver](http://dbeaver.jkiss.org/)
 - [DBGlass](http://dbglass.web-pal.com)
 - [DbVisualizer](https://www.dbvis.com/)
+- [Froq](https://www.colourful-apps.com/products/mac/froq)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
 - [PostgreSQL Manager](https://itunes.apple.com/at/app/postgresql-manager/id875191518?mt=12)
