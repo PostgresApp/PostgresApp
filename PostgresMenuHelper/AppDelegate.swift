@@ -14,12 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	let serverManager = ServerManager.shared
 	
 	let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
-	let templateOffImage = NSImage(named: "statusicon-off")!
-	let templateOnImage = NSImage(named: "statusicon-on")!
-	
-	var isDarkMode: Bool {
-		return UserDefaults.standard.object(forKey: "AppleInterfaceStyle") as? String == "Dark"
-	}
+	let statusIcon = NSImage(named: "statusicon")!
 	
 	var menuItemViewControllers: [MenuItemViewController] = []
 	
@@ -33,17 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		statusItem.highlightMode = true
 		statusItem.menu = statusMenu
-		statusItem.image = templateOffImage
-		statusItem.alternateImage = templateOnImage
-		templateOffImage.isTemplate = isDarkMode
-		templateOnImage.isTemplate = isDarkMode
-		
-		DistributedNotificationCenter.default().addObserver(forName: Notification.Name("AppleInterfaceThemeChangedNotification"), object: nil, queue: OperationQueue.main) { _ in
-			self.templateOffImage.isTemplate = self.isDarkMode
-			self.templateOnImage.isTemplate = self.isDarkMode
-		}
+		statusItem.image = statusIcon
 	}
 	
 	
