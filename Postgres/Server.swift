@@ -357,7 +357,7 @@ class Server: NSObject {
 	
 	
 	// MARK: Sync handlers
-	private func startSync() -> ActionStatus {
+	func startSync() -> ActionStatus {
 		let process = Process()
 		let launchPath = binPath.appending("/pg_ctl")
 		guard FileManager().fileExists(atPath: launchPath) else {

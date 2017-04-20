@@ -21,16 +21,6 @@ class ServerManager: NSObject {
 		}
 	}
 	
-	
-	func startServers() {
-		for server in servers {
-			if server.startOnLogin {
-				server.start { _ in }
-			}
-		}
-	}
-	
-	
 	func saveServers() {
 		var plists: [[AnyHashable: Any]] = []
 		for server in servers {
