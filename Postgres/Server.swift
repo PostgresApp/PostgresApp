@@ -129,7 +129,6 @@ class Server: NSObject {
 			case .NoBinaries:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found", comment: ""),
-					NSLocalizedRecoverySuggestionErrorKey: "Create a new Server and try again."
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
