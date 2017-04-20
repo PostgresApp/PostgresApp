@@ -359,7 +359,14 @@ class Server: NSObject {
 	// MARK: Sync handlers
 	private func startSync() -> ActionStatus {
 		let process = Process()
-		process.launchPath = binPath.appending("/pg_ctl")
+		let launchPath = binPath.appending("/pg_ctl")
+		guard FileManager().fileExists(atPath: launchPath) else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found.", comment: ""),
+			]
+			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
+		}
+		process.launchPath = launchPath
 		process.arguments = [
 			"start",
 			"-D", varPath,
