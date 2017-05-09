@@ -724,7 +724,7 @@
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRES_VERSION = 9.3.16;
+				POSTGRES_VERSION = 9.3.17;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -741,7 +741,7 @@
 				GCC_PREFIX_HEADER = "Postgres/Postgres-Prefix.pch";
 				INFOPLIST_FILE = "Postgres/Postgres-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				POSTGRES_VERSION = 9.3.16;
+				POSTGRES_VERSION = 9.3.17;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.postgresapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
