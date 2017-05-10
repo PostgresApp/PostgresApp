@@ -26,7 +26,7 @@ xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCH
 
 # export and code sign
 mkdir -p "$DMG_SRC_PATH"
-xcodebuild -exportArchive -exportFormat APP -archivePath "$ARCHIVE_PATH" -exportPath "$DMG_SRC_PATH/Postgres.app" -exportSigningIdentity "$SIGN_ID"
+xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$DMG_SRC_PATH" -exportOptionsPlist exportOptions.plist
 
 # create dmg
 vendor/create-dmg-master/create-dmg \
