@@ -11,13 +11,13 @@
 			<![CDATA[
 				<p>This update includes the quarterly maintenance updates for PostgreSQL:</p>
 				<ul>
-				<li>PostgreSQL 9.6.3 (<a href="https://www.postgresql.org/docs/9.6/static/release-9-6-2.html">Release Notes</a>) with PostGIS 2.3.2</li>
-				<li>PostgreSQL 9.5.7 (<a href="https://www.postgresql.org/docs/9.6/static/release-9-5-6.html">Release Notes</a>) with PostGIS 2.2.5</li>
+				<li>PostgreSQL 9.6.3 (<a href="https://www.postgresql.org/docs/9.6/static/release-9-6-3.html">Release Notes</a>) with PostGIS 2.3.2</li>
+				<li>PostgreSQL 9.5.7 (<a href="https://www.postgresql.org/docs/9.6/static/release-9-5-7.html">Release Notes</a>) with PostGIS 2.2.5</li>
 				</ul>
 				<p>This release also contains two bugfixes:</p>
 				<ul>
 				<li>Changed menu icon to use native light/dark mode <a href="https://github.com/PostgresApp/PostgresApp/issues/385">#385</a></li>
-				<li>Fixed race condition at system start <a href="https://github.com/PostgresApp/PostgresApp/issues/386">#386</a></li>
+				<li>Fixed race condition at automatic server start <a href="https://github.com/PostgresApp/PostgresApp/issues/386">#386</a></li>
 				</ul>
 			]]>
 		</description>
