@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/beta-updates.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 2.1 beta1</title>
+		<description>
+			<![CDATA[
+				
+			]]>
+		</description>
+		<pubDate>Thu, 18 May 2017 16:00:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/2.1beta1/Postgres-2.1beta1.zip"
+		sparkle:version="22"
+		sparkle:shortVersionString="2.1beta1"
+		length="140893962"
+		type="application/octet-stream"
+		sparkle:dsaSignature=""
+		/>
+	</item>
+  </channel>
+</rss>
