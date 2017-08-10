@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.2.5
 POSTGIS_MAJOR_VERSION=2.2
 
-POSTGRES_VERSION=9.5.7
+POSTGRES_VERSION=9.5.8
 POSTGRES_MAJOR_VERSION=9.5
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
@@ -23,7 +23,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.4
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.0.2k
+OPENSSL_VERSION=1.0.2l
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -40,7 +40,7 @@ PLV8_VERSION=1.4.8
 JSONC_VERSION=0.12.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.0.7
+LIBTIFF_VERSION=4.0.8
 
 
 #path configuration
