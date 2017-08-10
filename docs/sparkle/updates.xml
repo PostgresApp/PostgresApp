@@ -6,6 +6,27 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.0.4</title>
+		<description>
+			<![CDATA[
+				<p>This update includes the quarterly maintenance updates for PostgreSQL:</p>
+				<ul>
+				<li>PostgreSQL 9.6.4 (<a href="https://www.postgresql.org/docs/9.6/static/release-9-6-4.html">Release Notes</a>) with PostGIS 2.3.3</li>
+				<li>PostgreSQL 9.5.8 (<a href="https://www.postgresql.org/docs/9.6/static/release-9-5-8.html">Release Notes</a>) with PostGIS 2.2.5</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 10 Aug 2017 20:00:00 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.0.4/Postgres-2.0.4.dmg"
+		sparkle:version="23"
+		sparkle:shortVersionString="2.0.4"
+		length="91030615"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFHCUeRZip24pSJeShvH7fn+vIgZfAhUAuB8cIz2q14FVlgcGA5jBVrt4jVQ="
+		/>
+	</item>
+	<item>
 		<title>Postgres.app 2.0.3</title>
 		<description>
 			<![CDATA[
