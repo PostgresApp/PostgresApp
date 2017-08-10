@@ -4,40 +4,40 @@ description: "Postgres.app is a full featured PostgreSQL installation packaged a
 gems: ['jekyll-github-metadata']
 repository: postgresapp/postgresapp
 
-downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.0.3/Postgres-2.0.3.dmg"
-releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.0.3/"
-postgresappVersion: "2.0.3"
+downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.0.4/Postgres-2.0.4.dmg"
+releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.0.4/"
+postgresappVersion: "2.0.4"
 postgresappMinSystemVersion: "10.10"
 postgresqlVersions: [
-	{ postgres: "9.6.3", postgis: "2.3.2" },
-	{ postgres: "9.5.7", postgis: "2.2.5" },
+	{ postgres: "9.6.4", postgis: "2.3.3" },
+	{ postgres: "9.5.8", postgis: "2.2.5" },
 ]
 
 legacyMinSystemVersion: "10.7"
 legacyVersions: [
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.3.16/Postgres-9.3.16.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.3.16/",
-		postgresqlVersion: "9.3.16",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.3.18/Postgres-9.3.18.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.3.18/",
+		postgresqlVersion: "9.3.18",
 		postgisVersion: "2.1.8",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.4.11/Postgres-9.4.11.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.4.11/",
-		postgresqlVersion: "9.4.11",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.4.13/Postgres-9.4.13.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.4.13/",
+		postgresqlVersion: "9.4.13",
 		postgisVersion: "2.1.8",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.5.7/Postgres-9.5.7.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.5.7/",
-		postgresqlVersion: "9.5.7",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.5.7/Postgres-9.5.8.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.5.8/",
+		postgresqlVersion: "9.5.8",
 		postgisVersion: "2.2.5",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.6.3/Postgres-9.6.3.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.6.3/",
-		postgresqlVersion: "9.6.3",
-		postgisVersion: "2.3.2",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.6.4/Postgres-9.6.4.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.6.4/",
+		postgresqlVersion: "9.6.4",
+		postgisVersion: "2.3.3",
 	},
 ]
 
