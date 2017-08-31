@@ -11,8 +11,8 @@
 			<![CDATA[
 				<p>This update includes the quarterly maintenance updates for PostgreSQL:</p>
 				<ul>
-				<li>PostgreSQL 9.6.5 (<a href="https://www.postgresql.org/docs/latest/static/release-9-6-5.html">Release Notes</a>) with PostGIS 2.3.3</li>
-				<li>PostgreSQL 9.5.9 (<a href="https://www.postgresql.org/docs/latest/static/release-9-5-9.html">Release Notes</a>) with PostGIS 2.2.5</li>
+				<li>PostgreSQL 9.6.5 (<a href="https://www.postgresql.org/docs/current/static/release-9-6-5.html">Release Notes</a>) with PostGIS 2.3.3</li>
+				<li>PostgreSQL 9.5.9 (<a href="https://www.postgresql.org/docs/current/static/release-9-5-9.html">Release Notes</a>) with PostGIS 2.2.5</li>
 				</ul>
 			]]>
 		</description>
