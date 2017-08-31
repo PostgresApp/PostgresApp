@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Remove existing Postgres.app in Applications folder (since we need that path for building)
-
-rm -Rf /Applications/Postgres.app/Contents/Versions/9.4
-
-
-# Build PostgreSQL, PostGIS, etc.
 
 cd src
 
