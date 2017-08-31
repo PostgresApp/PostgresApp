@@ -1,8 +1,8 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.3.2
-POSTGIS_MAJOR_VERSION=2.3
+POSTGIS_VERSION=2.4.0alpha
+POSTGIS_MAJOR_VERSION=2.4
 
 POSTGRES_VERSION=10beta4
 POSTGRES_MAJOR_VERSION=10
@@ -64,7 +64,7 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
-all: postgresql plv8
+all: postgresql postgis plv8
 clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-icu
 check: check-postgresql
 
@@ -95,7 +95,7 @@ postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
-	$(CURL) "https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
+	$(CURL) "https://borka.postgresql.org/staging/ff4e9251053b426c6e9129253e17757831a20313/postgresql-$(POSTGRES_VERSION).tar.bz2"
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
