@@ -7,6 +7,8 @@ POSTGIS_MAJOR_VERSION=2.1
 POSTGRES_VERSION=9.3.19
 POSTGRES_MAJOR_VERSION=9.3
 
+POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
+
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
 GDAL_VERSION=1.11.5
 
@@ -54,20 +56,58 @@ MACOSX_DEPLOYMENT_TARGET=10.7
 CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
 CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
 
+XCODE_PROJECT_FILE=$(CURDIR)/../Postgres.xcodeproj
+EXPORT_ARCHIVE_PATH=~/Documents/postgresapp-archives/$(POSTGRESAPP_VERSION)
+
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 
 # commands used for downloading and extracting sources
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis plv8
+all: postgresapp
 clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
+	rm -Rf "$(PREFIX)"
+
+#########################
+###### Postgres.app #####
+#########################
+
+postgresapp: $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt $(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip
+	@echo
+	@cat $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	@echo
+
+$(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt:
+	mkdir -p $(EXPORT_ARCHIVE_PATH)
+	/bin/echo "Postgres.app $(POSTGRESAPP_VERSION)" > $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "======================" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo -n "This is the legacy version of Postgres.app for computers running macOS 10.7 or later. " >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo -n "This release has the old user interface and contains a single version of PostgreSQL. " >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "We provide this binary so users who don't want to upgrade their Mac can still use up to date versions of PostgreSQL." >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "This release contains:" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "- PostgreSQL $(POSTGRES_VERSION)" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "- PostGIS $(POSTGIS_VERSION)" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+
+$(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip: $(EXPORT_ARCHIVE_PATH)/Postgres.app
+	ditto -c -k --sequesterRsrc --keepParent --zlibCompressionLevel 9 --noacl $(EXPORT_ARCHIVE_PATH)/Postgres.app $(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip
+
+$(EXPORT_ARCHIVE_PATH)/Postgres.app: $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
+	xcodebuild -exportArchive -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive -exportPath $(EXPORT_ARCHIVE_PATH) -exportOptionsPlist "$(CURDIR)"/exportOptions.plist
+	touch $@
+
+$(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8
+	xcodebuild archive -project "$(XCODE_PROJECT_FILE)" -scheme Postgres -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
+
 
 #########################
 ###### PostgreSQL #######
 #########################
 
 postgresql: $(PREFIX)/bin/psql
+	touch $@
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	make -C "postgresql-$(POSTGRES_VERSION)" world
@@ -123,6 +163,7 @@ clean-libuuid:
 #########################
 
 openssl: $(PREFIX)/lib/libssl.dylib
+	touch $@
 
 $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION}
@@ -146,6 +187,7 @@ clean-openssl:
 #########################
 
 libxml2: $(PREFIX)/lib/libxml2.dylib
+	touch $@
 
 $(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 	make -C libxml2-${LIBXML2_VERSION} install-exec
@@ -170,6 +212,7 @@ clean-libxml2:
 #########################
 
 libedit: $(PREFIX)/lib/libedit.dylib
+	touch $@
 
 $(PREFIX)/lib/libedit.dylib: libedit-$(LIBEDIT_VERSION)/Makefile
 	make -C "libedit-$(LIBEDIT_VERSION)" install
@@ -193,6 +236,7 @@ clean-libedit:
 #########################
 
 libjasper: $(PREFIX)/lib/libjasper.dylib
+	touch $@
 
 $(PREFIX)/lib/libjasper.dylib: jasper-${LIBJASPER_VERSION}.uuid/Makefile
 	make -C jasper-${LIBJASPER_VERSION}.uuid install
@@ -217,6 +261,7 @@ clean-libjasper:
 #########################
 
 libjpeg: $(PREFIX)/lib/libjpeg.dylib
+	touch $@
 
 $(PREFIX)/lib/libjpeg.dylib: jpeg-$(JPEG_VERSION)/Makefile
 	make -C jpeg-$(JPEG_VERSION) install
@@ -241,6 +286,7 @@ clean-libjpeg:
 # Depends on postgresql
 
 libgeos: $(PREFIX)/lib/libgeos.dylib
+	touch $@
 
 $(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/Makefile
 	make -C geos-${GEOS_VERSION} install
@@ -268,6 +314,7 @@ clean-libgeos:
 # Depends on libproj, libjasper, postgresql, libjpeg, libtiff
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
+	touch $@
 
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
@@ -294,6 +341,7 @@ clean-libgdal:
 # Depends on postgresql
 
 libproj: $(PREFIX)/lib/libproj.dylib
+	touch $@
 
 $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
 	make -C proj-$(PROJ_VERSION) install
@@ -345,6 +393,7 @@ clean-json-c:
 #########################
 
 libtiff: $(PREFIX)/lib/libtiff.dylib
+	touch $@
 
 $(PREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
 	make -C tiff-$(LIBTIFF_VERSION) install
@@ -370,7 +419,8 @@ clean-libtiff:
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
-postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so $(PREFIX)/lib/liblwgeom.dylib
+postgis: $(PREFIX)/lib/liblwgeom.dylib
+	touch $@
 
 $(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
 	make -C postgis-${POSTGIS_VERSION}/liblwgeom
@@ -401,6 +451,7 @@ clean-postgis:
 ##########################
 
 plv8: $(PREFIX)/lib/postgresql/plv8.so
+	touch $@
 
 $(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/lib/libv8.dylib
 	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install 
