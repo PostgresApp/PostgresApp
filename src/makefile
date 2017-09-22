@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.4.0alpha
+POSTGIS_VERSION=2.4.0rc1
 POSTGIS_MAJOR_VERSION=2.4
 
-POSTGRES_VERSION=10beta4
+POSTGRES_VERSION=10rc1
 POSTGRES_MAJOR_VERSION=10
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
@@ -14,7 +14,7 @@ GDAL_VERSION=2.1.3
 # 2.1.4 doesn't build on macOS 10.10 with Xcode 7.1.1
 
 # http://trac.osgeo.org/geos/
-GEOS_VERSION=3.5.1
+GEOS_VERSION=3.6.2
 
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
@@ -47,7 +47,7 @@ LIBTIFF_VERSION=4.0.8
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=58
-ICU_MINOR_VERSION=1
+ICU_MINOR_VERSION=2
 
 
 #path configuration
