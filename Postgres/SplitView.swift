@@ -45,7 +45,9 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	
 	
 	override func splitViewDidResizeSubviews(_ notification: Notification) {
-		super.splitViewDidResizeSubviews(notification)
+		if NSSplitViewController.instancesRespond(to: #selector(NSSplitViewController.splitViewDidResizeSubviews(_:))) {
+			super.splitViewDidResizeSubviews(notification)
+		}
 		guard let model = mainWindowModel else { return }
 		ignoreSidebarVisibleChange = true
 		model.sidebarVisible = !sidebarItem.isCollapsed
