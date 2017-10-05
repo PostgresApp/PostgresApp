@@ -19,7 +19,12 @@ do
 		cd "${SOURCE_VERSIONS_DIR}/${VERSION}/bin/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy postgresql binaries
-		cp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg* postgres postmaster psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg* postgres postmaster psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        if [ -e createlang ]
+        then
+            # removed in PostgreSQL 10
+            cp createlang droplang "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
 		# copy proj binaries
 		cp cs2cs geod invgeod invproj nad2bin proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy gdal binaries
