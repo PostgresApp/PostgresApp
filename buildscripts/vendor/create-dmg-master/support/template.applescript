@@ -1,4 +1,5 @@
 on run (volumeName)
+	delay 3
 	tell application "Finder"
 		tell disk (volumeName as string)
 			open
