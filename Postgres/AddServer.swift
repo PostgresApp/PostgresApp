@@ -92,6 +92,9 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 				versions.append(folderName)
 			}
 		}
+        versions.sort { (a, b) -> Bool in
+            return a.compare(b, options:[.numeric], range: a.startIndex ..< a.endIndex, locale: nil) == .orderedAscending
+        }
 		selectedVersionIdx = versions.count-1
 	}
 	
