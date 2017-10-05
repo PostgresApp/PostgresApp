@@ -6,6 +6,32 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.1</title>
+		<description>
+			<![CDATA[
+				<p>This update includes the all new PostgreSQL 10!</p>
+				<ul>
+					<li>PostgreSQL 10.0 (<a href="https://www.postgresql.org/docs/10/static/release-10.html">Release Notes</a>) with PostGIS 2.4.0</li>
+					<li>PostgreSQL 9.6.5 (<a href="https://www.postgresql.org/docs/current/static/release-9-6-5.html">Release Notes</a>) with PostGIS 2.3.3</li>
+					<li>PostgreSQL 9.5.9 (<a href="https://www.postgresql.org/docs/current/static/release-9-5-9.html">Release Notes</a>) with PostGIS 2.2.5</li>
+				</ul>
+				<p>
+					Since this update also contains PostgreSQL 9.5 and 9.6, you can continue using your servers.
+					Once you are ready to upgrade, just create a new server with version 10, and use pg_dump to <a href="https://postgresapp.com/documentation/migrating-data.html">migrate your data</a>.
+				</p>
+			]]>
+		</description>
+		<pubDate>Thu, 5 Oct 2017 15:30:00 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.1/Postgres-2.1.dmg"
+		sparkle:version="39"
+		sparkle:shortVersionString="2.1"
+		length="154283161"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFFQ237XwybLngXZXHflux+ce0xT6AhR5UgmGXFzAlT2AaUajWcaD3m+smw=="
+		/>
+	</item>
+	<item>
 		<title>Postgres.app 2.0.5</title>
 		<description>
 			<![CDATA[
