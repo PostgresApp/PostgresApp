@@ -10,7 +10,7 @@ import Cocoa
 
 class MainWindowController: NSWindowController, NSWindowDelegate {
 	
-	dynamic var mainWindowModel: MainWindowModel! {
+	@objc dynamic var mainWindowModel: MainWindowModel! {
 		didSet {
 			func propagate(_ mainWindowModel: MainWindowModel, toChildrenOf parent: NSViewController) {
 				if var consumer = parent as? MainWindowModelConsumer {
@@ -30,7 +30,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		
 		guard let window = self.window else { return }
 		window.titleVisibility = .hidden
-		window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
+		window.styleMask = [window.styleMask, .fullSizeContentView]
 		window.titlebarAppearsTransparent = true
 		window.isMovableByWindowBackground = true
 		

@@ -12,8 +12,8 @@ if Bundle.main.bundlePath.hasPrefix("/Applications/Postgres.app") {
 	// Launch the menu bar helper
 	if UserDefaults.shared.bool(forKey: "HideMenuHelperApp") == false {
 		let menuHelperAppURL = URL(fileURLWithPath: "/Applications/Postgres.app/Contents/MacOS/PostgresMenuHelper.app")
-		if !NSWorkspace.shared().open(menuHelperAppURL) {
-			print("Failed to launch MenuHelperApp")
+		if !NSWorkspace.shared.open(menuHelperAppURL) {
+			NSLog("Failed to launch MenuHelperApp")
 		}
 	}
 
@@ -23,8 +23,8 @@ if Bundle.main.bundlePath.hasPrefix("/Applications/Postgres.app") {
 	serverManager.loadServers()
 	for server in serverManager.servers {
 		if server.startOnLogin {
-			if case .Failure(let error) = server.startSync() {
-				Swift.print("Failed to start server \(server.name) because \(error.localizedDescription)")
+			if case .failure(let error) = server.startSync() {
+				NSLog("Failed to start server \(server.name): \(error.localizedDescription)")
 			}
 		}
 	}

@@ -10,14 +10,14 @@ import Cocoa
 
 class MenuItemViewController: NSViewController {
 	
-	dynamic var server: Server!
+	@objc dynamic var server: Server!
 	
-	dynamic private(set) var errorIconVisible = false
-	dynamic private(set) var errorTooltip = ""
+	@objc dynamic private(set) var errorIconVisible = false
+	@objc dynamic private(set) var errorTooltip = ""
 	
 	
 	convenience init?(_ server: Server) {
-		self.init(nibName: "MenuItemView", bundle: nil)
+		self.init(nibName: NSNib.Name("MenuItemView"), bundle: nil)
 		self.server = server
 	}
 	
@@ -32,7 +32,7 @@ class MenuItemViewController: NSViewController {
 	
 	
 	private func serverActionCompleted(actionStatus: Server.ActionStatus) {
-		if case let .Failure(error) = actionStatus {
+		if case let .failure(error) = actionStatus {
 			self.errorIconVisible = true
 			self.errorTooltip = error.localizedDescription
 		} else {

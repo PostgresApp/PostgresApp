@@ -12,7 +12,7 @@ import Cocoa
 class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewDelegate {
 	
 	let draggingEnabled = true
-	let draggedType = "com.chrispysoft.DnDArrayController.draggedType"
+	let draggedType = NSPasteboard.PasteboardType("com.chrispysoft.DnDArrayController.draggedType")
 	
 	@IBOutlet var tableView: NSTableView!
 	
@@ -23,7 +23,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 		// awakeFromNib() should only be called after tableView has been set.
 		// However, this is not true on macOS 10.10: awakeFromNib() is called multiple times, including before tableView is set.
 		// To avoid a crash, we can't implicitly force unwrap tableView
-		tableView?.register(forDraggedTypes: [draggedType])
+		tableView?.registerForDraggedTypes([draggedType])
 	}
 	
 	
@@ -36,7 +36,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 		return draggingEnabled
 	}
 	
-	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
 		guard dropOperation == .above else {
 			return []
 		}
@@ -47,7 +47,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 		return .move
 	}
 	
-	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
 		guard info.draggingSource() as? NSTableView == tableView, let rowData = info.draggingPasteboard().data(forType: draggedType), let indexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet else {
 			return false
 		}

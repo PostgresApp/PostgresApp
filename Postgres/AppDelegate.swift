@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 					}
 				} else {
 					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-					NSWorkspace.shared().open(url)
+					NSWorkspace.shared.open(url)
 				}
 			}
 			
@@ -63,11 +63,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		
 		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
 			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-			NSWorkspace.shared().open(url)
+			NSWorkspace.shared.open(url)
 			NSApp.activate(ignoringOtherApps: true)
 		}
 		
-		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
+		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .startable {
 			server.start { _ in }
 		}
 	}
@@ -81,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
-		NSWorkspace.shared().open(URL(string: "http://postgresapp.com/documentation/")!)
+		NSWorkspace.shared.open(URL(string: "http://postgresapp.com/documentation/")!)
 	}
 	
 	
@@ -98,7 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 		
 		let plistPath = laPath+"/"+laName+".plist"
-		let attributes: [String: Any] = [FileAttributeKey.posixPermissions.rawValue: NSNumber(value: 0o600)]
+		let attributes: [FileAttributeKey : Any] = [.posixPermissions: NSNumber(value: 0o600)]
 		do {
 			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
 			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {

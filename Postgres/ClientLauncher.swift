@@ -10,11 +10,8 @@ import Foundation
 
 class ClientLauncher: NSObject {
 	
-	private let scriptPath = "ClientLauncher"
-	
-	
 	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
-		guard let path = Bundle.main.path(forResource: scriptPath, ofType: "scpt") else { return }
+		guard let path = Bundle.main.path(forResource: "ClientLauncher", ofType: "scpt") else { return }
 		
 		// these constants are defined in Carbon (no need to include)
 		let kASAppleScriptSuite = FourCharCode("ascr")
@@ -27,20 +24,22 @@ class ClientLauncher: NSObject {
 		let paramDescr = NSAppleEventDescriptor.list()
 		
 		if let parameters = parameters {
-			var idx = 1
-			for p in parameters {
-				paramDescr.insert(NSAppleEventDescriptor(string: p), at: idx)
-				idx += 1
+			for (index, param) in parameters.enumerated() {
+				paramDescr.insert(NSAppleEventDescriptor(string: param), at: index+1)
 			}
 		}
 		
-		let eventDescr = NSAppleEventDescriptor.appleEvent(withEventClass: kASAppleScriptSuite, eventID: kASSubroutineEvent, targetDescriptor: NSAppleEventDescriptor.null(), returnID: AEReturnID(kAutoGenerateReturnID), transactionID: AETransactionID(kAnyTransactionID))
+		let eventDescr = NSAppleEventDescriptor.appleEvent(withEventClass: kASAppleScriptSuite, eventID: kASSubroutineEvent, targetDescriptor: .null(), returnID: AEReturnID(kAutoGenerateReturnID), transactionID: AETransactionID(kAnyTransactionID))
 		eventDescr.setDescriptor(NSAppleEventDescriptor(string: subroutine), forKeyword: keyASSubroutineName)
 		eventDescr.setDescriptor(paramDescr, forKeyword: keyDirectObject)
 		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
-		if let errorDict = errorDict {
-			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
+		if let errorDict = errorDict as? [String : Any] {
+			let userInfo = [
+				NSLocalizedDescriptionKey: "Error launching Application",
+				NSLocalizedRecoverySuggestionErrorKey: errorDict[NSAppleScript.errorMessage] ?? "Unknown NSAppleScriptError"
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: userInfo)
 		}
 	}
 }

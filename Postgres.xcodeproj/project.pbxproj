@@ -335,18 +335,19 @@
 					83C19C291D7D977000F4862D = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 4LRBA67NV4;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					83C19C4D1D7D9A7D00F4862D = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 4LRBA67NV4;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					83FB57171D1B05F000A903A3 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 4LRBA67NV4;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -530,7 +531,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresLoginHelper/PostgresLoginHelper-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -548,7 +550,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresLoginHelper/PostgresLoginHelper-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -568,7 +571,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresMenuHelper/PostgresMenuHelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -587,7 +591,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresMenuHelper/PostgresMenuHelper-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -632,8 +637,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
-				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				LATEST_STABLE_PG_VERSION = 10;
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -679,8 +684,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/include;
-				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				LATEST_STABLE_PG_VERSION = 10;
+				LIBRARY_SEARCH_PATHS = /Applications/Postgres.app/Contents/Versions/latest/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-lpq";
@@ -707,7 +712,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -728,7 +734,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Postgres/Postgres-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

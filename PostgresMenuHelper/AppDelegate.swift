@@ -13,8 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	let serverManager = ServerManager.shared
 	
-	let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
-	let statusIcon = NSImage(named: "statusicon")!
+	let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+	let statusIcon = NSImage(named: NSImage.Name("statusicon"))!
 	
 	var menuItemViewControllers: [MenuItemViewController] = []
 	
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		
 		var maxStringWidth = CGFloat(0)
 		for server in serverManager.servers {
-			let stringWidth = (server.name as NSString).size(withAttributes: [NSFontAttributeName: NSFont.systemFont(ofSize: 12)]).width
+			let stringWidth = (server.name as NSString).size(withAttributes: [NSAttributedStringKey.font: NSFont.systemFont(ofSize: 12)]).width
 			maxStringWidth = max(stringWidth, maxStringWidth)
 		}
 		

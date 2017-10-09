@@ -12,7 +12,7 @@ class ServerManager: NSObject {
 	
 	static let shared = ServerManager()
 	
-	dynamic var servers: [Server] = []
+	@objc dynamic var servers: [Server] = []
 	
 	
 	func refreshServerStatuses() {
@@ -73,7 +73,7 @@ class ServerManager: NSObject {
 				
 				do {
 					let versionFileContent = try String(contentsOfFile: pgVersionPath)
-					let version = versionFileContent.substring(to: versionFileContent.index(before: versionFileContent.endIndex))
+					let version = String(versionFileContent[..<versionFileContent.index(before: versionFileContent.endIndex)])
 					servers.append(Server(name: "PostgreSQL \(version)", version: version, varPath: itemURL.path))
 					saveServers()
 				} catch {

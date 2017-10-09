@@ -9,7 +9,7 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-	dynamic var clientAppNames = [
+	@objc dynamic var clientAppNames = [
 		"Terminal",
 		"iTerm",
 		"Postico"

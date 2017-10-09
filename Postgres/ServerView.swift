@@ -11,19 +11,19 @@ import Cocoa
 class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBOutlet var databaseCollectionView: NSCollectionView!
 	
-	dynamic var mainWindowModel: MainWindowModel!
+	@objc dynamic var mainWindowModel: MainWindowModel!
 	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		databaseCollectionView.itemPrototype = self.storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
+		databaseCollectionView.itemPrototype = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("DatabaseCollectionViewItem")) as? NSCollectionViewItem
 	}
 	
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		server.start { (actionStatus) in
-			if case let .Failure(error) = actionStatus {
+			if case let .failure(error) = actionStatus {
 				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 			}
 		}
@@ -33,7 +33,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBAction func stopServer(_ sender: AnyObject?) {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		server.stop { (actionStatus) in
-			if case let .Failure(error) = actionStatus {
+			if case let .failure(error) = actionStatus {
 				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 			}
 		}
@@ -70,7 +70,8 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		let launcher = ClientLauncher()
 		do {
 			try launcher.runSubroutine(routine, parameters: [param])
-		} catch let error {
+		}
+		catch let error {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
@@ -93,7 +94,7 @@ class ServerViewBackgroundView: NSView {
 	
 	override func draw(_ dirtyRect: NSRect) {
 		NSColor.white.setFill()
-		NSRectFill(dirtyRect)
+		dirtyRect.fill()
 		
 		let imgSize = CGFloat(96)
 		let x = CGFloat(self.bounds.maxX-imgSize-20), y = CGFloat(20)

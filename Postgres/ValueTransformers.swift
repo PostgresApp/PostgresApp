@@ -12,12 +12,12 @@ class ServerStatusImageTransformer: ValueTransformer {
 	override func transformedValue(_ value: Any?) -> Any? {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
-		case .Unknown:
-			return NSImage(imageLiteralResourceName: NSImageNameStatusNone)
-		case .Running:
-			return NSImage(named: "icon-running")
+		case .unknown:
+			return NSImage(named: .statusNone)
+		case .running:
+			return NSImage(named: NSImage.Name("icon-running"))
 		default:
-			return NSImage(named:"icon-stopped")
+			return NSImage(named:NSImage.Name("icon-stopped"))
 		}
 	}
 }
@@ -26,12 +26,12 @@ class ServerStatusTemplateImageTransformer: ValueTransformer {
 	override func transformedValue(_ value: Any?) -> Any? {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
-		case .Unknown:
-			return NSImage(imageLiteralResourceName: NSImageNameStatusNone)
-		case .Running:
-			return NSImage(named: "icon-running-template")
+		case .unknown:
+			return NSImage(named: .statusNone)
+		case .running:
+			return NSImage(named: NSImage.Name("icon-running-template"))
 		default:
-			return NSImage(named:"icon-stopped-template")
+			return NSImage(named:NSImage.Name("icon-stopped-template"))
 		}
 	}
 }
@@ -40,7 +40,7 @@ class ServerStatusButtonTitleTransformer: ValueTransformer {
 	override func transformedValue(_ value: Any?) -> Any? {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
-		case .DataDirEmpty:
+		case .dataDirEmpty:
 			return "Initialize"
 		default:
 			return "Start"
@@ -52,9 +52,9 @@ class ServerStatusMenuItemButtonTitleTransformer: ValueTransformer {
 	override func transformedValue(_ value: Any?) -> Any? {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
-		case .DataDirEmpty:
+		case .dataDirEmpty:
 			return "Initialize"
-		case .Running:
+		case .running:
 			return "Stop"
 		default:
 			return "Start"
@@ -66,23 +66,23 @@ class ServerStatusStatusMessageTransformer: ValueTransformer {
 	override func transformedValue(_ value: Any?) -> Any? {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
-		case .NoBinaries:
+		case .noBinaries:
 			return "Binaries not found"
-		case .DataDirEmpty:
+		case .dataDirEmpty:
 			return "Empty data directory"
-		case .DataDirInUse:
+		case .dataDirInUse:
 			return "Data directory in use"
-		case .StalePidFile:
+		case .stalePidFile:
 			return "Stale postmaster.pid file"
-		case .PidFileUnreadable:
+		case .pidFileUnreadable:
 			return "Unreadable postmaster.pid file"
-		case .PortInUse:
+		case .portInUse:
 			return "Port in use"
-		case .Startable:
+		case .startable:
 			return "Not running"
-		case .Running:
+		case .running:
 			return "Running"
-		case .Unknown:
+		case .unknown:
 			return "Unknown server status"
 		}
 	}
