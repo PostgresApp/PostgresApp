@@ -13,7 +13,7 @@
                     <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="gu1-ua-1f6">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="294" y="313" width="480" height="270"/>
+                        <rect key="contentRect" x="294" y="313" width="300" height="95"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
                         <connections>
                             <outlet property="delegate" destination="0CQ-HC-63t" id="beO-Sw-DFx"/>
@@ -25,7 +25,7 @@
                 </windowController>
                 <customObject id="irj-fp-CtB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="-115"/>
+            <point key="canvasLocation" x="719" y="51"/>
         </scene>
         <!--Preferences View Controller-->
         <scene sceneID="qij-K2-cCG">
@@ -90,7 +90,7 @@
                 <userDefaultsController id="KVx-oV-dzR"/>
                 <userDefaultsController id="IHn-fa-Gdb"/>
             </objects>
-            <point key="canvasLocation" x="938" y="178.5"/>
+            <point key="canvasLocation" x="719" y="441"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -295,7 +295,7 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="112" y="-215"/>
+            <point key="canvasLocation" x="719" y="-158"/>
         </scene>
         <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -403,7 +403,7 @@ IA
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-Bn-2go">
-                                <rect key="frame" x="18" y="299" width="94" height="29"/>
+                                <rect key="frame" x="18" y="299" width="92" height="29"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" focusRingType="none" title="&lt;name&gt;" id="6ai-mn-WOf">
                                     <font key="font" size="24" name=".AppleSystemUIFont"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -417,15 +417,15 @@ IA
                                     </binding>
                                 </connections>
                             </textField>
-                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
                                 <rect key="frame" x="0.0" y="33" width="450" height="150"/>
-                                <clipView key="contentView" id="Dni-fY-jEd">
+                                <clipView key="contentView" drawsBackground="NO" id="Dni-fY-jEd">
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsEmptySelection="NO" id="nrL-ym-6WO">
                                             <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <binding destination="lfI-VP-uU4" name="content" keyPath="arrangedObjects" id="Waa-2h-Oey"/>
@@ -438,7 +438,7 @@ IA
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="gAu-PZ-hHU"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Njw-bN-4ms">
-                                    <rect key="frame" x="0.0" y="134" width="450" height="16"/>
+                                    <rect key="frame" x="-100" y="-100" width="450" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="FfH-lq-wj5">
@@ -504,6 +504,7 @@ IA
                                     <constraint firstItem="2cD-LY-QKG" firstAttribute="centerY" secondItem="gZH-Ls-EES" secondAttribute="centerY" id="dWK-7g-emh"/>
                                     <constraint firstAttribute="trailing" secondItem="p5e-OX-5Sl" secondAttribute="trailing" constant="20" symbolic="YES" id="hZv-pL-3dZ"/>
                                     <constraint firstItem="p5e-OX-5Sl" firstAttribute="centerY" secondItem="gZH-Ls-EES" secondAttribute="centerY" id="p8w-IG-HUX"/>
+                                    <constraint firstItem="p5e-OX-5Sl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gZH-Ls-EES" secondAttribute="leading" constant="20" symbolic="YES" id="ry1-f9-8hE"/>
                                 </constraints>
                             </visualEffectView>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-G7-PlW">
@@ -567,6 +568,7 @@ IA
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="Scd-hP-8Y9" secondAttribute="bottom" constant="8" id="3EL-EL-pxp"/>
                             <constraint firstItem="chP-0M-fyI" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="3qL-Tc-ouM"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nOw-Qm-BYd" secondAttribute="trailing" constant="20" symbolic="YES" id="5vZ-IB-n2z"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="6Kb-Hx-SS9"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="Dj0-gb-Coy"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="GLd-1a-TYI"/>
@@ -583,6 +585,7 @@ IA
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
                             <constraint firstAttribute="bottom" secondItem="gZH-Ls-EES" secondAttribute="bottom" id="dJO-gT-qX0"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UaU-Bn-2go" secondAttribute="trailing" constant="20" symbolic="YES" id="eg2-JT-7id"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="8iz-Ak-ysG" secondAttribute="bottom" constant="8" id="gRW-ef-sZK"/>
                             <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="94" id="iUQ-Be-SZE"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="centerY" secondItem="chP-0M-fyI" secondAttribute="centerY" constant="-1" id="jfY-Gr-SzP"/>
@@ -822,6 +825,7 @@ IA
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ik7-Xf-IkN" secondAttribute="trailing" constant="20" symbolic="YES" id="1xI-Pe-Khu"/>
                             <constraint firstItem="tiE-Ve-RJP" firstAttribute="top" secondItem="iEW-dd-C3j" secondAttribute="top" id="3Vg-u9-qBX"/>
                             <constraint firstAttribute="trailing" secondItem="vyw-y6-Nrh" secondAttribute="trailing" constant="20" symbolic="YES" id="3wr-7Z-M9T"/>
                             <constraint firstItem="85i-r8-gPa" firstAttribute="top" secondItem="rry-tF-Mdr" secondAttribute="top" id="4bu-yD-DZ1"/>
@@ -911,7 +915,7 @@ IA
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="147" minWidth="40" maxWidth="1000" id="ENA-Ge-iUh">
+                                                <tableColumn identifier="" width="147" minWidth="40" maxWidth="1000" id="ENA-Ge-iUh">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -940,7 +944,7 @@ IA
                                                                     </connections>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bc6-Nx-1b5">
-                                                                    <rect key="frame" x="30" y="17" width="54" height="17"/>
+                                                                    <rect key="frame" x="30" y="17" width="111" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="&lt;name&gt;" id="ds7-bT-HSy">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -956,6 +960,7 @@ IA
                                                                 <constraint firstItem="WEY-hy-uaL" firstAttribute="centerY" secondItem="nru-Bg-Wku" secondAttribute="centerY" id="Fzp-lE-f5q"/>
                                                                 <constraint firstItem="bc6-Nx-1b5" firstAttribute="centerY" secondItem="nru-Bg-Wku" secondAttribute="centerY" id="G17-xW-fQZ"/>
                                                                 <constraint firstItem="bc6-Nx-1b5" firstAttribute="leading" secondItem="WEY-hy-uaL" secondAttribute="trailing" constant="8" id="MqF-OG-aov"/>
+                                                                <constraint firstAttribute="trailing" secondItem="bc6-Nx-1b5" secondAttribute="trailing" constant="8" id="Zdx-CF-7uq"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="bc6-Nx-1b5" id="cLI-ok-ukP"/>
