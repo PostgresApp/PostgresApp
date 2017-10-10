@@ -24,7 +24,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	override func viewDidLoad() {
 		loadVersions()
-		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(version)")
+		varPath = FileManager.default.applicationSupportDirectoryPath().appending("/var-\(version)")
 		
 		super.viewDidLoad()
 	}
@@ -42,7 +42,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		openPanel.canChooseFiles = false
 		openPanel.canChooseDirectories = true
 		openPanel.canCreateDirectories = true
-		openPanel.directoryURL = URL(fileURLWithPath: FileManager().applicationSupportDirectoryPath())
+		openPanel.directoryURL = URL(fileURLWithPath: FileManager.default.applicationSupportDirectoryPath())
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
 			if returnCode == .OK {
 				self.varPath = openPanel.url!.path
@@ -81,7 +81,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	private func loadVersions() {
-		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
+		guard let versionsPathEnum = FileManager.default.enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
 		while let itemURL = versionsPathEnum.nextObject() as? URL {
 			do {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])

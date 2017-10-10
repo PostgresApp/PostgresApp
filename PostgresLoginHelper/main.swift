@@ -23,7 +23,10 @@ if Bundle.main.bundlePath.hasPrefix("/Applications/Postgres.app") {
 	serverManager.loadServers()
 	for server in serverManager.servers {
 		if server.startOnLogin {
-			if case .failure(let error) = server.startSync() {
+			do {
+				try server.startSync()
+			}
+			catch let error as NSError {
 				NSLog("Failed to start server \(server.name): \(error.localizedDescription)")
 			}
 		}

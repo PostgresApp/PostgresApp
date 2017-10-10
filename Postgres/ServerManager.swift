@@ -57,7 +57,7 @@ class ServerManager: NSObject {
 	
 	func checkForExistingDataDirectories() {
 		let dataDirsPath = FileManager.default.applicationSupportDirectoryPath()
-		guard let dataDirsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: dataDirsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
+		guard let dataDirsPathEnum = FileManager.default.enumerator(at: URL(fileURLWithPath: dataDirsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
 		while let itemURL = dataDirsPathEnum.nextObject() as? URL {
 			do {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
