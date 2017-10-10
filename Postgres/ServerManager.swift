@@ -62,7 +62,8 @@ class ServerManager: NSObject {
 			do {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
 				guard resourceValues.isDirectory == true else { continue }
-			} catch { continue }
+			}
+			catch { continue }
 			
 			var dataDirHasServer = false
 			for server in servers where server.varPath == itemURL.path { dataDirHasServer = true }
@@ -76,7 +77,8 @@ class ServerManager: NSObject {
 					let version = String(versionFileContent[..<versionFileContent.index(before: versionFileContent.endIndex)])
 					servers.append(Server(name: "PostgreSQL \(version)", version: version, varPath: itemURL.path))
 					saveServers()
-				} catch {
+				}
+				catch {
 					NSLog("Import of data directory failed: No valid PG_VERSION file in \(dataDirName)")
 				}
 			}

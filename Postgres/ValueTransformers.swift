@@ -17,7 +17,7 @@ class ServerStatusImageTransformer: ValueTransformer {
 		case .running:
 			return NSImage(named: NSImage.Name("icon-running"))
 		default:
-			return NSImage(named:NSImage.Name("icon-stopped"))
+			return NSImage(named: NSImage.Name("icon-stopped"))
 		}
 	}
 }
@@ -31,7 +31,7 @@ class ServerStatusTemplateImageTransformer: ValueTransformer {
 		case .running:
 			return NSImage(named: NSImage.Name("icon-running-template"))
 		default:
-			return NSImage(named:NSImage.Name("icon-stopped-template"))
+			return NSImage(named: NSImage.Name("icon-stopped-template"))
 		}
 	}
 }

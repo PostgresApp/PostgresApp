@@ -58,7 +58,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 		for index in indexes where index < row {
 			targetRow -= 1
 		}
-		let selectedIndexes = IndexSet( targetRow ..< targetRow + indexes.count )
+		let selectedIndexes = IndexSet(targetRow ..< targetRow + indexes.count)
 		self.setSelectionIndexes(selectedIndexes)
 		
 		ServerManager.shared.saveServers()

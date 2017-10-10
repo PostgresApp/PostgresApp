@@ -91,7 +91,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		if !FileManager.default.fileExists(atPath: laPath) {
 			do {
 				try FileManager.default.createDirectory(atPath: laPath, withIntermediateDirectories: true, attributes: nil)
-			} catch let error as NSError {
+			}
+			catch let error as NSError {
 				NSLog("Could not create directory at \(laPath): \(error)")
 				return
 			}
@@ -104,7 +105,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
 				NSLog("Could not create plist file at \(plistPath)")
 			}
-		} catch let error as NSError {
+		}
+		catch let error as NSError {
 			NSLog("Error getting data of original plist file: \(error)")
 		}
 	}
@@ -116,7 +118,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		if FileManager.default.fileExists(atPath: laPath) {
 			do {
 				try FileManager.default.removeItem(atPath: plistPath)
-			} catch let error as NSError {
+			}
+			catch let error as NSError {
 				NSLog("Could not delete launch agent \(laPath): \(error)")
 			}
 		}

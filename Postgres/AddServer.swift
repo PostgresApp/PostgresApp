@@ -86,7 +86,8 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 			do {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
 				guard resourceValues.isDirectory == true else { continue }
-			} catch { continue }
+			}
+			catch { continue }
 			let folderName = itemURL.lastPathComponent
 			if isPostgresVersion(folderName) {
 				versions.append(folderName)

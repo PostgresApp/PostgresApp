@@ -13,16 +13,13 @@ class ClientLauncher: NSObject {
 	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
 		guard let path = Bundle.main.path(forResource: "ClientLauncher", ofType: "scpt") else { return }
 		
-		// these constants are defined in Carbon (no need to include)
 		let kASAppleScriptSuite = FourCharCode("ascr")
-		let kASSubroutineEvent = FourCharCode("psbr")
+		let kASSubroutineEvent  = FourCharCode("psbr")
 		let keyASSubroutineName = FourCharCode("snam")
 		
 		var errorDict: NSDictionary?
-		
 		let script = NSAppleScript(contentsOf: URL(fileURLWithPath: path), error: &errorDict)
 		let paramDescr = NSAppleEventDescriptor.list()
-		
 		if let parameters = parameters {
 			for (index, param) in parameters.enumerated() {
 				paramDescr.insert(NSAppleEventDescriptor(string: param), at: index+1)

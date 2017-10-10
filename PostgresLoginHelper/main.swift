@@ -16,7 +16,7 @@ if Bundle.main.bundlePath.hasPrefix("/Applications/Postgres.app") {
 			NSLog("Failed to launch MenuHelperApp")
 		}
 	}
-
+	
 	// Start PostgreSQL servers
 	// This may take a few seconds, so we do this after launching the menu bar helper
 	let serverManager = ServerManager.shared
