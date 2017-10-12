@@ -87,3 +87,17 @@ class ServerManager: NSObject {
 	
 }
 
+
+
+//extension Array where Element == Server {
+//	func contains<Element: Server>(_ element: Element) -> Bool {
+//		return self.filter({$0.binPath==element.binPath}).count > 0
+//	}
+//	func contains<Element: Server>(_ elements: [Element]) -> Bool {
+//		for elem in elements {
+//			if self.contains(elem) { return true }
+//		}
+//		return false
+//	}
+//}
+

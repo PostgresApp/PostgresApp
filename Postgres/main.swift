@@ -41,12 +41,21 @@ func isFirstLaunch() -> Bool {
 }
 
 
-ServerManager.shared.loadServers()
+let serverManager = ServerManager.shared
+
+serverManager.loadServers()
 if isFirstLaunch() {
-	ServerManager.shared.checkForExistingDataDirectories()
+	serverManager.checkForExistingDataDirectories()
 }
-ServerManager.shared.createDefaultServer()
-ServerManager.shared.refreshServerStatuses()
+serverManager.createDefaultServer()
+
+let sniffer = ForeignPostgresSniffer()
+sniffer.scanForInstallations(ignoreDeleted: true)
+if let foundServers = sniffer.foundServers {
+	serverManager.servers.append(contentsOf: foundServers)
+}
+
+serverManager.refreshServerStatuses()
 
 
 _ = NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv)

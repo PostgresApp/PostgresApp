@@ -28,6 +28,7 @@
 		8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835954291E4A30FD00D1F0DF /* ScriptCommands.swift */; };
 		836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServer.swift */; };
+		837C040E1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C040D1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift */; };
 		838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B8D361D649CB30050EF03 /* MainWindowModel.swift */; };
 		83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */; };
 		83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */; };
@@ -114,6 +115,7 @@
 		835954291E4A30FD00D1F0DF /* ScriptCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptCommands.swift; sourceTree = "<group>"; };
 		836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabasesView.swift; sourceTree = "<group>"; };
 		8372BD391D1D9817004EE2C3 /* AddServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddServer.swift; sourceTree = "<group>"; };
+		837C040D1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeignPostgresSniffer.swift; sourceTree = "<group>"; };
 		838B8D361D649CB30050EF03 /* MainWindowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowModel.swift; sourceTree = "<group>"; };
 		83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientLauncher.swift; sourceTree = "<group>"; };
 		83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = ClientLauncher.applescript; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				83F3647D1D5204D30096F1F5 /* SettingsView.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
+				837C040D1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift */,
 				360E961B1DC20D5E005D8C69 /* UserDefaults.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
 				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
@@ -484,6 +487,7 @@
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
+				837C040E1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift in Sources */,
 				8348A1F11DB52E9A0039A024 /* ValueTransformers.swift in Sources */,
 				83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */,
 				838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */,

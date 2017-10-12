@@ -20,6 +20,17 @@ class MainWindowModel: NSObject {
 	
 	func removeSelectedServer() {
 		guard let selIdx = selectedServerIndices.first else { return }
+		let server = serverManager.servers[selIdx]
+		
+		if server.isForeign {
+			var removedServers = [String]()
+			if let defaults = UserDefaults.standard.array(forKey: "RemovedForeignServers") as? [String] {
+				removedServers = defaults
+			}
+			removedServers.append(server.binPath)
+			UserDefaults.standard.set(removedServers, forKey: "RemovedForeignServers")
+		}
+		
 		serverManager.servers.remove(at: selIdx)
 		
 		if selIdx > 0 {
