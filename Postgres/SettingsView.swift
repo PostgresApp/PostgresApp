@@ -12,6 +12,17 @@ class SettingsViewController: NSViewController {
 	
 	@objc dynamic var server: Server?
 	
+	@IBAction func showBinariesDirectory(_ sender: AnyObject?) {
+		guard let path = self.server?.binPath else { return }
+		if !NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "") {
+			let userInfo = [
+				NSLocalizedDescriptionKey: "Folder not found.",
+				NSLocalizedRecoverySuggestionErrorKey: "It will be created the first time you start the server."
+			]
+			let error = NSError(domain: "com.postgresapp.Postgres2.missing-folder", code: 0, userInfo: userInfo)
+			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+		}
+	}
 	
 	@IBAction func showDataDirectory(_ sender: AnyObject?) {
 		guard let path = self.server?.varPath else { return }

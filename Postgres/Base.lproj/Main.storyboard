@@ -849,7 +849,7 @@ IA
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="showDataDirectory:" target="buw-cX-kU8" id="RPG-WY-FrS"/>
+                                    <action selector="showBinariesDirectory:" target="buw-cX-kU8" id="dm6-Jo-UvS"/>
                                 </connections>
                             </button>
                         </subviews>
