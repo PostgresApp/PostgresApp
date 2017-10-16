@@ -85,19 +85,30 @@ class ServerManager: NSObject {
 		}
 	}
 	
+	
+	func addForeignServers(ignoreDeleted: Bool) -> [Server] {
+		var removedServerBinPaths = [String]()
+		if let defaults = UserDefaults.standard.array(forKey: "RemovedForeignServerBinPaths") as? [String] {
+			removedServerBinPaths = defaults
+		}
+		let sniffer = ForeignPostgresSniffer()
+		let foundServers = sniffer.scanForInstallations()
+		if foundServers.count > 0 {
+			var addedServers = [Server]()
+			for server in foundServers where !servers.contains(where: {$0.binPath==server.binPath}) {
+				if ignoreDeleted && removedServerBinPaths.contains(server.binPath) {
+					continue
+				}
+				addedServers.append(server)
+				servers.append(server)
+			}
+			if !addedServers.isEmpty {
+				saveServers()
+				refreshServerStatuses()
+			}
+			return addedServers
+		}
+		return []
+	}
+	
 }
-
-
-
-//extension Array where Element == Server {
-//	func contains<Element: Server>(_ element: Element) -> Bool {
-//		return self.filter({$0.binPath==element.binPath}).count > 0
-//	}
-//	func contains<Element: Server>(_ elements: [Element]) -> Bool {
-//		for elem in elements {
-//			if self.contains(elem) { return true }
-//		}
-//		return false
-//	}
-//}
-

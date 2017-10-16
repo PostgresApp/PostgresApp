@@ -24,11 +24,11 @@ class MainWindowModel: NSObject {
 		
 		if server.isForeign {
 			var removedServers = [String]()
-			if let defaults = UserDefaults.standard.array(forKey: "RemovedForeignServers") as? [String] {
+			if let defaults = UserDefaults.standard.array(forKey: "RemovedForeignServerBinPaths") as? [String] {
 				removedServers = defaults
 			}
 			removedServers.append(server.binPath)
-			UserDefaults.standard.set(removedServers, forKey: "RemovedForeignServers")
+			UserDefaults.standard.set(removedServers, forKey: "RemovedForeignServerBinPaths")
 		}
 		
 		serverManager.servers.remove(at: selIdx)

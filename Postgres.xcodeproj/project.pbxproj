@@ -29,6 +29,8 @@
 		836CC37E1D2C62F4000D0C13 /* DatabasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */; };
 		8372BD3A1D1D9817004EE2C3 /* AddServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372BD391D1D9817004EE2C3 /* AddServer.swift */; };
 		837C040E1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C040D1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift */; };
+		838986901F94E8D2008A4D5A /* ForeignPostgresSniffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C040D1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift */; };
+		838986911F94E8D2008A4D5A /* ForeignPostgresSniffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C040D1F8D4AA300282AE3 /* ForeignPostgresSniffer.swift */; };
 		838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B8D361D649CB30050EF03 /* MainWindowModel.swift */; };
 		83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */; };
 		83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 83969DC21D36A3EA005B9F1C /* ClientLauncher.applescript */; };
@@ -446,6 +448,7 @@
 			files = (
 				83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */,
 				83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */,
+				838986901F94E8D2008A4D5A /* ForeignPostgresSniffer.swift in Sources */,
 				360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */,
 				83999C6B1D7DA8E300B8A1D6 /* ServerManager.swift in Sources */,
 				83C19C2D1D7D977000F4862D /* main.swift in Sources */,
@@ -458,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83C19C6A1D7D9D2300F4862D /* Extensions.swift in Sources */,
+				838986911F94E8D2008A4D5A /* ForeignPostgresSniffer.swift in Sources */,
 				834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */,
 				83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */,
 				83C19C5C1D7D9AAE00F4862D /* MenuItemView.swift in Sources */,

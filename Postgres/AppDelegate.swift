@@ -81,30 +81,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	@IBAction func scanForForeignInstalls(_ sender: AnyObject?) {
-		let sniffer = ForeignPostgresSniffer()
-		sniffer.scanForInstallations(ignoreDeleted: false)
-		if let foundServers = sniffer.foundServers, foundServers.count > 0 {
-			var appendedServers = [Server]()
-			for server in foundServers where !serverManager.servers.contains(where: {$0.binPath==server.binPath}) {
-				appendedServers.append(server)
-				serverManager.servers.append(server)
-			}
-			
-			let alert = NSAlert()
-			if !appendedServers.isEmpty {
-				serverManager.refreshServerStatuses()
-				var infoText = "", msgText = ""
-				msgText = "Detected \(appendedServers.count) foreign Postgres installation"; if appendedServers.count > 1 { msgText += "s" }
-				infoText = appendedServers.map({$0.name}).joined(separator: "\n")
-				infoText += "\n\nPostgres.app added references to the server list. If you delete the server, the original directory won't be affected!"
-				alert.messageText = msgText
-				alert.informativeText = infoText
-			} else {
-				alert.messageText = "No foreign Postgres servers found"
-			}
-			
-			alert.runModal()
+		let alert = NSAlert()
+		let addedServers = serverManager.addForeignServers(ignoreDeleted: false)
+		if addedServers.count > 0 {
+			var infoText = "", msgText = ""
+			msgText = "Detected \(addedServers.count) foreign Postgres installation"; if addedServers.count > 1 { msgText += "s" }
+			infoText = addedServers.map({$0.name}).joined(separator: "\n")
+			infoText += "\n\nPostgres.app added references to the server list. If you delete the server, the original directory won't be affected!"
+			alert.messageText = msgText
+			alert.informativeText = infoText
+		} else {
+			alert.messageText = "No foreign Postgres servers found"
 		}
+		alert.runModal()
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {

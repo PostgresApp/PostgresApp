@@ -114,6 +114,12 @@
                                                 <segue destination="0CQ-HC-63t" kind="show" identifier="openPreferences" id="PFZ-iz-T8N"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Scan for Foreign Servers" keyEquivalent="s" id="9ev-Cn-guv">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="scanForForeignInstalls:" target="Voe-Tx-rLC" id="Z1O-ux-TyK"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Check for Updates…" id="jgT-3h-PCr">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

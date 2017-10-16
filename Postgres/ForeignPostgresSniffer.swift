@@ -15,24 +15,13 @@ class ForeignPostgresSniffer {
 		ForeignPostgresInstall(name: "Mac Ports", binPath: "/opt/local/lib/postgresql96/bin",        varPath: "/opt/local/var/db/postgresql96"),
 	]
 	
-	var foundServers: [Server]?
 	
-	
-	func scanForInstallations(ignoreDeleted: Bool) {
+	func scanForInstallations() -> [Server] {
 		var foundServers = [Server]()
-		
-		var removedServers = [String]()
-		if let defaults = UserDefaults.standard.array(forKey: "RemovedForeignServers") as? [String] {
-			removedServers = defaults
-		}
 		
 		for install in foreignPostgresInstalls {
 			let binPath = install.binPath
 			let varPath = install.varPath
-			
-			if ignoreDeleted && removedServers.contains(binPath) {
-				continue
-			}
 			
 			if FileManager.default.fileExists(atPath: binPath) && FileManager.default.fileExists(atPath: varPath) {
 				let port = readPortFromConfig(filePath: varPath.appending("/postgresql.conf")) ?? 5432
@@ -42,15 +31,28 @@ class ForeignPostgresSniffer {
 			}
 		}
 		
-		self.foundServers = foundServers
+		return foundServers
 	}
 	
 	
 	func readPortFromConfig(filePath: String) -> UInt? {
+		guard
+			FileManager.default.fileExists(atPath: filePath),
+			let testString = try? String(contentsOf: URL(fileURLWithPath: filePath), encoding: .utf8),
+			let regex = try? NSRegularExpression(pattern: "\\s*port\\s*=\\s*(\\d+)", options: [])
+			else { return nil }
+		if
+			let match = regex.firstMatch(in: testString, options: [], range: NSMakeRange(0, testString.count)),
+			let range = Range(match.range(at: 1), in: testString)
+		{
+			let res = testString[range]
+			return UInt(res)
+		}
 		return nil
-	}
+    }
 	
 }
+
 
 
 

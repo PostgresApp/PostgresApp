@@ -49,11 +49,7 @@ if isFirstLaunch() {
 }
 serverManager.createDefaultServer()
 
-let sniffer = ForeignPostgresSniffer()
-sniffer.scanForInstallations(ignoreDeleted: true)
-if let foundServers = sniffer.foundServers {
-	serverManager.servers.append(contentsOf: foundServers)
-}
+let _ = serverManager.addForeignServers(ignoreDeleted: true)
 
 serverManager.refreshServerStatuses()
 
