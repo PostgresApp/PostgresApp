@@ -80,7 +80,7 @@ postgresapp: $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt $(EXPORT_ARCHIVE_PATH)/Post
 
 $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt:
 	mkdir -p $(EXPORT_ARCHIVE_PATH)
-	/bin/echo "Postgres.app $(POSTGRESAPP_VERSION)" > $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
+	/bin/echo "Postgres.app Legacy $(POSTGRESAPP_VERSION)" > $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
 	/bin/echo "======================" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
 	/bin/echo "" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
 	/bin/echo -n "This is the legacy version of Postgres.app for computers running macOS 10.7 or later. " >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
