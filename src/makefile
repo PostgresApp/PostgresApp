@@ -22,7 +22,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 
 # http://xmlsoft.org/news.html
-LIBXML2_VERSION=2.9.4
+LIBXML2_VERSION=2.9.7
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.0.2l
