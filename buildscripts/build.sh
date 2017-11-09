@@ -5,11 +5,11 @@ set -e
 PROJECT_ROOT=$(dirname $(pwd))
 
 # get version, buildnumber and increment buildnumber
-VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$PROJECT_ROOT"/Postgres/Info.plist)
-BUILD_NO_NEW=$(($(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PROJECT_ROOT"/Postgres/Info.plist)+1))
+#VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$PROJECT_ROOT"/Postgres/Info.plist)
+#BUILD_NO_NEW=$(($(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PROJECT_ROOT"/Postgres/Info.plist)+1))
 
 # set incremented build number
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NO_NEW" "$PROJECT_ROOT"/Postgres/Info.plist
+#/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NO_NEW" "$PROJECT_ROOT"/Postgres/Info.plist
 
 PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 ARCHIVE_PATH=~/Documents/Developer/Postgres-archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres.xcarchive
