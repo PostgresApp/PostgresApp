@@ -5,6 +5,28 @@
     <link>https://postgresapp.com/sparkle/updates.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
+    <item>
+		<title>Postgres.app 2.1.1</title>
+		<description>
+			<![CDATA[
+				<p>This update includes the quarterly maintenance updates for PostgreSQL!</p>
+				<ul>
+					<li>PostgreSQL 10.1 with PostGIS 2.4.1</li>
+					<li>PostgreSQL 9.6.6 with PostGIS 2.3.4</li>
+					<li>PostgreSQL 9.5.10 with PostGIS 2.2.6</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 9 Nov 2017 15:30:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.1/Postgres-2.1.1.dmg"
+		sparkle:version="40"
+		sparkle:shortVersionString="2.1.1"
+		length="154676415"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFQDBSeZc5mekUvY/n21uUzZw7SKexgIUTZ5crBxh84FY0QjlTc5p6H9hXfI="
+		/>
+	</item>
 	<item>
 		<title>Postgres.app 2.1</title>
 		<description>
