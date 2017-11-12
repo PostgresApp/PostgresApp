@@ -67,9 +67,8 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 			return
 		}
 		
-		let launcher = ClientLauncher()
 		do {
-			try launcher.runSubroutine(routine, parameters: [param])
+            try AppleScriptExecutor(scriptName: "PostgresScripts").runSubroutine(routine, parameters: [param])
 		} catch let error {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}

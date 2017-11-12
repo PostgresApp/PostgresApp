@@ -31,3 +31,10 @@ on open_Postico(theURL)
 		open location theURL
 	end tell
 end openPostico
+
+
+on open_invalidApp()
+	tell application "InvalidApp"
+        activate
+	end tell
+end open_invalidApp
