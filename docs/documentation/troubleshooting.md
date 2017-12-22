@@ -36,13 +36,33 @@ Stop the other server before starting Postgres.app.
 In general, it is not recommended to just use a data directory created by another version of PostgreSQL, since it might have been configured differently.
 
 #### The data directory contains an old postmaster.pid file / The data directory contains an unreadable postmaster.pid file
-PostgreSQL puts a file named `postmaster.pid` in the data directory to store the process id of the PostgreSQL server process.
-If PostgreSQL crashes, this file can contain an old pid that confuses PostgreSQL.
-You can fix this issue by deleting the `postmaster.pid` file. However, you must make sure that PostgreSQL is really not running.
-Open Activity Monitor and make sure that there are no processes named 'postgres' or 'postmaster'.
+To keep track of the PostgreSQL server process, PostgreSQL stores the process id for the server in a file named `postmaster.pid` in the server's data directory. If PostgreSQL crashes, this pid file may contain an old pid that confuses PostgreSQL and prevents it from restarting properly.
 
-If you delete the `postmaster.pid` file while PostgreSQL is running, bad things will happen.
+You can fix this issue by deleting the `postmaster.pid` file for the server you are trying to restart. 
 
+However, before you begin, you must make sure that PostgreSQL is not currently running. Open the Activity Monitor app and make sure that there are no processes named 'postgres' or 'postmaster'. If you delete the `postmaster.pid` file while PostgreSQL is running, bad things will happen.
+
+Ready? Let's do this!
+
+1. Open a terminal window.
+2. Navigate to your main Postgres data directory:
+   `cd ~/Library/Application Support/Postgres/`
+3. List all data directories: `ls -als`
+   ```
+   $: ~/Library/Application Support/Postgres $ ls -als
+   0 drwx------   21 patrick  staff   672 Oct  5  2015 var-9.3
+   0 drwx------   25 patrick  staff   800 Sep 26 09:50 var-9.4
+   0 drwx------   27 patrick  staff   864 Dec 22 09:47 var-9.6
+4. Open the version you were using (most likely the newest version)
+   `cd var-9.6`
+5. Look for the `postmaster.pid` file:
+   `ls -als | grep postmaster.pid`
+6. Remove the `postmaster.pid` file:
+   `rm postmaster.pid`
+7. Restart Postgres.app.
+8. Restart your server.
+
+Note: there is a data directory for each version of PostgreSQL. So, if you have been running multiple servers with different versions of PostgreSQL, you may need to delete the `postmaster.pid` file for each version of Postgres you were using.
 
 #### Could not initialize database cluster
 This error means that the `initdb` command failed.
