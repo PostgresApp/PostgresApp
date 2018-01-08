@@ -20,6 +20,7 @@ Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Re
 - [Metabase](https://metabase.com/start/mac.html)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
+- [PopSQL](https://popsql.io)
 - [PostgreSQL Manager](https://itunes.apple.com/at/app/postgresql-manager/id875191518?mt=12)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
