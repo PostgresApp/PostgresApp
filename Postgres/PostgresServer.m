@@ -68,7 +68,7 @@ static NSString * PGNormalizedVersionStringFromString(NSString *version) {
 	}
 	
     NSString *dataDirectoryVersion = PGNormalizedVersionStringFromString([NSString stringWithContentsOfFile:versionFilePath encoding:NSUTF8StringEncoding error:nil]);
-    NSString *includedVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_VERSION)]);
+    NSString *includedVersion = PGNormalizedVersionStringFromString([NSString stringWithUTF8String:xstr(PG_MAJOR_VERSION)]);
 
 	if ([includedVersion isEqual:dataDirectoryVersion]) {
 		return PostgresDataDirectoryCompatible;
