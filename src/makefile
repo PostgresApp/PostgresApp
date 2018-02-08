@@ -101,11 +101,11 @@ $(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip: $(EXPORT_ARCHIVE_PAT
 	ditto -c -k --sequesterRsrc --keepParent --zlibCompressionLevel 9 --noacl $(EXPORT_ARCHIVE_PATH)/Postgres.app $(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip
 
 $(EXPORT_ARCHIVE_PATH)/Postgres.app: $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
-	xcodebuild -exportArchive -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive -exportPath $(EXPORT_ARCHIVE_PATH) -exportOptionsPlist "$(CURDIR)"/exportOptions.plist POSTGRES_VERSION=$(POSTGRES_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
+	xcodebuild -exportArchive -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive -exportPath $(EXPORT_ARCHIVE_PATH) -exportOptionsPlist "$(CURDIR)"/exportOptions.plist POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
 	touch $@
 
 $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8
-	xcodebuild archive -project "$(XCODE_PROJECT_FILE)" -scheme Postgres -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
+	xcodebuild archive -project "$(XCODE_PROJECT_FILE)" -scheme Postgres -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
 
 
 #########################
