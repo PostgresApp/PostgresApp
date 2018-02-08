@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(POSTGRES_VERSION).$(POSTGRESAPP_MINOR_VERSION)</string>
+	<string>$(POSTGRESAPP_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(POSTGRESAPP_BUILD_VERSION)</string>
+	<string>$(POSTGRESAPP_VERSION)</string>
 	<key>LSBackgroundOnly</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
