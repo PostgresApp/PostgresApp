@@ -6,6 +6,8 @@
 #  Created by Jakob Egger on 15/12/16.
 #
 
+set -e
+
 ORIG_INSTALL_ROOT="/Applications/Postgres.app/Contents/Versions/${POSTGRES_MAJOR_VERSION}"
 EXECUTABLE_TARGET_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/${POSTGRES_MAJOR_VERSION}"
 
