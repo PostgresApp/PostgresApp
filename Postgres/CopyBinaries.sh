@@ -15,7 +15,7 @@ EXECUTABLE_TARGET_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/${POST
 cd "${ORIG_INSTALL_ROOT}/bin/"
 mkdir -p "$EXECUTABLE_TARGET_DIR/bin/"
 # copy postgresql binaries
-cp clusterdb createdb createlang createuser dropdb droplang dropuser ecpg initdb oid2name pg* postgres postmaster psql reindexdb vacuumdb vacuumlo "$EXECUTABLE_TARGET_DIR/bin/"
+cp clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg* postgres postmaster psql reindexdb vacuumdb vacuumlo "$EXECUTABLE_TARGET_DIR/bin/"
 #copy proj binaries
 cp cs2cs geod invgeod invproj nad2bin proj "$EXECUTABLE_TARGET_DIR/bin/"
 #copy gdal binaries
