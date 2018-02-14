@@ -2,14 +2,15 @@
 
 set -e
 set -o pipefail
+set -x
 
 PROJECT_ROOT=$(dirname $(pwd))
+PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 
 # get version and buildnumber
-VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$PROJECT_ROOT"/Postgres/Info.plist)
-BUILD_NO=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PROJECT_ROOT"/Postgres/Info.plist)
+VERSION=$(xcodebuild -showBuildSettings -project "$PROJECT_FILE" | grep POSTGRESAPP_SHORT_VERSION | sed 's/.*= *//')
+BUILD_NO=$(xcodebuild -showBuildSettings -project "$PROJECT_FILE" | grep POSTGRESAPP_BUILD_VERSION | sed 's/.*= *//')
 
-PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 ARCHIVE_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png
 EXPORT_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/Postgres-export
