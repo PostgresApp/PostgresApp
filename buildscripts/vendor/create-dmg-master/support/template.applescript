@@ -74,7 +74,7 @@ on run (volumeName)
 			set waitTime to waitTime + 1
 			
 			if (do shell script "[ -f " & dsStore & " ]; echo $?") = "0" then set ejectMe to true
+			log "waiting " & waitTime & " seconds for .DS_STORE to be created."
 		end repeat
-		log "waited " & waitTime & " seconds for .DS_STORE to be created."
 	end tell
 end run
