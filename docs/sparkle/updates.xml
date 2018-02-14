@@ -6,6 +6,28 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
     <item>
+		<title>Postgres.app 2.1.2</title>
+		<description>
+			<![CDATA[
+				<p>This update includes the quarterly maintenance updates for PostgreSQL!</p>
+				<ul>
+					<li>PostgreSQL 10.2 with PostGIS 2.4.3</li>
+					<li>PostgreSQL 9.6.7 with PostGIS 2.3.6</li>
+					<li>PostgreSQL 9.5.11 with PostGIS 2.2.6</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 8 Feb 2017 15:30:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.2/Postgres-2.1.2.dmg"
+		sparkle:version="41"
+		sparkle:shortVersionString="2.1.2"
+		length="156083277"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFBlsMBbHYiT6F9HmPXAK1JV9o8XOAhUAvFlFqXIFgUhR8DQxKx/lN6N0NMQ="
+		/>
+	</item>
+    <item>
 		<title>Postgres.app 2.1.1</title>
 		<description>
 			<![CDATA[
