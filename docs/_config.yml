@@ -35,7 +35,7 @@ legacyVersions: [
 		postgisVersion: "2.2.6",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.6.6/Postgres-9.6.7.zip",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/9.6.7/Postgres-9.6.7.zip",
 		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/9.6.7/",
 		postgresqlVersion: "9.6.7",
 		postgisVersion: "2.3.6",
