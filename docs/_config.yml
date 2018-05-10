@@ -4,47 +4,47 @@ description: "Postgres.app is a full featured PostgreSQL installation packaged a
 gems: ['jekyll-github-metadata']
 repository: postgresapp/postgresapp
 
-downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.3/Postgres-2.1.3.dmg"
-releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.3"
-postgresappVersion: "2.1.3"
+downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-2.1.4.dmg"
+releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4"
+postgresappVersion: "2.1.4"
 postgresappMinSystemVersion: "10.10"
 postgresqlVersions: [
-	{ postgres: "10.3", postgis: "2.4.3" },
-	{ postgres: "9.6.8", postgis: "2.3.6" },
-	{ postgres: "9.5.12", postgis: "2.2.6" },
+	{ postgres: "10.4", postgis: "2.4.4" },
+	{ postgres: "9.6.9", postgis: "2.3.7" },
+	{ postgres: "9.5.13", postgis: "2.2.7" },
 ]
 
 legacyMinSystemVersion: "10.7"
 legacyVersions: [
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.3/Postgres-Legacy-9.3.22.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.3",
-		postgresqlVersion: "9.3.22",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.3.23.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
+		postgresqlVersion: "9.3.23",
 		postgisVersion: "2.1.9",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.3/Postgres-Legacy-9.4.17.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.3",
-		postgresqlVersion: "9.4.17",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.4.18.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
+		postgresqlVersion: "9.4.18",
 		postgisVersion: "2.1.9",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.3/Postgres-Legacy-9.5.12.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.3",
-		postgresqlVersion: "9.5.12",
-		postgisVersion: "2.2.6",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.5.13.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
+		postgresqlVersion: "9.5.13",
+		postgisVersion: "2.2.7",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.3/Postgres-Legacy-9.6.8.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.3",
-		postgresqlVersion: "9.6.8",
-		postgisVersion: "2.3.6",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.6.9.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
+		postgresqlVersion: "9.6.9",
+		postgisVersion: "2.3.7",
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.3/Postgres-Legacy-10.3.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.3",
-		postgresqlVersion: "10.3",
-		postgisVersion: "2.4.3",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-10.4.zip",
+		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
+		postgresqlVersion: "10.4",
+		postgisVersion: "2.4.4",
 	},
 ]
 

@@ -6,6 +6,28 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.1.4</title>
+		<description>
+			<![CDATA[
+				<p>This is the May 2018 quarterly update for PostgreSQL.</p>
+				<ul>
+					<li>PostgreSQL 10.4 with PostGIS 2.4.4</li>
+					<li>PostgreSQL 9.6.9 with PostGIS 2.3.7</li>
+					<li>PostgreSQL 9.5.13 with PostGIS 2.2.7</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 10 May 2018 14:00:00 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-2.1.4.dmg"
+		sparkle:version="43"
+		sparkle:shortVersionString="2.1.4"
+		length="158055045"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFAl8/EKgErCSJWuJ325n4rEKj5YQAhRZg8FKDJ0IyD2+1mfF+UkHymcnxg=="
+		/>
+	</item>
+	<item>
 		<title>Postgres.app 2.1.3</title>
 		<description>
 			<![CDATA[
