@@ -417,3 +417,11 @@ dl.connect-info dt.active + dd {
 .documentation p {
 	margin-top: 0px;
 }
+
+.beta-banner {
+	background: rgb(245,245,150);
+	padding: 5px;
+	border-radius: 5px;
+	text-align: center;
+	margin: 20px;
+}

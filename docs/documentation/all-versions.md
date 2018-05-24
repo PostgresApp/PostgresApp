@@ -18,6 +18,12 @@ It includes the following binaries:
 
 [Download Postgres.app {{site.postgresappVersion}}]({{site.downloadLocation}})
 
+PostgreSQL 11 Beta
+------------------
+
+We also provide beta builds of Postgres.app with PostgreSQL 11. Please check out the 
+<a href="https://github.com/PostgresApp/PostgresApp/releases/">Releases Section</a> on Github for the most recent build.
+
 
 Legacy Versions
 ---------------
