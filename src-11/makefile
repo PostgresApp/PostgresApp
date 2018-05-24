@@ -1,8 +1,8 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.4.4
-POSTGIS_MAJOR_VERSION=2.4
+POSTGIS_VERSION=2.5.0dev
+POSTGIS_MAJOR_VERSION=2.5
 
 POSTGRES_VERSION=11beta1
 POSTGRES_MAJOR_VERSION=11
@@ -10,7 +10,7 @@ POSTGRES_MAJOR_VERSION=11
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-GDAL_VERSION=2.30
+GDAL_VERSION=2.3.0
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.6.2
@@ -157,6 +157,7 @@ icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJ
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
 	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
 	mv icu icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
+	touch $@
 	
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz:
 	$(CURL) http://download.icu-project.org/files/icu4c/$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
@@ -424,7 +425,8 @@ postgis-${POSTGIS_VERSION}/autogen.sh: postgis-${POSTGIS_VERSION}.tar.gz
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
-	$(CURL) "http://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz"
+	$(CURL) "http://postgis.net/stuff/postgis-${POSTGIS_VERSION}.tar.gz" # prerelease URL
+#	$(CURL) "http://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz"
 
 clean-postgis:
 	rm -Rf postgis-${POSTGIS_VERSION}
