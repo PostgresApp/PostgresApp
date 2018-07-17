@@ -51,6 +51,8 @@ You can now find the binaries in the subdirectory `Contents/Versions`.
 
 Now you can just copy an older binary folder (eg. 9.3) from a legacy version to the current version.
 
+If you're using the CLI, make sure you update your path to point to the older binary folder. Check if the path is set up correctly by typing `which psql`.
+
 Done! You can now run PostgreSQL servers with multiple versions at the same time!
 
 If Finder refuses to start Postgres.app because the code signature can no longer be verified, right click on the app and select "Open".
