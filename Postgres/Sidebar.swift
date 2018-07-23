@@ -9,17 +9,17 @@
 import Cocoa
 
 class SidebarController: NSViewController, MainWindowModelConsumer {
-	
+
 	dynamic var mainWindowModel: MainWindowModel!
-	
-	
+
+
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
 		if var target = segue.destinationController as? MainWindowModelConsumer {
 			target.mainWindowModel = mainWindowModel
 		}
 	}
-	
-	
+
+
 	@IBAction func removeServer(_ sender: AnyObject?) {
 		let alert = NSAlert()
 		alert.messageText = "Do you want to remove the server from the sidebar?"
@@ -32,17 +32,17 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 					let _ = server.stopSync()
 				}
 				self.mainWindowModel.removeSelectedServer()
-				NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: nil)
+				NotificationCenter.default.post(name: .PropertyChanged, object: nil)
 			}
 		}
 	}
-	
+
 }
 
 
 
 class ServerIconImageCell: NSImageCell {
-	
+
 	override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
 		if self.backgroundStyle == .dark {
 			super.draw(withFrame: cellFrame, in: controlView)

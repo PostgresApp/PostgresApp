@@ -10,29 +10,29 @@ import Cocoa
 import Sparkle
 
 class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
-	
+
 	let serverManager: ServerManager = ServerManager.shared
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 	var startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
-	
+
 	@IBOutlet var sparkleUpdater: SUUpdater!
 	@IBOutlet var preferencesMenuItem: NSMenuItem!
-	
-	
+
+
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
+		NotificationCenter.default.addObserver(forName: .PropertyChanged, object: nil, queue: .main) { _ in
 			self.serverManager.saveServers()
 		}
-		
-		DistributedNotificationCenter.default.addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main) { _ in
+
+		DistributedNotificationCenter.default.addObserver(forName: .StatusChanged, object: nil, queue: .main) { _ in
 			self.serverManager.refreshServerStatuses()
 		}
-		
-		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
+
+		NotificationCenter.default.addObserver(forName: .didChangeNotification, object: nil, queue: .main) { _ in
 			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 			if self.hideMenuHelperApp != hideMenuHelperApp {
 				self.hideMenuHelperApp = hideMenuHelperApp
-				
+
 				if self.hideMenuHelperApp {
 					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
 					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 					NSWorkspace.shared().open(url)
 				}
 			}
-			
+
 			let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 			if self.startLoginHelper != startLoginHelper {
 				self.startLoginHelper = startLoginHelper
@@ -54,37 +54,37 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 				}
 			}
 		}
-		
+
 		if startLoginHelper {
 			createLaunchAgent()
 		} else {
 			destroyLaunchAgent()
 		}
-		
+
 		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
 			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
 			NSWorkspace.shared().open(url)
 			NSApp.activate(ignoringOtherApps: true)
 		}
-		
+
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
 		}
 	}
-	
+
 	func applicationDidBecomeActive(_ notification: Notification) {
 		serverManager.refreshServerStatuses()
 	}
-	
+
 	func showPreferences() -> Bool {
 		return NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
 	}
-	
+
 	@IBAction func openHelp(_ sender: AnyObject?) {
 		NSWorkspace.shared().open(URL(string: "http://postgresapp.com/documentation/")!)
 	}
-	
-	
+
+
 	private func createLaunchAgent() {
 		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
 		let laName = "com.postgresapp.Postgres2LoginHelper"
@@ -96,7 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 				return
 			}
 		}
-		
+
 		let plistPath = laPath+"/"+laName+".plist"
 		let attributes: [String: Any] = [FileAttributeKey.posixPermissions.rawValue: NSNumber(value: 0o600)]
 		do {
@@ -108,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			NSLog("Error getting data of original plist file: \(error)")
 		}
 	}
-	
+
 	private func destroyLaunchAgent() {
 		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
 		let laName = "com.postgresapp.Postgres2LoginHelper"
@@ -121,9 +121,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	// SUUpdater delegate methods
 	func updater(_ updater: SUUpdater!, willInstallUpdate item: SUAppcastItem!) {
 		for server in serverManager.servers where server.running {
@@ -133,6 +133,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			menuApp.terminate()
 		}
 	}
-	
+
 }
 

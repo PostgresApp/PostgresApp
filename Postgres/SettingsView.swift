@@ -9,10 +9,10 @@
 import Cocoa
 
 class SettingsViewController: NSViewController {
-	
+
 	dynamic var server: Server?
-	
-	
+
+
 	@IBAction func showDataDirectory(_ sender: AnyObject?) {
 		guard let path = self.server?.varPath else { return }
 		if !NSWorkspace.shared().selectFile(path, inFileViewerRootedAtPath: "") {
@@ -24,7 +24,7 @@ class SettingsViewController: NSViewController {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
-	
+
 	@IBAction func showConfigFile(_ sender: AnyObject?) {
 		guard let path = self.server?.configFilePath else { return }
 		if !NSWorkspace.shared().selectFile(path, inFileViewerRootedAtPath: "") {
@@ -36,7 +36,7 @@ class SettingsViewController: NSViewController {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
-	
+
 	@IBAction func showHBAFile(_ sender: AnyObject?) {
 		guard let path = self.server?.hbaFilePath else { return }
 		if !NSWorkspace.shared().selectFile(path, inFileViewerRootedAtPath: "") {
@@ -48,7 +48,7 @@ class SettingsViewController: NSViewController {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
-	
+
 	@IBAction func openLogFile(_ sender: AnyObject?) {
 		guard let path = self.server?.logFilePath else { return }
 		if !NSWorkspace.shared().openFile(path, withApplication: "Console") {

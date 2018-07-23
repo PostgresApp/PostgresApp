@@ -10,10 +10,10 @@ import Cocoa
 
 class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	@IBOutlet var sidebarItem: NSSplitViewItem!
-	
+
 	var ignoreSidebarVisibleChange = false
 	var modelSidebarObserver: KeyValueObserver?
-	
+
 	dynamic var mainWindowModel: MainWindowModel! {
 		willSet {
 			if let modelSidebarObserver = modelSidebarObserver {
@@ -36,16 +36,16 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 			}
 		}
 	}
-	
+
 	deinit {
 		if let modelSidebarObserver = modelSidebarObserver {
 			mainWindowModel.removeObserver(modelSidebarObserver, forKeyPath: modelSidebarObserver.keyPath)
 		}
 	}
-	
-	
+
+
 	override func splitViewDidResizeSubviews(_ notification: Notification) {
-		if NSSplitViewController.instancesRespond(to: #selector(NSSplitViewController.splitViewDidResizeSubviews(_:))) {
+		if NSSplitViewController.instancesRespond(to: #selector(splitViewDidResizeSubviews)) {
 			super.splitViewDidResizeSubviews(notification)
 		}
 		guard let model = mainWindowModel else { return }
@@ -53,5 +53,5 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 		model.sidebarVisible = !sidebarItem.isCollapsed
 		ignoreSidebarVisibleChange = false
 	}
-	
+
 }

@@ -9,21 +9,21 @@
 import Foundation
 
 class KeyValueObserver: NSObject {
-	
+
 	typealias KVOCallback = ([NSKeyValueChangeKey: Any]?) -> Void
-	
+
 	let keyPath: String
 	private let callback: KVOCallback
-	
+
 	init(_ keyPath: String, _ callback: @escaping KVOCallback) {
 		self.keyPath = keyPath
 		self.callback = callback
 	}
-	
+
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		callback(change)
 	}
-	
+
 }
 
 

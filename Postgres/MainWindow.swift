@@ -9,7 +9,7 @@
 import Cocoa
 
 class MainWindowController: NSWindowController, NSWindowDelegate {
-	
+
 	dynamic var mainWindowModel: MainWindowModel! {
 		didSet {
 			func propagate(_ mainWindowModel: MainWindowModel, toChildrenOf parent: NSViewController) {
@@ -23,23 +23,23 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 			propagate(mainWindowModel, toChildrenOf: self.contentViewController!)
 		}
 	}
-	
-	
+
+
 	override func windowDidLoad() {
 		super.windowDidLoad()
-		
+
 		guard let window = self.window else { return }
 		window.titleVisibility = .hidden
 		window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
 		window.titlebarAppearsTransparent = true
 		window.isMovableByWindowBackground = true
-		
+
 		let model = MainWindowModel()
 		model.sidebarVisible = model.serverManager.servers.count > 1
 		mainWindowModel = model
 	}
-	
-	
+
+
 	func windowWillClose(_ notification: Notification) {
 		NSApp.terminate(nil)
 	}
