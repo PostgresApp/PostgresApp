@@ -8,12 +8,15 @@
 
 import Cocoa
 
+extension Notification.Name {
+    static let PropertyChanged = Notification.Name(".PropertyChanged")
+    static let StatusChanged = Notification.Name("Server.StatusChangedNotification")
+}
+
 class Server: NSObject {
 
 	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
 
-	static let PropertyChangedNotification = Notification.Name("Server.PropertyChangedNotification")
-	static let StatusChangedNotification = Notification.Name("Server.StatusChangedNotification")
 
 
 	@objc enum ServerStatus: Int {
@@ -36,19 +39,19 @@ class Server: NSObject {
 
 	dynamic var name: String = "" {
 		didSet {
-			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
+			NotificationCenter.default.post(name: .PropertyChanged, object: self)
 		}
 	}
 	dynamic var port: UInt = 0 {
 		didSet {
-			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
+			NotificationCenter.default.post(name: .PropertyChanged, object: self)
 		}
 	}
 	dynamic var binPath: String = ""
 	dynamic var varPath: String = ""
 	dynamic var startOnLogin: Bool = false {
 		didSet {
-			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
+			NotificationCenter.default.post(name: .PropertyChanged, object: self)
 		}
 	}
 	dynamic var configFilePath: String {

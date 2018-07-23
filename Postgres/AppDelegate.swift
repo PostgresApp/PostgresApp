@@ -20,15 +20,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 
 
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		NotificationCenter.default.addObserver(forName: Server.PropertyChangedNotification, object: nil, queue: OperationQueue.main) { _ in
+		NotificationCenter.default.addObserver(forName: .PropertyChanged, object: nil, queue: .main) { _ in
 			self.serverManager.saveServers()
 		}
 
-		DistributedNotificationCenter.default.addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main) { _ in
+		DistributedNotificationCenter.default.addObserver(forName: .StatusChanged, object: nil, queue: .main) { _ in
 			self.serverManager.refreshServerStatuses()
 		}
 
-		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
+		NotificationCenter.default.addObserver(forName: .didChangeNotification, object: nil, queue: .main) { _ in
 			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 			if self.hideMenuHelperApp != hideMenuHelperApp {
 				self.hideMenuHelperApp = hideMenuHelperApp
