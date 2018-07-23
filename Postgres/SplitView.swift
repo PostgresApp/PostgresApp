@@ -45,7 +45,7 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 
 
 	override func splitViewDidResizeSubviews(_ notification: Notification) {
-		if NSSplitViewController.instancesRespond(to: #selector(NSSplitViewController.splitViewDidResizeSubviews(_:))) {
+		if NSSplitViewController.instancesRespond(to: #selector(splitViewDidResizeSubviews)) {
 			super.splitViewDidResizeSubviews(notification)
 		}
 		guard let model = mainWindowModel else { return }
