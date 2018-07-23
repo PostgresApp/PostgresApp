@@ -12,16 +12,16 @@ class MainWindowModel: NSObject {
 	dynamic var serverManager = ServerManager.shared
 	dynamic var selectedServerIndices = IndexSet()
 	dynamic var sidebarVisible = false
-	
+
 	var firstSelectedServer: Server? {
 		guard let selIdx = selectedServerIndices.first else { return nil }
 		return serverManager.servers[selIdx]
 	}
-	
+
 	func removeSelectedServer() {
 		guard let selIdx = selectedServerIndices.first else { return }
 		serverManager.servers.remove(at: selIdx)
-		
+
 		if selIdx > 0 {
 			selectedServerIndices = IndexSet(integer: selIdx-1)
 		} else {

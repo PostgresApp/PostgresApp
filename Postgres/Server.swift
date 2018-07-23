@@ -9,13 +9,13 @@
 import Cocoa
 
 class Server: NSObject {
-	
+
 	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
-	
+
 	static let PropertyChangedNotification = Notification.Name("Server.PropertyChangedNotification")
 	static let StatusChangedNotification = Notification.Name("Server.StatusChangedNotification")
-	
-	
+
+
 	@objc enum ServerStatus: Int {
 		case NoBinaries
 		case PortInUse
@@ -27,13 +27,13 @@ class Server: NSObject {
 		case PidFileUnreadable
 		case Unknown
 	}
-	
+
 	enum ActionStatus {
 		case Success
 		case Failure(NSError)
 	}
-	
-	
+
+
 	dynamic var name: String = "" {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
@@ -66,18 +66,18 @@ class Server: NSObject {
 	private var pgVersionPath: String {
 		return varPath.appending("/PG_VERSION")
 	}
-	
+
 	dynamic private(set) var busy: Bool = false
 	dynamic private(set) var running: Bool = false
 	dynamic private(set) var serverStatus: ServerStatus = .Unknown
 	dynamic private(set) var databases: [Database] = []
 	dynamic var selectedDatabaseIndices = IndexSet()
-	
+
 	var firstSelectedDatabase: Database? {
 		guard let firstIndex = selectedDatabaseIndices.first else { return nil }
 		return databases[firstIndex]
 	}
-	
+
 	var asPropertyList: [AnyHashable: Any] {
 		var result: [AnyHashable: Any] = [:]
 		result["name"] = self.name
@@ -87,8 +87,8 @@ class Server: NSObject {
 		result["startOnLogin"] = self.startOnLogin
 		return result
 	}
-	
-	
+
+
 	init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil, startOnLogin: Bool = false) {
 		super.init()
 		let effectiveVersion = version ?? Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
@@ -99,7 +99,7 @@ class Server: NSObject {
 		self.startOnLogin = startOnLogin
 		updateServerStatus()
 	}
-	
+
 	init?(propertyList: [AnyHashable: Any]) {
 		guard let name = propertyList["name"] as? String,
 		let port = propertyList["port"] as? UInt,
@@ -114,37 +114,37 @@ class Server: NSObject {
 		self.varPath = varPath
 		self.startOnLogin = propertyList["startOnLogin"] as? Bool ?? false
 	}
-	
-	
+
+
 	// MARK: Async handlers
 	func start(_ completion: @escaping (ActionStatus) -> Void) {
 		busy = true
 		updateServerStatus()
-		
+
 		DispatchQueue.global().async {
 			let statusResult: ActionStatus
-			
+
 			switch self.serverStatus {
-			
+
 			case .NoBinaries:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found", comment: ""),
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
+
 			case .PortInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
+
 			case .DataDirInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("There is already a PostgreSQL server running in this data directory", comment: ""),
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
+
 			case .DataDirEmpty:
 				if self.portInUse() {
 					let userInfo = [
@@ -154,76 +154,76 @@ class Server: NSObject {
 					statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 					break
 				}
-				
+
 				let initResult = self.initDatabaseSync()
 				if case .Failure = initResult {
 					statusResult = initResult
 					break
 				}
-				
+
 				let startResult = self.startSync()
 				if case .Failure = startResult {
 					statusResult = startResult
 					break
 				}
-				
+
 				let createUserResult = self.createUserSync()
 				guard case .Success = createUserResult else {
 					statusResult = createUserResult
 					break
 				}
-				
+
 				let createDBResult = self.createUserDatabaseSync()
 				if case .Failure = createDBResult {
 					statusResult = createDBResult
 					break
 				}
-				
+
 				statusResult = .Success
-				
+
 			case .Running:
 				statusResult = .Success
-				
+
 			case .Startable:
 				let startRes = self.startSync()
 				statusResult = startRes
-				
+
 			case .StalePidFile:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an old postmaster.pid file", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not running anymore, otherwise your data directory will be corrupted."
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
+
 			case .PidFileUnreadable:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an unreadable postmaster.pid file", comment: "")
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
+
 			case .Unknown:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("Unknown server status", comment: "")
 				]
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
+
 			}
-			
+
 			DispatchQueue.main.async {
 				self.updateServerStatus()
 				completion(statusResult)
 				self.busy = false
 			}
-			
+
 		}
 	}
-	
-	
+
+
 	/// Attempts to stop the server (in a background thread)
 	/// - parameter completion: This closure will be called on the main thread when the server has stopped.
 	func stop(_ completion: @escaping (ActionStatus) -> Void) {
 		busy = true
-		
+
 		DispatchQueue.global().async {
 			let stopRes = self.stopSync()
 			DispatchQueue.main.async {
@@ -233,8 +233,8 @@ class Server: NSObject {
 			}
 		}
 	}
-	
-	
+
+
 	/// Checks if the server is running.
 	/// Must be called only from the main thread.
 	func updateServerStatus() {
@@ -244,14 +244,14 @@ class Server: NSObject {
 			databases.removeAll()
 			return
 		}
-		
+
 		if !FileManager.default.fileExists(atPath: pgVersionPath) {
 			serverStatus = .DataDirEmpty
 			running = false
 			databases.removeAll()
 			return
 		}
-		
+
 		if FileManager.default.fileExists(atPath: pidFilePath) {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
 				serverStatus = .PidFileUnreadable
@@ -259,7 +259,7 @@ class Server: NSObject {
 				databases.removeAll()
 				return
 			}
-			
+
 			let firstLine = pidFileContents.components(separatedBy: .newlines).first!
 			guard let pid = Int32(firstLine) else {
 				serverStatus = .PidFileUnreadable
@@ -267,11 +267,11 @@ class Server: NSObject {
 				databases.removeAll()
 				return
 			}
-			
+
 			var buffer = [CChar](repeating: 0, count: 1024)
 			proc_pidpath(pid, &buffer, UInt32(buffer.count))
 			let processPath = String(cString: buffer)
-			
+
 			if processPath == binPath.appending("/postgres") {
 				serverStatus = .Running
 				running = true
@@ -292,57 +292,57 @@ class Server: NSObject {
 				return
 			}
 		}
-		
+
 		if portInUse() {
 			serverStatus = .PortInUse
 			running = false
 			databases.removeAll()
 			return
 		}
-		
+
 		serverStatus = .Startable
 		running = false
 		databases.removeAll()
 	}
-	
-	
+
+
 	/// Checks if the port is in use by another process.
 	private func portInUse() -> Bool {
 		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
 		if sock <= 0 {
 			return false
 		}
-		
+
 		var listenAddress = sockaddr_in()
 		listenAddress.sin_family = UInt8(AF_INET)
 		listenAddress.sin_port = in_port_t(port).bigEndian
 		listenAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
 		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
-		
+
 		let bindRes = withUnsafePointer(to: &listenAddress) { (sockaddrPointer: UnsafePointer<sockaddr_in>) in
 			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { sockaddrPointer2 in
 				Darwin.bind(sock, sockaddrPointer2, socklen_t(MemoryLayout<sockaddr_in>.stride))
 			}
 		}
-		
+
 		let bindErr = Darwin.errno
 		close(sock)
-		
+
 		if bindRes == -1 && bindErr == EADDRINUSE {
 			return true
 		}
-		
+
 		return false
 	}
-	
-	
+
+
 	/// Loads the databases from the servers.
 	private func loadDatabases() {
 		databases.removeAll()
-		
+
 		let url = "postgresql://:\(port)"
 		let connection = PQconnectdb(url.cString(using: .utf8))
-		
+
 		if PQstatus(connection) == CONNECTION_OK {
 			let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
 			for i in 0..<PQntuples(result) {
@@ -354,8 +354,8 @@ class Server: NSObject {
 		}
 		PQfinish(connection)
 	}
-	
-	
+
+
 	// MARK: Sync handlers
 	func startSync() -> ActionStatus {
 		let process = Process()
@@ -380,7 +380,7 @@ class Server: NSObject {
 		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
-		
+
 		if process.terminationStatus == 0 {
 			return .Success
 		} else {
@@ -398,8 +398,8 @@ class Server: NSObject {
 			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
 		}
 	}
-	
-	
+
+
 	func stopSync() -> ActionStatus {
 		let process = Process()
 		process.launchPath = binPath.appending("/pg_ctl")
@@ -415,7 +415,7 @@ class Server: NSObject {
 		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
-		
+
 		if process.terminationStatus == 0 {
 			return .Success
 		} else {
@@ -433,8 +433,8 @@ class Server: NSObject {
 			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
 		}
 	}
-	
-	
+
+
 	private func initDatabaseSync() -> ActionStatus {
 		let process = Process()
 		process.launchPath = binPath.appending("/initdb")
@@ -450,7 +450,7 @@ class Server: NSObject {
 		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
-		
+
 		if process.terminationStatus == 0 {
 			return .Success
 		} else {
@@ -468,8 +468,8 @@ class Server: NSObject {
 			return .Failure(NSError(domain: "com.postgresapp.Postgres2.initdb", code: 0, userInfo: userInfo))
 		}
 	}
-	
-	
+
+
 	private func createUserSync() -> ActionStatus {
 		let process = Process()
 		process.launchPath = binPath.appending("/createuser")
@@ -485,7 +485,7 @@ class Server: NSObject {
 		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
-		
+
 		if process.terminationStatus == 0 {
 			return .Success
 		} else {
@@ -503,8 +503,8 @@ class Server: NSObject {
 			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createuser", code: 0, userInfo: userInfo))
 		}
 	}
-	
-	
+
+
 	private func createUserDatabaseSync() -> ActionStatus {
 		let process = Process()
 		process.launchPath = binPath.appending("/createdb")
@@ -518,7 +518,7 @@ class Server: NSObject {
 		process.launch()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
-		
+
 		if process.terminationStatus == 0 {
 			return .Success
 		} else {
@@ -536,14 +536,14 @@ class Server: NSObject {
 			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo))
 		}
 	}
-	
+
 }
 
 
 
 class Database: NSObject {
 	dynamic var name: String = ""
-	
+
 	init(_ name: String) {
 		super.init()
 		self.name = name

@@ -14,7 +14,7 @@ UserDefaults.standard.registerPostgresDefaults()
 func checkApplicationPath() {
 	let actualPath = Bundle.main.bundlePath
 	let expectedPath = "/Applications/Postgres.app"
-	
+
 	if actualPath != expectedPath {
 		let alert = NSAlert()
 		if actualPath.hasPrefix("/Applications/") && !actualPath.hasSuffix("Postgres.app") {

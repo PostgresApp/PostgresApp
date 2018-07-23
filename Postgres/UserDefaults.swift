@@ -16,7 +16,7 @@ extension UserDefaults {
 		sharedDefaults.registerPostgresDefaults()
 		return sharedDefaults
 	}()
-	
+
 	func registerPostgresDefaults() {
 		self.register(defaults: ["ClientAppName": "Terminal", "StartLoginHelper": true])
 	}
