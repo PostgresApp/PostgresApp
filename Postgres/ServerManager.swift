@@ -61,7 +61,7 @@ class ServerManager: NSObject {
 		while let itemURL = dataDirsPathEnum.nextObject() as? URL {
 			do {
 				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
-				guard resourceValues.isDirectory == true else { continue }
+				guard resourceValues.isDirectory else { continue }
 			} catch { continue }
 
 			var dataDirHasServer = false
