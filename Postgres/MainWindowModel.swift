@@ -21,12 +21,7 @@ class MainWindowModel: NSObject {
 	func removeSelectedServer() {
 		guard let selIdx = selectedServerIndices.first else { return }
 		serverManager.servers.remove(at: selIdx)
-
-		if selIdx > 0 {
-			selectedServerIndices = IndexSet(integer: selIdx-1)
-		} else {
-			selectedServerIndices = IndexSet(integer: 0)
-		}
+        selectedServerIndices = [max(0, selIdx-1)]
 	}
 }
 
