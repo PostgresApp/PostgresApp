@@ -17,8 +17,6 @@ class Server: NSObject {
 
 	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
 
-
-
 	@objc enum ServerStatus: Int {
 		case NoBinaries
 		case PortInUse
@@ -77,18 +75,17 @@ class Server: NSObject {
 	dynamic var selectedDatabaseIndices = IndexSet()
 
 	var firstSelectedDatabase: Database? {
-		guard let firstIndex = selectedDatabaseIndices.first else { return nil }
-		return databases[firstIndex]
+        return selectedDatabaseIndices.first.flatMap { self.databases[$0] }
 	}
 
 	var asPropertyList: [AnyHashable: Any] {
-		var result: [AnyHashable: Any] = [:]
-		result["name"] = self.name
-		result["port"] = self.port
-		result["binPath"] = self.binPath
-		result["varPath"] = self.varPath
-		result["startOnLogin"] = self.startOnLogin
-		return result
+        return [
+            "name": self.name,
+            "port": self.port,
+            "binPath": self.binPath,
+            "varPath": self.varPath,
+            "startOnLogin": self.startOnLogin
+        ]
 	}
 
 

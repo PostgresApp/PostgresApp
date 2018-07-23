@@ -21,7 +21,6 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		return versions[selectedVersionIdx]
 	}
 
-
 	override func viewDidLoad() {
 		loadVersions()
 		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(version)")
@@ -29,12 +28,10 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		super.viewDidLoad()
 	}
 
-
 	@IBAction func versionChanged(_ sender: AnyObject?) {
 		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
 		varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedPattern(for: version))
 	}
-
 
 	@IBAction func openChooseFolder(_ sender: AnyObject?) {
 		let openPanel = NSOpenPanel()
@@ -50,11 +47,9 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		}
 	}
 
-
 	@IBAction func cancel(_ sender: AnyObject?) {
 		self.dismiss(nil)
 	}
-
 
 	@IBAction func createServer(_ sender: AnyObject?) {
 		guard self.view.window!.makeFirstResponder(nil) else { NSBeep(); return }
@@ -78,7 +73,6 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 
 		self.dismiss(nil)
 	}
-
 
 	private func loadVersions() {
 		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
