@@ -6,6 +6,28 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.1.5</title>
+		<description>
+			<![CDATA[
+				<p>This is the August 2018 quarterly update for PostgreSQL.</p>
+				<ul>
+					<li>PostgreSQL 10.5 with PostGIS 2.4.4</li>
+					<li>PostgreSQL 9.6.10 with PostGIS 2.3.7</li>
+					<li>PostgreSQL 9.5.14 with PostGIS 2.2.7</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 09 Aug 2018 15:35:52 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-2.1.5.dmg"
+		sparkle:version="45"
+		sparkle:shortVersionString="2.1.5"
+		length="158131432"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFCO+IgtfS4WVNM6+86BVVMyuM5ToAhRVJw+kCcBEnvUdnDZfLWAHuxqmqA=="
+		/>
+	</item>
+	<item>
 		<title>Postgres.app 2.1.4</title>
 		<description>
 			<![CDATA[

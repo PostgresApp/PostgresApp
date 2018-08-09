@@ -4,14 +4,14 @@ description: "Postgres.app is a full featured PostgreSQL installation packaged a
 gems: ['jekyll-github-metadata']
 repository: postgresapp/postgresapp
 
-downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-2.1.4.dmg"
-releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4"
-postgresappVersion: "2.1.4"
+downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-2.1.5.dmg"
+releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.5"
+postgresappVersion: "2.1.5"
 postgresappMinSystemVersion: "10.10"
 postgresqlVersions: [
-	{ postgres: "10.4", postgis: "2.4.4" },
-	{ postgres: "9.6.9", postgis: "2.3.7" },
-	{ postgres: "9.5.13", postgis: "2.2.7" },
+	{ postgres: "10.5", postgis: "2.4.4" },
+	{ postgres: "9.6.10", postgis: "2.3.7" },
+	{ postgres: "9.5.14", postgis: "2.2.7" },
 ]
 
 legacyMinSystemVersion: "10.7"
