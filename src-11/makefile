@@ -10,7 +10,7 @@ POSTGRES_MAJOR_VERSION=11
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-GDAL_VERSION=2.3.0
+GDAL_VERSION=2.3.1
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.6.2
