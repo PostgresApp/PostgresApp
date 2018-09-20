@@ -78,7 +78,7 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
 export PROTOC protobuf_CFLAGS protobuf_LIBS
 
 # commands used for downloading and extracting sources
-CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
+CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis plv8
