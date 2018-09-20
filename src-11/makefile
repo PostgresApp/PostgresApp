@@ -28,8 +28,8 @@ LIBXML2_VERSION=2.9.8
 OPENSSL_VERSION=1.1.1
 
 # http://proj4.org/download.html
-PROJ_VERSION=5.0.1
-DATUMGRID_VERSION=1.5
+PROJ_VERSION=5.2.0
+DATUMGRID_VERSION=1.8
 
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18.5.15
