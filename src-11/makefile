@@ -41,6 +41,12 @@ PLV8_VERSION=1.4.8
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.13.1
 
+# https://github.com/protocolbuffers/protobuf/releases
+PROTOBUF_VERSION=3.6.1
+
+# https://github.com/protobuf-c/protobuf-c/releases
+PROTOBUFC_VERSION=1.3.1
+
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.0.9
 
@@ -50,6 +56,7 @@ ICU_MINOR_VERSION=1
 
 
 #path configuration
+BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
@@ -63,7 +70,12 @@ ICU_CFLAGS=-I$(PREFIX)/share/icu
 XCODE_PROJECT_FILE=$(CURDIR)/../Postgres.xcodeproj
 EXPORT_ARCHIVE_PATH=~/Documents/postgresapp-archives/$(POSTGRESAPP_VERSION)
 
+PROTOC=$(BUILD_PREFIX)/bin/protoc
+protobuf_CFLAGS=-I$(BUILD_PREFIX)/include -pthread
+protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
+
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
+export PROTOC protobuf_CFLAGS protobuf_LIBS
 
 # commands used for downloading and extracting sources
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
@@ -372,6 +384,49 @@ json-c-$(JSONC_VERSION).tar.gz:
 clean-json-c:
 	rm -Rf json-c-$(JSONC_VERSION)
 
+#########################
+###### protobuf-cpp #####
+#########################
+
+$(BUILD_PREFIX)/bin/protoc: protobuf-$(PROTOBUF_VERSION)/Makefile
+	make -C protobuf-$(PROTOBUF_VERSION) install
+
+protobuf-$(PROTOBUF_VERSION)/Makefile: protobuf-$(PROTOBUF_VERSION)/configure
+	cd protobuf-$(PROTOBUF_VERSION) && ./configure --prefix="$(BUILD_PREFIX)"
+
+protobuf-$(PROTOBUF_VERSION)/configure: protobuf-cpp-$(PROTOBUF_VERSION).tar.gz
+	$(TAR) protobuf-cpp-$(PROTOBUF_VERSION).tar.gz
+	touch $@
+
+protobuf-cpp-$(PROTOBUF_VERSION).tar.gz:
+	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION)/protobuf-cpp-$(PROTOBUF_VERSION).tar.gz"
+
+clean-protobuf-cpp:
+	rm -Rf protobuf-$(PROTOBUF_VERSION)
+
+
+#########################
+###### protobuf-c #######
+#########################
+
+protobuf-c: $(PREFIX)/lib/libprotobuf-c.dylib
+
+$(PREFIX)/lib/libprotobuf-c.dylib: protobuf-c-$(PROTOBUFC_VERSION)/Makefile
+	make -C protobuf-c-$(PROTOBUFC_VERSION) install
+
+protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/configure $(BUILD_PREFIX)/bin/protoc
+	cd protobuf-c-$(PROTOBUFC_VERSION) && ./configure --prefix="$(PREFIX)"
+
+protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
+	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
+	touch $@
+
+protobuf-c-$(PROTOBUFC_VERSION).tar.gz:
+	$(CURL) "https://github.com/protobuf-c/protobuf-c/releases/download/v$(PROTOBUFC_VERSION)/protobuf-c-$(PROTOBUFC_VERSION).tar.gz"
+
+clean-protobuf-c:
+	rm -Rf protobuf-c-$(PROTOBUFC_VERSION)
+
 
 #########################
 ####### libtiff #########
@@ -415,8 +470,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/autogen.sh $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/include/json-c/json_object_iterator.h
-	cd postgis-${POSTGIS_VERSION} && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" PCRE_CPPFLAGS="-I$(PCRE_INCLUDE_PATH)"
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/autogen.sh $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libprotobuf-c.dylib
+	cd postgis-${POSTGIS_VERSION} && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CPPFLAGS="-I$(PCRE_INCLUDE_PATH)"
 	/usr/bin/sed -i -e 's#/usr/local$$#"$(PREFIX)"#g' postgis-${POSTGIS_VERSION}/liblwgeom/Makefile
 	touch $@
 
