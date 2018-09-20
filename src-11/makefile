@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.5.0dev
+POSTGIS_VERSION=2.5.0rc2
 POSTGIS_MAJOR_VERSION=2.5
 
 POSTGRES_VERSION=11beta1
