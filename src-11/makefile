@@ -21,8 +21,8 @@ LIBEDIT_VERSION=20130611-3.1
 #http://download.osgeo.org/gdal/
 LIBJASPER_VERSION=1.900.1
 
-# http://xmlsoft.org/news.html
-LIBXML2_VERSION=2.9.7
+# ftp://xmlsoft.org/libxml2/
+LIBXML2_VERSION=2.9.8
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.0.2o
