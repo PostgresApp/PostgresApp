@@ -25,7 +25,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.8
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.0.2o
+OPENSSL_VERSION=1.1.1
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.0.1
@@ -121,7 +121,7 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION} install_sw
 
 openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib no-asm no-krb5 shared
+	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib no-asm shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
