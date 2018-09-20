@@ -86,7 +86,7 @@ postgresql: $(PREFIX)/bin/psql
 	touch $@
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	make -C "postgresql-$(POSTGRES_VERSION)" world
+	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" world
 	make -C "postgresql-$(POSTGRES_VERSION)" install-world
 	
 # setting PATH is to make sure we find the right xml2-config
