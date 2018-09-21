@@ -18,7 +18,7 @@ Die aktuelle Version erfordert macOS {{site.postgresappMinSystemVersion}} oder n
 Wir bieten aber auch [andere Versionen](documentation/all-versions.html) zum Download an.
 
 <div class="beta-banner">
-	PostgreSQL 11 Beta 1 ist jetzt verfügbar! <a href="https://github.com/PostgresApp/PostgresApp/releases/tag/v2.2beta1">Mehr Info</a>
+	PostgreSQL 11 Beta 1 ist jetzt verfügbar! Schau auf die <a href="https://github.com/PostgresApp/PostgresApp/releases/">"Releases" Seite</a> auf Github.
 </div>
 
 
