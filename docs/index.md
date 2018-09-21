@@ -18,7 +18,7 @@ Postgres.app updates automatically, so you get bugfixes as soon as possible.
 The current version requires macOS {{site.postgresappMinSystemVersion}} or later and comes with the latest PostgreSQL versions ({{ site.postgresqlVersions | map: "postgres" | array_to_sentence_string: "and" }}), but we also maintain [other versions](documentation/all-versions.html) of Postgres.app.
 
 <div class="beta-banner">
-	PostgreSQL 11 Beta is available! <a href="https://github.com/PostgresApp/PostgresApp/releases/tag/v2.2beta1">More Details</a>
+	PostgreSQL 11 Beta is available. See the <a href="https://github.com/PostgresApp/PostgresApp/releases/">releases section</a> on Github!
 </div>
 
 Installing Postgres.app
