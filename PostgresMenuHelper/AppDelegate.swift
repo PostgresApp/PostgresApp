@@ -18,11 +18,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	var menuItemViewControllers: [MenuItemViewController] = []
 	
-	var mainApp: SBApplication {
+	lazy var mainApp: SBApplication = {
 		let mainAppURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		let mainApp = SBApplication(url: mainAppURL)!
 		return mainApp
-	}
+	}()
 	
 	@IBOutlet var statusMenu: NSMenu!
 	
@@ -66,15 +66,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	@IBAction func openPostgresApp(_ sender: AnyObject?) {
-		mainApp.activate()
+		if checkAppleEventPermissions() {
+			mainApp.activate()
+		}
 	}
 	
 	@IBAction func openPreferences(_ sender: AnyObject?) {
-		mainApp.openPreferences()
+		if checkAppleEventPermissions() {
+			mainApp.activate()
+			mainApp.openPreferences()
+		}
 	}
 	
 	@IBAction func checkForUpdates(_ sender: AnyObject?) {
-		mainApp.checkForUpdates()
+		if checkAppleEventPermissions() {
+			mainApp.activate()
+			mainApp.checkForUpdates()
+		}
 	}
 	
 	@IBAction func quitPostgresMenuHelper(_ sender: AnyObject?) {
@@ -89,4 +97,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		NSApp.terminate(nil)
 	}
 	
+	
+	private func checkAppleEventPermissions() -> Bool {
+		guard #available(OSX 10.14, *) else { return true }
+		
+		let target = NSAppleEventDescriptor(bundleIdentifier: "com.postgresapp.Postgres2")
+		let status = AEDeterminePermissionToAutomateTarget(target.aeDesc, typeWildCard, typeWildCard, true)
+		
+		if status == errAEEventNotPermitted {
+			let alert = NSAlert()
+			alert.messageText = "PostgresMenuHelper has no permissions to control Postgres.app"
+			alert.informativeText = "Please open System Preferences -> Security and Privacy -> Automation and allow Postgres.app to control other apps."
+			alert.alertStyle = .warning
+			alert.runModal()
+			return false
+		}
+		
+		return true
+	}
 }
