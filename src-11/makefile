@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.5.0rc2
+POSTGIS_VERSION=2.5.0
 POSTGIS_MAJOR_VERSION=2.5
 
 POSTGRES_VERSION=11beta4
@@ -480,8 +480,7 @@ postgis-${POSTGIS_VERSION}/autogen.sh: postgis-${POSTGIS_VERSION}.tar.gz
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
-	$(CURL) "http://postgis.net/stuff/postgis-${POSTGIS_VERSION}.tar.gz" # prerelease URL
-#	$(CURL) "http://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz"
+	$(CURL) "https://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz"
 
 clean-postgis:
 	rm -Rf postgis-${POSTGIS_VERSION}
