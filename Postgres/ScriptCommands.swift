@@ -11,7 +11,9 @@ import Cocoa
 class OpenPrefsScriptCommand: NSScriptCommand {
 	override func performDefaultImplementation() -> Any? {
 		let delegate = NSApp.delegate as! AppDelegate
-		return delegate.showPreferences()
+		delegate.showPreferences()
+		NSApp.activate(ignoringOtherApps: true)
+		return true
 	}
 }
 
@@ -19,6 +21,7 @@ class CheckForUpdatesScriptCommand: NSScriptCommand {
 	override func performDefaultImplementation() -> Any? {
 		let appDelegate = NSApp.delegate as! AppDelegate
 		appDelegate.sparkleUpdater.checkForUpdates(self)
+		NSApp.activate(ignoringOtherApps: true)
 		return true
 	}
 }
