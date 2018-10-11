@@ -76,8 +76,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		serverManager.refreshServerStatuses()
 	}
 	
-	func showPreferences() -> Bool {
-		return NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
+	func showPreferences() {
+		// The preference window is displayed by a storyboard segue hooked up to a menu item
+		// This seems to be the easiest way to trigger that segue programmatically
+		NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
