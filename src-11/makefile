@@ -61,9 +61,9 @@ PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 
 #compiler options
-MACOSX_DEPLOYMENT_TARGET=10.10
-CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.10
-CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.10
+MACOSX_DEPLOYMENT_TARGET=10.12
+CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
+CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
 
