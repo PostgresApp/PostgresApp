@@ -63,6 +63,7 @@ CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
 CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
+PG_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 
 XCODE_PROJECT_FILE=$(CURDIR)/../Postgres.xcodeproj
 EXPORT_ARCHIVE_PATH=~/Documents/postgresapp-archives/$(POSTGRESAPP_VERSION)
@@ -71,7 +72,7 @@ PROTOC=$(BUILD_PREFIX)/bin/protoc
 protobuf_CFLAGS=-I$(BUILD_PREFIX)/include -pthread
 protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
 
-export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
+export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS PG_SYSROOT
 export PROTOC protobuf_CFLAGS protobuf_LIBS
 
 # commands used for downloading and extracting sources
