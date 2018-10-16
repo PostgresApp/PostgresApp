@@ -31,11 +31,8 @@ OPENSSL_VERSION=1.1.1
 PROJ_VERSION=5.2.0
 DATUMGRID_VERSION=1.8
 
-#see http://omahaproxy.appspot.com for latest stable v8 version
-V8_VERSION=3.18.5.15
-
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=1.4.8
+PLV8_VERSION=2.3.8
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
@@ -493,9 +490,8 @@ clean-postgis:
 plv8: $(PREFIX)/lib/postgresql/plv8.so
 	touch $@
 
-$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install 
-#	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
+$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; make -C plv8-${PLV8_VERSION} USE_ICU=1 install
 
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
@@ -503,28 +499,8 @@ plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
 	touch $@
 	
 plv8-${PLV8_VERSION}.tar.gz:
-	/usr/bin/curl -L10 --silent --show-error -o $@ https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
+	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
 
-# Unfortunately, plv8 only builds with outdated v8, but outdated v8 no longer builds with recent clang
-# As a workaround, we include libv8 binary built with older clang in repository
-#
-#$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/out/x64.release/libv8.dylib
-#	cp v8-${V8_VERSION}/out/x64.release/libv8.dylib $(PREFIX)/lib/libv8.dylib
-#	/usr/bin/install_name_tool -id "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib"
-#
-#v8-${V8_VERSION}/out/x64.release/libv8.dylib: v8-${V8_VERSION}/Makefile
-#	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; make -C v8-${V8_VERSION} dependencies
-#	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; export DYLD_LIBRARY_PATH=$(CURDIR)/v8-${V8_VERSION}/out/x64.release; make -C v8-${V8_VERSION} library=shared werror=no x64.release
-
-$(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/Makefile
-	cp bin/libv8.dylib $(PREFIX)/lib/libv8.dylib
-
-v8-${V8_VERSION}/Makefile: v8-${V8_VERSION}.tar.gz
-	$(TAR) $<
-	touch $@
-
-v8-${V8_VERSION}.tar.gz:
-	/usr/bin/curl -L10 --silent --show-error -o "v8-${V8_VERSION}.tar.gz" "https://github.com/v8/v8/archive/${V8_VERSION}.tar.gz"
 
 clean-plv8:
-	rm -Rf plv8js v8-${V8_VERSION} plv8-${PLV8_VERSION}
+	rm -Rf plv8-${PLV8_VERSION}
