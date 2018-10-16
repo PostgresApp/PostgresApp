@@ -492,7 +492,7 @@ plv8: $(PREFIX)/lib/postgresql/plv8.so
 	touch $@
 
 $(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
-	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; make -C plv8-${PLV8_VERSION} USE_ICU=1 install
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; make -C plv8-${PLV8_VERSION} install
 
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
