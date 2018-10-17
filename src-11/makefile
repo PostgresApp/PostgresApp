@@ -63,7 +63,6 @@ CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
 CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
-PG_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 
 XCODE_PROJECT_FILE=$(CURDIR)/../Postgres.xcodeproj
 EXPORT_ARCHIVE_PATH=~/Documents/postgresapp-archives/$(POSTGRESAPP_VERSION)
@@ -72,7 +71,7 @@ PROTOC=$(BUILD_PREFIX)/bin/protoc
 protobuf_CFLAGS=-I$(BUILD_PREFIX)/include -pthread
 protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
 
-export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS PG_SYSROOT
+export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
 export PROTOC protobuf_CFLAGS protobuf_LIBS
 
 # commands used for downloading and extracting sources
@@ -104,7 +103,7 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib postgresql-$(POSTGRES_VERSION)/configure
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs --with-icu
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-gssapi --with-bonjour --with-libxml --with-libxslt --with-perl --with-python --with-readline --with-uuid=e2fs --with-icu
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
