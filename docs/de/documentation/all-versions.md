@@ -18,12 +18,11 @@ Folgende Server-Versionen sind im Paket inkludiert:
 
 [Postgres.app {{site.postgresappVersion}} herunterladen]({{site.downloadLocation}})
 
-PostgreSQL 11 Beta
-------------------
+Andere Versionen und Betas
+------------------------
 
-Wir bieten auch Beta-Versionen mit PostgreSQL 11 zum Download an.
-Bitte schau auf die 
-<a href="https://github.com/PostgresApp/PostgresApp/releases/">Releases Seite</a> auf Github!
+Bitte schau auch auf die 
+<a href="https://github.com/PostgresApp/PostgresApp/releases/">Releases Seite</a> auf Github für zusätzliche Versionen!
 
 
 Weitere Versionen
