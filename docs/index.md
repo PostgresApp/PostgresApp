@@ -15,7 +15,7 @@ You never need to touch the command line to use it – but of course we do inclu
 
 Postgres.app updates automatically, so you get bugfixes as soon as possible.
 
-The current version requires macOS {{site.postgresappMinSystemVersion}} or later and comes with the latest PostgreSQL versions ({{ site.postgresqlVersions | map: "postgres" | array_to_sentence_string: "and" }}), but we also maintain [other versions](documentation/all-versions.html) of Postgres.app.
+The current version requires macOS {{site.postgresappMinSystemVersion}} or later and comes with the latest PostgreSQL version ({{ site.postgresqlVersions | map: "postgres" | array_to_sentence_string: "and" }}), but we also maintain [other versions](documentation/all-versions.html) of Postgres.app.
 
 
 Installing Postgres.app
