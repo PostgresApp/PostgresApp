@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 2.2</title>
+		<description>
+			<![CDATA[
+				<p>This is the first release with PostgreSQL 11.</p>
+				<ul>
+					<li>PostgreSQL 11 with PostGIS 2.5.0</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 18 Oct 2018 14:18:46 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2/Postgres-2.2-9.5-9.6-10-11.dmg"
+		sparkle:version="49"
+		sparkle:shortVersionString="2.2"
+		length="220243776"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFGNEZDtvTcpPY9g7QkuPNnGZwHChAhR90o97Pf9t5CPbfBijHZQUGjnyHw=="
+		/>
+	</item>
+  </channel>
+</rss>
