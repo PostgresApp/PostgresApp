@@ -12,10 +12,7 @@ Postgres.app has a beautiful user interface and a convenient menu bar item.
 You never need to touch the command line to use it – but of course we do include all the necessary [command line tools](/documentation/cli-tools.html) and header files for advanced users.
 
 
-
-Postgres.app updates automatically, so you get bugfixes as soon as possible.
-
-The current version requires macOS {{site.postgresappMinSystemVersion}} or later and comes with the latest PostgreSQL version ({{ site.postgresqlVersions | map: "postgres" | array_to_sentence_string: "and" }}), but we also maintain [other versions](documentation/all-versions.html) of Postgres.app.
+Postgres.app can install minor updates automatically, so you get bugfixes as soon as possible.
 
 
 Installing Postgres.app

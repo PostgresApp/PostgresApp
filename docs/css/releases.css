@@ -1,0 +1,57 @@
+.release {
+	background: #3E74BD;
+	border-radius: 6px;
+	padding: 20px;
+	margin: 0 0 25px;
+	position: relative;
+}
+
+.release h1 {
+	color: #D6FFF8;
+	color: rgba(255,255,255,0.8);
+	color: #fff;
+	margin: 0 0 10px;
+	font-size: 24px;
+	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+	font-weight: 400;
+}
+
+.release .download {
+	background: #AEE4DB;
+	background: #fff;
+	background: rgba(255,255,255,0.8);
+	padding: 6px 8px;
+	color: rgba(20,44,147,0.84);
+	color: #000;
+	text-decoration: none;
+	font-size: 18px;
+	border-radius: 6px;
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}
+
+.release ul.release-contents {
+	list-style-type: none;
+	color: rgba(255,255,255,1);
+	font-size: 13px;
+	margin: 0;
+	padding: 0;
+}
+
+.release ul.release-info {
+	list-style-type: none;
+	color: rgba(255,255,255,0.7);
+	font-size: 13px;
+	margin: 0 0 10px;
+	padding: 0;
+}
+
+.release ul.release-info li {
+	display: inline-block;
+	
+}
+
+.release ul.release-info li + li::before {
+	content: "  ·  ";
+}

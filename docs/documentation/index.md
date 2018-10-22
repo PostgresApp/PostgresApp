@@ -6,7 +6,6 @@ title: Postgres.app Documentation
 ## Documentation
 
 - [Installing and Uninstalling](install.html)
-- [Available Versions of Postgres.app](all-versions.html)
 - [Updating](update.html)
 - [Migrating data](migrating-data.html)
 - [Removing other PostgreSQL installations](remove.html)

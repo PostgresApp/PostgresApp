@@ -69,6 +69,7 @@ header h2 {
 header ul {
 	padding: 0;
 	margin: 20px 0 0;
+	border-bottom: 4px solid rgba(50,90,180,1);
 }
 
 header li {
@@ -79,13 +80,24 @@ header li {
 
 header li a {
 	display: block;
+	background: rgba(230,230,230,1);
+	color: rgba(0,0,0,0.75) !important;
+	text-decoration: none;
+	padding: 6px 17px 6px;
+	border-radius: 3px;
+	margin: 5px 2px 0;
+	position: relative;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+header li.current a {
 	background: rgba(50,90,180,1);
 	color: white !important;
-	text-decoration: none;
+	postition: relative;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 	padding: 6px 17px;
-	border-radius: 3px;
-	margin: 5px 2px;
-	position: relative;
 }
 
 header li a:active {

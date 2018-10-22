@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="license" href="http://www.opensource.org/licenses/postgresql" title="PostgreSQL License"/>
     <link rel="stylesheet" href="/css/postgresapp.css"/>
+    <link rel="stylesheet" href="/css/releases.css"/>
 
     <meta content="{{ page.title }}" property="og:title"/>
     <meta content="http://postgresapp.com/" property="og:url"/>
@@ -42,8 +43,9 @@
 		  			<h2 itemprop="description">{{site.strings[lang].subtitle}}</h2>
 				</a>
 				<ul class="buttons">
-					<li><a href="{{ site.downloadLocation }}">{{site.strings[lang].download-button}}</a></li>
-					<li><a href="{{langPathPrefix}}/documentation/">{{site.strings[lang].docs-button}}</a></li>
+					<li{%unless page.path contains 'documentation/'%}{%if page.path contains 'index'%} class="current"{%endif%}{%endunless%}><a href="{{langPathPrefix}}/">{{site.strings[lang].homepage-button}}</a></li>
+					<li{% if page.path contains 'downloads' %} class=current{% endif%}><a href="{{langPathPrefix}}/downloads.html">{{site.strings[lang].downloads-title}}</a></li>
+					<li{% if page.path contains 'documentation/' %} class=current{% endif%}><a href="{{langPathPrefix}}/documentation/">{{site.strings[lang].docs-button}}</a></li>
 					<li>
 						<a href="{{ site.github.repository_url }}">{{site.strings[lang].github-button}} <span class="note">{{ site.github.public_repositories[0].stargazers_count }} {{site.strings[lang].stars}}</span></a>
 					</li>

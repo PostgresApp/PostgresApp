@@ -1,0 +1,23 @@
+{% assign pathComponents = page.path | split: '/' %}
+{% for pathComponent in pathComponents limit: 1 %}
+	{% if pathComponent.size == 2 %}
+		{% assign lang = pathComponent %}
+	{% else %}
+		{% assign lang = 'en' %}
+	{% endif %}
+{% endfor %}
+
+<div class="release">
+	<h1>{{include.release.name[lang]}}</h1>
+	<ul class="release-info">
+		{%if include.release.postgresappVersion%}<li>Postgres.app v{{include.release.postgresappVersion}}</li>{%endif%}
+		<li>{{site.strings[lang].requires-os}} macOS&nbsp;{{include.release.postgresappMinSystemVersion}}</li>
+		<li>{{site.strings[lang].download-size}} {{include.release.size}}</li>
+	</ul>
+	<ul class="release-contents">
+	{% for postgresqlVersion in include.release.postgresqlVersions %}
+	 	<li>PostgreSQL {{ postgresqlVersion.postgres }} / PostGIS {{ postgresqlVersion.postgis }} / plv8 {{ postgresqlVersion.plv8 }}</li>
+	{% endfor %}
+	</ul>
+	<a class="download" href="{{include.release.downloadLocation}}">⤓ {{site.strings[lang].download-button}}</a>
+</div>

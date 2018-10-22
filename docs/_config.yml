@@ -1,48 +1,128 @@
 name: Postgres.app
 description: "Postgres.app is a full featured PostgreSQL installation packaged as a standard Mac app."
 
-gems: ['jekyll-github-metadata']
+plugins:
+  - jekyll-redirect-from
+  - jekyll-github-metadata
+
 repository: postgresapp/postgresapp
 
-downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2/Postgres-2.2-11.dmg"
-releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.2"
-postgresappVersion: "2.2"
-postgresappMinSystemVersion: "10.12"
-postgresqlVersions: [
-	{ postgres: "11", postgis: "2.5.0" }
+release: {
+	name: {
+		en: "Postgres.app with PostgreSQL 11", 
+		de: "Postgres.app mit PostgreSQL 11",
+	},
+	size: "71MB",
+	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2/Postgres-2.2-11.dmg",
+	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.2",
+	postgresappVersion: "2.2",
+	postgresappMinSystemVersion: "10.12",
+	postgresqlVersions: [
+		{ postgres: "11.0", postgis: "2.5.0", plv8: "2.3.8" },
+	],
+}
+
+extraReleases: [
+	{
+		name: {
+			en: "Postgres.app with PostgreSQL 9.5, 9.6, 10 and 11", 
+			de: "Postgres.app mit PostgreSQL 9.5, 9.6, 10 und 11",
+		},
+		size: "220MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2/Postgres-2.2-9.5-9.6-10-11.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.2",
+		postgresappVersion: "2.2",
+		postgresappMinSystemVersion: "10.12",
+		postgresqlVersions: [
+			{ postgres: "11.0", postgis: "2.5.0", plv8: "2.3.8" },
+			{ postgres: "10.5", postgis: "2.4.4", plv8: "1.4.8" },
+			{ postgres: "9.6.10", postgis: "2.3.7", plv8: "1.4.8" },
+			{ postgres: "9.5.14", postgis: "2.2.7", plv8: "1.4.8" },
+		],
+	},
 ]
 
-legacyMinSystemVersion: "10.7"
-legacyVersions: [
+legacyReleases: [
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.3.23.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
-		postgresqlVersion: "9.3.23",
-		postgisVersion: "2.1.9",
+		name: {
+			en: "Postgres.app with PostgreSQL 9.5, 9.6 and 10", 
+			de: "Postgres.app mit PostgreSQL 9.5, 9.6 und 10",
+		},
+		size: "158MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-2.1.5.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.1.5",
+		postgresappVersion: "2.1.5",
+		postgresappMinSystemVersion: "10.10",
+		postgresqlVersions: [
+			{ postgres: "10.5", postgis: "2.4.4", plv8: "1.4.8" },
+			{ postgres: "9.6.10", postgis: "2.3.7", plv8: "1.4.8" },
+			{ postgres: "9.5.14", postgis: "2.2.7", plv8: "1.4.8" },
+		],
 	},
 	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.4.18.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.4",
-		postgresqlVersion: "9.4.18",
-		postgisVersion: "2.1.9",
-	},
-	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-Legacy-9.5.14.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.5",
-		postgresqlVersion: "9.5.14",
-		postgisVersion: "2.2.7",
-	},
-	{
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-Legacy-9.6.10.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.5",
-		postgresqlVersion: "9.6.10",
-		postgisVersion: "2.3.7",
-	},
-	{
+		name: {
+			en: "Legacy Postgres.app with PostgreSQL 10", 
+			de: "Legacy Postgres.app mit PostgreSQL 10",
+		},
+		size: "63MB",
 		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-Legacy-10.5.zip",
-		releaseNotes: "https://github.com/PostgresApp/PostgresApp/releases/v2.1.5",
-		postgresqlVersion: "10.5",
-		postgisVersion: "2.4.4",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.1.5",
+		postgresappMinSystemVersion: "10.7",
+		postgresqlVersions: [
+			{ postgres: "10.5", postgis: "2.4.4", plv8: "1.4.8" },
+		],
+	},
+	{
+		name: {
+			en: "Legacy Postgres.app with PostgreSQL 9.6", 
+			de: "Legacy Postgres.app mit PostgreSQL 9.6",
+		},
+		size: "48MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-Legacy-9.6.10.zip",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.1.5",
+		postgresappMinSystemVersion: "10.7",
+		postgresqlVersions: [
+			{ postgres: "9.6.10", postgis: "2.3.7", plv8: "1.4.8" },
+		],
+	},
+	{
+		name: {
+			en: "Legacy Postgres.app with PostgreSQL 9.5", 
+			de: "Legacy Postgres.app mit PostgreSQL 9.5",
+		},
+		size: "44MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.5/Postgres-Legacy-9.5.14.zip",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.1.5",
+		postgresappMinSystemVersion: "10.7",
+		postgresqlVersions: [
+			{ postgres: "9.5.14", postgis: "2.2.7", plv8: "1.4.8" },
+		],
+	},
+	{
+		name: {
+			en: "Legacy Postgres.app with PostgreSQL 9.4", 
+			de: "Legacy Postgres.app mit PostgreSQL 9.4",
+		},
+		size: "41MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.4.18.zip",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.1.4",
+		postgresappMinSystemVersion: "10.7",
+		postgresqlVersions: [
+			{ postgres: "9.4.18", postgis: "2.1.9", plv8: "1.4.8" },
+		],
+	},
+	{
+		name: {
+			en: "Legacy Postgres.app with PostgreSQL 9.3", 
+			de: "Legacy Postgres.app mit PostgreSQL 9.3",
+		},
+		size: "41MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.1.4/Postgres-Legacy-9.3.23.zip",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.1.4",
+		postgresappMinSystemVersion: "10.7",
+		postgresqlVersions: [
+			{ postgres: "9.3.23", postgis: "2.1.9", plv8: "1.4.8" },
+		],
 	},
 ]
 
@@ -51,7 +131,9 @@ languages: [en, de]
 strings: {
 	de: {
 		subtitle: Der schnellste Weg zu PostgreSQL am Mac,
-		download-button: Download,
+		homepage-button: Einleitung,
+		downloads-title: Downloads,
+		download-button: Laden,
 		docs-button: Dokumentation,
 		github-button: Github,
 		stars: Sterne,
@@ -59,9 +141,13 @@ strings: {
 		find-us: Finde uns auf,
 		typo: "Feler gefunden?",
 		edit-page: Bearbeite diese Seite,
+		requires-os: "Benötigt",
+		download-size: "Downloadgröße",
 	},
 	en: {
 		subtitle: The easiest way to get started with PostgreSQL on the Mac,
+		homepage-button: Introduction,
+		downloads-title: Downloads,
 		download-button: Download,
 		docs-button: Documentation,
 		github-button: Github,
@@ -70,5 +156,7 @@ strings: {
 		find-us: Find us on,
 		typo: "Spotted a typo?",
 		edit-page: edit this page,
+		requires-os: "Requires",
+		download-size: "Download Size",
 	}
 }
