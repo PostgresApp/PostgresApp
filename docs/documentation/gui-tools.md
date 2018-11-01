@@ -24,6 +24,7 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [PSequel](http://www.psequel.com)
 - [SEQUEL for PostgreSQL](http://www.sequel.tech)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
+- [TablePlus](https://tableplus.io/)
 - [Toad Mac Edition](https://itunes.apple.com/app/toad/id747961939?l=en&mt=12)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 
