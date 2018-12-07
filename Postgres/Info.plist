@@ -42,5 +42,7 @@
 	<string>https://postgresapp.com/sparkle/updates.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string></string>
 </dict>
 </plist>
