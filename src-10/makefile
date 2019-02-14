@@ -2,9 +2,11 @@
 
 # http://postgis.net/source/
 POSTGIS_VERSION=2.4.4
+POSTGIS_VERSION=2.4.6
 POSTGIS_MAJOR_VERSION=2.4
 
 POSTGRES_VERSION=10.4
+POSTGRES_VERSION=10.7
 POSTGRES_MAJOR_VERSION=10
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
@@ -15,6 +17,7 @@ GDAL_VERSION=2.1.3
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.6.2
+GEOS_VERSION=3.6.3
 
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
@@ -24,9 +27,11 @@ LIBJASPER_VERSION=1.900.1
 
 # http://xmlsoft.org/news.html
 LIBXML2_VERSION=2.9.7
+LIBXML2_VERSION=2.9.9
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.0.2o
+OPENSSL_VERSION=1.0.2q
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -44,6 +49,7 @@ JSONC_VERSION=0.12.1
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.0.9
+LIBTIFF_VERSION=4.0.10
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=58
