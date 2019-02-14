@@ -44,6 +44,10 @@ do
 		# copy static libraries where a dynamic one doesn't exist
 		for file in *.a
 		do
+            if [[ $file == *LLVM* ]]
+            then
+                continue
+            fi
 			if  [ ! -f "${file%.*}.dylib" ]
 			then
 				cp -af $file "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
