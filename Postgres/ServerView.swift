@@ -45,34 +45,50 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		guard let database = server.firstSelectedDatabase else { return }
 		
 		let clientApp = UserDefaults.standard.object(forKey: "ClientAppName") as? String ?? "Terminal"
-		guard FileManager.default.applicationExists(clientApp) else {
-			let userInfo = [
-				NSLocalizedDescriptionKey: "\"\(clientApp)\" not found.",
-				NSLocalizedRecoverySuggestionErrorKey: "Please select a different database client in the preferences."
-			]
-			let error = NSError(domain: "com.postgresapp.Postgres2.missing-client-app", code: 0, userInfo: userInfo)
-			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
-			return
-		}
-		
-		let routine = "open_"+clientApp
-		var param: String
-		
-		switch clientApp {
-		case "Terminal", "iTerm":
-			param = String(format: "\"%@/psql\" -p%u -d \"%@\"", arguments: [server.binPath.replacingOccurrences(of: "'", with: "'\\''"), server.port, database.name])
-		case "Postico":
-			param = String(format: "postgres://localhost:%u/%@", server.port, database.name)
-		default:
-			return
-		}
-		
-		let launcher = ClientLauncher()
-		do {
-			try launcher.runSubroutine(routine, parameters: [param])
-		} catch let error {
-			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
-		}
+        
+        if clientApp == "Postico" {
+            var urlComponents = URLComponents()
+            urlComponents.scheme = "postico"
+            urlComponents.host = "localhost"
+            urlComponents.port = Int(server.port)
+            urlComponents.path = "/" + database.name
+            let url = urlComponents.url!
+            let success = NSWorkspace.shared().open(url)
+            if !success {
+                let alert = NSAlert()
+                alert.messageText = "Could not open Postico"
+                alert.informativeText = "Please make sure that you have the latest version of Postico installed, or choose a different client in the preferences"
+                if let window = sender?.window {
+                    alert.beginSheetModal(for: window, completionHandler: nil)
+                } else {
+                    alert.runModal()
+                }
+            }
+            return
+        }
+        else if clientApp == "Terminal" || clientApp == "iTerm" {
+            let psql_command = "\(server.binPath)/psql -p\(server.port) \"\(database.name)\""
+            let routine = "open_"+clientApp
+            do {
+                let launcher = ClientLauncher()
+                try launcher.runSubroutine(routine, parameters: [psql_command])
+            } catch {
+                let alert = NSAlert()
+                alert.messageText = "Could not open \(clientApp)"
+                alert.informativeText =
+                """
+                Make sure that Postgres.app has permission to automate \(clientApp).
+                
+                Alternatively, you can also just execute the following command manually to connect to the database:
+                \(psql_command)
+                """
+                if let window = sender?.window {
+                    alert.beginSheetModal(for: window, completionHandler: nil)
+                } else {
+                    alert.runModal()
+                }
+            }
+        }
 	}
 	
 	

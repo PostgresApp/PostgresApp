@@ -1,19 +1,13 @@
 on open_Terminal(cmnd)
 	tell application "Terminal"
-		activate
-		if number of windows = 0 then
-			do script cmnd
-			else
-			tell application "System Events" to keystroke "t" using command down
-			do script cmnd in window 1
-		end if
+        do script cmnd
+        activate
 	end tell
 end open_Terminal
 
 
 on open_iTerm(cmnd)
 	tell application "iTerm"
-		activate
 		if number of windows = 0 then
 			create window with default profile command cmnd
 		else
@@ -21,6 +15,7 @@ on open_iTerm(cmnd)
 				create tab with default profile command cmnd
 			end tell
 		end if
+        activate
 	end tell
 end open_iTerm
 
