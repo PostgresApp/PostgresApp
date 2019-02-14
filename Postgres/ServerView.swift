@@ -92,7 +92,7 @@ class ServerViewBackgroundView: NSView {
 	override var mouseDownCanMoveWindow: Bool { return true }
 	
 	override func draw(_ dirtyRect: NSRect) {
-		NSColor.white.setFill()
+		NSColor.controlBackgroundColor.setFill()
 		NSRectFill(dirtyRect)
 		
 		let imgSize = CGFloat(96)

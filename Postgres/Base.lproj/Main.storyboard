@@ -411,7 +411,7 @@ IA
                             </textField>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
                                 <rect key="frame" x="0.0" y="33" width="450" height="150"/>
-                                <clipView key="contentView" id="Dni-fY-jEd">
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Dni-fY-jEd">
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
