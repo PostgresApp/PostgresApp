@@ -9,13 +9,13 @@
 		<title>Postgres.app 2.1.6</title>
 		<description>
 			<![CDATA[
-				<p>This is the August 2018 quarterly update for PostgreSQL.</p>
+				<p>This is the February 2019 quarterly update for PostgreSQL.</p>
 				<ul>
 					<li>PostgreSQL 10.7 with PostGIS 2.4.6</li>
 					<li>PostgreSQL 9.6.12 with PostGIS 2.3.8</li>
 					<li>PostgreSQL 9.5.16 with PostGIS 2.2.8</li>
 				</ul>
-				<p>PostgreSQL 11.2 is available as a separate download from <a href="http://postgresapp.com">postgresapp.com</a></p>
+				<p>PostgreSQL 11.2 is available with Postgres.app 2.2.2 and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
 			]]>
 		</description>
 		<pubDate>Thu, 14 Feb 2019 14:00:00 +0200</pubDate>

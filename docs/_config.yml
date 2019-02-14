@@ -31,7 +31,7 @@ extraReleases: [
 		size: "217MB",
 		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.2/Postgres-2.2.2-9.5-9.6-10-11.dmg",
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.2.2",
-		postgresappVersion: "2.2",
+		postgresappVersion: "2.2.2",
 		postgresappMinSystemVersion: "10.12",
 		postgresqlVersions: [
 			{ postgres: "11.2", postgis: "2.5.1", plv8: "2.3.9" },
