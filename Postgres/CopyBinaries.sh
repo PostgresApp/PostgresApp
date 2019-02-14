@@ -9,17 +9,16 @@
 set -e
 set -o pipefail
 
-SOURCE_VERSIONS_DIR="/Applications/Postgres.app/Contents/Versions"
 TARGET_VERSIONS_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions"
 
-cd "$SOURCE_VERSIONS_DIR"
+cd "$PG_BINARIES_DIR"
 
-for VERSION in [123456789]*
+for VERSION in ${PG_BINARIES_VERSIONS//_/ }
 do
 	if [ ! -e "${TARGET_VERSIONS_DIR}/${VERSION}" ]
 	then
 		# copy binaries
-		cd "${SOURCE_VERSIONS_DIR}/${VERSION}/bin/"
+		cd "${PG_BINARIES_DIR}/${VERSION}/bin/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy postgresql binaries
 		cp clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg* postgres postmaster psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
@@ -36,7 +35,7 @@ do
 		cp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 
 		# copy all dynamic libraries
-		cd "${SOURCE_VERSIONS_DIR}/${VERSION}/lib/"
+		cd "${PG_BINARIES_DIR}/${VERSION}/lib/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -af *.dylib "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -afR postgresql "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
@@ -56,7 +55,7 @@ do
 
 		# copy include, share
 		rm -f "${TARGET_VERSIONS_DIR}/${VERSION}/include/json"
-		cp -afR "${SOURCE_VERSIONS_DIR}/${VERSION}/include" "${SOURCE_VERSIONS_DIR}/${VERSION}/share" "${TARGET_VERSIONS_DIR}/${VERSION}/"
+		cp -afR "${PG_BINARIES_DIR}/${VERSION}/include" "${PG_BINARIES_DIR}/${VERSION}/share" "${TARGET_VERSIONS_DIR}/${VERSION}/"
 	fi
 done
 
