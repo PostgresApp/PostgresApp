@@ -6,6 +6,9 @@
 #  Created by Jakob Egger on 31/08/2016.
 #  Copyright © 2016 postgresapp. All rights reserved.
 
+set -e
+set -o pipefail
+
 SOURCE_VERSIONS_DIR="/Applications/Postgres.app/Contents/Versions"
 TARGET_VERSIONS_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions"
 

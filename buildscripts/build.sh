@@ -1,23 +1,21 @@
 #!/bin/bash
 
 set -e
+set -o pipefail
 
 PROJECT_ROOT=$(dirname $(pwd))
 
-# get version, buildnumber and increment buildnumber
-#VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$PROJECT_ROOT"/Postgres/Info.plist)
-#BUILD_NO_NEW=$(($(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PROJECT_ROOT"/Postgres/Info.plist)+1))
-
-# set incremented build number
-#/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NO_NEW" "$PROJECT_ROOT"/Postgres/Info.plist
+# get version and buildnumber
+VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$PROJECT_ROOT"/Postgres/Info.plist)
+BUILD_NO=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PROJECT_ROOT"/Postgres/Info.plist)
 
 PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
-ARCHIVE_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres.xcarchive
+ARCHIVE_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png
-EXPORT_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres-export
-DMG_SRC_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres
-DMG_DST_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO_NEW/Postgres-$VERSION.dmg
-SIGNATURE_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO_NEW/signature.txt
+EXPORT_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/Postgres-export
+DMG_SRC_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/Postgres
+DMG_DST_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/Postgres-$VERSION.dmg
+SIGNATURE_PATH=~/Documents/postgresapp/archives/Postgres-$VERSION-$BUILD_NO/signature.txt
 
 # get signing identity
 SIGN_ID=$(security find-certificate -a -c "Developer ID Application" -Z | grep -o -e 'Developer ID [^"]*' | head -n 1)
