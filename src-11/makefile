@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.5.1
+POSTGIS_VERSION=2.5.2
 POSTGIS_MAJOR_VERSION=2.5
 
-POSTGRES_VERSION=11.2
+POSTGRES_VERSION=11.3
 POSTGRES_MAJOR_VERSION=11
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
@@ -25,14 +25,14 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.9
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1a
+OPENSSL_VERSION=1.1.1b
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.2.0
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=2.3.9
+PLV8_VERSION=2.3.11
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
