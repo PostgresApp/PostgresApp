@@ -6,26 +6,26 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.1.6</title>
+		<title>Postgres.app 2.1.7</title>
 		<description>
 			<![CDATA[
-				<p>This is the February 2019 quarterly update for PostgreSQL.</p>
+				<p>This is the May 2019 quarterly update for PostgreSQL.</p>
 				<ul>
-					<li>PostgreSQL 10.7 with PostGIS 2.4.6</li>
-					<li>PostgreSQL 9.6.12 with PostGIS 2.3.8</li>
-					<li>PostgreSQL 9.5.16 with PostGIS 2.2.8</li>
+					<li>PostgreSQL 10.8 with PostGIS 2.4.7</li>
+					<li>PostgreSQL 9.6.13 with PostGIS 2.3.8</li>
+					<li>PostgreSQL 9.5.17 with PostGIS 2.2.8</li>
 				</ul>
-				<p>PostgreSQL 11.2 is available with Postgres.app 2.2.2 and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
+				<p>PostgreSQL 11.3 is available with Postgres.app 2.2.3 and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
 			]]>
 		</description>
-		<pubDate>Thu, 14 Feb 2019 14:00:00 +0200</pubDate>
+		<pubDate>Thu, 09 May 2019 14:00:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.2/Postgres-2.1.6.dmg"
-		sparkle:version="50"
-		sparkle:shortVersionString="2.1.6"
-		length="156622241"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.3/Postgres-2.1.7.dmg"
+		sparkle:version="52"
+		sparkle:shortVersionString="2.1.7"
+		length="157761216"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFDzNoGOkPoHGdANZyowgXKNjzVYZAhUAjXdIjOWHKZ7mOy5GiNAWOKzPFZE="
+		sparkle:dsaSignature="MC0CFG0Ae6nDJ98VLGXLowxXTpghjIs0AhUArJ/nDkCk40dHcF5T18S/EMAMra4="
 		/>
 	</item>
   </channel>

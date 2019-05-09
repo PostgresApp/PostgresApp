@@ -6,25 +6,25 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.2.2</title>
+		<title>Postgres.app 2.2.3</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 11.2 with PostGIS 2.5.1</li>
-					<li>PostgreSQL 10.7 with PostGIS 2.4.6</li>
-					<li>PostgreSQL 9.6.12 with PostGIS 2.3.8</li>
-					<li>PostgreSQL 9.5.16 with PostGIS 2.2.8</li>
+					<li>PostgreSQL 11.3 with PostGIS 2.5.2</li>
+					<li>PostgreSQL 10.8 with PostGIS 2.4.7</li>
+					<li>PostgreSQL 9.6.13 with PostGIS 2.3.8</li>
+					<li>PostgreSQL 9.5.17 with PostGIS 2.2.8</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 14 Feb 2019 14:00:00 +0200</pubDate>
+		<pubDate>Thu, 09 May 2019 14:00:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.2/Postgres-2.2.2-9.5-9.6-10-11.dmg"
-		sparkle:version="51"
-		sparkle:shortVersionString="2.2.2"
-		length="217248242"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.3/Postgres-2.2.3-9.5-9.6-10-11.dmg"
+		sparkle:version="53"
+		sparkle:shortVersionString="2.2.3"
+		length="218466068"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFGHPlEEncJRFm/9vweBL0TOQUaAJAhUAtAeuEdSBLkzE1elizG4tD1IeBOQ="
+		sparkle:dsaSignature="MC4CFQCMMSeUUljDxJ3fJPhBJoKkaWvuEQIVAKjTl8ycojBTSsDUkpdMzIYV2kvb"
 		/>
 	</item>
   </channel>
