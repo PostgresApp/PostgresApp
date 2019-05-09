@@ -36,7 +36,7 @@ extraReleases: [
 		postgresqlVersions: [
 			{ postgres: "11.3", postgis: "2.5.2", plv8: "2.3.11" },
 			{ postgres: "10.8", postgis: "2.4.7", plv8: "1.4.8" },
-			{ postgres: "9.6.13", postgis: "2.3.8", plv8: "1.4.8" },
+			{ postgres: "9.6.13", postgis: "2.3.9", plv8: "1.4.8" },
 			{ postgres: "9.5.17", postgis: "2.2.8", plv8: "1.4.8" },
 		],
 	},
@@ -49,13 +49,13 @@ legacyReleases: [
 			de: "Postgres.app mit PostgreSQL 9.5, 9.6 und 10",
 		},
 		size: "156MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.3/Postgres-2.1.6.dmg",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.3/Postgres-2.1.7.dmg",
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.2.3",
-		postgresappVersion: "2.1.6",
+		postgresappVersion: "2.1.7",
 		postgresappMinSystemVersion: "10.10",
 		postgresqlVersions: [
 			{ postgres: "10.8", postgis: "2.4.7", plv8: "1.4.8" },
-			{ postgres: "9.6.13", postgis: "2.3.8", plv8: "1.4.8" },
+			{ postgres: "9.6.13", postgis: "2.3.9", plv8: "1.4.8" },
 			{ postgres: "9.5.17", postgis: "2.2.8", plv8: "1.4.8" },
 		],
 	},
@@ -82,7 +82,7 @@ legacyReleases: [
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.2.3",
 		postgresappMinSystemVersion: "10.7",
 		postgresqlVersions: [
-			{ postgres: "9.6.13", postgis: "2.3.8", plv8: "1.4.8" },
+			{ postgres: "9.6.13", postgis: "2.3.9", plv8: "1.4.8" },
 		],
 	},
 	{

@@ -10,7 +10,7 @@
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 11.2 with PostGIS 2.5.1</li>
+					<li>PostgreSQL 11.3 with PostGIS 2.5.2</li>
 				</ul>
 			]]>
 		</description>

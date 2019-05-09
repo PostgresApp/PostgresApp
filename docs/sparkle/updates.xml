@@ -12,7 +12,7 @@
 				<p>This is the May 2019 quarterly update for PostgreSQL.</p>
 				<ul>
 					<li>PostgreSQL 10.8 with PostGIS 2.4.7</li>
-					<li>PostgreSQL 9.6.13 with PostGIS 2.3.8</li>
+					<li>PostgreSQL 9.6.13 with PostGIS 2.3.9</li>
 					<li>PostgreSQL 9.5.17 with PostGIS 2.2.8</li>
 				</ul>
 				<p>PostgreSQL 11.3 is available with Postgres.app 2.2.3 and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
