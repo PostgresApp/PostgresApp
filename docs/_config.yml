@@ -25,6 +25,22 @@ release: {
 extraReleases: [
 	{
 		name: {
+			en: "Postgres.app with PostgreSQL 10, 11 and 12", 
+			de: "Postgres.app mit PostgreSQL 10, 11 und 12",
+		},
+		size: "180MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3beta1/Postgres-2.3beta1.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3beta1",
+		postgresappVersion: "2.3beta1",
+		postgresappMinSystemVersion: "10.12",
+		postgresqlVersions: [
+			{ postgres: "12beta1", postgis: "2.5.2", plv8: "n/a" },
+			{ postgres: "11.3", postgis: "2.5.2", plv8: "2.3.11" },
+			{ postgres: "10.8", postgis: "2.4.7", plv8: "1.4.8" },
+		],
+	},
+	{
+		name: {
 			en: "Postgres.app with PostgreSQL 9.5, 9.6, 10 and 11", 
 			de: "Postgres.app mit PostgreSQL 9.5, 9.6, 10 und 11",
 		},
