@@ -6,22 +6,23 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.2.3</title>
+		<title>Postgres.app 2.2.4</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 11.3 with PostGIS 2.5.2</li>
+					<li>PostgreSQL 11.4 with PostGIS 2.5.2</li>
 				</ul>
+				<p>PostgreSQL 12beta2 is available separately and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
 			]]>
 		</description>
-		<pubDate>Thu, 09 May 2019 14:00:00 +0200</pubDate>
+		<pubDate>Thu, 20 Jun 2019 14:00:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.3/Postgres-2.2.3-11.dmg"
-		sparkle:version="53"
-		sparkle:shortVersionString="2.2.3"
-		length="70133883"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.4/Postgres-2.2.4-11.dmg"
+		sparkle:version="56"
+		sparkle:shortVersionString="2.2.4"
+		length="70145523"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFD7oFI/ukGvZHLHM6jWr7J2JlfpRAhUArBzsHQMAvJvBo48ycOOOFkWrv6c="
+		sparkle:dsaSignature="MCwCFEVyVqjoSK/6MVdI7+ctZF0ibEHHAhRZBVV5ljW5YwJdC1JHe9hBuD0ipw=="
 		/>
 	</item>
   </channel>

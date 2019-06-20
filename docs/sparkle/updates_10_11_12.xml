@@ -6,27 +6,26 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.1.8</title>
+		<title>Postgres.app 2.3beta2</title>
 		<description>
 			<![CDATA[
-				<p>This is the May 2019 quarterly update for PostgreSQL.</p>
 				<ul>
+					<li>PostgreSQL 12beta2 with PostGIS 3.0.0alpha2</li>
+					<li>PostgreSQL 11.4 with PostGIS 2.5.2</li>
 					<li>PostgreSQL 10.9 with PostGIS 2.4.7</li>
-					<li>PostgreSQL 9.6.14 with PostGIS 2.3.9</li>
-					<li>PostgreSQL 9.5.18 with PostGIS 2.2.8</li>
 				</ul>
-				<p>PostgreSQL 11.4 and 12beta2 are available separately and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
 			]]>
 		</description>
 		<pubDate>Thu, 20 Jun 2019 14:00:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.4/Postgres-2.1.8.dmg"
-		sparkle:version="55"
-		sparkle:shortVersionString="2.1.8"
-		length="157780443"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.4/Postgres-2.3beta2.dmg"
+		sparkle:version="57"
+		sparkle:shortVersionString="2.3beta2"
+		length="188858182"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQCtU23dup9bld+VQtI7eaNO9Tq2kAIVALGnz5POZgnDayqTUKpHy1EQxr49"
+		sparkle:dsaSignature="MCwCFE17Ib4cPOdONfRUwSaEQQOqLW9AAhR9z5xIwzbzW2TQaYIv0AFL/n7jJw=="
 		/>
 	</item>
   </channel>
 </rss>
+
