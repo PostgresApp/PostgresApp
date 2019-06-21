@@ -13,6 +13,11 @@
 					<li>PostgreSQL 11.4 with PostGIS 2.5.2</li>
 				</ul>
 				<p>PostgreSQL 12beta2 is available separately and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
+				<p>
+					If you use other versions of PostgreSQL beside 11, please don't install this update.
+					Download the new version from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a> instead.
+					Normally Postgres.app should automatically download the correct update, but due to a bug in 2.2.3, it always shows the version with PostgreSQL 11 only.
+				</p>
 			]]>
 		</description>
 		<pubDate>Thu, 20 Jun 2019 14:00:00 +0200</pubDate>
