@@ -65,9 +65,9 @@ legacyReleases: [
 			de: "Postgres.app mit PostgreSQL 9.5, 9.6 und 10",
 		},
 		size: "156MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.4/Postgres-2.1.7.dmg",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.4/Postgres-2.1.8.dmg",
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/tag/v2.2.4",
-		postgresappVersion: "2.1.7",
+		postgresappVersion: "2.1.8",
 		postgresappMinSystemVersion: "10.10",
 		postgresqlVersions: [
 			{ postgres: "10.9", postgis: "2.4.7", plv8: "1.4.8" },
