@@ -17,12 +17,12 @@ If you want to convert a data directory to a new major version (eg. 9.5 to 9.6),
 
 From Postgres.app 9.5.x.x or 9.6.x.x
 ------------------------------------
-You can upgrade to Postgres.app 2 just by replacing the the app in your applications folder.
+You can upgrade to Postgres.app 2 just by replacing the app in your `/Applications` folder.
 
 1. Quit the old version of Postgres.app
-2. Download the new version of Postgres.app
-3. Replace the old version in /Applications with the new version
-4. Double click.
+2. Download the new version of Postgres.app and double-click the downloaded `.dmg`
+3. Replace the old version in `/Applications` with the new version
+4. Double-click the new version.
    Postgres.app 2 will automatically detect the existing data directories if they are in the standard location.
    If you are using a different location, add them manually by opening the sidebar and clicking the plus button.
 
