@@ -39,7 +39,7 @@
 	<key>OSAScriptingDefinition</key>
 	<string>PostgresAppScriptable</string>
 	<key>SUFeedURL</key>
-	<string>https://postgresapp.com/sparkle/updates_10_11_12.xml</string>
+	<string>https://postgresapp.com/sparkle/placeholder.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 </dict>
