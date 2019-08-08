@@ -2,25 +2,31 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/beta-updates.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_10_11_12.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.1 beta1</title>
+		<title>Postgres.app 2.3beta3</title>
 		<description>
 			<![CDATA[
-				
+				<p>This is the August 2019 quarterly update for PostgreSQL.</p>
+				<ul>
+					<li>PostgreSQL 12beta3 with PostGIS 3.0.0alpha3</li>
+					<li>PostgreSQL 11.5 with PostGIS 2.5.2</li>
+					<li>PostgreSQL 10.10 with PostGIS 2.4.7</li>
+				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 18 May 2017 16:00:00 +0100</pubDate>
+		<pubDate>Thu, 08 Aug 2019 19:00:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/2.1beta1/Postgres-2.1beta1.zip"
-		sparkle:version="22"
-		sparkle:shortVersionString="2.1beta1"
-		length="140893962"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.5/Postgres-2.3beta3.dmg"
+		sparkle:version="60"
+		sparkle:shortVersionString="2.3beta3"
+		length="194054601"
 		type="application/octet-stream"
-		sparkle:dsaSignature=""
+		sparkle:dsaSignature="MC0CFQDKss71kZyBhFa3VXmOsBioZfdEXQIUMvrU0haezDTMp2I84ktsJIdRGrs="
 		/>
 	</item>
   </channel>
 </rss>
+

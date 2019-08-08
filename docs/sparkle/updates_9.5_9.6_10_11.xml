@@ -2,30 +2,31 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_9.5_9.6_10_11.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.2.4</title>
+		<title>Postgres.app 2.2.5</title>
 		<description>
 			<![CDATA[
+				<p>This is the August 2019 quarterly update for PostgreSQL.</p>
 				<ul>
-					<li>PostgreSQL 11.4 with PostGIS 2.5.2</li>
-					<li>PostgreSQL 10.9 with PostGIS 2.4.7</li>
-					<li>PostgreSQL 9.6.14 with PostGIS 2.3.9</li>
-					<li>PostgreSQL 9.5.18 with PostGIS 2.2.8</li>
+					<li>PostgreSQL 11.5 with PostGIS 2.5.2</li>
+					<li>PostgreSQL 10.10 with PostGIS 2.4.7</li>
+					<li>PostgreSQL 9.6.15 with PostGIS 2.3.9</li>
+					<li>PostgreSQL 9.5.19 with PostGIS 2.2.8</li>
 				</ul>
-				<p>PostgreSQL 12beta2 is available separately and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
+				<p>PostgreSQL 12beta3 is available separately and can be download from <a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a></p>
 			]]>
 		</description>
-		<pubDate>Thu, 20 Jun 2019 14:00:00 +0200</pubDate>
+		<pubDate>Thu, 08 Aug 2019 19:00:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.4/Postgres-2.2.4-9.5-9.6-10-11.dmg"
-		sparkle:version="56"
-		sparkle:shortVersionString="2.2.4"
-		length="218496566"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.5/Postgres-2.2.5-9.5-9.6-10-11.dmg"
+		sparkle:version="59"
+		sparkle:shortVersionString="2.2.5"
+		length="218507670"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFBUnEuzY0zm78qnEQBUXWvKYxsK/AhQf51Y7NSjgl9vqTS7lWUYUs7LkPw=="
+		sparkle:dsaSignature="MC0CFBiIYe8OyLzAbJurGanA9CezEGMYAhUAxMj4x6TjK1Hkwkg8YPYwBdIoc8E="
 		/>
 	</item>
   </channel>
