@@ -42,7 +42,7 @@ Make sure you have `autoconf`, `automake` installed. The quickest way to install
 
 For building PostgreSQL with docs, you also need a bunch of other tools:
 
-    sudo port install docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl libxslt openjade opensp
+    sudo port install docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl-nons libxslt openjade opensp
 
 Then make sure you remove other versions of `Postgres.app` from your Applications folder.
 
