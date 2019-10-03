@@ -339,7 +339,7 @@ $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
 	make -C proj-$(PROJ_VERSION) install
 
 proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql
-	cd proj-$(PROJ_VERSION) && ./configure --prefix="$(PREFIX)"
+	cd proj-$(PROJ_VERSION) && SQLITE3_LIBS="-lsqlite3" ./configure --prefix="$(PREFIX)"
 
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz proj-datumgrid-$(DATUMGRID_VERSION).zip
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
