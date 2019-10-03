@@ -29,7 +29,7 @@ do
             cp createlang droplang "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
 		# copy proj binaries
-		cp cs2cs geod invgeod invproj nad2bin proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy gdal binaries
 		cp gdal* nearblack ogr2ogr ogrinfo ogrtindex testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy postgis binaries
