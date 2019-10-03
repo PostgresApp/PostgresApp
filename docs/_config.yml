@@ -9,16 +9,16 @@ repository: postgresapp/postgresapp
 
 release: {
 	name: {
-		en: "Postgres.app with PostgreSQL 11", 
-		de: "Postgres.app mit PostgreSQL 11",
+		en: "Postgres.app with PostgreSQL 12", 
+		de: "Postgres.app mit PostgreSQL 12",
 	},
 	size: "70MB",
-	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.5/Postgres-2.2.5-11.dmg",
-	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.2.5",
-	postgresappVersion: "2.2.5",
+	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3/Postgres-2.3-12.dmg",
+	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3",
+	postgresappVersion: "2.3",
 	postgresappMinSystemVersion: "10.12",
 	postgresqlVersions: [
-		{ postgres: "11.5", postgis: "2.5.2", plv8: "2.3.12" },
+		{ postgres: "12.0", postgis: "3.0.0beta1", plv8: "2.3.13" },
 	],
 }
 
@@ -29,12 +29,12 @@ extraReleases: [
 			de: "Postgres.app mit PostgreSQL 10, 11 und 12",
 		},
 		size: "180MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.5/Postgres-2.3beta3.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.2.5",
-		postgresappVersion: "2.3beta3",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3/Postgres-2.3-10-11-12.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3",
+		postgresappVersion: "2.3",
 		postgresappMinSystemVersion: "10.12",
 		postgresqlVersions: [
-			{ postgres: "12beta3", postgis: "3.0.0alpha3", plv8: "2.3.12" },
+			{ postgres: "12.0", postgis: "3.0.0beta1", plv8: "2.3.13" },
 			{ postgres: "11.5", postgis: "2.5.2", plv8: "2.3.12" },
 			{ postgres: "10.10", postgis: "2.4.7", plv8: "1.4.8" },
 		],
