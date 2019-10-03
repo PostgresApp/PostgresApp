@@ -14,9 +14,6 @@ You never need to touch the command line to use it – but of course we do inclu
 
 Postgres.app can install minor updates automatically, so you get bugfixes as soon as possible.
 
-<div class="beta-banner">
-	PostgreSQL 12 Beta is available! See the "Additional Releases" section on the downloads page.
-</div>
 
 Installing Postgres.app
 -----------------------

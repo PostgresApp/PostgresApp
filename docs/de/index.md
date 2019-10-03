@@ -14,10 +14,6 @@ für fortgeschrittene User_innen sind jedoch sämtliche [Command Line Tools](/de
 
 Postgres.app hat eine automatische Updatefunktion. Neue Versionen werden zeitgleich mit neuen Releases von PostgreSQL bereitgestellt.
 
-<div class="beta-banner">
-	PostgreSQL 12 Beta ist jetzt verfügbar! Du findest die Beta unter "Zusätzliche Versionen" auf der Download-Seite.
-</div>
-
 
 Installation
 -----------------------
