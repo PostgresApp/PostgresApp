@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates_10_11_12.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_12.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
@@ -10,22 +10,19 @@
 		<description>
 			<![CDATA[
 				<p>PostgreSQL 12 is now released!</p>
-				<p>This update includes the following versions of PostgreSQL!</p>
 				<ul>
 					<li>PostgreSQL 12.0 with PostGIS 3.0.0beta1</li>
-					<li>PostgreSQL 11.5 with PostGIS 2.5.2</li>
-					<li>PostgreSQL 10.10 with PostGIS 2.4.7</li>
 				</ul>
 			]]>
 		</description>
 		<pubDate>Thu, 03 Oct 2019 20:44:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3/Postgres-2.3-10-11-12.dmg"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3/Postgres-2.3-12.dmg"
 		sparkle:version="61"
 		sparkle:shortVersionString="2.3"
-		length="190654942"
+		length="67809949"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFGEu9tO8cu5YYzlBZ2vnepcjOTnjAhUA0r3yFm2T5NHcgG82xnF1qsOs2lk="
+		sparkle:dsaSignature="MC0CFQCnp2o1gGdjd+AFj/+uEgfeDYFF0gIULNJhMNUjyIHkHlvMDllfZZHScBw="
 		/>
 	</item>
   </channel>
