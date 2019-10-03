@@ -16,6 +16,12 @@
 					<li>PostgreSQL 11.5 with PostGIS 2.5.2</li>
 					<li>PostgreSQL 10.10 with PostGIS 2.4.7</li>
 				</ul>
+				<p>
+					Please note:
+					The on-disk data format for PostgreSQL 12 has changed since the betas.
+					If you want to keep your data from a pre-release version of PostgreSQL 12,
+					you need to export your data with pg_dump before upgrading to the final version.
+				</p>
 			]]>
 		</description>
 		<pubDate>Thu, 03 Oct 2019 20:44:00 +0200</pubDate>
