@@ -220,11 +220,6 @@ if [ ! -z "${EULA_RSRC}" -a "${EULA_RSRC}" != "-null-" ]; then
         "${AUX_PATH}/dmg-license.py" "${DMG_DIR}/${DMG_NAME}" "${EULA_RSRC}"
 fi
 
-if [ ! -z "${NOINTERNET}" -a "${NOINTERNET}" == 1 ]; then
-        echo "not setting 'internet-enable' on the dmg"
-else
-        hdiutil internet-enable -yes "${DMG_DIR}/${DMG_NAME}"
-fi
 
 echo "Disk image done"
 exit 0
