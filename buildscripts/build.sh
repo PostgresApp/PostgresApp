@@ -8,6 +8,8 @@ export PYTHONUNBUFFERED=1
 
 trap 'if [[ $? -ne 0 ]]; then echo "Error"; echo "Check Log For Details"; fi' EXIT
 
+# Call this script like this:
+# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12 NOTARIZATION_USER=someone@example.com NOTARIZATION_PASSWORD=@keychain:apple-id SPARKLE_SIGNING_KEY=example.pem ./build.sh
 
 if [ x$POSTGRESAPP_SHORT_VERSION = x ]
 then
