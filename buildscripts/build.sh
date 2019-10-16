@@ -39,6 +39,18 @@ then
 	exit 1
 fi
 
+if [ x$NOTARIZATION_USER = x ]
+then
+	echo "Please set the environment variable NOTARIZATION_USER"
+	exit 1
+fi
+
+if [ x$NOTARIZATION_PASSWORD = x ]
+then
+	echo "Please set the environment variable NOTARIZATION_PASSWORD, eg NOTARIZATION_PASSWORD=@keychain:service-name"
+	exit 1
+fi
+
 if [ x$SPARKLE_SIGNING_KEY = x ]
 then
 	echo "Please set SPARKLE_SIGNING_KEY to the path of the DSA key used for signing sparkle updates."
@@ -95,6 +107,15 @@ vendor/create-dmg-master/create-dmg \
     --background "$BGIMG_PATH" \
     "$DMG_DST_PATH" \
     "$DMG_SRC_PATH" >"$LOG_DIR/create-dmg.out" 2>"$LOG_DIR/create-dmg.err"
+echo "Done"
+
+
+# notarize
+echo -n "Notarizing Build... "
+./notarize-build.py --username "$NOTARIZATION_USER" --password "$NOTARIZATION_PASSWORD" --notarize-dmg "$DMG_DST_PATH" --bundle-id com.postgresapp.Postgres2 --log "$LOG_DIR/notarize.log" >"$LOG_DIR/notarize.out" 2>"$LOG_DIR/notarize.err"
+echo "Done"
+echo -n "Stapling... "
+./notarize-build.py --staple-app "$DMG_DST_PATH" --log "$LOG_DIR/staple.log" >"$LOG_DIR/staple.out" 2>"$LOG_DIR/staple.err"
 echo "Done"
 
 # sign update
