@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 """
 This script adds a license file to a DMG. Requires Xcode and a plain ascii text
 license file.
@@ -24,6 +24,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
+from __future__ import print_function
 import os
 import sys
 import tempfile
@@ -94,14 +95,13 @@ data 'STR#' (5002, "English") {
                 kind = 'RTF ' if license.lower().endswith('.rtf') else 'TEXT'
                 f.write('data \'%s\' (5000, "English") {\n' % kind)
                 def escape(s):
-                    return s.strip().replace('\\', '\\\\').replace('"', '\\"')
+                    return s.strip().replace('\\', '\\\\').replace('"', '\\"').replace('\0', '')
 
                 for line in l:
-                    if len(line) < 1000:
-                        f.write('    "' + escape(line) + '\\n"\n')
-                    else:
-                        for liner in line.split('.'):
-                            f.write('    "' + escape(liner) + '. \\n"\n')
+                    line = escape(line)
+                    for liner in [line[i:i+1000] for i in range(0, len(line), 1000)]:
+                        f.write('    "' + liner + '"\n')
+                    f.write('    "' + '\\n"\n')
                 f.write('};\n\n')
             f.write("""data 'styl' (5000, "English") {
         $"0003 0000 0000 000C 0009 0014 0000 0000"
@@ -124,9 +124,9 @@ data 'STR#' (5002, "English") {
                           'UDZO -imagekey zlib-devel=9 -o %s' % dmgFile)
             os.remove('%s.temp.dmg' % dmgFile)
     if ret == 0:
-        print "Successfully added license to '%s'" % dmgFile
+        print("Successfully added license to '%s'" % dmgFile)
     else:
-        print "Failed to add license to '%s'" % dmgFile
+        print("Failed to add license to '%s'" % dmgFile)
 
 if __name__ == '__main__':
     parser = optparse.OptionParser()
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     options, args = parser.parse_args()
     cond = len(args) != 2
     if not os.path.exists(options.rez):
-        print 'Failed to find Rez at "%s"!\n' % options.rez
+        print('Failed to find Rez at "%s"!\n' % options.rez)
         cond = True
     if cond:
         parser.print_usage()
