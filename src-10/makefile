@@ -42,6 +42,9 @@ PLV8_VERSION=1.4.8
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.12.1
 
+# https://github.com/eulerto/wal2json
+WAL2JSON_VERSION=wal2json_1_0
+
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.0.10
 
@@ -71,7 +74,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
 all: postgresapp
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-wal2json
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
 
@@ -105,7 +108,7 @@ $(EXPORT_ARCHIVE_PATH)/Postgres.app: $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
 	xcodebuild -exportArchive -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive -exportPath $(EXPORT_ARCHIVE_PATH) -exportOptionsPlist "$(CURDIR)"/exportOptions.plist POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
 	touch $@
 
-$(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8
+$(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8 wal2json
 	xcodebuild archive -project "$(XCODE_PROJECT_FILE)" -scheme Postgres -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
 
 
@@ -504,3 +507,24 @@ v8-${V8_VERSION}.tar.gz:
 
 clean-plv8:
 	rm -Rf plv8js v8-${V8_VERSION} plv8-${PLV8_VERSION}
+
+
+#########################
+###### wal2json #########
+#########################
+
+wal2json: $(PREFIX)/lib/postgresql/wal2json.so
+	touch $@
+
+$(PREFIX)/lib/postgresql/wal2json.so: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C wal2json-${WAL2JSON_VERSION} install
+
+wal2json-${WAL2JSON_VERSION}/Makefile: wal2json-${WAL2JSON_VERSION}.tar.gz
+	$(TAR) $<
+	touch $@
+
+wal2json-${WAL2JSON_VERSION}.tar.gz:
+	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/eulerto/wal2json/archive/${WAL2JSON_VERSION}.tar.gz
+
+clean-wal2json:
+	rm -Rf wal2json-${WAL2JSON_VERSION}
