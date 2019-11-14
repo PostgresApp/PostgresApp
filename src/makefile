@@ -379,7 +379,7 @@ tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	touch $@
 
 tiff-$(LIBTIFF_VERSION).tar.gz:
-	$(CURL) http://download.osgeo.org/libtiff/tiff-$(LIBTIFF_VERSION).tar.gz
+	$(CURL) https://download.osgeo.org/libtiff/tiff-$(LIBTIFF_VERSION).tar.gz
 
 clean-libtiff:
 	rm -Rf tiff-$(LIBTIFF_VERSION)
