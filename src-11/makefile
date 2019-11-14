@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=2.5.2
+POSTGIS_VERSION=2.5.3
 POSTGIS_MAJOR_VERSION=2.5
 
-POSTGRES_VERSION=11.5
+POSTGRES_VERSION=11.6
 POSTGRES_MAJOR_VERSION=11
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
@@ -13,7 +13,7 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 GDAL_VERSION=2.3.3
 
 # http://trac.osgeo.org/geos/
-GEOS_VERSION=3.7.1
+GEOS_VERSION=3.7.3
 
 JPEG_VERSION=9c
 LIBEDIT_VERSION=20130611-3.1
@@ -22,17 +22,17 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 
 # ftp://xmlsoft.org/libxml2/
-LIBXML2_VERSION=2.9.9
+LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1c
+OPENSSL_VERSION=1.1.1d
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.2.0
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=2.3.12
+PLV8_VERSION=2.3.13
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
@@ -42,13 +42,13 @@ JSONC_VERSION=0.13.1
 WAL2JSON_VERSION=wal2json_1_0
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.9.1
+PROTOBUF_VERSION=3.10.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.3.2
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.0.10
+LIBTIFF_VERSION=4.1.0
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=63
