@@ -6,27 +6,31 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3beta3</title>
+		<title>Postgres.app 2.3.2</title>
 		<description>
 			<![CDATA[
-				<p>This is the August 2019 quarterly update for PostgreSQL.</p>
 				<ul>
-					<li>PostgreSQL 12beta3 with PostGIS 3.0.0alpha3</li>
-					<li>PostgreSQL 11.5 with PostGIS 2.5.2</li>
-					<li>PostgreSQL 10.10 with PostGIS 2.4.7</li>
+					<li>PostgreSQL 10.11 with PostGIS 2.4.8</li>
+					<li>PostgreSQL 11.6 with PostGIS 2.5.3</li>
+					<li>PostgreSQL 12.1 with PostGIS 3.0.0</li>
 				</ul>
+				
+				<p>
+					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
+					You can download other versions of PostgreSQL on our website:
+					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
+				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 08 Aug 2019 19:00:00 +0200</pubDate>
+		<pubDate>Thu, 14 Nov 2019 15:46:14 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.2.5/Postgres-2.3beta3.dmg"
-		sparkle:version="60"
-		sparkle:shortVersionString="2.3beta3"
-		length="194054601"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-10-11-12.dmg"
+		sparkle:version="63"
+		sparkle:shortVersionString="2.3.2"
+		length="192831323"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQDKss71kZyBhFa3VXmOsBioZfdEXQIUMvrU0haezDTMp2I84ktsJIdRGrs="
+		sparkle:dsaSignature="MC0CFQCMtIRWw/8qwRUWzvQbtpgNcLYxVQIULBFMko6mNYX+jL9m86javjW0F+8="
 		/>
 	</item>
   </channel>
 </rss>
-

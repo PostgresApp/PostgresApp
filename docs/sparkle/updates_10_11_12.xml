@@ -6,34 +6,31 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3</title>
+		<title>Postgres.app 2.3.2</title>
 		<description>
 			<![CDATA[
-				<p>PostgreSQL 12 is now released!</p>
-				<p>This update includes the following versions of PostgreSQL!</p>
 				<ul>
-					<li>PostgreSQL 12.0 with PostGIS 3.0.0beta1</li>
-					<li>PostgreSQL 11.5 with PostGIS 2.5.2</li>
-					<li>PostgreSQL 10.10 with PostGIS 2.4.7</li>
+					<li>PostgreSQL 10.11 with PostGIS 2.4.8</li>
+					<li>PostgreSQL 11.6 with PostGIS 2.5.3</li>
+					<li>PostgreSQL 12.1 with PostGIS 3.0.0</li>
 				</ul>
+				
 				<p>
-					Please note:
-					The on-disk data format for PostgreSQL 12 has changed since the betas.
-					If you want to keep your data from a pre-release version of PostgreSQL 12,
-					you need to export your data with pg_dump before upgrading to the final version.
+					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
+					You can download other versions of PostgreSQL on our website:
+					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 03 Oct 2019 20:44:00 +0200</pubDate>
+		<pubDate>Thu, 14 Nov 2019 15:46:14 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3/Postgres-2.3-10-11-12.dmg"
-		sparkle:version="61"
-		sparkle:shortVersionString="2.3"
-		length="190654942"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-10-11-12.dmg"
+		sparkle:version="63"
+		sparkle:shortVersionString="2.3.2"
+		length="192831323"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFGEu9tO8cu5YYzlBZ2vnepcjOTnjAhUA0r3yFm2T5NHcgG82xnF1qsOs2lk="
+		sparkle:dsaSignature="MC0CFQCMtIRWw/8qwRUWzvQbtpgNcLYxVQIULBFMko6mNYX+jL9m86javjW0F+8="
 		/>
 	</item>
   </channel>
 </rss>
-
