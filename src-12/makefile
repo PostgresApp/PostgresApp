@@ -38,6 +38,9 @@ PLV8_VERSION=2.3.13
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.13.1
 
+# https://github.com/eulerto/wal2json
+WAL2JSON_VERSION=wal2json_1_0
+
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.9.2
 
@@ -78,8 +81,8 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis plv8
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp
+all: postgresql postgis plv8 wal2json
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
 
@@ -501,3 +504,24 @@ plv8-${PLV8_VERSION}.tar.gz:
 
 clean-plv8:
 	rm -Rf plv8-${PLV8_VERSION}
+
+
+#########################
+###### wal2json #########
+#########################
+
+wal2json: $(PREFIX)/lib/postgresql/wal2json.so
+	touch $@
+
+$(PREFIX)/lib/postgresql/wal2json.so: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C wal2json-${WAL2JSON_VERSION} install
+
+wal2json-${WAL2JSON_VERSION}/Makefile: wal2json-${WAL2JSON_VERSION}.tar.gz
+	$(TAR) $<
+	touch $@
+
+wal2json-${WAL2JSON_VERSION}.tar.gz:
+	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/eulerto/wal2json/archive/${WAL2JSON_VERSION}.tar.gz
+
+clean-wal2json:
+	rm -Rf wal2json-${WAL2JSON_VERSION}

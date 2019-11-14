@@ -26,6 +26,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [PostgreSQL](http://www.postgresql.org/)
 - [PostGIS](http://postgis.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
+- [wal2json](https://github.com/eulerto/wal2json)
 
 ## How To Build
 
@@ -47,7 +48,7 @@ For building PostgreSQL with docs, you also need a bunch of other tools:
 Then make sure you remove other versions of `Postgres.app` from your Applications folder.
 
 Open the `src` directory and type `make`.
-This will download and build PostgreSQL, PostGIS, and PLV8. 
+This will download and build PostgreSQL, PostGIS, PLV8, and wal2json.
 Several hundred megabytes of sources will be downloaded and built.
 This can take an hour or longer, depending on your Internet connection and processor speed.
 All the products will be installed in `/Applications/Postgres.app/Contents/MacOS/`.
