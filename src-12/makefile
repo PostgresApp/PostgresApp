@@ -4,13 +4,13 @@
 POSTGIS_VERSION=3.0.0
 POSTGIS_MAJOR_VERSION=3.0
 
-POSTGRES_VERSION=12.0
+POSTGRES_VERSION=12.1
 POSTGRES_MAJOR_VERSION=12
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-GDAL_VERSION=3.0.1
+GDAL_VERSION=3.0.2
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.8.0
@@ -22,13 +22,13 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 
 # ftp://xmlsoft.org/libxml2/
-LIBXML2_VERSION=2.9.9
+LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.1.1d
 
 # http://proj4.org/download.html
-PROJ_VERSION=6.2.0
+PROJ_VERSION=6.2.1
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
@@ -42,13 +42,13 @@ JSONC_VERSION=0.13.1
 WAL2JSON_VERSION=wal2json_1_0
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.9.2
+PROTOBUF_VERSION=3.10.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.3.2
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.0.10
+LIBTIFF_VERSION=4.1.0
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=64
