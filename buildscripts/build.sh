@@ -71,6 +71,7 @@ EXPORT_PATH="$BUILD_DIR"/Postgres-export
 DMG_SRC_PATH="$BUILD_DIR"/Postgres
 DMG_DST_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}.dmg
 SIGNATURE_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}-signature.txt
+APPCAST_PATH="$BUILD_DIR"/updates_$PG_BINARIES_VERSIONS.xml
 
 
 mkdir -p "$LOG_DIR"
@@ -129,4 +130,47 @@ echo
 echo "       Path: $DMG_DST_PATH"
 echo "       Size:" $(stat -f %z "$DMG_DST_PATH")
 echo "  Signature:" $(cat "$SIGNATURE_PATH")
+echo
+
+echo "Appcast:"
+tee "$APPCAST_PATH" <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_$PG_BINARIES_VERSIONS.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app $POSTGRESAPP_SHORT_VERSION</title>
+		<description>
+			<![CDATA[
+				<ul>
+$(
+	for v in ${PG_BINARIES_VERSIONS//_/ }
+	do
+		pg_version=$(grep 'PG_VERSION "[^"]*' --only-matching "$PG_BINARIES_DIR"/$v/include/postgresql/server/pg_config.h | cut -c 13-)
+		postgis_version=$(grep "default_version = '[^']*"  --only-matching "$PG_BINARIES_DIR"/$v/share/postgresql/extension/postgis.control | cut -c 20-)
+		echo "					<li>PostgreSQL $pg_version with PostGIS $postgis_version</li>"
+	done
+)
+				</ul>
+			]]>
+		</description>
+		<pubDate>$(date -R)</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v$POSTGRESAPP_SHORT_VERSION/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}.dmg"
+		sparkle:version="$POSTGRESAPP_BUILD_VERSION"
+		sparkle:shortVersionString="$POSTGRESAPP_SHORT_VERSION"
+		length="$(stat -f %z "$DMG_DST_PATH")"
+		type="application/octet-stream"
+		sparkle:dsaSignature="$(cat "$SIGNATURE_PATH")"
+		/>
+	</item>
+  </channel>
+</rss>
+EOF
+
+echo
+echo
 echo
