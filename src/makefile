@@ -42,6 +42,9 @@ PLV8_VERSION=1.4.8
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.12.1
 
+# https://github.com/eulerto/wal2json
+WAL2JSON_VERSION=wal2json_1_0
+
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.0.10
 
@@ -71,9 +74,10 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
 all: postgresapp
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-wal2json
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
+
 
 #########################
 ###### Postgres.app #####
@@ -104,7 +108,7 @@ $(EXPORT_ARCHIVE_PATH)/Postgres.app: $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
 	xcodebuild -exportArchive -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive -exportPath $(EXPORT_ARCHIVE_PATH) -exportOptionsPlist "$(CURDIR)"/exportOptions.plist POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
 	touch $@
 
-$(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8
+$(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8 wal2json
 	xcodebuild archive -project "$(XCODE_PROJECT_FILE)" -scheme Postgres -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
 
 
@@ -121,7 +125,7 @@ postgresql: $(PREFIX)/bin/psql
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	make -C "postgresql-$(POSTGRES_VERSION)" world
 	make -C "postgresql-$(POSTGRES_VERSION)" install-world
-	
+
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
@@ -135,13 +139,13 @@ postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	touch $@
 
-postgresql-$(POSTGRES_VERSION).tar.bz2:	
+postgresql-$(POSTGRES_VERSION).tar.bz2:
 	$(CURL) "https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
-	
-		
+
+
 #########################
 ####### OpenSSL #########
 #########################
@@ -162,11 +166,11 @@ openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 
 openssl-${OPENSSL_VERSION}.tar.gz:
 	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
-	
+
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"
 
-	
+
 #########################
 ######## ICU ############
 #########################
@@ -190,13 +194,12 @@ icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJ
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
 	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
 	mv icu icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
-	
+
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz:
 	$(CURL) https://github.com/unicode-org/icu/releases/download/release-$(ICU_MAJOR_VERSION)-$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
-	
+
 clean-icu:
 	rm -Rf "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)"
-	
 
 
 #########################
@@ -217,12 +220,13 @@ libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
 libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.gz
 	$(TAR) libxml2-${LIBXML2_VERSION}.tar.gz
 	touch $@
-	
+
 libxml2-${LIBXML2_VERSION}.tar.gz:
 	$(CURL) "ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.gz"
-	
+
 clean-libxml2:
 	rm -Rf "libxml2-$(LIBXML2_VERSION)"
+
 
 #########################
 ####### LibEdit #########
@@ -261,7 +265,6 @@ $(PREFIX)/lib/libjasper.dylib: jasper-${LIBJASPER_VERSION}.uuid/Makefile
 jasper-${LIBJASPER_VERSION}.uuid/Makefile: jasper-${LIBJASPER_VERSION}.uuid/configure
 	cd jasper-${LIBJASPER_VERSION}.uuid && ./configure --prefix="$(PREFIX)" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic
 
-
 jasper-${LIBJASPER_VERSION}.uuid/configure: jasper-$(LIBJASPER_VERSION).uuid.tar.gz
 	$(TAR) "jasper-$(LIBJASPER_VERSION).uuid.tar.gz"
 	touch $@
@@ -295,6 +298,7 @@ jpegsrc.v$(JPEG_VERSION).tar.gz:
 
 clean-libjpeg:
 	rm -Rf jpeg-$(JPEG_VERSION)
+
 
 #########################
 #######  libgeos  #######
@@ -342,7 +346,7 @@ gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/inc
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
 	$(TAR) gdal-${GDAL_VERSION}.tar.gz
-	touch $@	
+	touch $@
 
 gdal-${GDAL_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz"
@@ -376,10 +380,9 @@ proj-${PROJ_VERSION}.tar.gz:
 
 proj-datumgrid-${DATUMGRID_VERSION}.zip:
 	$(CURL) "http://download.osgeo.org/proj/proj-datumgrid-${DATUMGRID_VERSION}.zip"
-	
+
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
-
 
 
 #########################
@@ -389,7 +392,6 @@ clean-libproj:
 $(PREFIX)/include/json-c/json_object_iterator.h: json-c-$(JSONC_VERSION)/Makefile
 	make -C json-c-$(JSONC_VERSION) install
 	cp json-c-$(JSONC_VERSION)/json_object_iterator.h "$(PREFIX)/include/json-c/json_object_iterator.h"
-
 
 json-c-$(JSONC_VERSION)/Makefile: json-c-$(JSONC_VERSION)/configure
 	cd json-c-$(JSONC_VERSION) && ./configure --prefix="$(PREFIX)"
@@ -427,6 +429,7 @@ tiff-$(LIBTIFF_VERSION).tar.gz:
 
 clean-libtiff:
 	rm -Rf tiff-$(LIBTIFF_VERSION)
+
 
 #########################
 ###### PostGIS ##########
@@ -471,14 +474,13 @@ plv8: $(PREFIX)/lib/postgresql/plv8.so
 	touch $@
 
 $(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/lib/libv8.dylib
-	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install 
+	export PGHOME="$(PREFIX)"; export CC=clang; export CXX=clang++; export V8_SRCDIR="$(CURDIR)/v8-${V8_VERSION}"; make -C plv8-${PLV8_VERSION} install
 #	/usr/bin/install_name_tool -change "/usr/local/lib/libv8.dylib" "$(PREFIX)/lib/libv8.dylib" "$(PREFIX)/lib/postgresql/plv8.so"
-
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
 	$(TAR) $<
 	touch $@
-	
+
 plv8-${PLV8_VERSION}.tar.gz:
 	/usr/bin/curl -L10 --silent --show-error -o $@ https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
 
@@ -505,3 +507,24 @@ v8-${V8_VERSION}.tar.gz:
 
 clean-plv8:
 	rm -Rf plv8js v8-${V8_VERSION} plv8-${PLV8_VERSION}
+
+
+#########################
+###### wal2json #########
+#########################
+
+wal2json: $(PREFIX)/lib/postgresql/wal2json.so
+	touch $@
+
+$(PREFIX)/lib/postgresql/wal2json.so: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C wal2json-${WAL2JSON_VERSION} install
+
+wal2json-${WAL2JSON_VERSION}/Makefile: wal2json-${WAL2JSON_VERSION}.tar.gz
+	$(TAR) $<
+	touch $@
+
+wal2json-${WAL2JSON_VERSION}.tar.gz:
+	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/eulerto/wal2json/archive/${WAL2JSON_VERSION}.tar.gz
+
+clean-wal2json:
+	rm -Rf wal2json-${WAL2JSON_VERSION}
