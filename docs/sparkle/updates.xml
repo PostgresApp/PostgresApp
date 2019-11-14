@@ -6,6 +6,33 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.3.2</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 9.5.20 with PostGIS 2.2.8</li>
+					<li>PostgreSQL 9.6.16 with PostGIS 2.3.10</li>
+					<li>PostgreSQL 10.11 with PostGIS 2.4.8</li>
+				</ul>
+				<p>
+					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
+					You can download other versions of PostgreSQL on our website:
+					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
+				</p>
+			]]>
+		</description>
+		<pubDate>Thu, 14 Nov 2019 16:39:50 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-9.5-9.6-10.dmg"
+		sparkle:version="63"
+		sparkle:shortVersionString="2.3.2"
+		length="159077170"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFQCU6AoeMp01L5l4daLWC302aDYO2AIUN/pRmWbqW7k8FmM+Hbv0enyT96Q="
+		/>
+		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+	</item>
+	<item>
 		<title>Postgres.app 2.1.9</title>
 		<description>
 			<![CDATA[
@@ -27,6 +54,7 @@
 		type="application/octet-stream"
 		sparkle:dsaSignature="MCwCFCPPUGqWUo+mfzGHRMiilgq+RpzmAhQmQ2E0blwgUYGiADDFlLmTDW2fAQ=="
 		/>
+		<sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>

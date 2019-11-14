@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates_9.5_9.6_10_11.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_9.5_9.6_10.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
@@ -13,7 +13,6 @@
 					<li>PostgreSQL 9.5.20 with PostGIS 2.2.8</li>
 					<li>PostgreSQL 9.6.16 with PostGIS 2.3.10</li>
 					<li>PostgreSQL 10.11 with PostGIS 2.4.8</li>
-					<li>PostgreSQL 11.6 with PostGIS 2.5.3</li>
 				</ul>
 				<p>
 					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
@@ -22,14 +21,14 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 14 Nov 2019 16:53:29 +0100</pubDate>
+		<pubDate>Thu, 14 Nov 2019 16:39:50 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-9.5-9.6-10-11.dmg"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-9.5-9.6-10.dmg"
 		sparkle:version="63"
 		sparkle:shortVersionString="2.3.2"
-		length="220588271"
+		length="159077170"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCYokvdkZP9pkLycLH4Fk5q0sbDjgIUeMEPdc3AHQk+Xd8njAnT4LpuwvE="
+		sparkle:dsaSignature="MC0CFQCU6AoeMp01L5l4daLWC302aDYO2AIUN/pRmWbqW7k8FmM+Hbv0enyT96Q="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
