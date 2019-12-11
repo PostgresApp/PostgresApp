@@ -6,9 +6,14 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.2</title>
+		<title>Postgres.app 2.3.3c</title>
 		<description>
 			<![CDATA[
+				<p>
+					This update removes support for GSSAPI / Kerberos because it caused crashes and connection failures.
+					Please see <a href="https://github.com/PostgresApp/PostgresApp/issues/539">Issue 539</a> for details.
+				</p>
+			
 				<ul>
 					<li>PostgreSQL 10.11 with PostGIS 2.4.8</li>
 					<li>PostgreSQL 11.6 with PostGIS 2.5.3</li>
@@ -16,20 +21,20 @@
 				</ul>
 				
 				<p>
-					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
+					To save bandwidth, this update only includes some versions of PostgreSQL.
 					You can download other versions of PostgreSQL on our website:
 					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 14 Nov 2019 15:46:14 +0100</pubDate>
+		<pubDate>Wed, 11 Dec 2019 15:03:59 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-10-11-12.dmg"
-		sparkle:version="63"
-		sparkle:shortVersionString="2.3.2"
-		length="192831323"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.3c/Postgres-2.3.3c-10-11-12.dmg"
+		sparkle:version="66"
+		sparkle:shortVersionString="2.3.3c"
+		length="192811556"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCMtIRWw/8qwRUWzvQbtpgNcLYxVQIULBFMko6mNYX+jL9m86javjW0F+8="
+		sparkle:dsaSignature="MC4CFQCjgk/d+5footO8zNHNo94/LZOksgIVANk52viDTkyNIGXKwAQ4hkTUXPm6"
 		/>
 	</item>
   </channel>

@@ -6,9 +6,14 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.2</title>
+		<title>Postgres.app 2.3.3c</title>
 		<description>
 			<![CDATA[
+				<p>
+					This update removes support for GSSAPI / Kerberos because it caused crashes and connection failures.
+					Please see <a href="https://github.com/PostgresApp/PostgresApp/issues/539">Issue 539</a> for details.
+				</p>
+				
 				<ul>
 					<li>PostgreSQL 12.1 with PostGIS 3.0.0</li>
 				</ul>
@@ -20,14 +25,14 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 14 Nov 2019 15:46:14 +0100</pubDate>
+		<pubDate>Wed, 11 Dec 2019 15:35:43 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.2/Postgres-2.3.2-12.dmg"
-		sparkle:version="63"
-		sparkle:shortVersionString="2.3.2"
-		length="68871826"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.3c/Postgres-2.3.3c-12.dmg"
+		sparkle:version="66"
+		sparkle:shortVersionString="2.3.3c"
+		length="68856833"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQDScBidg5fbrTSFpGasGMGvCamvBAIVALeKbpvdWKlVAS+TKIE8tXMi6lOE"
+		sparkle:dsaSignature="MC0CFQCZhB7AskGX9fM3ptC0QRwvX6qoyAIUc8mV9BTkpjozQkDAsfFBs3nCr6E="
 		/>
 	</item>
   </channel>
