@@ -30,5 +30,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Postgres.app Menu Bar Helper uses Apple Script to control Postgres.app</string>
 </dict>
 </plist>
