@@ -43,7 +43,7 @@ PLV8_VERSION=1.4.8
 JSONC_VERSION=0.12.1
 
 # https://github.com/eulerto/wal2json
-WAL2JSON_VERSION=wal2json_1_0
+WAL2JSON_VERSION=wal2json_2_0
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.1.0
