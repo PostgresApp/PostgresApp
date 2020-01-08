@@ -95,7 +95,7 @@ echo -n "Export Archive... "
 xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$EXPORT_PATH" -exportOptionsPlist exportOptions.plist >"$LOG_DIR/exportArchive.out" 2>"$LOG_DIR/exportArchive.err"
 echo "Done"
 
-echo -n "Enabling Hardened Runtime...\n"
+echo -n "Enabling Hardened Runtime... "
 
 APP="$EXPORT_PATH"/Postgres.app
 
