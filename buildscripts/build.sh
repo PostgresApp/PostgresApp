@@ -95,6 +95,32 @@ echo -n "Export Archive... "
 xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$EXPORT_PATH" -exportOptionsPlist exportOptions.plist >"$LOG_DIR/exportArchive.out" 2>"$LOG_DIR/exportArchive.err"
 echo "Done"
 
+echo -n "Enabling Hardened Runtime...\n"
+
+APP="$EXPORT_PATH"/Postgres.app
+
+find "$APP"/Contents/Versions/*/bin/ \( -name postgres -o -name postmaster \) -exec \
+	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  --deep  \
+		--entitlements PostgresApp.entitlements \
+		{} \; >"$LOG_DIR/codesign.out" 2>"$LOG_DIR/codesign.err"
+
+find "$APP"/Contents/Versions/*/bin/ \( -not -name postgres -and -not -name postmaster \) -exec \
+	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  --deep  \
+		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+
+codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --deep \
+	--entitlements PostgresApp.entitlements \
+	"$APP"/Contents/Versions/*/bin/postgres >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+
+codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --deep
+	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
+	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
+	"$APP"/Contents/Versions/*/lib/postgresql/pgxs/src/test/regress/pg_regress \
+	"$APP"/Contents/MacOS/Postgres \
+	"$APP" >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+
+echo "Done"
+
 mkdir "$DMG_SRC_PATH"
 mv "$EXPORT_PATH"/Postgres.app "$DMG_SRC_PATH"
 
