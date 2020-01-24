@@ -102,7 +102,7 @@ APP="$EXPORT_PATH"/Postgres.app
 find "$APP"/Contents/Versions/*/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
 	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  --deep  \
 		--entitlements postgres.entitlements \
-		{} \; >"$LOG_DIR/codesign.out" 2>"$LOG_DIR/codesign.err"
+		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 find "$APP"/Contents/Versions/*/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
 	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  --deep  \
