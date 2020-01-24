@@ -100,20 +100,25 @@ echo -n "Enabling Hardened Runtime... "
 APP="$EXPORT_PATH"/Postgres.app
 
 find "$APP"/Contents/Versions/*/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
-	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  --deep  \
+	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  \
 		--entitlements postgres.entitlements \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 find "$APP"/Contents/Versions/*/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
-	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  --deep  \
+	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
-codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --deep \
+codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
 	"$APP"/Contents/Versions/*/lib/postgresql/pgxs/src/test/regress/pg_regress \
+	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+
+codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
+	--entitlements PostgresApp.entitlements \
 	"$APP"/Contents/MacOS/Postgres \
-	"$APP" >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+	"$APP" \
+	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 echo "Done"
 
