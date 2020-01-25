@@ -6,12 +6,11 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.3c</title>
+		<title>Postgres.app 2.3.3e</title>
 		<description>
 			<![CDATA[
 				<p>
-					This update removes support for GSSAPI / Kerberos because it caused crashes and connection failures.
-					Please see <a href="https://github.com/PostgresApp/PostgresApp/issues/539">Issue 539</a> for details.
+					This release fixes issues with plv8 and GDAL.
 				</p>
 				
 				<ul>
@@ -25,14 +24,14 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Wed, 11 Dec 2019 15:35:43 +0100</pubDate>
+		<pubDate>Fri, 24 Jan 2020 16:36:42 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.3c/Postgres-2.3.3c-12.dmg"
-		sparkle:version="66"
-		sparkle:shortVersionString="2.3.3c"
-		length="68856833"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.3e/Postgres-2.3.3e-12.dmg"
+		sparkle:version="68"
+		sparkle:shortVersionString="2.3.3e"
+		length="65385884"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCZhB7AskGX9fM3ptC0QRwvX6qoyAIUc8mV9BTkpjozQkDAsfFBs3nCr6E="
+		sparkle:dsaSignature="MCwCFDEWclwyjOYZEo70a+n+zhcT8w0vAhRWXgeWoqfyXswW3HNyqKcv4H9ipg=="
 		/>
 	</item>
   </channel>
