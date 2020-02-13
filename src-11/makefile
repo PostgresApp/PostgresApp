@@ -4,13 +4,13 @@
 POSTGIS_VERSION=2.5.3
 POSTGIS_MAJOR_VERSION=2.5
 
-POSTGRES_VERSION=11.6
+POSTGRES_VERSION=11.7
 POSTGRES_MAJOR_VERSION=11
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-GDAL_VERSION=2.3.3
+GDAL_VERSION=2.4.4
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.7.3
@@ -32,7 +32,7 @@ PROJ_VERSION=5.2.0
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=2.3.13
+PLV8_VERSION=2.3.14
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
