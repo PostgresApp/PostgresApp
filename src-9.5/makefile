@@ -63,42 +63,9 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
-all: postgresapp
+all: postgresql postgis plv8
 clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
 	rm -Rf "$(PREFIX)"
-
-#########################
-###### Postgres.app #####
-#########################
-
-postgresapp: $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt $(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip
-	@echo
-	@cat $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	@echo
-
-$(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt:
-	mkdir -p $(EXPORT_ARCHIVE_PATH)
-	/bin/echo "Postgres.app Legacy $(POSTGRESAPP_VERSION)" > $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "======================" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo -n "This is the legacy version of Postgres.app for computers running macOS 10.7 or later. " >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo -n "This release has the old user interface and contains a single version of PostgreSQL. " >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "We provide this binary so users who don't want to upgrade their Mac can still use up to date versions of PostgreSQL." >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "This release contains:" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "- PostgreSQL $(POSTGRES_VERSION)" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-	/bin/echo "- PostGIS $(POSTGIS_VERSION)" >> $(EXPORT_ARCHIVE_PATH)/RELEASENOTES.txt
-
-$(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip: $(EXPORT_ARCHIVE_PATH)/Postgres.app
-	ditto -c -k --sequesterRsrc --keepParent --zlibCompressionLevel 9 --noacl $(EXPORT_ARCHIVE_PATH)/Postgres.app $(EXPORT_ARCHIVE_PATH)/Postgres-$(POSTGRESAPP_VERSION).zip
-
-$(EXPORT_ARCHIVE_PATH)/Postgres.app: $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive
-	xcodebuild -exportArchive -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive -exportPath $(EXPORT_ARCHIVE_PATH) -exportOptionsPlist "$(CURDIR)"/exportOptions.plist POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
-	touch $@
-
-$(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive: postgresql postgis plv8
-	xcodebuild archive -project "$(XCODE_PROJECT_FILE)" -scheme Postgres -archivePath $(EXPORT_ARCHIVE_PATH)/Postgres.xcarchive POSTGRESAPP_VERSION=$(POSTGRESAPP_VERSION) POSTGRES_MAJOR_VERSION=$(POSTGRES_MAJOR_VERSION)
-
 
 #########################
 ###### PostgreSQL #######
