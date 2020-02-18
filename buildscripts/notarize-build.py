@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-
-from __future__ import print_function
+#! /usr/bin/env python3
 
 import argparse
 import getpass
@@ -13,8 +11,7 @@ import sys
 import time
 import zipfile
 import plistlib
-import urllib
-import urlparse
+import requests
 import threading
 
 def eprint(*args, **kwargs):
@@ -63,16 +60,17 @@ def toolPathAndVerifyExistence(toolName):
                                stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT)
     stdout,stderr = process.communicate()
+    stdoutString = stdout.decode(encoding="UTF-8")
     if process.returncode == 0:
-        print("\tSUCCESS: Found " + toolName + " at:",stdout)
-        return stdout.strip()
+        print("\tSUCCESS: Found " + toolName + " at:",stdoutString)
+        return stdoutString.strip()
     else:
         potentialToolPath = toolPath.replace("xcodebuild", toolName)
         if os.path.exists(potentialToolPath):
             print("\tSUCCESS: Strangely, xcrun does not find " + toolName + ", but we found it in the same directory as xcodebuild")
             return potentialToolPath
         else:
-            print("\tERROR: ", stdout)
+            print("\tERROR: ", stdoutString)
             sys.exit(process.returncode)
 
 def launchTool(toolPath, args):
@@ -111,7 +109,7 @@ def beginNotarizationSession(args, altoolPath):
             eprint("Unable to parse extract Plist from ZIP archive")
             sys.exit(1)
     
-        plist = plistlib.readPlistFromString(plistXML)
+        plist = plistlib.loads(plistXML)
             
         args.bundle_id = plist['CFBundleIdentifier']
 
@@ -139,7 +137,7 @@ def beginNotarizationSession(args, altoolPath):
         
         print("RETURN_CODE: ", process.returncode)
         
-        plist = plistlib.readPlistFromString(stdout)
+        plist = plistlib.loads(stdout)
     
     # <?xml version="1.0" encoding="UTF-8"?>
     #<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -221,8 +219,7 @@ def notificationInfo(args, altoolPath, requestID):
      
      if process.returncode == 0:
          print("SUCCESS!")
-         print(dir(plistlib))
-         plist = plistlib.readPlistFromString(stdout)
+         plist = plistlib.loads(stdout)
          return plist
      else:
          sys.exit(process.returncode)
@@ -230,7 +227,8 @@ def notificationInfo(args, altoolPath, requestID):
 def pollRequest(args, altoolPath, requestID):
     print("Poll notification info for request ID", requestID)
     plist = notificationInfo(args, altoolPath, requestID)
-    print(plistlib.writePlistToString(plist))
+    print(plist)
+    
     info = plist["notarization-info"]
     status = info["Status"]
     code = None
@@ -243,13 +241,14 @@ def pollRequest(args, altoolPath, requestID):
     logFileURL = None
     if "LogFileURL" in info:
         logFileURL = info["LogFileURL"]
-        log = urllib.urlopen(logFileURL).read()
+        log = requests.get(logFileURL).content
         if args.log_path != None:
-            logFile = open(args.log_path, "w")
+            logFile = open(args.log_path, "wb")
             logFile.write(log)
             logFile.close()
         
-        print("\nContents of " + logFileURL + " :\n" + log)
+        print("\nContents of " + logFileURL + " :")
+        print(log)
 #		<key>Status</key>
 #		<string>invalid</string>
 #		<key>Status Code</key>
@@ -258,16 +257,20 @@ def pollRequest(args, altoolPath, requestID):
 #		<string>Package Invalid</string>
 
     print("Obtained status",status)
-
-    if status == 'success':
+    
+    lowercasedStatus = status.lower()
+    
+    if lowercasedStatus == 'success':
         eprint("SUCCESS: obtained status '"+status+"':",message)
         sys.exit(0)
-    elif status == 'invalid':
+    elif lowercasedStatus == 'invalid':
         eprint("ERROR "+str(code)+" : obtained status '"+status+"':",message)
         sys.exit(2)
-    elif status == 'in progress':    
-        eprint("Still in progress, retry in 10s ...\n")
-        threading.Timer(10, pollRequest, [args, altoolPath, requestID]).start()
+    elif lowercasedStatus == 'in progress':
+        return True # still busy
+    else:
+        eprint("ERROR "+str(code)+" : obtained unknown status '"+status+"':",message)
+        sys.exit(-1)
 
 def main():
     global start_time
@@ -285,7 +288,10 @@ def main():
             print("Sleeping 20s...")
             time.sleep(20)
             
-            pollRequest(args, altoolPath, requestID)
+        while pollRequest(args, altoolPath, requestID):
+            eprint("Still in progress, retry in 10s ...\n")
+            time.sleep(10)
+    
     else:
         staplerPath = toolPathAndVerifyExistence('stapler')
         
@@ -301,7 +307,5 @@ def main():
         if process.returncode == 0:
             print("SUCCESS!")
         sys.exit(process.returncode) 
-        
-    sys.exit(0)
  
 main()
