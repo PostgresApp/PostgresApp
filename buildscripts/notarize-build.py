@@ -111,9 +111,9 @@ def beginNotarizationSession(args, altoolPath):
             eprint("Unable to parse extract Plist from ZIP archive")
             sys.exit(1)
     
-            plist = plistlib.readPlistFromString(plistXML)
+        plist = plistlib.readPlistFromString(plistXML)
             
-            args.bundle_id = plist['CFBundleIdentifier']
+        args.bundle_id = plist['CFBundleIdentifier']
 
     if args.bundle_id == None:
         eprint("Can't automatically determine bundle ID, please set --bundle-id argument")
@@ -298,7 +298,9 @@ def main():
         print("STDERR\n",stderr)
         
         print("RETURN_CODE: ", process.returncode)
-        
+        if process.returncode == 0:
+            print("SUCCESS!")
+        sys.exit(process.returncode) 
         
     sys.exit(0)
  
