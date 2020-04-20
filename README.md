@@ -3,7 +3,7 @@
 The easiest way to run PostgreSQL on your Mac
 
 - Includes everything you need to get started with PostgreSQL
-- Comes ith a pretty GUI to start / stop servers
+- Comes with a pretty GUI to start / stop servers
 - Run Multiple Versions of PostgreSQL simultaneously
 
 ## Download
