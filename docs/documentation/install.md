@@ -5,7 +5,13 @@ title: Installing, Upgrading and Uninstalling Postgres.app
 
 ## Installing Postgres.app
 
-To install Postgres.app, just drag it to your Applications folder and double click.
+There are two options to install Postgres.app:
+
+1. Just drag it to your Applications folder and double click.
+2. Use Homebrew.
+```
+brew cask install postgres
+```
 
 Postgres.app must be placed in the /Applications folder, and you can't rename it.
 The reason for this is that it includes a lot of dynamic libraries that can be used by other software.
