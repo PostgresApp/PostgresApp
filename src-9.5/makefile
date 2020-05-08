@@ -63,8 +63,8 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis plv8
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c
+all: postgresql postgis plv8 pldebugger
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-pldebugger
 	rm -Rf "$(PREFIX)"
 
 #########################
@@ -428,3 +428,25 @@ v8-${V8_VERSION}.tar.gz:
 
 clean-plv8:
 	rm -Rf plv8js v8-${V8_VERSION} plv8-${PLV8_VERSION}
+
+
+#########################
+##### pldebugger ########
+#########################
+
+pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.so pldebugger-patch-config
+	touch $@
+
+$(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger/Makefile $(PREFIX)/bin/psql
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C pldebugger install
+
+pldebugger/Makefile:
+	git clone git://git.postgresql.org/git/pldebugger.git
+	touch $@
+
+clean-pldebugger:
+	rm -Rf pldebugger
+
+.PHONY: pldebugger-patch-config
+pldebugger-patch-config: postgresql-$(POSTGRES_VERSION)/src/backend/utils/misc/postgresql.conf.sample
+	grep plugin_debugger $< || echo "shared_preload_libraries = '\$$libdir/plugin_debugger'" >> $<

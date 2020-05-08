@@ -22,6 +22,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [PostGIS](http://postgis.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 - [wal2json](https://github.com/eulerto/wal2json)
+- [pldebugger](https://github.com/soycacan/pldebugger)
 
 ## How To Build
 
@@ -137,6 +138,16 @@ Postgres.app also includes useful command line utilities (note: this list may be
 - PostGIS: `pgsql2shp` `raster2pgsql` `shp2pgsql`
 
 See [the documentation](http://postgresapp.com/documentation) for more info.
+
+## Using the debugger.
+
+You'll need to load the debugger extension into the database using:
+
+```
+CREATE EXTENSION pldbgapi;
+```
+
+Debugging requires that you are a superuser. Please refer to the [documentation](https://git.postgresql.org/gitweb/?p=pldebugger.git;a=blob_plain;f=README.pldebugger;hb=HEAD) for further information. This requires that you use a supported client, such as [PgAdmin 4](https://www.pgadmin.org/).
 
 ## Contact
 
