@@ -449,4 +449,4 @@ clean-pldebugger:
 
 .PHONY: pldebugger-patch-config
 pldebugger-patch-config: postgresql-$(POSTGRES_VERSION)/src/backend/utils/misc/postgresql.conf.sample
-	grep plugin_debugger $< || echo "shared_preload_libraries = '\$$libdir/plugin_debugger'" >> $<
+	grep plugin_debugger $< || echo "\n# Uncomment the following line if you wish to enable pldebugger (requires restart)\n# shared_preload_libraries = '\$$libdir/plugin_debugger'" >> $<
