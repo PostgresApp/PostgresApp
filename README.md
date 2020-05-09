@@ -22,7 +22,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [PostGIS](http://postgis.net/)
 - [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 - [wal2json](https://github.com/eulerto/wal2json)
-- [pldebugger](https://github.com/soycacan/pldebugger)
+- [pldebugger](https://git.postgresql.org/gitweb/?p=pldebugger.git)
 
 ## How To Build
 
@@ -139,15 +139,21 @@ Postgres.app also includes useful command line utilities (note: this list may be
 
 See [the documentation](http://postgresapp.com/documentation) for more info.
 
-## Using the debugger.
+## Using the debugger
 
-You'll need to load the debugger extension into the database using:
+First, you'll need to adjust the configuration file (`postgresql.conf`) to preload the debugger extension. Find the following line and uncomment it:
+
+```
+# shared_preload_libraries = '$libdir/plugin_debugger'
+```
+
+After you've saved this file, restart the server. You'll need to load the debugger extension into the database you wish to debug using:
 
 ```
 CREATE EXTENSION pldbgapi;
 ```
 
-Debugging requires that you are a superuser. Please refer to the [documentation](https://git.postgresql.org/gitweb/?p=pldebugger.git;a=blob_plain;f=README.pldebugger;hb=HEAD) for further information. This requires that you use a supported client, such as [PgAdmin 4](https://www.pgadmin.org/).
+Debugging requires that you are a superuser. Please refer to the [documentation](https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html) for further information. This requires that you use a supported client, such as [PgAdmin 4](https://www.pgadmin.org/). The official documentation for the module can be accessed [here](https://git.postgresql.org/gitweb/?p=pldebugger.git;a=blob_plain;f=README.pldebugger;hb=HEAD).
 
 ## Contact
 
