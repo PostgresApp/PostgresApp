@@ -141,10 +141,10 @@ See [the documentation](http://postgresapp.com/documentation) for more info.
 
 ## Using the debugger
 
-First, you'll need to adjust the configuration file (`postgresql.conf`) to preload the debugger extension. Find the following line and uncomment it:
+First, you'll need to adjust the configuration file (`postgresql.conf`) to preload the debugger extension. Add the following line:
 
 ```
-# shared_preload_libraries = '$libdir/plugin_debugger'
+shared_preload_libraries = 'plugin_debugger'
 ```
 
 After you've saved this file, restart the server. You'll need to load the debugger extension into the database you wish to debug using:

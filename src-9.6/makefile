@@ -439,7 +439,7 @@ clean-plv8:
 ##### pldebugger ########
 #########################
 
-pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.so pldebugger-patch-config
+pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.so
 	touch $@
 
 $(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger/Makefile $(PREFIX)/bin/psql
@@ -451,7 +451,3 @@ pldebugger/Makefile:
 
 clean-pldebugger:
 	rm -Rf pldebugger
-
-.PHONY: pldebugger-patch-config
-pldebugger-patch-config: postgresql-$(POSTGRES_VERSION)/src/backend/utils/misc/postgresql.conf.sample
-	grep plugin_debugger $< || echo "\n# Uncomment the following line if you wish to enable pldebugger (requires restart)\n# shared_preload_libraries = '\$$libdir/plugin_debugger'" >> $<
