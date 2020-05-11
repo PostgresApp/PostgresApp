@@ -6,6 +6,7 @@ POSTGIS_MAJOR_VERSION=2.3
 
 POSTGRES_VERSION=9.6.17
 POSTGRES_MAJOR_VERSION=9.6
+POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
@@ -97,7 +98,7 @@ postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
-	$(CURL) "https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
+	$(CURL) "$(POSTGRES_DOWNLOAD_URL)/postgresql-$(POSTGRES_VERSION).tar.bz2"
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
