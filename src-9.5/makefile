@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.2.8
 POSTGIS_MAJOR_VERSION=2.2
 
-POSTGRES_VERSION=9.5.21
+POSTGRES_VERSION=9.5.22
 POSTGRES_MAJOR_VERSION=9.5
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -26,7 +26,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.0.2u
+OPENSSL_VERSION=1.1.1g
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -111,7 +111,7 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION} install_sw
 
 openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib no-asm no-krb5 shared
+	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib no-asm shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
