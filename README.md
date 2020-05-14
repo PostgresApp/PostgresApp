@@ -36,7 +36,7 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 9.4 - 10 are built on macOS 10.10
+- the binaries for PostgreSQL 9.4 - 10 are built on macOS 10.10 with Xcode 7.2.1
 
 - the binaries for PostgreSQL 11 - 12 are built on macOS 10.12 with Xcode 8.3.3
 
