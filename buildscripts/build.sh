@@ -112,6 +112,8 @@ codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
 	"$APP"/Contents/Versions/*/lib/postgresql/pgxs/src/test/regress/pg_regress \
+	"$APP"/Contents/MacOS/PostgresMenuHelper.app \
+	"$APP"/Contents/Library/LoginItems/PostgresLoginHelper.app \
 	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
