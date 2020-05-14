@@ -33,6 +33,7 @@
 		type="application/octet-stream"
 		sparkle:dsaSignature="MC4CFQDHFsoTyzTEWlvoZPnvGtncgyl7aAIVAKOOhNAbFg6VpUsJgTOmTcZ99rHW"
 		/>
+		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>

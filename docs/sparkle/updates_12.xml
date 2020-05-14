@@ -6,15 +6,11 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.3e</title>
+		<title>Postgres.app 2.3.5</title>
 		<description>
 			<![CDATA[
-				<p>
-					This release fixes issues with plv8 and GDAL.
-				</p>
-				
 				<ul>
-					<li>PostgreSQL 12.1 with PostGIS 3.0.0</li>
+					<li>PostgreSQL 12.3 with PostGIS 3.0.1</li>
 				</ul>
 				
 				<p>
@@ -24,15 +20,16 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Fri, 24 Jan 2020 16:36:42 +0100</pubDate>
+		<pubDate>Thu, 14 May 2020 17:35:58 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.3e/Postgres-2.3.3e-12.dmg"
-		sparkle:version="68"
-		sparkle:shortVersionString="2.3.3e"
-		length="65385884"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-12.dmg"
+		sparkle:version="80"
+		sparkle:shortVersionString="2.3.5"
+		length="65431214"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFDEWclwyjOYZEo70a+n+zhcT8w0vAhRWXgeWoqfyXswW3HNyqKcv4H9ipg=="
+		sparkle:dsaSignature="MC0CFQC7jO3/45QAVvv4M3oglbi0p1vjZAIUDHXpABnPwks6OzOe+9bzJ9W2+50="
 		/>
+		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
