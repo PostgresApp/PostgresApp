@@ -421,6 +421,7 @@ plv8-${PLV8_VERSION}.tar.gz:
 #	export CC=clang; export CXX=clang++; export GYP_DEFINES="clang=1"; export DYLD_LIBRARY_PATH=$(CURDIR)/v8-${V8_VERSION}/out/x64.release; make -C v8-${V8_VERSION} library=shared werror=no x64.release
 
 $(PREFIX)/lib/libv8.dylib: v8-${V8_VERSION}/Makefile
+	mkdir -p $(PREFIX)/lib
 	cp bin/libv8.dylib $(PREFIX)/lib/libv8.dylib
 
 v8-${V8_VERSION}/Makefile: v8-${V8_VERSION}.tar.gz
