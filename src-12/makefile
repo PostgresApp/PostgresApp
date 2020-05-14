@@ -60,6 +60,9 @@ ICU_MINOR_VERSION=2
 BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
+PKG_CONFIG_LIBDIR=$(PREFIX)/lib/pkgconfig
+
+export PATH PKG_CONFIG_LIBDIR
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.12
@@ -107,7 +110,7 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib postgresql-$(POSTGRES_VERSION)/configure
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-perl --with-tcl --with-python --with-readline --with-uuid=e2fs --with-icu
+	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-perl --with-tcl --with-python --with-readline --with-uuid=e2fs --with-icu
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
@@ -317,7 +320,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
 gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd gdal-$(GDAL_VERSION) && ./autogen.sh && export PKG_CONFIG_PATH="$(PREFIX)/lib/pkgconfig" && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)"
+	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)"
 	touch $@
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
