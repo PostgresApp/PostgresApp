@@ -106,7 +106,9 @@ By default, PostgreSQL is built with documentation. To build the docs, you need:
 
 The quickest way to install all the dependencies is with MacPorts. Install MacPorts, then type:
 
-    sudo port install autoconf automake pkgconfig docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl-nons libxslt openjade opensp
+    sudo -N port install autoconf automake pkgconfig docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl-nons libxslt openjade opensp
+
+(The `-N` flag tells Macports to install required dependencies without asking)
 
 It may also be possible to install those using homebrew, but I'm not sure if they have all the required packages.
 
