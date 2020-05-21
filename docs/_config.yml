@@ -58,6 +58,25 @@ extraReleases: [
 			{ postgres: "9.4.26", postgis: "2.1.9", plv8: "1.4.8" },
 		],
 	},
+	{
+		name: {
+			en: "Postgres.app with currently supported PostgreSQL versions + PostgreSQL 13 Beta", 
+			de: "Postgres.app mit allen PostgreSQL Versionen + PostgreSQL 13 Beta",
+		},
+		size: "330MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5b/Postgres-2.3.5b-9.5-9.6-10-11-12-13.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3.5b",
+		postgresappVersion: "2.3.5",
+		postgresappMinSystemVersion: "10.12",
+		postgresqlVersions: [
+			{ postgres: "13beta1", postgis: "3.1.0alpha1", plv8: "N/A" },
+			{ postgres: "12.3", postgis: "3.0.1", plv8: "2.3.14" },
+			{ postgres: "11.8", postgis: "2.5.4", plv8: "2.3.14" },
+			{ postgres: "10.13", postgis: "2.4.8", plv8: "1.4.8" },
+			{ postgres: "9.6.18", postgis: "2.3.10", plv8: "1.4.8" },
+			{ postgres: "9.5.22", postgis: "2.2.8", plv8: "1.4.8" },
+		],
+	},
 ]
 
 legacyReleases: [
