@@ -72,8 +72,8 @@ class ServerManager: NSObject {
 				let pgVersionPath = itemURL.appendingPathComponent("PG_VERSION").path
 				
 				do {
-					let versionFileContent = try String(contentsOfFile: pgVersionPath)
-					let version = versionFileContent.substring(to: versionFileContent.index(before: versionFileContent.endIndex))
+					var version = try String(contentsOfFile: pgVersionPath)
+					version.removeLast() // remove \n
 					servers.append(Server(name: "PostgreSQL \(version)", version: version, varPath: itemURL.path))
 					saveServers()
 				} catch {
