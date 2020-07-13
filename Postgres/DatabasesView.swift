@@ -31,7 +31,7 @@ class DatabaseItemView: NSView {
 		let offset = CGFloat(4)
 		if selected {
 			var inset = CGFloat(0)
-			for view in self.subviews where convertFromOptionalNSUserInterfaceItemIdentifier(view.identifier) == "DBNameLabel" {
+			for view in self.subviews where view.identifier?.rawValue == "DBNameLabel" {
 				inset = view.frame.minY
 			}
 			let x = offset
@@ -85,10 +85,4 @@ class DatabaseItemView: NSView {
 			super.mouseDown(with: event)
 		}
 	}
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromOptionalNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier?) -> String? {
-	guard let input = input else { return nil }
-	return input.rawValue
 }

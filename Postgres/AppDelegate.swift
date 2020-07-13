@@ -100,10 +100,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 		
 		let plistPath = laPath+"/"+laName+".plist"
-		let attributes: [String: Any] = [FileAttributeKey.posixPermissions.rawValue: NSNumber(value: 0o600)]
+		let attributes: [FileAttributeKey: Any] = [.posixPermissions: NSNumber(value: 0o600)]
 		do {
 			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
-			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: convertToOptionalFileAttributeKeyDictionary(attributes)) {
+			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
 				NSLog("Could not create plist file at \(plistPath)")
 			}
 		} catch let error as NSError {
@@ -136,11 +136,4 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 	}
 	
-}
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalFileAttributeKeyDictionary(_ input: [String: Any]?) -> [FileAttributeKey: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (FileAttributeKey(rawValue: key), value)})
 }
