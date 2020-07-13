@@ -68,7 +68,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 	
 	
 	private func moveArrangedObjects(from indexes: IndexSet, to index: Int) {
-		var objects = self.arrangedObjects as! [AnyObject]
+		let objects = self.arrangedObjects as! [AnyObject]
 		var object: Any!
 		var aboveInsertIdxCnt = 0
 		var removeIdx: Int!
@@ -86,7 +86,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 			object = objects[removeIdx]
 			
 			self.remove(atArrangedObjectIndex: removeIdx)
-			self.insert(object, atArrangedObjectIndex: localIdx)
+			self.insert(object!, atArrangedObjectIndex: localIdx)
 		}
 	}
 }
