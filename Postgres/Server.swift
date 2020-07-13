@@ -34,30 +34,30 @@ class Server: NSObject {
 	}
 	
 	
-	dynamic var name: String = "" {
+	@objc dynamic var name: String = "" {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-	dynamic var port: UInt = 0 {
+	@objc dynamic var port: UInt = 0 {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-	dynamic var binPath: String = ""
-	dynamic var varPath: String = ""
-	dynamic var startOnLogin: Bool = false {
+	@objc dynamic var binPath: String = ""
+	@objc dynamic var varPath: String = ""
+	@objc dynamic var startOnLogin: Bool = false {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-	dynamic var configFilePath: String {
+	@objc dynamic var configFilePath: String {
 		return varPath.appending("/postgresql.conf")
 	}
-	dynamic var hbaFilePath: String {
+	@objc dynamic var hbaFilePath: String {
 		return varPath.appending("/pg_hba.conf")
 	}
-	dynamic var logFilePath: String {
+	@objc dynamic var logFilePath: String {
 		return varPath.appending("/postgresql.log")
 	}
 	private var pidFilePath: String {
@@ -67,11 +67,11 @@ class Server: NSObject {
 		return varPath.appending("/PG_VERSION")
 	}
 	
-	dynamic private(set) var busy: Bool = false
-	dynamic private(set) var running: Bool = false
-	dynamic private(set) var serverStatus: ServerStatus = .Unknown
-	dynamic private(set) var databases: [Database] = []
-	dynamic var selectedDatabaseIndices = IndexSet()
+	@objc dynamic private(set) var busy: Bool = false
+	@objc dynamic private(set) var running: Bool = false
+	@objc dynamic private(set) var serverStatus: ServerStatus = .Unknown
+	@objc dynamic private(set) var databases: [Database] = []
+	@objc dynamic var selectedDatabaseIndices = IndexSet()
 	
 	var firstSelectedDatabase: Database? {
 		guard let firstIndex = selectedDatabaseIndices.first else { return nil }
@@ -390,7 +390,7 @@ class Server: NSObject {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
+						NSWorkspace.shared.openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -425,7 +425,7 @@ class Server: NSObject {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
+						NSWorkspace.shared.openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -460,7 +460,7 @@ class Server: NSObject {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
+						NSWorkspace.shared.openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -495,7 +495,7 @@ class Server: NSObject {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
+						NSWorkspace.shared.openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -528,7 +528,7 @@ class Server: NSObject {
 				NSLocalizedRecoveryOptionsErrorKey: ["OK", "Open Server Log"],
 				NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
 					if optionIndex == 1 {
-						NSWorkspace.shared().openFile(self.logFilePath, withApplication: "Console")
+						NSWorkspace.shared.openFile(self.logFilePath, withApplication: "Console")
 					}
 					return true
 				})
@@ -542,7 +542,7 @@ class Server: NSObject {
 
 
 class Database: NSObject {
-	dynamic var name: String = ""
+	@objc dynamic var name: String = ""
 	
 	init(_ name: String) {
 		super.init()

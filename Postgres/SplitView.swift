@@ -14,7 +14,7 @@ class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
 	var ignoreSidebarVisibleChange = false
 	var modelSidebarObserver: KeyValueObserver?
 	
-	dynamic var mainWindowModel: MainWindowModel! {
+	@objc dynamic var mainWindowModel: MainWindowModel! {
 		willSet {
 			if let modelSidebarObserver = modelSidebarObserver {
 				mainWindowModel.removeObserver(modelSidebarObserver, forKeyPath: modelSidebarObserver.keyPath)

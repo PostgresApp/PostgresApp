@@ -40,7 +40,7 @@ class ClientLauncher: NSObject {
 		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
 		if let errorDict = errorDict {
-			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: (errorDict as! [NSObject: AnyObject]))
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: (errorDict as [NSObject: AnyObject] as! [String : Any]))
 		}
 	}
 }

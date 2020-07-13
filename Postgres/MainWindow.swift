@@ -10,13 +10,13 @@ import Cocoa
 
 class MainWindowController: NSWindowController, NSWindowDelegate {
 	
-	dynamic var mainWindowModel: MainWindowModel! {
+	@objc dynamic var mainWindowModel: MainWindowModel! {
 		didSet {
 			func propagate(_ mainWindowModel: MainWindowModel, toChildrenOf parent: NSViewController) {
 				if var consumer = parent as? MainWindowModelConsumer {
 					consumer.mainWindowModel = mainWindowModel
 				}
-				for child in parent.childViewControllers {
+				for child in parent.children {
 					propagate(mainWindowModel, toChildrenOf: child)
 				}
 			}

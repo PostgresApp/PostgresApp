@@ -13,7 +13,7 @@ class ServerStatusImageTransformer: ValueTransformer {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
 		case .Unknown:
-			return NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+			return NSImage(imageLiteralResourceName: NSImage.statusNoneName)
 		case .Running:
 			return NSImage(named: "icon-running")
 		default:
@@ -27,7 +27,7 @@ class ServerStatusTemplateImageTransformer: ValueTransformer {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
 		case .Unknown:
-			return NSImage(imageLiteralResourceName: NSImageNameStatusNone)
+			return NSImage(imageLiteralResourceName: NSImage.statusNoneName)
 		case .Running:
 			return NSImage(named: "icon-running-template")
 		default:

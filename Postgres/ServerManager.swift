@@ -12,7 +12,7 @@ class ServerManager: NSObject {
 	
 	static let shared = ServerManager()
 	
-	dynamic var servers: [Server] = []
+	@objc dynamic var servers: [Server] = []
 	
 	
 	func refreshServerStatuses() {

@@ -10,12 +10,12 @@ import Cocoa
 
 class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
-	dynamic var mainWindowModel: MainWindowModel!
-	dynamic var name: String = "New Server"
-	dynamic var port: UInt = 5432
-	dynamic var varPath: String = ""
-	dynamic var versions: [String] = []
-	dynamic var selectedVersionIdx: Int = 0
+	@objc dynamic var mainWindowModel: MainWindowModel!
+	@objc dynamic var name: String = "New Server"
+	@objc dynamic var port: UInt = 5432
+	@objc dynamic var varPath: String = ""
+	@objc dynamic var versions: [String] = []
+	@objc dynamic var selectedVersionIdx: Int = 0
 	
 	private var version: String {
 		return versions[selectedVersionIdx]
@@ -44,7 +44,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		openPanel.canCreateDirectories = true
 		openPanel.directoryURL = URL(fileURLWithPath: FileManager().applicationSupportDirectoryPath())
 		openPanel.beginSheetModal(for: self.view.window!) { (returnCode) in
-			if returnCode == NSModalResponseOK {
+			if returnCode == NSApplication.ModalResponse.OK {
 				self.varPath = openPanel.url!.path
 			}
 		}
@@ -57,7 +57,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	@IBAction func createServer(_ sender: AnyObject?) {
-		guard self.view.window!.makeFirstResponder(nil) else { NSBeep(); return }
+		guard self.view.window!.makeFirstResponder(nil) else { NSSound.beep(); return }
 		
 		for server in mainWindowModel.serverManager.servers {
 			if server.varPath == self.varPath {

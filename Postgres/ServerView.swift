@@ -11,7 +11,7 @@ import Cocoa
 class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBOutlet var databaseCollectionView: NSCollectionView!
 	
-	dynamic var mainWindowModel: MainWindowModel!
+	@objc dynamic var mainWindowModel: MainWindowModel!
 	
 	
 	override func viewDidLoad() {
@@ -53,7 +53,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
             urlComponents.port = Int(server.port)
             urlComponents.path = "/" + database.name
             let url = urlComponents.url!
-            let success = NSWorkspace.shared().open(url)
+            let success = NSWorkspace.shared.open(url)
             if !success {
                 let alert = NSAlert()
                 alert.messageText = "Could not open Postico"

@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 					}
 				} else {
 					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-					NSWorkspace.shared().open(url)
+					NSWorkspace.shared.open(url)
 				}
 			}
 			
@@ -63,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		
 		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
 			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-			NSWorkspace.shared().open(url)
+			NSWorkspace.shared.open(url)
 			NSApp.activate(ignoringOtherApps: true)
 		}
 		
@@ -83,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
-		NSWorkspace.shared().open(URL(string: "http://postgresapp.com/documentation/")!)
+		NSWorkspace.shared.open(URL(string: "http://postgresapp.com/documentation/")!)
 	}
 	
 	
@@ -103,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		let attributes: [String: Any] = [FileAttributeKey.posixPermissions.rawValue: NSNumber(value: 0o600)]
 		do {
 			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
-			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
+			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: convertToOptionalFileAttributeKeyDictionary(attributes)) {
 				NSLog("Could not create plist file at \(plistPath)")
 			}
 		} catch let error as NSError {
@@ -138,3 +138,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalFileAttributeKeyDictionary(_ input: [String: Any]?) -> [FileAttributeKey: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (FileAttributeKey(rawValue: key), value)})
+}

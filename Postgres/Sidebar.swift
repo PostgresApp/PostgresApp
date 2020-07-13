@@ -10,7 +10,7 @@ import Cocoa
 
 class SidebarController: NSViewController, MainWindowModelConsumer {
 	
-	dynamic var mainWindowModel: MainWindowModel!
+	@objc dynamic var mainWindowModel: MainWindowModel!
 	
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -27,7 +27,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 		alert.addButton(withTitle: "Remove Server")
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
-			if modalResponse == NSAlertFirstButtonReturn {
+			if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
 				if let server = self.mainWindowModel.firstSelectedServer, server.running {
 					let _ = server.stopSync()
 				}
