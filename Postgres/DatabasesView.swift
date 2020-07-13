@@ -69,13 +69,13 @@ class DatabaseItemView: NSView {
 			
 			if i < 3 {
 				let y1 = 4 + lineWidth*0.5 + (63.0-lineWidth-8.0) / 3 * CGFloat(i)
-				NSRectFillUsingOperation(NSRect(x: lineWidth*0.5, y: y1, width: 64-lineWidth, height: 16.0), NSCompositingOperation.copy)
+				NSRect(x: lineWidth*0.5, y: y1, width: 64-lineWidth, height: 16.0).fill(using: .copy)
 			}
 		}
 		
 		frameColor?.setFill()
-		NSRectFillUsingOperation(NSRect(x: 0, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositingOperation.copy)
-		NSRectFillUsingOperation(NSRect(x: 64-lineWidth, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3), NSCompositingOperation.copy)
+		NSRect(x: 0, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3).fill(using: .copy)
+		NSRect(x: 64-lineWidth, y: 4+lineWidth*0.5, width: lineWidth, height: 3*(63-lineWidth-8)/3).fill(using: .copy)
 	}
 	
 	override func mouseDown(with event: NSEvent) {

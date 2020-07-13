@@ -109,7 +109,7 @@ class ServerViewBackgroundView: NSView {
 	
 	override func draw(_ dirtyRect: NSRect) {
 		NSColor.controlBackgroundColor.setFill()
-		NSRectFill(dirtyRect)
+		dirtyRect.fill()
 		
 		let imgSize = CGFloat(96)
 		let x = CGFloat(self.bounds.maxX-imgSize-20), y = CGFloat(20)

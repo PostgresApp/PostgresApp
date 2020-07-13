@@ -30,7 +30,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		
 		guard let window = self.window else { return }
 		window.titleVisibility = .hidden
-		window.styleMask = [window.styleMask, NSFullSizeContentViewWindowMask]
+		window.styleMask = [window.styleMask, .fullSizeContentView]
 		window.titlebarAppearsTransparent = true
 		window.isMovableByWindowBackground = true
 		
