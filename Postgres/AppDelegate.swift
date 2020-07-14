@@ -100,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		}
 		
 		let plistPath = laPath+"/"+laName+".plist"
-		let attributes: [FileAttributeKey: Any] = [.posixPermissions: NSNumber(value: 0o600)]
+		let attributes: [FileAttributeKey: Any] = [.posixPermissions: 0o600]
 		do {
 			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
 			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
