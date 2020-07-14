@@ -40,7 +40,7 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 11 - 12 are built on macOS 10.12 with Xcode 8.3.3
 
-- the GUI is built on macOS 10.15 with Xcode 10.1
+- the GUI is built on macOS 10.15 with Xcode 11
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
@@ -54,10 +54,7 @@ Open the XCode file and start hacking!
 
 Tools required for building the GUI:
 
-- Xcode 10.1
-
-Currently it is not possible to use Xcode 11 because Postgres.app is written in Swift 3.
-Any help migrating to Swift 5 would be greatly appreciated!
+- Xcode 11 or later (Swift 5 support is required)
 
 ### Building the Binaries
 
