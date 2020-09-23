@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.1.0alpha1
+POSTGIS_VERSION=3.1.0alpha2
 POSTGIS_MAJOR_VERSION=3.1
 
-POSTGRES_VERSION=13beta2
+POSTGRES_VERSION=13.0
 POSTGRES_MAJOR_VERSION=13
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -26,7 +26,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1g
+OPENSSL_VERSION=1.1.1h
 
 # http://proj4.org/download.html
 PROJ_VERSION=6.2.1
