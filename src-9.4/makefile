@@ -64,7 +64,7 @@ EXPORT_ARCHIVE_PATH=~/Documents/postgresapp-archives/$(POSTGRESAPP_VERSION)
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 
 # commands used for downloading and extracting sources
-CURL=/usr/bin/curl -L10 --silent --show-error --remote-name
+CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis plv8 pldebugger
