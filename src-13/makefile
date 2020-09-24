@@ -40,20 +40,20 @@ PLV8_VERSION=2.3.15
 JSONC_VERSION=0.13.1
 
 # https://github.com/eulerto/wal2json
-WAL2JSON_VERSION=wal2json_2_2
+WAL2JSON_VERSION=wal2json_2_3
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.10.1
+PROTOBUF_VERSION=3.13.0
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.3.2
+PROTOBUFC_VERSION=1.3.3
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.1.0
 
 # http://site.icu-project.org/download/
-ICU_MAJOR_VERSION=64
-ICU_MINOR_VERSION=2
+ICU_MAJOR_VERSION=67
+ICU_MINOR_VERSION=1
 
 
 #path configuration
