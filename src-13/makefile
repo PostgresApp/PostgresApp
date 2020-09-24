@@ -85,10 +85,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-# not including plv8 for the first beta because it takes too long to build
-# not including wal2json because it looks like it is not yet compatible with PostgreSQL 13
-# all: postgresql postgis plv8 wal2json pldebugger
-all: postgresql postgis pldebugger
+all: postgresql postgis plv8 wal2json pldebugger
 clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json clean-pldebugger
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
