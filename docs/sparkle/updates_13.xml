@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_13.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 2.4</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 13.0 with PostGIS 3.1.0alpha2</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 24 Sep 2020 11:10:36 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-13.dmg"
+		sparkle:version="90"
+		sparkle:shortVersionString="2.4"
+		length="66410170"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC4CFQDbTN6qbDo1se16TYZ8UtJv9M43TwIVAJjpGQXcCh6cEYOxE8baoTBoEhLh"
+		/>
+	</item>
+  </channel>
+</rss>

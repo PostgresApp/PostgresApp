@@ -6,11 +6,11 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.5</title>
+		<title>Postgres.app 2.4</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 12.3 with PostGIS 3.0.1</li>
+					<li>PostgreSQL 12.4 with PostGIS 3.0.2</li>
 				</ul>
 				
 				<p>
@@ -20,16 +20,15 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 14 May 2020 17:35:58 +0200</pubDate>
+		<pubDate>Thu, 24 Sep 2020 12:31:57 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-12.dmg"
-		sparkle:version="80"
-		sparkle:shortVersionString="2.3.5"
-		length="65431214"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-12.dmg"
+		sparkle:version="85"
+		sparkle:shortVersionString="2.4"
+		length="65327617"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQC7jO3/45QAVvv4M3oglbi0p1vjZAIUDHXpABnPwks6OzOe+9bzJ9W2+50="
+		sparkle:dsaSignature="MCwCFH/73vTUwDt81Tny0ZO20Tv3pZqzAhQZHAonW2pr6T11EDnDBr4AnHRaHQ=="
 		/>
-		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
