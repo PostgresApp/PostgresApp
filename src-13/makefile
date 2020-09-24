@@ -55,6 +55,7 @@ LIBTIFF_VERSION=4.1.0
 ICU_MAJOR_VERSION=67
 ICU_MINOR_VERSION=1
 
+PYTHON_VERSION=3.8
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -63,6 +64,10 @@ PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
 PKG_CONFIG_LIBDIR=$(PREFIX)/lib/pkgconfig
 
 export PATH PKG_CONFIG_LIBDIR
+
+#python config
+PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/python3
+export PYTHON
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.12
