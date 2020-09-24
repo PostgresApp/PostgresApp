@@ -99,7 +99,6 @@ check-postgresql:
 	make -C "postgresql-$(POSTGRES_VERSION)" check-world
 
 postgresql: $(PREFIX)/bin/psql
-	touch $@
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" world
