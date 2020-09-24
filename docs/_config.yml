@@ -9,72 +9,51 @@ repository: postgresapp/postgresapp
 
 release: {
 	name: {
-		en: "Postgres.app with PostgreSQL 12", 
-		de: "Postgres.app mit PostgreSQL 12",
+		en: "Postgres.app with PostgreSQL 13", 
+		de: "Postgres.app mit PostgreSQL 13",
 	},
-	size: "70MB",
-	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-12.dmg",
-	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3.5",
-	postgresappVersion: "2.3.5",
+	size: "66MB",
+	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-13.dmg",
+	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.4",
+	postgresappVersion: "2.4",
 	postgresappMinSystemVersion: "10.12",
 	postgresqlVersions: [
-		{ postgres: "12.3", postgis: "3.0.1", plv8: "2.3.14" },
+		{ postgres: "13.0", postgis: "3.1.0alpha2", plv8: "2.3.15" },
 	],
 }
 
 extraReleases: [
 	{
 		name: {
-			en: "Postgres.app with PostgreSQL 13 Beta and all currently supported versions", 
-			de: "Postgres.app mit PostgreSQL 13 Beta und allen unterstützten Versionen",
+			en: "Postgres.app with PostgreSQL 12", 
+			de: "Postgres.app mit PostgreSQL 12",
+		},
+		size: "65MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-12.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.4",
+		postgresappVersion: "2.4",
+		postgresappMinSystemVersion: "10.12",
+		postgresqlVersions: [
+			{ postgres: "12.4", postgis: "3.0.2", plv8: "2.3.15" },
+		],
+	},
+	{
+		name: {
+			en: "Postgres.app with all currently supported versions", 
+			de: "Postgres.app mit allen unterstützten Versionen",
 		},
 		size: "330MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5c/Postgres-2.3.5c-9.5-9.6-10-11-12-13.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3.5c",
-		postgresappVersion: "2.3.5c",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-9.5-9.6-10-11-12-13.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.4",
+		postgresappVersion: "2.4",
 		postgresappMinSystemVersion: "10.12",
 		postgresqlVersions: [
-			{ postgres: "13beta2", postgis: "3.1.0alpha1", plv8: "N/A" },
-			{ postgres: "12.3", postgis: "3.0.1", plv8: "2.3.14" },
-			{ postgres: "11.8", postgis: "2.5.4", plv8: "2.3.14" },
-			{ postgres: "10.13", postgis: "2.4.8", plv8: "1.4.8" },
-			{ postgres: "9.6.18", postgis: "2.3.10", plv8: "1.4.8" },
-			{ postgres: "9.5.22", postgis: "2.2.8", plv8: "1.4.8" },
-		],
-	},
-	{
-		name: {
-			en: "Postgres.app with PostgreSQL 10, 11 and 12", 
-			de: "Postgres.app mit PostgreSQL 10, 11 und 12",
-		},
-		size: "180MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-10-11-12.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3.5",
-		postgresappVersion: "2.3.5",
-		postgresappMinSystemVersion: "10.12",
-		postgresqlVersions: [
-			{ postgres: "12.3", postgis: "3.0.1", plv8: "2.3.14" },
-			{ postgres: "11.8", postgis: "2.5.4", plv8: "2.3.14" },
-			{ postgres: "10.13", postgis: "2.4.8", plv8: "1.4.8" },
-		],
-	},
-	{
-		name: {
-			en: "Postgres.app with all currently supported PostgreSQL versions", 
-			de: "Postgres.app mit allen PostgreSQL Versionen",
-		},
-		size: "320MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-9.4-9.5-9.6-10-11-12.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.3.5",
-		postgresappVersion: "2.3.5",
-		postgresappMinSystemVersion: "10.12",
-		postgresqlVersions: [
-			{ postgres: "12.3", postgis: "3.0.1", plv8: "2.3.14" },
-			{ postgres: "11.8", postgis: "2.5.4", plv8: "2.3.14" },
-			{ postgres: "10.13", postgis: "2.4.8", plv8: "1.4.8" },
-			{ postgres: "9.6.18", postgis: "2.3.10", plv8: "1.4.8" },
-			{ postgres: "9.5.22", postgis: "2.2.8", plv8: "1.4.8" },
-			{ postgres: "9.4.26", postgis: "2.1.9", plv8: "1.4.8" },
+			{ postgres: "13.0", postgis: "3.1.0alpha2", plv8: "2.3.15" },
+			{ postgres: "12.4", postgis: "3.0.2", plv8: "2.3.15" },
+			{ postgres: "11.9", postgis: "2.5.5", plv8: "2.3.15" },
+			{ postgres: "10.14", postgis: "2.4.9", plv8: "1.4.8" },
+			{ postgres: "9.6.19", postgis: "2.3.11", plv8: "1.4.8" },
+			{ postgres: "9.5.23", postgis: "2.2.8", plv8: "1.4.8" },
 		],
 	},
 ]
