@@ -29,7 +29,7 @@ LIBXML2_VERSION=2.9.10
 OPENSSL_VERSION=1.1.1h
 
 # http://proj4.org/download.html
-PROJ_VERSION=6.2.1
+PROJ_VERSION=7.1.1
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
@@ -340,7 +340,7 @@ clean-libgdal:
 ###### proj4 ############
 #########################
 
-# Depends on postgresql
+# Depends on postgresql, libtiff
 
 libproj: $(PREFIX)/lib/libproj.dylib
 	touch $@
@@ -348,7 +348,7 @@ libproj: $(PREFIX)/lib/libproj.dylib
 $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
 	make -C proj-$(PROJ_VERSION) install
 
-proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql
+proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
 	cd proj-$(PROJ_VERSION) && SQLITE3_LIBS="-lsqlite3" ./configure --prefix="$(PREFIX)"
 
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz proj-datumgrid-$(DATUMGRID_VERSION).zip
