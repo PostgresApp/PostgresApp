@@ -11,6 +11,7 @@ title: Postgres.app Documentation
 - [Removing other PostgreSQL installations](remove.html)
 - [CLI Tools](cli-tools.html)
 - [GUI Apps](gui-tools.html)
+- [Using PL/Python](plpython.html)
 - [Troubleshooting & Support](troubleshooting.html)
 
 ## Additional Resources
