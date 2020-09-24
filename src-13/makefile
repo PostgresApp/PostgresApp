@@ -11,7 +11,7 @@ POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # http://trac.osgeo.org/gdal/wiki/DownloadSource
-GDAL_VERSION=3.0.4
+GDAL_VERSION=3.1.3
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.8.1
@@ -33,7 +33,7 @@ PROJ_VERSION=7.1.1
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=2.3.14
+PLV8_VERSION=2.3.15
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
