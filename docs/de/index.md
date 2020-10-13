@@ -304,5 +304,5 @@ Lizenz
 Postgres.app, PostgreSQL und alle verwendeten Extensions sind unter der [PostgreSQL License](http://www.postgresql.org/about/licence/) veröffentlicht. 
 Die veröffentlichten binaries enthalten auch noch OpenSSL ([OpenSSL Lizenz](https://www.openssl.org/source/license.html)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), und plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
 
-Postgres.app wird derzeit von [Jakob Egger](https://github.com/jakob) und [Chris Pastl](https://github.com/chrispysoft) weiterentwickelt und betreut.
+Postgres.app wird von [Jakob Egger](https://github.com/jakob) weiterentwickelt und betreut.
 Postgres.app wurde ursprünglich von [Mattt Thompson](https://github.com/mattt) entwickelt.
