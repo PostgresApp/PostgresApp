@@ -10,7 +10,8 @@ POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
-# http://trac.osgeo.org/gdal/wiki/DownloadSource
+# https://github.com/OSGeo/gdal/releases
+# http://download.osgeo.org/gdal/
 GDAL_VERSION=2.4.4
 
 # http://trac.osgeo.org/geos/

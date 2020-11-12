@@ -10,7 +10,8 @@ POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
-# http://trac.osgeo.org/gdal/wiki/DownloadSource
+# https://github.com/OSGeo/gdal/releases
+# http://download.osgeo.org/gdal/
 GDAL_VERSION=2.1.3
 # 2.1.4 doesn't build on macOS 10.10 with Xcode 7.1.1
 
