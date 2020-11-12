@@ -40,7 +40,9 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 11 - 12 are built on macOS 10.12 with Xcode 8.3.3
 
-- the GUI is built on macOS 10.15 with Xcode 11
+- the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
+
+- the GUI is built on macOS 10.15 with Xcode 11.7
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
@@ -92,21 +94,19 @@ For building PostGIS, you also need
 - pkgconfig (when building GDAL 3.0.0 or later)
 - libtool
 
-By default, PostgreSQL is built with documentation. To build the docs, you need:
+By default, PostgreSQL is built with documentation. To build the PostgreSQL 13 docs, you need these packages (see https://www.postgresql.org/docs/current/docguide-toolsets.html for details):
 
-- docbook-dsssl
-- docbook-sgml-4.2
-- docbook-xml-4.2
+- docbook-xml-4.5
 - docbook-xsl-nons
-- libxslt
-- openjade
-- opensp
+- fop
 
 The quickest way to install all the dependencies is with MacPorts. Install MacPorts, then type:
 
-    sudo port -N install autoconf automake pkgconfig libtool docbook-dsssl docbook-sgml-4.2 docbook-xml-4.2 docbook-xsl-nons libxslt openjade opensp
+    sudo port -N install autoconf automake pkgconfig libtool docbook-xml-4.5 docbook-xsl-nons fop
 
 (The `-N` flag tells Macports to install required dependencies without asking)
+
+Older versions required a different set of packages for building the docs, please see the specific versions of the documentation page https://www.postgresql.org/docs/current/docguide-toolsets.html for details.
 
 It may also be possible to install those using homebrew, but I'm not sure if they have all the required packages.
 
