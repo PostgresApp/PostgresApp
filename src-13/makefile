@@ -84,6 +84,14 @@ PROTOC=$(BUILD_PREFIX)/bin/protoc
 protobuf_CFLAGS=-I$(BUILD_PREFIX)/include -pthread
 protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
 
+# For some reason PostgreSQL could no longer find DTDs when building docs
+# This change fixes that issue. It doesn't fully work in the configure script,
+# But it does work when building docs as long as we also pass XMLINCLUDE=--catalogs to make
+# Note: it expects that you have installed the docbook-xml-4.5 port
+XMLLINT=xmllint
+SGML_CATALOG_FILES=/opt/local/etc/sgml/catalog
+export XMLLINT SGML_CATALOG_FILES
+
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
 export PROTOC protobuf_CFLAGS protobuf_LIBS
 
@@ -107,7 +115,7 @@ check-postgresql:
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" world
+	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" world XMLINCLUDE=--catalogs
 	make -C "postgresql-$(POSTGRES_VERSION)" install-world
 
 # setting PATH is to make sure we find the right xml2-config
