@@ -34,7 +34,7 @@ PROJ_VERSION=6.2.1
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=2.3.14
+PLV8_VERSION=2.3.15
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
