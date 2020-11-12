@@ -6,11 +6,11 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4</title>
+		<title>Postgres.app 2.4.1</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 11.9 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 11.10 with PostGIS 2.5.5</li>
 				</ul>
 				<p>
 					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
@@ -19,14 +19,14 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 24 Sep 2020 12:25:22 +0200</pubDate>
+		<pubDate>Thu, 12 Nov 2020 13:36:33 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-11.dmg"
-		sparkle:version="84"
-		sparkle:shortVersionString="2.4"
-		length="67888570"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.1/Postgres-2.4.1-11.dmg"
+		sparkle:version="98"
+		sparkle:shortVersionString="2.4.1"
+		length="74259368"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQC4yxRto3kgNQRGIRDB1pFC7KBy2AIVAMgZnXr7JwmnzNzTw1YXM6jWf7ks"
+		sparkle:dsaSignature="MCwCFFDC6uN/X5gfy4N/xzwK5u9F1ewJAhQuv9Pi1UVOo9+D5WmlORD+EagqXg=="
 		/>
 	</item>
   </channel>

@@ -6,27 +6,27 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4</title>
+		<title>Postgres.app 2.4.1</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 9.5.23 with PostGIS 2.2.8</li>
-					<li>PostgreSQL 9.6.19 with PostGIS 2.3.11</li>
-					<li>PostgreSQL 10.14 with PostGIS 2.4.9</li>
-					<li>PostgreSQL 11.9 with PostGIS 2.5.5</li>
-					<li>PostgreSQL 12.4 with PostGIS 3.0.2</li>
-					<li>PostgreSQL 13.0 with PostGIS 3.1.0alpha2</li>
+					<li>PostgreSQL 9.5.24 with PostGIS 2.2.8</li>
+					<li>PostgreSQL 9.6.20 with PostGIS 2.3.11</li>
+					<li>PostgreSQL 10.15 with PostGIS 2.4.9</li>
+					<li>PostgreSQL 11.10 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 12.5 with PostGIS 3.0.2</li>
+					<li>PostgreSQL 13.1 with PostGIS 3.1.0alpha2</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 24 Sep 2020 11:35:32 +0200</pubDate>
+		<pubDate>Thu, 12 Nov 2020 14:51:57 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-9.5-9.6-10-11-12-13.dmg"
-		sparkle:version="91"
-		sparkle:shortVersionString="2.4"
-		length="321343251"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.1/Postgres-2.4.1-9.5-9.6-10-11-12-13.dmg"
+		sparkle:version="101"
+		sparkle:shortVersionString="2.4.1"
+		length="327408008"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQC9XizpJOEMOYbx8rJWA8cvSwNtMQIVALROieZV+YlZCACCyQmODhWQ+rRb"
+		sparkle:dsaSignature="MC0CFQCKjzMKkzrSfyB8NEzs2F5+1fBnfAIULW0d9PI+92CLS4ws1z2RnFNXG5U="
 		/>
 	</item>
   </channel>

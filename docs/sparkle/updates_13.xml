@@ -6,22 +6,22 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4</title>
+		<title>Postgres.app 2.4.1</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 13.0 with PostGIS 3.1.0alpha2</li>
+					<li>PostgreSQL 13.1 with PostGIS 3.1.0alpha2</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 24 Sep 2020 11:10:36 +0200</pubDate>
+		<pubDate>Wed, 11 Nov 2020 22:48:14 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4/Postgres-2.4-13.dmg"
-		sparkle:version="90"
-		sparkle:shortVersionString="2.4"
-		length="66410170"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.1/Postgres-2.4.1-13.dmg"
+		sparkle:version="100"
+		sparkle:shortVersionString="2.4.1"
+		length="66096629"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQDbTN6qbDo1se16TYZ8UtJv9M43TwIVAJjpGQXcCh6cEYOxE8baoTBoEhLh"
+		sparkle:dsaSignature="MC0CFQCDNyiYqCgb8Yl5hol1+/JADB9XiQIUXmDlRIfKgXSDa0GiRy5W9Zww91M="
 		/>
 	</item>
   </channel>

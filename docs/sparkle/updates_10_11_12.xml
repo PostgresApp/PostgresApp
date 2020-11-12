@@ -6,30 +6,27 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.5</title>
+		<title>Postgres.app 2.4.1</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 10.13 with PostGIS 2.4.8</li>
-					<li>PostgreSQL 11.8 with PostGIS 2.5.4</li>
-					<li>PostgreSQL 12.3 with PostGIS 3.0.1</li>
+					<li>PostgreSQL 9.5.24 with PostGIS 2.2.8</li>
+					<li>PostgreSQL 9.6.20 with PostGIS 2.3.11</li>
+					<li>PostgreSQL 10.15 with PostGIS 2.4.9</li>
+					<li>PostgreSQL 11.10 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 12.5 with PostGIS 3.0.2</li>
+					<li>PostgreSQL 13.1 with PostGIS 3.1.0alpha2</li>
 				</ul>
-				
-				<p>
-					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
-					You can download other versions of PostgreSQL on our website:
-					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
-				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 14 May 2020 17:03:44 +0200</pubDate>
+		<pubDate>Thu, 12 Nov 2020 14:51:57 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-10-11-12.dmg"
-		sparkle:version="78"
-		sparkle:shortVersionString="2.3.5"
-		length="182655462"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.1/Postgres-2.4.1-9.5-9.6-10-11-12-13.dmg"
+		sparkle:version="101"
+		sparkle:shortVersionString="2.4.1"
+		length="327408008"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFBoOSLjXfBpW+gcQTx9GcNvfGGoKAhUAhw24D02mZOp2GvVEe+MhzC/z9KI="
+		sparkle:dsaSignature="MC0CFQCKjzMKkzrSfyB8NEzs2F5+1fBnfAIULW0d9PI+92CLS4ws1z2RnFNXG5U="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
