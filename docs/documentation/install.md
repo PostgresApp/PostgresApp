@@ -25,7 +25,7 @@ For more details, see the [section on Command Line Tools](cli-tools.html).
 - Binaries: `/Applications/Postgres.app/Contents/Versions/latest/bin`
 - Headers: `/Applications/Postgres.app/Contents/Versions/latest/include`
 - Libraries: `/Applications/Postgres.app/Contents/Versions/latest/lib`
-- Default data directory: `~/Library/Application Support/Postgres/var-9.6`
+- Default data directory: `~/Library/Application Support/Postgres/var-XX` (XX is the major version of PostgreSQL)
 
 
 
