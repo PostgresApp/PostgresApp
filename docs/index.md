@@ -121,7 +121,7 @@ while ($row = $statement->fetch()) {
 				Or the <tt>pg_connect()</tt> functions (procedural):
 			</p>
 			<pre><code>&lt;?php
-$conn = pg_connect("postgresql://localhost");
+$conn = pg_connect("host=localhost");
 $result = pg_query($conn, "SELECT datname FROM pg_database");
 while ($row = pg_fetch_row($result)) {
     echo "&lt;p>" . htmlspecialchars($row[0]) . "&lt;/p>\n";
