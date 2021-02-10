@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.2.8
 POSTGIS_MAJOR_VERSION=2.2
 
-POSTGRES_VERSION=9.5.24
+POSTGRES_VERSION=9.5.25
 POSTGRES_MAJOR_VERSION=9.5
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -27,7 +27,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1h
+OPENSSL_VERSION=1.1.1i
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -44,7 +44,7 @@ PLV8_VERSION=1.4.8
 JSONC_VERSION=0.12.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.1.0
+LIBTIFF_VERSION=4.2.0
 
 
 #path configuration

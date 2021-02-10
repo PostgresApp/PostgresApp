@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.5.5
 POSTGIS_MAJOR_VERSION=2.5
 
-POSTGRES_VERSION=11.10
+POSTGRES_VERSION=11.11
 POSTGRES_MAJOR_VERSION=11
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -27,7 +27,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1h
+OPENSSL_VERSION=1.1.1i
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.2.0
@@ -40,17 +40,18 @@ PLV8_VERSION=2.3.15
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.13.1
 
-# https://github.com/eulerto/wal2json
+# https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_1_0
 
 # https://github.com/protocolbuffers/protobuf/releases
+# note: protobuf 3.14.0 doesn't seem to build on macOS 10.12 any more
 PROTOBUF_VERSION=3.10.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.3.2
+PROTOBUFC_VERSION=1.3.3
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.1.0
+LIBTIFF_VERSION=4.2.0
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=63

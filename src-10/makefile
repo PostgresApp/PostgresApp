@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.4.9
 POSTGIS_MAJOR_VERSION=2.4
 
-POSTGRES_VERSION=10.15
+POSTGRES_VERSION=10.16
 POSTGRES_MAJOR_VERSION=10
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -16,7 +16,7 @@ GDAL_VERSION=2.1.3
 # 2.1.4 doesn't build on macOS 10.10 with Xcode 7.1.1
 
 # http://trac.osgeo.org/geos/
-GEOS_VERSION=3.6.4
+GEOS_VERSION=3.6.5
 
 JPEG_VERSION=8d
 LIBEDIT_VERSION=20130611-3.1
@@ -28,7 +28,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1h
+OPENSSL_VERSION=1.1.1i
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -44,11 +44,11 @@ PLV8_VERSION=1.4.8
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.12.1
 
-# https://github.com/eulerto/wal2json
+# https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_1_0
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.1.0
+LIBTIFF_VERSION=4.2.0
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=58

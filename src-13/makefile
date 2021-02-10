@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.1.0alpha2
+POSTGIS_VERSION=3.1.1
 POSTGIS_MAJOR_VERSION=3.1
 
-POSTGRES_VERSION=13.1
+POSTGRES_VERSION=13.2
 POSTGRES_MAJOR_VERSION=13
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -27,7 +27,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1h
+OPENSSL_VERSION=1.1.1i
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
@@ -40,17 +40,17 @@ PLV8_VERSION=2.3.15
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
 JSONC_VERSION=0.13.1
 
-# https://github.com/eulerto/wal2json
+# https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_3
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.13.0
+PROTOBUF_VERSION=3.14.0
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.3.3
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.1.0
+LIBTIFF_VERSION=4.2.0
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=67
