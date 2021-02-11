@@ -6,13 +6,12 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4.1</title>
+		<title>Postgres.app 2.4.2</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 12.5 with PostGIS 3.0.2</li>
+					<li>PostgreSQL 12.6 with PostGIS 3.0.3</li>
 				</ul>
-				
 				<p>
 					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
 					You can download other versions of PostgreSQL on our website:
@@ -20,15 +19,16 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Thu, 12 Nov 2020 13:05:39 +0100</pubDate>
+		<pubDate>Thu, 11 Feb 2021 17:58:40 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.1/Postgres-2.4.1-12.dmg"
-		sparkle:version="99"
-		sparkle:shortVersionString="2.4.1"
-		length="65334818"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.2/Postgres-2.4.2-12.dmg"
+		sparkle:version="107"
+		sparkle:shortVersionString="2.4.2"
+		length="67131708"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFCGkgIRCxdvNetI/rxlyveAW06HMAhRu3Gobff7duu9k0gI7sJYoN83Wjg=="
+		sparkle:dsaSignature="MC0CFFplAi3Fk/J985VIG7Zs0Nn/5653AhUArpsBRZqJWDe4OZuJvryZcqNWtRw="
 		/>
+		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
