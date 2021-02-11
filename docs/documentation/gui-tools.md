@@ -10,6 +10,7 @@ You can find many of them in the [Community Guide to PostgreSQL GUI Tools](https
 Some of them are quite powerful; some are still a bit rough.
 Here's a list of all the Mac Apps I found (in alphabetic order):
 
+- [Beekeeper Studio](https://www.beekeeperstudio.io)
 - [Datagrip](https://www.jetbrains.com/datagrip/)
 - [Datazenit](https://datazenit.com/)
 - [DBeaver](http://dbeaver.jkiss.org/)

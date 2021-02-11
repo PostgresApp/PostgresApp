@@ -11,6 +11,7 @@ Eine ausführliche Übersicht über verfügbare Programme findest du im PostgreS
 
 Hier sind Links zu allen Mac-Clients die ich finden konnte (in alphabetischer Reihenfolge):
 
+- [Beekeeper Studio](https://www.beekeeperstudio.io)
 - [Datagrip](https://www.jetbrains.com/datagrip/)
 - [Datazenit](https://datazenit.com/)
 - [DBeaver](http://dbeaver.jkiss.org/)
