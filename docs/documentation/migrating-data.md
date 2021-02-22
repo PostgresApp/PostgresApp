@@ -20,7 +20,7 @@ This is the easiest way to migrate your data.
 	`pg_dumpall --quote-all-identifiers | gzip >postgresapp.sql.gz`
 1.  Stop the old server, then start the new server.
 1.	Now restore the SQL dump:<br>
-	`gunzip <postgresapp.sql.gz | psql`
+	`gunzip <postgresapp.sql.gz | psql -U postgres`
 
 ### Migrate data using `pg_dump`
 
