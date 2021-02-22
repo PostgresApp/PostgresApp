@@ -174,7 +174,7 @@ strings: {
 		stars: Sterne,
 		follow: Folge,
 		find-us: Finde uns auf,
-		typo: "Feler gefunden?",
+		typo: "Fehler gefunden?",
 		edit-page: Bearbeite diese Seite,
 		requires-os: "Benötigt",
 		download-size: "Downloadgröße",
