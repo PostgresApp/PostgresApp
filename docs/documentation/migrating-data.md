@@ -21,6 +21,7 @@ This is the easiest way to migrate your data.
 1.  Stop the old server, then start the new server.
 1.	Now restore the SQL dump:<br>
 	`gunzip <postgresapp.sql.gz | psql`
+1.  Don't forget in `Server Settings..` to swap which server to start automatically
 
 ### Migrate data using `pg_dump`
 
