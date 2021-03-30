@@ -88,20 +88,12 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 				guard resourceValues.isDirectory == true else { continue }
 			} catch { continue }
 			let folderName = itemURL.lastPathComponent
-			if isPostgresVersion(folderName) {
-				versions.append(folderName)
-			}
+            versions.append(folderName)
 		}
         versions.sort { (a, b) -> Bool in
             return a.compare(b, options:[.numeric], range: a.startIndex ..< a.endIndex, locale: nil) == .orderedAscending
         }
 		selectedVersionIdx = versions.count-1
-	}
-	
-	
-	private func isPostgresVersion(_ s: String) -> Bool {
-		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
-		return regex.numberOfMatches(in: s, options: [], range: NSRange(0..<s.utf16.count)) != 0
 	}
 	
 }
