@@ -27,12 +27,16 @@ do
             # removed in PostgreSQL 10
             cp -a createlang droplang "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
-		# copy proj binaries
-		cp -a cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
-		# copy gdal binaries
-		cp -a gdal* nearblack ogr2ogr ogrinfo ogrtindex testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
-		# copy postgis binaries
-		cp -a raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		
+		if [ -e raster2pgsql ]
+        then
+			# copy proj binaries
+			cp -a cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+			# copy gdal binaries
+			cp -a gdal* nearblack ogr2ogr ogrinfo ogrtindex testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+			# copy postgis binaries
+			cp -a raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		fi
 
 		# copy all dynamic libraries
 		cd "${PG_BINARIES_DIR}/${VERSION}/lib/"
