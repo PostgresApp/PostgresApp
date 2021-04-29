@@ -94,6 +94,7 @@ postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
+	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/fd.c.patch
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
