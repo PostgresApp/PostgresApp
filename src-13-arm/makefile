@@ -12,22 +12,20 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.1.4
+GDAL_VERSION=3.2.3
 
 # http://trac.osgeo.org/geos/
-GEOS_VERSION=3.8.1
+GEOS_VERSION=3.9.1
 
 JPEG_VERSION=9c
 LIBEDIT_VERSION=20130611-3.1
 
-#http://download.osgeo.org/gdal/
-LIBJASPER_VERSION=1.900.1
 
 # ftp://xmlsoft.org/libxml2/
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1i
+OPENSSL_VERSION=1.1.1k
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
@@ -51,6 +49,12 @@ PROTOBUFC_VERSION=1.3.3
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.2.0
+
+# https://github.com/glennrp/libpng/releases
+LIBPNG_VERSION=1.6.37
+
+# https://github.com/uclouvain/openjpeg/releases
+OPENJPEG_VERSION=2.4.0
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=67
@@ -99,11 +103,11 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis plv8 wal2json pldebugger
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libjasper clean-libgeos clean-libtiff clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json clean-pldebugger
+all: postgresql postgis wal2json pldebugger
+clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libgeos clean-libtiff clean-libpng clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json clean-pldebugger
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jasper-$(LIBJASPER_VERSION).uuid.tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz 
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz 
 
 
 #########################
@@ -247,30 +251,6 @@ clean-libedit:
 
 
 #########################
-####### LibJasper #######
-#########################
-
-libjasper: $(PREFIX)/lib/libjasper.dylib
-	touch $@
-
-$(PREFIX)/lib/libjasper.dylib: jasper-${LIBJASPER_VERSION}.uuid/Makefile
-	make -C jasper-${LIBJASPER_VERSION}.uuid install
-
-jasper-${LIBJASPER_VERSION}.uuid/Makefile: jasper-${LIBJASPER_VERSION}.uuid/configure
-	cd jasper-${LIBJASPER_VERSION}.uuid && ./configure --prefix="$(PREFIX)" --disable-debug --disable-dependency-tracking --enable-shared --enable-dynamic
-
-jasper-${LIBJASPER_VERSION}.uuid/configure: jasper-$(LIBJASPER_VERSION).uuid.tar.gz
-	$(TAR) "jasper-$(LIBJASPER_VERSION).uuid.tar.gz"
-	touch $@
-
-jasper-$(LIBJASPER_VERSION).uuid.tar.gz:
-	$(CURL) "http://download.osgeo.org/gdal/jasper-$(LIBJASPER_VERSION).uuid.tar.gz"
-
-clean-libjasper:
-	rm -Rf jasper-${LIBJASPER_VERSION}.uuid
-
-
-#########################
 #######  libjpeg  #######
 #########################
 
@@ -309,11 +289,8 @@ $(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/Makefile
 geos-${GEOS_VERSION}/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
 	cd geos-${GEOS_VERSION} && ./configure --prefix="$(PREFIX)"
 
-#geos needs to be patched
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 	$(TAR) geos-${GEOS_VERSION}.tar.bz2
-	/usr/bin/sed -i -e 's/@CFLAGS@$$/@CFLAGS@ -O1/g' geos-${GEOS_VERSION}/src/geom/Makefile.in
-	/usr/bin/sed -i -e 's/@CXXFLAGS@$$/@CXXFLAGS@ -O1/g' geos-${GEOS_VERSION}/src/geom/Makefile.in
 	touch $@
 
 geos-${GEOS_VERSION}.tar.bz2:
@@ -327,7 +304,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, libjasper, postgresql, libjpeg, libtiff
+# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -335,8 +312,8 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd gdal-$(GDAL_VERSION) && ./autogen.sh && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)"
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/autogen.sh  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib
+	cd gdal-$(GDAL_VERSION) && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
 	touch $@
 
 gdal-$(GDAL_VERSION)/autogen.sh: gdal-${GDAL_VERSION}.tar.gz
@@ -350,9 +327,9 @@ clean-libgdal:
 	rm -Rf gdal-$(GDAL_VERSION)
 
 
-#########################
-###### proj4 ############
-#########################
+######################
+###### libproj  ######
+######################
 
 # Depends on postgresql, libtiff
 
@@ -427,6 +404,8 @@ clean-protobuf-cpp:
 ###### protobuf-c #######
 #########################
 
+# Depends on protobuf-cpp
+
 protobuf-c: $(PREFIX)/lib/libprotobuf-c.dylib
 
 $(PREFIX)/lib/libprotobuf-c.dylib: protobuf-c-$(PROTOBUFC_VERSION)/Makefile
@@ -470,11 +449,64 @@ clean-libtiff:
 	rm -Rf tiff-$(LIBTIFF_VERSION)
 
 
+########################
+####### libpng #########
+########################
+
+# used for libgdal as the internal version does not correctly link on aarm64
+
+libpng: $(PREFIX)/lib/libpng.dylib
+	touch $@
+
+$(PREFIX)/lib/libpng.dylib: libpng-$(LIBPNG_VERSION)/Makefile
+	make -C libpng-$(LIBPNG_VERSION) install
+
+libpng-$(LIBPNG_VERSION)/Makefile: libpng-$(LIBPNG_VERSION)/configure
+	cd libpng-$(LIBPNG_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+
+libpng-$(LIBPNG_VERSION)/configure: libpng-$(LIBPNG_VERSION).tar.gz
+	$(TAR) libpng-$(LIBPNG_VERSION).tar.gz
+	touch $@
+
+libpng-$(LIBPNG_VERSION).tar.gz:
+	$(CURL) --remote-header-name https://github.com/glennrp/libpng/archive/refs/tags/v$(LIBPNG_VERSION).tar.gz
+
+clean-libpng:
+	rm -Rf libpng-$(LIBPNG_VERSION)
+	
+##########################
+####### openjpeg #########
+##########################
+
+# used for libgdal as the patched version of jasper does not build on aarm64
+# links executables against libpng and libtiff if these are built before
+
+openjpeg: $(PREFIX)/lib/libopenjp2.dylib
+	touch $@
+
+$(PREFIX)/lib/libopenjp2.dylib: openjpeg-$(OPENJPEG_VERSION)/build/Makefile
+	make -C openjpeg-$(OPENJPEG_VERSION)/build install
+
+openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/build
+	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+
+openjpeg-$(OPENJPEG_VERSION)/build: openjpeg-$(OPENJPEG_VERSION).tar.gz
+	$(TAR) openjpeg-$(OPENJPEG_VERSION).tar.gz
+	mkdir openjpeg-$(OPENJPEG_VERSION)/build
+
+openjpeg-$(OPENJPEG_VERSION).tar.gz:
+	$(CURL) --remote-header-name https://github.com/uclouvain/openjpeg/archive/refs/tags/v$(OPENJPEG_VERSION).tar.gz
+
+clean-openjpeg:
+	rm -Rf openjpeg-$(OPENJPEG_VERSION)
+
+
+
 #########################
 ###### PostGIS ##########
 #########################
 
-#depends on libgdal, libgeos, libjpeg, postgresql, jsonc
+#depends on libgdal, libgeos, libjpeg, postgresql, json-c
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
