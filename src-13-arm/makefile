@@ -591,7 +591,7 @@ $(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger/Makefile $(PREFIX)/bin/p
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C pldebugger install
 
 pldebugger/Makefile:
-	git clone git://git.postgresql.org/git/pldebugger.git
+	git clone https://github.com/EnterpriseDB/pldebugger.git
 	touch $@
 
 clean-pldebugger:
