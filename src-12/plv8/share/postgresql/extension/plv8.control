@@ -1,0 +1,15 @@
+
+## plv8 extension
+comment = 'PL/JavaScript (v8) trusted procedural language'
+
+
+
+
+
+
+
+default_version = '2.3.15'
+module_pathname = '$libdir/plv8-2.3.15'
+relocatable = false
+schema = pg_catalog
+superuser = true
