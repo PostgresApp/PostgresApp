@@ -6,27 +6,27 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4.2</title>
+		<title>Postgres.app 2.4.3</title>
 		<description>
 			<![CDATA[
 				<ul>
 					<li>PostgreSQL 9.5.25 with PostGIS 2.2.8</li>
-					<li>PostgreSQL 9.6.21 with PostGIS 2.3.11</li>
-					<li>PostgreSQL 10.16 with PostGIS 2.4.9</li>
-					<li>PostgreSQL 11.11 with PostGIS 2.5.5</li>
-					<li>PostgreSQL 12.6 with PostGIS 3.0.3</li>
-					<li>PostgreSQL 13.2 with PostGIS 3.1.1</li>
+					<li>PostgreSQL 9.6.22 with PostGIS 2.3.11</li>
+					<li>PostgreSQL 10.17 with PostGIS 2.4.9</li>
+					<li>PostgreSQL 11.12 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 12.7 with PostGIS 3.0.3</li>
+					<li>PostgreSQL 13.3 with PostGIS 3.1.1</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 11 Feb 2021 18:13:28 +0100</pubDate>
+		<pubDate>Fri, 14 May 2021 16:05:51 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.2/Postgres-2.4.2-9.5-9.6-10-11-12-13.dmg"
-		sparkle:version="109"
-		sparkle:shortVersionString="2.4.2"
-		length="330647839"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.3/Postgres-2.4.3-9.5-9.6-10-11-12-13.dmg"
+		sparkle:version="114"
+		sparkle:shortVersionString="2.4.3"
+		length="326543682"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFEgDCK8HAp478t/Trx8bHFpHDyr+AhQLWBUS8TLxledXbfshh+Zh4J6GVA=="
+		sparkle:dsaSignature="MC0CFCrHscmXi/JymuAmAT85rET358R4AhUA2WDcQmEygpZF8/HsyB3k8UESzrc="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
