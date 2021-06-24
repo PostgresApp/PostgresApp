@@ -5,8 +5,7 @@ title: GUI Tools für PostgreSQL am Mac
 
 ## GUI Client Apps
 
-Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Mac. Hier sind Links zu eingen Mac-Clients die ich finden konnte (in alphabetischer Reihenfolge):
-Eine ausführlichere Übersicht über verfügbare Programme findest du im PostgreSQL Wiki: [PostgreSQL Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) (Englisch). Einige sind bereits sehr ausgereift, andere noch eher unfertig. 
+Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Mac. Hier sind Links zu einigen Mac-Clients die ich finden konnte (in alphabetischer Reihenfolge):
 
 - [Beekeeper Studio](https://www.beekeeperstudio.io)
 - [Datagrip](https://www.jetbrains.com/datagrip/)
@@ -26,6 +25,7 @@ Eine ausführlichere Übersicht über verfügbare Programme findest du im Postgr
 - [TablePlus](https://tableplus.io)
 - [Valentina Studio](http://www.valentina-db.com/de/valentina-studio-overview)
 
+Eine ausführlichere Übersicht über verfügbare Programme findest du im PostgreSQL Wiki: [PostgreSQL Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) (Englisch). Einige sind bereits sehr ausgereift, andere noch eher unfertig. 
 
 Die standard Verbindungs-Parameter findest du [hier](../).
 Falls du eine Verbindungs-URL angeben musst: `postgresql://BENUTZERNAME@localhost/BENUTZERNAME`
