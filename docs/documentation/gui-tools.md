@@ -17,6 +17,7 @@ Some of them are quite powerful; some are still a bit rough.
 - [DbVisualizer](https://www.dbvis.com/)
 - [Froq](https://www.colourful-apps.com/products/mac/froq)
 - [Metabase](https://metabase.com/start/mac.html)
+- [Moon Modeler](https://www.datensen.com)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
 - [Postico](https://eggerapps.at/postico/)
