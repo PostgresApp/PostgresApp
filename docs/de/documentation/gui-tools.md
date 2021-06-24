@@ -18,7 +18,6 @@ Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Ma
 - [Moon Modeler](https://www.datensen.com)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
-- [PostgreSQL Manager](https://itunes.apple.com/at/app/postgresql-manager/id875191518?mt=12)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
