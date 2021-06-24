@@ -5,10 +5,9 @@ title: GUI Tools for PostgreSQL on the Mac
 
 ## GUI Client Apps
 
-There are many clients for PostgreSQL on the Mac.
-You can find many of them in the [Community Guide to PostgreSQL GUI Tools](https://wiki.postgresql.org/wiki/Community_Guide_to_PostgreSQL_GUI_Tools) in the PostgreSQL wiki.
+There are many clients for PostgreSQL on the Mac. Here's a list of some of the Mac Apps I found (in alphabetic order):
+You can find many more of them on the [PostgreSQL Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) page in the PostgreSQL wiki.
 Some of them are quite powerful; some are still a bit rough.
-Here's a list of all the Mac Apps I found (in alphabetic order):
 
 - [Beekeeper Studio](https://www.beekeeperstudio.io)
 - [Datagrip](https://www.jetbrains.com/datagrip/)
@@ -20,13 +19,10 @@ Here's a list of all the Mac Apps I found (in alphabetic order):
 - [Metabase](https://metabase.com/start/mac.html)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
-- [PostgreSQL Manager](https://itunes.apple.com/at/app/postgresql-manager/id875191518?mt=12)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
-- [SEQUEL for PostgreSQL](http://www.sequel.tech)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
 - [TablePlus](https://tableplus.io)
-- [Toad Mac Edition](https://itunes.apple.com/app/toad/id747961939?l=en&mt=12)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
 
 
