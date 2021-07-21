@@ -610,6 +610,23 @@ class Server: NSObject {
         cachedBinaryVersion = versionString.trimmingCharacters(in: .whitespacesAndNewlines)
         return cachedBinaryVersion!
     }
+	
+	public static var availableBinaryVersions: [String] {
+		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return [] }
+		var versions = [String]()
+		while let itemURL = versionsPathEnum.nextObject() as? URL {
+			do {
+				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
+				guard resourceValues.isDirectory == true else { continue }
+			} catch { continue }
+			let folderName = itemURL.lastPathComponent
+			versions.append(folderName)
+		}
+		versions.sort { (a, b) -> Bool in
+			return a.compare(b, options:[.numeric], range: a.startIndex ..< a.endIndex, locale: nil) == .orderedAscending
+		}
+		return versions
+	}
     
     var dataDirectoryVersion: String? {
         do {

@@ -81,18 +81,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	private func loadVersions() {
-		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return }
-		while let itemURL = versionsPathEnum.nextObject() as? URL {
-			do {
-				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
-				guard resourceValues.isDirectory == true else { continue }
-			} catch { continue }
-			let folderName = itemURL.lastPathComponent
-            versions.append(folderName)
-		}
-        versions.sort { (a, b) -> Bool in
-            return a.compare(b, options:[.numeric], range: a.startIndex ..< a.endIndex, locale: nil) == .orderedAscending
-        }
+		versions = Server.availableBinaryVersions
 		selectedVersionIdx = versions.count-1
 	}
 	
