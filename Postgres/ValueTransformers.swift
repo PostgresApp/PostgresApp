@@ -67,7 +67,7 @@ class ServerStatusStatusMessageTransformer: ValueTransformer {
 		guard let intStatus = value as? Int, let status = Server.ServerStatus(rawValue: intStatus) else { return nil }
 		switch status {
 		case .NoBinaries:
-			return "Binaries not found"
+			return "PostgreSQL version not installed"
 		case .DataDirEmpty:
 			return "Empty data directory"
 		case .DataDirInUse:
