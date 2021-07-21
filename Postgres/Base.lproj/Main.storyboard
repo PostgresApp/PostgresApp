@@ -494,7 +494,7 @@ IA
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="Rgw-vS-n3O" name="value" keyPath="mainWindowModel.sidebarVisible" id="sRK-Fo-fAF"/>
+                                            <binding destination="wBe-GR-afW" name="value" keyPath="values.SidebarVisible" id="829-Em-Vlq"/>
                                         </connections>
                                     </button>
                                 </subviews>

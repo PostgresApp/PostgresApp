@@ -11,7 +11,6 @@ import Cocoa
 class MainWindowModel: NSObject {
 	@objc dynamic var serverManager = ServerManager.shared
 	@objc dynamic var selectedServerIndices = IndexSet()
-	@objc dynamic var sidebarVisible = false
 	
 	var firstSelectedServer: Server? {
 		guard let selIdx = selectedServerIndices.first else { return nil }

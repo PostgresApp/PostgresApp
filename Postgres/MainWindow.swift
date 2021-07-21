@@ -35,7 +35,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		window.isMovableByWindowBackground = true
 		
 		let model = MainWindowModel()
-		model.sidebarVisible = model.serverManager.servers.count > 1
 		mainWindowModel = model
 	}
 	

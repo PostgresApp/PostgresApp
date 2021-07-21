@@ -8,49 +8,41 @@
 
 import Cocoa
 
-class SplitViewController: NSSplitViewController, MainWindowModelConsumer {
+class SplitViewController: NSSplitViewController {
 	@IBOutlet var sidebarItem: NSSplitViewItem!
 	
 	var ignoreSidebarVisibleChange = false
-	var modelSidebarObserver: KeyValueObserver?
+	var userDefaultObserver: KeyValueObserver?
 	
-	@objc dynamic var mainWindowModel: MainWindowModel! {
-		willSet {
-			if let modelSidebarObserver = modelSidebarObserver {
-				mainWindowModel.removeObserver(modelSidebarObserver, forKeyPath: modelSidebarObserver.keyPath)
-			}
-		}
-		didSet {
-			self.sidebarItem.isCollapsed = !mainWindowModel.sidebarVisible
-			self.modelSidebarObserver = mainWindowModel.observe("sidebarVisible") { [weak self] _ in
-				guard let this = self else { return }
-				if !this.ignoreSidebarVisibleChange {
-					if this.mainWindowModel.sidebarVisible == this.sidebarItem.isCollapsed {
-						if #available(OSX 10.11, *) {
-							this.toggleSidebar(nil)
-						} else {
-							this.sidebarItem.isCollapsed = !this.sidebarItem.isCollapsed
-						}
+	override func viewDidLoad() {
+		userDefaultObserver = UserDefaults.standard.observe("SidebarVisible") { [weak self] _ in
+			guard let this = self else { return }
+			if !this.ignoreSidebarVisibleChange {
+				if UserDefaults.standard.bool(forKey: "SidebarVisible") == this.sidebarItem.isCollapsed {
+					if #available(OSX 10.11, *) {
+						this.toggleSidebar(nil)
+					} else {
+						this.sidebarItem.isCollapsed = !this.sidebarItem.isCollapsed
 					}
 				}
 			}
 		}
+		
+		super.viewDidLoad()
 	}
 	
 	deinit {
-		if let modelSidebarObserver = modelSidebarObserver {
-			mainWindowModel.removeObserver(modelSidebarObserver, forKeyPath: modelSidebarObserver.keyPath)
+		if let userDefaultObserver = userDefaultObserver {
+			UserDefaults.standard.removeObserver(userDefaultObserver, forKeyPath: userDefaultObserver.keyPath)
 		}
 	}
-	
 	
 	override func splitViewDidResizeSubviews(_ notification: Notification) {
 		if NSSplitViewController.instancesRespond(to: #selector(NSSplitViewController.splitViewDidResizeSubviews(_:))) {
 			super.splitViewDidResizeSubviews(notification)
 		}
-		guard let model = mainWindowModel else { return }
 		ignoreSidebarVisibleChange = true
-		model.sidebarVisible = !sidebarItem.isCollapsed
+		UserDefaults.standard.setValue(!sidebarItem.isCollapsed, forKey: "SidebarVisible")
 		ignoreSidebarVisibleChange = false
 	}
 	
