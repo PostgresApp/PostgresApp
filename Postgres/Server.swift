@@ -145,9 +145,19 @@ class Server: NSObject {
 			switch self.serverStatus {
 			
 			case .NoBinaries:
-				let userInfo = [
-					NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found", comment: ""),
+				var userInfo = [
+					NSLocalizedDescriptionKey: NSLocalizedString("Required PostgreSQL version not installed", comment: ""),
 				]
+				var recoverySuggestions = [String]()
+				if let dataDirVersion = self.dataDirectoryVersion {
+					recoverySuggestions.append(String(format: NSLocalizedString("The data directory was initialized with PostgreSQL %@.", comment: ""), dataDirVersion))
+				}
+				let versions = Self.availableBinaryVersions
+				if !versions.isEmpty {
+					recoverySuggestions.append(String(format: NSLocalizedString("This copy of Postgres.app includes the following PostgreSQL versions: %@.", comment: ""), versions.joined(separator: ", ")))
+				}
+				recoverySuggestions.append(NSLocalizedString("Please try downloading a different release of Postgres.app.", comment: ""))
+				userInfo[NSLocalizedRecoverySuggestionErrorKey] = recoverySuggestions.joined(separator: "\n\n")
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .PortInUse:
