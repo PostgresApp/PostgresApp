@@ -10,6 +10,7 @@
 		360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961E1DC20EF3005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
+		364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */; };
 		830658E51D536F2E00BA1752 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* Sidebar.swift */; };
@@ -96,6 +97,7 @@
 
 /* Begin PBXFileReference section */
 		360E961B1DC20D5E005D8C69 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
 		830377B71E4C820A008E6896 /* PostgresApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostgresApplication.h; sourceTree = "<group>"; };
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				8353FBDD1D1D57C8002F77E7 /* ServerView.swift */,
 				836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */,
 				830B4B271D1C289A00F16762 /* Sidebar.swift */,
+				364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServer.swift */,
 				83F3647D1D5204D30096F1F5 /* SettingsView.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
@@ -474,6 +477,7 @@
 				8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */,
 				83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */,
 				360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */,
+				364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */,
