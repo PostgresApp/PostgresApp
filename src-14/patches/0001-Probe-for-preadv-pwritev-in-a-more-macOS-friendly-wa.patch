@@ -1,0 +1,350 @@
+From f014b1b9bb8eda4e82c1805969dbae2b07b7d54d Mon Sep 17 00:00:00 2001
+From: Tom Lane <tgl@sss.pgh.pa.us>
+Date: Mon, 12 Jul 2021 19:17:35 -0400
+Subject: [PATCH] Probe for preadv/pwritev in a more macOS-friendly way.
+
+Apple's mechanism for dealing with functions that are available
+in only some OS versions confuses AC_CHECK_FUNCS, and therefore
+AC_REPLACE_FUNCS.  We can use AC_CHECK_DECLS instead, so long as
+we enable -Werror=unguarded-availability-new.  This allows people
+compiling for macOS to control whether or not preadv/pwritev are
+used by setting MACOSX_DEPLOYMENT_TARGET, rather than supplying
+a back-rev SDK.  (Of course, the latter still works, too.)
+
+James Hilliard
+
+Discussion: https://postgr.es/m/20210122193230.25295-1-james.hilliard1@gmail.com
+---
+ configure                   | 166 ++++++++++++++++++++++++++++++------
+ configure.ac                |  11 ++-
+ src/include/pg_config.h.in  |  14 +--
+ src/include/port/pg_iovec.h |   4 +-
+ src/tools/msvc/Solution.pm  |   4 +-
+ 5 files changed, 161 insertions(+), 38 deletions(-)
+
+diff --git a/configure b/configure
+index 9f0018b390..1ea28a0d67 100755
+--- a/configure
++++ b/configure
+@@ -5383,6 +5383,98 @@ if test x"$pgac_cv_prog_CC_cflags__Werror_vla" = x"yes"; then
+ fi
+ 
+ 
++  # On macOS, complain about usage of symbols newer than the deployment target
++
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether ${CC} supports -Werror=unguarded-availability-new, for CFLAGS" >&5
++$as_echo_n "checking whether ${CC} supports -Werror=unguarded-availability-new, for CFLAGS... " >&6; }
++if ${pgac_cv_prog_CC_cflags__Werror_unguarded_availability_new+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  pgac_save_CFLAGS=$CFLAGS
++pgac_save_CC=$CC
++CC=${CC}
++CFLAGS="${CFLAGS} -Werror=unguarded-availability-new"
++ac_save_c_werror_flag=$ac_c_werror_flag
++ac_c_werror_flag=yes
++cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++int
++main ()
++{
++
++  ;
++  return 0;
++}
++_ACEOF
++if ac_fn_c_try_compile "$LINENO"; then :
++  pgac_cv_prog_CC_cflags__Werror_unguarded_availability_new=yes
++else
++  pgac_cv_prog_CC_cflags__Werror_unguarded_availability_new=no
++fi
++rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
++ac_c_werror_flag=$ac_save_c_werror_flag
++CFLAGS="$pgac_save_CFLAGS"
++CC="$pgac_save_CC"
++fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $pgac_cv_prog_CC_cflags__Werror_unguarded_availability_new" >&5
++$as_echo "$pgac_cv_prog_CC_cflags__Werror_unguarded_availability_new" >&6; }
++if test x"$pgac_cv_prog_CC_cflags__Werror_unguarded_availability_new" = x"yes"; then
++  CFLAGS="${CFLAGS} -Werror=unguarded-availability-new"
++fi
++
++
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether ${CXX} supports -Werror=unguarded-availability-new, for CXXFLAGS" >&5
++$as_echo_n "checking whether ${CXX} supports -Werror=unguarded-availability-new, for CXXFLAGS... " >&6; }
++if ${pgac_cv_prog_CXX_cxxflags__Werror_unguarded_availability_new+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  pgac_save_CXXFLAGS=$CXXFLAGS
++pgac_save_CXX=$CXX
++CXX=${CXX}
++CXXFLAGS="${CXXFLAGS} -Werror=unguarded-availability-new"
++ac_save_cxx_werror_flag=$ac_cxx_werror_flag
++ac_cxx_werror_flag=yes
++ac_ext=cpp
++ac_cpp='$CXXCPP $CPPFLAGS'
++ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
++ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
++ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
++
++cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++int
++main ()
++{
++
++  ;
++  return 0;
++}
++_ACEOF
++if ac_fn_cxx_try_compile "$LINENO"; then :
++  pgac_cv_prog_CXX_cxxflags__Werror_unguarded_availability_new=yes
++else
++  pgac_cv_prog_CXX_cxxflags__Werror_unguarded_availability_new=no
++fi
++rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
++ac_ext=c
++ac_cpp='$CPP $CPPFLAGS'
++ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
++ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
++ac_compiler_gnu=$ac_cv_c_compiler_gnu
++
++ac_cxx_werror_flag=$ac_save_cxx_werror_flag
++CXXFLAGS="$pgac_save_CXXFLAGS"
++CXX="$pgac_save_CXX"
++fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $pgac_cv_prog_CXX_cxxflags__Werror_unguarded_availability_new" >&5
++$as_echo "$pgac_cv_prog_CXX_cxxflags__Werror_unguarded_availability_new" >&6; }
++if test x"$pgac_cv_prog_CXX_cxxflags__Werror_unguarded_availability_new" = x"yes"; then
++  CXXFLAGS="${CXXFLAGS} -Werror=unguarded-availability-new"
++fi
++
++
+   # -Wvla is not applicable for C++
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether ${CC} supports -Wendif-labels, for CFLAGS" >&5
+@@ -15931,6 +16023,54 @@ cat >>confdefs.h <<_ACEOF
+ #define HAVE_DECL_STRNLEN $ac_have_decl
+ _ACEOF
+ 
++
++# We can't use AC_REPLACE_FUNCS to replace these functions, because it
++# won't handle deployment target restrictions on macOS
++ac_fn_c_check_decl "$LINENO" "preadv" "ac_cv_have_decl_preadv" "#include <sys/uio.h>
++"
++if test "x$ac_cv_have_decl_preadv" = xyes; then :
++  ac_have_decl=1
++else
++  ac_have_decl=0
++fi
++
++cat >>confdefs.h <<_ACEOF
++#define HAVE_DECL_PREADV $ac_have_decl
++_ACEOF
++if test $ac_have_decl = 1; then :
++
++else
++  case " $LIBOBJS " in
++  *" preadv.$ac_objext "* ) ;;
++  *) LIBOBJS="$LIBOBJS preadv.$ac_objext"
++ ;;
++esac
++
++fi
++
++ac_fn_c_check_decl "$LINENO" "pwritev" "ac_cv_have_decl_pwritev" "#include <sys/uio.h>
++"
++if test "x$ac_cv_have_decl_pwritev" = xyes; then :
++  ac_have_decl=1
++else
++  ac_have_decl=0
++fi
++
++cat >>confdefs.h <<_ACEOF
++#define HAVE_DECL_PWRITEV $ac_have_decl
++_ACEOF
++if test $ac_have_decl = 1; then :
++
++else
++  case " $LIBOBJS " in
++  *" pwritev.$ac_objext "* ) ;;
++  *) LIBOBJS="$LIBOBJS pwritev.$ac_objext"
++ ;;
++esac
++
++fi
++
++
+ # This is probably only present on macOS, but may as well check always
+ ac_fn_c_check_decl "$LINENO" "F_FULLFSYNC" "ac_cv_have_decl_F_FULLFSYNC" "#include <fcntl.h>
+ "
+@@ -16144,19 +16284,6 @@ esac
+ 
+ fi
+ 
+-ac_fn_c_check_func "$LINENO" "preadv" "ac_cv_func_preadv"
+-if test "x$ac_cv_func_preadv" = xyes; then :
+-  $as_echo "#define HAVE_PREADV 1" >>confdefs.h
+-
+-else
+-  case " $LIBOBJS " in
+-  *" preadv.$ac_objext "* ) ;;
+-  *) LIBOBJS="$LIBOBJS preadv.$ac_objext"
+- ;;
+-esac
+-
+-fi
+-
+ ac_fn_c_check_func "$LINENO" "pwrite" "ac_cv_func_pwrite"
+ if test "x$ac_cv_func_pwrite" = xyes; then :
+   $as_echo "#define HAVE_PWRITE 1" >>confdefs.h
+@@ -16170,19 +16297,6 @@ esac
+ 
+ fi
+ 
+-ac_fn_c_check_func "$LINENO" "pwritev" "ac_cv_func_pwritev"
+-if test "x$ac_cv_func_pwritev" = xyes; then :
+-  $as_echo "#define HAVE_PWRITEV 1" >>confdefs.h
+-
+-else
+-  case " $LIBOBJS " in
+-  *" pwritev.$ac_objext "* ) ;;
+-  *) LIBOBJS="$LIBOBJS pwritev.$ac_objext"
+- ;;
+-esac
+-
+-fi
+-
+ ac_fn_c_check_func "$LINENO" "random" "ac_cv_func_random"
+ if test "x$ac_cv_func_random" = xyes; then :
+   $as_echo "#define HAVE_RANDOM 1" >>confdefs.h
+diff --git a/configure.ac b/configure.ac
+index cfe0a6acc2..57336e1fb6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -494,6 +494,9 @@ if test "$GCC" = yes -a "$ICC" = no; then
+   AC_SUBST(PERMIT_DECLARATION_AFTER_STATEMENT)
+   # Really don't want VLAs to be used in our dialect of C
+   PGAC_PROG_CC_CFLAGS_OPT([-Werror=vla])
++  # On macOS, complain about usage of symbols newer than the deployment target
++  PGAC_PROG_CC_CFLAGS_OPT([-Werror=unguarded-availability-new])
++  PGAC_PROG_CXX_CFLAGS_OPT([-Werror=unguarded-availability-new])
+   # -Wvla is not applicable for C++
+   PGAC_PROG_CC_CFLAGS_OPT([-Wendif-labels])
+   PGAC_PROG_CXX_CFLAGS_OPT([-Wendif-labels])
+@@ -1749,6 +1752,12 @@ AC_CHECK_DECLS(posix_fadvise, [], [], [#include <fcntl.h>])
+ 
+ AC_CHECK_DECLS(fdatasync, [], [], [#include <unistd.h>])
+ AC_CHECK_DECLS([strlcat, strlcpy, strnlen])
++
++# We can't use AC_REPLACE_FUNCS to replace these functions, because it
++# won't handle deployment target restrictions on macOS
++AC_CHECK_DECLS([preadv], [], [AC_LIBOBJ(preadv)], [#include <sys/uio.h>])
++AC_CHECK_DECLS([pwritev], [], [AC_LIBOBJ(pwritev)], [#include <sys/uio.h>])
++
+ # This is probably only present on macOS, but may as well check always
+ AC_CHECK_DECLS(F_FULLFSYNC, [], [], [#include <fcntl.h>])
+ 
+@@ -1784,9 +1793,7 @@ AC_REPLACE_FUNCS(m4_normalize([
+ 	link
+ 	mkdtemp
+ 	pread
+-	preadv
+ 	pwrite
+-	pwritev
+ 	random
+ 	srandom
+ 	strlcat
+diff --git a/src/include/pg_config.h.in b/src/include/pg_config.h.in
+index 479c8fe0be..d69d461ff2 100644
+--- a/src/include/pg_config.h.in
++++ b/src/include/pg_config.h.in
+@@ -142,6 +142,14 @@
+    don't. */
+ #undef HAVE_DECL_POSIX_FADVISE
+ 
++/* Define to 1 if you have the declaration of `preadv', and to 0 if you don't.
++   */
++#undef HAVE_DECL_PREADV
++
++/* Define to 1 if you have the declaration of `pwritev', and to 0 if you
++   don't. */
++#undef HAVE_DECL_PWRITEV
++
+ /* Define to 1 if you have the declaration of `RTLD_GLOBAL', and to 0 if you
+    don't. */
+ #undef HAVE_DECL_RTLD_GLOBAL
+@@ -421,9 +429,6 @@
+ /* Define to 1 if you have the `pread' function. */
+ #undef HAVE_PREAD
+ 
+-/* Define to 1 if you have the `preadv' function. */
+-#undef HAVE_PREADV
+-
+ /* Define to 1 if you have the `pstat' function. */
+ #undef HAVE_PSTAT
+ 
+@@ -445,9 +450,6 @@
+ /* Define to 1 if you have the `pwrite' function. */
+ #undef HAVE_PWRITE
+ 
+-/* Define to 1 if you have the `pwritev' function. */
+-#undef HAVE_PWRITEV
+-
+ /* Define to 1 if you have the `random' function. */
+ #undef HAVE_RANDOM
+ 
+diff --git a/src/include/port/pg_iovec.h b/src/include/port/pg_iovec.h
+index 05d59e99fb..88f6615dbc 100644
+--- a/src/include/port/pg_iovec.h
++++ b/src/include/port/pg_iovec.h
+@@ -39,13 +39,13 @@ struct iovec
+ /* Define a reasonable maximum that is safe to use on the stack. */
+ #define PG_IOV_MAX Min(IOV_MAX, 32)
+ 
+-#ifdef HAVE_PREADV
++#if HAVE_DECL_PREADV
+ #define pg_preadv preadv
+ #else
+ extern ssize_t pg_preadv(int fd, const struct iovec *iov, int iovcnt, off_t offset);
+ #endif
+ 
+-#ifdef HAVE_PWRITEV
++#if HAVE_DECL_PWRITEV
+ #define pg_pwritev pwritev
+ #else
+ extern ssize_t pg_pwritev(int fd, const struct iovec *iov, int iovcnt, off_t offset);
+diff --git a/src/tools/msvc/Solution.pm b/src/tools/msvc/Solution.pm
+index b529f78a60..294b968dcd 100644
+--- a/src/tools/msvc/Solution.pm
++++ b/src/tools/msvc/Solution.pm
+@@ -245,6 +245,8 @@ sub GenerateFiles
+ 		HAVE_DECL_LLVMGETHOSTCPUFEATURES            => 0,
+ 		HAVE_DECL_LLVMORCGETSYMBOLADDRESSIN         => 0,
+ 		HAVE_DECL_POSIX_FADVISE                     => undef,
++		HAVE_DECL_PREADV                            => 0,
++		HAVE_DECL_PWRITEV                           => 0,
+ 		HAVE_DECL_RTLD_GLOBAL                       => 0,
+ 		HAVE_DECL_RTLD_NOW                          => 0,
+ 		HAVE_DECL_STRLCAT                           => undef,
+@@ -335,7 +337,6 @@ sub GenerateFiles
+ 		HAVE_PPC_LWARX_MUTEX_HINT   => undef,
+ 		HAVE_PPOLL                  => undef,
+ 		HAVE_PREAD                  => undef,
+-		HAVE_PREADV                 => undef,
+ 		HAVE_PSTAT                  => undef,
+ 		HAVE_PS_STRINGS             => undef,
+ 		HAVE_PTHREAD                => undef,
+@@ -343,7 +344,6 @@ sub GenerateFiles
+ 		HAVE_PTHREAD_IS_THREADED_NP => undef,
+ 		HAVE_PTHREAD_PRIO_INHERIT   => undef,
+ 		HAVE_PWRITE                 => undef,
+-		HAVE_PWRITEV                => undef,
+ 		HAVE_RANDOM                 => undef,
+ 		HAVE_READLINE_H             => undef,
+ 		HAVE_READLINE_HISTORY_H     => undef,
+-- 
+2.31.1
+

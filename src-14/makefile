@@ -1,18 +1,21 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.1.1
-POSTGIS_MAJOR_VERSION=3.1
+POSTGIS_VERSION=3.1.3
+POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=13.3
-POSTGRES_MAJOR_VERSION=13
+POSTGRES_VERSION=14beta2
+POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
+# https://github.com/lz4/lz4/releases
+LZ4_VERSION=1.9.3
+
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.2.3
+GDAL_VERSION=3.3.1
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.9.1
@@ -32,7 +35,7 @@ PROJ_VERSION=7.1.1
 DATUMGRID_VERSION=1.8
 
 # https://github.com/plv8/plv8/releases
-PLV8_VERSION=2.3.15
+PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
@@ -60,15 +63,15 @@ OPENJPEG_VERSION=2.4.0
 ICU_MAJOR_VERSION=67
 ICU_MINOR_VERSION=1
 
-PYTHON_VERSION=3.8
+PYTHON_VERSION=3.9
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
-PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)-arm
-PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin
+PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
+PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin:/opt/homebrew/bin
 PKG_CONFIG_LIBDIR=$(PREFIX)/lib/pkgconfig
 
-export PATH PKG_CONFIG_LIBDIR
+export PREFIX PATH PKG_CONFIG_LIBDIR
 
 #python config
 PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/python3
@@ -76,8 +79,9 @@ export PYTHON
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.12
-CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
-CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
+CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
+CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
 
@@ -96,7 +100,7 @@ XMLLINT=xmllint
 SGML_CATALOG_FILES=/opt/local/etc/sgml/catalog
 export XMLLINT SGML_CATALOG_FILES
 
-export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
+export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET CMAKE_OSX_ARCHITECTURES ICU_LIBS ICU_CFLAGS
 export PROTOC protobuf_CFLAGS protobuf_LIBS
 
 # commands used for downloading and extracting sources
@@ -104,10 +108,10 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis wal2json pldebugger
-clean: clean-postgresql clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libgeos clean-libtiff clean-libpng clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json clean-pldebugger
+clean: clean-postgresql clean-lz4 clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libgeos clean-libtiff clean-libpng clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json clean-pldebugger
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz 
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz 
 
 
 #########################
@@ -129,12 +133,13 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # of libraries like openssl, instead of system provided versions
 # 
 # We're building without tcl and perl for now because they caused problems on macOS 10.15
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib postgresql-$(POSTGRES_VERSION)/configure
-	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-icu
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib $(PREFIX)/lib/liblz4.dylib postgresql-$(POSTGRES_VERSION)/configure
+	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-icu --with-lz4
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/fd.c.patch
+	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/0001-Probe-for-preadv-pwritev-in-a-more-macOS-friendly-wa.patch #till beta3
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
@@ -143,6 +148,29 @@ postgresql-$(POSTGRES_VERSION).tar.bz2:
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
 
+
+#########################
+######### LZ4 ###########
+#########################
+
+# maybe we could skip installing the binaries
+
+lz4: $(PREFIX)/lib/liblz4.dylib
+	touch $@
+
+$(PREFIX)/lib/liblz4.dylib: lz4-${LZ4_VERSION}/Makefile
+	CPPFLAGS="${CXXFLAGS}" make -C lz4-${LZ4_VERSION}
+	make -C lz4-${LZ4_VERSION} install
+
+lz4-${LZ4_VERSION}/Makefile: lz4-${LZ4_VERSION}.tar.gz
+	$(TAR) lz4-${LZ4_VERSION}.tar.gz
+	touch $@
+
+lz4-${LZ4_VERSION}.tar.gz:
+	$(CURL) --remote-header-name "https://github.com/lz4/lz4/archive/refs/tags/v${LZ4_VERSION}.tar.gz"
+
+clean-lz4:
+	rm -Rf "lz4-${LZ4_VERSION}"
 
 #########################
 ####### OpenSSL #########
@@ -314,7 +342,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
 gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib
-	cd gdal-$(GDAL_VERSION) && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
+	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
 	touch $@
 
 gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
@@ -488,7 +516,7 @@ openjpeg: $(PREFIX)/lib/libopenjp2.dylib
 $(PREFIX)/lib/libopenjp2.dylib: openjpeg-$(OPENJPEG_VERSION)/build/Makefile
 	make -C openjpeg-$(OPENJPEG_VERSION)/build install
 
-openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/build
+openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/build $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib
 	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
 openjpeg-$(OPENJPEG_VERSION)/build: openjpeg-$(OPENJPEG_VERSION).tar.gz
@@ -511,12 +539,8 @@ clean-openjpeg:
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
-postgis: $(PREFIX)/lib/liblwgeom.dylib
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
 	touch $@
-
-$(PREFIX)/lib/liblwgeom.dylib: postgis-${POSTGIS_VERSION}/GNUMakefile $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
-	make -C postgis-${POSTGIS_VERSION}/liblwgeom
-	make -C postgis-${POSTGIS_VERSION}/liblwgeom install
 
 $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
 	make -C postgis-${POSTGIS_VERSION}
@@ -524,7 +548,6 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libprotobuf-c.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CPPFLAGS="-I$(PCRE_INCLUDE_PATH)"
-	/usr/bin/sed -i -e 's#/usr/local$$#"$(PREFIX)"#g' postgis-${POSTGIS_VERSION}/liblwgeom/Makefile
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
@@ -596,3 +619,20 @@ pldebugger/Makefile:
 
 clean-pldebugger:
 	rm -Rf pldebugger
+	
+#########################
+##### Tests #############
+#########################
+
+test-arch:
+	find $(PREFIX) \
+		\( -name "*.a" \
+		-or -type f -perm -u+x \! -name "*.la" \! -exec sh -c 'test "$$(head -c2 "$$0")" == "#!"' {} \; \
+		\) \! -exec lipo {} -verify_arch arm64 x86_64 \; \
+		-exec lipo {} -info \; 
+
+test-link:
+	find $(PREFIX) \
+		-type f -perm -u+x \
+		-exec sh -c 'otool -L "$$0" | grep --silent -e "/local" -e "/opt"' {} \; \
+		-exec otool -L {} \;
