@@ -44,3 +44,5 @@ Postgres.app ships with man pages. If you've configured your `PATH` as described
 ```bash
 psql -h localhost
 ```
+
+
