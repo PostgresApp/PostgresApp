@@ -624,14 +624,21 @@ clean-pldebugger:
 ##### Tests #############
 #########################
 
-test-arch:
+check-arch:
+# This checks if all the built executables are universal binaries:
+# Find all files that are named .a or executable but not named .la and not shell scripts
+# execute lipo -verify_arch and if that fails, produce an output by executing lipo -info.
+
 	find $(PREFIX) \
 		\( -name "*.a" \
 		-or -type f -perm -u+x \! -name "*.la" \! -exec sh -c 'test "$$(head -c2 "$$0")" == "#!"' {} \; \
 		\) \! -exec lipo {} -verify_arch arm64 x86_64 \; \
 		-exec lipo {} -info \; 
 
-test-link:
+check-libs:
+# This checks if the built executables do not link shared libraries from macports or homebrew:
+# Find all files that are executable, check if the output of otool -L contains
+# /local or /opt (errors are ignored), produce output by executing otool -L again.
 	find $(PREFIX) \
 		-type f -perm -u+x \
 		-exec sh -c 'otool -L "$$0" | grep --silent -e "/local" -e "/opt"' {} \; \
