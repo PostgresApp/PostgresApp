@@ -15,6 +15,8 @@ class SplitViewController: NSSplitViewController {
 	var userDefaultObserver: KeyValueObserver?
 	
 	override func viewDidLoad() {
+		super.viewDidLoad()
+		sidebarItem.isCollapsed = !UserDefaults.standard.bool(forKey: "SidebarVisible")
 		userDefaultObserver = UserDefaults.standard.observe("SidebarVisible") { [weak self] _ in
 			guard let this = self else { return }
 			if !this.ignoreSidebarVisibleChange {
@@ -27,8 +29,6 @@ class SplitViewController: NSSplitViewController {
 				}
 			}
 		}
-		
-		super.viewDidLoad()
 	}
 	
 	deinit {
@@ -41,9 +41,11 @@ class SplitViewController: NSSplitViewController {
 		if NSSplitViewController.instancesRespond(to: #selector(NSSplitViewController.splitViewDidResizeSubviews(_:))) {
 			super.splitViewDidResizeSubviews(notification)
 		}
-		ignoreSidebarVisibleChange = true
-		UserDefaults.standard.setValue(!sidebarItem.isCollapsed, forKey: "SidebarVisible")
-		ignoreSidebarVisibleChange = false
+		if notification.userInfo?["NSSplitViewUserResizeKey"] as? Bool == true {
+			ignoreSidebarVisibleChange = true
+			UserDefaults.standard.setValue(!sidebarItem.isCollapsed, forKey: "SidebarVisible")
+			ignoreSidebarVisibleChange = false
+		}
 	}
 	
 }
