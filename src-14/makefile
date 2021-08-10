@@ -70,8 +70,9 @@ BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
 PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin:/opt/homebrew/bin
 PKG_CONFIG_LIBDIR=$(PREFIX)/lib/pkgconfig
+DEVELOPER_DIR=/Library/Developer/CommandLineTools
 
-export PREFIX PATH PKG_CONFIG_LIBDIR
+export PREFIX PATH PKG_CONFIG_LIBDIR DEVELOPER_DIR
 
 #python config
 PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/python3
