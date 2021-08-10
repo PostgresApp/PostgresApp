@@ -42,10 +42,7 @@ class Server: NSObject {
     @objc var subtitle: String {
         var infos = [String]()
         infos.append("Port \(self.port)")
-        if let v = self.displayVersion { infos.append("v\(v)")}
-        if is_arm_mac() {
-            if let arch = self.binaryArchitecture { infos.append(arch) }
-        }
+        if let v = self.dataDirectoryVersion { infos.append("v\(v)")}
         return infos.joined(separator: " – ")
     }
     @objc static var keyPathsForValuesAffectingSubtitle: Set<String> { ["port", "binPath", "serverStatus"] }
@@ -644,24 +641,6 @@ class Server: NSObject {
             return v.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         catch {
-            return nil
-        }
-    }
-    
-    var displayVersion: String? {
-        switch (dataDirectoryVersion, binaryVersion) {
-        case (.some(let d), .some(let b)):
-            if b.hasPrefix(d) {
-                return b
-            } else {
-                // binary version and data dir version don't match
-                return nil
-            }
-        case (.some(let d), nil):
-            return d
-        case (nil, .some(let b)):
-            return b
-        case (nil, nil):
             return nil
         }
     }
