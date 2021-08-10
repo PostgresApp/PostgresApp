@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.1.3
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14beta2
+POSTGRES_VERSION=14beta3
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -139,7 +139,6 @@ postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/fd.c.patch
-	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/0001-Probe-for-preadv-pwritev-in-a-more-macOS-friendly-wa.patch #till beta3
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
