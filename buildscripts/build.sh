@@ -108,6 +108,10 @@ find "$APP"/Contents/Versions/*/bin/ \( -not -name postgres -and -not -name post
 	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
+find "$APP"/Contents/Versions/*/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
+	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
+		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
