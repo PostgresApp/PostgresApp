@@ -24,7 +24,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBJASPER_VERSION=1.900.1
 
 # http://xmlsoft.org/news.html
-LIBXML2_VERSION=2.9.10
+LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.1.1k
@@ -44,7 +44,7 @@ PLV8_VERSION=1.4.8
 JSONC_VERSION=0.12.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.2.0
+LIBTIFF_VERSION=4.3.0
 
 
 #path configuration
