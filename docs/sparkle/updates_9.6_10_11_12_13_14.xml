@@ -2,33 +2,32 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates_9.5_9.6_10_11_12_13.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_9.6_10_11_12_13_14.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4.4</title>
+		<title>Postgres.app 2.5beta2</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 9.5.25 with PostGIS 2.2.8</li>
 					<li>PostgreSQL 9.6.23 with PostGIS 2.3.11</li>
 					<li>PostgreSQL 10.18 with PostGIS 2.4.9</li>
 					<li>PostgreSQL 11.13 with PostGIS 2.5.5</li>
 					<li>PostgreSQL 12.8 with PostGIS 3.0.3</li>
 					<li>PostgreSQL 13.4 with PostGIS 3.1.3</li>
+					<li>PostgreSQL 14beta3 with PostGIS 3.1.3</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 12 Aug 2021 15:19:32 +0200</pubDate>
+		<pubDate>Thu, 12 Aug 2021 15:30:11 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.4/Postgres-2.4.4-9.5-9.6-10-11-12-13.dmg"
-		sparkle:version="118"
-		sparkle:shortVersionString="2.4.4"
-		length="324595524"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5beta2/Postgres-2.5beta2-9.6-10-11-12-13-14.dmg"
+		sparkle:version="120"
+		sparkle:shortVersionString="2.5beta2"
+		length="381070104"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFBv8J2Mfq4KvtzjHcm6PQfEPL0z1AhUArGNuf/hBvcyUQu1NArIVDrTrS9A="
+		sparkle:dsaSignature="MC0CFFKYq1zU7FCZkVh6eT+oYmt+ju/mAhUA15RgLrMQZ5GBqmTI6DGtrNLFNp8="
 		/>
-		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
