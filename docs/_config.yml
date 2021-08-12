@@ -76,7 +76,7 @@ extraReleases: [
 			de: "Postgres.app mit allen unterstützten Versionen und Beta 14 (Universal)",
 		},
 		size: "363MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5beta2/Postgres-v2.5beta2-9.6-10-11-12-13-14.dmg",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5beta2/Postgres-2.5beta2-9.6-10-11-12-13-14.dmg",
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.4.4",
 		postgresappVersion: "2.5beta2",
 		postgresappMinSystemVersion: "10.12",
