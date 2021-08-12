@@ -1,0 +1,18 @@
+--- a/port/cpl_http.cpp
++++ b/port/cpl_http.cpp
+@@ -46,6 +46,15 @@
+ 
+ #ifdef HAVE_CURL
+ #  include <curl/curl.h>
++
++/*
++ As long as we want to keep compatibility with macOS 10.12 which ships with curl 7.51.0
++ we redefine LIBCURL_VERSION_NUM from the SDK's curlver.h to that old version, so gdal
++ will not try to access newer APIs like curl_mime_addpart
++ */
++#undef LIBCURL_VERSION_NUM
++#define LIBCURL_VERSION_NUM 0x073300
++
+ // CURLINFO_RESPONSE_CODE was known as CURLINFO_HTTP_CODE in libcurl 7.10.7 and
+ // earlier.
+ #if LIBCURL_VERSION_NUM < 0x070a07
