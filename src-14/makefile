@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.1.3
+POSTGIS_VERSION=3.1.4
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14beta3
+POSTGRES_VERSION=14rc1
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -15,43 +15,46 @@ LZ4_VERSION=1.9.3
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.3.1
+GDAL_VERSION=3.3.2
 
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.9.1
 
-JPEG_VERSION=9c
+# http://www.ijg.org
+JPEG_VERSION=9d
+
 LIBEDIT_VERSION=20130611-3.1
 
-
 # ftp://xmlsoft.org/libxml2/
-LIBXML2_VERSION=2.9.10
+LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1k
+OPENSSL_VERSION=1.1.1l
 
-# http://proj4.org/download.html
-PROJ_VERSION=7.1.1
-DATUMGRID_VERSION=1.8
+# https://proj.org/download.html
+PROJ_VERSION=8.1.1
+# due to their size we no longer bundle proj-data. 
+# Users can download them via projsync or use the CDN
+#PROJ-DATA_VERSION=1.7
 
 # https://github.com/plv8/plv8/releases
 PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-JSONC_VERSION=0.13.1
+JSONC_VERSION=0.15
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_3
+WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.14.0
+PROTOBUF_VERSION=3.18.0
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.3.3
+PROTOBUFC_VERSION=1.4.0
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.2.0
+LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/releases
 LIBPNG_VERSION=1.6.37
@@ -60,7 +63,7 @@ LIBPNG_VERSION=1.6.37
 OPENJPEG_VERSION=2.4.0
 
 # http://site.icu-project.org/download/
-ICU_MAJOR_VERSION=67
+ICU_MAJOR_VERSION=69
 ICU_MINOR_VERSION=1
 
 PYTHON_VERSION=3.9
@@ -112,9 +115,9 @@ all: postgresql postgis wal2json pldebugger
 clean: clean-postgresql clean-lz4 clean-openssl clean-libxml2 clean-libgdal clean-libproj clean-postgis clean-plv8 clean-libjpeg clean-libgeos clean-libtiff clean-libpng clean-json-c clean-icu clean-protobuf-c clean-protobuf-cpp clean-wal2json clean-pldebugger
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz 
 
 
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz 
 #########################
 ###### PostgreSQL #######
 #########################
@@ -341,7 +344,7 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib
 	#patch curl version detection for 10.12 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.12.patch
 	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
@@ -373,16 +376,12 @@ $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
 proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
 	cd proj-$(PROJ_VERSION) && SQLITE3_LIBS="-lsqlite3" ./configure --prefix="$(PREFIX)"
 
-proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz proj-datumgrid-$(DATUMGRID_VERSION).zip
+proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
-	unzip -o "proj-datumgrid-${DATUMGRID_VERSION}.zip" -d "./proj-${PROJ_VERSION}/nad"
 	touch $@
 
 proj-${PROJ_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz"
-
-proj-datumgrid-${DATUMGRID_VERSION}.zip:
-	$(CURL) "http://download.osgeo.org/proj/proj-datumgrid-${DATUMGRID_VERSION}.zip"
 
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
@@ -392,15 +391,20 @@ clean-libproj:
 ###### JSON-c ###########
 #########################
 
-$(PREFIX)/include/json-c/json_object_iterator.h: json-c-$(JSONC_VERSION)/Makefile
-	make -C json-c-$(JSONC_VERSION) install
-	cp json-c-$(JSONC_VERSION)/json_object_iterator.h "$(PREFIX)/include/json-c/json_object_iterator.h"
+libjson-c: $(PREFIX)/lib/libjson-c.dylib
+	touch $@
 
-json-c-$(JSONC_VERSION)/Makefile: json-c-$(JSONC_VERSION)/configure
-	cd json-c-$(JSONC_VERSION) && ./configure --prefix="$(PREFIX)"
+$(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/Makefile
+	make -C json-c-$(JSONC_VERSION)/build install
+	# fix LC_ID_DYLIB (see https://github.com/json-c/json-c/issues/687)
+	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.1.0.dylib
 
-json-c-$(JSONC_VERSION)/configure: json-c-$(JSONC_VERSION).tar.gz
+json-c-$(JSONC_VERSION)/Makefile: json-c-$(JSONC_VERSION)/build
+	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+
+json-c-$(JSONC_VERSION)/build: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
+	mkdir json-c-$(JSONC_VERSION)/build
 	touch $@
 
 json-c-$(JSONC_VERSION).tar.gz:
@@ -468,7 +472,12 @@ $(PREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
 
 tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure
 	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
-
+	# rename VERSION file as we are on a case-insensitive filesystem and are including the source dir in the build
+	# to avoid including this instead of <version> header
+	# (idea taken from https://gitlab.com/graphviz/graphviz/-/merge_requests/2149)
+	mv tiff-$(LIBTIFF_VERSION)/VERSION tiff-$(LIBTIFF_VERSION)/LIBTIFF_VERSION
+	sed -i '' -e 's/\/VERSION/\/LIBTIFF_VERSION/g' -e 's/\tVERSION/\tLIBTIFF_VERSION/' tiff-$(LIBTIFF_VERSION)/Makefile
+	
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
 	touch $@
@@ -548,7 +557,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libprotobuf-c.dylib
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CPPFLAGS="-I$(PCRE_INCLUDE_PATH)"
 	touch $@
 
