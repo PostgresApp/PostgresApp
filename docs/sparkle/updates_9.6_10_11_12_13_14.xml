@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5beta2</title>
+		<title>Postgres.app 2.5rc1</title>
 		<description>
 			<![CDATA[
 				<ul>
@@ -15,18 +15,18 @@
 					<li>PostgreSQL 11.13 with PostGIS 2.5.5</li>
 					<li>PostgreSQL 12.8 with PostGIS 3.0.3</li>
 					<li>PostgreSQL 13.4 with PostGIS 3.1.3</li>
-					<li>PostgreSQL 14beta3 with PostGIS 3.1.3</li>
+					<li>PostgreSQL 14rc1 with PostGIS 3.1.4</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 12 Aug 2021 15:30:11 +0200</pubDate>
+		<pubDate>Mon, 27 Sep 2021 12:26:00 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5beta2/Postgres-2.5beta2-9.6-10-11-12-13-14.dmg"
-		sparkle:version="120"
-		sparkle:shortVersionString="2.5beta2"
-		length="381070104"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5rc1/Postgres-2.5rc1-9.6-10-11-12-13-14.dmg"
+		sparkle:version="121"
+		sparkle:shortVersionString="2.5rc1"
+		length="380442034"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFFKYq1zU7FCZkVh6eT+oYmt+ju/mAhUA15RgLrMQZ5GBqmTI6DGtrNLFNp8="
+		sparkle:dsaSignature="MC0CFCjX5JTOvxRY1CKJeVBQAYullP0DAhUAzwXS5b0yCIsRv6MQw76hGq8AIXk="
 		/>
 	</item>
   </channel>
