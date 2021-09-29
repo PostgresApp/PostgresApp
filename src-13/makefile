@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.1.3
+POSTGIS_VERSION=3.1.4
 POSTGIS_MAJOR_VERSION=3.1
 
 POSTGRES_VERSION=13.4
@@ -17,7 +17,9 @@ GDAL_VERSION=3.1.4
 # http://trac.osgeo.org/geos/
 GEOS_VERSION=3.8.2
 
-JPEG_VERSION=9c
+# http://www.ijg.org
+JPEG_VERSION=9d
+
 LIBEDIT_VERSION=20130611-3.1
 
 #http://download.osgeo.org/gdal/
@@ -27,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1k
+OPENSSL_VERSION=1.1.1l
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
@@ -41,7 +43,7 @@ PLV8_VERSION=2.3.15
 JSONC_VERSION=0.13.1
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_3
+WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.14.0
