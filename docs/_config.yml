@@ -72,8 +72,8 @@ extraReleases: [
 	},
 	{
 		name: {
-			en: "Postgres.app with all currently supported versions (Intel)", 
-			de: "Postgres.app mit allen unterstützten Versionen (Intel)",
+			en: "Postgres.app with PostgreSQL 9.5 – 13  (Intel)", 
+			de: "Postgres.app mit PostgreSQL 9.5 – 13 (Intel)",
 		},
 		size: "310MB",
 		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.4/Postgres-2.4.4-9.5-9.6-10-11-12-13.dmg",
