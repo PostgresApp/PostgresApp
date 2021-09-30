@@ -16,7 +16,7 @@
 	</ul>
 	<ul class="release-contents">
 	{% for postgresqlVersion in include.release.postgresqlVersions %}
-	 	<li>PostgreSQL {{ postgresqlVersion.postgres }} / PostGIS {{ postgresqlVersion.postgis }} / plv8 {{ postgresqlVersion.plv8 }}</li>
+	 	<li>PostgreSQL {{ postgresqlVersion.postgres }} / PostGIS {{ postgresqlVersion.postgis }}</li>
 	{% endfor %}
 	</ul>
 	<a class="download" href="{{include.release.downloadLocation}}">⤓ {{site.strings[lang].download-button}}</a>

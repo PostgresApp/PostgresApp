@@ -5,7 +5,7 @@ title: Postgres.app – der schnellste Weg zu PostgreSQL am Mac
 
 
 Postgres.app enthält eine vollständige Installation von PostgreSQL die keine Wünsche offen lässt.
-Mit dabei sind auch populäre Erweiterungen wie zB [PostGIS](http://postgis.net) für Geo-Daten und [plv8](https://github.com/plv8/plv8) für Javascript.
+Mit dabei ist auch die beliebte Erweiterungen [PostGIS](http://postgis.net) für Geo-Daten.
 
 
 Postgres.app hat eine innovative Benutzeroberfläche und ist über ein eigenes Statusmenü steuerbar.

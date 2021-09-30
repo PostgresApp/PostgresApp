@@ -9,7 +9,6 @@ Each release of Postgres.app comes with the latest stable release of PostgreSQL,
 
 - [PostgreSQL](http://www.postgresql.org/)
 - [PostGIS](http://postgis.refractions.net/)
-- [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 
 ## Connection Parameters
 - **Host:** localhost
