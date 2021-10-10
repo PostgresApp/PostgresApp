@@ -2,31 +2,40 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates_9.5_9.6_10_11_12_13.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_9.6_10_11_12_13_14.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.4.4</title>
+		<title>Postgres.app 2.5</title>
 		<description>
 			<![CDATA[
+				<p>
+					This update no longer includes PostgreSQL 9.5 since it is no longer supported.
+				</p>
+				<p style="color: red;">
+					Do not install this update if you are still using PostgreSQL 9.5.
+				</p>
+				<p>
+					If you are still using PostgreSQL 9.5, please migrate your database to a newer version before installing this upgrade.
+				</p>
 				<ul>
-					<li>PostgreSQL 9.5.25 with PostGIS 2.2.8</li>
 					<li>PostgreSQL 9.6.23 with PostGIS 2.3.11</li>
 					<li>PostgreSQL 10.18 with PostGIS 2.4.9</li>
 					<li>PostgreSQL 11.13 with PostGIS 2.5.5</li>
 					<li>PostgreSQL 12.8 with PostGIS 3.0.3</li>
-					<li>PostgreSQL 13.4 with PostGIS 3.1.3</li>
+					<li>PostgreSQL 13.4 with PostGIS 3.1.4</li>
+					<li>PostgreSQL 14.0 with PostGIS 3.1.4</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 12 Aug 2021 15:19:32 +0200</pubDate>
+		<pubDate>Wed, 29 Sep 2021 09:12:38 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.4.4/Postgres-2.4.4-9.5-9.6-10-11-12-13.dmg"
-		sparkle:version="118"
-		sparkle:shortVersionString="2.4.4"
-		length="324595524"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5/Postgres-2.5-9.6-10-11-12-13-14.dmg"
+		sparkle:version="123"
+		sparkle:shortVersionString="2.5"
+		length="380419327"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFBv8J2Mfq4KvtzjHcm6PQfEPL0z1AhUArGNuf/hBvcyUQu1NArIVDrTrS9A="
+		sparkle:dsaSignature="MCwCFAt85DARTubXtspupBf/E8cQz3ZZAhRAawcMdn+nl3Tf4ulndOrLA58stg=="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>

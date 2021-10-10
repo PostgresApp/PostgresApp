@@ -2,31 +2,40 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates_9.4_9.5_9.6_10_11_12.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_9.6_10_11_12_13_14.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.3.5</title>
+		<title>Postgres.app 2.5</title>
 		<description>
 			<![CDATA[
+				<p>
+					This update no longer includes PostgreSQL 9.4 and 9.5 since they are no longer supported.
+				</p>
+				<p style="color: red;">
+					Do not install this update if you are still using PostgreSQL 9.4 or 9.5.
+				</p>
+				<p>
+					If you are still using PostgreSQL 9.4 or 9.5, please migrate your database to a newer version before installing this upgrade.
+				</p>
 				<ul>
-					<li>PostgreSQL 9.4.26 with PostGIS 2.1.9</li>
-					<li>PostgreSQL 9.5.22 with PostGIS 2.2.8</li>
-					<li>PostgreSQL 9.6.18 with PostGIS 2.3.10</li>
-					<li>PostgreSQL 10.13 with PostGIS 2.4.8</li>
-					<li>PostgreSQL 11.8 with PostGIS 2.5.4</li>
-					<li>PostgreSQL 12.3 with PostGIS 3.0.1</li>
+					<li>PostgreSQL 9.6.23 with PostGIS 2.3.11</li>
+					<li>PostgreSQL 10.18 with PostGIS 2.4.9</li>
+					<li>PostgreSQL 11.13 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 12.8 with PostGIS 3.0.3</li>
+					<li>PostgreSQL 13.4 with PostGIS 3.1.4</li>
+					<li>PostgreSQL 14.0 with PostGIS 3.1.4</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Thu, 14 May 2020 17:29:23 +0200</pubDate>
+		<pubDate>Wed, 29 Sep 2021 09:12:38 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.3.5/Postgres-2.3.5-9.4-9.5-9.6-10-11-12.dmg"
-		sparkle:version="79"
-		sparkle:shortVersionString="2.3.5"
-		length="298542491"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5/Postgres-2.5-9.6-10-11-12-13-14.dmg"
+		sparkle:version="123"
+		sparkle:shortVersionString="2.5"
+		length="380419327"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQC7WGjhyNlD4VYERGgdCmtN7eZa4QIVAK39BZ/8l1X3+imabTWw0/1RLBGU"
+		sparkle:dsaSignature="MCwCFAt85DARTubXtspupBf/E8cQz3ZZAhRAawcMdn+nl3Tf4ulndOrLA58stg=="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
