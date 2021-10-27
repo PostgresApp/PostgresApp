@@ -54,12 +54,7 @@ class Server: NSObject {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-    @objc dynamic var binPath: String = "" {
-        didSet {
-            cachedArchitecture = nil
-            cachedBinaryVersion = nil
-        }
-    }
+    @objc dynamic var binPath: String = ""
 	@objc dynamic var varPath: String = ""
 	@objc dynamic var startOnLogin: Bool = false {
 		didSet {
@@ -561,62 +556,6 @@ class Server: NSObject {
 			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo))
 		}
 	}
-    
-    private var cachedArchitecture: String?
-    var binaryArchitecture: String? {
-        if let a = cachedArchitecture { return a }
-        let process = Process()
-        process.launchPath = "/usr/bin/lipo"
-        process.arguments = [
-            "-info", self.binPath + "/postgres"
-        ]
-        let outPipe = Pipe()
-        process.standardOutput = outPipe
-        process.launch()
-        process.waitUntilExit()
-        let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
-        guard let output = outputOrNil else { return nil }
-        guard process.terminationStatus == 0 else { return nil }
-        guard let splitIndex = output.lastIndex(of: ":") else { return nil }
-        let architectureStrings = output[splitIndex...]
-        switch (
-            architectureStrings.contains("arm"),
-            architectureStrings.contains("x86")
-        ) {
-        case (true, true):
-            cachedArchitecture = "Universal"
-        case (true, false):
-            cachedArchitecture = "ARM"
-        case (false, true):
-            cachedArchitecture = "Intel"
-        case (false, false):
-            return nil
-        }
-        return cachedArchitecture!
-    }
-
-    private var cachedBinaryVersion: String?
-    var binaryVersion: String? {
-        if let a = cachedBinaryVersion { return a }
-        let process = Process()
-        let launchPath = self.binPath + "/postgres"
-        guard FileManager().fileExists(atPath: launchPath) else { return nil }
-        process.launchPath = launchPath
-        process.arguments = [
-            "-V"
-        ]
-        let outPipe = Pipe()
-        process.standardOutput = outPipe
-        process.launch()
-        process.waitUntilExit()
-        let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
-        guard let output = outputOrNil else { return nil }
-        guard process.terminationStatus == 0 else { return nil }
-        guard let splitIndex = output.lastIndex(of: " ") else { return nil }
-        let versionString = output[splitIndex...]
-        cachedBinaryVersion = versionString.trimmingCharacters(in: .whitespacesAndNewlines)
-        return cachedBinaryVersion!
-    }
 	
 	public static var availableBinaryVersions: [String] {
 		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return [] }
