@@ -391,7 +391,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -424,7 +424,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -457,7 +457,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -490,7 +490,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -521,7 +521,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
