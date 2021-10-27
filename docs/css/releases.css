@@ -39,6 +39,10 @@
 	padding: 0;
 }
 
+.release .architecture {
+  opacity: 0.4;
+}
+
 .release ul.release-info {
 	list-style-type: none;
 	color: rgba(255,255,255,0.7);
