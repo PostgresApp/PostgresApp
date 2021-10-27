@@ -42,7 +42,7 @@ func is_arm_mac() -> Bool {
         // this should never happen
         return false
     }
-    if (cpu_type | CPU_TYPE_ARM) == CPU_TYPE_ARM {
+    if (cpu_type & CPU_TYPE_ARM) == CPU_TYPE_ARM {
         return true
     }
     
