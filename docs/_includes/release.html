@@ -20,7 +20,7 @@
 			PostgreSQL {{ postgresqlVersion.postgres }}
 			/ PostGIS {{ postgresqlVersion.postgis }}
 			{%if postgresqlVersion.plv8 %} / plv8 {{ postgresqlVersion.postgis }}{% endif %}
-			{%if postgresqlVersion.architecture %} <span class="architecture"> · {{ postgresqlVersion.architecture }}</span>{% endif %}
+			{%if postgresqlVersion.architecture %} <span class="architecture">&nbsp;·&nbsp; {{ postgresqlVersion.architecture }}</span>{% endif %}
 		</li>
 	{% endfor %}
 	</ul>
