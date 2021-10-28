@@ -25,13 +25,13 @@ release: {
 extraReleases: [
 	{
 		name: {
-			en: "Postgres.app with all currently supported versions (Universal / Intel)", 
-			de: "Postgres.app mit allen unterstützten Versionen (Universal / Intel)",
+			en: "Postgres.app with all currently supported versions (Universal/Intel)", 
+			de: "Postgres.app mit allen unterstützten Versionen (Universal/Intel)",
 		},
 		size: "363MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5/Postgres-2.5-9.6-10-11-12-13-14.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.5",
-		postgresappVersion: "2.5",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.1/Postgres-2.5.1-9.6-10-11-12-13-14.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.5.1",
+		postgresappVersion: "2.5.1",
 		postgresappMinSystemVersion: "10.12",
 		postgresqlVersions: [
 			{ postgres: "14", postgis: "3.1.4", architecture: "Universal" },

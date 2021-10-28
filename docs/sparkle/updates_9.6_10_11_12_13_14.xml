@@ -6,9 +6,15 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5</title>
+		<title>Postgres.app 2.5.1</title>
 		<description>
 			<![CDATA[
+				<p>
+					This update fixes a crash when trying to start PostgreSQL 13 or older on Macs with Apple Silicon when Rosetta is not installed.
+				</p>
+				<p>
+					If you have an Intel Mac, or if you have Rosetta installed already, you do not need to install this update.
+				</p>
 				<ul>
 					<li>PostgreSQL 9.6.23 with PostGIS 2.3.11</li>
 					<li>PostgreSQL 10.18 with PostGIS 2.4.9</li>
@@ -19,14 +25,14 @@
 				</ul>
 			]]>
 		</description>
-		<pubDate>Wed, 29 Sep 2021 09:12:38 +0200</pubDate>
+		<pubDate>Thu, 28 Oct 2021 08:29:07 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5/Postgres-2.5-9.6-10-11-12-13-14.dmg"
-		sparkle:version="123"
-		sparkle:shortVersionString="2.5"
-		length="380419327"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.1/Postgres-2.5.1-9.6-10-11-12-13-14.dmg"
+		sparkle:version="124"
+		sparkle:shortVersionString="2.5.1"
+		length="380459101"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFAt85DARTubXtspupBf/E8cQz3ZZAhRAawcMdn+nl3Tf4ulndOrLA58stg=="
+		sparkle:dsaSignature="MCwCFAU2689Nqu8wc6DVzaxMZDc6xndQAhQzypT9fVfWbFL0/lrU7gdcl40c0g=="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
