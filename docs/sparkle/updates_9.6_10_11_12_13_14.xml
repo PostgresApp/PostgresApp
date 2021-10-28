@@ -10,10 +10,10 @@
 		<description>
 			<![CDATA[
 				<p>
-					This update fixes a crash when trying to start PostgreSQL 13 or older on Macs with Apple Silicon when Rosetta is not installed.
+					Postgres.app 2.5.1 fixes a crash when trying to start PostgreSQL 13 or older on Macs with Apple Silicon when Rosetta is not installed.
 				</p>
 				<p>
-					If you have an Intel Mac, or if you have Rosetta installed already, you do not need to install this update.
+					If you have an Intel Mac, or if you have Rosetta installed already, you do not need to install this update if you already have Postgres.app 2.5.
 				</p>
 				<ul>
 					<li>PostgreSQL 9.6.23 with PostGIS 2.3.11</li>
