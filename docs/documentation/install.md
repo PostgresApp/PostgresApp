@@ -25,14 +25,14 @@ For more details, see the [section on Command Line Tools](cli-tools.html).
 - Binaries: `/Applications/Postgres.app/Contents/Versions/latest/bin`
 - Headers: `/Applications/Postgres.app/Contents/Versions/latest/include`
 - Libraries: `/Applications/Postgres.app/Contents/Versions/latest/lib`
-- Default data directory: `~/Library/Application Support/Postgres/var-XX` (XX is the major version of PostgreSQL)
+- Default data directory: `~/Library/Application\ Support/Postgres/var-XX` (XX is the major version of PostgreSQL)
 
 
 
 ## Uninstalling Postgres.app
 
 1. Quit Postgres.app & drag it to the Trash
-3. Delete the data directory (default location: `~/Library/Application Support/Postgres`)
+3. Delete the data directory (default location: `~/Library/Application\ Support/Postgres`)
 4. Delete preferences for Postgres.app by executing the following command:  
    `defaults delete com.postgresapp.Postgres2`
 5. Remove the `$PATH` config for the command line tools (optional):  
