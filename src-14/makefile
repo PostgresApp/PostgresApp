@@ -37,7 +37,7 @@ PROJ_VERSION=8.1.1
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
 
-# https://github.com/plv8/plv8/releases
+# https://github.com/plv8/plv8/tags
 PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
@@ -56,7 +56,7 @@ PROTOBUFC_VERSION=1.4.0
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.3.0
 
-# https://github.com/glennrp/libpng/releases
+# https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.37
 
 # https://github.com/uclouvain/openjpeg/releases

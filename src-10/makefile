@@ -37,7 +37,7 @@ DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18.5.15
 
-# https://github.com/plv8/plv8/releases
+# https://github.com/plv8/plv8/tags
 PLV8_VERSION=1.4.8
 
 # https://github.com/json-c/json-c/wiki
