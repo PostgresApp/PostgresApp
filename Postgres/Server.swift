@@ -31,6 +31,15 @@ class Server: NSObject {
 	enum ActionStatus {
 		case Success
 		case Failure(NSError)
+        
+        init(block: () throws -> () ) {
+            do {
+                try block()
+                self = .Success
+            } catch let error as NSError {
+                self = .Failure(error)
+            }
+        }
 	}
 	
 	
@@ -54,12 +63,7 @@ class Server: NSObject {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-    @objc dynamic var binPath: String = "" {
-        didSet {
-            cachedArchitecture = nil
-            cachedBinaryVersion = nil
-        }
-    }
+    @objc dynamic var binPath: String = ""
 	@objc dynamic var varPath: String = ""
 	@objc dynamic var startOnLogin: Bool = false {
 		didSet {
@@ -171,47 +175,30 @@ class Server: NSObject {
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .DataDirEmpty:
-				if self.portInUse() {
-					let userInfo = [
-						NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
-						NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
-					]
-					statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-					break
-				}
-				
-				let initResult = self.initDatabaseSync()
-				if case .Failure = initResult {
-					statusResult = initResult
-					break
-				}
-				
-				let startResult = self.startSync()
-				if case .Failure = startResult {
-					statusResult = startResult
-					break
-				}
-				
-				let createUserResult = self.createUserSync()
-				guard case .Success = createUserResult else {
-					statusResult = createUserResult
-					break
-				}
-				
-				let createDBResult = self.createUserDatabaseSync()
-				if case .Failure = createDBResult {
-					statusResult = createDBResult
-					break
-				}
-				
-				statusResult = .Success
-				
+                statusResult = ActionStatus {
+                    if self.portInUse() {
+                        let userInfo = [
+                            NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
+                            NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
+                        ]
+                        throw NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
+                    }
+                    
+                    try self.initDatabaseSync()
+                    
+                    try self.startSync()
+                    
+                    try self.createUserSync()
+                    
+                    try self.createUserDatabaseSync()
+                }
 			case .Running:
 				statusResult = .Success
 				
 			case .Startable:
-				let startRes = self.startSync()
-				statusResult = startRes
+                statusResult = ActionStatus {
+                    try self.startSync()
+                }
 				
 			case .StalePidFile:
 				let userInfo = [
@@ -250,7 +237,9 @@ class Server: NSObject {
 		busy = true
 		
 		DispatchQueue.global().async {
-			let stopRes = self.stopSync()
+            let stopRes = ActionStatus {
+                try self.stopSync()
+            }
 			DispatchQueue.main.async {
 				self.updateServerStatus()
 				completion(stopRes)
@@ -382,14 +371,14 @@ class Server: NSObject {
 	
 	
 	// MARK: Sync handlers
-	func startSync() -> ActionStatus {
+	func startSync() throws {
 		let process = Process()
 		let launchPath = binPath.appending("/pg_ctl")
 		guard FileManager().fileExists(atPath: launchPath) else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found.", comment: ""),
 			]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
+			throw NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo)
 		}
 		process.launchPath = launchPath
 		process.arguments = [
@@ -402,13 +391,11 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
-		if process.terminationStatus == 0 {
-			return .Success
-		} else {
+		guard process.terminationStatus == 0 else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not start PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -420,12 +407,12 @@ class Server: NSObject {
 					return true
 				})
 			]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
+			throw NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo)
 		}
 	}
 	
 	
-	func stopSync() -> ActionStatus {
+	func stopSync() throws {
 		let process = Process()
 		process.launchPath = binPath.appending("/pg_ctl")
 		process.arguments = [
@@ -437,13 +424,11 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
-		if process.terminationStatus == 0 {
-			return .Success
-		} else {
+		guard process.terminationStatus == 0 else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not stop PostgreSQL server.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -455,12 +440,12 @@ class Server: NSObject {
 					return true
 				})
 			]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo))
+			throw NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo)
 		}
 	}
 	
 	
-	private func initDatabaseSync() -> ActionStatus {
+	private func initDatabaseSync() throws {
 		let process = Process()
 		process.launchPath = binPath.appending("/initdb")
 		process.arguments = [
@@ -472,13 +457,11 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
-		if process.terminationStatus == 0 {
-			return .Success
-		} else {
+		guard process.terminationStatus == 0 else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not initialize database cluster.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -490,12 +473,12 @@ class Server: NSObject {
 					return true
 				})
 			]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.initdb", code: 0, userInfo: userInfo))
+			throw NSError(domain: "com.postgresapp.Postgres2.initdb", code: 0, userInfo: userInfo)
 		}
 	}
 	
 	
-	private func createUserSync() -> ActionStatus {
+	private func createUserSync() throws {
 		let process = Process()
 		process.launchPath = binPath.appending("/createuser")
 		process.arguments = [
@@ -507,13 +490,11 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
-		if process.terminationStatus == 0 {
-			return .Success
-		} else {
+		guard process.terminationStatus == 0 else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create default user.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -525,12 +506,12 @@ class Server: NSObject {
 					return true
 				})
 			]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createuser", code: 0, userInfo: userInfo))
+			throw NSError(domain: "com.postgresapp.Postgres2.createuser", code: 0, userInfo: userInfo)
 		}
 	}
 	
 	
-	private func createUserDatabaseSync() -> ActionStatus {
+	private func createUserDatabaseSync() throws {
 		let process = Process()
 		process.launchPath = binPath.appending("/createdb")
 		process.arguments = [
@@ -540,13 +521,11 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-		process.launch()
+        try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
-		if process.terminationStatus == 0 {
-			return .Success
-		} else {
+		guard process.terminationStatus == 0 else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Could not create user database.", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
@@ -558,65 +537,9 @@ class Server: NSObject {
 					return true
 				})
 			]
-			return .Failure(NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo))
+			throw NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo)
 		}
 	}
-    
-    private var cachedArchitecture: String?
-    var binaryArchitecture: String? {
-        if let a = cachedArchitecture { return a }
-        let process = Process()
-        process.launchPath = "/usr/bin/lipo"
-        process.arguments = [
-            "-info", self.binPath + "/postgres"
-        ]
-        let outPipe = Pipe()
-        process.standardOutput = outPipe
-        process.launch()
-        process.waitUntilExit()
-        let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
-        guard let output = outputOrNil else { return nil }
-        guard process.terminationStatus == 0 else { return nil }
-        guard let splitIndex = output.lastIndex(of: ":") else { return nil }
-        let architectureStrings = output[splitIndex...]
-        switch (
-            architectureStrings.contains("arm"),
-            architectureStrings.contains("x86")
-        ) {
-        case (true, true):
-            cachedArchitecture = "Universal"
-        case (true, false):
-            cachedArchitecture = "ARM"
-        case (false, true):
-            cachedArchitecture = "Intel"
-        case (false, false):
-            return nil
-        }
-        return cachedArchitecture!
-    }
-
-    private var cachedBinaryVersion: String?
-    var binaryVersion: String? {
-        if let a = cachedBinaryVersion { return a }
-        let process = Process()
-        let launchPath = self.binPath + "/postgres"
-        guard FileManager().fileExists(atPath: launchPath) else { return nil }
-        process.launchPath = launchPath
-        process.arguments = [
-            "-V"
-        ]
-        let outPipe = Pipe()
-        process.standardOutput = outPipe
-        process.launch()
-        process.waitUntilExit()
-        let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
-        guard let output = outputOrNil else { return nil }
-        guard process.terminationStatus == 0 else { return nil }
-        guard let splitIndex = output.lastIndex(of: " ") else { return nil }
-        let versionString = output[splitIndex...]
-        cachedBinaryVersion = versionString.trimmingCharacters(in: .whitespacesAndNewlines)
-        return cachedBinaryVersion!
-    }
 	
 	public static var availableBinaryVersions: [String] {
 		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return [] }

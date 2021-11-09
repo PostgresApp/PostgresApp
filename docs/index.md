@@ -4,8 +4,8 @@ title: Postgres.app – the easiest way to get started with PostgreSQL on the Ma
 ---
 
 Postgres.app is a full-featured PostgreSQL installation packaged as a standard Mac app.
-It includes everything you need to get started:
-we've even included popular extensions like [PostGIS](http://postgis.net) for geo data and [plv8](https://github.com/plv8/plv8) for JavaScript.
+It includes everything you need to get started, 
+and we've even included the popular extension [PostGIS](http://postgis.net) for geo data.
 
 
 Postgres.app has a beautiful user interface and a convenient menu bar item.

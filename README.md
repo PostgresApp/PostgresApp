@@ -20,7 +20,6 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 - [PostgreSQL](http://www.postgresql.org/)
 - [PostGIS](http://postgis.net/)
-- [plv8](http://code.google.com/p/plv8js/wiki/PLV8)
 - [wal2json](https://github.com/eulerto/wal2json)
 - [pldebugger](https://git.postgresql.org/gitweb/?p=pldebugger.git)
 

@@ -29,7 +29,7 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
 				if let server = self.mainWindowModel.firstSelectedServer, server.running {
-					let _ = server.stopSync()
+					try? server.stopSync()
 				}
 				self.mainWindowModel.removeSelectedServer()
 				NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: nil)
