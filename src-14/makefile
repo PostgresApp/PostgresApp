@@ -15,10 +15,10 @@ LZ4_VERSION=1.9.3
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.3.2
+GDAL_VERSION=3.3.3
 
 # http://trac.osgeo.org/geos/
-GEOS_VERSION=3.9.1
+GEOS_VERSION=3.9.2
 
 # http://www.ijg.org
 JPEG_VERSION=9d
@@ -48,7 +48,7 @@ JSONC_VERSION=0.15
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.18.0
+PROTOBUF_VERSION=3.18.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.4.0
