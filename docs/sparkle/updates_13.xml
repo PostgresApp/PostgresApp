@@ -12,6 +12,11 @@
 				<ul>
 					<li>PostgreSQL 13.5 with PostGIS 3.1.4</li>
 				</ul>
+				<p>
+					To save bandwidth, this automatic update only includes a bugfix updates for PostgreSQL 13.
+					You can download newer versions from our website:
+					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
+				</p>
 			]]>
 		</description>
 		<pubDate>Wed, 10 Nov 2021 19:18:21 +0100</pubDate>

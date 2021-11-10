@@ -13,8 +13,8 @@
 					<li>PostgreSQL 11.14 with PostGIS 2.5.5</li>
 				</ul>
 				<p>
-					To save bandwidth, this update only includes bugfix updates for PostgreSQL server versions you already have installed.
-					You can download other versions of PostgreSQL on our website:
+					To save bandwidth, this automatic update only includes a bugfix updates for PostgreSQL 11.
+					You can download newer versions from our website:
 					<a href="https://postgresapp.com/downloads.html">postgresapp.com/downloads.html</a>
 				</p>
 			]]>
