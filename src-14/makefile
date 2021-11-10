@@ -394,15 +394,15 @@ clean-libproj:
 libjson-c: $(PREFIX)/lib/libjson-c.dylib
 	touch $@
 
-$(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/Makefile
+$(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
 	# fix LC_ID_DYLIB (see https://github.com/json-c/json-c/issues/687)
 	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.1.0.dylib
 
-json-c-$(JSONC_VERSION)/Makefile: json-c-$(JSONC_VERSION)/build
+json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
 	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
-json-c-$(JSONC_VERSION)/build: json-c-$(JSONC_VERSION).tar.gz
+json-c-$(JSONC_VERSION)/cmake-configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
 	mkdir json-c-$(JSONC_VERSION)/build
 	touch $@
