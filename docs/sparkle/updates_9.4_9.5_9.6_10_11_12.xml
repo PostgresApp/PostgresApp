@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5</title>
+		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
 				<p>
@@ -19,23 +19,23 @@
 					If you are still using PostgreSQL 9.4 or 9.5, please migrate your database to a newer version before installing this upgrade.
 				</p>
 				<ul>
-					<li>PostgreSQL 9.6.23 with PostGIS 2.3.11</li>
-					<li>PostgreSQL 10.18 with PostGIS 2.4.9</li>
-					<li>PostgreSQL 11.13 with PostGIS 2.5.5</li>
-					<li>PostgreSQL 12.8 with PostGIS 3.0.3</li>
-					<li>PostgreSQL 13.4 with PostGIS 3.1.4</li>
-					<li>PostgreSQL 14.0 with PostGIS 3.1.4</li>
+					<li>PostgreSQL 9.6.24 with PostGIS 2.3.11</li>
+					<li>PostgreSQL 10.19 with PostGIS 2.4.9</li>
+					<li>PostgreSQL 11.14 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 12.9 with PostGIS 3.0.4</li>
+					<li>PostgreSQL 13.5 with PostGIS 3.1.4</li>
+					<li>PostgreSQL 14.1 with PostGIS 3.1.4</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Wed, 29 Sep 2021 09:12:38 +0200</pubDate>
+		<pubDate>Wed, 10 Nov 2021 20:05:48 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5/Postgres-2.5-9.6-10-11-12-13-14.dmg"
-		sparkle:version="123"
-		sparkle:shortVersionString="2.5"
-		length="380419327"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.2/Postgres-2.5.2-9.6-10-11-12-13-14.dmg"
+		sparkle:version="129"
+		sparkle:shortVersionString="2.5.2"
+		length="379406860"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFAt85DARTubXtspupBf/E8cQz3ZZAhRAawcMdn+nl3Tf4ulndOrLA58stg=="
+		sparkle:dsaSignature="MC0CFQCIxl1/3nFET5x8SZqyBSZD3EVdJwIUAZEzkQ9fOVCaEUrw98uInUsv4Lg="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>

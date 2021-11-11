@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.3.11
 POSTGIS_MAJOR_VERSION=2.3
 
-POSTGRES_VERSION=9.6.23
+POSTGRES_VERSION=9.6.24
 POSTGRES_MAJOR_VERSION=9.6
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -28,6 +28,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
+#note: 1.1.1l is broken on old macOS / once 1.1.1m is released we can upgrade again
 OPENSSL_VERSION=1.1.1k
 
 # http://proj4.org/download.html
@@ -37,7 +38,7 @@ DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18.5.15
 
-# https://github.com/plv8/plv8/releases
+# https://github.com/plv8/plv8/tags
 PLV8_VERSION=1.4.8
 
 # https://github.com/json-c/json-c/wiki

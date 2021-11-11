@@ -26,7 +26,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.10
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1g
+OPENSSL_VERSION=1.1.1k
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -35,7 +35,7 @@ DATUMGRID_VERSION=1.5
 #see http://omahaproxy.appspot.com for latest stable v8 version
 V8_VERSION=3.18.5.15
 
-# https://github.com/plv8/plv8/releases
+# https://github.com/plv8/plv8/tags
 PLV8_VERSION=1.4.8
 
 # https://github.com/json-c/json-c/wiki

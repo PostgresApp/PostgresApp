@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.1.4
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14.0
+POSTGRES_VERSION=14.1
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -15,10 +15,10 @@ LZ4_VERSION=1.9.3
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.3.2
+GDAL_VERSION=3.3.3
 
 # http://trac.osgeo.org/geos/
-GEOS_VERSION=3.9.1
+GEOS_VERSION=3.9.2
 
 # http://www.ijg.org
 JPEG_VERSION=9d
@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1l
+OPENSSL_VERSION=1.1.1k
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -37,7 +37,7 @@ PROJ_VERSION=8.1.1
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
 
-# https://github.com/plv8/plv8/releases
+# https://github.com/plv8/plv8/tags
 PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
@@ -48,7 +48,7 @@ JSONC_VERSION=0.15
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.18.0
+PROTOBUF_VERSION=3.18.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.4.0
@@ -56,7 +56,7 @@ PROTOBUFC_VERSION=1.4.0
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.3.0
 
-# https://github.com/glennrp/libpng/releases
+# https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.37
 
 # https://github.com/uclouvain/openjpeg/releases
@@ -394,15 +394,15 @@ clean-libproj:
 libjson-c: $(PREFIX)/lib/libjson-c.dylib
 	touch $@
 
-$(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/Makefile
+$(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
 	# fix LC_ID_DYLIB (see https://github.com/json-c/json-c/issues/687)
 	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.1.0.dylib
 
-json-c-$(JSONC_VERSION)/Makefile: json-c-$(JSONC_VERSION)/build
+json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
 	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
-json-c-$(JSONC_VERSION)/build: json-c-$(JSONC_VERSION).tar.gz
+json-c-$(JSONC_VERSION)/cmake-configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
 	mkdir json-c-$(JSONC_VERSION)/build
 	touch $@
@@ -558,7 +558,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION} install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CPPFLAGS="-I$(PCRE_INCLUDE_PATH)"
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz

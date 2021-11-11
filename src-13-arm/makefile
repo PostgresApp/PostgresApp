@@ -31,7 +31,7 @@ OPENSSL_VERSION=1.1.1k
 PROJ_VERSION=7.1.1
 DATUMGRID_VERSION=1.8
 
-# https://github.com/plv8/plv8/releases
+# https://github.com/plv8/plv8/tags
 PLV8_VERSION=2.3.15
 
 # https://github.com/json-c/json-c/wiki
