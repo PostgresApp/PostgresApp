@@ -9,6 +9,15 @@
 		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
+				<p>
+					We now include the address_standardizer extension again.
+				</p>
+				<p>
+					This update also supports macOS 10.12 again.
+				</p>
+				<p>
+					This update includes the following version of PostgreSQL:
+				</p>
 				<ul>
 					<li>PostgreSQL 13.5 with PostGIS 3.1.4</li>
 				</ul>

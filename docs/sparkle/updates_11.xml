@@ -9,6 +9,9 @@
 		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
+				<p>
+					This update includes the following version of PostgreSQL:
+				</p>
 				<ul>
 					<li>PostgreSQL 11.14 with PostGIS 2.5.5</li>
 				</ul>
