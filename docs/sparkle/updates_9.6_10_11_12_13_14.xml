@@ -28,7 +28,7 @@
 				</ul>
 				<p>
 					This is the final release for PostgreSQL 9.6.
-					If you are still have a database using 9.6, consider migrating to a newer version.
+					If you still have a database using that version, consider migrating to a newer version.
 					The next update of Postgres.app will no longer include PostgreSQL 9.6.
 				</p>
 			]]>
