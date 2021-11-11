@@ -41,6 +41,8 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
 
+- the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
+
 - the GUI is built on macOS 10.15 with Xcode 11.7
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
@@ -92,6 +94,7 @@ For building PostGIS, you also need
 - automake
 - pkgconfig (when building GDAL 3.0.0 or later)
 - libtool
+- cmake (when building universal binaries - PostgreSQL 14 or later)
 
 By default, PostgreSQL is built with documentation. To build the PostgreSQL 13 docs, you need these packages (see https://www.postgresql.org/docs/current/docguide-toolsets.html for details):
 
