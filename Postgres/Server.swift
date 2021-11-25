@@ -354,6 +354,7 @@ class Server: NSObject {
 	private func loadDatabases() {
 		databases.removeAll()
 		
+#if HAVE_LIBPQ
 		let url = "postgresql://:\(port)"
 		let connection = PQconnectdb(url.cString(using: .utf8))
 		
@@ -367,6 +368,7 @@ class Server: NSObject {
 			PQclear(result)
 		}
 		PQfinish(connection)
+#endif
 	}
 	
 	
