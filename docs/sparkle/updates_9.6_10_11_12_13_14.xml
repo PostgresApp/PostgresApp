@@ -9,12 +9,7 @@
 		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
-				<p>
-					We now include the address_standardizer extension again, which was accidentally missing since PostgreSQL 12.
-				</p>
-				<p>
-					This update also supports running PostgreSQL 13 and 14 on macOS 10.12 again.
-				</p>
+				<h3>November 2021 Bugfix Release</h3>
 				<p>
 					This update includes the following versions of PostgreSQL.
 				</p>
@@ -26,6 +21,12 @@
 					<li>PostgreSQL 13.5 with PostGIS 3.1.4</li>
 					<li>PostgreSQL 14.1 with PostGIS 3.1.4</li>
 				</ul>
+				<p>
+					We now include the address_standardizer extension again, which was accidentally missing since PostgreSQL 12.
+				</p>
+				<p>
+					This update also supports running PostgreSQL 13 and 14 on macOS 10.12 again.
+				</p>
 				<p>
 					This is the final release for PostgreSQL 9.6.
 					If you still have a database using that version, consider migrating to a newer version.

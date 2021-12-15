@@ -9,18 +9,19 @@
 		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
-				<p>
-					We now include the address_standardizer extension again.
-				</p>
-				<p>
-					This update also supports macOS 10.12 again.
-				</p>
+				<h3>November 2021 Bugfix Release</h3>
 				<p>
 					This update includes the following version of PostgreSQL:
 				</p>
 				<ul>
 					<li>PostgreSQL 13.5 with PostGIS 3.1.4</li>
 				</ul>
+				<p>
+					We now include the address_standardizer extension again.
+				</p>
+				<p>
+					This update also supports macOS 10.12 again.
+				</p>
 				<p>
 					To save bandwidth, this automatic update only includes a bugfix updates for PostgreSQL 13.
 					You can download newer versions from our website:

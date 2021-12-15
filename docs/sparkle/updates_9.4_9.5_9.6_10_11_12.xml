@@ -9,6 +9,7 @@
 		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
+				<h3>November 2021 Bugfix Release</h3>
 				<p>
 					This update no longer includes PostgreSQL 9.4 and 9.5 since they are no longer supported.
 				</p>

@@ -9,15 +9,16 @@
 		<title>Postgres.app 2.5.2</title>
 		<description>
 			<![CDATA[
-				<p>
-					We now include the address_standardizer extension again.
-				</p>
+				<h3>November 2021 Bugfix Release</h3>
 				<p>
 					This update includes the following version of PostgreSQL:
 				</p>
 				<ul>
 					<li>PostgreSQL 12.9 with PostGIS 3.0.4</li>
 				</ul>
+				<p>
+					We now include the address_standardizer extension again.
+				</p>
 				<p>
 					To save bandwidth, this automatic update only includes a bugfix updates for PostgreSQL 12.
 					You can download newer versions from our website:
