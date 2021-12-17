@@ -53,6 +53,39 @@ do
 			fi
 		done
 
+		# make all links within the bundle use @loader_path
+		# if the binaries are signed this will break the code signature
+		# you must make sure to re-sign them afterwards
+		cd "${TARGET_VERSIONS_DIR}/${VERSION}"
+		for file in bin/* lib/* lib/*/*
+		do
+		  if [[ -f $file && ! -L $file ]]
+		  then
+			echo $file
+			otool -L $file | sed '/:$/d;s/ [(].*$//;s/^\s+//' | sort | uniq | while read line
+			do
+			  if [[ ! $line == *"$file" && $line == /Applications/Postgres.app/Contents/Versions/* ]]
+			  then
+				basename=${line#/Applications/Postgres.app/Contents/Versions/*/lib/}
+				if [[ $file == bin/* ]]
+				then
+				  newname=@loader_path/../lib/$basename
+				elif [[ $file == lib/*/* ]]
+				then
+				  newname=@loader_path/../$basename
+				elif [[ $file == lib/* ]]
+				then
+				  newname=@loader_path/$basename
+				else
+				  newname=$file
+				fi
+				echo install_name_tool "$file" -change $line $newname
+				install_name_tool "$file" -change $line $newname
+			  fi
+			done
+		  fi
+		done
+		
 		# copy include, share
 		rm -f "${TARGET_VERSIONS_DIR}/${VERSION}/include/json"
 		cp -afR "${PG_BINARIES_DIR}/${VERSION}/include" "${PG_BINARIES_DIR}/${VERSION}/share" "${TARGET_VERSIONS_DIR}/${VERSION}/"
