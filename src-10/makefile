@@ -65,8 +65,8 @@ export PATH PKG_CONFIG_LIBDIR
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.7
-CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
-CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.7
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.7
+CXXFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.7
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
 

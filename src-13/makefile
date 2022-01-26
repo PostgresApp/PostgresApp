@@ -74,8 +74,8 @@ export PYTHON
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.12
-CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
-CXXFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.12
+CXXFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.12
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
 

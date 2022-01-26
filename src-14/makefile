@@ -83,8 +83,8 @@ export PYTHON
 
 #compiler options
 MACOSX_DEPLOYMENT_TARGET=10.12
-CFLAGS:=$(CFLAGS) -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
-CXXFLAGS:=$(CXXFLAGS) -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
 CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
