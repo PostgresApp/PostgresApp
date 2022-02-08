@@ -27,7 +27,6 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
-#note: 1.1.1l is broken on old macOS / once 1.1.1m is released we can upgrade again
 OPENSSL_VERSION=1.1.1m
 
 # http://proj4.org/download.html
