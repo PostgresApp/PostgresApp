@@ -17,15 +17,16 @@ LZ4_VERSION=1.9.3
 # http://download.osgeo.org/gdal/
 GDAL_VERSION=3.3.3
 
-# http://trac.osgeo.org/geos/
+# https://libgeos.org/usage/download/
 GEOS_VERSION=3.9.2
 
 # http://www.ijg.org
-JPEG_VERSION=9d
+JPEG_VERSION=9e
 
 LIBEDIT_VERSION=20130611-3.1
 
 # ftp://xmlsoft.org/libxml2/
+# there seems to be a 2.9.12 available but not yet announced
 LIBXML2_VERSION=2.9.11
 
 # https://www.openssl.org
@@ -48,7 +49,7 @@ JSONC_VERSION=0.15
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.18.1
+PROTOBUF_VERSION=3.18.2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.4.0
