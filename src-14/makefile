@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.1.5
+POSTGIS_VERSION=3.2.0
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=14.3
@@ -18,7 +18,7 @@ LZ4_VERSION=1.9.3
 GDAL_VERSION=3.3.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.9.2
+GEOS_VERSION=3.10.2
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -321,18 +321,22 @@ clean-libjpeg:
 libgeos: $(PREFIX)/lib/libgeos.dylib
 	touch $@
 
-$(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/Makefile
-	make -C geos-${GEOS_VERSION} install
+$(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/build/Makefile
+	make -C geos-${GEOS_VERSION}/build install
 
-geos-${GEOS_VERSION}/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
-	cd geos-${GEOS_VERSION} && ./configure --prefix="$(PREFIX)"
+geos-${GEOS_VERSION}/build/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
+	cd geos-${GEOS_VERSION}/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 	$(TAR) geos-${GEOS_VERSION}.tar.bz2
+	mkdir geos-${GEOS_VERSION}/build
 	touch $@
 
 geos-${GEOS_VERSION}.tar.bz2:
 	$(CURL) "http://download.osgeo.org/geos/geos-${GEOS_VERSION}.tar.bz2"
+	
+check-libgeos: geos-${GEOS_VERSION}/build/Makefile
+	make -C geos-${GEOS_VERSION}/build check
 
 clean-libgeos:
 	rm -Rf geos-${GEOS_VERSION}
@@ -565,7 +569,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION} install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdaldir="$(PREFIX)" --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
