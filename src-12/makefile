@@ -53,6 +53,9 @@ PROTOBUFC_VERSION=1.3.3
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.3.0
 
+# https://github.com/EnterpriseDB/pldebugger/tags
+PLDEBUGGER_VERSION=1.4
+
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=64
 ICU_MINOR_VERSION=2
@@ -536,12 +539,15 @@ clean-wal2json:
 pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.so
 	touch $@
 
-$(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger/Makefile $(PREFIX)/bin/psql
-	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C pldebugger install
+$(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger-${PLDEBUGGER_VERSION}/Makefile $(PREFIX)/bin/psql
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C pldebugger-${PLDEBUGGER_VERSION} install
 
-pldebugger/Makefile:
-	git clone https://github.com/EnterpriseDB/pldebugger.git
+pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
+	$(TAR) $<
 	touch $@
 
+pldebugger-${PLDEBUGGER_VERSION}.tar.gz:
+	$(CURL) --remote-header-name https://github.com/EnterpriseDB/pldebugger/archive/refs/tags/v${PLDEBUGGER_VERSION}.tar.gz
+
 clean-pldebugger:
-	rm -Rf pldebugger
+	rm -Rf pldebugger-${PLDEBUGGER_VERSION}
