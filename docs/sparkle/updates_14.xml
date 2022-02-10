@@ -6,32 +6,25 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5.2</title>
+		<title>Postgres.app 2.5.6</title>
 		<description>
 			<![CDATA[
-				<h3>November 2021 Bugfix Release</h3>
 				<p>
 					This update includes the following version of PostgreSQL:
 				</p>
 				<ul>
-					<li>PostgreSQL 14.1 with PostGIS 3.1.4</li>
+					<li>PostgreSQL 14.2 with PostGIS 3.1.5</li>
 				</ul>
-				<p>
-					We now include the address_standardizer extension again.
-				</p>
-				<p>
-					This update also supports macOS 10.12 again.
-				</p>
 			]]>
 		</description>
-		<pubDate>Wed, 10 Nov 2021 19:55:02 +0100</pubDate>
+		<pubDate>Wed, 09 Feb 2022 09:04:34 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.2/Postgres-2.5.2-14.dmg"
-		sparkle:version="128"
-		sparkle:shortVersionString="2.5.2"
-		length="104434782"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.6/Postgres-2.5.6-14.dmg"
+		sparkle:version="138"
+		sparkle:shortVersionString="2.5.6"
+		length="86799925"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFFSgoRQd+Gg99aKWXjl92xAXOLXAAhRB+ub568dHJ0DQMiWspgy1Adn8nw=="
+		sparkle:dsaSignature="MCwCFH/n2Y8kiwB3oSI+N/y6QQD9QY22AhQnxz3s+WH53309AF0qjMCgr7vKCA=="
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>

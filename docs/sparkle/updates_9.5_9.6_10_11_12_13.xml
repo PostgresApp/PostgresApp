@@ -6,37 +6,36 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5.2</title>
+		<title>Postgres.app 2.5.6</title>
 		<description>
 			<![CDATA[
-				<h3>November 2021 Bugfix Release</h3>
-				<p>
-					This update no longer includes PostgreSQL 9.5 since it is no longer supported.
-				</p>
-				<p style="color: red;">
-					Do not install this update if you are still using PostgreSQL 9.5.
-				</p>
-				<p>
-					If you are still using PostgreSQL 9.5, please migrate your database to a newer version before installing this upgrade.
-				</p>
+			<h3>February 2022 Bugfix Release</h3>
+			<p>
+				This update no longer includes PostgreSQL 9.5 or 9.6 since they are no longer supported.
+			</p>
+			<p style="color: red;">
+				Do not install this update if you are still using PostgreSQL 9.5 or 9.6.
+			</p>
+			<p>
+				If you are still using PostgreSQL 9.5 or 9.6, please migrate your database to a newer version before installing this upgrade.
+			</p>
 				<ul>
-					<li>PostgreSQL 9.6.24 with PostGIS 2.3.11</li>
-					<li>PostgreSQL 10.19 with PostGIS 2.4.9</li>
-					<li>PostgreSQL 11.14 with PostGIS 2.5.5</li>
-					<li>PostgreSQL 12.9 with PostGIS 3.0.4</li>
-					<li>PostgreSQL 13.5 with PostGIS 3.1.4</li>
-					<li>PostgreSQL 14.1 with PostGIS 3.1.4</li>
+					<li>PostgreSQL 10.20 with PostGIS 2.4.9</li>
+					<li>PostgreSQL 11.15 with PostGIS 2.5.5</li>
+					<li>PostgreSQL 12.10 with PostGIS 3.0.5</li>
+					<li>PostgreSQL 13.6 with PostGIS 3.1.5</li>
+					<li>PostgreSQL 14.2 with PostGIS 3.1.5</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Wed, 10 Nov 2021 20:05:48 +0100</pubDate>
+		<pubDate>Thu, 10 Feb 2022 12:0000 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.2/Postgres-2.5.2-9.6-10-11-12-13-14.dmg"
-		sparkle:version="129"
-		sparkle:shortVersionString="2.5.2"
-		length="379406860"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.6/Postgres-2.5.6-10-11-12-13-14.dmg"
+		sparkle:version="139"
+		sparkle:shortVersionString="2.5.6"
+		length="292373866"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCIxl1/3nFET5x8SZqyBSZD3EVdJwIUAZEzkQ9fOVCaEUrw98uInUsv4Lg="
+		sparkle:dsaSignature="MC4CFQDDPgRT9U1ehE2yaQYp8qipezaYXgIVANDt/N6SppUrZirnjG/vTdQT1tzy"
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
