@@ -531,12 +531,13 @@ openjpeg: $(PREFIX)/lib/libopenjp2.dylib
 $(PREFIX)/lib/libopenjp2.dylib: openjpeg-$(OPENJPEG_VERSION)/build/Makefile
 	make -C openjpeg-$(OPENJPEG_VERSION)/build install
 
-openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/build $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib
+openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib
 	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
-openjpeg-$(OPENJPEG_VERSION)/build: openjpeg-$(OPENJPEG_VERSION).tar.gz
+openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt: openjpeg-$(OPENJPEG_VERSION).tar.gz
 	$(TAR) openjpeg-$(OPENJPEG_VERSION).tar.gz
 	mkdir openjpeg-$(OPENJPEG_VERSION)/build
+	touch $@
 
 openjpeg-$(OPENJPEG_VERSION).tar.gz:
 	$(CURL) --remote-header-name https://github.com/uclouvain/openjpeg/archive/refs/tags/v$(OPENJPEG_VERSION).tar.gz
