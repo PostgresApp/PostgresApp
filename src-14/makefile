@@ -657,10 +657,22 @@ check-arch:
 		-exec lipo {} -info \; 
 
 check-libs:
-# This checks if the built executables do not link shared libraries from macports or homebrew:
+# This checks if the built executables and libraries do not link shared libraries
+# from macports or homebrew:
 # Find all files that are executable, check if the output of otool -L contains
 # /local or /opt (errors are ignored), produce output by executing otool -L again.
 	find $(PREFIX) \
 		-type f -perm -u+x \
 		-exec sh -c 'otool -L "$$0" | grep --silent -e "/local" -e "/opt"' {} \; \
 		-exec otool -L {} \;
+
+check-rpath:
+# This checks if the built executables and libraries do not link to shared libraries
+# using @rpath:
+# Find all files that are executable, check if the output of otool -L contains
+# @-references (errors are ignored), produce output by executing otool -L again.
+	find $(PREFIX) \
+		-type f -perm -u+x \
+		-exec sh -c 'otool -L "$$0" | grep --silent -e "@rpath"' {} \; \
+		-exec otool -L {} \;
+
