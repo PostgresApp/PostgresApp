@@ -25,12 +25,11 @@ JPEG_VERSION=9e
 
 LIBEDIT_VERSION=20130611-3.1
 
-# ftp://xmlsoft.org/libxml2/
-# there seems to be a 2.9.12 available but not yet announced
-LIBXML2_VERSION=2.9.11
+# https://gitlab.gnome.org/GNOME/libxml2/-/releases
+LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1m
+OPENSSL_VERSION=1.1.1o
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -254,12 +253,12 @@ $(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
 	cd libxml2-${LIBXML2_VERSION} && export PATH="$(PREFIX)/bin:/bin:/usr/bin" && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
 
-libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.gz
-	$(TAR) libxml2-${LIBXML2_VERSION}.tar.gz
+libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.xz
+	$(TAR) libxml2-${LIBXML2_VERSION}.tar.xz
 	touch $@
 
-libxml2-${LIBXML2_VERSION}.tar.gz:
-	$(CURL) "ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.gz"
+libxml2-${LIBXML2_VERSION}.tar.xz:
+	$(CURL) "https://download.gnome.org/sources/libxml2/2.9/libxml2-${LIBXML2_VERSION}.tar.xz"
 
 clean-libxml2:
 	rm -Rf "libxml2-$(LIBXML2_VERSION)"
