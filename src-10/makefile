@@ -199,7 +199,7 @@ libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.xz
 	touch $@
 
 libxml2-${LIBXML2_VERSION}.tar.xz:
-	$(CURL) "ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.xz"
+	$(CURL) "https://download.gnome.org/sources/libxml2/2.9/libxml2-${LIBXML2_VERSION}.tar.xz"
 
 clean-libxml2:
 	rm -Rf "libxml2-$(LIBXML2_VERSION)"
