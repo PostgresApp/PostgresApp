@@ -24,8 +24,8 @@ LIBEDIT_VERSION=20130611-3.1
 #http://download.osgeo.org/gdal/
 LIBJASPER_VERSION=1.900.1
 
-# http://xmlsoft.org/news.html
-LIBXML2_VERSION=2.9.11
+# https://gitlab.gnome.org/GNOME/libxml2/-/releases
+LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
 OPENSSL_VERSION=1.1.1o
@@ -85,7 +85,7 @@ all: postgresql postgis plv8 wal2json pldebugger
 clean: clean-postgresql clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjasper clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-libtiff clean-postgis clean-plv8 clean-wal2json clean-pldebugger 
 	rm -Rf "$(PREFIX)"
 check: check-postgresql
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.gz libedit-$(LIBEDIT_VERSION).tar.gz jasper-$(LIBJASPER_VERSION).uuid.tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz v8-${V8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz 
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jasper-$(LIBJASPER_VERSION).uuid.tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz v8-${V8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz 
 
 
 #########################
@@ -194,12 +194,12 @@ $(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
 	cd libxml2-${LIBXML2_VERSION} && export PATH="$(PREFIX)/bin:/bin:/usr/bin" && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
 
-libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.gz
-	$(TAR) libxml2-${LIBXML2_VERSION}.tar.gz
+libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.xz
+	$(TAR) libxml2-${LIBXML2_VERSION}.tar.xz
 	touch $@
 
-libxml2-${LIBXML2_VERSION}.tar.gz:
-	$(CURL) "ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.gz"
+libxml2-${LIBXML2_VERSION}.tar.xz:
+	$(CURL) "ftp://xmlsoft.org/libxml2/libxml2-${LIBXML2_VERSION}.tar.xz"
 
 clean-libxml2:
 	rm -Rf "libxml2-$(LIBXML2_VERSION)"
