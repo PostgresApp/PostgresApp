@@ -61,7 +61,9 @@ PLDEBUGGER_VERSION=1.4
 ICU_MAJOR_VERSION=67
 ICU_MINOR_VERSION=1
 
+# https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.8
+PYTHON_VERSION_FULL=3.8.10
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -131,7 +133,7 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # of libraries like openssl, instead of system provided versions
 # 
 # We're building without tcl and perl for now because they caused problems on macOS 10.15
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib postgresql-$(POSTGRES_VERSION)/configure
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib postgresql-$(POSTGRES_VERSION)/configure check-python
 	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-icu
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
@@ -575,3 +577,12 @@ pldebugger-${PLDEBUGGER_VERSION}.tar.gz:
 
 clean-pldebugger:
 	rm -Rf pldebugger-${PLDEBUGGER_VERSION}
+
+
+#########################
+##### Tests #############
+#########################
+
+check-python:
+# This checks if the specified python version is installed
+	$(PYTHON) -V | grep -q $(PYTHON_VERSION_FULL)
