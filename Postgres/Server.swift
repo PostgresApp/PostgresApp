@@ -248,10 +248,50 @@ class Server: NSObject {
 		}
 	}
 	
+	var initDBOSVersion: String {
+		if _initDBOSVersion == nil {
+			checkInitdbOSVersion()
+		}
+		return _initDBOSVersion!
+	}
+	fileprivate var _initDBOSVersion: String?
+	func checkInitdbOSVersion() {
+		guard _initDBOSVersion == nil else { return }
+		// try loading from user defaults
+		let osVersions = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersions") as? [String: String] ?? [:]
+		if let osVersion = osVersions[varPath] {
+			_initDBOSVersion = osVersion
+			return
+		}
+		
+		// try loading previous guess
+		var osVersionsGuessed = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersionsGuessed") as? [String: String] ?? [:]
+		if let osVersion = osVersionsGuessed[varPath] {
+			_initDBOSVersion = osVersion
+			return
+		}
+		
+		//no previous guess, we need to make a guess now
+		if let history = InstallHistory.local {
+			if let pgVersionAttributes = try? FileManager().attributesOfItem(atPath: pgVersionPath) {
+				if let creationDate = pgVersionAttributes[.creationDate] as? Date {
+					let guessedVersion = history.macOSVersion(on: creationDate) ?? "0"
+					_initDBOSVersion = guessedVersion
+					osVersionsGuessed[varPath] = guessedVersion
+					UserDefaults.standard.set(osVersionsGuessed, forKey: "DataDirectoryInitdbOSVersionsGuessed")
+					return
+				}
+			}
+		}
+		
+		_initDBOSVersion = "0"
+	}
 	
 	/// Checks if the server is running.
 	/// Must be called only from the main thread.
 	func updateServerStatus() {
+		checkInitdbOSVersion()
+		
 		if !FileManager.default.fileExists(atPath: binPath) {
 			serverStatus = .NoBinaries
 			running = false
@@ -481,6 +521,7 @@ class Server: NSObject {
 		// record initdb version
 		let os = ProcessInfo.processInfo.operatingSystemVersion
 		let osVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+		_initDBOSVersion = osVersion
 		var osVersions = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersions") as? [String: String] ?? [:]
 		osVersions[varPath] = osVersion
 		UserDefaults.standard.set(osVersions, forKey: "DataDirectoryInitdbOSVersions")

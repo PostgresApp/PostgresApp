@@ -11,6 +11,9 @@
 		360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961E1DC20EF3005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		363580AC27503E4B009FC06E /* libpq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 363580AB27503E4B009FC06E /* libpq.a */; };
+		36447A62282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
+		36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
+		36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */; };
 		36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
 		36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
@@ -102,6 +105,7 @@
 /* Begin PBXFileReference section */
 		360E961B1DC20D5E005D8C69 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		363580AB27503E4B009FC06E /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = "src-staticlibs/libpq.a"; sourceTree = "<group>"; };
+		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstallHistory.swift; path = "../../macOS Install History/macOS Install History/InstallHistory.swift"; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
 		830377B71E4C820A008E6896 /* PostgresApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostgresApplication.h; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 				8372BD391D1D9817004EE2C3 /* AddServer.swift */,
 				83F3647D1D5204D30096F1F5 /* SettingsView.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
+				36447A61282568BA00F5BB7A /* InstallHistory.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
 				360E961B1DC20D5E005D8C69 /* UserDefaults.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
@@ -451,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */,
 				83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */,
 				83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */,
 				36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */,
@@ -469,6 +475,7 @@
 				834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */,
 				83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */,
 				36D767B62729F1AD00161CF2 /* ProcessExtensions.swift in Sources */,
+				36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */,
 				83C19C5C1D7D9AAE00F4862D /* MenuItemView.swift in Sources */,
 				83C19C681D7D9D1900F4862D /* Server.swift in Sources */,
 				360E961E1DC20EF3005D8C69 /* UserDefaults.swift in Sources */,
@@ -498,6 +505,7 @@
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				83543E281D2136E800F764CB /* ErrorRecoveryAttempter.m in Sources */,
+				36447A62282568BA00F5BB7A /* InstallHistory.swift in Sources */,
 				8348A1F11DB52E9A0039A024 /* ValueTransformers.swift in Sources */,
 				83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */,
 				838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */,
