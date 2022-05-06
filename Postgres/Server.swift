@@ -477,6 +477,13 @@ class Server: NSObject {
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.initdb", code: 0, userInfo: userInfo)
 		}
+		
+		// record initdb version
+		let os = ProcessInfo.processInfo.operatingSystemVersion
+		let osVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+		var osVersions = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersions") as? [String: String] ?? [:]
+		osVersions[varPath] = osVersion
+		UserDefaults.standard.set(osVersions, forKey: "DataDirectoryInitdbOSVersions")
 	}
 	
 	
