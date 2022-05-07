@@ -43,6 +43,9 @@ class ServerManager: NSObject {
 			}
 			servers.append(server)
 		}
+		// The first time we run this version of Postgres.app, we try to figure out
+		// which macOS versions all the data directories were created with.
+		// This is needed to show the reindex warning if necessary
 		if !UserDefaults.shared.bool(forKey: "DidCheckInitdbOSVersion") {
 			for server in servers {
 				server.checkInitdbOSVersion()

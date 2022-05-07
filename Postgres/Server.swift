@@ -271,6 +271,9 @@ class Server: NSObject {
 		}
 	}
 	
+	// This function checks if the macOS version was recorded when doing initdb
+	// If not, it tries to guess by comparing the creation date of pg_version to the list of macOS versions in InstallHistory.plist
+	// This method is designed to be called only once, when first running a new version of Postgres.app
 	func checkInitdbOSVersion() {
 		var currentConfigPlist = configPlist
 		
@@ -291,6 +294,7 @@ class Server: NSObject {
 		}
 	}
 	
+	// This function checks if the data directory was initialized (or started) on a macOS version with incompatible collations
 	func checkReindexWarning() {
 		let currentConfigPlist = configPlist
 		
