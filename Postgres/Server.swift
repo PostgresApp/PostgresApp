@@ -269,27 +269,11 @@ class Server: NSObject {
 		}
 	}
 	
-	var initDBOSVersion: String {
-		if _initDBOSVersion == nil {
-			checkInitdbOSVersion()
-		}
-		return _initDBOSVersion!
-	}
-	fileprivate var _initDBOSVersion: String?
 	func checkInitdbOSVersion() {
-		guard _initDBOSVersion == nil else { return }
-		
 		var currentConfigPlist = configPlist
 		
-		// try loading saved version
-		if let osVersion = currentConfigPlist["initdb_macos_version"] as? String {
-			_initDBOSVersion = osVersion
-			return
-		}
-		
-		// try loading previous guess
-		if let osVersion = currentConfigPlist["initdb_macos_version_guessed"] as? String {
-			_initDBOSVersion = osVersion
+		// check if there is already a macos version stored
+		if  currentConfigPlist["initdb_macos_version"] is String || currentConfigPlist["initdb_macos_version_guessed"] is String {
 			return
 		}
 		
@@ -297,23 +281,18 @@ class Server: NSObject {
 		if let history = InstallHistory.local {
 			if let pgVersionAttributes = try? FileManager().attributesOfItem(atPath: pgVersionPath) {
 				if let creationDate = pgVersionAttributes[.creationDate] as? Date {
-					let guessedVersion = history.macOSVersion(on: creationDate) ?? "0"
-					_initDBOSVersion = guessedVersion
+					let guessedVersion = history.macOSVersion(on: creationDate) ?? "unknown"
 					currentConfigPlist["initdb_macos_version_guessed"] = guessedVersion
 					configPlist	= currentConfigPlist
-					return
 				}
 			}
 		}
 		
-		_initDBOSVersion = "0"
 	}
 	
 	/// Checks if the server is running.
 	/// Must be called only from the main thread.
 	func updateServerStatus() {
-		checkInitdbOSVersion()
-		
 		if !FileManager.default.fileExists(atPath: binPath) {
 			serverStatus = .NoBinaries
 			running = false
@@ -542,7 +521,6 @@ class Server: NSObject {
 		
 		// record initdb version
 		let osVersion = ProcessInfo.processInfo.macosDisplayVersion
-		_initDBOSVersion = osVersion
 		var currentConfigPlist = configPlist
 		currentConfigPlist["initdb_macos_version"] = osVersion
 		configPlist	= currentConfigPlist

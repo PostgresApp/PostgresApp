@@ -43,6 +43,12 @@ class ServerManager: NSObject {
 			}
 			servers.append(server)
 		}
+		if !UserDefaults.shared.bool(forKey: "DidCheckInitdbOSVersion") {
+			for server in servers {
+				server.checkInitdbOSVersion()
+			}
+			UserDefaults.shared.set(true, forKey: "DidCheckInitdbOSVersion")
+		}
 	}
 	
 	
