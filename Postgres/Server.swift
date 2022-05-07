@@ -85,6 +85,27 @@ class Server: NSObject {
 	private var pgVersionPath: String {
 		return varPath.appending("/PG_VERSION")
 	}
+	private var configPlistPath: String {
+		return varPath + "/postgresapp_config.plist"
+	}
+	
+	var configPlist: [String: Any] {
+		get {
+			if let data = try? Data(contentsOf: URL(fileURLWithPath: configPlistPath)),
+			   let plist = try? PropertyListSerialization.propertyList(from: data, format: nil),
+			   let configPlist = plist as? [String:Any]
+			{
+				return configPlist
+			} else {
+				return [:]
+			}
+		}
+		set {
+			if let data = try? PropertyListSerialization.data(fromPropertyList: newValue, format: .xml, options: 0) {
+				try? data.write(to: URL(fileURLWithPath: configPlistPath))
+			}
+		}
+	}
 	
 	@objc dynamic private(set) var busy: Bool = false
 	@objc dynamic private(set) var running: Bool = false
@@ -257,16 +278,17 @@ class Server: NSObject {
 	fileprivate var _initDBOSVersion: String?
 	func checkInitdbOSVersion() {
 		guard _initDBOSVersion == nil else { return }
-		// try loading from user defaults
-		let osVersions = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersions") as? [String: String] ?? [:]
-		if let osVersion = osVersions[varPath] {
+		
+		var currentConfigPlist = configPlist
+		
+		// try loading saved version
+		if let osVersion = currentConfigPlist["initdb_macos_version"] as? String {
 			_initDBOSVersion = osVersion
 			return
 		}
 		
 		// try loading previous guess
-		var osVersionsGuessed = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersionsGuessed") as? [String: String] ?? [:]
-		if let osVersion = osVersionsGuessed[varPath] {
+		if let osVersion = currentConfigPlist["initdb_macos_version_guessed"] as? String {
 			_initDBOSVersion = osVersion
 			return
 		}
@@ -277,8 +299,8 @@ class Server: NSObject {
 				if let creationDate = pgVersionAttributes[.creationDate] as? Date {
 					let guessedVersion = history.macOSVersion(on: creationDate) ?? "0"
 					_initDBOSVersion = guessedVersion
-					osVersionsGuessed[varPath] = guessedVersion
-					UserDefaults.standard.set(osVersionsGuessed, forKey: "DataDirectoryInitdbOSVersionsGuessed")
+					currentConfigPlist["initdb_macos_version_guessed"] = guessedVersion
+					configPlist	= currentConfigPlist
 					return
 				}
 			}
@@ -522,9 +544,9 @@ class Server: NSObject {
 		let os = ProcessInfo.processInfo.operatingSystemVersion
 		let osVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
 		_initDBOSVersion = osVersion
-		var osVersions = UserDefaults.standard.dictionary(forKey: "DataDirectoryInitdbOSVersions") as? [String: String] ?? [:]
-		osVersions[varPath] = osVersion
-		UserDefaults.standard.set(osVersions, forKey: "DataDirectoryInitdbOSVersions")
+		var currentConfigPlist = configPlist
+		currentConfigPlist["initdb_macos_version"] = osVersion
+		configPlist	= currentConfigPlist
 	}
 	
 	
