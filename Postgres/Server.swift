@@ -541,8 +541,7 @@ class Server: NSObject {
 		}
 		
 		// record initdb version
-		let os = ProcessInfo.processInfo.operatingSystemVersion
-		let osVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+		let osVersion = ProcessInfo.processInfo.macosDisplayVersion
 		_initDBOSVersion = osVersion
 		var currentConfigPlist = configPlist
 		currentConfigPlist["initdb_macos_version"] = osVersion

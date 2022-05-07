@@ -63,3 +63,10 @@ func is_arm_mac() -> Bool {
         return false
     }
 }
+
+extension ProcessInfo {
+	var macosDisplayVersion: String {
+		let v = operatingSystemVersion
+		return "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
+	}
+}
