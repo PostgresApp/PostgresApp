@@ -127,7 +127,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	
 	// SUUpdater delegate methods
-	func updater(_ updater: SUUpdater!, willInstallUpdate item: SUAppcastItem!) {
+	func updater(_ updater: SUUpdater, willInstallUpdate item: SUAppcastItem) {
 		for server in serverManager.servers where server.running {
 			try? server.stopSync()
 		}
