@@ -91,6 +91,10 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
         }
 	}
 	
+	@IBAction func warningButtonClicked(_ sender: AnyObject?) {
+		guard let server = mainWindowModel.firstSelectedServer else { return }
+		server.showWarningDetails(modalFor: view.window!)
+	}
 	
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
 		if let target = segue.destinationController as? SettingsViewController {

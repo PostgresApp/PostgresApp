@@ -110,6 +110,8 @@ class Server: NSObject {
 	@objc dynamic private(set) var busy: Bool = false
 	@objc dynamic private(set) var running: Bool = false
 	@objc dynamic private(set) var serverStatus: ServerStatus = .Unknown
+	@objc dynamic private(set) var serverWarning: String? = nil
+	@objc dynamic private(set) var serverWarningButtonTitle: String? = nil
 	@objc dynamic private(set) var databases: [Database] = []
 	@objc dynamic var selectedDatabaseIndices = IndexSet()
 	
@@ -287,7 +289,73 @@ class Server: NSObject {
 				}
 			}
 		}
+	}
+	
+	func checkReindexWarning() {
+		let currentConfigPlist = configPlist
 		
+		let reindexCheckVersion =
+			currentConfigPlist["reindex_warning_reset_on_macos_version"] as? String ??
+			currentConfigPlist["initdb_macos_version"] as? String ??
+			currentConfigPlist["initdb_macos_version_guessed"] as? String ??
+			"unknown"
+		
+		let startedVersions = currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? []
+		
+		let currentVersion = ProcessInfo.processInfo.macosDisplayVersion
+		
+		let relevantVersions = startedVersions + [reindexCheckVersion, currentVersion]
+		
+		var needReindex = false
+		
+		if relevantVersions.contains("unknown") {
+			needReindex = true
+		} else {
+			let containsOldVersion = relevantVersions.contains {"11".compare($0, options: .numeric) == .orderedDescending}
+			let containsNewVersion = relevantVersions.contains {"11".compare($0, options: .numeric) != .orderedDescending}
+			if containsOldVersion && containsNewVersion {
+				needReindex = true
+			}
+		}
+		
+		if needReindex {
+			serverWarning = "Databases should be reindexed"
+			serverWarningButtonTitle = "Learn more"
+		} else {
+			serverWarning = nil
+			serverWarningButtonTitle = nil
+		}
+	}
+	
+	func showWarningDetails(modalFor window: NSWindow) {
+		// Right now there's only one type of warning
+		// Should be parameterized at some point
+		let alert = NSAlert()
+		alert.messageText = "All databases on this server should be reindexed"
+		alert.informativeText = "The default text sort order has changed in macOS 11. This means that indexes created before this change are no longer valid and they can cause data corruption.\n\nTo avoid data loss or duplicate keys, please execute the REINDEX DATABASE command on every database on this server."
+		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "More Info")
+		alert.addButton(withTitle: "Hide This Warning")
+		alert.beginSheetModal(for: window) {
+			switch $0 {
+			case .alertFirstButtonReturn:
+				return
+			case .alertSecondButtonReturn:
+				NSWorkspace.shared.open(URL(string: "https://github.com/PostgresApp/PostgresApp/issues/665")!)
+			case .alertThirdButtonReturn:
+				self.resetReindexWarning()
+			default:
+				break
+			}
+		}
+	}
+	
+	func resetReindexWarning() {
+		var currentConfigPlist = configPlist
+		currentConfigPlist["recently_started_on_macos_versions"] = nil
+		currentConfigPlist["reindex_warning_reset_on_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
+		configPlist = currentConfigPlist
+		checkReindexWarning()
 	}
 	
 	/// Checks if the server is running.
@@ -306,6 +374,8 @@ class Server: NSObject {
 			databases.removeAll()
 			return
 		}
+		
+		checkReindexWarning()
 		
 		if FileManager.default.fileExists(atPath: pidFilePath) {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
@@ -451,6 +521,15 @@ class Server: NSObject {
 				})
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo)
+		}
+		
+		// Log the current macOS version in the config plist so we know when to show reindex warnings
+		var currentConfig = configPlist
+		var recentlyStartedMacOSVersions = currentConfig["recently_started_on_macos_versions"] as? [String] ?? []
+		if !recentlyStartedMacOSVersions.contains(ProcessInfo.processInfo.macosDisplayVersion) {
+			recentlyStartedMacOSVersions.append(ProcessInfo.processInfo.macosDisplayVersion)
+			currentConfig["recently_started_on_macos_versions"] = recentlyStartedMacOSVersions
+			configPlist = currentConfig
 		}
 	}
 	
