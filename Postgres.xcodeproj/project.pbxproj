@@ -105,7 +105,7 @@
 /* Begin PBXFileReference section */
 		360E961B1DC20D5E005D8C69 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		363580AB27503E4B009FC06E /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = "src-staticlibs/libpq.a"; sourceTree = "<group>"; };
-		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstallHistory.swift; path = "../../macOS Install History/macOS Install History/InstallHistory.swift"; sourceTree = "<group>"; };
+		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallHistory.swift; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
 		830377B71E4C820A008E6896 /* PostgresApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostgresApplication.h; sourceTree = "<group>"; };
