@@ -576,12 +576,11 @@ IA
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="laV-S9-hSm">
-                                <rect key="frame" x="171" y="252" width="45" height="16"/>
-                                <buttonCell key="cell" type="bevel" title="Button" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="zec-A1-Qvh">
+                                <rect key="frame" x="164" y="243" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zec-A1-Qvh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <color key="contentTintColor" name="linkColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="warningButtonClicked:" target="Rgw-vS-n3O" id="We7-oI-82H"/>
                                     <binding destination="n71-mI-16p" name="hidden" keyPath="selection.serverWarningButtonTitle" id="JzY-0N-Eh4">
@@ -642,7 +641,7 @@ IA
                             <constraint firstAttribute="trailing" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="20" id="rkl-In-o7n"/>
                             <constraint firstItem="ohd-xG-8rQ" firstAttribute="leading" secondItem="chP-0M-fyI" secondAttribute="leading" id="suc-gT-aJu"/>
                             <constraint firstItem="gZH-Ls-EES" firstAttribute="top" secondItem="Jak-G7-PlW" secondAttribute="bottom" id="wGQ-Q8-W8y"/>
-                            <constraint firstItem="laV-S9-hSm" firstAttribute="firstBaseline" secondItem="ZMb-aL-TmL" secondAttribute="firstBaseline" id="yAk-Di-aQh"/>
+                            <constraint firstItem="laV-S9-hSm" firstAttribute="centerY" secondItem="ZMb-aL-TmL" secondAttribute="centerY" id="yAk-Di-aQh"/>
                             <constraint firstItem="Jak-G7-PlW" firstAttribute="top" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="yrZ-nQ-69f"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
                         </constraints>
