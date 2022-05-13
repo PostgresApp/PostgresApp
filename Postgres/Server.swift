@@ -345,7 +345,7 @@ class Server: NSObject {
 			case .alertFirstButtonReturn:
 				return
 			case .alertSecondButtonReturn:
-				NSWorkspace.shared.open(URL(string: "https://github.com/PostgresApp/PostgresApp/issues/665")!)
+				NSWorkspace.shared.open(URL(string: "https://postgresapp.com/l/reindex_warning/")!)
 			case .alertThirdButtonReturn:
 				self.resetReindexWarning()
 			default:

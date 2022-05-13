@@ -83,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
-		NSWorkspace.shared.open(URL(string: "http://postgresapp.com/documentation/")!)
+		NSWorkspace.shared.open(URL(string: "https://postgresapp.com/l/help/")!)
 	}
 	
 	

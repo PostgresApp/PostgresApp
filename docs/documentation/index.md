@@ -1,6 +1,8 @@
 ---
 layout: documentation
 title: Postgres.app Documentation
+redirect_from:
+  - /l/help/
 ---
 
 ## Documentation
