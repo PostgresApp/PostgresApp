@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Call this script like this:
+# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12 ./build.sh
+
 set -e
 set -o pipefail
 
@@ -8,54 +11,33 @@ export PYTHONUNBUFFERED=1
 
 trap 'if [[ $? -ne 0 ]]; then echo "Error"; echo "Check Log For Details"; fi' EXIT
 
-# Call this script like this:
-# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12 NOTARIZATION_USER=someone@example.com NOTARIZATION_PASSWORD=@keychain:apple-id SPARKLE_SIGNING_KEY=example.pem ./build.sh
-
-if [ x$POSTGRESAPP_SHORT_VERSION = x ]
+if [ "x$POSTGRESAPP_SHORT_VERSION" = x ]
 then
 	echo "Please set the environment variable POSTGRESAPP_SHORT_VERSION"
 	exit 1
 fi
 
-if [ x$POSTGRESAPP_BUILD_VERSION = x ]
+if [ "x$POSTGRESAPP_BUILD_VERSION" = x ]
 then
 	echo "Please set the environment variable POSTGRESAPP_BUILD_VERSION"
 	exit 1
 fi
 
-if [ x$PG_BINARIES_VERSIONS = x ]
+if [ "x$PG_BINARIES_VERSIONS" = x ]
 then
 	echo "Please set the environment variable PG_BINARIES_VERSIONS"
 	exit 1
 fi
 
-if [ x$PG_BINARIES_DIR = x ]
+if [ "x$PG_BINARIES_DIR" = x ]
 then
 	echo "Please set the environment variable PG_BINARIES_DIR"
 	exit 1
 fi
 
-if [ x$LATEST_STABLE_PG_VERSION = x ]
+if [ "x$LATEST_STABLE_PG_VERSION" = x ]
 then
 	echo "Please set the environment variable LATEST_STABLE_PG_VERSION"
-	exit 1
-fi
-
-if [ x$NOTARIZATION_USER = x ]
-then
-	echo "Please set the environment variable NOTARIZATION_USER"
-	exit 1
-fi
-
-if [ x$NOTARIZATION_PASSWORD = x ]
-then
-	echo "Please set the environment variable NOTARIZATION_PASSWORD, eg NOTARIZATION_PASSWORD=@keychain:service-name"
-	exit 1
-fi
-
-if [ x$SPARKLE_SIGNING_KEY = x ]
-then
-	echo "Please set SPARKLE_SIGNING_KEY to the path of the DSA key used for signing sparkle updates."
 	exit 1
 fi
 

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Before calling this script, make sure you have stored App Store Connect API credentials in the keychain
+# xcrun notarytool store-credentials postgresapp
+# Then you can call this script like this:
+# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12  SPARKLE_SIGNING_KEY=example.pem ./notarize.sh
+
 set -e
 set -o pipefail
 
@@ -8,52 +13,37 @@ export PYTHONUNBUFFERED=1
 
 trap 'if [[ $? -ne 0 ]]; then echo "Error"; echo "Check Log For Details"; fi' EXIT
 
-# Call this script like this:
-# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12 NOTARIZATION_USER=someone@example.com NOTARIZATION_PASSWORD=@keychain:apple-id SPARKLE_SIGNING_KEY=example.pem ./build.sh
-
-if [ x$POSTGRESAPP_SHORT_VERSION = x ]
+if [ "x$POSTGRESAPP_SHORT_VERSION" = x ]
 then
 	echo "Please set the environment variable POSTGRESAPP_SHORT_VERSION"
 	exit 1
 fi
 
-if [ x$POSTGRESAPP_BUILD_VERSION = x ]
+if [ "x$POSTGRESAPP_BUILD_VERSION" = x ]
 then
 	echo "Please set the environment variable POSTGRESAPP_BUILD_VERSION"
 	exit 1
 fi
 
-if [ x$PG_BINARIES_VERSIONS = x ]
+if [ "x$PG_BINARIES_VERSIONS" = x ]
 then
 	echo "Please set the environment variable PG_BINARIES_VERSIONS"
 	exit 1
 fi
 
-if [ x$PG_BINARIES_DIR = x ]
+if [ "x$PG_BINARIES_DIR" = x ]
 then
 	echo "Please set the environment variable PG_BINARIES_DIR"
 	exit 1
 fi
 
-if [ x$LATEST_STABLE_PG_VERSION = x ]
+if [ "x$LATEST_STABLE_PG_VERSION" = x ]
 then
 	echo "Please set the environment variable LATEST_STABLE_PG_VERSION"
 	exit 1
 fi
 
-if [ x$NOTARIZATION_USER = x ]
-then
-	echo "Please set the environment variable NOTARIZATION_USER"
-	exit 1
-fi
-
-if [ x$NOTARIZATION_PASSWORD = x ]
-then
-	echo "Please set the environment variable NOTARIZATION_PASSWORD, eg NOTARIZATION_PASSWORD=@keychain:service-name"
-	exit 1
-fi
-
-if [ x$SPARKLE_SIGNING_KEY = x ]
+if [ "x$SPARKLE_SIGNING_KEY" = x ]
 then
 	echo "Please set SPARKLE_SIGNING_KEY to the path of the DSA key used for signing sparkle updates."
 	exit 1
@@ -81,10 +71,10 @@ env >"$LOG_DIR/env"
 
 # notarize
 echo -n "Notarizing Build... "
-./notarize-build.py --username "$NOTARIZATION_USER" --password "$NOTARIZATION_PASSWORD" --notarize-dmg "$DMG_DST_PATH" --bundle-id com.postgresapp.Postgres2 --log "$LOG_DIR/notarize.log" >"$LOG_DIR/notarize.out" 2>"$LOG_DIR/notarize.err"
+xcrun notarytool submit "$DMG_DST_PATH" --wait --keychain-profile postgresapp >"$LOG_DIR/notarize.out" 2>"$LOG_DIR/notarize.err"
 echo "Done"
 echo -n "Stapling... "
-./notarize-build.py --staple-app "$DMG_DST_PATH" --log "$LOG_DIR/staple.log" >"$LOG_DIR/staple.out" 2>"$LOG_DIR/staple.err"
+xcrun stapler staple "$DMG_DST_PATH" >"$LOG_DIR/staple.out" 2>"$LOG_DIR/staple.err"
 echo "Done"
 
 # sign update
@@ -92,14 +82,8 @@ echo -n "Signing... "
 ./sign_update "$DMG_DST_PATH" "$SPARKLE_SIGNING_KEY" >"$SIGNATURE_PATH" 2>"$LOG_DIR/sign_update.err"
 echo "Done"
 
-echo
-echo "       Path: $DMG_DST_PATH"
-echo "       Size:" $(stat -f %z "$DMG_DST_PATH")
-echo "  Signature:" $(cat "$SIGNATURE_PATH")
-echo
-
-echo "Appcast:"
-tee "$APPCAST_PATH" <<EOF
+echo -n "Generating Appcast... "
+cat >"$APPCAST_PATH" <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
@@ -136,7 +120,13 @@ $(
   </channel>
 </rss>
 EOF
+echo "Done"
 
+echo
+echo "       Path: $DMG_DST_PATH"
+echo "       Size:" $(stat -f %z "$DMG_DST_PATH")
+echo "  Signature:" $(cat "$SIGNATURE_PATH")
+echo "    Appcast:" "$APPCAST_PATH"
 echo
 echo
 echo
