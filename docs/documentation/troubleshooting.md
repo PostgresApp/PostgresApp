@@ -23,7 +23,7 @@ PostgreSQL.
 
 This error means that the binaries for this server are not included in the installed 
 bundle. If the required version is still supported, you can download a different bundle 
-from [this page](downloads.html). If the version is no longer supported, you can find the
+from [this page](/downloads.html). If the version is no longer supported, you can find the
 last release supporting that version under [legacy downloads](/downloads_legacy.html). 
 Please note that these releases are no longer maintained and you should 
 [migrate your data](migrating-data.html) to a new version as soon as possible.

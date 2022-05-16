@@ -26,21 +26,21 @@ To reindex you database:
 * Open a terminal and run [`reindexdb -a <database>`](https://www.postgresql.org/docs/current/app-reindexdb.html)
   (or `reindexdb -a -p <port> <database>` if the server is running on a non-standard port).
   Repeat this for every <database> on the affected server.
-** If you get an error _'command not found'_, you don't have setup you path correctly. 
-   Either [do so](cli-tools.html) or use an explicit path: 
-   `/Applications/Postgres.app/Contents/Versions/latest/bin/reindexdb -a <database>`
-** If you get an error _'connection to server .. failed'_ you likely have an 
-   authentication error. You need to supply the necessary connection paramaters of a 
-   superuser, likely `-U postgres`. If you are prompted for an password, this was not set
-   by PostgresApp.
-** If you see _'ERROR:  must be owner of database'_ supply the connection parameters to a 
-   superuser or connect to the database as its owner via `psql` and run 
-   `REINDEX DATABASE <databasename>;`
-** If you see errors like _`ERROR:  could not create unique index`_ take a note on the 
-   message and the details below, connect to the database in question, and manually
-   resolve the unique conflict. When querying the data, try to avoid using indexes, e.g.
-   by issuing `SET enable_indexscan = off; SET enable_indexonlyscan = off; SET enable_bitmapscan = off;`
-   in the session you use for this. Then retry the reindex operation.
+  - If you get an error _'command not found'_, you don't have setup you path correctly. 
+    Either [do so](cli-tools.html) or use an explicit path: 
+    `/Applications/Postgres.app/Contents/Versions/latest/bin/reindexdb -a <database>`
+  - If you get an error _'connection to server .. failed'_ you likely have an 
+    authentication error. You need to supply the necessary connection paramaters of a 
+    superuser, likely `-U postgres`. If you are prompted for an password, this was not set
+    by PostgresApp.
+  - If you see _'ERROR:  must be owner of database'_ supply the connection parameters to a 
+    superuser or connect to the database as its owner via `psql` and run 
+    `REINDEX DATABASE <databasename>;`
+  - If you see errors like _`ERROR:  could not create unique index`_ take a note on the 
+    message and the details below, connect to the database in question, and manually
+    resolve the unique conflict. When querying the data, try to avoid using indexes, e.g.
+    by issuing `SET enable_indexscan = off; SET enable_indexonlyscan = off; SET enable_bitmapscan = off;`
+    in the session you use for this. Then retry the reindex operation.
 * Confirm the warning message in PostgresApp by clicking on 'More Info' and choose 
   'Hide This Warning'.
 
@@ -132,7 +132,7 @@ WHERE collprovider IN ('d', 'c') AND collname NOT IN ('C', 'POSIX');
 * You can further limit the reindex operation to the indexes that actually became invalid 
   with the help of the extension [`amcheck`](https://www.postgresql.org/docs/current/amcheck.html):
   `bt_index_check('<index_name>', is_unique);`
-* If you use clustered tables, you should recluster them after the reindex
+* If you use clustered tables, you should recluster them after reindexing:
   [`clusterdb -a`](https://www.postgresql.org/docs/current/app-clusterdb.html) or
   [`CLUSTER <table_name>;`](https://www.postgresql.org/docs/current/sql-cluster.html). 
 * In case you use partitioned tables with Range Partitioning on a text based column, it
