@@ -15,21 +15,32 @@ See this [dedicated page](reindex-warning.html).
 
 The following list contains all errors which may occur while you're using Postgres.app.  
 
-#### The binaries for this PostgreSQL server were not found
+#### PostgreSQL version not installed
 
-Postgres.app includes the PostgreSQL binaries inside the application package.
-By default, PostgreSQL version 9.5 and 9.6 are included.
+Postgres.app includes the PostgreSQL binaries inside the application package. Each version
+is available bundled with either a single or all currently supported versions of 
+PostgreSQL.
 
-This error means that the binaries for this server were not found. 
-This could happen if a future version of Postgres.app drops does not include your version of PostgreSQL anymore.
-It could also happen if you manually added older binaries to Postgres.app, and then you updated Postgres.app.
+This error means that the binaries for this server are not included in the installed 
+bundle. If the required version is still supported, you can download a different bundle 
+from [this page](downloads.html). If the version is no longer supported, you can find the
+last release supporting that version under [legacy downloads](/downloads_legacy.html). 
+Please note that these releases are no longer maintained and you should 
+[migrate your data](migrating-data.html) to a new version as soon as possible.
 
-To fix this issue, make sure that the correct binaries for your server are in `/Applications/Postgres.app/Contents/Versions/`
+After the first start of Postgres.app, it is possible to alter the available versions of
+PostgreSQL by copying the wanted versions out of the application package of other releases
+to the directory `/Applications/Postgres.app/Contents/Versions/`.
 
 #### Port [number] is already in use
 
 This error usually means that you already have a PostgreSQL server running on your Mac. 
-Uninstall the old PostgreSQL server first, then start Postgres.app again.
+If that is running within Postgres.app, expand the sidebar and stop that other server or 
+alter the 'Port' under the button 'Database Settings'.
+
+If there isn't an other server running within Postgres.app, you likely have a different
+installation of PostgreSQL running on your machine. To uninstall this, see the 
+instructions on [this page](remove.html)
 
 It can also happen when a different user on your Mac is already running Postgres.app.
 Only a single server can run on each port.
