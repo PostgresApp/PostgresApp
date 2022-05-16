@@ -5,6 +5,12 @@ title: Troubleshooting
 
 ## Troubleshooting & Support
 
+### Warnings
+
+#### Databases should be reindexed
+
+See this [dedicated page](reindex-warning.html).
+
 ### Common errors
 
 The following list contains all errors which may occur while you're using Postgres.app.  
