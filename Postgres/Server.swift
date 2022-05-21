@@ -340,25 +340,6 @@ class Server: NSObject {
 			mustReindex = true
 		}
 		
-		// Finally, there is an issue that was fixed in 14.3 and 13.7 that may require reindexing
-		// so if the user has been running 14-14.2 or 13-13.6, or an unknown version of PG 13 / 14
-		// then we show the should reindex warning
-		if let binaryVersion = binaryVersion {
-			let is13or14 = "13".compare(binaryVersion, options: .numeric) != .orderedDescending && "15".compare(binaryVersion, options: .numeric) == .orderedDescending
-			if is13or14 {
-				let pgVersion = currentConfigPlist["reindex_warning_reset_on_postgresql_version"] as? String ?? currentConfigPlist["initdb_postgresql_version"] as? String ?? "unknown"
-				let relevantPGVersions = [pgVersion] + (currentConfigPlist["recently_started_postgresql_versions"] as? [String] ?? [])
-				if relevantPGVersions.contains("unknown") {
-					shouldReindex = true
-				}
-				let containsBad13Version = relevantPGVersions.contains { "13".compare($0, options: .numeric) != .orderedDescending &&  "13.7".compare($0, options: .numeric) == .orderedDescending }
-				let containsBad14Version = relevantPGVersions.contains { "14".compare($0, options: .numeric) != .orderedDescending &&  "14.3".compare($0, options: .numeric) == .orderedDescending }
-				if containsBad13Version || containsBad14Version {
-					shouldReindex = true
-				}
-			}
-		}
-		
 		if mustReindex {
 			serverWarning = "Reindexing required"
 			serverWarningButtonTitle = "Learn more"
@@ -407,11 +388,6 @@ class Server: NSObject {
 			+
 			(currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? [])
 		currentConfigPlist["recently_started_on_macos_versions"] = nil
-		currentConfigPlist["previously_started_postgresql_versions"] =
-			(currentConfigPlist["previously_started_postgresql_versions"] as? [String] ?? [])
-			+
-			(currentConfigPlist["recently_started_postgresql_versions"] as? [String] ?? [])
-		currentConfigPlist["recently_started_postgresql_versions"] = nil
 		currentConfigPlist["recently_started_collation_hash"] = nil
 		currentConfigPlist["reindex_warning_reset_on_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
 		currentConfigPlist["reindex_warning_reset_on_postgresql_version"] = binaryVersion
