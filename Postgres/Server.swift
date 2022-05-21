@@ -378,10 +378,10 @@ class Server: NSObject {
 		let alert = NSAlert()
 		if mustReindex {
 			alert.messageText = "Databases must be reindexed"
-			alert.informativeText = "This data directory has been used with incompatible versions of macOS or PostgreSQL.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname” on every database."
+			alert.informativeText = "This data directory has been used with incompatible versions of macOS or PostgreSQL.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
 		} else {
 			alert.messageText = "Databases should be reindexed"
-			alert.informativeText = "It is possible that this data directory has been used with incompatible versions of macOS or PostgreSQL.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname” on every database."
+			alert.informativeText = "It is possible that this data directory has been used with incompatible versions of macOS or PostgreSQL.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
 		}
 		alert.addButton(withTitle: "OK")
 		alert.addButton(withTitle: "More Info")
