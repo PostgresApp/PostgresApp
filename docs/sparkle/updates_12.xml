@@ -6,14 +6,14 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5.6</title>
+		<title>Postgres.app 2.5.7</title>
 		<description>
 			<![CDATA[
 				<p>
 					This update includes the following version of PostgreSQL:
 				</p>
 				<ul>
-					<li>PostgreSQL 12.10 with PostGIS 3.0.5</li>
+					<li>PostgreSQL 12.11 with PostGIS 3.0.5</li>
 				</ul>
 				<p>
 					To save bandwidth, this automatic update only includes a bugfix updates for PostgreSQL 12.
@@ -22,14 +22,14 @@
 				</p>
 			]]>
 		</description>
-		<pubDate>Wed, 09 Feb 2022 08:57:24 +0100</pubDate>
+		<pubDate>Sat, 21 May 2022 23:55:28 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.6/Postgres-2.5.6-12.dmg"
-		sparkle:version="136"
-		sparkle:shortVersionString="2.5.6"
-		length="56306216"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.7/Postgres-2.5.7-12.dmg"
+		sparkle:version="141"
+		sparkle:shortVersionString="2.5.7"
+		length="56427854"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQC8/PnSZ/+CRzS/n+4EtPMYssFI+AIUR7Y8E5wNm0zrO33rW+fq8CWcEwE="
+		sparkle:dsaSignature="MC4CFQC+XnFT7RaTmLVPJ9GydLUg7RnShAIVAJZMLFQVooiBFQri4ijOqL/oGBt0"
 		/>
 		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
