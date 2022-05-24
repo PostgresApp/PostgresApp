@@ -16,6 +16,12 @@
 					<li>PostgreSQL 13.7 with PostGIS 3.1.5</li>
 					<li>PostgreSQL 14.3 with PostGIS 3.2.1</li>
 				</ul>
+				<p>
+					If you use GiST indexes on columns of type ltree in PostgreSQL 13 and 14, please reindex them after upgrading. For details, see the release notes.
+				</p>
+				<p>
+					We've upgraded the version of PostGIS that ships with PostgreSQL 14. If you want to make use of the new features in PostGIS 3.2, make sure to execute &quot;SELECT postgis_extensions_upgrade();&quot;
+				</p>
 			]]>
 		</description>
 		<pubDate>Sun, 22 May 2022 00:53:24 +0200</pubDate>
