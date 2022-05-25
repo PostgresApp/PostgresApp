@@ -7,7 +7,7 @@ title: Troubleshooting
 
 ### Warnings
 
-#### Databases should be reindexed
+#### Reindexing required / Reindexing recommended
 
 See this [dedicated page](reindex-warning.html).
 

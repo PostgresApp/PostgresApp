@@ -4,8 +4,8 @@ redirect_from:
 title: Reindexing your database 
 ---
 
-"Databases should be reindexed" Warning
-=======================================
+"Reindexing required / recommended" Warning
+===========================================
 
 This warning is displayed in case Postgres.app has reasons to believe the databases of 
 that server may be affected of index corruption due to a change in the locales provided by
