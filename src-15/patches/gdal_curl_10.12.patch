@@ -1,0 +1,17 @@
+--- a/port/cpl_curl_priv.h
++++ b/port/cpl_curl_priv.h
+@@ -31,6 +31,14 @@
+ 
+ #include <curl/curl.h>
+ 
++/*
++ As long as we want to keep compatibility with macOS 10.12 which ships with curl 7.51.0
++ we redefine LIBCURL_VERSION_NUM from the SDK's curlver.h to that old version, so gdal
++ will not try to access newer APIs like curl_mime_addpart
++ */
++#undef LIBCURL_VERSION_NUM
++#define LIBCURL_VERSION_NUM 0x073300
++
+ #ifndef CURL_AT_LEAST_VERSION
+ #define CURL_VERSION_BITS(x,y,z) ((x)<<16|(y)<<8|z)
+ #define CURL_AT_LEAST_VERSION(x,y,z) \
