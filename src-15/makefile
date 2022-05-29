@@ -13,6 +13,9 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 # https://github.com/lz4/lz4/releases
 LZ4_VERSION=1.9.3
 
+# https://github.com/facebook/zstd/releases
+ZSTD_VERSION=1.5.2
+
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
 GDAL_VERSION=3.3.3
@@ -76,7 +79,7 @@ PYTHON_VERSION_FULL=3.9.12
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
-PATH=$(PREFIX)/bin:/bin:/usr/bin:/opt/local/bin:/opt/homebrew/bin
+PATH=$(PREFIX)/bin:/bin:/usr/bin:/sbin:/opt/local/bin:/opt/homebrew/bin
 PKG_CONFIG_LIBDIR=$(PREFIX)/lib/pkgconfig
 DEVELOPER_DIR=/Library/Developer/CommandLineTools
 
@@ -117,11 +120,11 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis wal2json pldebugger
-clean: clean-postgresql clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger 
+clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger 
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
 check: check-postgresql
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz 
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz 
 
 
 #########################
@@ -143,8 +146,8 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # of libraries like openssl, instead of system provided versions
 # 
 # We're building without tcl and perl for now because they caused problems on macOS 10.15
-postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib $(PREFIX)/lib/liblz4.dylib postgresql-$(POSTGRES_VERSION)/configure check-python
-	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-icu --with-lz4
+postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib postgresql-$(POSTGRES_VERSION)/configure check-python
+	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-icu --with-lz4 --with-zstd
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
@@ -180,6 +183,33 @@ lz4-${LZ4_VERSION}.tar.gz:
 
 clean-lz4:
 	rm -Rf "lz4-${LZ4_VERSION}"
+
+
+###############################
+######### Zstandard ###########
+###############################
+
+# maybe we could skip installing the binaries with "make lib-release"
+
+zstd: $(PREFIX)/lib/libzstd.dylib
+	touch $@
+
+$(PREFIX)/lib/libzstd.dylib: zstd-${ZSTD_VERSION}/Makefile
+	make -C zstd-${ZSTD_VERSION} HAVE_LZ4=0
+	make -C zstd-${ZSTD_VERSION} install
+
+zstd-${ZSTD_VERSION}/Makefile: zstd-${ZSTD_VERSION}.tar.gz
+	$(TAR) zstd-${ZSTD_VERSION}.tar.gz
+	touch $@
+
+zstd-${ZSTD_VERSION}.tar.gz:
+	$(CURL) "https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz"
+
+check-zstd:
+	make -C zstd-${ZSTD_VERSION} check
+
+clean-zstd:
+	rm -Rf "zstd-${ZSTD_VERSION}"
 
 #########################
 ####### OpenSSL #########
