@@ -32,7 +32,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1o
+OPENSSL_VERSION=3.0.3
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -69,12 +69,12 @@ OPENJPEG_VERSION=2.4.0
 PLDEBUGGER_VERSION=1.4
 
 # http://site.icu-project.org/download/
-ICU_MAJOR_VERSION=69
+ICU_MAJOR_VERSION=71
 ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
-PYTHON_VERSION=3.9
-PYTHON_VERSION_FULL=3.9.12
+PYTHON_VERSION=3.11
+PYTHON_VERSION_FULL=3.11.0b1
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
