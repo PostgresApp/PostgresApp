@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.2.1
+POSTGIS_VERSION=3.3.0alpha1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15beta3
@@ -18,7 +18,7 @@ ZSTD_VERSION=1.5.2
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.3.3
+GDAL_VERSION=3.5.0
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.10.2
@@ -35,7 +35,7 @@ LIBXML2_VERSION=2.9.14
 OPENSSL_VERSION=3.0.5
 
 # https://proj.org/download.html
-PROJ_VERSION=8.1.1
+PROJ_VERSION=9.0.0
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -45,25 +45,26 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-JSONC_VERSION=0.15
+JSONC_VERSION=0.16
 
 # https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.18.2
+PROTOBUF_VERSION=3.21.1
+PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*)$$/\1/')
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.4.0
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.3.0
+LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.37
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.4.0
+OPENJPEG_VERSION=2.5.0
 
 # https://github.com/EnterpriseDB/pldebugger/tags
 PLDEBUGGER_VERSION=1.4
@@ -423,18 +424,23 @@ clean-libgdal:
 libproj: $(PREFIX)/lib/libproj.dylib
 	touch $@
 
-$(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
-	make -C proj-$(PROJ_VERSION) install
+$(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/build/Makefile
+	make -C proj-$(PROJ_VERSION)/build
+	make -C proj-$(PROJ_VERSION)/build install
 
-proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd proj-$(PROJ_VERSION) && SQLITE3_LIBS="-lsqlite3" ./configure --prefix="$(PREFIX)"
-
+proj-$(PROJ_VERSION)/build/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
+	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DMACOSX_RPATH=OFF -DINSTALL_NAME_DIR="$(PREFIX)/lib" 
+	
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
+	mkdir proj-${PROJ_VERSION}/build
 	touch $@
 
 proj-${PROJ_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz"
+
+check-libproj:
+	make -C proj-$(PROJ_VERSION)/build test
 
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
@@ -450,7 +456,7 @@ libjson-c: $(PREFIX)/lib/libjson-c.dylib
 $(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
 	# fix LC_ID_DYLIB (see https://github.com/json-c/json-c/issues/687)
-	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.1.0.dylib
+	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.2.0.dylib
 
 json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
 	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
@@ -482,7 +488,7 @@ protobuf-$(PROTOBUF_VERSION)/configure: protobuf-cpp-$(PROTOBUF_VERSION).tar.gz
 	touch $@
 
 protobuf-cpp-$(PROTOBUF_VERSION).tar.gz:
-	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION)/protobuf-cpp-$(PROTOBUF_VERSION).tar.gz"
+	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION_MINOR)/protobuf-cpp-$(PROTOBUF_VERSION).tar.gz"
 
 clean-protobuf-cpp:
 	rm -Rf protobuf-$(PROTOBUF_VERSION)
@@ -581,6 +587,9 @@ $(PREFIX)/lib/libopenjp2.dylib: openjpeg-$(OPENJPEG_VERSION)/build/Makefile
 	make -C openjpeg-$(OPENJPEG_VERSION)/build install
 
 openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib
+	#patch to fix a build error. This partially reverts https://github.com/uclouvain/openjpeg/commit/07a454324cfeb431ee3fc3799df522dff252b12b
+	#further analysis and possible upstream fix outstanding.
+	patch -b -d "openjpeg-$(OPENJPEG_VERSION)" -p1 <patches/openjpeg_2.5_tiff.patch
 	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
 
 openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt: openjpeg-$(OPENJPEG_VERSION).tar.gz
