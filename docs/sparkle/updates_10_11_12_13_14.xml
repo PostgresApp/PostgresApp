@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5.7</title>
+		<title>Postgres.app 2.5.8</title>
 		<description>
 			<![CDATA[
 				<ul>
@@ -14,25 +14,24 @@
 					<li>PostgreSQL 11.16 with PostGIS 2.5.6</li>
 					<li>PostgreSQL 12.11 with PostGIS 3.0.5</li>
 					<li>PostgreSQL 13.7 with PostGIS 3.1.5</li>
-					<li>PostgreSQL 14.3 with PostGIS 3.2.1</li>
+					<li>PostgreSQL 14.4 with PostGIS 3.2.1</li>
 				</ul>
 				<p>
-					If you use GiST indexes on columns of type ltree in PostgreSQL 13 and 14, please reindex them after upgrading. For details, see the release notes.
-				</p>
-				<p>
-					We've upgraded the version of PostGIS that ships with PostgreSQL 14. If you want to make use of the new features in PostGIS 3.2, make sure to execute &quot;SELECT postgis_extensions_upgrade();&quot;
+					There was a bug in PostgreSQL 14.3 and earlier that may lead to corrupted indexes in some cases.
+					We recommend to reindex all databases after upgrading to PostgreSQL 14.4 as a precaution.
 				</p>
 			]]>
 		</description>
-		<pubDate>Sun, 22 May 2022 00:53:24 +0200</pubDate>
+		<pubDate>Thu, 16 Jun 2022 12:31:58 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.7/Postgres-2.5.7-10-11-12-13-14.dmg"
-		sparkle:version="144"
-		sparkle:shortVersionString="2.5.7"
-		length="293856992"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.8/Postgres-2.5.8-10-11-12-13-14.dmg"
+		sparkle:version="146"
+		sparkle:shortVersionString="2.5.8"
+		length="293868240"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFD61S8mCKMtQCdpl068DJWU6tyZrAhQSeOrZ94T1qJXtNA2eiwYENXZpKA=="
+		sparkle:dsaSignature="MC0CFF64adjrKg+ZOdzfym95mSQ0VKtvAhUAywTIAyuxScRvYb7D/Qq5DfcF5Nw="
 		/>
+		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
