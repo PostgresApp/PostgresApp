@@ -113,6 +113,8 @@ class Server: NSObject {
 	@objc dynamic private(set) var serverStatus: ServerStatus = .Unknown
 	@objc dynamic private(set) var serverWarning: String? = nil
 	@objc dynamic private(set) var serverWarningButtonTitle: String? = nil
+	@objc dynamic private(set) var serverWarningMessage: String? = nil
+	@objc dynamic private(set) var serverWarningInformativeText: String? = nil
 	@objc dynamic private(set) var databases: [Database] = []
 	@objc dynamic var selectedDatabaseIndices = IndexSet()
 	
@@ -296,12 +298,11 @@ class Server: NSObject {
 	}
 	
 	// This function checks if the data directory was initialized (or started) on a macOS version with incompatible collations
-	var mustReindex = false
-	var shouldReindex = false
-	
 	func checkReindexWarning() {
-		mustReindex = false
-		shouldReindex = false
+		serverWarning = nil
+		serverWarningButtonTitle = nil
+		serverWarningMessage = nil
+		serverWarningInformativeText = nil
 
 		let currentConfigPlist = configPlist
 		
@@ -310,7 +311,11 @@ class Server: NSObject {
 		// We know that we MUST reindex
 		let collationHashes = currentConfigPlist["recently_started_collation_hash"] as? [Data] ?? []
 		if collationHashes.count > 1 {
-			mustReindex = true
+			serverWarning = "Reindexing required"
+			serverWarningButtonTitle = "Learn more"
+			serverWarningMessage = "Databases must be reindexed"
+			serverWarningInformativeText = "This data directory has been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+			return
 		}
 		
 		// Next thing we check is the macOS version
@@ -326,44 +331,55 @@ class Server: NSObject {
 		
 		let currentVersion = ProcessInfo.processInfo.macosDisplayVersion
 		
-		var relevantVersions = startedVersions + [reindexCheckVersion, currentVersion]
+		let relevantVersions = startedVersions + [reindexCheckVersion, currentVersion]
+		
+		// check for mismatching macOS versions
+		let containsOldVersion = relevantVersions.contains {$0 != "unknown" && "11".compare($0, options: .numeric) == .orderedDescending}
+		let containsNewVersion = relevantVersions.contains {$0 != "unknown" && "11".compare($0, options: .numeric) != .orderedDescending}
+		if containsOldVersion && containsNewVersion {
+			serverWarning = "Reindexing required"
+			serverWarningButtonTitle = "Learn more"
+			serverWarningMessage = "Databases must be reindexed"
+			serverWarningInformativeText = "This data directory has been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+			return
+		}
 		
 		// If the data directory was created on an unknown macOS version, we tell the user they SHOULD reindex
 		if relevantVersions.contains("unknown") {
-			shouldReindex = true
-			relevantVersions.removeAll { $0 == "unknown" }
-		}
-		
-		let containsOldVersion = relevantVersions.contains {"11".compare($0, options: .numeric) == .orderedDescending}
-		let containsNewVersion = relevantVersions.contains {"11".compare($0, options: .numeric) != .orderedDescending}
-		if containsOldVersion && containsNewVersion {
-			mustReindex = true
-		}
-		
-		if mustReindex {
-			serverWarning = "Reindexing required"
-			serverWarningButtonTitle = "Learn more"
-		}
-		else if shouldReindex {
 			serverWarning = "Reindexing recommended"
 			serverWarningButtonTitle = "Learn more"
-		} else {
-			serverWarning = nil
-			serverWarningButtonTitle = nil
+			serverWarningMessage = "Databases should be reindexed"
+			serverWarningInformativeText = "This data directory may have been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+			return
+		}
+		
+		// Check for reindex concurrently issue (fixed in PG 14.4)
+		if let binaryVersion = binaryVersion {
+			if binaryVersion.starts(with: "14") {
+				let pgVersion = currentConfigPlist["reindex_warning_reset_on_postgresql_version"] as? String ?? currentConfigPlist["initdb_postgresql_version"] as? String ?? "unknown"
+				let relevantPGVersions = [pgVersion] + (currentConfigPlist["recently_started_postgresql_versions"] as? [String] ?? [])
+				if
+					relevantPGVersions.contains("unknown") ||
+					relevantPGVersions.contains(where:{ "14.4".compare($0, options: .numeric) == .orderedDescending })
+				{
+					serverWarning = "Reindexing recommended"
+					serverWarningButtonTitle = "Learn more"
+					serverWarningMessage = "Databases should be reindexed"
+					serverWarningInformativeText = "There was a bug in PostgreSQL 14.3 and earlier that could corrupt indexes.\n\nAs a precaution, please execute the command “REINDEX DATABASE dbname;” on every database."
+					return
+				}
+			}
 		}
 	}
 	
 	func showWarningDetails(modalFor window: NSWindow) {
-		// Right now there's only one type of warning
-		// Should be parameterized at some point
-		let alert = NSAlert()
-		if mustReindex {
-			alert.messageText = "Databases must be reindexed"
-			alert.informativeText = "This data directory has been used with incompatible versions of macOS or PostgreSQL.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
-		} else {
-			alert.messageText = "Databases should be reindexed"
-			alert.informativeText = "It is possible that this data directory has been used with incompatible versions of macOS or PostgreSQL.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+		guard let serverWarningMessage = serverWarningMessage, let serverWarningInformativeText = serverWarningInformativeText else {
+			NSSound.beep()
+			return
 		}
+		let alert = NSAlert()
+		alert.messageText = serverWarningMessage
+		alert.informativeText = serverWarningInformativeText
 		alert.addButton(withTitle: "OK")
 		alert.addButton(withTitle: "More Info")
 		alert.addButton(withTitle: "Hide This Warning")
@@ -388,6 +404,11 @@ class Server: NSObject {
 			+
 			(currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? [])
 		currentConfigPlist["recently_started_on_macos_versions"] = nil
+		currentConfigPlist["previously_started_postgresql_versions"] =
+			(currentConfigPlist["previously_started_postgresql_versions"] as? [String] ?? [])
+			+
+			(currentConfigPlist["recently_started_postgresql_versions"] as? [String] ?? [])
+		currentConfigPlist["recently_started_postgresql_versions"] = nil
 		currentConfigPlist["recently_started_collation_hash"] = nil
 		currentConfigPlist["reindex_warning_reset_on_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
 		currentConfigPlist["reindex_warning_reset_on_postgresql_version"] = binaryVersion
