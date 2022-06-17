@@ -4,56 +4,73 @@ redirect_from:
 title: Reindexing your database 
 ---
 
-"Reindexing required / recommended" Warning
-===========================================
+Reindexing your database
+========================
 
-This warning is displayed in case Postgres.app has reasons to believe the databases of 
-that server may be affected of index corruption due to a change in the locales provided by
-macOS.
+In some situations database indexes can be corrupted, and you need to rebuild them with the REINDEX command.
 
-The default text sort order has changed in macOS 11. This means that indexes on text-based
-columns created before this change are no longer valid and they can cause data corruption.
+How to reindex a database
+-------------------------
 
-TL;DR;
-------
-If you just installed your machine and created a fresh Postgres server, the message is
-likely a false positive and you can click on "Hide This Warning". Otherwise we recommend
-to reindex the cluster and then confirm the warning. In case reindexing not actually 
-needed, it won't do any harm.
+Rebuilding indexes is very simple:
 
-To reindex you database:
-* Start the affected cluster (server)
-* Open a terminal and run [`reindexdb -a <database>`](https://www.postgresql.org/docs/current/app-reindexdb.html)
-  (or `reindexdb -a -p <port> <database>` if the server is running on a non-standard port).
-  Repeat this for every <database> on the affected server.
-  - If you get an error _'command not found'_, you don't have setup you path correctly. 
-    Either [do so](cli-tools.html) or use an explicit path: 
-    `/Applications/Postgres.app/Contents/Versions/latest/bin/reindexdb -a <database>`
-  - If you get an error _'connection to server .. failed'_ you likely have an 
-    authentication error. You need to supply the necessary connection paramaters of a 
-    superuser, likely `-U postgres`. If you are prompted for an password, this was not set
-    by PostgresApp.
-  - If you see _'ERROR:  must be owner of database'_ supply the connection parameters to a 
-    superuser or connect to the database as its owner via `psql` and run 
-    `REINDEX DATABASE <databasename>;`
-  - If you see errors like _`ERROR:  could not create unique index`_ take a note on the 
-    message and the details below, connect to the database in question, and manually
-    resolve the unique conflict. When querying the data, try to avoid using indexes, e.g.
-    by issuing `SET enable_indexscan = off; SET enable_indexonlyscan = off; SET enable_bitmapscan = off;`
-    in the session you use for this. Then retry the reindex operation.
-* Confirm the warning message in PostgresApp by clicking on 'More Info' and choose 
-  'Hide This Warning'.
+1. Connect to the database
+2. Execute the following query:
+	`REINDEX DATABASE db_name;`
+3. If you are using multiple databases, repeat the steps for every database.
+4. If Postgres.app shows the reindex warning, you can now hide it by clicking "More Info" and then on "Hide this Warning"
+
+
+Why should I reindex my databases?
+-----------------------------------------
+
+In some situations indexes can become corrupted.
+This can happen because of bugs in PostgreSQL or because of changes in macOS.
+
+Bugs in PostgreSQL that require a REINDEX are typically mentioned in the [PostgreSQL release notes](https://www.postgresql.org/docs/release/).
+
+Changes in macOS that require a REINDEX are unfortunately not documented anywhere. The only problematic change we are aware of currently is that the default text sort order (collation) has changed in macOS 11, which means indexes created or updated on earlier versions of macOS are no longer valid and must be rebuilt.
+
+
+How do I know if my database is affected?
+-----------------------------------------
+
+It is very hard to tell if indexes have actually been corrupted or not.
+Postgres.app tries to detect some scenarios where an index could have been corrupted, and shows a warning suggesting to reindex your database.
+
+If you are unsure, we recommend to perform the reindex operation to be safe.
+
+How long does reindexing take?
+------------------------------
+
+For small databases it will take just a few seconds, but if you have a lot of data it could take a few minutes.
+
+You can use the command `REINDEX (VERBOSE) DATABASE db_name;` to see status messages if you have a large database.
 
 Please note that to perform the reindex any concurrent writing transactions need to come
 to an end and new transactions and sessions may need to wait for the reindex to finish. If
 any client keeps a writing transaction open, the reindex operation will block and wait for 
 that without any warning. You can cancel and restart the operation if needed.
 
-If you need to perform this on a active system, you should do it during a maintenance
-window. Reindexing a big database can take a significant amount of time. 
+What happens if I don't reindex?
+--------------------------------
+
+- Queries could return incorrect results (most likely missing rows)
+- UNIQUE columns may contain duplicate values
 
 
-Backgrund
+Troubleshooting
+------
+
+  - If you see _'ERROR:  must be owner of database'_ you must connect to the database either as a superuser or as the owner of the database 
+  - If you see errors like _`ERROR:  could not create unique index`_ take a note on the 
+    message and the details, connect to the database in question, and manually
+    resolve the unique conflict. When querying the data, try to avoid using indexes, e.g.
+    by issuing `SET enable_indexscan = off; SET enable_indexonlyscan = off; SET enable_bitmapscan = off;`
+    in the session you use for this. Then retry the reindex operation.
+
+
+Backgrund Info on Collation Changes
 ---------
 
 If not explicitly requested otherwise (ICU collations), PostgreSQL uses the collations
@@ -61,7 +78,7 @@ If not explicitly requested otherwise (ICU collations), PostgreSQL uses the coll
 sets the default locale (and thus collation) to 'en_US.UTF-8' when initialising a new
 cluster since PostgresQL 9.4.1 (End of 2014). However, UTF-8 based collations are not
 actually implemented in macOS (like in most BSD Systems). Thus, the effective sort order
-was rather following byte order, see [Ticket #216](https://github.com/PostgresApp/PostgresApp/issues/216).
+was rather following byte order, see [Issue #216](https://github.com/PostgresApp/PostgresApp/issues/216).
 
 With the update to macOS 11, Apple started to use the ISO8859-1 collations for about half
 of the available locales, including the default locale of Postgres.app, 'en_US.UTF-8'. As
@@ -69,8 +86,8 @@ Database Indexes store the order of elements at the time these are inserted, cor
 can happen if the sorting rules change later.
 
 
-Is my database affected
------------------------
+Is my database affected by macOS collation changes?
+---------------------------------------------------
 
 Postgres.app records the version of macOS where `initdb` was called, and also all versions 
 of macOS that the server was started on. Since this information is not available for old 
