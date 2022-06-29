@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.2.1
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15beta1
+POSTGRES_VERSION=15beta2
 POSTGRES_MAJOR_VERSION=15
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -32,7 +32,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.3
+OPENSSL_VERSION=3.0.4
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -74,7 +74,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.0b1
+PYTHON_VERSION_FULL=3.11.0b3
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
