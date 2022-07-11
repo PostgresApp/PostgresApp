@@ -776,7 +776,12 @@ class Server: NSObject {
 		]
 		let outPipe = Pipe()
 		process.standardOutput = outPipe
-		process.launch()
+		do {
+			try process.launchAndCheckForRosetta()
+		} catch let error {
+			print("Failed to run '\(launchPath) -V': \(error.localizedDescription)")
+			return nil
+		}
 		process.waitUntilExit()
 		let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
 		guard let output = outputOrNil else { return nil }
