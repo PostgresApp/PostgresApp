@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.0.5
+POSTGIS_VERSION=3.0.6
 POSTGIS_MAJOR_VERSION=3.0
 
-POSTGRES_VERSION=12.11
+POSTGRES_VERSION=12.12
 POSTGRES_MAJOR_VERSION=12
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -14,8 +14,8 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 # http://download.osgeo.org/gdal/
 GDAL_VERSION=3.0.4
 
-# http://trac.osgeo.org/geos/
-GEOS_VERSION=3.8.2
+# https://libgeos.org/usage/download/
+GEOS_VERSION=3.8.3
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1o
+OPENSSL_VERSION=1.1.1q
 
 # http://proj4.org/download.html
 PROJ_VERSION=6.2.1
@@ -149,6 +149,8 @@ openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
+	#patch to include missing header - this was backpatched from upstream 60f011f, scheduled for 1.1.1r
+	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
