@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.3.0alpha1
+POSTGIS_VERSION=3.3.0rc1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15beta3
@@ -18,10 +18,10 @@ ZSTD_VERSION=1.5.2
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.5.0
+GDAL_VERSION=3.5.1
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.10.2
+GEOS_VERSION=3.11.0
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -35,7 +35,7 @@ LIBXML2_VERSION=2.9.14
 OPENSSL_VERSION=3.0.5
 
 # https://proj.org/download.html
-PROJ_VERSION=9.0.0
+PROJ_VERSION=9.0.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -51,11 +51,11 @@ JSONC_VERSION=0.16
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.21.1
+PROTOBUF_VERSION=3.21.4
 PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*)$$/\1/')
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.4.0
+PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.4.0
@@ -621,11 +621,14 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION} install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
+	#patch to fix a build install error. This partially reverts https://github.com/postgis/postgis/commit/bd04b787f49509ef13801c72a0ebc981669e982c
+	#which interfers with PGXN.
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_topo_install.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
