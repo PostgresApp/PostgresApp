@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.2.1
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15beta2
+POSTGRES_VERSION=15beta3
 POSTGRES_MAJOR_VERSION=15
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -32,7 +32,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.4
+OPENSSL_VERSION=3.0.5
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -74,7 +74,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.0b3
+PYTHON_VERSION_FULL=3.11.0rc1
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -227,6 +227,8 @@ openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
+	#patch to include missing header - this was backpatched from upstream 8aaeb5d, scheduled for 3.0.6
+	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
