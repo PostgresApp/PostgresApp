@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.4.10
 POSTGIS_MAJOR_VERSION=2.4
 
-POSTGRES_VERSION=10.21
+POSTGRES_VERSION=10.22
 POSTGRES_MAJOR_VERSION=10
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -15,7 +15,7 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 GDAL_VERSION=2.1.3
 # 2.1.4 doesn't build on macOS 10.10 with Xcode 7.1.1
 
-# http://trac.osgeo.org/geos/
+# https://libgeos.org/usage/download/
 GEOS_VERSION=3.6.5
 
 JPEG_VERSION=8d
@@ -28,7 +28,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1o
+OPENSSL_VERSION=1.1.1q
 
 # http://proj4.org/download.html
 PROJ_VERSION=4.9.3
@@ -139,6 +139,8 @@ openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
+	#patch to include missing header - this was backpatched from upstream 60f011f, scheduled for 1.1.1r
+	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
