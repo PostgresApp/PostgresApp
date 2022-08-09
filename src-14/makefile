@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.2.1
+POSTGIS_VERSION=3.2.2
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14.4
+POSTGRES_VERSION=14.5
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,7 +18,7 @@ LZ4_VERSION=1.9.3
 GDAL_VERSION=3.3.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.10.2
+GEOS_VERSION=3.10.3
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1o
+OPENSSL_VERSION=1.1.1q
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -51,7 +51,7 @@ WAL2JSON_VERSION=wal2json_2_4
 PROTOBUF_VERSION=3.18.2
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.4.0
+PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.3.0
@@ -71,7 +71,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.9
-PYTHON_VERSION_FULL=3.9.12
+PYTHON_VERSION_FULL=3.9.13
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -197,6 +197,8 @@ openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
+	#patch to include missing header - this was backpatched from upstream 60f011f, scheduled for 1.1.1r
+	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
@@ -340,6 +342,8 @@ geos-${GEOS_VERSION}/build/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bi
 
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 	$(TAR) geos-${GEOS_VERSION}.tar.bz2
+	#patch to include geos.h - see #667 - this was fixed upstream in cb634c8 for geos 3.11 onwards. 
+	patch -b -d "geos-${GEOS_VERSION}" -p1 <patches/geos.h.patch
 	mkdir geos-${GEOS_VERSION}/build
 	touch $@
 
