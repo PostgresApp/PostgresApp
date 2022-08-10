@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.2.1
+POSTGIS_VERSION=3.3.0rc1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15beta3
@@ -18,10 +18,10 @@ ZSTD_VERSION=1.5.2
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.3.3
+GDAL_VERSION=3.5.1
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.10.2
+GEOS_VERSION=3.11.0
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -35,7 +35,7 @@ LIBXML2_VERSION=2.9.14
 OPENSSL_VERSION=3.0.5
 
 # https://proj.org/download.html
-PROJ_VERSION=8.1.1
+PROJ_VERSION=9.0.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -45,27 +45,30 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-JSONC_VERSION=0.15
+JSONC_VERSION=0.16
 
 # https://github.com/eulerto/wal2json/releases
+# disabled, as we need to wait for https://github.com/eulerto/wal2json/pull/247
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.18.2
+PROTOBUF_VERSION=3.21.4
+PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*)$$/\1/')
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.4.0
+PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.3.0
+LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.37
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.4.0
+OPENJPEG_VERSION=2.5.0
 
 # https://github.com/EnterpriseDB/pldebugger/tags
+# disabled, we need to wait for https://github.com/EnterpriseDB/pldebugger/commit/87a34870c8242541ac7b2930a92d59b5e8cd6dd6
 PLDEBUGGER_VERSION=1.4
 
 # http://site.icu-project.org/download/
@@ -119,7 +122,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis wal2json pldebugger
+all: postgresql postgis
 clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger 
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -423,18 +426,23 @@ clean-libgdal:
 libproj: $(PREFIX)/lib/libproj.dylib
 	touch $@
 
-$(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/Makefile
-	make -C proj-$(PROJ_VERSION) install
+$(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/build/Makefile
+	make -C proj-$(PROJ_VERSION)/build
+	make -C proj-$(PROJ_VERSION)/build install
 
-proj-$(PROJ_VERSION)/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd proj-$(PROJ_VERSION) && SQLITE3_LIBS="-lsqlite3" ./configure --prefix="$(PREFIX)"
-
+proj-$(PROJ_VERSION)/build/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
+	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+	
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
+	mkdir proj-${PROJ_VERSION}/build
 	touch $@
 
 proj-${PROJ_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz"
+
+check-libproj:
+	make -C proj-$(PROJ_VERSION)/build test
 
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
@@ -449,11 +457,9 @@ libjson-c: $(PREFIX)/lib/libjson-c.dylib
 
 $(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
-	# fix LC_ID_DYLIB (see https://github.com/json-c/json-c/issues/687)
-	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.1.0.dylib
 
 json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
-	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 json-c-$(JSONC_VERSION)/cmake-configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
@@ -482,7 +488,7 @@ protobuf-$(PROTOBUF_VERSION)/configure: protobuf-cpp-$(PROTOBUF_VERSION).tar.gz
 	touch $@
 
 protobuf-cpp-$(PROTOBUF_VERSION).tar.gz:
-	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION)/protobuf-cpp-$(PROTOBUF_VERSION).tar.gz"
+	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION_MINOR)/protobuf-cpp-$(PROTOBUF_VERSION).tar.gz"
 
 clean-protobuf-cpp:
 	rm -Rf protobuf-$(PROTOBUF_VERSION)
@@ -581,7 +587,10 @@ $(PREFIX)/lib/libopenjp2.dylib: openjpeg-$(OPENJPEG_VERSION)/build/Makefile
 	make -C openjpeg-$(OPENJPEG_VERSION)/build install
 
 openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib
-	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+	#patch to fix a build error. This partially reverts https://github.com/uclouvain/openjpeg/commit/07a454324cfeb431ee3fc3799df522dff252b12b
+	#further analysis and possible upstream fix outstanding.
+	patch -b -d "openjpeg-$(OPENJPEG_VERSION)" -p1 <patches/openjpeg_2.5_tiff.patch
+	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt: openjpeg-$(OPENJPEG_VERSION).tar.gz
 	$(TAR) openjpeg-$(OPENJPEG_VERSION).tar.gz
@@ -612,11 +621,14 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	make -C postgis-${POSTGIS_VERSION} install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
+	#patch to fix a build install error. This partially reverts https://github.com/postgis/postgis/commit/bd04b787f49509ef13801c72a0ebc981669e982c
+	#which interfers with PGXN.
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_topo_install.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:

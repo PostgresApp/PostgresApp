@@ -1,0 +1,13 @@
+--- a/thirdparty/CMakeLists.txt
++++ b/thirdparty/CMakeLists.txt
+@@ -89,8 +89,8 @@
+     message(STATUS "Your system seems to have a TIFF lib available, we will use it")
+     set(OPJ_HAVE_TIFF_H 1 PARENT_SCOPE)
+     set(OPJ_HAVE_LIBTIFF 1 PARENT_SCOPE)
+-    set(TIFF_LIBNAME ${TIFF_LIBRARIES} ${PC_TIFF_STATIC_LIBRARIES} PARENT_SCOPE)
+-    set(TIFF_INCLUDE_DIRNAME ${TIFF_INCLUDE_DIR} ${PC_TIFF_STATIC_INCLUDE_DIRS} PARENT_SCOPE)
++    set(TIFF_LIBNAME ${TIFF_LIBRARIES} PARENT_SCOPE)
++    set(TIFF_INCLUDE_DIRNAME ${TIFF_INCLUDE_DIR} PARENT_SCOPE)
+   else(TIFF_FOUND) # not found
+     set(OPJ_HAVE_TIFF_H 0 PARENT_SCOPE)
+     set(OPJ_HAVE_LIBTIFF 0 PARENT_SCOPE)
