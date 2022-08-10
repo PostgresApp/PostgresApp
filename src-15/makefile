@@ -429,7 +429,7 @@ $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/build/Makefile
 	make -C proj-$(PROJ_VERSION)/build install
 
 proj-$(PROJ_VERSION)/build/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DMACOSX_RPATH=OFF -DINSTALL_NAME_DIR="$(PREFIX)/lib" 
+	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 	
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
@@ -455,11 +455,9 @@ libjson-c: $(PREFIX)/lib/libjson-c.dylib
 
 $(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
-	# fix LC_ID_DYLIB (see https://github.com/json-c/json-c/issues/687)
-	install_name_tool -id "$(PREFIX)/lib/libjson-c.5.dylib" "$(PREFIX)"/lib/libjson-c.5.2.0.dylib
 
 json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
-	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 json-c-$(JSONC_VERSION)/cmake-configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
@@ -590,7 +588,7 @@ openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/CMakeL
 	#patch to fix a build error. This partially reverts https://github.com/uclouvain/openjpeg/commit/07a454324cfeb431ee3fc3799df522dff252b12b
 	#further analysis and possible upstream fix outstanding.
 	patch -b -d "openjpeg-$(OPENJPEG_VERSION)" -p1 <patches/openjpeg_2.5_tiff.patch
-	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt: openjpeg-$(OPENJPEG_VERSION).tar.gz
 	$(TAR) openjpeg-$(OPENJPEG_VERSION).tar.gz
