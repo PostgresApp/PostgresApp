@@ -29,9 +29,9 @@ extraReleases: [
 			de: "Postgres.app mit allen unterstützten Versionen (Universal/Intel)",
 		},
 		size: "280MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.9/Postgres-2.5.8-10-11-12-13-14.dmg",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.9/Postgres-2.5.9-10-11-12-13-14.dmg",
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.5.9",
-		postgresappVersion: "2.5.8",
+		postgresappVersion: "2.5.9",
 		postgresappMinSystemVersion: "10.12",
 		postgresqlVersions: [
 			{ postgres: "14.5", postgis: "3.2.2", architecture: "Universal" },
