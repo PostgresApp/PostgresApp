@@ -30,7 +30,13 @@ do
 		# copy proj binaries
 		cp -a cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy gdal binaries
-		cp -a gdal* nearblack ogr2ogr ogrinfo ogrtindex testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a gdal* nearblack ogr2ogr ogrinfo ogrtindex "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        if [ -e testepsg ]
+        then
+			# testepsg was removed in GDAL 3.5, see https://github.com/OSGeo/gdal/pull/3992
+            cp -a testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
+		
 		# copy postgis binaries
 		cp -a raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 
