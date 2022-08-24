@@ -4,6 +4,10 @@
 <dict>
 	<key>Label</key>
 	<string>com.postgresapp.Postgres2LoginHelper</string>
+	<key>AssociatedBundleIdentifiers</key>
+	<array>
+		<string>com.postgresapp.Postgres2</string>
+	</array>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/Applications/Postgres.app/Contents/Library/LoginItems/PostgresLoginHelper.app/Contents/MacOS/PostgresLoginHelper</string>
