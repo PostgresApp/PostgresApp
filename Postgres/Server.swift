@@ -502,6 +502,12 @@ class Server: NSObject {
 		listenAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
 		listenAddress.sin_addr.s_addr = inet_addr("127.0.0.1")
 		
+		// Set the SO_REUSADDR flag to allow starting server when connections to a shut down server are still open
+		// See issue: https://github.com/PostgresApp/PostgresApp/issues/676
+		// The setsockopt() call shouldn't fail, so we don't check errors
+		var yes = 1;
+		setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, socklen_t(MemoryLayout.size(ofValue: yes)));
+		
 		let bindRes = withUnsafePointer(to: &listenAddress) { (sockaddrPointer: UnsafePointer<sockaddr_in>) in
 			sockaddrPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { sockaddrPointer2 in
 				Darwin.bind(sock, sockaddrPointer2, socklen_t(MemoryLayout<sockaddr_in>.stride))
