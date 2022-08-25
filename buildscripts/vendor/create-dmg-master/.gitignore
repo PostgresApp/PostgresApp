@@ -1,4 +1,5 @@
 .svn
+.vscode
 
 *.dmg
 .DS_Store
