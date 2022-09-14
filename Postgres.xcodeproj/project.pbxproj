@@ -368,10 +368,9 @@
 			};
 			buildConfigurationList = 83FB57131D1B05F000A903A3 /* Build configuration list for PBXProject "Postgres" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
