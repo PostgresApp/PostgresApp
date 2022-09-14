@@ -49,11 +49,17 @@ then
 	exit 1
 fi
 
+if [ "x$BUILD_DIR" = x ]
+then
+	echo "Please set BUILD_DIR"
+	exit 1
+fi
+
+
 
 PROJECT_ROOT=$(dirname $(pwd))
 PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 
-BUILD_DIR="$(dirname $(dirname $(pwd)))/archives/Postgres-$POSTGRESAPP_BUILD_VERSION-v$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}"
 LOG_DIR="$BUILD_DIR/notarize-log"
 ARCHIVE_PATH="$BUILD_DIR"/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png

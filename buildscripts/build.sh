@@ -41,11 +41,15 @@ then
 	exit 1
 fi
 
+if [ "x$BUILD_DIR" = x ]
+then
+	echo "Please set BUILD_DIR"
+	exit 1
+fi
 
 PROJECT_ROOT=$(dirname $(pwd))
 PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 
-BUILD_DIR="$(dirname $(dirname $(pwd)))/archives/Postgres-$POSTGRESAPP_BUILD_VERSION-v$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}"
 LOG_DIR="$BUILD_DIR/log"
 ARCHIVE_PATH="$BUILD_DIR"/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png
@@ -54,7 +58,7 @@ DMG_SRC_PATH="$BUILD_DIR"/Postgres
 DMG_DST_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}.dmg
 SIGNATURE_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}-signature.txt
 APPCAST_PATH="$BUILD_DIR"/updates_$PG_BINARIES_VERSIONS.xml
-
+DERIVED_DATA_PATH="$BUILD_DIR"/DerivedData
 
 mkdir -p "$LOG_DIR"
 echo "Log Directory: $LOG_DIR"
@@ -69,7 +73,7 @@ echo "Using Certificate \"$CODE_SIGN_IDENTITY\""
 
 # build the archive
 echo -n "Archive... "
-xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH" POSTGRESAPP_SHORT_VERSION="$POSTGRESAPP_SHORT_VERSION" POSTGRESAPP_BUILD_VERSION="$POSTGRESAPP_BUILD_VERSION" PG_BINARIES_VERSIONS="$PG_BINARIES_VERSIONS" PG_BINARIES_DIR="$PG_BINARIES_DIR" LATEST_STABLE_PG_VERSION="$LATEST_STABLE_PG_VERSION" CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY">"$LOG_DIR/archive.out" 2>"$LOG_DIR/archive.err"
+xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH" -derivedDataPath "$DERIVED_DATA_PATH" POSTGRESAPP_SHORT_VERSION="$POSTGRESAPP_SHORT_VERSION" POSTGRESAPP_BUILD_VERSION="$POSTGRESAPP_BUILD_VERSION" PG_BINARIES_VERSIONS="$PG_BINARIES_VERSIONS" PG_BINARIES_DIR="$PG_BINARIES_DIR" LATEST_STABLE_PG_VERSION="$LATEST_STABLE_PG_VERSION" CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY">"$LOG_DIR/archive.out" 2>"$LOG_DIR/archive.err"
 echo "Done"
 
 # export and code sign
@@ -81,23 +85,24 @@ echo -n "Enabling Hardened Runtime... "
 
 APP="$EXPORT_PATH"/Postgres.app
 
-find "$APP"/Contents/Versions/*/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
+find "$APP"/Contents/Versions/[0-9]*/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
 	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  \
 		--entitlements postgres.entitlements \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
-find "$APP"/Contents/Versions/*/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
+find "$APP"/Contents/Versions/[0-9]*/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
 	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
-find "$APP"/Contents/Versions/*/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
+find "$APP"/Contents/Versions/[0-9]*/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
 	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
-	"$APP"/Contents/Versions/*/lib/postgresql/pgxs/src/test/regress/pg_regress \
+	"$APP"/Contents/Versions/[0-9]*/lib/postgresql/pgxs/src/test/regress/pg_regress \
+	"$APP"/Contents/Versions/[0-9]*/lib/*.a \
 	"$APP"/Contents/MacOS/PostgresMenuHelper.app \
 	"$APP"/Contents/Library/LoginItems/PostgresLoginHelper.app \
 	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
