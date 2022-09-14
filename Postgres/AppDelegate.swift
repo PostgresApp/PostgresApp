@@ -8,6 +8,7 @@
 
 import Cocoa
 import Sparkle
+import ServiceManagement
 
 class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
@@ -28,37 +29,42 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			self.serverManager.refreshServerStatuses()
 		}
 		
-		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
-			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-			if self.hideMenuHelperApp != hideMenuHelperApp {
-				self.hideMenuHelperApp = hideMenuHelperApp
-				
-				if self.hideMenuHelperApp {
-					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
-					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
-						app.terminate()
+		if #available(macOS 13, *) {
+			destroyLaunchAgent()
+			registerLoginItem()
+		} else {
+			NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
+				let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+				if self.hideMenuHelperApp != hideMenuHelperApp {
+					self.hideMenuHelperApp = hideMenuHelperApp
+					
+					if self.hideMenuHelperApp {
+						let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
+						for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
+							app.terminate()
+						}
+					} else {
+						let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+						NSWorkspace.shared.open(url)
 					}
-				} else {
-					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-					NSWorkspace.shared.open(url)
+				}
+				
+				let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
+				if self.startLoginHelper != startLoginHelper {
+					self.startLoginHelper = startLoginHelper
+					if self.startLoginHelper {
+						self.createLaunchAgent()
+					} else {
+						self.destroyLaunchAgent()
+					}
 				}
 			}
 			
-			let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
-			if self.startLoginHelper != startLoginHelper {
-				self.startLoginHelper = startLoginHelper
-				if self.startLoginHelper {
-					self.createLaunchAgent()
-				} else {
-					self.destroyLaunchAgent()
-				}
+			if startLoginHelper {
+				createLaunchAgent()
+			} else {
+				destroyLaunchAgent()
 			}
-		}
-		
-		if startLoginHelper {
-			createLaunchAgent()
-		} else {
-			destroyLaunchAgent()
 		}
 		
 		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
@@ -86,6 +92,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		NSWorkspace.shared.open(URL(string: "https://postgresapp.com/l/help/")!)
 	}
 	
+	
+	@available(macOS 13, *) private func registerLoginItem() {
+		let loginHelper = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper")
+		do {
+			try loginHelper.register()
+		} catch let error {
+			// This most likely means that the user disabled the login item in system setting
+			// We ignore the error, but print it to stdout for easier debugging
+			print("Failed to register login item because: \(error)")
+		}
+	}
 	
 	private func createLaunchAgent() {
 		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")

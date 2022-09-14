@@ -14,4 +14,12 @@ class PreferencesViewController: NSViewController {
 		"iTerm",
 		"Postico"
 	]
+	
+	@objc dynamic var launchAgentCheckboxHidden: Bool {
+		if #available(macOS 13, *) {
+			return true
+		} else {
+			return false
+		}
+	}
 }
