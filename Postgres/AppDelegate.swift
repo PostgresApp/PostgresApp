@@ -29,26 +29,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 			self.serverManager.refreshServerStatuses()
 		}
 		
-		if #available(macOS 13, *) {
-			destroyLaunchAgent()
-			registerLoginItem()
-		} else {
-			NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
-				let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-				if self.hideMenuHelperApp != hideMenuHelperApp {
-					self.hideMenuHelperApp = hideMenuHelperApp
-					
-					if self.hideMenuHelperApp {
-						let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
-						for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
-							app.terminate()
-						}
-					} else {
-						let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-						NSWorkspace.shared.open(url)
-					}
-				}
+		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
+			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+			if self.hideMenuHelperApp != hideMenuHelperApp {
+				self.hideMenuHelperApp = hideMenuHelperApp
 				
+				if self.hideMenuHelperApp {
+					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
+					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
+						app.terminate()
+					}
+				} else {
+					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+					NSWorkspace.shared.open(url)
+				}
+			}
+			if #available(macOS 13, *) {
+				// this setting was removed in macOS 13
+				// since we try to register the login item in any case
+				// user can enable / disable login item in system settings
+			} else {
 				let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 				if self.startLoginHelper != startLoginHelper {
 					self.startLoginHelper = startLoginHelper
@@ -59,7 +59,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 					}
 				}
 			}
-			
+		}
+
+		if #available(macOS 13, *) {
+			destroyLaunchAgent()
+			registerLoginItem()
+		} else {
 			if startLoginHelper {
 				createLaunchAgent()
 			} else {
