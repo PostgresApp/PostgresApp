@@ -326,19 +326,9 @@ libgeos: $(PREFIX)/lib/libgeos.dylib
 $(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/build/Makefile
 	make -C geos-${GEOS_VERSION}/build
 	make -C geos-${GEOS_VERSION}/build install
-	# as I failed to convince CMAKE not to use @rpath with various combinations of 
-	# -DCMAKE_SKIP_RPATH=ON -DMACOSX_RPATH=OFF -DINSTALL_NAME_DIR="$(PREFIX)/lib" 
-	# https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling
-	# https://dev.my-gate.net/2021/08/04/understanding-rpath-with-cmake/
-	# we are going to resolve that manually
-	install_name_tool -id "$(PREFIX)/lib/libgeos_c.1.dylib" "$(PREFIX)/lib/libgeos_c.1.dylib"
-	install_name_tool -id "$(PREFIX)/lib/libgeos.${GEOS_VERSION}.dylib" "$(PREFIX)/lib/libgeos.${GEOS_VERSION}.dylib"
-	install_name_tool -change "@rpath/libgeos.${GEOS_VERSION}.dylib" "$(PREFIX)/lib/libgeos.${GEOS_VERSION}.dylib" "$(PREFIX)/lib/libgeos_c.1.dylib"
-	install_name_tool -change "@rpath/libgeos.${GEOS_VERSION}.dylib" "$(PREFIX)/lib/libgeos.${GEOS_VERSION}.dylib" "$(PREFIX)/bin/geosop"
-	install_name_tool -change "@rpath/libgeos_c.1.dylib" "$(PREFIX)/lib/libgeos_c.1.dylib" "$(PREFIX)/bin/geosop"
 
 geos-${GEOS_VERSION}/build/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
-	cd geos-${GEOS_VERSION}/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)"
+	cd geos-${GEOS_VERSION}/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 	$(TAR) geos-${GEOS_VERSION}.tar.bz2
