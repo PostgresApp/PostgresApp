@@ -162,14 +162,12 @@ clean-postgresql:
 ######### LZ4 ###########
 #########################
 
-# maybe we could skip installing the binaries
-
 lz4: $(PREFIX)/lib/liblz4.dylib
 	touch $@
 
 $(PREFIX)/lib/liblz4.dylib: lz4-${LZ4_VERSION}/Makefile
-	CPPFLAGS="${CXXFLAGS}" make -C lz4-${LZ4_VERSION}
-	make -C lz4-${LZ4_VERSION} install
+	CPPFLAGS="${CXXFLAGS}" make -C lz4-${LZ4_VERSION} lib-release
+	make -C lz4-${LZ4_VERSION}/lib install
 
 lz4-${LZ4_VERSION}/Makefile: lz4-${LZ4_VERSION}.tar.gz
 	$(TAR) lz4-${LZ4_VERSION}.tar.gz

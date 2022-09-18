@@ -168,14 +168,12 @@ clean-postgresql:
 ######### LZ4 ###########
 #########################
 
-# maybe we could skip installing the binaries
-
 lz4: $(PREFIX)/lib/liblz4.dylib
 	touch $@
 
 $(PREFIX)/lib/liblz4.dylib: lz4-${LZ4_VERSION}/Makefile
-	CPPFLAGS="${CXXFLAGS}" make -C lz4-${LZ4_VERSION}
-	make -C lz4-${LZ4_VERSION} install
+	CPPFLAGS="${CXXFLAGS}" make -C lz4-${LZ4_VERSION} lib-release
+	make -C lz4-${LZ4_VERSION}/lib install
 
 lz4-${LZ4_VERSION}/Makefile: lz4-${LZ4_VERSION}.tar.gz
 	$(TAR) lz4-${LZ4_VERSION}.tar.gz
@@ -192,14 +190,12 @@ clean-lz4:
 ######### Zstandard ###########
 ###############################
 
-# maybe we could skip installing the binaries with "make lib-release"
-
 zstd: $(PREFIX)/lib/libzstd.dylib
 	touch $@
 
 $(PREFIX)/lib/libzstd.dylib: zstd-${ZSTD_VERSION}/Makefile
-	make -C zstd-${ZSTD_VERSION} HAVE_LZ4=0
-	make -C zstd-${ZSTD_VERSION} install
+	make -C zstd-${ZSTD_VERSION} lib-release HAVE_LZ4=0
+	make -C zstd-${ZSTD_VERSION}/lib install
 
 zstd-${ZSTD_VERSION}/Makefile: zstd-${ZSTD_VERSION}.tar.gz
 	$(TAR) zstd-${ZSTD_VERSION}.tar.gz
