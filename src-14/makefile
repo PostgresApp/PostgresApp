@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.2.2
+POSTGIS_VERSION=3.2.3
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=14.5
@@ -11,7 +11,7 @@ POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
-LZ4_VERSION=1.9.3
+LZ4_VERSION=1.9.4
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
