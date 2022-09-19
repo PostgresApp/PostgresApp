@@ -94,9 +94,9 @@ PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/pytho
 export PYTHON
 
 #compiler options
-MACOSX_DEPLOYMENT_TARGET=10.12
-CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
-CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.12 -arch arm64 -arch x86_64
+MACOSX_DEPLOYMENT_TARGET=10.13
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.13 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.13 -arch arm64 -arch x86_64
 CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
@@ -241,10 +241,10 @@ openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
 	
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-arm64-cc zlib shared
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" darwin64-arm64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-x86_64-cc zlib shared
+	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
@@ -410,8 +410,6 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-	#patch curl version detection for 10.12 compatibility
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.12.patch
 gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib
 	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
 	touch $@
