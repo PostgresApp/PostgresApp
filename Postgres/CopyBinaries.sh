@@ -21,7 +21,7 @@ do
 		cd "${PG_BINARIES_DIR}/${VERSION}/bin/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy postgresql binaries
-		cp -a clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg* postgres postmaster psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg_* pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         if [ -e createlang ]
         then
             # removed in PostgreSQL 10
@@ -30,21 +30,30 @@ do
 		# copy proj binaries
 		cp -a cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy gdal binaries
-		cp -a gdal* nearblack ogr2ogr ogrinfo ogrtindex "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a gdal* nearblack ogr* "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         if [ -e testepsg ]
         then
 			# testepsg was removed in GDAL 3.5, see https://github.com/OSGeo/gdal/pull/3992
             cp -a testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
-		
 		# copy postgis binaries
-		cp -a raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
-
+		cp -a pgsql2shp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        if [ -e pgtopo_export ]
+        then
+            # added in PostGIS 3.3
+            cp -a pgtopo_export pgtopo_import "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
+        
 		# copy all dynamic libraries
 		cd "${PG_BINARIES_DIR}/${VERSION}/lib/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -af *.dylib "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -afR postgresql "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+		if [ -e gdalplugins ]
+		then
+			# added in GDAL 3.5
+			cp -af gdalplugins "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+		fi 
 		
 		# copy static libraries where a dynamic one doesn't exist
 		for file in *.a
