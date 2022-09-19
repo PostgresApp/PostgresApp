@@ -11,14 +11,14 @@ POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
-LZ4_VERSION=1.9.3
+LZ4_VERSION=1.9.4
 
 # https://github.com/facebook/zstd/releases
 ZSTD_VERSION=1.5.2
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.5.1
+GDAL_VERSION=3.5.2
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.11.0
@@ -52,7 +52,7 @@ JSONC_VERSION=0.16
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.21.4
+PROTOBUF_VERSION=3.21.6
 PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*)$$/\1/')
 
 # https://github.com/protobuf-c/protobuf-c/releases
@@ -62,7 +62,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.37
+LIBPNG_VERSION=1.6.38
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0
@@ -77,7 +77,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.0rc1
+PYTHON_VERSION_FULL=3.11.0rc2
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
