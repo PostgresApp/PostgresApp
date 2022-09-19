@@ -306,51 +306,55 @@ class Server: NSObject {
 
 		let currentConfigPlist = configPlist
 		
-		// The first thing we check is collation hashes
-		// If the data directory has been launched with different collations
-		// We know that we MUST reindex
-		let collationHashes = currentConfigPlist["recently_started_collation_hash"] as? [Data] ?? []
-		if collationHashes.count > 1 {
-			serverWarning = "Reindexing required"
-			serverWarningButtonTitle = "Learn more"
-			serverWarningMessage = "Databases must be reindexed"
-			serverWarningInformativeText = "This data directory has been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
-			return
-		}
-		
-		// Next thing we check is the macOS version
-		// If the data directory was launched on macOS 10.15 or earlier AND on macOS 11 or later,
-		// we also know that we MUST reindex
-		let reindexCheckVersion =
-			currentConfigPlist["reindex_warning_reset_on_macos_version"] as? String ??
-			currentConfigPlist["initdb_macos_version"] as? String ??
-			currentConfigPlist["initdb_macos_version_guessed"] as? String ??
-			"unknown"
-		
-		let startedVersions = currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? []
-		
-		let currentVersion = ProcessInfo.processInfo.macosDisplayVersion
-		
-		let relevantVersions = startedVersions + [reindexCheckVersion, currentVersion]
-		
-		// check for mismatching macOS versions
-		let containsOldVersion = relevantVersions.contains {$0 != "unknown" && "11".compare($0, options: .numeric) == .orderedDescending}
-		let containsNewVersion = relevantVersions.contains {$0 != "unknown" && "11".compare($0, options: .numeric) != .orderedDescending}
-		if containsOldVersion && containsNewVersion {
-			serverWarning = "Reindexing required"
-			serverWarningButtonTitle = "Learn more"
-			serverWarningMessage = "Databases must be reindexed"
-			serverWarningInformativeText = "This data directory has been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
-			return
-		}
-		
-		// If the data directory was created on an unknown macOS version, we tell the user they SHOULD reindex
-		if relevantVersions.contains("unknown") {
-			serverWarning = "Reindexing recommended"
-			serverWarningButtonTitle = "Learn more"
-			serverWarningMessage = "Databases should be reindexed"
-			serverWarningInformativeText = "This data directory may have been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
-			return
+		// Reindex warnings only need to be shown when the user uses libc collations
+		if currentConfigPlist["initdb_locale_provider"] as? String != "icu" {
+			
+			// The first thing we check is collation hashes
+			// If the data directory has been launched with different collations
+			// We know that we MUST reindex
+			let collationHashes = currentConfigPlist["recently_started_collation_hash"] as? [Data] ?? []
+			if collationHashes.count > 1 {
+				serverWarning = "Reindexing required"
+				serverWarningButtonTitle = "Learn more"
+				serverWarningMessage = "Databases must be reindexed"
+				serverWarningInformativeText = "This data directory has been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+				return
+			}
+			
+			// Next thing we check is the macOS version
+			// If the data directory was launched on macOS 10.15 or earlier AND on macOS 11 or later,
+			// we also know that we MUST reindex
+			let reindexCheckVersion =
+				currentConfigPlist["reindex_warning_reset_on_macos_version"] as? String ??
+				currentConfigPlist["initdb_macos_version"] as? String ??
+				currentConfigPlist["initdb_macos_version_guessed"] as? String ??
+				"unknown"
+			
+			let startedVersions = currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? []
+			
+			let currentVersion = ProcessInfo.processInfo.macosDisplayVersion
+			
+			let relevantVersions = startedVersions + [reindexCheckVersion, currentVersion]
+			
+			// check for mismatching macOS versions
+			let containsOldVersion = relevantVersions.contains {$0 != "unknown" && "11".compare($0, options: .numeric) == .orderedDescending}
+			let containsNewVersion = relevantVersions.contains {$0 != "unknown" && "11".compare($0, options: .numeric) != .orderedDescending}
+			if containsOldVersion && containsNewVersion {
+				serverWarning = "Reindexing required"
+				serverWarningButtonTitle = "Learn more"
+				serverWarningMessage = "Databases must be reindexed"
+				serverWarningInformativeText = "This data directory has been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+				return
+			}
+			
+			// If the data directory was created on an unknown macOS version, we tell the user they SHOULD reindex
+			if relevantVersions.contains("unknown") {
+				serverWarning = "Reindexing recommended"
+				serverWarningButtonTitle = "Learn more"
+				serverWarningMessage = "Databases should be reindexed"
+				serverWarningInformativeText = "This data directory may have been used with an incompatible version of macOS.\n\nTo fix possible index corruption, please execute the command “REINDEX DATABASE dbname;” on every database."
+				return
+			}
 		}
 		
 		// Check for reindex concurrently issue (fixed in PG 14.4)
@@ -652,14 +656,28 @@ class Server: NSObject {
 	
 	
 	private func initDatabaseSync() throws {
+		let useICU: Bool
+		if let binaryVersion = self.binaryVersion, "15".compare(binaryVersion, options: .numeric) != .orderedDescending {
+			useICU = true
+		} else {
+			useICU = false
+		}
 		let process = Process()
 		process.launchPath = binPath.appending("/initdb")
-		process.arguments = [
+		var processArguments = [
 			"-D", varPath,
 			"-U", "postgres",
 			"--encoding=UTF-8",
 			"--locale=en_US.UTF-8"
 		]
+		if useICU {
+			processArguments += [
+				"--locale-provider=icu",
+				"--icu-locale=en-US",
+				"--data-checksums"
+			]
+		}
+		process.arguments = processArguments
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
@@ -686,6 +704,9 @@ class Server: NSObject {
 		var currentConfigPlist = configPlist
 		currentConfigPlist["initdb_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
 		currentConfigPlist["initdb_postgresql_version"] = self.binaryVersion ?? "unknown"
+		if useICU {
+			currentConfigPlist["initdb_locale_provider"] = "icu"
+		}
 		configPlist	= currentConfigPlist
 	}
 	
