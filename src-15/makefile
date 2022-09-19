@@ -29,13 +29,14 @@ JPEG_VERSION=9e
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
-LIBXML2_VERSION=2.9.14
+LIBXML2_VERSION=2.10.2
+LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
 OPENSSL_VERSION=3.0.5
 
 # https://proj.org/download.html
-PROJ_VERSION=9.0.1
+PROJ_VERSION=9.1.0
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -305,14 +306,14 @@ $(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 	touch $(PREFIX)/lib/libxml2.dylib
 
 libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
-	cd libxml2-${LIBXML2_VERSION} && export PATH="$(PREFIX)/bin:/bin:/usr/bin" && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+	cd libxml2-${LIBXML2_VERSION} && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --without-python
 
 libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.xz
 	$(TAR) libxml2-${LIBXML2_VERSION}.tar.xz
 	touch $@
 
 libxml2-${LIBXML2_VERSION}.tar.xz:
-	$(CURL) "https://download.gnome.org/sources/libxml2/2.9/libxml2-${LIBXML2_VERSION}.tar.xz"
+	$(CURL) "https://download.gnome.org/sources/libxml2/${LIBXML2_VERSION_MAJOR}/libxml2-${LIBXML2_VERSION}.tar.xz"
 
 clean-libxml2:
 	rm -Rf "libxml2-$(LIBXML2_VERSION)"
