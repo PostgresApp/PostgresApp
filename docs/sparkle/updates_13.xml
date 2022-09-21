@@ -6,24 +6,44 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.5.9</title>
+		<title>Postgres.app 2.5.10</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 13.8 with PostGIS 3.1.6</li>
+					<li>PostgreSQL 13.8 with PostGIS 3.1.7</li>
 				</ul>
 			]]>
 		</description>
-		<pubDate>Wed, 10 Aug 2022 08:56:00 +0200</pubDate>
+		<pubDate>Tue, 20 Sep 2022 08:52:19 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.9/Postgres-2.5.9-13.dmg"
-		sparkle:version="149"
-		sparkle:shortVersionString="2.5.9"
-		length="57461422"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.10/Postgres-2.5.10-13.dmg"
+		sparkle:version="159"
+		sparkle:shortVersionString="2.5.10"
+		length="56282944"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQC7F1st75Iw++ZacCih+f0xVJZgFwIVAIZgL5fd6v2k1+s0dNgQNepA7L9C"
+		sparkle:dsaSignature="MCwCFFSCnO1tvE/0NpS5KKo9nIr+iaC4AhQlpRmfxwOLmfii+ckOR2rpCDwY9w=="
 		/>
-		<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
 	</item>
+    <item>
+        <title>Postgres.app 2.5.9</title>
+        <description>
+            <![CDATA[
+                <ul>
+                <li>PostgreSQL 13.8 with PostGIS 3.1.6</li>
+                </ul>
+            ]]>
+        </description>
+        <pubDate>Wed, 10 Aug 2022 08:56:00 +0200</pubDate>
+        <enclosure
+        url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.9/Postgres-2.5.9-13.dmg"
+        sparkle:version="149"
+        sparkle:shortVersionString="2.5.9"
+        length="57461422"
+        type="application/octet-stream"
+        sparkle:dsaSignature="MC4CFQC7F1st75Iw++ZacCih+f0xVJZgFwIVAIZgL5fd6v2k1+s0dNgQNepA7L9C"
+        />
+        <sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
+    </item>
   </channel>
 </rss>
