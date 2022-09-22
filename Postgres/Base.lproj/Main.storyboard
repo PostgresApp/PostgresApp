@@ -9,10 +9,9 @@
         <!--Window Controller-->
         <scene sceneID="0N7-6B-mUe">
             <objects>
-                <windowController id="0CQ-HC-63t" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="0CQ-HC-63t" sceneMemberID="viewController">
                     <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="gu1-ua-1f6">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="294" y="313" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
                         <connections>
