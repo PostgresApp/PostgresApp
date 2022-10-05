@@ -53,7 +53,7 @@ JSONC_VERSION=0.16
 WAL2JSON_VERSION=821147b21cb3672d8c67f708440ff4732e320e0e
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.21.6
+PROTOBUF_VERSION=3.21.7
 PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*)$$/\1/')
 
 # https://github.com/protobuf-c/protobuf-c/releases
