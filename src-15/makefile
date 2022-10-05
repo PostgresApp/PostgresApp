@@ -49,8 +49,8 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.16
 
 # https://github.com/eulerto/wal2json/releases
-# disabled, as we need to wait for https://github.com/eulerto/wal2json/pull/247
-WAL2JSON_VERSION=wal2json_2_4
+# while we wait for an updated release, we build the commit that merged PR https://github.com/eulerto/wal2json/pull/247
+WAL2JSON_VERSION=821147b21cb3672d8c67f708440ff4732e320e0e
 
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.21.6
@@ -69,8 +69,7 @@ LIBPNG_VERSION=1.6.38
 OPENJPEG_VERSION=2.5.0
 
 # https://github.com/EnterpriseDB/pldebugger/tags
-# disabled, we need to wait for https://github.com/EnterpriseDB/pldebugger/commit/87a34870c8242541ac7b2930a92d59b5e8cd6dd6
-PLDEBUGGER_VERSION=1.4
+PLDEBUGGER_VERSION=1.5
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=71
@@ -123,7 +122,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis
+all: postgresql postgis wal2json pldebugger
 clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger 
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
