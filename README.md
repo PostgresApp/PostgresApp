@@ -4,7 +4,7 @@ The easiest way to run PostgreSQL on your Mac
 
 - Includes everything you need to get started with PostgreSQL
 - Comes with a pretty GUI to start / stop servers
-- Run Multiple Versions of PostgreSQL simultaneously
+- Run multiple versions of PostgreSQL simultaneously
 
 ## Download
 
@@ -41,7 +41,7 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
 
-- the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
+- the binaries for PostgreSQL 14 and 15 are built on macOS 11 with Command Line Tools for Xcode 12.5
 
 - the GUI is built on macOS 12 with Xcode 13.1
 
@@ -63,11 +63,11 @@ Tools required for building the GUI:
 
 If you want to build your own versions of all the PostgreSQL binaries, you have slightly more work to do.
 
-The directories src-10, src-11 and src-12 each contain a makefile that downloads and builds all the binaries.
+The directories src-xx each contain a makefile that downloads and builds all the binaries.
 If you have all the prerequisites installed (see below), you can just type `make`.
 
-The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, plv8, and wal2json.
-PostGIS and especially plv8 take a long time to build, so if you don't need them, type `make postgresql` instead.
+The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, wal2json, pldebugger and plv8 (till PostgreSQL 13).
+PostGIS and especially plv8 with all their dependencies take a long time to build, so if you don't need them, type `make postgresql` instead.
 
 The makefile will install all products in `/Applications/Postgres.app/Contents/Versions/xx` (xx is the major version of PostgreSQL).
 So for best results, make sure that directory is empty before starting the build.
@@ -86,7 +86,8 @@ Always check the exit code of make to see if any errors occurred, eg. `make -j 3
 At the very least, you need the following:
 
 - Xcode
-- Developer Tools (install with `xcode-select -install`)
+- Developer Tools (install with `xcode-select --install`)
+- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14) or 3.11.x (PostgreSQL 15)
 
 For building PostGIS, you also need
 
@@ -110,25 +111,28 @@ The quickest way to install all the dependencies is with MacPorts. Install MacPo
 
 Older versions required a different set of packages for building the docs, please see the specific versions of the documentation page https://www.postgresql.org/docs/current/docguide-toolsets.html for details.
 
-It may also be possible to install those using homebrew, but I'm not sure if they have all the required packages.
+It is also possible to install those using homebrew, at least for PostgreSQL 14 and later:
+
+    brew install automake, cmake, docbook-xsl, fop, libtool, pkg-config    
 
 ## Under the Hood
 
 Postgres.app bundles the PostgreSQL binaries inside the application package. When you first start Postgres.app, here's what it does:
 
-- Initialise a database cluster: `initdb -D DATA_DIRECTORY -EUTF-8 --locale=XX_XX.UTF-8`
-- Start the server: `pg_ctl start -D DATA_DIRECTORY -w -l DATA_DIRECTORY/postgres-server.log`
+- Initialise a database cluster: `initdb -D DATA_DIRECTORY -U postgres --encoding=UTF-8 --locale=en_US.UTF-8`. Starting with PostgreSQL 15 additionally: `--locale-provider=icu --icu-locale=en-US --data-checksums`
+- Start the server: `pg_ctl start -D DATA_DIRECTORY --wait --log=DATA_DIRECTORY/postgres-server.log --options="-p PORT"`
+- Create a superuser: `createuser -U postgres -p PORT --superuser USERNAME`
 - Create a user database: `createdb USERNAME`
 
 On subsequent app launches, Postgres.app only starts the server.
 
-The default `DATA_DIRECTORY` is `/Users/USERNAME/Library/Application Support/Postgres/var-9.X`
+The default `DATA_DIRECTORY` is `/Users/USERNAME/Library/Application Support/Postgres/var-xx`
 
 Note that Postgres.app runs the server as your user, unlike other installations which might create a separate system user named `postgres`.
 
-When you quit Postgres.app, it stops the server using the following command:
+When you stop a server the following command is performed. The same happens for all running servers if quit Postgres.app using the menubar icon:
 
-- `pg_ctl stop -w -D DATA_DIRECTORY`
+- `pg_ctl stop --mode=fast --wait -D DATA_DIRECTORY`
 
 ## Command Line Utilities
 
@@ -141,7 +145,7 @@ Postgres.app also includes useful command line utilities (note: this list may be
 
 See [the documentation](http://postgresapp.com/documentation) for more info.
 
-## Using the debugger
+## Using the pl/pgsql Debugger
 
 First, you'll need to adjust the configuration file (`postgresql.conf`) to preload the debugger extension. Add the following line:
 
@@ -155,13 +159,13 @@ After you've saved this file, restart the server. You'll need to load the debugg
 CREATE EXTENSION pldbgapi;
 ```
 
-Debugging requires that you are a superuser. Please refer to the [documentation](https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html) for further information. This requires that you use a supported client, such as [PgAdmin 4](https://www.pgadmin.org/). The official documentation for the module can be accessed [here](https://git.postgresql.org/gitweb/?p=pldebugger.git;a=blob_plain;f=README.pldebugger;hb=HEAD).
+Debugging requires that you are a superuser. Please refer to the [documentation](https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html) for further information. This requires that you use a supported client, such as [PgAdmin 4](https://www.pgadmin.org/). The official documentation for the module can be accessed [here](https://github.com/EnterpriseDB/pldebugger/blob/master/README.pldebugger).
 
 ## Contact
 
 If you find a bug, please [open an issue](https://github.com/PostgresApp/PostgresApp/issues).
 
-Postgres.app is maintained by [Jakob Egger](https://github.com/jakob).
+Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Tobias Bussmann](https://github.com/tbussmann).
 
 
 ## License
