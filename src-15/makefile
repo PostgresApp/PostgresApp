@@ -111,9 +111,9 @@ protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
 # For some reason PostgreSQL could no longer find DTDs when building docs
 # This change fixes that issue. It doesn't fully work in the configure script,
 # But it does work when building docs as long as we also pass XMLINCLUDE=--catalogs to make
-# Note: it expects that you have installed the docbook-xml-4.5 port
+# Note: it expects that you have installed the docbook-xml-4.5 port or the docbook-xsl formula
 XMLLINT=xmllint
-SGML_CATALOG_FILES=/opt/local/etc/sgml/catalog
+SGML_CATALOG_FILES=/opt/local/etc/sgml/catalog:/opt/homebrew/etc/xml/catalog
 export XMLLINT SGML_CATALOG_FILES
 
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET CMAKE_OSX_ARCHITECTURES ICU_LIBS ICU_CFLAGS
