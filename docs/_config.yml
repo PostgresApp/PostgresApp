@@ -88,6 +88,20 @@ extraReleases: [
 			{ postgres: "12.12", postgis: "3.0.7", plv8: "2.3.15", architecture: "Intel" },
 		],
 	},
+	{
+		name: {
+			en: "Postgres.app with PostgreSQL 11 (Intel)", 
+			de: "Postgres.app mit PostgreSQL 11 (Intel)",
+		},
+		size: "56MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.10/Postgres-2.5.10-11.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.5.10",
+		postgresappVersion: "2.5.10",
+		postgresappMinSystemVersion: "10.13",
+		postgresqlVersions: [
+			{ postgres: "11.17", postgis: "2.5.8", plv8: "2.3.15", architecture: "Intel" },
+		],
+	},	
 ]
 
 legacyReleases: [
