@@ -72,8 +72,8 @@ OPENJPEG_VERSION=2.5.0
 PLDEBUGGER_VERSION=1.5
 
 # http://site.icu-project.org/download/
-ICU_MAJOR_VERSION=71
-ICU_MINOR_VERSION=1
+ICU_MAJOR_VERSION=72
+ICU_MINOR_VERSION=rc
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
@@ -283,12 +283,12 @@ icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJ
 	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; ./runConfigureICU MacOSX --prefix="$(PREFIX)"
 
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
-	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
+	$(TAR) icu4c-$(ICU_MAJOR_VERSION)$(ICU_MINOR_VERSION)-src.tgz
 	mv icu icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
 	touch $@
 
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz:
-	$(CURL) https://github.com/unicode-org/icu/releases/download/release-$(ICU_MAJOR_VERSION)-$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
+	$(CURL) https://github.com/unicode-org/icu/releases/download/release-$(ICU_MAJOR_VERSION)-$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)$(ICU_MINOR_VERSION)-src.tgz
 
 clean-icu:
 	rm -Rf "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)"
