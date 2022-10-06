@@ -35,11 +35,6 @@ extraReleases: [
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
 			{ postgres: "15rc2", postgis: "3.3.1", architecture: "Universal" },
-			{ postgres: "14.5", postgis: "3.2.3", architecture: "Universal" },
-			{ postgres: "13.8", postgis: "3.1.7", plv8: "2.3.15", architecture: "Intel" },
-			{ postgres: "12.12", postgis: "3.0.7", plv8: "2.3.15", architecture: "Intel" },
-			{ postgres: "11.17", postgis: "2.5.8", plv8: "2.3.15", architecture: "Intel" },
-			{ postgres: "10.22", postgis: "2.4.10", plv8: "1.4.8", architecture: "Intel" },
 		],
 	},
 	{
