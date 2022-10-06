@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_15.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 2.5.11a</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 15rc2 with PostGIS 3.3.1</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 06 Oct 2022 09:22:04 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.11a/Postgres-2.5.11a-15.dmg"
+		sparkle:version="163"
+		sparkle:shortVersionString="2.5.11a"
+		length="92484526"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFCU+375y/9e+kaRaFUdzKljFAzq+AhRizsddSq0YwO7akjXz6uEZs8tBkQ=="
+		/>
+		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+	</item>
+  </channel>
+</rss>
