@@ -33,7 +33,7 @@ LIBXML2_VERSION=2.10.2
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.5
+OPENSSL_VERSION=3.0.6
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.0
@@ -49,8 +49,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.16
 
 # https://github.com/eulerto/wal2json/releases
-# while we wait for an updated release, we build the commit that merged PR https://github.com/eulerto/wal2json/pull/247
-WAL2JSON_VERSION=821147b21cb3672d8c67f708440ff4732e320e0e
+WAL2JSON_VERSION=wal2json_2_5
 
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.21.7
@@ -249,8 +248,6 @@ openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Con
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
-	#patch to include missing header - this was backpatched from upstream 8aaeb5d, scheduled for 3.0.6
-	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	mkdir openssl-${OPENSSL_VERSION}/build_x86_64
 	mkdir openssl-${OPENSSL_VERSION}/build_arm64
 	touch $@
