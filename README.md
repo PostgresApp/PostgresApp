@@ -21,7 +21,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [PostgreSQL](http://www.postgresql.org/)
 - [PostGIS](http://postgis.net/)
 - [wal2json](https://github.com/eulerto/wal2json)
-- [pldebugger](https://git.postgresql.org/gitweb/?p=pldebugger.git)
+- [pldebugger](https://github.com/EnterpriseDB/pldebugger)
 
 ## How To Build
 
@@ -35,15 +35,17 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 9.4 - 10 are built on macOS 10.10 with Xcode 7.2.1
+- the binaries for PostgreSQL 9.4 - 10 were / are built on macOS 10.10 with Xcode 7.2.1
 
 - the binaries for PostgreSQL 11 - 12 are built on macOS 10.12 with Xcode 8.3.3
 
 - the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
 
-- the binaries for PostgreSQL 14 and 15 are built on macOS 11 with Command Line Tools for Xcode 12.5
+- the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
 
-- the GUI is built on macOS 12 with Xcode 13.1
+- the binaries for PostgreSQL 15 are built on macOS 12 with Command Line Tools for Xcode 14
+
+- the GUI is built on macOS 12 with Xcode 14.1
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
@@ -113,7 +115,7 @@ Older versions required a different set of packages for building the docs, pleas
 
 It is also possible to install those using homebrew, at least for PostgreSQL 14 and later:
 
-    brew install automake, cmake, docbook-xsl, fop, libtool, pkg-config    
+    brew install automake cmake docbook-xsl libtool pkg-config    
 
 ## Under the Hood
 
