@@ -102,7 +102,6 @@ do
 		done
 		
 		# copy include, share
-		rm -f "${TARGET_VERSIONS_DIR}/${VERSION}/include/json"
 		cp -afR "${PG_BINARIES_DIR}/${VERSION}/include" "${PG_BINARIES_DIR}/${VERSION}/share" "${TARGET_VERSIONS_DIR}/${VERSION}/"
 	fi
 done
