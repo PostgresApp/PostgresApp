@@ -55,7 +55,7 @@ extraReleases: [
 		postgresqlVersions: [
 			{ postgres: "14.5", postgis: "3.2.3", architecture: "Universal" },
 		],
-	}
+	},
 	{
 		name: {
 			en: "Postgres.app with PostgreSQL 13 (Intel)", 
