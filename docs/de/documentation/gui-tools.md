@@ -14,7 +14,7 @@ Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Ma
 - [DBGlass](http://dbglass.web-pal.com)
 - [DbVisualizer](https://www.dbvis.com/)
 - [Froq](https://www.colourful-apps.com/products/mac/froq)
-- [Moon Modeler](https://www.datensen.com)
+- [Luna Modeler](https://www.datensen.com)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
 - [Postico](https://eggerapps.at/postico/)
