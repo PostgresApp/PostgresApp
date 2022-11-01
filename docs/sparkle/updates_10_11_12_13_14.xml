@@ -5,30 +5,31 @@
     <link>https://postgresapp.com/sparkle/updates_10_11_12_13_14.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
-	<item>
-		<title>Postgres.app 2.5.10</title>
-		<description>
-			<![CDATA[
-				<ul>
-					<li>PostgreSQL 10.22 with PostGIS 2.4.10</li>
-					<li>PostgreSQL 11.17 with PostGIS 2.5.8</li>
-					<li>PostgreSQL 12.12 with PostGIS 3.0.7</li>
-					<li>PostgreSQL 13.8 with PostGIS 3.1.7</li>
-					<li>PostgreSQL 14.5 with PostGIS 3.2.3</li>
-				</ul>
-			]]>
-		</description>
-		<pubDate>Tue, 20 Sep 2022 14:29:18 +0200</pubDate>
-		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.10/Postgres-2.5.10-10-11-12-13-14.dmg"
-		sparkle:version="161"
-		sparkle:shortVersionString="2.5.10"
-		length="293382259"
-		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFGg/y79tyGIazLgMpMf+1NNzLuk+AhQwi6KkoT90iY3BOev3x0ha9xRNKg=="
-		/>
-		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
-	</item>
+		<item>
+			<title>Postgres.app 2.5.11</title>
+			<description>
+				<![CDATA[
+					<ul>
+						<li>PostgreSQL 10.22 with PostGIS 2.4.10</li>
+						<li>PostgreSQL 11.17 with PostGIS 2.5.8</li>
+						<li>PostgreSQL 12.12 with PostGIS 3.0.7</li>
+						<li>PostgreSQL 13.8 with PostGIS 3.1.7</li>
+						<li>PostgreSQL 14.5 with PostGIS 3.2.3</li>
+						<li>PostgreSQL 15.0 with PostGIS 3.3.1</li>
+					</ul>
+				]]>
+			</description>
+			<pubDate>Thu, 13 Oct 2022 11:29:48 +0200</pubDate>
+			<enclosure
+			url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.11/Postgres-2.5.11-10-11-12-13-14-15.dmg"
+			sparkle:version="166"
+			sparkle:shortVersionString="2.5.11"
+			length="379337259"
+			type="application/octet-stream"
+			sparkle:dsaSignature="MC0CFQCfhEnfnVzJsnTAnM/PiszqMRinEwIUXq5qcAQyj91V/itj3A/j2p9Yo+8="
+			/>
+			<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+		</item>
     <item>
         <title>Postgres.app 2.5.9</title>
         <description>
