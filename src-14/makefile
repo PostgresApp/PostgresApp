@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.2.3
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14.5
+POSTGRES_VERSION=14.6
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -48,7 +48,7 @@ JSONC_VERSION=0.15
 WAL2JSON_VERSION=wal2json_2_4
 
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.18.2
+PROTOBUF_VERSION=3.18.3
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.4.1
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.37
+LIBPNG_VERSION=1.6.38
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
