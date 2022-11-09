@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1q
+OPENSSL_VERSION=1.1.1s
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.2.0
@@ -149,8 +149,6 @@ openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
-	#patch to include missing header - this was backpatched from upstream 60f011f, scheduled for 1.1.1r
-	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:

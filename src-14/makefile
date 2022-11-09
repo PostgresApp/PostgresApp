@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1q
+OPENSSL_VERSION=1.1.1s
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -215,8 +215,6 @@ openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Con
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
-	#patch to include missing header - this was backpatched from upstream 60f011f, scheduled for 1.1.1r
-	patch -b -d "openssl-${OPENSSL_VERSION}" -p1 <patches/openssl_memcmp.patch
 	mkdir openssl-${OPENSSL_VERSION}/build_x86_64
 	mkdir openssl-${OPENSSL_VERSION}/build_arm64
 	touch $@
