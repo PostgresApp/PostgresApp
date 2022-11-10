@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <!-- XML Catalog file for DocBook XML -->
+  <rewriteURI uriStartString="http://www.oasis-open.org/docbook/xml/" rewritePrefix="/opt/local/share/xml/docbook/"/>
+  <rewriteSystem systemIdStartString="http://www.oasis-open.org/docbook/xml/" rewritePrefix="/opt/local/share/xml/docbook/"/>
+</catalog>

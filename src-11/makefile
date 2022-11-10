@@ -88,6 +88,14 @@ protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET ICU_LIBS ICU_CFLAGS
 export PROTOC protobuf_CFLAGS protobuf_LIBS
 
+# Previously xmllint and xsltproc automatically downloaded DTDs
+# However, they don't support downloading the files over HTTPS, so we have to provide them
+# Note: you need to have installed the docbook-xml-4.2 and docbook-xsl-nons ports
+XMLLINT=/usr/bin/xmllint --nonet
+XSLTPROC=/usr/bin/xsltproc --nonet
+XML_CATALOG_FILES=/opt/local/share/xsl/docbook-xsl-nons/catalog.sf.xml $(CURDIR)/docbook-macports-catalog.xml
+export XMLLINT XSLTPROC XML_CATALOG_FILES
+
 # commands used for downloading and extracting sources
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
