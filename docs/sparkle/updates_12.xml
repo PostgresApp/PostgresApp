@@ -12,7 +12,7 @@
 				<ul>
 					<li>PostgreSQL 12.13 with PostGIS 3.0.7</li>
 				</ul>
-				<p>You can find <a href="https://github.com/PostgresApp/PostgresApp/releases/v2.5.12">more info about this release</a> on Github.</p>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
 		<pubDate>Thu, 10 Nov 2022 15:59:13 +0100</pubDate>

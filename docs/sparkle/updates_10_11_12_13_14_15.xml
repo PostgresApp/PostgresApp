@@ -17,7 +17,7 @@
 					<li>PostgreSQL 14.6 with PostGIS 3.2.3</li>
 					<li>PostgreSQL 15.1 with PostGIS 3.3.1</li>
 				</ul>
-				<p>You can find <a href="https://github.com/PostgresApp/PostgresApp/releases/v2.5.12">more info about this release</a> on Github.</p>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
 		<pubDate>Thu, 10 Nov 2022 16:24:42 +0100</pubDate>
