@@ -24,6 +24,18 @@ class SettingsViewController: NSViewController {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
+    
+    @IBAction func showBinariesDirectory(_ sender: AnyObject?) {
+        guard let path = self.server?.binPath else { return }
+        if !NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "") {
+            let userInfo = [
+                NSLocalizedDescriptionKey: "Folder not found."
+            ]
+            let error = NSError(domain: "com.postgresapp.Postgres2.missing-folder", code: 0, userInfo: userInfo)
+            self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+        }
+    }
+
 	
 	@IBAction func showConfigFile(_ sender: AnyObject?) {
 		guard let path = self.server?.configFilePath else { return }
