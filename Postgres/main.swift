@@ -18,16 +18,20 @@ func checkApplicationPath() {
 	if actualPath != expectedPath {
 		let alert = NSAlert()
 		if actualPath.hasPrefix("/Applications/") && !actualPath.hasSuffix("Postgres.app") {
-			alert.messageText = "Postgres.app can't be launched."
+			alert.messageText = "Postgres.app was renamed"
 			alert.informativeText = "Please change the name of the app back to 'Postgres.app'."
 		}
 		else {
-			alert.messageText = "Postgres.app can't be launched"
-			alert.informativeText = "Please move Postgres.app to your Applications folder.\n\n- use Finder to move the app\n- don't place it in a subfolder\n- don't change the app name"
+			alert.messageText = "Postgres.app was not moved to the Applications folder"
+			alert.informativeText = "To ensure that Postgres.app works correctly, please move it to the Applications folder with Finder"
 		}
-		alert.addButton(withTitle: "OK")
-		alert.runModal()
-		exit(1)
+		alert.informativeText = alert.informativeText + "\n\nYou can try to launch Postgres.app anyway, but some things might not work correctly."
+		alert.addButton(withTitle: "Quit")
+		alert.addButton(withTitle: "Launch anyway")
+		let response = alert.runModal()
+		if response == .alertFirstButtonReturn {
+			exit(1)
+		}
 	}
 }
 checkApplicationPath()
