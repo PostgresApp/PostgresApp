@@ -10,9 +10,7 @@ import Cocoa
 import CommonCrypto
 
 class Server: NSObject {
-	
-	static let VersionsPath = "/Applications/Postgres.app/Contents/Versions"
-	
+		
 	static let PropertyChangedNotification = Notification.Name("Server.PropertyChangedNotification")
 	static let StatusChangedNotification = Notification.Name("Server.StatusChangedNotification")
 	
@@ -134,13 +132,12 @@ class Server: NSObject {
 	}
 	
 	
-	init(name: String, version: String? = nil, port: UInt = 5432, varPath: String? = nil, startOnLogin: Bool = false) {
+	init(name: String, binPath: String, port: UInt = 5432, varPath: String, startOnLogin: Bool = false) {
 		super.init()
-		let effectiveVersion = version ?? Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
 		self.name = name
 		self.port = port
-		self.binPath = Server.VersionsPath.appendingFormat("/%@/bin", effectiveVersion)
-		self.varPath = varPath ?? FileManager().applicationSupportDirectoryPath().appendingFormat("/var-%@", effectiveVersion)
+		self.binPath = binPath
+		self.varPath = varPath
 		self.startOnLogin = startOnLogin
 		updateServerStatus()
 	}
@@ -179,10 +176,12 @@ class Server: NSObject {
 				if let dataDirVersion = self.dataDirectoryVersion {
 					recoverySuggestions.append(String(format: NSLocalizedString("The data directory was initialized with PostgreSQL %@.", comment: ""), dataDirVersion))
 				}
-				let versions = Self.availableBinaryVersions
+#if IS_MAIN_APP
+				let versions = BinaryManager.shared.findAvailableBinaries().map { $0.version }
 				if !versions.isEmpty {
 					recoverySuggestions.append(String(format: NSLocalizedString("This copy of Postgres.app includes the following PostgreSQL versions: %@.", comment: ""), versions.joined(separator: ", ")))
 				}
+#endif
 				recoverySuggestions.append(NSLocalizedString("Please try downloading a different release of Postgres.app.", comment: ""))
 				userInfo[NSLocalizedRecoverySuggestionErrorKey] = recoverySuggestions.joined(separator: "\n\n")
 				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
@@ -773,24 +772,7 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo)
 		}
 	}
-	
-	public static var availableBinaryVersions: [String] {
-		guard let versionsPathEnum = FileManager().enumerator(at: URL(fileURLWithPath: Server.VersionsPath), includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants, .skipsHiddenFiles]) else { return [] }
-		var versions = [String]()
-		while let itemURL = versionsPathEnum.nextObject() as? URL {
-			do {
-				let resourceValues = try itemURL.resourceValues(forKeys: [.isDirectoryKey])
-				guard resourceValues.isDirectory == true else { continue }
-			} catch { continue }
-			let folderName = itemURL.lastPathComponent
-			versions.append(folderName)
-		}
-		versions.sort { (a, b) -> Bool in
-			return a.compare(b, options:[.numeric], range: a.startIndex ..< a.endIndex, locale: nil) == .orderedAscending
-		}
-		return versions
-	}
-	
+		
 	private var cachedBinaryVersion: String?
 	var binaryVersion: String? {
 		if let a = cachedBinaryVersion { return a }

@@ -14,17 +14,15 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	@objc dynamic var name: String = "New Server"
 	@objc dynamic var port: UInt = 5432
 	@objc dynamic var varPath: String = ""
+	
+	var availableBinaries: [PostgresBinary] = []
 	@objc dynamic var versions: [String] = []
 	@objc dynamic var selectedVersionIdx: Int = 0
-	
-	private var version: String {
-		return versions[selectedVersionIdx]
-	}
-	
+		
 	
 	override func viewDidLoad() {
 		loadVersions()
-		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(version)")
+		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(availableBinaries[selectedVersionIdx].version)")
 		
 		super.viewDidLoad()
 	}
@@ -32,7 +30,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	@IBAction func versionChanged(_ sender: AnyObject?) {
 		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
-		varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedPattern(for: version))
+		varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedTemplate(for: availableBinaries[selectedVersionIdx].version))
 	}
 	
 	
@@ -70,7 +68,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 			}
 		}
 		
-		let server = Server(name: name, version: version, port: port, varPath: varPath)
+		let server = Server(name: name, binPath: availableBinaries[selectedVersionIdx].binPath, port: port, varPath: varPath)
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
@@ -81,7 +79,8 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	
 	private func loadVersions() {
-		versions = Server.availableBinaryVersions
+		availableBinaries = BinaryManager.shared.findAvailableBinaries()
+		versions = availableBinaries.map { $0.displayName }
 		selectedVersionIdx = versions.count-1
 	}
 	
