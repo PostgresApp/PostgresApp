@@ -338,7 +338,7 @@
         <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="600" height="200"/>
@@ -433,8 +433,9 @@ IA
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="WAd-ih-Cko">
+                                    <binding destination="n71-mI-16p" name="title" keyPath="selection.serverStatus" id="VyG-Jc-QJz">
                                         <dictionary key="options">
+                                            <string key="NSNoSelectionPlaceholder">Start</string>
                                             <string key="NSValueTransformerName">Postgres.ServerStatusButtonTitleTransformer</string>
                                         </dictionary>
                                     </binding>
@@ -621,8 +622,9 @@ IA
                                 </buttonCell>
                                 <connections>
                                     <action selector="warningButtonClicked:" target="Rgw-vS-n3O" id="We7-oI-82H"/>
-                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.serverWarningButtonTitle" id="JzY-0N-Eh4">
+                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.serverWarningButtonTitle" id="ZVv-kq-6ln">
                                         <dictionary key="options">
+                                            <integer key="NSNoSelectionPlaceholder" value="1"/>
                                             <string key="NSValueTransformerName">NSIsNil</string>
                                         </dictionary>
                                     </binding>
@@ -637,8 +639,9 @@ IA
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="caution-icon-color" id="aDq-Xd-fLy"/>
                                 <connections>
-                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.serverWarning" id="Bew-sL-BYW">
+                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.serverWarning" id="SSe-sr-Fi0">
                                         <dictionary key="options">
+                                            <integer key="NSNoSelectionPlaceholder" value="1"/>
                                             <string key="NSValueTransformerName">NSIsNil</string>
                                         </dictionary>
                                     </binding>
