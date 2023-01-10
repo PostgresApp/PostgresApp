@@ -26,6 +26,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	@IBOutlet var statusMenu: NSMenu!
 	
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        if let myBundleVersion = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String {
+            for app in NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier!) {
+                if app.bundleURL == Bundle.main.bundleURL {
+                    continue
+                }
+                guard let bundleURL = app.bundleURL,
+                      let bundle = Bundle(url: bundleURL),
+                      let bundleVersion = bundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+                else { continue}
+                
+                switch myBundleVersion.compare(bundleVersion, options: .numeric) {
+                case .orderedAscending:
+                    // other app is newer
+                    print("Detected newer menu helper is already running. Quitting.")
+                    exit(1)
+                case .orderedDescending:
+                    print("Detected older menu helper. Trying to quit it.")
+                    app.terminate()
+                case .orderedSame:
+                    print("Detected identical menu helper. Trying to quit it.")
+                    app.terminate()
+                }
+            }
+        }
+    }
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		statusItem.menu = statusMenu
