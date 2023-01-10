@@ -52,9 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-#if !DEBUG
 		checkApplicationPath()
-#endif
 		ServerManager.shared.loadServers()
 		if isFirstLaunch() {
 			ServerManager.shared.checkForExistingDataDirectories()
