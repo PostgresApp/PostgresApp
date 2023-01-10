@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -341,7 +341,7 @@
 				8332859A1D5CBE88001EA003 /* CopyFiles */,
 				36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */,
 				83999C681D7DA41600B8A1D6 /* CopyFiles */,
-				83DAAECA1D92DBD500D5BC3C /* ShellScript */,
+				83DAAECA1D92DBD500D5BC3C /* Remove Swift Libraries from Helper Apps */,
 				8324D9AC1D9402A20066DCDB /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -441,26 +441,30 @@
 			files = (
 			);
 			inputPaths = (
+				$PG_BINARIES_DIR,
 			);
 			name = "Copy PostgreSQL Executables, Libraries, etc.";
 			outputPaths = (
+				$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "source \"${SRCROOT}\"/Postgres/CopyBinaries.sh";
+			shellScript = "source \"${SRCROOT}\"/Postgres/CopyBinaries.sh\n";
 		};
-		83DAAECA1D92DBD500D5BC3C /* ShellScript */ = {
+		83DAAECA1D92DBD500D5BC3C /* Remove Swift Libraries from Helper Apps */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Remove Swift Libraries from Helper Apps";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -e\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/LoginItems/PostgresLoginHelper.app/Contents/Frameworks\"\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/PostgresMenuHelper.app/Contents/Frameworks\"";
+			shellScript = "set -e\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/LoginItems/PostgresLoginHelper.app/Contents/Frameworks\"\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/PostgresMenuHelper.app/Contents/Frameworks\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -564,7 +568,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2LoginHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -585,7 +592,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PostgresLoginHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2LoginHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -608,7 +618,11 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
 				LATEST_STABLE_PG_VERSION = 15;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2MenuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -632,7 +646,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PostgresMenuHelper/Info.plist;
 				LATEST_STABLE_PG_VERSION = 15;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.postgresapp.Postgres2MenuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -763,7 +780,8 @@
 				POSTGRESAPP_BUILD_VERSION = 2.x;
 				POSTGRESAPP_SHORT_VERSION = dev;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -781,7 +799,10 @@
 					"$(PROJECT_DIR)/Postgres/Vendor",
 				);
 				INFOPLIST_FILE = Postgres/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/src-staticlibs",
@@ -811,7 +832,10 @@
 					"$(PROJECT_DIR)/Postgres/Vendor",
 				);
 				INFOPLIST_FILE = Postgres/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/src-staticlibs",
