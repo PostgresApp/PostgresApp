@@ -13,6 +13,8 @@
 		3634D7F62954BB2C005CE01C /* BinaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3634D7F52954BB2C005CE01C /* BinaryManager.swift */; };
 		3634D7F82954CD69005CE01C /* ServerManagerExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3634D7F72954CD69005CE01C /* ServerManagerExtras.swift */; };
 		363580AC27503E4B009FC06E /* libpq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 363580AB27503E4B009FC06E /* libpq.a */; };
+		36410839296D7A4A00F79014 /* libpgcommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36410838296D7A4A00F79014 /* libpgcommon.a */; };
+		3641083B296D7C2C00F79014 /* libpgport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3641083A296D7C2C00F79014 /* libpgport.a */; };
 		36447A62282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
@@ -109,6 +111,8 @@
 		3634D7F52954BB2C005CE01C /* BinaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryManager.swift; sourceTree = "<group>"; };
 		3634D7F72954CD69005CE01C /* ServerManagerExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerExtras.swift; sourceTree = "<group>"; };
 		363580AB27503E4B009FC06E /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = "src-staticlibs/libpq.a"; sourceTree = "<group>"; };
+		36410838296D7A4A00F79014 /* libpgcommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgcommon.a; path = "src-staticlibs/libpgcommon.a"; sourceTree = "<group>"; };
+		3641083A296D7C2C00F79014 /* libpgport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgport.a; path = "src-staticlibs/libpgport.a"; sourceTree = "<group>"; };
 		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallHistory.swift; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36410839296D7A4A00F79014 /* libpgcommon.a in Frameworks */,
+				3641083B296D7C2C00F79014 /* libpgport.a in Frameworks */,
 				363580AC27503E4B009FC06E /* libpq.a in Frameworks */,
 				8324D9AA1D9402A10066DCDB /* Sparkle.framework in Frameworks */,
 			);
@@ -190,7 +196,9 @@
 		836CC37F1D2D6A0D000D0C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3641083A296D7C2C00F79014 /* libpgport.a */,
 				363580AB27503E4B009FC06E /* libpq.a */,
+				36410838296D7A4A00F79014 /* libpgcommon.a */,
 				831C84AC1D771B4800FA5F59 /* Sparkle.framework */,
 			);
 			name = Frameworks;

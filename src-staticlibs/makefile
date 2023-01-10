@@ -1,9 +1,9 @@
-POSTGRES_VERSION=10.19
+POSTGRES_VERSION=15.1
 
 # compiler options
-MACOSX_DEPLOYMENT_TARGET=10.12
-CFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.12 -g
-CXXFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.12 -g
+MACOSX_DEPLOYMENT_TARGET=10.13
+CFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.13 -g -Os
+CXXFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.13 -g -Os
 
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 
@@ -34,7 +34,7 @@ libpq-fe.h: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 
 libpq.a: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	MAKELEVEL=0 make -C postgresql-$(POSTGRES_VERSION)/src/interfaces/libpq all-static-lib
-	cp postgresql-$(POSTGRES_VERSION)/src/interfaces/libpq/libpq.a libpq.a
+	cp postgresql-$(POSTGRES_VERSION)/src/interfaces/libpq/libpq.a postgresql-$(POSTGRES_VERSION)/src/port/libpgport.a postgresql-$(POSTGRES_VERSION)/src/common/libpgcommon.a .
 	
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: postgresql-$(POSTGRES_VERSION)/configure 
 	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix=$(CURDIR)/install
