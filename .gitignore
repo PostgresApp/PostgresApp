@@ -1,5 +1,7 @@
 src-*/*
 !src-*/makefile
+!src-*/patches/
+!src-*/include/
 Postgres/Vendor/postgres/*
 .DS_Store
 xcuserdata
