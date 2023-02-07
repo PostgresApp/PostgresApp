@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.2.3
+POSTGIS_VERSION=3.2.4
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14.6
+POSTGRES_VERSION=14.7
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,7 +18,7 @@ LZ4_VERSION=1.9.4
 GDAL_VERSION=3.3.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.10.3
+GEOS_VERSION=3.10.4
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1s
+OPENSSL_VERSION=1.1.1t
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.38
+LIBPNG_VERSION=1.6.39
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
