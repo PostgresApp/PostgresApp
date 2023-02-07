@@ -13,9 +13,9 @@ TAR=/usr/bin/tar xzf
 
 all: postgresql
 
-clean: clean-postgresql 
+clean: clean-postgresql
 	
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 
+download: postgresql-$(POSTGRES_VERSION).tar.bz2
 
 #########################
 ###### PostgreSQL #######
