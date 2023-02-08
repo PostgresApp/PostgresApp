@@ -15,22 +15,31 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	@objc dynamic var port: UInt = 5432
 	@objc dynamic var varPath: String = ""
 	
+	@IBOutlet weak var serverVersionPopUpButton: NSPopUpButton!
+	
 	var availableBinaries: [PostgresBinary] = []
-	@objc dynamic var versions: [String] = []
-	@objc dynamic var selectedVersionIdx: Int = 0
+	@objc dynamic var binaryPath = BinaryManager.shared.getLatestBinary().binPath
 		
+	
+	override func viewWillAppear() {
+		loadVersions()
+	}
 	
 	override func viewDidLoad() {
 		loadVersions()
-		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(availableBinaries[selectedVersionIdx].version)")
+		if let selectedBinary = availableBinaries.first(where: { $0.binPath == binaryPath }) {
+			varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(selectedBinary.version)")
+		}
 		
 		super.viewDidLoad()
 	}
 	
 	
 	@IBAction func versionChanged(_ sender: AnyObject?) {
-		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
-		varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedTemplate(for: availableBinaries[selectedVersionIdx].version))
+		if let selectedBinary = availableBinaries.first(where: { $0.binPath == binaryPath }) {
+			let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
+			varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedTemplate(for: selectedBinary.version))
+		}
 	}
 	
 	
@@ -68,7 +77,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 			}
 		}
 		
-		let server = Server(name: name, binPath: availableBinaries[selectedVersionIdx].binPath, port: port, varPath: varPath)
+		let server = Server(name: name, binPath: binaryPath, port: port, varPath: varPath)
 		mainWindowModel.serverManager.servers.append(server)
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
@@ -80,8 +89,27 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	private func loadVersions() {
 		availableBinaries = BinaryManager.shared.findAvailableBinaries()
-		versions = availableBinaries.map { $0.displayName }
-		selectedVersionIdx = versions.count-1
+		let menu = NSMenu()
+		menu.autoenablesItems = false
+		var lastAppURL: URL? = nil
+		var currentItem: NSMenuItem? = nil
+		for binary in availableBinaries {
+			let effectiveAppURL = binary.appURL ?? binary.url
+			if effectiveAppURL != lastAppURL {
+				let shortPath = effectiveAppURL.path.replacingOccurrences(of:"/Users/\(NSUserName())", with: "~")
+				let labelItem = NSMenuItem(title: shortPath, action: nil, keyEquivalent: "")
+				labelItem.isEnabled = false
+				menu.addItem(labelItem)
+				lastAppURL = effectiveAppURL
+			}
+			let binaryItem = NSMenuItem(title: binary.displayName, action: nil, keyEquivalent: "")
+			binaryItem.representedObject = binary.binPath
+			if binary.binPath == binaryPath { currentItem = binaryItem }
+			menu.addItem(binaryItem)
+		}
+		serverVersionPopUpButton.autoenablesItems = false
+		serverVersionPopUpButton.menu = menu
+		if let currentItem { serverVersionPopUpButton.select(currentItem) }
 	}
 	
 }

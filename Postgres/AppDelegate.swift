@@ -120,6 +120,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
 		}
+		
+		BinaryManager.shared.startSearchingOtherAppCopies()
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {

@@ -1246,15 +1246,14 @@ DQ
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOB-xn-gec">
                                 <rect key="frame" x="114" y="118" width="480" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="3bc-Nr-Mvt">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="3bc-Nr-Mvt">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="UuA-xc-5Pu"/>
+                                    <menu key="menu" autoenablesItems="NO" id="UuA-xc-5Pu"/>
                                 </popUpButtonCell>
                                 <connections>
                                     <action selector="versionChanged:" target="1Yk-z1-ntp" id="vqW-Xs-VQO"/>
-                                    <binding destination="1Yk-z1-ntp" name="selectedIndex" keyPath="selectedVersionIdx" previousBinding="fcC-ha-AbX" id="LDy-Wg-2gN"/>
-                                    <binding destination="1Yk-z1-ntp" name="content" keyPath="versions" id="fcC-ha-AbX"/>
+                                    <binding destination="1Yk-z1-ntp" name="selectedObject" keyPath="binaryPath" id="qpD-Gu-pDg"/>
                                 </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xzi-7A-yjo">
@@ -1360,6 +1359,9 @@ Gw
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="serverVersionPopUpButton" destination="iOB-xn-gec" id="Bx2-G7-2gW"/>
+                    </connections>
                 </viewController>
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
