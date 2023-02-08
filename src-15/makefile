@@ -688,14 +688,29 @@ check-gmp:
 mpfr: $(PREFIX)/lib/libmpfr.dylib
 	touch $@
 
-$(PREFIX)/lib/libmpfr.dylib: mpfr-$(MPFR_VERSION)/Makefile
-	make -C mpfr-$(MPFR_VERSION) install
+$(PREFIX)/lib/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.dylib mpfr-$(MPFR_VERSION)/build_x86_64/src/.libs/libmpfr.dylib
+	$(eval MPFR_DYLIB_VERSION=$(shell ls -1 mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.*.dylib | sed -E "s/.*\.([0-9]+)\.dylib$$/\1/"))
+	cd mpfr-$(MPFR_VERSION)/build_arm64 && lipo -create ./src/.libs/libmpfr.${MPFR_DYLIB_VERSION}.dylib ../build_x86_64/src/.libs/libmpfr.${MPFR_DYLIB_VERSION}.dylib -output ./src/.libs/libmpfr.${MPFR_DYLIB_VERSION}.dylib
+	cd mpfr-$(MPFR_VERSION)/build_arm64 && lipo -create ./src/.libs/libmpfr.a ../build_x86_64/src/.libs/libmpfr.a -output ./src/.libs/libmpfr.a
+	make -C mpfr-$(MPFR_VERSION)/build_arm64 install
 
-mpfr-$(MPFR_VERSION)/Makefile: mpfr-$(MPFR_VERSION)/configure $(PREFIX)/lib/libgmp.dylib
-	cd mpfr-$(MPFR_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-gmp="$(PREFIX)"
+mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_arm64/Makefile
+	make -C mpfr-$(MPFR_VERSION)/build_arm64
+	
+mpfr-$(MPFR_VERSION)/build_x86_64/src/.libs/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_x86_64/Makefile
+	make -C mpfr-$(MPFR_VERSION)/build_x86_64
+
+mpfr-$(MPFR_VERSION)/build_arm64/Makefile: mpfr-$(MPFR_VERSION)/configure $(PREFIX)/lib/libgmp.dylib
+	cd mpfr-$(MPFR_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-gmp="$(PREFIX)"
+
+mpfr-$(MPFR_VERSION)/build_x86_64/Makefile: mpfr-$(MPFR_VERSION)/configure $(PREFIX)/lib/libgmp.dylib
+	#darwin17.7.0 is the kernel of 10.13.6
+	cd mpfr-$(MPFR_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-gmp="$(PREFIX)" --host=x86_64-apple-darwin17.7.0
 
 mpfr-$(MPFR_VERSION)/configure: mpfr-$(MPFR_VERSION).tar.xz
 	$(TAR) mpfr-$(MPFR_VERSION).tar.xz
+	mkdir mpfr-$(MPFR_VERSION)/build_arm64
+	mkdir mpfr-$(MPFR_VERSION)/build_x86_64
 	touch $@
 
 mpfr-$(MPFR_VERSION).tar.xz:
@@ -705,8 +720,7 @@ clean-mpfr:
 	rm -Rf mpfr-$(MPFR_VERSION)
 	
 check-mpfr:
-	# for arm64 tget_ld_2exp and tget_ld are failing - need to check why (O0, --disable-thread-safe does not help)
-	make -C mpfr-$(MPFR_VERSION) check
+	make -C mpfr-$(MPFR_VERSION)/build_arm64 check
 
 
 #######################
