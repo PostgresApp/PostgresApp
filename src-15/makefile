@@ -731,12 +731,20 @@ check-mpfr:
 #######################
 
 # used for cgal and sfcgal
-# uses icu, zstd
+# uses icu (disabled), zstd (?), python (?)
 
-boost: boost_$(BOOST_VERSION)/boost
+boost: $(PREFIX)/lib/libboost_system.dylib
 	touch $@
 
-boost_$(BOOST_VERSION)/boost: boost_$(BOOST_VERSION).tar.bz2
+$(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
+	#todo: universal binaries, needed for sfcgal!
+	cd boost_$(BOOST_VERSION) && ./b2 install
+
+boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
+	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 75
+	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,system,serialization
+
+boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	$(TAR) boost_$(BOOST_VERSION).tar.bz2
 	touch $@
 
