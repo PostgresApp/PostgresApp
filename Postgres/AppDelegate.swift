@@ -10,7 +10,7 @@ import Cocoa
 import Sparkle
 import ServiceManagement
 
-class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
@@ -18,6 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 	
 	@IBOutlet var sparkleUpdater: SUUpdater!
 	@IBOutlet var preferencesMenuItem: NSMenuItem!
+	
+	func alertShowHelp(_ alert: NSAlert) -> Bool {
+		NSWorkspace.shared.open(URL(string:"https://postgresapp.com/l/relocation_warning/")!)
+	}
 	
 	func checkApplicationPath() {
 		let actualPath = Bundle.main.bundlePath
@@ -33,9 +37,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate {
 				alert.messageText = "Postgres.app was not moved to the Applications folder"
 				alert.informativeText = "To ensure that Postgres.app works correctly, please move it to the Applications folder with Finder"
 			}
-			alert.informativeText = alert.informativeText + "\n\nYou can ignore this warning, but some things might not work correctly."
+			alert.informativeText = alert.informativeText + "\n\nYou can ignore this warning, but some things might not work correctly. Click the help button for more information."
 			alert.addButton(withTitle: "Quit")
 			alert.addButton(withTitle: "Ignore Warning")
+			alert.showsHelp = true
+			alert.delegate = self
 			let response = alert.runModal()
 			if response == .alertFirstButtonReturn {
 				exit(1)
