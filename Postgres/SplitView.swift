@@ -8,44 +8,18 @@
 
 import Cocoa
 
-class SplitViewController: NSSplitViewController {
-	@IBOutlet var sidebarItem: NSSplitViewItem!
-	
-	var ignoreSidebarVisibleChange = false
-	var userDefaultObserver: KeyValueObserver?
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		sidebarItem.isCollapsed = !UserDefaults.standard.bool(forKey: "SidebarVisible")
-		userDefaultObserver = UserDefaults.standard.observe("SidebarVisible") { [weak self] _ in
-			guard let this = self else { return }
-			if !this.ignoreSidebarVisibleChange {
-				if UserDefaults.standard.bool(forKey: "SidebarVisible") == this.sidebarItem.isCollapsed {
-					if #available(OSX 10.11, *) {
-						this.toggleSidebar(nil)
-					} else {
-						this.sidebarItem.isCollapsed = !this.sidebarItem.isCollapsed
-					}
-				}
-			}
+// I've tried to configure the split view in a manner that the sidebar should never be collapsed
+// However, when restoring state from a previous version of Postgres.app, it is possible that
+// the subview is restored in a collapsed state. For this reason, we make sure that all
+// subviews of the splitview are unhidden after restoring state
+//
+// A side effect of this workaround is that if a subview is ever collapsed due to a bug in macOS,
+// then restarting the app should fix the problem.
+class UncollapsibleSplitView: NSSplitView {
+	override func restoreState(with coder: NSCoder) {
+		super.restoreState(with: coder)
+		for subview in self.arrangedSubviews {
+			subview.isHidden = false
 		}
 	}
-	
-	deinit {
-		if let userDefaultObserver = userDefaultObserver {
-			UserDefaults.standard.removeObserver(userDefaultObserver, forKeyPath: userDefaultObserver.keyPath)
-		}
-	}
-	
-	override func splitViewDidResizeSubviews(_ notification: Notification) {
-		if NSSplitViewController.instancesRespond(to: #selector(NSSplitViewController.splitViewDidResizeSubviews(_:))) {
-			super.splitViewDidResizeSubviews(notification)
-		}
-		if notification.userInfo?["NSSplitViewUserResizeKey"] as? Bool == true {
-			ignoreSidebarVisibleChange = true
-			UserDefaults.standard.setValue(!sidebarItem.isCollapsed, forKey: "SidebarVisible")
-			ignoreSidebarVisibleChange = false
-		}
-	}
-	
 }

@@ -359,12 +359,12 @@
         <!--Split View Controller-->
         <scene sceneID="tQl-Oo-dqS">
             <objects>
-                <splitViewController id="it9-uo-REU" customClass="SplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController id="it9-uo-REU" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem canCollapse="YES" collapsed="YES" holdingPriority="260" behavior="sidebar" id="gtw-Ta-XCg"/>
+                        <splitViewItem holdingPriority="260" id="gtw-Ta-XCg"/>
                         <splitViewItem id="Q5R-ud-P97"/>
                     </splitViewItems>
-                    <splitView key="splitView" wantsLayer="YES" misplaced="YES" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="QG8-SB-dWs">
+                    <splitView key="splitView" wantsLayer="YES" misplaced="YES" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="QG8-SB-dWs" customClass="UncollapsibleSplitView" customModule="Postgres" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -372,7 +372,6 @@
                         </connections>
                     </splitView>
                     <connections>
-                        <outlet property="sidebarItem" destination="gtw-Ta-XCg" id="W7P-1C-aUy"/>
                         <outlet property="splitView" destination="QG8-SB-dWs" id="Bik-df-Bqg"/>
                         <segue destination="fKp-yy-u0S" kind="relationship" relationship="splitItems" id="2v9-8r-UUa"/>
                         <segue destination="Rgw-vS-n3O" kind="relationship" relationship="splitItems" id="M6O-5h-g8D"/>
@@ -380,7 +379,7 @@
                 </splitViewController>
                 <customObject id="Of8-cv-Q7z" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="499"/>
+            <point key="canvasLocation" x="54" y="518"/>
         </scene>
         <!--Server View Controller-->
         <scene sceneID="56q-Vh-FcR">
@@ -457,13 +456,13 @@ IA
                                 </connections>
                             </textField>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
-                                <rect key="frame" x="0.0" y="33" width="450" height="153"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="186"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Dni-fY-jEd">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="153"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="186"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsEmptySelection="NO" id="nrL-ym-6WO">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="153"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="186"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
@@ -506,48 +505,6 @@ IA
                                     <segue destination="buw-cX-kU8" kind="popover" popoverAnchorView="5Be-be-3Q1" popoverBehavior="t" preferredEdge="maxY" id="0O1-TV-RSC"/>
                                 </connections>
                             </button>
-                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="gZH-Ls-EES">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="32"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p5e-OX-5Sl">
-                                        <rect key="frame" x="239" y="7" width="191" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Show Postgres in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7zP-gL-1SS">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="wBe-GR-afW" name="value" keyPath="values.HideMenuHelperApp" id="aBX-jh-A99">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2cD-LY-QKG">
-                                        <rect key="frame" x="19" y="4" width="38" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="36" id="OX6-5d-zvL"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="icon-sidebar" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mhO-Qd-DhO">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="wBe-GR-afW" name="value" keyPath="values.SidebarVisible" id="829-Em-Vlq"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="2cD-LY-QKG" firstAttribute="leading" secondItem="gZH-Ls-EES" secondAttribute="leading" constant="20" symbolic="YES" id="SGQ-ye-rcL"/>
-                                    <constraint firstAttribute="height" constant="32" id="VU2-Zl-E4Q"/>
-                                    <constraint firstItem="2cD-LY-QKG" firstAttribute="centerY" secondItem="gZH-Ls-EES" secondAttribute="centerY" id="dWK-7g-emh"/>
-                                    <constraint firstAttribute="trailing" secondItem="p5e-OX-5Sl" secondAttribute="trailing" constant="20" symbolic="YES" id="hZv-pL-3dZ"/>
-                                    <constraint firstItem="p5e-OX-5Sl" firstAttribute="centerY" secondItem="gZH-Ls-EES" secondAttribute="centerY" id="p8w-IG-HUX"/>
-                                </constraints>
-                            </visualEffectView>
-                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-G7-PlW">
-                                <rect key="frame" x="0.0" y="30" width="450" height="5"/>
-                            </box>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
                                 <rect key="frame" x="295" y="208" width="16" height="16"/>
                                 <constraints>
@@ -654,12 +611,9 @@ IA
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="Scd-hP-8Y9" secondAttribute="bottom" constant="8" id="3EL-EL-pxp"/>
                             <constraint firstItem="chP-0M-fyI" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="3qL-Tc-ouM"/>
-                            <constraint firstItem="Jak-G7-PlW" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="6Kb-Hx-SS9"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="Dj0-gb-Coy"/>
                             <constraint firstItem="ZMb-aL-TmL" firstAttribute="leading" secondItem="nOw-Qm-BYd" secondAttribute="leading" id="Fs8-eD-SIc"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="GLd-1a-TYI"/>
-                            <constraint firstAttribute="trailing" secondItem="gZH-Ls-EES" secondAttribute="trailing" id="HW0-UL-GFs"/>
-                            <constraint firstAttribute="trailing" secondItem="Jak-G7-PlW" secondAttribute="trailing" id="I7w-9K-gmh"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="LIo-bi-N8O"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="30" id="M45-iy-ELn"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="O4B-Da-WRU"/>
@@ -668,10 +622,8 @@ IA
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="top" secondItem="Qf0-xy-oRd" secondAttribute="bottom" constant="11" id="Oan-M6-tLU"/>
                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" symbolic="YES" id="SZP-un-Xue"/>
                             <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="12" symbolic="YES" id="T5e-vS-Ain"/>
-                            <constraint firstItem="gZH-Ls-EES" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="Ung-sc-fcJ"/>
                             <constraint firstItem="ZMb-aL-TmL" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="8" symbolic="YES" id="Y3P-aC-BgU"/>
                             <constraint firstAttribute="trailing" secondItem="EJN-CC-Fqg" secondAttribute="trailing" id="ZV2-5Z-Zz4"/>
-                            <constraint firstAttribute="bottom" secondItem="gZH-Ls-EES" secondAttribute="bottom" id="dJO-gT-qX0"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="8iz-Ak-ysG" secondAttribute="bottom" constant="8" id="gRW-ef-sZK"/>
                             <constraint firstItem="ohd-xG-8rQ" firstAttribute="centerY" secondItem="ZMb-aL-TmL" secondAttribute="centerY" constant="-1" id="gaV-bF-xcm"/>
@@ -681,9 +633,8 @@ IA
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="NJh-WV-lPO" secondAttribute="bottom" constant="8" id="mJI-f4-MMF"/>
                             <constraint firstAttribute="trailing" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="20" id="rkl-In-o7n"/>
                             <constraint firstItem="ohd-xG-8rQ" firstAttribute="leading" secondItem="chP-0M-fyI" secondAttribute="leading" id="suc-gT-aJu"/>
-                            <constraint firstItem="gZH-Ls-EES" firstAttribute="top" secondItem="Jak-G7-PlW" secondAttribute="bottom" id="wGQ-Q8-W8y"/>
+                            <constraint firstAttribute="bottom" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="uSk-wQ-rVx"/>
                             <constraint firstItem="laV-S9-hSm" firstAttribute="centerY" secondItem="ZMb-aL-TmL" secondAttribute="centerY" id="yAk-Di-aQh"/>
-                            <constraint firstItem="Jak-G7-PlW" firstAttribute="top" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="yrZ-nQ-69f"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
                         </constraints>
                     </view>
@@ -1210,7 +1161,7 @@ IA
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-171" y="1032"/>
+            <point key="canvasLocation" x="-206" y="1032"/>
         </scene>
         <!--Add Server View Controller-->
         <scene sceneID="in6-2w-5h3">
@@ -1403,6 +1354,5 @@ Gw
         <image name="caution-icon-color" width="18" height="18"/>
         <image name="icon-add" width="32" height="32"/>
         <image name="icon-remove" width="32" height="32"/>
-        <image name="icon-sidebar" width="18" height="14"/>
     </resources>
 </document>
