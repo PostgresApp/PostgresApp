@@ -35,6 +35,9 @@ MPFR_VERSION=4.2.0
 # https://www.boost.org/users/download/
 BOOST_VERSION=1_81_0
 
+# https://github.com/CGAL/cgal/releases
+CGAL_VERSION=5.5.1
+
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
@@ -134,11 +137,11 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis wal2json pldebugger pgvector
-clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-gmp clean-mpfr clean-boost clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector
+clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-gmp clean-mpfr clean-boost clean-cgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
 check: check-postgresql check-zstd check-libgeos check-libproj check-gmp check-mpfr check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz  pgvector-${PGVECTOR_VERSION}.tar.gz
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz  pgvector-${PGVECTOR_VERSION}.tar.gz
 
 
 #########################
@@ -743,6 +746,27 @@ boost_$(BOOST_VERSION).tar.bz2:
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
 
+
+######################
+####### CGAL #########
+######################
+
+# used for sfcgal
+# uses boost, gmp, mpfr
+# header only library
+
+cgal: cgal-$(CGAL_VERSION)/include/CGAL
+	touch $@
+
+cgal-$(CGAL_VERSION)/include/CGAL: CGAL-$(CGAL_VERSION).tar.xz
+	$(TAR) cgal-$(CGAL_VERSION).tar.xz
+	touch $@
+
+CGAL-$(CGAL_VERSION).tar.xz:
+	$(CURL) https://github.com/CGAL/cgal/releases/download/v$(CGAL_VERSION)/CGAL-$(CGAL_VERSION).tar.xz
+
+clean-cgal:
+	rm -Rf CGAL-$(CGAL_VERSION)
 
 #########################
 ###### PostGIS ##########
