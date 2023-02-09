@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Postgres Changelog</title>
-    <link>https://postgresapp.com/sparkle/updates_15.xml</link>
+    <link>https://postgresapp.com/sparkle/updates_11_12_13_14_15.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
@@ -10,19 +10,23 @@
 		<description>
 			<![CDATA[
 				<ul>
+					<li>PostgreSQL 11.19 with PostGIS 2.5.9</li>
+					<li>PostgreSQL 12.14 with PostGIS 3.0.8</li>
+					<li>PostgreSQL 13.10 with PostGIS 3.1.8</li>
+					<li>PostgreSQL 14.7 with PostGIS 3.2.4</li>
 					<li>PostgreSQL 15.2 with PostGIS 3.3.2</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 09 Feb 2023 14:17:53 +0100</pubDate>
+		<pubDate>Wed, 08 Feb 2023 20:58:11 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.6/Postgres-2.6-15.dmg"
-		sparkle:version="179"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.6/Postgres-2.6-11-12-13-14-15.dmg"
+		sparkle:version="174"
 		sparkle:shortVersionString="2.6"
-		length="92634255"
+		length="324065397"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQC2vg5l3i7Q8nQNsmNcIhYfDOXl9gIUF+LpGG5C6XxS3eE3RYKt1T53rRI="
+		sparkle:dsaSignature="MC0CFQCZGng4ezJ48hZARTWW/M4OK6k+EAIUTQzYBlgnHIr5fCmEz1TCj2medL8="
 		/>
 		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
 	</item>
