@@ -21,7 +21,6 @@ extension UserDefaults {
 		self.register(defaults: [
 						"ClientAppName": "Terminal",
 						"StartLoginHelper": true,
-						"SidebarVisible": true,
 		])
 	}
 }
