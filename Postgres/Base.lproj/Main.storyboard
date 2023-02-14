@@ -1135,19 +1135,26 @@ IA
                                     <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="YHO-ct-evJ" secondAttribute="leading" id="vW9-Ug-hT6"/>
                                 </constraints>
                             </visualEffectView>
+                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="lkQ-qG-3E4">
+                                <rect key="frame" x="0.0" y="333" width="200" height="25"/>
+                            </visualEffectView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="YHO-ct-evJ" firstAttribute="top" secondItem="4tL-aA-EIb" secondAttribute="bottom" id="2tw-GP-DJa"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" constant="25" id="Bcj-Wj-daD"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="Has-5z-2v7"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="Mq2-yO-CMl"/>
+                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="lkQ-qG-3E4" secondAttribute="bottom" id="MxA-RX-6Lp"/>
                             <constraint firstAttribute="bottom" secondItem="YHO-ct-evJ" secondAttribute="bottom" id="S0f-yG-zBi"/>
                             <constraint firstItem="4tL-aA-EIb" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" id="byE-Bm-ho2"/>
+                            <constraint firstAttribute="trailing" secondItem="lkQ-qG-3E4" secondAttribute="trailing" id="erh-Pc-LPZ"/>
                             <constraint firstAttribute="trailing" secondItem="4tL-aA-EIb" secondAttribute="trailing" id="il2-gt-leA"/>
                             <constraint firstAttribute="trailing" secondItem="YHO-ct-evJ" secondAttribute="trailing" id="l5f-KP-cbo"/>
                             <constraint firstItem="YHO-ct-evJ" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="pPp-eh-fCK"/>
+                            <constraint firstItem="lkQ-qG-3E4" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="r1I-7T-psu"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="uX4-fq-6xw"/>
                             <constraint firstItem="4tL-aA-EIb" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="xnY-Ik-rgC"/>
+                            <constraint firstItem="lkQ-qG-3E4" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="xpa-aF-xf0"/>
                         </constraints>
                     </view>
                 </viewController>
