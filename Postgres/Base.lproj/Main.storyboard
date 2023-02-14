@@ -1090,7 +1090,7 @@ IA
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4tL-aA-EIb">
                                 <rect key="frame" x="0.0" y="30" width="200" height="5"/>
                             </box>
-                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="YHO-ct-evJ">
+                            <visualEffectView blendingMode="behindWindow" material="sidebar" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="YHO-ct-evJ">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-Fg-SZa">
@@ -1135,7 +1135,7 @@ IA
                                     <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="YHO-ct-evJ" secondAttribute="leading" id="vW9-Ug-hT6"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="lkQ-qG-3E4">
+                            <visualEffectView blendingMode="behindWindow" material="sidebar" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="lkQ-qG-3E4">
                                 <rect key="frame" x="0.0" y="333" width="200" height="25"/>
                             </visualEffectView>
                         </subviews>
