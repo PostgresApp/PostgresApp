@@ -35,7 +35,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 guard let bundleURL = app.bundleURL,
                       let bundle = Bundle(url: bundleURL),
                       let bundleVersion = bundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
-                else { continue}
+                else {
+                    print("Detected broken menu helper. Trying to quit it.")
+                    app.terminate()
+                    continue
+                }
                 
                 switch myBundleVersion.compare(bundleVersion, options: .numeric) {
                 case .orderedAscending:
