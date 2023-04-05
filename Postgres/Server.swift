@@ -62,7 +62,12 @@ class Server: NSObject {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-    @objc dynamic var binPath: String = ""
+    @objc dynamic var binPath: String = "" {
+        didSet {
+            NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
+        }
+    }
+    var effectiveBinPath: String?
 	@objc dynamic var varPath: String = ""
 	@objc dynamic var startOnLogin: Bool = false {
 		didSet {
@@ -162,6 +167,10 @@ class Server: NSObject {
 	func start(_ completion: @escaping (ActionStatus) -> Void) {
 		busy = true
 		updateServerStatus()
+        
+        if let effectiveBinPath = effectiveBinPath, binPath != effectiveBinPath {
+            binPath = effectiveBinPath
+        }
 		
 		DispatchQueue.global().async {
 			let statusResult: ActionStatus
@@ -422,7 +431,7 @@ class Server: NSObject {
 	/// Checks if the server is running.
 	/// Must be called only from the main thread.
 	func updateServerStatus() {
-		if !FileManager.default.fileExists(atPath: binPath) {
+		if !checkBinPath() {
 			serverStatus = .NoBinaries
 			running = false
 			databases.removeAll()
@@ -490,6 +499,35 @@ class Server: NSObject {
 		running = false
 		databases.removeAll()
 	}
+    
+    // This function returns true if
+    //  - the binaries directory exists
+    //  - the binaries point to a non-existing directory, but we can fix them
+    //
+    // As a side-effect, it sets the effectiveBinPath variable to a detected compatible binary directory
+    func checkBinPath() -> Bool {
+        if FileManager.default.fileExists(atPath: binPath) {
+            effectiveBinPath = binPath
+            return true
+        }
+#if IS_MAIN_APP
+        let binPathComponents = binPath.components(separatedBy: "/")
+        let appNameIndex = binPathComponents.lastIndex { $0.hasSuffix(".app") }
+        guard let appNameIndex = appNameIndex, appNameIndex < binPathComponents.count - 1 else {
+            effectiveBinPath = nil
+            return false
+        }
+        let binPathSuffix = binPathComponents.suffix(from: appNameIndex+1).joined(separator: "/")
+        for binary in BinaryManager.shared.findAvailableBinaries() {
+            if binary.binPath.hasSuffix(binPathSuffix) {
+                effectiveBinPath = binary.binPath
+                return true
+            }
+        }
+#endif
+        effectiveBinPath = nil
+        return false
+    }
 	
 	
 	/// Checks if the port is in use by another process.
