@@ -445,8 +445,6 @@ class Server: NSObject {
 			return
 		}
 		
-		checkReindexWarning()
-		
 		if FileManager.default.fileExists(atPath: pidFilePath) {
 			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
 				serverStatus = .PidFileUnreadable
