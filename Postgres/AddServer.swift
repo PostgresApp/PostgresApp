@@ -22,15 +22,19 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	override func viewDidLoad() {
 		loadVersions()
-		varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(availableBinaries[selectedVersionIdx].version)")
+        if availableBinaries.indices.contains(selectedVersionIdx) {
+            varPath = FileManager().applicationSupportDirectoryPath().appending("/var-\(availableBinaries[selectedVersionIdx].version)")
+        }
 		
 		super.viewDidLoad()
 	}
 	
 	
 	@IBAction func versionChanged(_ sender: AnyObject?) {
-		let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
-		varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedTemplate(for: availableBinaries[selectedVersionIdx].version))
+        if availableBinaries.indices.contains(selectedVersionIdx) {
+            let regex = try! NSRegularExpression(pattern: "\\d+(\\.\\d+)?$", options: .caseInsensitive)
+            varPath = regex.stringByReplacingMatches(in: varPath, options: [], range: NSRange(0..<varPath.utf16.count), withTemplate: NSRegularExpression.escapedTemplate(for: availableBinaries[selectedVersionIdx].version))
+        }
 	}
 	
 	
@@ -56,7 +60,11 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 	
 	@IBAction func createServer(_ sender: AnyObject?) {
 		guard self.view.window!.makeFirstResponder(nil) else { NSSound.beep(); return }
-		
+        guard availableBinaries.indices.contains(selectedVersionIdx) else {
+            NSSound.beep()
+            return
+        }
+        
 		for server in mainWindowModel.serverManager.servers {
 			if server.varPath == self.varPath {
 				let alert = NSAlert()

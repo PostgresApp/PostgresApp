@@ -107,5 +107,8 @@ do
 done
 
 # create symbolic link
-cd "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/"
-ln -sfh ${LATEST_STABLE_PG_VERSION} latest
+if [ -e "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/$LATEST_STABLE_PG_VERSION" ];
+then
+    cd "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/"
+    ln -sfh ${LATEST_STABLE_PG_VERSION} latest
+fi
