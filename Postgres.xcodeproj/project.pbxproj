@@ -19,6 +19,7 @@
 		36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */; };
+		36CC815829E6FF990080B0B4 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */; };
 		36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
 		36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
 		36D767B62729F1AD00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
@@ -115,6 +116,7 @@
 		3641083A296D7C2C00F79014 /* libpgport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgport.a; path = "src-staticlibs/libpgport.a"; sourceTree = "<group>"; };
 		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallHistory.swift; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
+		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
 		830377B71E4C820A008E6896 /* PostgresApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostgresApplication.h; sourceTree = "<group>"; };
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				830B4B271D1C289A00F16762 /* Sidebar.swift */,
 				364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */,
 				8372BD391D1D9817004EE2C3 /* AddServer.swift */,
+				36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */,
 				83F3647D1D5204D30096F1F5 /* SettingsView.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
 				3634D7F52954BB2C005CE01C /* BinaryManager.swift */,
@@ -519,6 +522,7 @@
 				8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsView.swift in Sources */,
 				83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */,
+				36CC815829E6FF990080B0B4 /* ChangePasswordViewController.swift in Sources */,
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				8358D53C1D26EBE7007B7904 /* Server.swift in Sources */,
 				3634D7F82954CD69005CE01C /* ServerManagerExtras.swift in Sources */,

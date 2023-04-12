@@ -72,4 +72,11 @@ class SettingsViewController: NSViewController {
 			self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
 		}
 	}
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let target = segue.destinationController as? ChangePasswordViewController {
+            target.server = server
+        }
+    }
+
 }

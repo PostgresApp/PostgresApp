@@ -278,6 +278,21 @@ class Server: NSObject {
 		}
 	}
 	
+    func changePassword(role: String, newPassword: String, _ completion: @escaping (ActionStatus) -> Void) {
+        busy = true
+        
+        DispatchQueue.global().async {
+            let stopRes = ActionStatus {
+                try self.changePasswordSync(role: role, newPassword: newPassword)
+            }
+            DispatchQueue.main.async {
+                self.updateServerStatus()
+                completion(stopRes)
+                self.busy = false
+            }
+        }
+    }
+    
 	// This function checks if the macOS version was recorded when doing initdb
 	// If not, it tries to guess by comparing the creation date of pg_version to the list of macOS versions in InstallHistory.plist
 	// This method is designed to be called only once, when first running a new version of Postgres.app
@@ -809,6 +824,40 @@ class Server: NSObject {
 		}
 	}
 		
+    func changePasswordSync(role: String, newPassword: String) throws {
+        let process = Process()
+        process.launchPath = binPath.appending("/postgres")
+        process.arguments = [
+            "--single",
+            "-D", varPath,
+        ]
+        let inputPipe = Pipe()
+        process.standardInput = inputPipe
+        process.standardOutput = Pipe()
+        let errorPipe = Pipe()
+        process.standardError = errorPipe
+        try process.launchAndCheckForRosetta()
+        let alterRoleQuery = "ALTER ROLE \"\(role.replacingOccurrences(of:"\"", with: "\"\""))\" WITH PASSWORD '\(newPassword.replacingOccurrences(of:"'", with: "''"))';\n";
+        if #available(macOS 10.15.4, *) {
+            try inputPipe.fileHandleForWriting.write(contentsOf: alterRoleQuery.data(using: .utf8)!)
+        } else {
+            // Fallback on earlier versions
+            inputPipe.fileHandleForWriting.write(alterRoleQuery.data(using: .utf8)!)
+        }
+        inputPipe.fileHandleForWriting.closeFile()
+        let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
+        process.waitUntilExit()
+        
+        guard process.terminationStatus == 0 else {
+            let userInfo: [String: Any] = [
+                NSLocalizedDescriptionKey: NSLocalizedString("Could update password.", comment: ""),
+                NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+            ]
+            throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+        }
+    }
+
+    
 	private var cachedBinaryVersion: String?
 	var binaryVersion: String? {
 		if let a = cachedBinaryVersion { return a }

@@ -666,11 +666,11 @@ IA
             <objects>
                 <viewController id="buw-cX-kU8" customClass="SettingsViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="U5g-i2-RO1">
-                        <rect key="frame" x="0.0" y="0.0" width="361" height="272"/>
+                        <rect key="frame" x="0.0" y="0.0" width="361" height="372"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="1" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyT-HX-chR">
-                                <rect key="frame" x="62" y="233" width="279" height="19"/>
+                                <rect key="frame" x="62" y="333" width="279" height="19"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="TLb-6X-fbU">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -681,30 +681,15 @@ IA
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Zf-OI-5D1">
-                                <rect key="frame" x="18" y="235" width="38" height="14"/>
+                                <rect key="frame" x="18" y="335" width="38" height="14"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="WsD-Xy-6fR">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ik7-Xf-IkN">
-                                <rect key="frame" x="109" y="206" width="144" height="14"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="stop server to change port" id="3tc-V0-flm">
-                                    <font key="font" metaFont="message" size="11"/>
-                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="buw-cX-kU8" name="hidden" keyPath="server.running" id="L1E-JY-eno">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cs-Wv-SXu">
-                                <rect key="frame" x="18" y="206" width="38" height="14"/>
+                                <rect key="frame" x="18" y="306" width="38" height="14"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="jkN-O7-N3F">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -712,7 +697,7 @@ IA
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yt-mE-dE6">
-                                <rect key="frame" x="62" y="204" width="41" height="19"/>
+                                <rect key="frame" x="62" y="304" width="41" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="j7D-rd-0Lv"/>
                                 </constraints>
@@ -735,7 +720,7 @@ IA
                                 </connections>
                             </textField>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="oRG-00-QiV">
-                                <rect key="frame" x="0.0" y="186" width="361" height="5"/>
+                                <rect key="frame" x="0.0" y="271" width="361" height="5"/>
                             </box>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pLa-GF-SdJ">
                                 <rect key="frame" x="0.0" y="47" width="361" height="5"/>
@@ -751,7 +736,7 @@ IA
                                 </connections>
                             </button>
                             <gridView xPlacement="leading" yPlacement="bottom" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="fEc-ph-rgS">
-                                <rect key="frame" x="20" y="64" width="321" height="116"/>
+                                <rect key="frame" x="20" y="149" width="321" height="116"/>
                                 <rows>
                                     <gridRow id="ddM-4b-Z9b"/>
                                     <gridRow id="f4n-KI-bfN"/>
@@ -942,29 +927,61 @@ IA
                                     </gridCell>
                                 </gridCells>
                             </gridView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7tI-Yz-NQx">
+                                <rect key="frame" x="216" y="298" width="131" height="27"/>
+                                <buttonCell key="cell" type="push" title="Change Password…" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aGU-iC-6ua">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="buw-cX-kU8" name="enabled" keyPath="server.running" id="nS6-MW-hfM">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <segue destination="ngu-dR-Rxg" kind="sheet" id="12d-un-Cpu"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ik7-Xf-IkN">
+                                <rect key="frame" x="60" y="282" width="283" height="14"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="stop server to change port or passwords" id="3tc-V0-flm">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="buw-cX-kU8" name="hidden" keyPath="server.running" id="L1E-JY-eno">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Ik7-Xf-IkN" firstAttribute="trailing" secondItem="7tI-Yz-NQx" secondAttribute="trailing" id="11z-gu-4p4"/>
                             <constraint firstAttribute="trailing" secondItem="pLa-GF-SdJ" secondAttribute="trailing" id="5ft-Vd-dWW"/>
+                            <constraint firstItem="7tI-Yz-NQx" firstAttribute="firstBaseline" secondItem="7yt-mE-dE6" secondAttribute="firstBaseline" id="7em-Hy-sD8"/>
+                            <constraint firstAttribute="trailing" secondItem="7tI-Yz-NQx" secondAttribute="trailing" constant="20" symbolic="YES" id="8ap-Hq-Mgy"/>
                             <constraint firstItem="m0L-aG-Cns" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U5g-i2-RO1" secondAttribute="leading" constant="20" symbolic="YES" id="AWS-W7-msN"/>
                             <constraint firstItem="pLa-GF-SdJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fEc-ph-rgS" secondAttribute="bottom" constant="8" symbolic="YES" id="Bew-tu-FPQ"/>
                             <constraint firstItem="fEc-ph-rgS" firstAttribute="top" secondItem="oRG-00-QiV" secondAttribute="bottom" constant="8" symbolic="YES" id="Cc7-YF-pU4"/>
                             <constraint firstAttribute="trailing" secondItem="QyT-HX-chR" secondAttribute="trailing" constant="20" symbolic="YES" id="D9U-od-jJH"/>
+                            <constraint firstItem="oRG-00-QiV" firstAttribute="top" secondItem="Ik7-Xf-IkN" secondAttribute="bottom" constant="8" symbolic="YES" id="DJc-s8-tFL"/>
                             <constraint firstItem="fEc-ph-rgS" firstAttribute="leading" secondItem="U5g-i2-RO1" secondAttribute="leading" constant="20" symbolic="YES" id="IF0-k8-dHN"/>
                             <constraint firstItem="7Zf-OI-5D1" firstAttribute="leading" secondItem="U5g-i2-RO1" secondAttribute="leading" constant="20" symbolic="YES" id="JWZ-Jf-7Yv"/>
-                            <constraint firstItem="Ik7-Xf-IkN" firstAttribute="leading" secondItem="7yt-mE-dE6" secondAttribute="trailing" constant="8" symbolic="YES" id="KLR-1m-eoF"/>
                             <constraint firstItem="4cs-Wv-SXu" firstAttribute="trailing" secondItem="7Zf-OI-5D1" secondAttribute="trailing" id="MWO-P3-Idb"/>
                             <constraint firstItem="pLa-GF-SdJ" firstAttribute="leading" secondItem="U5g-i2-RO1" secondAttribute="leading" id="N4o-WR-vrs"/>
                             <constraint firstItem="oRG-00-QiV" firstAttribute="leading" secondItem="U5g-i2-RO1" secondAttribute="leading" id="TNw-Qg-LdR"/>
                             <constraint firstItem="m0L-aG-Cns" firstAttribute="top" secondItem="pLa-GF-SdJ" secondAttribute="bottom" constant="15" id="V1F-CZ-bnf"/>
-                            <constraint firstItem="oRG-00-QiV" firstAttribute="top" secondItem="7yt-mE-dE6" secondAttribute="bottom" constant="15" id="V6o-sG-bT2"/>
+                            <constraint firstItem="Ik7-Xf-IkN" firstAttribute="leading" secondItem="7yt-mE-dE6" secondAttribute="leading" id="abU-le-BK3"/>
                             <constraint firstAttribute="trailing" secondItem="fEc-ph-rgS" secondAttribute="trailing" constant="20" symbolic="YES" id="dsl-SF-8lY"/>
                             <constraint firstItem="4cs-Wv-SXu" firstAttribute="baseline" secondItem="7yt-mE-dE6" secondAttribute="baseline" id="eHl-dY-d0v"/>
                             <constraint firstAttribute="trailing" secondItem="oRG-00-QiV" secondAttribute="trailing" id="fJM-ri-rd8"/>
                             <constraint firstItem="QyT-HX-chR" firstAttribute="top" secondItem="U5g-i2-RO1" secondAttribute="top" constant="20" symbolic="YES" id="gSt-Jv-pgc"/>
                             <constraint firstItem="7yt-mE-dE6" firstAttribute="leading" secondItem="4cs-Wv-SXu" secondAttribute="trailing" constant="8" symbolic="YES" id="hsX-18-iQc"/>
                             <constraint firstAttribute="trailing" secondItem="m0L-aG-Cns" secondAttribute="trailing" constant="20" symbolic="YES" id="hxy-hJ-pT4"/>
-                            <constraint firstItem="Ik7-Xf-IkN" firstAttribute="baseline" secondItem="7yt-mE-dE6" secondAttribute="baseline" id="l4c-hk-jXM"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ik7-Xf-IkN" secondAttribute="trailing" constant="20" symbolic="YES" id="nDb-BM-ufJ"/>
+                            <constraint firstItem="Ik7-Xf-IkN" firstAttribute="top" secondItem="7yt-mE-dE6" secondAttribute="bottom" constant="8" symbolic="YES" id="irh-WD-1oD"/>
                             <constraint firstItem="QyT-HX-chR" firstAttribute="leading" secondItem="7Zf-OI-5D1" secondAttribute="trailing" constant="8" symbolic="YES" id="nqx-HU-Cg7"/>
                             <constraint firstAttribute="bottom" secondItem="m0L-aG-Cns" secondAttribute="bottom" constant="20" symbolic="YES" id="oMA-9p-atA"/>
                             <constraint firstItem="4cs-Wv-SXu" firstAttribute="leading" secondItem="U5g-i2-RO1" secondAttribute="leading" constant="20" symbolic="YES" id="uc2-TX-ag2"/>
@@ -1354,6 +1371,139 @@ Gw
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="456" y="1143"/>
+        </scene>
+        <!--Change Password View Controller-->
+        <scene sceneID="GbV-uu-xl8">
+            <objects>
+                <viewController id="ngu-dR-Rxg" customClass="ChangePasswordViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="38I-EA-fcj">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="208"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-Ya-DcF">
+                                <rect key="frame" x="18" y="157" width="414" height="31"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Change Password" id="7hN-yY-S9H">
+                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XAH-9w-HyQ">
+                                <rect key="frame" x="18" y="133" width="414" height="16"/>
+                                <textFieldCell key="cell" title="You can reset the PostgreSQL password for any PostgreSQL user." id="fCl-Io-z6K">
+                                    <font key="font" textStyle="body" name=".SFNS-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <gridView verticalHuggingPriority="750" xPlacement="none" yPlacement="none" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="8kF-J7-u9k">
+                                <rect key="frame" x="20" y="60" width="410" height="48"/>
+                                <rows>
+                                    <gridRow id="k0o-IB-HkS"/>
+                                    <gridRow id="KCf-eS-Bs7"/>
+                                </rows>
+                                <columns>
+                                    <gridColumn xPlacement="trailing" id="is9-YB-JQB"/>
+                                    <gridColumn xPlacement="fill" id="cWk-rO-Fsi"/>
+                                </columns>
+                                <gridCells>
+                                    <gridCell row="k0o-IB-HkS" column="is9-YB-JQB" id="rxh-Vc-JPD">
+                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjc-8U-ZoR">
+                                            <rect key="frame" x="-2" y="27" width="112" height="19"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="PostgreSQL User:" id="1LH-h2-k94">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="k0o-IB-HkS" column="cWk-rO-Fsi" id="ZGh-os-Dec">
+                                        <textField key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KMJ-eA-jc0">
+                                            <rect key="frame" x="114" y="27" width="296" height="21"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="postgres" drawsBackground="YES" id="BgM-ih-Hyo">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="KCf-eS-Bs7" column="is9-YB-JQB" id="dBH-pA-uUA">
+                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rRm-ss-emC">
+                                            <rect key="frame" x="13" y="3" width="97" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="New Password:" id="e7n-kV-hov">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="KCf-eS-Bs7" column="cWk-rO-Fsi" id="seU-Sf-asj">
+                                        <secureTextField key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MRe-Fd-3Sk">
+                                            <rect key="frame" x="114" y="0.0" width="296" height="21"/>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="9c2-VJ-gXV">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                        </secureTextField>
+                                    </gridCell>
+                                </gridCells>
+                            </gridView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jMX-e5-0Bz">
+                                <rect key="frame" x="294" y="13" width="143" height="32"/>
+                                <buttonCell key="cell" type="push" title="Change Password" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IK3-iK-7dY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="changePassword:" target="ngu-dR-Rxg" id="7KH-pm-Gpa"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-W6-zMg">
+                                <rect key="frame" x="220" y="13" width="76" height="32"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5J9-if-cqO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancel:" target="ngu-dR-Rxg" id="0sZ-3t-7LP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="XAH-9w-HyQ" firstAttribute="top" secondItem="NQ4-Ya-DcF" secondAttribute="bottom" constant="8" symbolic="YES" id="3Zy-fV-mIu"/>
+                            <constraint firstAttribute="trailing" secondItem="NQ4-Ya-DcF" secondAttribute="trailing" constant="20" symbolic="YES" id="9ho-5M-TD3"/>
+                            <constraint firstItem="jMX-e5-0Bz" firstAttribute="top" secondItem="8kF-J7-u9k" secondAttribute="bottom" constant="20" symbolic="YES" id="GKU-QN-aAq"/>
+                            <constraint firstItem="NQ4-Ya-DcF" firstAttribute="leading" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="KSt-5Y-Mp5"/>
+                            <constraint firstItem="8kF-J7-u9k" firstAttribute="leading" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="Nsq-H6-5Sw"/>
+                            <constraint firstAttribute="trailing" secondItem="XAH-9w-HyQ" secondAttribute="trailing" constant="20" symbolic="YES" id="OaE-qE-eHc"/>
+                            <constraint firstItem="eBE-W6-zMg" firstAttribute="firstBaseline" secondItem="jMX-e5-0Bz" secondAttribute="firstBaseline" id="RZL-K8-8Om"/>
+                            <constraint firstItem="XAH-9w-HyQ" firstAttribute="leading" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="UpC-Hl-7zd"/>
+                            <constraint firstItem="NQ4-Ya-DcF" firstAttribute="top" secondItem="38I-EA-fcj" secondAttribute="top" constant="20" symbolic="YES" id="Z0f-1p-MCU"/>
+                            <constraint firstItem="8kF-J7-u9k" firstAttribute="top" secondItem="XAH-9w-HyQ" secondAttribute="bottom" constant="25" id="h9W-WC-la2"/>
+                            <constraint firstAttribute="trailing" secondItem="8kF-J7-u9k" secondAttribute="trailing" constant="20" symbolic="YES" id="qts-9p-NQc"/>
+                            <constraint firstAttribute="trailing" secondItem="jMX-e5-0Bz" secondAttribute="trailing" constant="20" symbolic="YES" id="wMy-cM-WT5"/>
+                            <constraint firstAttribute="bottom" secondItem="jMX-e5-0Bz" secondAttribute="bottom" constant="20" symbolic="YES" id="xoe-CG-qOQ"/>
+                            <constraint firstItem="jMX-e5-0Bz" firstAttribute="leading" secondItem="eBE-W6-zMg" secondAttribute="trailing" constant="12" symbolic="YES" id="z0N-E7-be1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="passwordField" destination="MRe-Fd-3Sk" id="bq6-nb-0hA"/>
+                        <outlet property="userField" destination="KMJ-eA-jc0" id="D41-iX-OeJ"/>
+                    </connections>
+                </viewController>
+                <customObject id="kch-4v-5IY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="582" y="2005"/>
         </scene>
     </scenes>
     <resources>
