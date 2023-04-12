@@ -93,23 +93,19 @@ class Server: NSObject {
 		return varPath + "/postgresapp_config.plist"
 	}
 	
-	var configPlist: [String: Any] {
-		get {
-			if let data = try? Data(contentsOf: URL(fileURLWithPath: configPlistPath)),
-			   let plist = try? PropertyListSerialization.propertyList(from: data, format: nil),
-			   let configPlist = plist as? [String:Any]
-			{
-				return configPlist
-			} else {
-				return [:]
-			}
-		}
-		set {
-			if let data = try? PropertyListSerialization.data(fromPropertyList: newValue, format: .xml, options: 0) {
-				try? data.write(to: URL(fileURLWithPath: configPlistPath))
-			}
-		}
+	func readConfigPlist() throws -> [String: Any] {
+        let data = try Data(contentsOf: URL(fileURLWithPath: configPlistPath))
+        let plist = try PropertyListSerialization.propertyList(from: data, format: nil)
+        guard let configPlist = plist as? [String:Any] else {
+            throw NSError()
+        }
+        return configPlist
 	}
+    
+    func writeConfigPlist(_ newValue:[String: Any]) throws {
+        let data = try PropertyListSerialization.data(fromPropertyList: newValue, format: .xml, options: 0)
+        try data.write(to: URL(fileURLWithPath: configPlistPath))
+    }
 	
 	@objc dynamic private(set) var busy: Bool = false
 	@objc dynamic private(set) var running: Bool = false
@@ -286,10 +282,10 @@ class Server: NSObject {
 	// If not, it tries to guess by comparing the creation date of pg_version to the list of macOS versions in InstallHistory.plist
 	// This method is designed to be called only once, when first running a new version of Postgres.app
 	func checkInitdbOSVersion() {
-		var currentConfigPlist = configPlist
+        var configPlist = (try? readConfigPlist()) ?? [:]
 		
 		// check if there is already a macos version stored
-		if  currentConfigPlist["initdb_macos_version"] is String || currentConfigPlist["initdb_macos_version_guessed"] is String {
+		if  configPlist["initdb_macos_version"] is String || configPlist["initdb_macos_version_guessed"] is String {
 			return
 		}
 		
@@ -298,8 +294,8 @@ class Server: NSObject {
 			if let pgVersionAttributes = try? FileManager().attributesOfItem(atPath: pgVersionPath) {
 				if let creationDate = pgVersionAttributes[.creationDate] as? Date {
 					let guessedVersion = history.macOSVersion(on: creationDate) ?? "unknown"
-					currentConfigPlist["initdb_macos_version_guessed"] = guessedVersion
-					configPlist	= currentConfigPlist
+					configPlist["initdb_macos_version_guessed"] = guessedVersion
+					try? writeConfigPlist(configPlist)
 				}
 			}
 		}
@@ -312,15 +308,19 @@ class Server: NSObject {
 		serverWarningMessage = nil
 		serverWarningInformativeText = nil
 
-		let currentConfigPlist = configPlist
+        guard let configPlist = try? readConfigPlist() else {
+            // if there is no config plist
+            // we don't perform a check
+            return
+        }
 		
 		// Reindex warnings only need to be shown when the user uses libc collations
-		if currentConfigPlist["initdb_locale_provider"] as? String != "icu" {
+		if configPlist["initdb_locale_provider"] as? String != "icu" {
 			
 			// The first thing we check is collation hashes
 			// If the data directory has been launched with different collations
 			// We know that we MUST reindex
-			let collationHashes = currentConfigPlist["recently_started_collation_hash"] as? [Data] ?? []
+			let collationHashes = configPlist["recently_started_collation_hash"] as? [Data] ?? []
 			if collationHashes.count > 1 {
 				serverWarning = "Reindexing required"
 				serverWarningButtonTitle = "Learn more"
@@ -333,12 +333,12 @@ class Server: NSObject {
 			// If the data directory was launched on macOS 10.15 or earlier AND on macOS 11 or later,
 			// we also know that we MUST reindex
 			let reindexCheckVersion =
-				currentConfigPlist["reindex_warning_reset_on_macos_version"] as? String ??
-				currentConfigPlist["initdb_macos_version"] as? String ??
-				currentConfigPlist["initdb_macos_version_guessed"] as? String ??
+				configPlist["reindex_warning_reset_on_macos_version"] as? String ??
+				configPlist["initdb_macos_version"] as? String ??
+				configPlist["initdb_macos_version_guessed"] as? String ??
 				"unknown"
 			
-			let startedVersions = currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? []
+			let startedVersions = configPlist["recently_started_on_macos_versions"] as? [String] ?? []
 			
 			let currentVersion = ProcessInfo.processInfo.macosDisplayVersion
 			
@@ -368,8 +368,8 @@ class Server: NSObject {
 		// Check for reindex concurrently issue (fixed in PG 14.4)
 		if let binaryVersion = binaryVersion {
 			if binaryVersion.starts(with: "14") {
-				let pgVersion = currentConfigPlist["reindex_warning_reset_on_postgresql_version"] as? String ?? currentConfigPlist["initdb_postgresql_version"] as? String ?? "unknown"
-				let relevantPGVersions = [pgVersion] + (currentConfigPlist["recently_started_postgresql_versions"] as? [String] ?? [])
+				let pgVersion = configPlist["reindex_warning_reset_on_postgresql_version"] as? String ?? configPlist["initdb_postgresql_version"] as? String ?? "unknown"
+				let relevantPGVersions = [pgVersion] + (configPlist["recently_started_postgresql_versions"] as? [String] ?? [])
 				if
 					relevantPGVersions.contains("unknown") ||
 					relevantPGVersions.contains(where:{ "14.4".compare($0, options: .numeric) == .orderedDescending })
@@ -410,21 +410,21 @@ class Server: NSObject {
 	}
 	
 	func resetReindexWarning() {
-		var currentConfigPlist = configPlist
-		currentConfigPlist["previously_started_on_macos_versions"] =
-			(currentConfigPlist["previously_started_on_macos_versions"] as? [String] ?? [])
+        var configPlist = (try? readConfigPlist()) ?? [:]
+		configPlist["previously_started_on_macos_versions"] =
+			(configPlist["previously_started_on_macos_versions"] as? [String] ?? [])
 			+
-			(currentConfigPlist["recently_started_on_macos_versions"] as? [String] ?? [])
-		currentConfigPlist["recently_started_on_macos_versions"] = nil
-		currentConfigPlist["previously_started_postgresql_versions"] =
-			(currentConfigPlist["previously_started_postgresql_versions"] as? [String] ?? [])
+			(configPlist["recently_started_on_macos_versions"] as? [String] ?? [])
+		configPlist["recently_started_on_macos_versions"] = nil
+		configPlist["previously_started_postgresql_versions"] =
+			(configPlist["previously_started_postgresql_versions"] as? [String] ?? [])
 			+
-			(currentConfigPlist["recently_started_postgresql_versions"] as? [String] ?? [])
-		currentConfigPlist["recently_started_postgresql_versions"] = nil
-		currentConfigPlist["recently_started_collation_hash"] = nil
-		currentConfigPlist["reindex_warning_reset_on_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
-		currentConfigPlist["reindex_warning_reset_on_postgresql_version"] = binaryVersion
-		configPlist = currentConfigPlist
+			(configPlist["recently_started_postgresql_versions"] as? [String] ?? [])
+		configPlist["recently_started_postgresql_versions"] = nil
+		configPlist["recently_started_collation_hash"] = nil
+		configPlist["reindex_warning_reset_on_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
+		configPlist["reindex_warning_reset_on_postgresql_version"] = binaryVersion
+		try? writeConfigPlist(configPlist)
 		checkReindexWarning()
 	}
 	
@@ -629,32 +629,32 @@ class Server: NSObject {
 		}
 		
 		// Log the current macOS version in the config plist so we know when to show reindex warnings
-		var currentConfig = configPlist
+        var configPlist = (try? readConfigPlist()) ?? [:]
 		var needWrite = false
-		var recentlyStartedMacOSVersions = currentConfig["recently_started_on_macos_versions"] as? [String] ?? []
+		var recentlyStartedMacOSVersions = configPlist["recently_started_on_macos_versions"] as? [String] ?? []
 		if !recentlyStartedMacOSVersions.contains(ProcessInfo.processInfo.macosDisplayVersion) {
 			recentlyStartedMacOSVersions.append(ProcessInfo.processInfo.macosDisplayVersion)
-			currentConfig["recently_started_on_macos_versions"] = recentlyStartedMacOSVersions
+			configPlist["recently_started_on_macos_versions"] = recentlyStartedMacOSVersions
 			needWrite = true
 		}
 		
 		// Log the current binary version
-		var recentlyStartedPostgresqlVersions = currentConfig["recently_started_postgresql_versions"] as? [String] ?? []
+		var recentlyStartedPostgresqlVersions = configPlist["recently_started_postgresql_versions"] as? [String] ?? []
 		if let postgresqlVersion = self.binaryVersion, !recentlyStartedPostgresqlVersions.contains(postgresqlVersion) {
 			recentlyStartedPostgresqlVersions.append(postgresqlVersion)
-			currentConfig["recently_started_postgresql_versions"] = recentlyStartedPostgresqlVersions
+			configPlist["recently_started_postgresql_versions"] = recentlyStartedPostgresqlVersions
 			needWrite = true
 		}
 		
-		var recentlyUsedCollationHashes = currentConfig["recently_started_collation_hash"] as? [Data] ?? []
+		var recentlyUsedCollationHashes = configPlist["recently_started_collation_hash"] as? [Data] ?? []
 		if let defaultCollationHash = Self.defaultCollationHash, !recentlyUsedCollationHashes.contains(defaultCollationHash) {
 			recentlyUsedCollationHashes.append(defaultCollationHash)
-			currentConfig["recently_started_collation_hash"] = recentlyUsedCollationHashes
+			configPlist["recently_started_collation_hash"] = recentlyUsedCollationHashes
 			needWrite = true
 		}
 		
 		if needWrite {
-			configPlist = currentConfig
+			try? writeConfigPlist(configPlist)
 		}
 	}
 	
@@ -738,13 +738,13 @@ class Server: NSObject {
 		}
 		
 		// record software versions at initdb time
-		var currentConfigPlist = configPlist
-		currentConfigPlist["initdb_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
-		currentConfigPlist["initdb_postgresql_version"] = self.binaryVersion ?? "unknown"
+        var configPlist = (try? readConfigPlist()) ?? [:]
+		configPlist["initdb_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
+		configPlist["initdb_postgresql_version"] = self.binaryVersion ?? "unknown"
 		if useICU {
-			currentConfigPlist["initdb_locale_provider"] = "icu"
+			configPlist["initdb_locale_provider"] = "icu"
 		}
-		configPlist	= currentConfigPlist
+		try? writeConfigPlist(configPlist)
 	}
 	
 	
