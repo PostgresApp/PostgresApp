@@ -13,6 +13,7 @@ class MainWindowModel: NSObject {
     @objc dynamic var selectedServerIndices = IndexSet() {
         didSet {
             if selectedServerIndices != oldValue {
+                firstSelectedServer?.updateServerStatus()
                 firstSelectedServer?.checkReindexWarning()
             }
         }
