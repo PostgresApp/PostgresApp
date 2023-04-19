@@ -1,0 +1,20 @@
+--- a/src/backend/backup/basebackup.c
++++ b/src/backend/backup/basebackup.c
+@@ -212,6 +212,7 @@
+ 	{"pg_filenode.map", false},
+ 	{"pg_internal.init", true},
+ 	{"PG_VERSION", false},
++	{".DS_Store", false},
+ #ifdef EXEC_BACKEND
+ 	{"config_exec_params", true},
+ #endif
+--- a/src/bin/pg_checksums/pg_checksums.c
++++ b/src/bin/pg_checksums/pg_checksums.c
+@@ -118,6 +118,7 @@
+ 	{"pg_filenode.map", false},
+ 	{"pg_internal.init", true},
+ 	{"PG_VERSION", false},
++	{".DS_Store", false},
+ #ifdef EXEC_BACKEND
+ 	{"config_exec_params", true},
+ #endif
