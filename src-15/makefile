@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.3.2
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15.2
+POSTGRES_VERSION=15.3
 POSTGRES_MAJOR_VERSION=15
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -14,14 +14,14 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 LZ4_VERSION=1.9.4
 
 # https://github.com/facebook/zstd/releases
-ZSTD_VERSION=1.5.2
+ZSTD_VERSION=1.5.5
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
 GDAL_VERSION=3.5.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.11.1
+GEOS_VERSION=3.11.2
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -29,7 +29,7 @@ JPEG_VERSION=9e
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
-LIBXML2_VERSION=2.10.3
+LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -76,7 +76,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.1
+PYTHON_VERSION_FULL=3.11.3
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
