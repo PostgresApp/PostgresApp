@@ -31,8 +31,8 @@ class MenuItemViewController: NSViewController {
 	}
 	
 	
-	private func serverActionCompleted(actionStatus: Server.ActionStatus) {
-		if case let .Failure(error) = actionStatus {
+	private func serverActionCompleted(result: Result<Void, Error>) {
+		if case let .failure(error) = result {
 			self.errorIconVisible = true
 			self.errorTooltip = error.localizedDescription
 		} else {

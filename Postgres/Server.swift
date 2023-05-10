@@ -27,21 +27,6 @@ class Server: NSObject {
 		case Unknown
 	}
 	
-	enum ActionStatus {
-		case Success
-		case Failure(NSError)
-        
-        init(block: () throws -> () ) {
-            do {
-                try block()
-                self = .Success
-            } catch let error as NSError {
-                self = .Failure(error)
-            }
-        }
-	}
-	
-	
 	@objc dynamic var name: String = "" {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
@@ -160,7 +145,7 @@ class Server: NSObject {
 	
 	
 	// MARK: Async handlers
-	func start(_ completion: @escaping (ActionStatus) -> Void) {
+	func start(_ completion: @escaping (Result<Void, Error>) -> Void) {
 		busy = true
 		updateServerStatus()
         
@@ -169,7 +154,7 @@ class Server: NSObject {
         }
 		
 		DispatchQueue.global().async {
-			let statusResult: ActionStatus
+			let statusResult: Result<Void, Error>
 			
 			switch self.serverStatus {
 			
@@ -189,23 +174,23 @@ class Server: NSObject {
 #endif
 				recoverySuggestions.append(NSLocalizedString("Please try downloading a different release of Postgres.app.", comment: ""))
 				userInfo[NSLocalizedRecoverySuggestionErrorKey] = recoverySuggestions.joined(separator: "\n\n")
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .PortInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
 				]
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .DataDirInUse:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("There is already a PostgreSQL server running in this data directory", comment: ""),
 				]
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .DataDirEmpty:
-                statusResult = ActionStatus {
+                statusResult = Result {
                     if self.portInUse() {
                         let userInfo = [
                             NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
@@ -223,10 +208,10 @@ class Server: NSObject {
                     try self.createUserDatabaseSync()
                 }
 			case .Running:
-				statusResult = .Success
+				statusResult = .success(())
 				
 			case .Startable:
-                statusResult = ActionStatus {
+                statusResult = Result {
                     try self.startSync()
                 }
 				
@@ -235,19 +220,19 @@ class Server: NSObject {
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an old postmaster.pid file", comment: ""),
 					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not running anymore, otherwise your data directory will be corrupted."
 				]
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .PidFileUnreadable:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an unreadable postmaster.pid file", comment: "")
 				]
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .Unknown:
 				let userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("Unknown server status", comment: "")
 				]
-				statusResult = .Failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
+				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			}
 			
@@ -263,11 +248,11 @@ class Server: NSObject {
 	
 	/// Attempts to stop the server (in a background thread)
 	/// - parameter completion: This closure will be called on the main thread when the server has stopped.
-	func stop(_ completion: @escaping (ActionStatus) -> Void) {
+	func stop(_ completion: @escaping (Result<Void, Error>) -> Void) {
 		busy = true
 		
 		DispatchQueue.global().async {
-            let stopRes = ActionStatus {
+            let stopRes = Result {
                 try self.stopSync()
             }
 			DispatchQueue.main.async {
@@ -278,11 +263,11 @@ class Server: NSObject {
 		}
 	}
 	
-    func changePassword(role: String, newPassword: String, _ completion: @escaping (ActionStatus) -> Void) {
+    func changePassword(role: String, newPassword: String, _ completion: @escaping (Result<Void, Error>) -> Void) {
         busy = true
         
         DispatchQueue.global().async {
-            let stopRes = ActionStatus {
+            let stopRes = Result {
                 try self.changePasswordSync(role: role, newPassword: newPassword)
             }
             DispatchQueue.main.async {

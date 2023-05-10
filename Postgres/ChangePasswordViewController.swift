@@ -18,9 +18,9 @@ class ChangePasswordViewController: NSViewController {
     @IBAction func changePassword(_ sender: Any) {
         server.changePassword(role: userField.stringValue, newPassword: passwordField.stringValue, { status in
             switch status {
-            case .Success:
+            case .success:
                 self.dismiss(nil)
-            case .Failure(let error):
+            case .failure(let error):
                 if let window = self.view.window {
                     self.presentError(error, modalFor: window, delegate: nil, didPresent: nil, contextInfo: nil)
                 } else {
