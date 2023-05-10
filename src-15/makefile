@@ -743,6 +743,12 @@ boost: $(PREFIX)/lib/libboost_system.dylib
 
 $(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
 	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 install
+	# till we find a way to pass flags controlling to use of RPATHs to cmake through the B2 system, we fix RPATHs manually after installing
+	install_name_tool -id $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libboost_system.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_wserialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib 
+	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
 	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 75
