@@ -13,7 +13,7 @@ import Cocoa
 class ChangePasswordViewController: NSViewController {
     @objc dynamic var server: Server!
     
-    @IBOutlet weak var userField: NSTextField!
+    @IBOutlet weak var userField: NSPopUpButton!
     @IBOutlet weak var passwordField: NSSecureTextField!
     @IBAction func changePassword(_ sender: Any) {
         server.changePassword(role: userField.stringValue, newPassword: passwordField.stringValue, { status in
@@ -29,6 +29,15 @@ class ChangePasswordViewController: NSViewController {
             }
         })
     }
+	override func viewWillAppear() {
+		if let users = try? server.getRolesThatCanLoginSync() {
+			userField.removeAllItems()
+			for user in users {
+				userField.addItem(withTitle: user)
+			}
+			userField.selectItem(withTitle: "postgres")
+		}
+	}
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(nil)
     }

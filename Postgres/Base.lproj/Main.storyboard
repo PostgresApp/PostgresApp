@@ -1377,11 +1377,11 @@ Gw
             <objects>
                 <viewController id="ngu-dR-Rxg" customClass="ChangePasswordViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="38I-EA-fcj">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="208"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="207"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-Ya-DcF">
-                                <rect key="frame" x="18" y="157" width="414" height="31"/>
+                                <rect key="frame" x="18" y="156" width="414" height="31"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Change Password" id="7hN-yY-S9H">
                                     <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1389,15 +1389,15 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XAH-9w-HyQ">
-                                <rect key="frame" x="18" y="133" width="414" height="16"/>
+                                <rect key="frame" x="18" y="132" width="414" height="16"/>
                                 <textFieldCell key="cell" title="You can reset the PostgreSQL password for any PostgreSQL user." id="fCl-Io-z6K">
                                     <font key="font" textStyle="body" name=".SFNS-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <gridView verticalHuggingPriority="750" xPlacement="none" yPlacement="none" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="8kF-J7-u9k">
-                                <rect key="frame" x="20" y="60" width="410" height="48"/>
+                            <gridView verticalHuggingPriority="750" xPlacement="none" yPlacement="top" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="8kF-J7-u9k">
+                                <rect key="frame" x="20" y="60" width="410" height="47"/>
                                 <rows>
                                     <gridRow id="k0o-IB-HkS"/>
                                     <gridRow id="KCf-eS-Bs7"/>
@@ -1408,7 +1408,7 @@ Gw
                                 </columns>
                                 <gridCells>
                                     <gridCell row="k0o-IB-HkS" column="is9-YB-JQB" id="rxh-Vc-JPD">
-                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjc-8U-ZoR">
+                                        <textField key="contentView" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sjc-8U-ZoR">
                                             <rect key="frame" x="-2" y="27" width="112" height="19"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="PostgreSQL User:" id="1LH-h2-k94">
                                                 <font key="font" metaFont="system"/>
@@ -1418,18 +1418,22 @@ Gw
                                         </textField>
                                     </gridCell>
                                     <gridCell row="k0o-IB-HkS" column="cWk-rO-Fsi" id="ZGh-os-Dec">
-                                        <textField key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KMJ-eA-jc0">
-                                            <rect key="frame" x="114" y="27" width="296" height="21"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="postgres" drawsBackground="YES" id="BgM-ih-Hyo">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
+                                        <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mrU-pW-h8I">
+                                            <rect key="frame" x="111" y="23" width="303" height="25"/>
+                                            <popUpButtonCell key="cell" type="push" title="postgres" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Jgd-Hz-gs1" id="b9v-ao-Vsy">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="veJ-mo-M76">
+                                                    <items>
+                                                        <menuItem title="postgres" state="on" id="Jgd-Hz-gs1"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
                                     </gridCell>
                                     <gridCell row="KCf-eS-Bs7" column="is9-YB-JQB" id="dBH-pA-uUA">
-                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rRm-ss-emC">
-                                            <rect key="frame" x="13" y="3" width="97" height="16"/>
+                                        <textField key="contentView" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rRm-ss-emC">
+                                            <rect key="frame" x="13" y="0.0" width="97" height="19"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="New Password:" id="e7n-kV-hov">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1485,6 +1489,7 @@ Gw
                             <constraint firstItem="jMX-e5-0Bz" firstAttribute="top" secondItem="8kF-J7-u9k" secondAttribute="bottom" constant="20" symbolic="YES" id="GKU-QN-aAq"/>
                             <constraint firstItem="NQ4-Ya-DcF" firstAttribute="leading" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="KSt-5Y-Mp5"/>
                             <constraint firstItem="8kF-J7-u9k" firstAttribute="leading" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="Nsq-H6-5Sw"/>
+                            <constraint firstItem="eBE-W6-zMg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="OEa-4e-8aM"/>
                             <constraint firstAttribute="trailing" secondItem="XAH-9w-HyQ" secondAttribute="trailing" constant="20" symbolic="YES" id="OaE-qE-eHc"/>
                             <constraint firstItem="eBE-W6-zMg" firstAttribute="firstBaseline" secondItem="jMX-e5-0Bz" secondAttribute="firstBaseline" id="RZL-K8-8Om"/>
                             <constraint firstItem="XAH-9w-HyQ" firstAttribute="leading" secondItem="38I-EA-fcj" secondAttribute="leading" constant="20" symbolic="YES" id="UpC-Hl-7zd"/>
@@ -1498,7 +1503,7 @@ Gw
                     </view>
                     <connections>
                         <outlet property="passwordField" destination="MRe-Fd-3Sk" id="bq6-nb-0hA"/>
-                        <outlet property="userField" destination="KMJ-eA-jc0" id="D41-iX-OeJ"/>
+                        <outlet property="userField" destination="mrU-pW-h8I" id="dy3-Ba-gba"/>
                     </connections>
                 </viewController>
                 <customObject id="kch-4v-5IY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

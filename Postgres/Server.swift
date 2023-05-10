@@ -841,6 +841,50 @@ class Server: NSObject {
             throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
         }
     }
+	
+	func getRolesThatCanLoginSync() throws -> [String] {
+		let process = Process()
+		process.launchPath = binPath.appending("/postgres")
+		process.arguments = [
+			"--single",
+			"-D", varPath,
+		]
+		let inputPipe = Pipe()
+		process.standardInput = inputPipe
+		let outputPipe = Pipe()
+		process.standardOutput = outputPipe
+		let errorPipe = Pipe()
+		process.standardError = errorPipe
+		try process.launchAndCheckForRosetta()
+		let query = "SELECT rolname FROM pg_catalog.pg_roles WHERE rolcanlogin;\n";
+		if #available(macOS 10.15.4, *) {
+			try inputPipe.fileHandleForWriting.write(contentsOf: query.data(using: .utf8)!)
+		} else {
+			// Fallback on earlier versions
+			inputPipe.fileHandleForWriting.write(query.data(using: .utf8)!)
+		}
+		inputPipe.fileHandleForWriting.closeFile()
+		let output = String(data: outputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)!
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
+		process.waitUntilExit()
+		
+		guard process.terminationStatus == 0 else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not update password.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
+		let regex = try! NSRegularExpression(pattern: "rolname = \"(.*)\"")
+		var users = [String]()
+		for match in regex.matches(in: output, range: NSMakeRange(0, output.utf16.count)) {
+			let user = (output as NSString).substring(with: match.range(at: 1))
+			users.append(user)
+		}
+		return users
+	}
+
+	
 
     
 	private var cachedBinaryVersion: String?
