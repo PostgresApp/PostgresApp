@@ -742,8 +742,7 @@ boost: $(PREFIX)/lib/libboost_system.dylib
 	touch $@
 
 $(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
-	#todo: universal binaries, needed for sfcgal!
-	cd boost_$(BOOST_VERSION) && ./b2 install
+	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 install
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
 	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 75
