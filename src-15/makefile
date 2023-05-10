@@ -124,7 +124,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis wal2json pldebugger
+all: postgresql postgis wal2json pldebugger pgvector
 clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
