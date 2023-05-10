@@ -843,8 +843,25 @@ class Server: NSObject {
     }
 	
 	func getRolesThatCanLoginSync() throws -> [String] {
+		if serverStatus == .DataDirEmpty {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Server is not initialised yet", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("You need to initialize the server before you can change passwords", comment: ""),
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
+		if let effectiveBinPath = effectiveBinPath, binPath != effectiveBinPath {
+			binPath = effectiveBinPath
+		}
+		let launchPath = binPath.appending("/postgres")
+		guard FileManager().fileExists(atPath: launchPath) else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found.", comment: ""),
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
 		let process = Process()
-		process.launchPath = binPath.appending("/postgres")
+		process.launchPath = launchPath
 		process.arguments = [
 			"--single",
 			"-D", varPath,
