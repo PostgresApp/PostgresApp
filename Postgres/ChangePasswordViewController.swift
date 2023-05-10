@@ -30,12 +30,18 @@ class ChangePasswordViewController: NSViewController {
         })
     }
 	override func viewWillAppear() {
-		if let users = try? server.getRolesThatCanLoginSync() {
+		do {
+			let users = try server.getRolesThatCanLoginSync()
 			userField.removeAllItems()
 			for user in users {
 				userField.addItem(withTitle: user)
 			}
 			userField.selectItem(withTitle: "postgres")
+		} catch let error {
+			self.dismiss(nil)
+			if let window = NSApp.windows.first {
+				self.presentError(error, modalFor: window, delegate: nil, didPresent: nil, contextInfo: nil)
+			}
 		}
 	}
     @IBAction func cancel(_ sender: Any) {

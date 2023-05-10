@@ -870,7 +870,7 @@ class Server: NSObject {
 		
 		guard process.terminationStatus == 0 else {
 			let userInfo: [String: Any] = [
-				NSLocalizedDescriptionKey: NSLocalizedString("Could not update password.", comment: ""),
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not get list of users", comment: ""),
 				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
