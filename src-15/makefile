@@ -642,6 +642,8 @@ gmp: $(PREFIX)/lib/libgmp.dylib
 $(PREFIX)/lib/libgmp.dylib: gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.dylib gmp-$(GMP_VERSION)/build_x86_64/.libs/libgmp.dylib
 	$(eval GMP_DYLIB_VERSION=$(shell ls -1 gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.*.dylib | sed -E "s/.*\.([0-9]+)\.dylib$$/\1/"))
 	cd gmp-$(GMP_VERSION)/build_arm64 && lipo -create ./.libs/libgmp.${GMP_DYLIB_VERSION}.dylib ../build_x86_64/.libs/libgmp.${GMP_DYLIB_VERSION}.dylib -output ./.libs/libgmp.${GMP_DYLIB_VERSION}.dylib
+	$(eval GMPXX_DYLIB_VERSION=$(shell ls -1 gmp-$(GMP_VERSION)/build_arm64/.libs/libgmpxx.*.dylib | sed -E "s/.*\.([0-9]+)\.dylib$$/\1/"))
+	cd gmp-$(GMP_VERSION)/build_arm64 && lipo -create ./.libs/libgmpxx.${GMPXX_DYLIB_VERSION}.dylib ../build_x86_64/.libs/libgmpxx.${GMPXX_DYLIB_VERSION}.dylib -output ./.libs/libgmpxx.${GMPXX_DYLIB_VERSION}.dylib
 	# despite documented otherwise, gmp.h differs only in __GMP_CFLAGS, try to mitigate that...
 	sed -i '' -E 's/^(#define __GMP_CFLAGS.*-arch arm64)(.*)$$/\1 -arch x86_64\2/' gmp-$(GMP_VERSION)/build_arm64/gmp.h
 	# to avoid dirty make targets after we touched the libraries, pretend we rebuilded everything before installing
@@ -655,11 +657,11 @@ gmp-$(GMP_VERSION)/build_x86_64/.libs/libgmp.dylib: gmp-$(GMP_VERSION)/build_x86
 	make -C gmp-$(GMP_VERSION)/build_x86_64
 
 gmp-$(GMP_VERSION)/build_arm64/Makefile: gmp-$(GMP_VERSION)/configure
-	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat
+	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx
 
 gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
 	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 13 runs on hardware as old as core2, enable-fat should take care of the differences. 17.7.0 is the kernel of 10.13.6
-	cd gmp-$(GMP_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --host=westmere-apple-darwin17.7.0
+	cd gmp-$(GMP_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=westmere-apple-darwin17.7.0
 
 gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
 	$(TAR) gmp-$(GMP_VERSION).tar.xz
