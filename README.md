@@ -22,6 +22,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [PostGIS](http://postgis.net/)
 - [wal2json](https://github.com/eulerto/wal2json)
 - [pldebugger](https://github.com/EnterpriseDB/pldebugger)
+- [pgvector](https://github.com/pgvector/pgvector) (PostgreSQL 15 and higher)
 
 ## How To Build
 
