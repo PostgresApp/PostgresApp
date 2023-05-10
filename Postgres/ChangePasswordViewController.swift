@@ -16,7 +16,11 @@ class ChangePasswordViewController: NSViewController {
     @IBOutlet weak var userField: NSPopUpButton!
     @IBOutlet weak var passwordField: NSSecureTextField!
     @IBAction func changePassword(_ sender: Any) {
-        server.changePassword(role: userField.stringValue, newPassword: passwordField.stringValue, { status in
+		guard let user = userField.titleOfSelectedItem else {
+			NSSound.beep()
+			return
+		}
+        server.changePassword(role: user, newPassword: passwordField.stringValue, { status in
             switch status {
             case .success:
                 self.dismiss(nil)
