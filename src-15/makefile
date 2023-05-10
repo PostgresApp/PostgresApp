@@ -26,6 +26,21 @@ GEOS_VERSION=3.11.2
 # http://www.ijg.org
 JPEG_VERSION=9e
 
+# https://gmplib.org/download/gmp/
+GMP_VERSION=6.2.1
+
+# https://www.mpfr.org/mpfr-current/#download
+MPFR_VERSION=4.2.0
+
+# https://www.boost.org/users/download/
+BOOST_VERSION=1_82_0
+
+# https://github.com/CGAL/cgal/releases
+CGAL_VERSION=5.5.2
+
+# https://gitlab.com/Oslandia/SFCGAL/-/releases
+SFCGAL_VERSION=1.4.1
+
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
@@ -125,11 +140,11 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql postgis wal2json pldebugger pgvector
-clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector
+clean: clean-postgresql clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-zstd check-libgeos check-libproj check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz
+check: check-postgresql check-zstd check-libgeos check-libproj check-gmp check-mpfr check-arch check-libs check-rpath check-python
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz  pgvector-${PGVECTOR_VERSION}.tar.gz
 
 
 #########################
@@ -618,12 +633,193 @@ clean-openjpeg:
 	rm -Rf openjpeg-$(OPENJPEG_VERSION)
 
 
+#####################
+####### GMP #########
+#####################
+
+# used for mpfr, cgal, sfcgal
+
+gmp: $(PREFIX)/lib/libgmp.dylib
+	touch $@
+
+$(PREFIX)/lib/libgmp.dylib: gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.dylib gmp-$(GMP_VERSION)/build_x86_64/.libs/libgmp.dylib
+	$(eval GMP_DYLIB_VERSION=$(shell ls -1 gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.*.dylib | sed -E "s/.*\.([0-9]+)\.dylib$$/\1/"))
+	cd gmp-$(GMP_VERSION)/build_arm64 && lipo -create ./.libs/libgmp.${GMP_DYLIB_VERSION}.dylib ../build_x86_64/.libs/libgmp.${GMP_DYLIB_VERSION}.dylib -output ./.libs/libgmp.${GMP_DYLIB_VERSION}.dylib
+	$(eval GMPXX_DYLIB_VERSION=$(shell ls -1 gmp-$(GMP_VERSION)/build_arm64/.libs/libgmpxx.*.dylib | sed -E "s/.*\.([0-9]+)\.dylib$$/\1/"))
+	cd gmp-$(GMP_VERSION)/build_arm64 && lipo -create ./.libs/libgmpxx.${GMPXX_DYLIB_VERSION}.dylib ../build_x86_64/.libs/libgmpxx.${GMPXX_DYLIB_VERSION}.dylib -output ./.libs/libgmpxx.${GMPXX_DYLIB_VERSION}.dylib
+	# despite documented otherwise, gmp.h differs only in __GMP_CFLAGS, try to mitigate that...
+	sed -i '' -E 's/^(#define __GMP_CFLAGS.*-arch arm64)(.*)$$/\1 -arch x86_64\2/' gmp-$(GMP_VERSION)/build_arm64/gmp.h
+	# to avoid dirty make targets after we touched the libraries, pretend we rebuilded everything before installing
+	make -C gmp-$(GMP_VERSION)/build_arm64 --touch
+	make -C gmp-$(GMP_VERSION)/build_arm64 install
+	
+gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.dylib: gmp-$(GMP_VERSION)/build_arm64/Makefile
+	make -C gmp-$(GMP_VERSION)/build_arm64
+
+gmp-$(GMP_VERSION)/build_x86_64/.libs/libgmp.dylib: gmp-$(GMP_VERSION)/build_x86_64/Makefile
+	make -C gmp-$(GMP_VERSION)/build_x86_64
+
+gmp-$(GMP_VERSION)/build_arm64/Makefile: gmp-$(GMP_VERSION)/configure
+	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx
+
+gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
+	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 13 runs on hardware as old as core2, enable-fat should take care of the differences. 17.7.0 is the kernel of 10.13.6
+	cd gmp-$(GMP_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=westmere-apple-darwin17.7.0
+
+gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
+	$(TAR) gmp-$(GMP_VERSION).tar.xz
+	#patch for aarch support, can be removed for >6.2.1
+	#source: https://gmplib.org/list-archives/gmp-discuss/2022-April/006783.html / https://gmplib.org/repo/gmp-6.2/raw-rev/f4ff6ff711ed
+	patch -b -d "gmp-$(GMP_VERSION)" -p1 < patches/libgmp_aarch.patch
+	#once our MACOSX_DEPLOYMENT_TARGET reaches 11, there is likely another patch required, see https://github.com/Homebrew/homebrew-core/commit/7cf2fcadd549686a715678f0f75a0aacbe33ccd3
+	mkdir gmp-$(GMP_VERSION)/build_x86_64
+	mkdir gmp-$(GMP_VERSION)/build_arm64
+	touch $@
+
+gmp-$(GMP_VERSION).tar.xz:
+	$(CURL) https://gmplib.org/download/gmp/gmp-$(GMP_VERSION).tar.xz
+
+clean-gmp:
+	rm -Rf gmp-$(GMP_VERSION)
+
+check-gmp:
+	make -C gmp-$(GMP_VERSION)/build_arm64 check
+
+
+######################
+####### MPFR #########
+######################
+
+# used for cgal and sfcgal
+# uses gmp
+
+mpfr: $(PREFIX)/lib/libmpfr.dylib
+	touch $@
+
+$(PREFIX)/lib/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.dylib mpfr-$(MPFR_VERSION)/build_x86_64/src/.libs/libmpfr.dylib
+	$(eval MPFR_DYLIB_VERSION=$(shell ls -1 mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.*.dylib | sed -E "s/.*\.([0-9]+)\.dylib$$/\1/"))
+	cd mpfr-$(MPFR_VERSION)/build_arm64 && lipo -create ./src/.libs/libmpfr.${MPFR_DYLIB_VERSION}.dylib ../build_x86_64/src/.libs/libmpfr.${MPFR_DYLIB_VERSION}.dylib -output ./src/.libs/libmpfr.${MPFR_DYLIB_VERSION}.dylib
+	cd mpfr-$(MPFR_VERSION)/build_arm64 && lipo -create ./src/.libs/libmpfr.a ../build_x86_64/src/.libs/libmpfr.a -output ./src/.libs/libmpfr.a
+	make -C mpfr-$(MPFR_VERSION)/build_arm64 install
+
+mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_arm64/Makefile
+	make -C mpfr-$(MPFR_VERSION)/build_arm64
+	
+mpfr-$(MPFR_VERSION)/build_x86_64/src/.libs/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_x86_64/Makefile
+	make -C mpfr-$(MPFR_VERSION)/build_x86_64
+
+mpfr-$(MPFR_VERSION)/build_arm64/Makefile: mpfr-$(MPFR_VERSION)/configure $(PREFIX)/lib/libgmp.dylib
+	cd mpfr-$(MPFR_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-gmp="$(PREFIX)"
+
+mpfr-$(MPFR_VERSION)/build_x86_64/Makefile: mpfr-$(MPFR_VERSION)/configure $(PREFIX)/lib/libgmp.dylib
+	#darwin17.7.0 is the kernel of 10.13.6
+	cd mpfr-$(MPFR_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-gmp="$(PREFIX)" --host=x86_64-apple-darwin17.7.0
+
+mpfr-$(MPFR_VERSION)/configure: mpfr-$(MPFR_VERSION).tar.xz
+	$(TAR) mpfr-$(MPFR_VERSION).tar.xz
+	mkdir mpfr-$(MPFR_VERSION)/build_arm64
+	mkdir mpfr-$(MPFR_VERSION)/build_x86_64
+	touch $@
+
+mpfr-$(MPFR_VERSION).tar.xz:
+	$(CURL) https://www.mpfr.org/mpfr-current/mpfr-$(MPFR_VERSION).tar.xz
+
+clean-mpfr:
+	rm -Rf mpfr-$(MPFR_VERSION)
+	
+check-mpfr:
+	make -C mpfr-$(MPFR_VERSION)/build_arm64 check
+
+
+#######################
+####### BOOST #########
+#######################
+
+# used for cgal and sfcgal
+# uses icu (disabled), zstd (?), python (?)
+
+boost: $(PREFIX)/lib/libboost_system.dylib
+	touch $@
+
+$(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
+	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 install
+	# till we find a way to pass flags controlling to use of RPATHs to cmake through the B2 system, we fix RPATHs manually after installing
+	install_name_tool -id $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libboost_system.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_wserialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib 
+	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+
+boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
+	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 75
+	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,system,serialization
+
+boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
+	$(TAR) boost_$(BOOST_VERSION).tar.bz2
+	touch $@
+
+boost_$(BOOST_VERSION).tar.bz2:
+	$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+
+clean-boost:
+	rm -Rf boost_$(BOOST_VERSION)
+
+
+######################
+####### CGAL #########
+######################
+
+# used for sfcgal
+# uses boost, gmp, mpfr
+# header only library
+
+cgal: cgal-$(CGAL_VERSION)/include/CGAL
+	touch $@
+
+cgal-$(CGAL_VERSION)/include/CGAL: CGAL-$(CGAL_VERSION).tar.xz
+	$(TAR) cgal-$(CGAL_VERSION).tar.xz
+	touch $@
+
+CGAL-$(CGAL_VERSION).tar.xz:
+	$(CURL) https://github.com/CGAL/cgal/releases/download/v$(CGAL_VERSION)/CGAL-$(CGAL_VERSION).tar.xz
+
+clean-cgal:
+	rm -Rf CGAL-$(CGAL_VERSION)
+
+
+######################
+####### sfcgal #######
+######################
+
+# used for postgis
+# uses cgal, boost, gmp, mpfr
+
+sfcgal: $(PREFIX)/lib/libSFCGAL.dylib
+	touch $@
+
+$(PREFIX)/lib/libSFCGAL.dylib: SFCGAL-v$(SFCGAL_VERSION)/Makefile
+	make -C SFCGAL-v$(SFCGAL_VERSION)
+	make -C SFCGAL-v$(SFCGAL_VERSION) install
+
+SFCGAL-v$(SFCGAL_VERSION)/Makefile: SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt cgal-$(CGAL_VERSION)/include/CGAL $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libmpfr.dylib $(PREFIX)/lib/libgmp.dylib
+	cd SFCGAL-v$(SFCGAL_VERSION) && GMP_DIR=$(PREFIX)/lib/ MPFR_DIR=$(PREFIX)/lib/ CGAL_DIR=../cgal-$(CGAL_VERSION) BOOST_ROOT=$(BUILD_PREFIX) cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+
+SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt: SFCGAL-v$(SFCGAL_VERSION).tar.gz
+	$(TAR) SFCGAL-v$(SFCGAL_VERSION).tar.gz
+	touch $@
+
+SFCGAL-v$(SFCGAL_VERSION).tar.gz:
+	$(CURL) https://gitlab.com/Oslandia/SFCGAL/-/archive/v$(SFCGAL_VERSION)/SFCGAL-v$(SFCGAL_VERSION).tar.gz
+
+clean-sfcgal:
+	rm -Rf SFCGAL-v$(SFCGAL_VERSION)
+
 
 #########################
 ###### PostGIS ##########
 #########################
 
-#depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c
+#depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c, sfcgal
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
@@ -638,8 +834,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	install -d "${PREFIX}/share/doc/postgis"
 	install -m 644 postgis-${POSTGIS_VERSION}/doc/html/*_cheatsheet.html "${PREFIX}/share/doc/postgis/"
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
