@@ -33,10 +33,10 @@ GMP_VERSION=6.2.1
 MPFR_VERSION=4.2.0
 
 # https://www.boost.org/users/download/
-BOOST_VERSION=1_81_0
+BOOST_VERSION=1_82_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.5.1
+CGAL_VERSION=5.5.2
 
 # https://gitlab.com/Oslandia/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
