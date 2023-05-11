@@ -810,43 +810,48 @@ class Server: NSObject {
 	}
 		
     func changePasswordSync(role: String, newPassword: String) throws {
-        let process = Process()
-        process.launchPath = binPath.appending("/postgres")
-        process.arguments = [
-            "--single",
-            "-D", varPath,
-        ]
-        let inputPipe = Pipe()
-        process.standardInput = inputPipe
-        process.standardOutput = Pipe()
-        let errorPipe = Pipe()
-        process.standardError = errorPipe
-        try process.launchAndCheckForRosetta()
-        let alterRoleQuery = "ALTER ROLE \"\(role.replacingOccurrences(of:"\"", with: "\"\""))\" WITH PASSWORD '\(newPassword.replacingOccurrences(of:"'", with: "''"))';\n";
-        if #available(macOS 10.15.4, *) {
-            try inputPipe.fileHandleForWriting.write(contentsOf: alterRoleQuery.data(using: .utf8)!)
-        } else {
-            // Fallback on earlier versions
-            inputPipe.fileHandleForWriting.write(alterRoleQuery.data(using: .utf8)!)
-        }
-        inputPipe.fileHandleForWriting.closeFile()
-        let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
-        process.waitUntilExit()
-        
-        guard process.terminationStatus == 0 else {
-            let userInfo: [String: Any] = [
-                NSLocalizedDescriptionKey: NSLocalizedString("Could not update password.", comment: ""),
-                NSLocalizedRecoverySuggestionErrorKey: errorDescription,
-            ]
-            throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
-        }
-    }
+		do {
+			try executeSingleUserModeQuerySync(
+				"ALTER ROLE \"\(role.replacingOccurrences(of:"\"", with: "\"\""))\" WITH PASSWORD '\(newPassword.replacingOccurrences(of:"'", with: "''"))';\n"
+			)
+		}
+		catch let error {
+			throw NSError(
+				domain: "com.postgresapp.Postgres2.postgres",
+				code: 0,
+				userInfo: [
+					NSLocalizedDescriptionKey: NSLocalizedString("Could not update password", comment: ""),
+					NSLocalizedRecoverySuggestionErrorKey: error.localizedDescription,
+				]
+			)
+		}
+	}
 	
 	func getRolesThatCanLoginSync() throws -> [String] {
+		do {
+			let results = try executeSingleUserModeQuerySync(
+				"SELECT rolname FROM pg_catalog.pg_roles WHERE rolcanlogin;\n",
+				columns: ["rolname"]
+			)
+			return results[0]
+		}
+		catch let error {
+			throw NSError(
+				domain: "com.postgresapp.Postgres2.postgres",
+				code: 0,
+				userInfo: [
+					NSLocalizedDescriptionKey: NSLocalizedString("Could not get list of users", comment: ""),
+					NSLocalizedRecoverySuggestionErrorKey: error.localizedDescription,
+				]
+			)
+		}
+	}
+	
+	@discardableResult
+	func executeSingleUserModeQuerySync(_ query: String, columns: [String] = []) throws -> [[String]] {
 		if serverStatus == .DataDirEmpty {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("Server is not initialised yet", comment: ""),
-				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("You need to initialize the server before you can change passwords", comment: ""),
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
@@ -856,7 +861,7 @@ class Server: NSObject {
 		let launchPath = binPath.appending("/postgres")
 		guard FileManager().fileExists(atPath: launchPath) else {
 			let userInfo: [String: Any] = [
-				NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found.", comment: ""),
+				NSLocalizedDescriptionKey: NSLocalizedString("The binaries were not found.", comment: ""),
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
@@ -865,6 +870,7 @@ class Server: NSObject {
 		process.arguments = [
 			"--single",
 			"-D", varPath,
+			"postgres"
 		]
 		let inputPipe = Pipe()
 		process.standardInput = inputPipe
@@ -873,7 +879,6 @@ class Server: NSObject {
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
 		try process.launchAndCheckForRosetta()
-		let query = "SELECT rolname FROM pg_catalog.pg_roles WHERE rolcanlogin;\n";
 		if #available(macOS 10.15.4, *) {
 			try inputPipe.fileHandleForWriting.write(contentsOf: query.data(using: .utf8)!)
 		} else {
@@ -883,27 +888,43 @@ class Server: NSObject {
 		inputPipe.fileHandleForWriting.closeFile()
 		let output = String(data: outputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)!
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let criticalErrors = errorDescription.components(separatedBy: .newlines).compactMap { errorLine in
+			let regex = try! NSRegularExpression(pattern: "(ERROR|FATAL|PANIC):\\s*(.*)$")
+			if let match = regex.firstMatch(in: errorLine, range: NSMakeRange(0, errorLine.utf16.count)) {
+				return (errorLine as NSString).substring(with: match.range(at: 2))
+			} else {
+				return nil
+			}
+		}
 		process.waitUntilExit()
 		
-		guard process.terminationStatus == 0 else {
+		guard process.terminationStatus == 0 && criticalErrors.isEmpty else {
 			let userInfo: [String: Any] = [
-				NSLocalizedDescriptionKey: NSLocalizedString("Could not get list of users", comment: ""),
-				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+				NSLocalizedDescriptionKey: criticalErrors.first ?? errorDescription,
 			]
-			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: Int(process.terminationStatus), userInfo: userInfo)
 		}
-		let regex = try! NSRegularExpression(pattern: "rolname = \"(.*)\"")
-		var users = [String]()
-		for match in regex.matches(in: output, range: NSMakeRange(0, output.utf16.count)) {
-			let user = (output as NSString).substring(with: match.range(at: 1))
-			users.append(user)
+		
+		var results = [[String]]()
+		for column in columns {
+			var columnValues = [String]()
+			let regex = try NSRegularExpression(pattern: "\(NSRegularExpression.escapedPattern(for: column)) = \"(.*)\"")
+			for match in regex.matches(in: output, range: NSMakeRange(0, output.utf16.count)) {
+				let columnValue = (output as NSString).substring(with: match.range(at: 1))
+				columnValues.append(columnValue)
+			}
+			results.append(columnValues)
 		}
-		return users
+		if results.count >= 2 {
+			for i in 1..<results.count {
+				if results[i-1].count != results[i].count {
+					throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse query result"]);
+				}
+			}
+		}
+		return results
 	}
-
 	
-
-    
 	private var cachedBinaryVersion: String?
 	var binaryVersion: String? {
 		if let a = cachedBinaryVersion { return a }
