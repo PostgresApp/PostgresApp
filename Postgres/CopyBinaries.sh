@@ -21,11 +21,16 @@ do
 		cd "${PG_BINARIES_DIR}/${VERSION}/bin/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
 		# copy postgresql binaries
-		cp -a clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg_* pgbench postgres postmaster psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a clusterdb createdb createuser dropdb dropuser ecpg initdb oid2name pg_* pgbench postgres psql reindexdb vacuumdb vacuumlo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         if [ -e createlang ]
         then
             # removed in PostgreSQL 10
             cp -a createlang droplang "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
+        if [ -e postmaster ]
+        then
+            # removed in PostgreSQL 16
+            cp -a postmaster "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
 		# copy proj binaries
 		cp -a cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
