@@ -25,6 +25,39 @@ release: {
 extraReleases: [
 	{
 		name: {
+			en: "Postgres.app with PostgreSQL 16 Beta (Universal)", 
+			de: "Postgres.app mit PostreSQL 16 Beta (Universal)",
+		},
+		size: "61MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.3/Postgres-2.6.3-16.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.6.3",
+		postgresappVersion: "2.6.3",
+		postgresappMinSystemVersion: "10.13",
+		postgresqlVersions: [
+			{ postgres: "16beta1", postgis: null, architecture: "Universal" },
+		],
+	},
+	{
+		name: {
+			en: "Postgres.app with all currently supported versions + beta (Universal/Intel)", 
+			de: "Postgres.app mit allen unterstützten Versionen + Beta (Universal/Intel)",
+		},
+		size: "366MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.3/Postgres-2.6.3-11-12-13-14-15-16.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.6.3",
+		postgresappVersion: "2.6.3",
+		postgresappMinSystemVersion: "10.13",
+		postgresqlVersions: [
+			{ postgres: "16beta1", postgis: null, architecture: "Universal" },
+			{ postgres: "15.3", postgis: "3.3.2", architecture: "Universal" },
+			{ postgres: "14.8", postgis: "3.2.4", architecture: "Universal" },
+			{ postgres: "13.11", postgis: "3.1.8", plv8: "2.3.15", architecture: "Intel" },
+			{ postgres: "12.15", postgis: "3.0.8", plv8: "2.3.15", architecture: "Intel" },
+			{ postgres: "11.20", postgis: "2.5.9", plv8: "2.3.15", architecture: "Intel" },
+		],
+	},
+	{
+		name: {
 			en: "Postgres.app with all currently supported versions (Universal/Intel)", 
 			de: "Postgres.app mit allen unterstützten Versionen (Universal/Intel)",
 		},
