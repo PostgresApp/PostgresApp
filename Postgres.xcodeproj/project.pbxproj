@@ -132,6 +132,7 @@
 		3641083A296D7C2C00F79014 /* libpgport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgport.a; path = "src-staticlibs/libpgport.a"; sourceTree = "<group>"; };
 		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallHistory.swift; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
+		3682759A2A249B0600C199C5 /* auth_permission_dialog */ = {isa = PBXFileReference; lastKnownFileType = text; path = auth_permission_dialog; sourceTree = SOURCE_ROOT; };
 		369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnixProcessInfo.swift; sourceTree = "<group>"; };
 		369189BB2A1E3DC1000A3C97 /* PostgresPermissionDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresPermissionDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +227,7 @@
 				360079712A1B891000CF88B7 /* main.swift */,
 				369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */,
 				369189BB2A1E3DC1000A3C97 /* PostgresPermissionDialog-Bridging-Header.h */,
+				3682759A2A249B0600C199C5 /* auth_permission_dialog */,
 			);
 			path = PostgresPermissionDialog;
 			sourceTree = "<group>";
