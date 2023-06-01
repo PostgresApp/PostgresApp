@@ -76,16 +76,17 @@ static char* ashqu(char *arg) {
 }
 
 static pid_t pid_for_tcp_local_remote(struct sockaddr *laddr, struct sockaddr *faddr) {
-	int *allpids;
+	pid_t *allpids;
 	int npids;
 	
-	npids = proc_listallpids(NULL, 0)/sizeof(int);
+	npids = proc_listallpids(NULL, 0);
 	if (npids == -1) {
 		const char *errstr = strerror(errno);
 		ereport(FATAL, (errcode(ERRCODE_INTERNAL_ERROR), errmsg("auth_permission_dialog: proc_listallpids: %s", errstr)));
 	}
-	allpids = calloc(sizeof(int), npids);
-	if (proc_listallpids(allpids, sizeof(int)*npids) == -1) {
+	allpids = calloc(sizeof(pid_t), npids);
+	npids = proc_listallpids(allpids, sizeof(pid_t)*npids);
+	if (npids == -1) {
 		const char *errstr = strerror(errno);
 		free(allpids);
 		ereport(FATAL, (errcode(ERRCODE_INTERNAL_ERROR), errmsg("auth_permission_dialog: proc_listallpids: %s", errstr)));
@@ -95,16 +96,16 @@ static pid_t pid_for_tcp_local_remote(struct sockaddr *laddr, struct sockaddr *f
 		int nfds;
 		struct proc_fdinfo *fds;
 		
-		int pid = allpids[i];
-		
-		nfds = proc_pidinfo(pid, PROC_PIDLISTFDS, 0, NULL, 0) / sizeof(struct proc_fdinfo);
+		pid_t pid = allpids[i];
+		nfds = proc_pidinfo(pid, PROC_PIDLISTFDS, 0, NULL, 0);
 		if (nfds == -1) {
 			const char *errstr = strerror(errno);
 			free(allpids);
 			ereport(FATAL, (errcode(ERRCODE_INTERNAL_ERROR), errmsg("auth_permission_dialog: proc_pidinfo(PROC_PIDLISTFDS): %s", errstr)));
 		}
 		fds = calloc(sizeof(struct proc_fdinfo), nfds);
-		if (proc_pidinfo(pid, PROC_PIDLISTFDS, 0, fds, sizeof(struct proc_fdinfo)*nfds)==-1) {
+		nfds = proc_pidinfo(pid, PROC_PIDLISTFDS, 0, fds, sizeof(struct proc_fdinfo)*nfds);
+		if (nfds == -1) {
 			const char *errstr = strerror(errno);
 			free(allpids);
 			free(fds);
