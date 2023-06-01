@@ -24,7 +24,7 @@ struct UnixProcessInfo {
 			self.path = String(cString: path)
 		} else {
 			let errno_stored = errno
-			let errorDescription = String(cString:strerror(errno_stored)!)
+			let errorDescription = "proc_pidpath(\(pid)): " + String(cString:strerror(errno_stored)!)
 			throw NSError(domain: "com.postgresapp.PostgresPermissionDialog", code: Int(errno_stored), userInfo: [NSLocalizedDescriptionKey: errorDescription])
 		}
 	}
@@ -44,7 +44,7 @@ struct UnixProcessInfo {
 		let status = proc_pidinfo(pid_t(pid), PROC_PIDT_SHORTBSDINFO, 0, &shortinfo, Int32(MemoryLayout.size(ofValue: shortinfo)))
 		guard status > 0 else {
 			let errno_stored = errno
-			let errorDescription = String(cString:strerror(errno_stored)!)
+			let errorDescription = "proc_pidinfo(\(pid)): " + String(cString:strerror(errno_stored)!)
 			throw NSError(domain: "com.postgresapp.PostgresPermissionDialog", code: Int(errno_stored), userInfo: [NSLocalizedDescriptionKey: errorDescription])
 		}
 		return shortinfo
