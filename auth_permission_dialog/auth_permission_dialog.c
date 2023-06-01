@@ -79,6 +79,10 @@ static pid_t pid_for_tcp_local_remote(struct sockaddr *laddr, struct sockaddr *f
 	pid_t *allpids;
 	int npids;
 	
+	// proc_listallpids and proc_pidinfo return the number of results
+	// but they take the size of the buffer as argument (number of results * sizeof result)
+	// when called with NULL argument, they return 20 more than necessary (in case number of results changes between the syscalls)
+	// more info: https://zameermanji.com/blog/2021/8/1/counting-open-file-descriptors-on-macos/
 	npids = proc_listallpids(NULL, 0);
 	if (npids == -1) {
 		const char *errstr = strerror(errno);
