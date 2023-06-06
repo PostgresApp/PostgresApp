@@ -31,14 +31,14 @@
             <objects>
                 <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="yPx-aT-K8a">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="132"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="168"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Kd-nq-3yy">
-                                <rect key="frame" x="20" y="20" width="260" height="92"/>
+                                <rect key="frame" x="20" y="20" width="260" height="128"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ALE-A3-sd5">
-                                        <rect key="frame" x="-2" y="75" width="191" height="18"/>
+                                        <rect key="frame" x="-2" y="111" width="191" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show Postgres in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="SOF-zZ-JMG">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -52,7 +52,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ON-LL-Ciy">
-                                        <rect key="frame" x="-2" y="43" width="252" height="18"/>
+                                        <rect key="frame" x="-2" y="79" width="252" height="18"/>
                                         <buttonCell key="cell" type="check" title="Automatically start Postgres on Login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BZf-5n-IZj">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -63,7 +63,7 @@
                                         </connections>
                                     </button>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="iUw-28-bFy">
-                                        <rect key="frame" x="0.0" y="0.0" width="260" height="28"/>
+                                        <rect key="frame" x="0.0" y="36" width="260" height="28"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
                                                 <rect key="frame" x="-2" y="7" width="134" height="16"/>
@@ -102,13 +102,30 @@
                                             <constraint firstItem="9Gf-kd-fUZ" firstAttribute="baseline" secondItem="5a3-Mr-g2e" secondAttribute="baseline" id="y7V-vw-fVK"/>
                                         </constraints>
                                     </customView>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xuP-ZJ-b1l">
+                                        <rect key="frame" x="-7" y="-7" width="173" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Reset App Permissions" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BXu-1M-Dy0">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="resetAppPermissions:" target="F90-nP-753" id="Egv-pv-hPy"/>
+                                            <binding destination="bOI-k6-hHE" name="enabled" keyPath="values.ClientApplicationPermissions" id="3fe-ge-ol1">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -127,6 +144,7 @@
                 <userDefaultsController id="KVx-oV-dzR"/>
                 <userDefaultsController id="IHn-fa-Gdb"/>
                 <userDefaultsController id="qHA-0W-j7X"/>
+                <userDefaultsController id="bOI-k6-hHE"/>
             </objects>
             <point key="canvasLocation" x="938" y="192"/>
         </scene>

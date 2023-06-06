@@ -22,4 +22,8 @@ class PreferencesViewController: NSViewController {
 			return false
 		}
 	}
+	
+	@IBAction func resetAppPermissions(_ sender: Any?) {
+		UserDefaults.shared.set(nil, forKey: "ClientApplicationPermissions")
+	}
 }

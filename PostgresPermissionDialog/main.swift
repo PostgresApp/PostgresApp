@@ -71,7 +71,7 @@ do {
 	let alert = NSAlert()
 
 	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app"
-	alert.informativeText = "You can change your selection later in Postgres.app Settings."
+	alert.informativeText = "You can reset permissions later in Postgres.app Settings."
 
 	alert.icon = topLevelProcess.icon
 
