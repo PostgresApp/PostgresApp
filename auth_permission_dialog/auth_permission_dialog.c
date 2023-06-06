@@ -289,7 +289,10 @@ auth_permission_dialog(Port *port, int status)
 	free(command);
 	
 	if (system_st != 0) {
-		ereport(FATAL, (errcode(ERRCODE_INTERNAL_ERROR), errmsg("auth_permission_dialog: dialog_executable_path return status %d", system_st)));
+		ereport(FATAL,
+				(errmsg("Postgres.app rejected the connection"),
+				 errdetail("auth_permission_dialog: dialog_executable_path return status %d", system_st),
+				 errhint("Try resetting app permissions in Postgres.app, or change hba.conf to require a password.")));
 	}
 }
 
