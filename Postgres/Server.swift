@@ -528,6 +528,54 @@ class Server: NSObject {
     }
 	
 	
+	// This function updates the postgresql.conf file
+	func updateConfigFile() throws {
+		let confurl = URL(fileURLWithPath: self.configFilePath)
+		var lines = try String(contentsOf: confurl, encoding: .utf8).components(separatedBy: .newlines)
+		
+		while let last = lines.last, last.isEmpty { lines.removeLast() }
+		
+		// check if we need to update the port
+		var portline: Int?
+		var needPortUpdate = true
+		for i in lines.indices.reversed() {
+			let scanner = Scanner(string: lines[i])
+			var oldPort = 0
+			if scanner.scanString("port", into: nil) && scanner.scanString("=", into: nil) && scanner.scanInt(&oldPort) {
+				portline = i
+				// we found a port
+				if oldPort == port {
+					needPortUpdate = false
+				}
+				break
+			}
+		}
+		if portline == nil {
+			// look for commented portline
+			for i in lines.indices {
+				let scanner = Scanner(string: lines[i])
+				_ = scanner.scanString("#", into: nil)
+				if scanner.scanString("port", into: nil) && scanner.scanString("=", into: nil) {
+					portline = i
+					break
+				}
+			}
+		}
+		if needPortUpdate {
+			let newPortLine = "port = \(port) # configured by Postgres.app"
+			if let portline {
+				lines[portline] = newPortLine
+			} else {
+				lines.append(newPortLine)
+			}
+		}
+		
+		if needPortUpdate {
+			let newConfContents = lines.joined(separator: "\n") + "\n"
+			try newConfContents.data(using: .utf8)!.write(to: confurl)
+		}
+	}
+	
 	/// Checks if the port is in use by another process.
 	private func portInUse() -> Bool {
 		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
@@ -588,6 +636,8 @@ class Server: NSObject {
 	
 	// MARK: Sync handlers
 	func startSync() throws {
+		try updateConfigFile()
+		
 		let process = Process()
 		let launchPath = binPath.appending("/pg_ctl")
 		guard FileManager().fileExists(atPath: launchPath) else {
@@ -601,8 +651,7 @@ class Server: NSObject {
 			"start",
 			"-D", varPath,
 			"-w",
-			"-l", logFilePath,
-			"-o", String("-p \(port)"),
+			"-l", logFilePath
 		]
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
