@@ -53,6 +53,18 @@ class Server: NSObject {
         }
     }
     var effectiveBinPath: String?
+	var extPath: String {
+		var components = binPath.components(separatedBy: "/")
+		while let last = components.last, last.isEmpty || last == "." {
+			components.removeLast()
+		}
+		if components.last == "bin" {
+			components.removeLast()
+		}
+		components.append("lib")
+		components.append("postgresql")
+		return components.joined(separator: "/")
+	}
 	@objc dynamic var varPath: String = ""
 	@objc dynamic var startOnLogin: Bool = false {
 		didSet {
@@ -532,12 +544,14 @@ class Server: NSObject {
 	func updateConfigFile() throws {
 		let confurl = URL(fileURLWithPath: self.configFilePath)
 		var lines = try String(contentsOf: confurl, encoding: .utf8).components(separatedBy: .newlines)
-		
-		while let last = lines.last, last.isEmpty { lines.removeLast() }
-		
+				
+		// these will be set later
+		var needPortUpdate = true
+		var needPreloadUpdate = true
+		var needExecutablePathUpdate = true
+
 		// check if we need to update the port
 		var portline: Int?
-		var needPortUpdate = true
 		for i in lines.indices.reversed() {
 			let scanner = Scanner(string: lines[i])
 			var oldPort = 0
@@ -570,8 +584,88 @@ class Server: NSObject {
 			}
 		}
 		
-		if needPortUpdate {
-			let newConfContents = lines.joined(separator: "\n") + "\n"
+		// check if we need to configure the auth_permission_dialog extension
+		if FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.dylib")) || FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.so")) {
+			
+			// first update the shared_preload_libraries parameter
+			var preloadline: Int?
+			var preloadLibraries = ["auth_permission_dialog"]
+			
+			for i in lines.indices.reversed() {
+				let scanner = Scanner(string: lines[i])
+				if scanner.scanString("shared_preload_libraries", into: nil) && scanner.scanString("=", into: nil), let oldVal = scanner.scanConfigParameterValue() {
+					preloadline = i
+					let oldLibs = oldVal.components(separatedBy: ",").map({$0.trimmingCharacters(in: .whitespaces)}).filter { !$0.isEmpty }
+					if oldLibs.last == "auth_permission_dialog" {
+						needPreloadUpdate = false
+					} else {
+						for oldLib in oldLibs {
+							if oldLib != "auth_permission_dialog" {
+								preloadLibraries.insert(oldLib, at: preloadLibraries.count-1)
+							}
+						}
+					}
+					break
+				}
+			}
+			if preloadline == nil {
+				// look for commented portline
+				for i in lines.indices {
+					let scanner = Scanner(string: lines[i])
+					_ = scanner.scanString("#", into: nil)
+					if scanner.scanString("shared_preload_libraries", into: nil) && scanner.scanString("=", into: nil) {
+						preloadline = i
+						break
+					}
+				}
+			}
+			if needPreloadUpdate {
+				let newPreloadLine = "shared_preload_libraries = '\(preloadLibraries.map({ $0.replacingOccurrences(of: "'", with: "''")}).joined(separator:","))' # configured by Postgres.app"
+				if let preloadline {
+					lines[preloadline] = newPreloadLine
+				} else {
+					lines.append(newPreloadLine)
+				}
+			}
+			
+			// next we need to update auth_permission_dialog.dialog_executable_path
+			var executablePathLine: Int?
+			guard let newExecutablePath = Bundle.main.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
+				throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not find PostgresPermissionDialog executable"])
+			}
+			for i in lines.indices.reversed() {
+				let scanner = Scanner(string: lines[i])
+				if scanner.scanString("auth_permission_dialog.dialog_executable_path", into: nil) && scanner.scanString("=", into: nil), let oldVal = scanner.scanConfigParameterValue() {
+					executablePathLine = i
+					if oldVal == newExecutablePath {
+						needExecutablePathUpdate = false
+					}
+					break
+				}
+			}
+			if preloadline == nil {
+				// look for commented portline
+				for i in lines.indices {
+					let scanner = Scanner(string: lines[i])
+					_ = scanner.scanString("#", into: nil)
+					if scanner.scanString("auth_permission_dialog.dialog_executable_path", into: nil) && scanner.scanString("=", into: nil) {
+						executablePathLine = i
+						break
+					}
+				}
+			}
+			if needExecutablePathUpdate {
+				let newExecutablePathLine = "auth_permission_dialog.dialog_executable_path = '\(newExecutablePath.replacingOccurrences(of: "'", with: "''"))' # configured by Postgres.app"
+				if let executablePathLine {
+					lines[executablePathLine] = newExecutablePathLine
+				} else {
+					lines.append(newExecutablePathLine)
+				}
+			}
+		}
+		
+		if needPortUpdate || needPreloadUpdate || needExecutablePathUpdate {
+			let newConfContents = lines.joined(separator: "\n")
 			try newConfContents.data(using: .utf8)!.write(to: confurl)
 		}
 	}
