@@ -1,6 +1,6 @@
 # VERSION numbers
 
-# http://postgis.net/source/
+# http://postgis.net/development/source_code/
 POSTGIS_VERSION=3.3.3
 POSTGIS_MAJOR_VERSION=3
 
@@ -773,8 +773,7 @@ clean-boost:
 ######################
 
 # used for sfcgal
-# uses boost, gmp, mpfr
-# header only library
+# uses boost, gmp, mpfr when building - we use it as header only library
 
 cgal: cgal-$(CGAL_VERSION)/include/CGAL
 	touch $@
