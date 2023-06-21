@@ -1,7 +1,7 @@
 # VERSION numbers
 
-# http://postgis.net/source/
-POSTGIS_VERSION=3.1.8
+# http://postgis.net/development/source_code/
+POSTGIS_VERSION=3.1.9
 POSTGIS_MAJOR_VERSION=3.1
 
 POSTGRES_VERSION=13.11
@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1t
+OPENSSL_VERSION=1.1.1u
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
