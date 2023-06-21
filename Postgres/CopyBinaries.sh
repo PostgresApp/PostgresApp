@@ -33,8 +33,18 @@ do
             cp -a postmaster "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
 		# copy proj binaries
-		cp -a cs2cs geod invgeod invproj proj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
-		# copy gdal binaries
+		cp -a cct cs2cs geod invgeod proj invproj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		if [ -e projinfo ]
+        then
+            # added in proj 6.0.0
+            cp -a projinfo "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
+		if [ -e projsync ]
+        then
+            # added in proj 7.0.0
+            cp -a projsync "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
+        # copy gdal binaries
 		cp -a gdal* nearblack ogr* "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         if [ -e testepsg ]
         then
