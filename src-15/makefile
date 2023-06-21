@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/source/
-POSTGIS_VERSION=3.3.2
+POSTGIS_VERSION=3.3.3
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15.3
@@ -48,7 +48,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.8
+OPENSSL_VERSION=3.0.9
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -86,7 +86,7 @@ OPENJPEG_VERSION=2.5.0
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.4.1
+PGVECTOR_VERSION=0.4.4
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.0
@@ -97,7 +97,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.3
+PYTHON_VERSION_FULL=3.11.4
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
