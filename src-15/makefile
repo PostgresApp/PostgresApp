@@ -88,6 +88,9 @@ PLDEBUGGER_VERSION=1.5
 # https://github.com/pgvector/pgvector/tags
 PGVECTOR_VERSION=0.4.1
 
+# https://github.com/pgRouting/pgrouting/releases
+PGROUTING_VERSION=3.5.0
+
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=72
 ICU_MINOR_VERSION=1
@@ -932,6 +935,33 @@ pgvector-${PGVECTOR_VERSION}.tar.gz:
 
 clean-pgvector:
 	rm -Rf pgvector-${PGVECTOR_VERSION}
+
+
+##########################
+####### pgrouting ########
+##########################
+
+# uses boost
+
+pgrouting: $(PREFIX)/lib/postgresql/pgrouting.so
+	touch $@
+
+$(PREFIX)/lib/postgresql/pgrouting.so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
+	make -C pgrouting-$(PGROUTING_VERSION)/build install
+
+pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/bin/psql
+	cd pgrouting-$(PGROUTING_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF -DBUILD_MAN=ON -DBUILD_HTML=OFF -DBUILD_DOXY=OFF -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+
+pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt: pgrouting-$(PGROUTING_VERSION).tar.gz
+	$(TAR) pgrouting-$(PGROUTING_VERSION).tar.gz
+	mkdir pgrouting-$(PGROUTING_VERSION)/build
+	touch $@
+
+pgrouting-$(PGROUTING_VERSION).tar.gz:
+	$(CURL) https://github.com/pgRouting/pgrouting/releases/download/v$(PGROUTING_VERSION)/pgrouting-$(PGROUTING_VERSION).tar.gz
+
+clean-pgrouting:
+	rm -Rf pgrouting-$(PGROUTING_VERSION)
 
 
 #########################
