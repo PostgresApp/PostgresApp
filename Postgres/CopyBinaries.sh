@@ -33,7 +33,7 @@ do
             cp -a postmaster "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
 		# copy proj binaries
-		cp -a cct cs2cs geod invgeod proj invproj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a cct cs2cs geod invgeod proj invproj "${TARGET_VERSIONS_DIR}/${VERSION}/bin/" || test $IGNORE_MISSING_BINARIES # set env var IGNORE_MISSING_BINARIES=1 to ignore this error
 		if [ -e projinfo ]
         then
             # added in proj 6.0.0
@@ -45,14 +45,14 @@ do
             cp -a projsync "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
         # copy gdal binaries
-		cp -a gdal* nearblack ogr* "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a gdal* nearblack ogr* "${TARGET_VERSIONS_DIR}/${VERSION}/bin/" || test $IGNORE_MISSING_BINARIES # set env var IGNORE_MISSING_BINARIES=1 to ignore this error
         if [ -e testepsg ]
         then
 			# testepsg was removed in GDAL 3.5, see https://github.com/OSGeo/gdal/pull/3992
             cp -a testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
 		# copy postgis binaries
-		cp -a pgsql2shp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+		cp -a pgsql2shp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/" || test $IGNORE_MISSING_BINARIES # set env var IGNORE_MISSING_BINARIES=1 to ignore this error
         if [ -e pgtopo_export ]
         then
             # added in PostGIS 3.3
