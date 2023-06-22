@@ -4,8 +4,8 @@
 POSTGIS_VERSION=3.3.3
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15.3
-POSTGRES_MAJOR_VERSION=15
+POSTGRES_VERSION=16beta1
+POSTGRES_MAJOR_VERSION=16
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
@@ -21,7 +21,8 @@ ZSTD_VERSION=1.5.5
 GDAL_VERSION=3.5.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.11.2
+# 3.12 expected 2023-06-24
+GEOS_VERSION=3.12.0beta2
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -36,7 +37,8 @@ MPFR_VERSION=4.2.0
 BOOST_VERSION=1_82_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.5.2
+# 5.6 expected in 2023-07
+CGAL_VERSION=5.6-beta1
 
 # https://gitlab.com/Oslandia/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -44,14 +46,14 @@ SFCGAL_VERSION=1.4.1
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
-LIBXML2_VERSION=2.10.4
+LIBXML2_VERSION=2.11.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
 OPENSSL_VERSION=3.0.9
 
 # https://proj.org/download.html
-PROJ_VERSION=9.1.1
+PROJ_VERSION=9.2.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -61,6 +63,7 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
+# 0.17 is on its way
 JSONC_VERSION=0.16
 
 # https://github.com/eulerto/wal2json/releases
@@ -74,7 +77,7 @@ PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*
 PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.4.0
+LIBTIFF_VERSION=4.5.0
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.39
@@ -92,12 +95,14 @@ PGVECTOR_VERSION=0.4.4
 PGROUTING_VERSION=3.5.0
 
 # http://site.icu-project.org/download/
-ICU_MAJOR_VERSION=72
-ICU_MINOR_VERSION=1
+# release 74 expected in 2023-10
+ICU_MAJOR_VERSION=73
+ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
-PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.4
+# 3.12 rc expected 2023-07-31
+PYTHON_VERSION=3.12
+PYTHON_VERSION_FULL=3.12.0b3
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -326,7 +331,7 @@ $(PREFIX)/lib/libxml2.dylib: libxml2-${LIBXML2_VERSION}/Makefile
 	touch $(PREFIX)/lib/libxml2.dylib
 
 libxml2-${LIBXML2_VERSION}/Makefile: libxml2-${LIBXML2_VERSION}/configure
-	cd libxml2-${LIBXML2_VERSION} && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --without-python
+	cd libxml2-${LIBXML2_VERSION} && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --without-python --without-icu
 
 libxml2-${LIBXML2_VERSION}/configure: libxml2-${LIBXML2_VERSION}.tar.xz
 	$(TAR) libxml2-${LIBXML2_VERSION}.tar.xz
@@ -461,7 +466,7 @@ $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/build/Makefile
 	make -C proj-$(PROJ_VERSION)/build install
 
 proj-$(PROJ_VERSION)/build/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_IPO=ON -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 	
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
@@ -563,11 +568,6 @@ $(PREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
 
 tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure
 	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
-	# rename VERSION file as we are on a case-insensitive filesystem and are including the source dir in the build
-	# to avoid including this instead of <version> header
-	# (idea taken from https://gitlab.com/graphviz/graphviz/-/merge_requests/2149)
-	mv tiff-$(LIBTIFF_VERSION)/VERSION tiff-$(LIBTIFF_VERSION)/LIBTIFF_VERSION
-	sed -i '' -e 's/\/VERSION/\/LIBTIFF_VERSION/g' -e 's/\tVERSION/\tLIBTIFF_VERSION/' tiff-$(LIBTIFF_VERSION)/Makefile
 	
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz

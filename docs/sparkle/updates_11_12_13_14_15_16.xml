@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_11_12_13_14_15_16.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 2.6.3</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 11.20 with PostGIS 2.5.9</li>
+					<li>PostgreSQL 12.15 with PostGIS 3.0.8</li>
+					<li>PostgreSQL 13.11 with PostGIS 3.1.8</li>
+					<li>PostgreSQL 14.8 with PostGIS 3.2.4</li>
+					<li>PostgreSQL 15.3 with PostGIS 3.3.2</li>
+					<li>PostgreSQL 16beta1 without PostGIS</li>
+				</ul>
+			]]>
+		</description>
+		<pubDate>Thu, 25 May 2023 13:15:17 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.3/Postgres-2.6.3-11-12-13-14-15-16.dmg"
+		sparkle:version="193"
+		sparkle:shortVersionString="2.6.3"
+		length="384282087"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFFwDRrjDA6P6zdbxRTl1n2gQ/BCGAhQgf2xCSKAU13KUuCqetDRWredVUA=="
+		/>
+		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+	</item>
+  </channel>
+</rss>
