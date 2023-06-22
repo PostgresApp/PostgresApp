@@ -20,9 +20,6 @@
 		36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */; };
-		3682759C2A2FA93800C199C5 /* ScannerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682759B2A2FA93800C199C5 /* ScannerExtensions.swift */; };
-		3682759D2A2FA93800C199C5 /* ScannerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682759B2A2FA93800C199C5 /* ScannerExtensions.swift */; };
-		3682759E2A2FA93800C199C5 /* ScannerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682759B2A2FA93800C199C5 /* ScannerExtensions.swift */; };
 		369189BA2A1E3D5F000A3C97 /* UnixProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */; };
 		369189BC2A1E5BE0000A3C97 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		369189BD2A1E7DAD000A3C97 /* PostgresPermissionDialog in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -136,7 +133,6 @@
 		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallHistory.swift; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
 		3682759A2A249B0600C199C5 /* auth_permission_dialog */ = {isa = PBXFileReference; lastKnownFileType = text; path = auth_permission_dialog; sourceTree = SOURCE_ROOT; };
-		3682759B2A2FA93800C199C5 /* ScannerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerExtensions.swift; sourceTree = "<group>"; };
 		369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnixProcessInfo.swift; sourceTree = "<group>"; };
 		369189BB2A1E3DC1000A3C97 /* PostgresPermissionDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresPermissionDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -312,7 +308,6 @@
 				36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */,
 				83F3647D1D5204D30096F1F5 /* SettingsView.swift */,
 				8358D53B1D26EBE7007B7904 /* Server.swift */,
-				3682759B2A2FA93800C199C5 /* ScannerExtensions.swift */,
 				3634D7F52954BB2C005CE01C /* BinaryManager.swift */,
 				36447A61282568BA00F5BB7A /* InstallHistory.swift */,
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
@@ -555,7 +550,6 @@
 				83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */,
 				83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */,
 				36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */,
-				3682759D2A2FA93800C199C5 /* ScannerExtensions.swift in Sources */,
 				360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */,
 				83999C6B1D7DA8E300B8A1D6 /* ServerManager.swift in Sources */,
 				83C19C2D1D7D977000F4862D /* main.swift in Sources */,
@@ -571,7 +565,6 @@
 				834355B11D7D9DC8007CD457 /* ErrorRecoveryAttempter.m in Sources */,
 				83C19C691D7D9D1E00F4862D /* ServerManager.swift in Sources */,
 				36D767B62729F1AD00161CF2 /* ProcessExtensions.swift in Sources */,
-				3682759E2A2FA93800C199C5 /* ScannerExtensions.swift in Sources */,
 				36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */,
 				83C19C5C1D7D9AAE00F4862D /* MenuItemView.swift in Sources */,
 				83C19C681D7D9D1900F4862D /* Server.swift in Sources */,
@@ -594,7 +587,6 @@
 				83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */,
 				360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */,
 				364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */,
-				3682759C2A2FA93800C199C5 /* ScannerExtensions.swift in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */,
