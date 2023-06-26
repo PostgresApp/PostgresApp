@@ -842,6 +842,9 @@ postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(P
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
+	# apply fix for 'make installcheck' of address_standardizer prepared for 3.3.4
+	# source https://github.com/postgis/postgis/commit/a5c0cb911a1acbdb9ec22383d1e4e47b1f5af6c8
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis-check-address_standardizer.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
