@@ -682,7 +682,7 @@ class Server: NSObject {
 			"-D", varPath,
 			"-w",
 			"-l", logFilePath,
-			"-o", String("-p \(port)"),
+			"-o", "-p \(port)",
 		] + extraArgs
 		let outputPipe = Pipe()
 		let errorPipe = Pipe()
