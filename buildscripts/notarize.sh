@@ -69,6 +69,7 @@ DMG_DST_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERS
 SIGNATURE_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}-signature.txt
 APPCAST_PATH="$BUILD_DIR"/updates_$PG_BINARIES_VERSIONS.xml
 
+MACOSX_DEPLOYMENT_TARGET=$(plutil -extract LSMinimumSystemVersion raw "$DMG_SRC_PATH"/Postgres.app/Contents/Info.plist)
 
 mkdir -p "$LOG_DIR"
 echo "Log Directory: $LOG_DIR"
@@ -111,6 +112,7 @@ $(
 	done
 )
 				</ul>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
 		<pubDate>$(date -R)</pubDate>
@@ -122,6 +124,7 @@ $(
 		type="application/octet-stream"
 		sparkle:dsaSignature="$(cat "$SIGNATURE_PATH")"
 		/>
+		<sparkle:minimumSystemVersion>$MACOSX_DEPLOYMENT_TARGET</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
