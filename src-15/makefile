@@ -90,6 +90,7 @@ PGVECTOR_VERSION=0.4.4
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.0
+PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=72
@@ -945,10 +946,10 @@ clean-pgvector:
 
 # uses boost
 
-pgrouting: $(PREFIX)/lib/postgresql/pgrouting.so
+pgrouting: $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so
 	touch $@
 
-$(PREFIX)/lib/postgresql/pgrouting.so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
+$(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
 	make -C pgrouting-$(PGROUTING_VERSION)/build install
 
 pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/bin/psql
