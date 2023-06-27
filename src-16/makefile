@@ -826,10 +826,10 @@ clean-sfcgal:
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
-postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
+$(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTGIS_VERSION}/GNUMakefile
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} cheatsheets
 	make -C postgis-${POSTGIS_VERSION} install
@@ -856,10 +856,10 @@ clean-postgis:
 ######## PLV8 ############
 ##########################
 
-plv8: $(PREFIX)/lib/postgresql/plv8.so
+plv8: $(PREFIX)/lib/postgresql/plv8.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/plv8.dylib: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; make -C plv8-${PLV8_VERSION} install
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
@@ -877,10 +877,10 @@ clean-plv8:
 ###### wal2json #########
 #########################
 
-wal2json: $(PREFIX)/lib/postgresql/wal2json.so
+wal2json: $(PREFIX)/lib/postgresql/wal2json.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/wal2json.so: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/wal2json.dylib: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C wal2json-${WAL2JSON_VERSION} install
 
 wal2json-${WAL2JSON_VERSION}/Makefile: wal2json-${WAL2JSON_VERSION}.tar.gz
@@ -898,10 +898,10 @@ clean-wal2json:
 ##### pldebugger ########
 #########################
 
-pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.so
+pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger-${PLDEBUGGER_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/plugin_debugger.dylib: pldebugger-${PLDEBUGGER_VERSION}/Makefile $(PREFIX)/bin/psql
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C pldebugger-${PLDEBUGGER_VERSION} install
 
 pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
@@ -919,10 +919,10 @@ clean-pldebugger:
 ##### pgvector #####
 ####################
 
-pgvector: $(PREFIX)/lib/postgresql/vector.so
+pgvector: $(PREFIX)/lib/postgresql/vector.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/vector.so: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
 	make -C pgvector-${PGVECTOR_VERSION}
 	make -C pgvector-${PGVECTOR_VERSION} install
 
@@ -943,11 +943,13 @@ clean-pgvector:
 
 # uses boost
 
-pgrouting: $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so
+pgrouting: $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
+$(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib: pgrouting-$(PGROUTING_VERSION)/build/Makefile
 	make -C pgrouting-$(PGROUTING_VERSION)/build install
+	# pgrouting didn't yet get the notice, the DLSUFFIX has changed in pg16
+	mv $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib
 
 pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/bin/psql
 	cd pgrouting-$(PGROUTING_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF -DBUILD_MAN=ON -DBUILD_HTML=OFF -DBUILD_DOXY=OFF -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
