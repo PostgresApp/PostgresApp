@@ -43,7 +43,7 @@ Postgres.app includes the following extensions:
 - PostGIS
 - pgrouting
 - pgvector
-- PL/Python
+- PL/Python [Instructions for PL/Python](plpython.html)
 - PL Debugger
 - and most of the contrib extensions
 
