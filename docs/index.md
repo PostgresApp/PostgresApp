@@ -21,7 +21,7 @@ Installing Postgres.app
 <ul class="instructions">
 	<li>
 		<p>Download &nbsp; ➜ &nbsp; Move to Applications folder &nbsp; ➜ &nbsp; Double Click</p>
-		<p class="subdued">If you don't move Postgres.app to the Applications folder, you will see a warning about an unidentified developer and won't be able to open it.</p>
+		<p class="subdued">If you don't move Postgres.app to the Applications folder, some features may not work (<a href="/documentation/relocation-warning.html">more info</a>)</p>
 	</li>
 	<li>
 		<p>Click "Initialize" to create a new server</p>
