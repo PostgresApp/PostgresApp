@@ -16,6 +16,18 @@ To use PL/Python with Postgres.app, you first need to install Python using the [
 Unfortunately, PostgreSQL can only link with a specific version of Python.
 Please install the correct version of Python, depending on the PostgreSQL version you are using:
 
+<style>
+  .documentation table {
+    border-collapse: collapse;
+    border: 1px solid #999;
+    margin: 2em 0;
+  }
+  .documentation table td, .documentation table th {
+    border: 1px solid #999;
+    padding: 0.5em 1em;
+  }
+</style>
+
 | PostgreSQL Version | Python Version                                                           |
 | ------------------ | ------------------------------------------------------------------------ |
 | PostgreSQL 16      | Python 3.12.x from [python.org](https://www.python.org/downloads/macos/) |
