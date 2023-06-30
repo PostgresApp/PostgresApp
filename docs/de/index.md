@@ -21,7 +21,7 @@ Installation
 <ul class="instructions">
 	<li>
 		<p>Download &nbsp; ➜ &nbsp; in den Programme-Ordner bewegen &nbsp; ➜ &nbsp; Doppelklick</p>
-		<p class="subdued">Wenn du Postgres.app nicht in den Programme-Ordner bewegst, erscheint beim Öffnen eine Fehlermeldung dass „die Identität des Entwicklers nicht bestätigt werden konnte“.</p>
+		<p class="subdued">Wenn du Postgres.app nicht in den Programme-Ordner bewegst, werden manche Funktionen nicht funktionieren (<a href="/documentation/relocation-warning.md">mehr Info</a>).</p>
 	</li>
 	<li>
 		<p>Klicke auf "Initialize" um einen neuen Server zu erstellen</p>
