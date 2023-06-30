@@ -6,7 +6,7 @@ title: Why you should place Postgres.app inside your Applications folder
 
 
 Why you should place Postgres.app inside your Applications folder
-=================================================================
+---------------------------------------------------
 
 Postgres.app is designed to run from /Applications. Beginning with Postgres.app version 2.6, you can start it from other locations, but some features might not work correctly.
 
