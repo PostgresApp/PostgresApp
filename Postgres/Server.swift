@@ -540,10 +540,18 @@ class Server: NSObject {
     }
 	
 	func authDialogOptions() throws -> [String] {
-		// First check if the auth permission dialog extension is available
-		// if not, we don't configure it
-		guard FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.dylib")) || FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.so")) else {
+		
+		// First make sure the auth permission dialog extension is available
+		if !UserDefaults.standard.bool(forKey: UserDefaults.PermissionDialogForTrustAuthKey) {
 			return []
+		}
+		
+		// First make sure the auth permission dialog extension is available
+		guard FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.dylib")) || FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.so")) else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("The auth_permission_dialog extension wasn't found.", comment: ""),
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
 		
 		let process = Process()

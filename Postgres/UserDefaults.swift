@@ -21,6 +21,9 @@ extension UserDefaults {
 		self.register(defaults: [
 						"ClientAppName": "Terminal",
 						"StartLoginHelper": true,
+						Self.PermissionDialogForTrustAuthKey: true,
 		])
 	}
+	
+	static let PermissionDialogForTrustAuthKey = "PermissionDialogForTrustAuth"
 }
