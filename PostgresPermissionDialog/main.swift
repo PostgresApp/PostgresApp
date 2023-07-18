@@ -46,6 +46,12 @@ do {
 	let process = try UnixProcessInfo(runningProcessWithPid: pid)
 	let topLevelProcess = process.getTopLevelProcess()
 
+	let selfInfo = try UnixProcessInfo(runningProcessWithPid: ProcessInfo.processInfo.processIdentifier)
+	let selfContainingDirectory = (selfInfo.path as NSString).deletingLastPathComponent
+	if (topLevelProcess.path.hasPrefix(selfContainingDirectory)) {
+		exit(0)
+	}
+	
 	// check user defaults
 
 	var clientApplicationPermissions: [[String: Any]]
