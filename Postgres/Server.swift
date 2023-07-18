@@ -778,7 +778,7 @@ class Server: NSObject {
 				if (fds[i].revents & Int16(POLLIN)) != 0 {
 					let availableData: Data
 					if #available(macOS 10.15.4, *) {
-						availableData = try handles[i].read(upToCount: Int.max)!
+						availableData = try handles[i].read(upToCount: Int.max) ?? Data()
 					} else {
 						availableData = handles[i].availableData
 					}
