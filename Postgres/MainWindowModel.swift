@@ -30,8 +30,10 @@ class MainWindowModel: NSObject {
 		
 		if selIdx > 0 {
 			selectedServerIndices = IndexSet(integer: selIdx-1)
-		} else {
+		} else if !serverManager.servers.isEmpty {
 			selectedServerIndices = IndexSet(integer: 0)
+		} else {
+			selectedServerIndices = IndexSet()
 		}
 	}
 }
