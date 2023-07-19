@@ -42,6 +42,9 @@ guard let pid else {
 	exit(2);
 }
 
+var clientApplicationPermissions: [[String: Any]]
+clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] ?? []
+
 do {
 	let process = try UnixProcessInfo(runningProcessWithPid: pid)
 	let topLevelProcess = process.getTopLevelProcess()
@@ -53,11 +56,6 @@ do {
 	}
 	
 	// check user defaults
-
-	var clientApplicationPermissions: [[String: Any]]
-
-	clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] ?? []
-
 	for client in clientApplicationPermissions {
 		if let path = client["path"] as? String, path == topLevelProcess.path {
 			if let policy = client["policy"] as? String {
@@ -76,7 +74,7 @@ do {
 
 	let alert = NSAlert()
 
-	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app"
+	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app without using a password"
 	alert.informativeText = "You can reset permissions later in Postgres.app settings."
 
 	alert.addButton(withTitle: "OK")
@@ -97,41 +95,70 @@ do {
 	}
 }
 catch {
-	NSApplication.shared.setActivationPolicy(.accessory)
-	NSApplication.shared.activate(ignoringOtherApps: true)
+	// getting process path failed
+	// cehck if it is a remote client
+	if let remoteClientAddr = clientAddr, remoteClientAddr != "::1" && remoteClientAddr !=  "127.0.0.1" {
+		for client in clientApplicationPermissions {
+			if client["address"] as? String == remoteClientAddr {
+				if let policy = client["policy"] as? String {
+					if policy == "allow" {
+						exit(0)
+					} else {
+						fputs("Connection attempt from \(remoteClientAddr) denied by Postgres.app settings.\n", stderr)
+						exit(1)
+					}
+				}
+			}
+		}
+		
+		NSApplication.shared.setActivationPolicy(.accessory)
+		NSApplication.shared.activate(ignoringOtherApps: true)
 
-	let alert = NSAlert()
+		let alert = NSAlert()
 
-	alert.messageText = "An unknown process is trying to connect to Postgres.app"
-	var info = ""
-	
-	if let clientAddr, let clientPort {
-		if clientAddr.contains(":") {
-			info += "Client: [\(clientAddr)]:\(clientPort)\n"
-		} else {
-			info += "Client: \(clientAddr):\(clientPort)\n"
+		alert.messageText = "A remote client is trying to connect to Postgres.app without using a password"
+		alert.informativeText =
+			"""
+			Incoming connection from: \(remoteClientAddr)
+			
+			You can reset permissions later in Postgres.app settings.
+			"""
+		
+		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "Don't Allow")
+
+		let result = alert.runModal()
+
+		switch result {
+		case .alertFirstButtonReturn:
+			clientApplicationPermissions.append(["address":remoteClientAddr, "policy": "allow"])
+			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
+			exit(0)
+		default:
+			fputs("The user denied the connection attempt from \(remoteClientAddr).\n", stderr)
+			clientApplicationPermissions.append(["address":remoteClientAddr, "policy": "deny"])
+			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
+			exit(1)
 		}
 	}
-	if let serverAddr, let serverPort {
-		if serverAddr.contains(":") {
-			info += "Server: [\(serverAddr)]:\(serverPort)\n"
-		} else {
-			info += "Server: \(serverAddr):\(serverPort)\n"
+	else {
+		// connection attempt from local client
+		NSApplication.shared.setActivationPolicy(.accessory)
+		NSApplication.shared.activate(ignoringOtherApps: true)
+
+		let alert = NSAlert()
+
+		alert.messageText = "An unknown process is trying to connect to Postgres.app without using a password"
+		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "Don't Allow")
+		
+		let result = alert.runModal()
+
+		switch result {
+		case .alertFirstButtonReturn:
+			exit(0)
+		default:
+			exit(1)
 		}
 	}
-
-	alert.informativeText = info
-	
-	alert.addButton(withTitle: "OK")
-	alert.addButton(withTitle: "Don't Allow")
-
-	let result = alert.runModal()
-
-	switch result {
-	case .alertFirstButtonReturn:
-		exit(0)
-	default:
-		exit(1)
-	}
-
 }
