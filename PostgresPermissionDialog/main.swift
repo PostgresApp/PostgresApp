@@ -79,8 +79,6 @@ do {
 	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app"
 	alert.informativeText = "You can reset permissions later in Postgres.app settings."
 
-	alert.icon = topLevelProcess.icon
-
 	alert.addButton(withTitle: "OK")
 	alert.addButton(withTitle: "Don't Allow")
 
