@@ -29,6 +29,8 @@
 
 PG_MODULE_MAGIC;
 
+void		_PG_init(void);
+
 /* GUC Variables */
 static char *dialog_executable_path = NULL;
 
@@ -311,7 +313,11 @@ _PG_init(void)
 							   0,
 							   NULL, NULL, NULL);
 
+#if PG_VERSION_NUM >= 150000
 	MarkGUCPrefixReserved("auth_permission_dialog");
+#else
+	EmitWarningsOnPlaceholders("auth_permission_dialog");
+#endif
 
 	/* Install Hooks */
 	original_client_auth_hook = ClientAuthentication_hook;
