@@ -108,6 +108,10 @@ codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
+	"$APP"/Contents/MacOS/PostgresPermissionDialog \
+	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+
+codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	--entitlements PostgresApp.entitlements \
 	"$APP"/Contents/MacOS/Postgres \
 	"$APP" \
