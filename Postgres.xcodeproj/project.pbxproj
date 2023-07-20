@@ -648,6 +648,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresPermissionDialog/PostgresPermissionDialog-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
@@ -668,6 +669,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PostgresPermissionDialog/PostgresPermissionDialog-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
