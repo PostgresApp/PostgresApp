@@ -550,6 +550,7 @@ class Server: NSObject {
 		guard FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.dylib")) || FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.so")) else {
 			let userInfo: [String: Any] = [
 				NSLocalizedDescriptionKey: NSLocalizedString("The auth_permission_dialog extension wasn't found.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Postgres.app needs this extension to show a permission dialog when an app tries to connect without password.", comment: ""),
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
