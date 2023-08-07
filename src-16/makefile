@@ -21,8 +21,7 @@ ZSTD_VERSION=1.5.5
 GDAL_VERSION=3.5.3
 
 # https://libgeos.org/usage/download/
-# 3.12 expected 2023-06-24
-GEOS_VERSION=3.12.0beta2
+GEOS_VERSION=3.12.0
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -37,8 +36,7 @@ MPFR_VERSION=4.2.0
 BOOST_VERSION=1_82_0
 
 # https://github.com/CGAL/cgal/releases
-# 5.6 expected in 2023-07
-CGAL_VERSION=5.6-beta1
+CGAL_VERSION=5.6
 
 # https://gitlab.com/Oslandia/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -77,7 +75,7 @@ PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*
 PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.5.0
+LIBTIFF_VERSION=4.5.1
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.40
@@ -101,9 +99,9 @@ ICU_MAJOR_VERSION=73
 ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
-# 3.12 rc expected 2023-07-31
+# 3.12 expected 2023-10-02
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.0b3
+PYTHON_VERSION_FULL=3.12.0rc1
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
