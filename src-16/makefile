@@ -832,8 +832,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION} cheatsheets
 	make -C postgis-${POSTGIS_VERSION} install
 	make -C postgis-${POSTGIS_VERSION}/doc man-install
-	install -d "${PREFIX}/share/doc/postgis"
-	install -m 644 postgis-${POSTGIS_VERSION}/doc/html/*_cheatsheet-en.html "${PREFIX}/share/doc/postgis/"
+	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
