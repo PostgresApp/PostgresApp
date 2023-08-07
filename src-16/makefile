@@ -33,7 +33,8 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.0
 
 # https://www.boost.org/users/download/
-BOOST_VERSION=1_82_0
+# release expected 2023-08-09
+BOOST_VERSION=1_83_0_b1
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.6
@@ -755,10 +756,12 @@ boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/lib
 
 boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	$(TAR) boost_$(BOOST_VERSION).tar.bz2
+	mv boost_1_83_0 boost_$(BOOST_VERSION)
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	#$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://boostorg.jfrog.io/artifactory/main/beta/$(subst b,beta,$(subst _,.,$(BOOST_VERSION)))/source/boost_$(BOOST_VERSION).tar.bz2
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
