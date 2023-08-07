@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.3
+POSTGIS_VERSION=3.4.0rc1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=16beta2
@@ -833,7 +833,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION} install
 	make -C postgis-${POSTGIS_VERSION}/doc man-install
 	install -d "${PREFIX}/share/doc/postgis"
-	install -m 644 postgis-${POSTGIS_VERSION}/doc/html/*_cheatsheet.html "${PREFIX}/share/doc/postgis/"
+	install -m 644 postgis-${POSTGIS_VERSION}/doc/html/*_cheatsheet-en.html "${PREFIX}/share/doc/postgis/"
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
@@ -841,6 +841,10 @@ postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(P
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
+	# apply fix for 'make install' to fix some PGXS variables being overwritten
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_install.patch
+	# apply fix for 'make installcheck' of address_standardizer to fix a wrongly formatted output
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_check_address_standardizer.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:

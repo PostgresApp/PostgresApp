@@ -1,0 +1,60 @@
+--- a/extensions/address_standardizer/Makefile.in
++++ b/extensions/address_standardizer/Makefile.in
+@@ -205,6 +205,7 @@
+ PGXS := @PGXS@
+ include $(PGXS)
+ PERL = @PERL@
++MKDIR_P = @MKDIR_P@
+ 
+ srcdir = @srcdir@
+ top_srcdir = @top_srcdir@
+--- a/extensions/postgis/Makefile.in
++++ b/extensions/postgis/Makefile.in
+@@ -149,6 +149,7 @@
+ PGXS := @PGXS@
+ include $(PGXS)
+ PERL = @PERL@
++MKDIR_P = @MKDIR_P@
+ 
+ VPATH = @srcdir@
+ 
+--- a/extensions/postgis_raster/Makefile.in
++++ b/extensions/postgis_raster/Makefile.in
+@@ -131,6 +131,7 @@
+ PGXS := @PGXS@
+ include $(PGXS)
+ PERL = @PERL@
++MKDIR_P = @MKDIR_P@
+ 
+ VPATH = @srcdir@
+ 
+--- a/extensions/postgis_sfcgal/Makefile.in
++++ b/extensions/postgis_sfcgal/Makefile.in
+@@ -103,6 +103,7 @@
+ PGXS := @PGXS@
+ include $(PGXS)
+ PERL = @PERL@
++MKDIR_P = @MKDIR_P@
+ 
+ VPATH = @srcdir@
+ 
+--- a/extensions/postgis_tiger_geocoder/Makefile.in
++++ b/extensions/postgis_tiger_geocoder/Makefile.in
+@@ -214,6 +214,7 @@
+ PGXS := @PGXS@
+ include $(PGXS)
+ PERL=@PERL@
++MKDIR_P = @MKDIR_P@
+ 
+ VPATH = @srcdir@
+ 
+--- a/extensions/postgis_topology/Makefile.in
++++ b/extensions/postgis_topology/Makefile.in
+@@ -108,6 +108,7 @@
+ PGXS := @PGXS@
+ include $(PGXS)
+ PERL=@PERL@
++MKDIR_P = @MKDIR_P@
+ 
+ VPATH = @srcdir@
+ 
