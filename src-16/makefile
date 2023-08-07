@@ -27,7 +27,7 @@ GEOS_VERSION=3.12.0
 JPEG_VERSION=9e
 
 # https://gmplib.org/download/gmp/
-GMP_VERSION=6.2.1
+GMP_VERSION=6.3.0
 
 # https://www.mpfr.org/mpfr-current/#download
 MPFR_VERSION=4.2.0
@@ -670,9 +670,6 @@ gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
 
 gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
 	$(TAR) gmp-$(GMP_VERSION).tar.xz
-	#patch for aarch support, can be removed for >6.2.1
-	#source: https://gmplib.org/list-archives/gmp-discuss/2022-April/006783.html / https://gmplib.org/repo/gmp-6.2/raw-rev/f4ff6ff711ed
-	patch -b -d "gmp-$(GMP_VERSION)" -p1 < patches/libgmp_aarch.patch
 	#once our MACOSX_DEPLOYMENT_TARGET reaches 11, there is likely another patch required, see https://github.com/Homebrew/homebrew-core/commit/7cf2fcadd549686a715678f0f75a0aacbe33ccd3
 	mkdir gmp-$(GMP_VERSION)/build_x86_64
 	mkdir gmp-$(GMP_VERSION)/build_arm64
