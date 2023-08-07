@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.0
 BOOST_VERSION=1_82_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.5.2
+CGAL_VERSION=5.5.3
 
 # https://gitlab.com/Oslandia/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -48,7 +48,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.9
+OPENSSL_VERSION=3.0.10
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -77,7 +77,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.39
+LIBPNG_VERSION=1.6.40
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0

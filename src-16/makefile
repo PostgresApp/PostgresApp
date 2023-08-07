@@ -50,7 +50,7 @@ LIBXML2_VERSION=2.11.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.9
+OPENSSL_VERSION=3.0.10
 
 # https://proj.org/download.html
 PROJ_VERSION=9.2.1
@@ -80,7 +80,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.5.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.39
+LIBPNG_VERSION=1.6.40
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0
