@@ -58,6 +58,11 @@ do
             # added in PostGIS 3.3
             cp -a pgtopo_export pgtopo_import "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
+        if [ -e postgis ]
+        then
+            # added in PostGIS 3.4
+            cp -a postgis postgis_restore "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi        
         
 		# copy all dynamic libraries
 		cd "${PG_BINARIES_DIR}/${VERSION}/lib/"
