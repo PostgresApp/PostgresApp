@@ -67,7 +67,7 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
             return
         }
         else if clientApp == "Terminal" || clientApp == "iTerm" {
-            let psql_command = "\(server.binPath)/psql -p\(server.port) \"\(database.name)\""
+            let psql_command = "\"\(server.binPath)/psql\" -p\(server.port) \"\(database.name)\""
             let routine = "open_"+clientApp
             do {
                 let launcher = ClientLauncher()
