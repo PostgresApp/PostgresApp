@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.4.0rc1
+POSTGIS_VERSION=3.4.0
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=16beta3
@@ -30,11 +30,10 @@ JPEG_VERSION=9e
 GMP_VERSION=6.3.0
 
 # https://www.mpfr.org/mpfr-current/#download
-MPFR_VERSION=4.2.0
+MPFR_VERSION=4.2.1
 
 # https://www.boost.org/users/download/
-# release expected 2023-08-09
-BOOST_VERSION=1_83_0_b1
+BOOST_VERSION=1_83_0
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.6
@@ -45,7 +44,7 @@ SFCGAL_VERSION=1.4.1
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
-LIBXML2_VERSION=2.11.4
+LIBXML2_VERSION=2.11.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -62,8 +61,7 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-# 0.17 is on its way
-JSONC_VERSION=0.16
+JSONC_VERSION=0.17
 
 # https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_5
@@ -498,7 +496,7 @@ $(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
 
 json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
-	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_APPS=NO -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 json-c-$(JSONC_VERSION)/cmake-configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
@@ -758,12 +756,10 @@ boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/lib
 
 boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	$(TAR) boost_$(BOOST_VERSION).tar.bz2
-	mv boost_1_83_0 boost_$(BOOST_VERSION)
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	#$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
-	$(CURL) https://boostorg.jfrog.io/artifactory/main/beta/$(subst b,beta,$(subst _,.,$(BOOST_VERSION)))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
@@ -833,7 +829,6 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} cheatsheets
 	make -C postgis-${POSTGIS_VERSION} install
-	make -C postgis-${POSTGIS_VERSION}/doc man-install
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
@@ -842,10 +837,6 @@ postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(P
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
-	# apply fix for 'make install' to fix some PGXS variables being overwritten
-	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_install.patch
-	# apply fix for 'make installcheck' of address_standardizer to fix a wrongly formatted output
-	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_check_address_standardizer.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
