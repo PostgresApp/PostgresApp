@@ -17,8 +17,6 @@ Postgres.app is designed to run from /Applications. Beginning with Postgres.app 
 
 - on macOS 12 and earlier, automatic start of PostgreSQL servers won't work
 
-This is why Postgres.app shows a warning on launch if it isn't located in /Applications
-
 Launching Postgres.app directly from the disk image
 ---------------------------------------------------
 
