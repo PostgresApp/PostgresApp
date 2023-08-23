@@ -295,8 +295,7 @@ We have a list of common problems in the [troubleshooting section](/documentatio
 For general questions concerning PostgreSQL, have a look at the [official PostgreSQL documentation](https://www.postgresql.org/docs/current/static/).
 
 If you have a question concerning Postgres.app that is not answered by the [Postgres.app documentation](/documentation/),
-you can ask [@PostgresApp](https://twitter.com/PostgresApp) on Twitter, 
-or [open an issue](https://github.com/postgresapp/postgresapp/issues) on GitHub.
+please [open an issue](https://github.com/postgresapp/postgresapp/issues) on GitHub.
 
 When reporting bugs, let us know which version of Postgres.app & macOS you are using, and be sure to include detailed error messages, even if your issue seems similar to another one.
 

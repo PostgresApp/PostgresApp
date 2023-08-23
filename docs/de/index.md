@@ -292,8 +292,7 @@ Eine Liste mit häufigen Fehlermeldungen findest du in der Dokumentation unter [
 Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/static/) werfen.
 
 Solltest du eine Frage zu Postgres.app haben, die nicht in der [Postgres.app Dokumentation](/de/documentation/) beantwortet ist,
-kannst du entweder auf Twitter unter [@PostgresApp](https://twitter.com/PostgresApp) eine Frage stellen,
-oder auf Github ein [neues Issue](https://github.com/postgresapp/postgresapp/issues) eröffnen.
+dann öffne ein [neues Issue](https://github.com/postgresapp/postgresapp/issues) auf Github.
 
 Wenn du uns Bugs übermitteln möchtest: Gib immer die Version von Postgres.app und macOS an und stelle sicher dass dein Bug Report IMMER eine detaillierte Fehlerbeschreibung enthält!
 
