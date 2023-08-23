@@ -57,6 +57,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		return false
 	}
 	
+	func isTranslocated() -> Bool {
+		Bundle.main.bundlePath.contains("/AppTranslocation/")
+	}
+	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		checkApplicationPath()
 		ServerManager.shared.loadServers()
@@ -106,21 +110,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			}
 		}
 
-		if #available(macOS 13, *) {
-			destroyLaunchAgent()
-			registerLoginItem()
-		} else {
-			if startLoginHelper {
-				createLaunchAgent()
-			} else {
+		if !isTranslocated() {
+			if #available(macOS 13, *) {
 				destroyLaunchAgent()
+				registerLoginItem()
+			} else {
+				if startLoginHelper {
+					createLaunchAgent()
+				} else {
+					destroyLaunchAgent()
+				}
 			}
-		}
-		
-		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
-			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-			NSWorkspace.shared.open(url)
-			NSApp.activate(ignoringOtherApps: true)
+			
+			if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
+				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+				NSWorkspace.shared.open(url)
+				NSApp.activate(ignoringOtherApps: true)
+			}
 		}
 		
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
@@ -203,4 +209,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
+	func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+		if isTranslocated() {
+			for server in serverManager.servers where server.running && server.binPath.hasPrefix(Bundle.main.bundlePath) {
+				try? server.stopSync()
+			}
+		}
+		return .terminateNow
+	}
 }
