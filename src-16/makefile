@@ -86,7 +86,7 @@ OPENJPEG_VERSION=2.5.0
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.4.4
+PGVECTOR_VERSION=0.5.0
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.0
