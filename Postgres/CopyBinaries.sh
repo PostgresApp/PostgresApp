@@ -51,6 +51,11 @@ do
 			# testepsg was removed in GDAL 3.5, see https://github.com/OSGeo/gdal/pull/3992
             cp -a testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
+        if [ -e sozip ]
+        then
+			# added in gdal 3.7.0
+            cp -a sozip "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
 		# copy postgis binaries
 		cp -a pgsql2shp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         if [ -e pgtopo_export ]

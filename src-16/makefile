@@ -18,7 +18,7 @@ ZSTD_VERSION=1.5.5
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.5.3
+GDAL_VERSION=3.7.1
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.12.0
@@ -430,19 +430,19 @@ clean-libgeos:
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
 
-$(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
-	make -C gdal-$(GDAL_VERSION) install
+$(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
+	cd gdal-$(GDAL_VERSION)/build && cmake --build .
+	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib
 	#patch curl version detection for <= 10.14 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
-	#patch sqlite feature non-detection for macOS
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_sqlite.patch
-	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg --with-sqlite3="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
 	touch $@
 
-gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
-	$(TAR) gdal-${GDAL_VERSION}.tar.gz
+gdal-$(GDAL_VERSION)/CMakeLists.txt: gdal-${GDAL_VERSION}.tar.gz
+	$(TAR) gdal-$(GDAL_VERSION).tar.gz
+	mkdir gdal-$(GDAL_VERSION)/build
 	touch $@
 
 gdal-${GDAL_VERSION}.tar.gz:
