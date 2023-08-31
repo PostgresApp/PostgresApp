@@ -289,7 +289,7 @@ Support
 
 Eine Liste mit häufigen Fehlermeldungen findest du in der Dokumentation unter [Troubleshooting](/de/documentation/troubleshooting.html).
 
-Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/static/) werfen.
+Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/) werfen.
 
 Solltest du eine Frage zu Postgres.app haben, die nicht in der [Postgres.app Dokumentation](/de/documentation/) beantwortet ist,
 dann öffne ein [neues Issue](https://github.com/postgresapp/postgresapp/issues) auf Github.
@@ -300,8 +300,8 @@ Wenn du uns Bugs übermitteln möchtest: Gib immer die Version von Postgres.app 
 Lizenz
 -------
 
-Postgres.app, PostgreSQL und alle verwendeten Extensions sind unter der [PostgreSQL License](http://www.postgresql.org/about/licence/) veröffentlicht. 
-Die veröffentlichten binaries enthalten auch noch OpenSSL ([OpenSSL Lizenz](https://www.openssl.org/source/license.html)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), und plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
+Postgres.app und PostgreSQL sind unter der [PostgreSQL License](http://www.postgresql.org/about/licence/) veröffentlicht. 
+Die veröffentlichten binaries enthalten Extensions und Dependencies welche unter verschiedenen Open-Source-Lizenzen stehen.
 
 Postgres.app wird von [Jakob Egger](https://github.com/jakob) und [Tobias Bussmann](https://github.com/tbussmann) weiterentwickelt und betreut.
 Postgres.app wurde ursprünglich von [Mattt Thompson](https://github.com/mattt) entwickelt.
