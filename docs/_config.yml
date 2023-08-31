@@ -25,16 +25,16 @@ release: {
 extraReleases: [
 	{
 		name: {
-			en: "Postgres.app with PostgreSQL 16 Beta (Universal)", 
-			de: "Postgres.app mit PostreSQL 16 Beta (Universal)",
+			en: "Postgres.app with PostgreSQL 16 Release Candidate (Universal)", 
+			de: "Postgres.app mit PostreSQL 16 Release Candidate (Universal)",
 		},
 		size: "106MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-16.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.6.5",
-		postgresappVersion: "2.6.5",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.6/Postgres-2.6.6-16.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.6.6",
+		postgresappVersion: "2.6.6",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "16beta3", postgis: "3.4.0rc1", architecture: "Universal" },
+			{ postgres: "16rc1", postgis: "3.4.0", architecture: "Universal" },
 		],
 	},
 	{
@@ -43,12 +43,12 @@ extraReleases: [
 			de: "Postgres.app mit allen unterstützten Versionen + Beta (Universal/Intel)",
 		},
 		size: "437MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-11-12-13-14-15-16.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.6.5",
-		postgresappVersion: "2.6.5",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.6/Postgres-2.6.6-11-12-13-14-15-16.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.6.6",
+		postgresappVersion: "2.6.6",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "16beta3", postgis: "3.4.0rc1", architecture: "Universal" },
+			{ postgres: "16rc1", postgis: "3.4.0", architecture: "Universal" },
 			{ postgres: "15.4", postgis: "3.3.4", architecture: "Universal" },
 			{ postgres: "14.9", postgis: "3.2.5", architecture: "Universal" },
 			{ postgres: "13.12", postgis: "3.1.9", plv8: "2.3.15", architecture: "Intel" },
