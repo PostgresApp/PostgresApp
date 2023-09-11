@@ -74,7 +74,7 @@ PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*
 PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.5.1
+LIBTIFF_VERSION=4.6.0rc2
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.40
@@ -571,6 +571,7 @@ tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure
 	
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
+	mv tiff-4.6.0 tiff-$(LIBTIFF_VERSION)
 	touch $@
 
 tiff-$(LIBTIFF_VERSION).tar.gz:
