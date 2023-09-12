@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.4.0
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=16rc1
+POSTGRES_VERSION=16
 POSTGRES_MAJOR_VERSION=16
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -93,14 +93,13 @@ PGROUTING_VERSION=3.5.0
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
-# release 74 expected in 2023-10
 ICU_MAJOR_VERSION=73
 ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 # 3.12 expected 2023-10-02
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.0rc1
+PYTHON_VERSION_FULL=3.12.0rc2
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
