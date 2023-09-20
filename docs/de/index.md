@@ -21,7 +21,7 @@ Installation
 <ul class="instructions">
 	<li>
 		<p>Download &nbsp; ➜ &nbsp; in den Programme-Ordner bewegen &nbsp; ➜ &nbsp; Doppelklick</p>
-		<p class="subdued">Wenn du Postgres.app nicht in den Programme-Ordner bewegst, erscheint beim Öffnen eine Fehlermeldung dass „die Identität des Entwicklers nicht bestätigt werden konnte“.</p>
+		<p class="subdued">Wenn du Postgres.app nicht in den Programme-Ordner bewegst, werden manche Funktionen nicht funktionieren (<a href="/documentation/relocation-warning.html">mehr Info</a>).</p>
 	</li>
 	<li>
 		<p>Klicke auf "Initialize" um einen neuen Server zu erstellen</p>
@@ -289,11 +289,10 @@ Support
 
 Eine Liste mit häufigen Fehlermeldungen findest du in der Dokumentation unter [Troubleshooting](/de/documentation/troubleshooting.html).
 
-Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/static/) werfen.
+Für allgemeine Fragen zu PostgreSQL solltest du einen Blick in die [offizielle PostgreSQL Dokumentation](https://www.postgresql.org/docs/current/) werfen.
 
 Solltest du eine Frage zu Postgres.app haben, die nicht in der [Postgres.app Dokumentation](/de/documentation/) beantwortet ist,
-kannst du entweder auf Twitter unter [@PostgresApp](https://twitter.com/PostgresApp) eine Frage stellen,
-oder auf Github ein [neues Issue](https://github.com/postgresapp/postgresapp/issues) eröffnen.
+dann öffne ein [neues Issue](https://github.com/postgresapp/postgresapp/issues) auf Github.
 
 Wenn du uns Bugs übermitteln möchtest: Gib immer die Version von Postgres.app und macOS an und stelle sicher dass dein Bug Report IMMER eine detaillierte Fehlerbeschreibung enthält!
 
@@ -301,8 +300,8 @@ Wenn du uns Bugs übermitteln möchtest: Gib immer die Version von Postgres.app 
 Lizenz
 -------
 
-Postgres.app, PostgreSQL und alle verwendeten Extensions sind unter der [PostgreSQL License](http://www.postgresql.org/about/licence/) veröffentlicht. 
-Die veröffentlichten binaries enthalten auch noch OpenSSL ([OpenSSL Lizenz](https://www.openssl.org/source/license.html)), PostGIS ([GPLv2](http://opensource.org/licenses/gpl-2.0)), und plv8 ([3 clause BSD](http://opensource.org/licenses/BSD-3-Clause)).
+Postgres.app und PostgreSQL sind unter der [PostgreSQL License](http://www.postgresql.org/about/licence/) veröffentlicht. 
+Die veröffentlichten binaries enthalten Extensions und Dependencies welche unter verschiedenen Open-Source-Lizenzen stehen.
 
 Postgres.app wird von [Jakob Egger](https://github.com/jakob) und [Tobias Bussmann](https://github.com/tbussmann) weiterentwickelt und betreut.
 Postgres.app wurde ursprünglich von [Mattt Thompson](https://github.com/mattt) entwickelt.

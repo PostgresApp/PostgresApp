@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.3
+POSTGIS_VERSION=3.3.4
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15.3
+POSTGRES_VERSION=15.4
 POSTGRES_MAJOR_VERSION=15
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.0
 BOOST_VERSION=1_82_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.5.2
+CGAL_VERSION=5.5.3
 
 # https://gitlab.com/Oslandia/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -48,7 +48,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.9
+OPENSSL_VERSION=3.0.10
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -77,7 +77,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.39
+LIBPNG_VERSION=1.6.40
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0
@@ -90,6 +90,7 @@ PGVECTOR_VERSION=0.4.4
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.0
+PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=72
@@ -440,7 +441,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd
+# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -448,10 +449,12 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib
 	#patch curl version detection for <= 10.14 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
-	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
+	#patch sqlite feature non-detection for macOS
+	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_sqlite.patch
+	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg --with-sqlite3="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
 	touch $@
 
 gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
@@ -811,7 +814,7 @@ clean-cgal:
 ####### sfcgal #######
 ######################
 
-# used for postgis
+# used for gdal, postgis
 # uses cgal, boost, gmp, mpfr
 
 sfcgal: $(PREFIX)/lib/libSFCGAL.dylib
@@ -960,10 +963,10 @@ clean-pgvector:
 
 # uses boost
 
-pgrouting: $(PREFIX)/lib/postgresql/pgrouting.so
+pgrouting: $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so
 	touch $@
 
-$(PREFIX)/lib/postgresql/pgrouting.so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
+$(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
 	make -C pgrouting-$(PGROUTING_VERSION)/build install
 
 pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/bin/psql

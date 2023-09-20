@@ -5,31 +5,35 @@ title: Using PL/Python with Postgres.app
 
 ## PL/Python
 
-If you want to write stored procedures or functions in Python, you have to use PL/Python.
+PL/Python allows you to create stored procedures and functions in Python.
 
-### PostgreSQL 13 and newer
+PL/Python is an *untrusted* language.
+This means that only a superuser can create procedures with it, but other users can use them.
+The default user created by Postgres.app is a superuser, so this shouldn't be an issue in most cases.
 
-Starting with PostgreSQL 13, Postgres.app includes the `plpython3u` extension.
-This extension allows you to create functions and stored procedures in Python 3.
-However, Postgres.app does not include the Python programming language itself.
-You need to download the official Python installer separately.
+To use PL/Python with Postgres.app, you first need to install Python using the [installers from python.org](https://www.python.org/downloads/macos/).
 
-1. Download and install Python 3.8.x (for PostgreSQL 13) and/or Python 3.9.x (universal2)
-   (for PostgreSQL 14) from [python.org](https://www.python.org/downloads/macos/). 
-   Other Python installations or versions are not supported.
+Unfortunately, PostgreSQL can only link with a specific version of Python.
+Please install the correct version of Python, depending on the PostgreSQL version you are using:
 
-2. Activate the `plpython3u` extension with the command `CREATE EXTENSION plpython3u;`
+<style>
+  .documentation table {
+    border-collapse: collapse;
+    border: 1px solid #999;
+    margin: 2em 0;
+  }
+  .documentation table td, .documentation table th {
+    border: 1px solid #999;
+    padding: 0.5em 1em;
+  }
+</style>
 
-3. You can now create functions and procedures that use the language `plpython3u`.
+| PostgreSQL Version | Python Version                                                           |
+| ------------------ | ------------------------------------------------------------------------ |
+| PostgreSQL 16      | Python 3.12.x from [python.org](https://www.python.org/downloads/macos/) |
+| PostgreSQL 15      | Python 3.11.x from [python.org](https://www.python.org/downloads/macos/) |
+| PostgreSQL 14      | Python 3.9.x from [python.org](https://www.python.org/downloads/macos/)  |
+| PostgreSQL 13      | Python 3.8.x from [python.org](https://www.python.org/downloads/macos/)  |
+| PostgreSQL 12 and earlier | Python 2.7 (included with macOS)                                  |
 
-Postgres.app with PostgreSQL 13 and newer does not support Python 2.7.
-
-### PostgreSQL 12 and earlier
-
-Postgres.app includes the `plpython2u` extension.
-It links to Python 2.7, which is included in macOS.
-
-1. Activate the `plpython2u` extension with the command `CREATE EXTENSION plpython2u;`
-
-2. You can now create functions and procedures that use the language `plpython2u`.
-
+Make sure to install the correct version of Python, then use the SQL command `CREATE EXTENSION plpython3u;` to enable the extension.

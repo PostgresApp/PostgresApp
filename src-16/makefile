@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.3
+POSTGIS_VERSION=3.4.0
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=16beta1
+POSTGRES_VERSION=16.0
 POSTGRES_MAJOR_VERSION=16
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,27 +18,25 @@ ZSTD_VERSION=1.5.5
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.5.3
+GDAL_VERSION=3.7.2
 
 # https://libgeos.org/usage/download/
-# 3.12 expected 2023-06-24
-GEOS_VERSION=3.12.0beta2
+GEOS_VERSION=3.12.0
 
 # http://www.ijg.org
 JPEG_VERSION=9e
 
 # https://gmplib.org/download/gmp/
-GMP_VERSION=6.2.1
+GMP_VERSION=6.3.0
 
 # https://www.mpfr.org/mpfr-current/#download
-MPFR_VERSION=4.2.0
+MPFR_VERSION=4.2.1
 
 # https://www.boost.org/users/download/
-BOOST_VERSION=1_82_0
+BOOST_VERSION=1_83_0
 
 # https://github.com/CGAL/cgal/releases
-# 5.6 expected in 2023-07
-CGAL_VERSION=5.6-beta1
+CGAL_VERSION=5.6
 
 # https://gitlab.com/Oslandia/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -46,11 +44,11 @@ SFCGAL_VERSION=1.4.1
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
-LIBXML2_VERSION=2.11.4
+LIBXML2_VERSION=2.11.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.9
+OPENSSL_VERSION=3.0.10
 
 # https://proj.org/download.html
 PROJ_VERSION=9.2.1
@@ -63,8 +61,7 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-# 0.17 is on its way
-JSONC_VERSION=0.16
+JSONC_VERSION=0.17
 
 # https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_5
@@ -77,10 +74,10 @@ PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*
 PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.5.0
+LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.39
+LIBPNG_VERSION=1.6.40
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0
@@ -89,20 +86,20 @@ OPENJPEG_VERSION=2.5.0
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.4.4
+PGVECTOR_VERSION=0.5.0
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.0
+PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
-# release 74 expected in 2023-10
 ICU_MAJOR_VERSION=73
 ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
-# 3.12 rc expected 2023-07-31
+# 3.12 expected 2023-10-02
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.0b3
+PYTHON_VERSION_FULL=3.12.0rc2
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -445,22 +442,24 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd
+# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
 
-$(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
-	make -C gdal-$(GDAL_VERSION) install
+$(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
+	cd gdal-$(GDAL_VERSION)/build && cmake --build .
+	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib
 	#patch curl version detection for <= 10.14 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
-	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
+	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
 	touch $@
 
-gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
-	$(TAR) gdal-${GDAL_VERSION}.tar.gz
+gdal-$(GDAL_VERSION)/CMakeLists.txt: gdal-${GDAL_VERSION}.tar.gz
+	$(TAR) gdal-$(GDAL_VERSION).tar.gz
+	mkdir gdal-$(GDAL_VERSION)/build
 	touch $@
 
 gdal-${GDAL_VERSION}.tar.gz:
@@ -514,7 +513,7 @@ $(PREFIX)/lib/libjson-c.dylib: json-c-$(JSONC_VERSION)/build/Makefile
 	make -C json-c-$(JSONC_VERSION)/build install
 
 json-c-$(JSONC_VERSION)/build/Makefile: json-c-$(JSONC_VERSION)/cmake-configure
-	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+	cd json-c-$(JSONC_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_APPS=NO -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 json-c-$(JSONC_VERSION)/cmake-configure: json-c-$(JSONC_VERSION).tar.gz
 	$(TAR) json-c-$(JSONC_VERSION).tar.gz
@@ -689,9 +688,6 @@ gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
 
 gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
 	$(TAR) gmp-$(GMP_VERSION).tar.xz
-	#patch for aarch support, can be removed for >6.2.1
-	#source: https://gmplib.org/list-archives/gmp-discuss/2022-April/006783.html / https://gmplib.org/repo/gmp-6.2/raw-rev/f4ff6ff711ed
-	patch -b -d "gmp-$(GMP_VERSION)" -p1 < patches/libgmp_aarch.patch
 	#once our MACOSX_DEPLOYMENT_TARGET reaches 11, there is likely another patch required, see https://github.com/Homebrew/homebrew-core/commit/7cf2fcadd549686a715678f0f75a0aacbe33ccd3
 	mkdir gmp-$(GMP_VERSION)/build_x86_64
 	mkdir gmp-$(GMP_VERSION)/build_arm64
@@ -811,7 +807,7 @@ clean-cgal:
 ####### sfcgal #######
 ######################
 
-# used for postgis
+# used for gdal, postgis
 # uses cgal, boost, gmp, mpfr
 
 sfcgal: $(PREFIX)/lib/libSFCGAL.dylib
@@ -843,16 +839,14 @@ clean-sfcgal:
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
-postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so
+postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_VERSION}/GNUMakefile
+$(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTGIS_VERSION}/GNUMakefile
 	make -C postgis-${POSTGIS_VERSION}
 	make -C postgis-${POSTGIS_VERSION} cheatsheets
 	make -C postgis-${POSTGIS_VERSION} install
-	make -C postgis-${POSTGIS_VERSION}/doc man-install
-	install -d "${PREFIX}/share/doc/postgis"
-	install -m 644 postgis-${POSTGIS_VERSION}/doc/html/*_cheatsheet.html "${PREFIX}/share/doc/postgis/"
+	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
@@ -873,10 +867,10 @@ clean-postgis:
 ######## PLV8 ############
 ##########################
 
-plv8: $(PREFIX)/lib/postgresql/plv8.so
+plv8: $(PREFIX)/lib/postgresql/plv8.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/plv8.dylib: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; make -C plv8-${PLV8_VERSION} install
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
@@ -894,10 +888,10 @@ clean-plv8:
 ###### wal2json #########
 #########################
 
-wal2json: $(PREFIX)/lib/postgresql/wal2json.so
+wal2json: $(PREFIX)/lib/postgresql/wal2json.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/wal2json.so: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/wal2json.dylib: wal2json-${WAL2JSON_VERSION}/Makefile $(PREFIX)/bin/psql
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C wal2json-${WAL2JSON_VERSION} install
 
 wal2json-${WAL2JSON_VERSION}/Makefile: wal2json-${WAL2JSON_VERSION}.tar.gz
@@ -915,10 +909,10 @@ clean-wal2json:
 ##### pldebugger ########
 #########################
 
-pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.so
+pldebugger: $(PREFIX)/lib/postgresql/plugin_debugger.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/plugin_debugger.so: pldebugger-${PLDEBUGGER_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/plugin_debugger.dylib: pldebugger-${PLDEBUGGER_VERSION}/Makefile $(PREFIX)/bin/psql
 	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export USE_PGXS=1; make -C pldebugger-${PLDEBUGGER_VERSION} install
 
 pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
@@ -936,10 +930,10 @@ clean-pldebugger:
 ##### pgvector #####
 ####################
 
-pgvector: $(PREFIX)/lib/postgresql/vector.so
+pgvector: $(PREFIX)/lib/postgresql/vector.dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/vector.so: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
+$(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
 	make -C pgvector-${PGVECTOR_VERSION}
 	make -C pgvector-${PGVECTOR_VERSION} install
 
@@ -960,11 +954,13 @@ clean-pgvector:
 
 # uses boost
 
-pgrouting: $(PREFIX)/lib/postgresql/pgrouting.so
+pgrouting: $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib
 	touch $@
 
-$(PREFIX)/lib/postgresql/pgrouting.so: pgrouting-$(PGROUTING_VERSION)/build/Makefile
+$(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib: pgrouting-$(PGROUTING_VERSION)/build/Makefile
 	make -C pgrouting-$(PGROUTING_VERSION)/build install
+	# pgrouting didn't yet get the notice, the DLSUFFIX has changed in pg16
+	mv $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib
 
 pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/bin/psql
 	cd pgrouting-$(PGROUTING_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF -DBUILD_MAN=ON -DBUILD_HTML=OFF -DBUILD_DOXY=OFF -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"

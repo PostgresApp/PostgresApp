@@ -18,37 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	
 	@IBOutlet var sparkleUpdater: SUUpdater!
 	@IBOutlet var preferencesMenuItem: NSMenuItem!
-	
-	func alertShowHelp(_ alert: NSAlert) -> Bool {
-		NSWorkspace.shared.open(URL(string:"https://postgresapp.com/l/relocation_warning/")!)
-	}
-	
-	func checkApplicationPath() {
-		let actualPath = Bundle.main.bundlePath
-		let expectedPath = "/Applications/Postgres.app"
 		
-		if actualPath != expectedPath {
-			let alert = NSAlert()
-			if actualPath.hasPrefix("/Applications/") && !actualPath.hasSuffix("Postgres.app") {
-				alert.messageText = "Postgres.app was renamed"
-				alert.informativeText = "Please change the name of the app back to 'Postgres.app'."
-			}
-			else {
-				alert.messageText = "Postgres.app was not moved to the Applications folder"
-				alert.informativeText = "To ensure that Postgres.app works correctly, please move it to the Applications folder with Finder"
-			}
-			alert.informativeText = alert.informativeText + "\n\nYou can ignore this warning, but some things might not work correctly. Click the help button for more information."
-			alert.addButton(withTitle: "Quit")
-			alert.addButton(withTitle: "Ignore Warning")
-			alert.showsHelp = true
-			alert.delegate = self
-			let response = alert.runModal()
-			if response == .alertFirstButtonReturn {
-				exit(1)
-			}
-		}
-	}
-	
 	func isFirstLaunch() -> Bool {
 		if UserDefaults.standard.bool(forKey: "alreadyLaunched") == false {
 			UserDefaults.standard.set(true, forKey: "alreadyLaunched")
@@ -57,8 +27,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		return false
 	}
 	
+	func isTranslocated() -> Bool {
+		Bundle.main.bundlePath.contains("/AppTranslocation/")
+	}
+	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		checkApplicationPath()
 		ServerManager.shared.loadServers()
 		if isFirstLaunch() {
 			ServerManager.shared.checkForExistingDataDirectories()
@@ -106,21 +79,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			}
 		}
 
-		if #available(macOS 13, *) {
-			destroyLaunchAgent()
-			registerLoginItem()
-		} else {
-			if startLoginHelper {
-				createLaunchAgent()
-			} else {
+		if !isTranslocated() {
+			if #available(macOS 13, *) {
 				destroyLaunchAgent()
+				registerLoginItem()
+			} else {
+				if startLoginHelper {
+					createLaunchAgent()
+				} else {
+					destroyLaunchAgent()
+				}
 			}
-		}
-		
-		if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
-			let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-			NSWorkspace.shared.open(url)
-			NSApp.activate(ignoringOtherApps: true)
+			
+			if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
+				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
+				NSWorkspace.shared.open(url)
+				NSApp.activate(ignoringOtherApps: true)
+			}
 		}
 		
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
@@ -203,4 +178,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
+	func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+		if isTranslocated() {
+			for server in serverManager.servers where server.running && server.binPath.hasPrefix(Bundle.main.bundlePath) {
+				try? server.stopSync()
+			}
+		}
+		return .terminateNow
+	}
 }

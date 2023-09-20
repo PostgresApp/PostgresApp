@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.2.5
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14.8
+POSTGRES_VERSION=14.9
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1u
+OPENSSL_VERSION=1.1.1v
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.39
+LIBPNG_VERSION=1.6.40
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
@@ -399,7 +399,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib
 	#patch curl version detection for 10.12 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.12.patch
-	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg
+	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg --with-sqlite3="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
 	touch $@
 
 gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz

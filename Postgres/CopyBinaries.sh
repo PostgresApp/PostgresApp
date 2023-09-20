@@ -51,6 +51,11 @@ do
 			# testepsg was removed in GDAL 3.5, see https://github.com/OSGeo/gdal/pull/3992
             cp -a testepsg "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
+        if [ -e sozip ]
+        then
+			# added in gdal 3.7.0
+            cp -a sozip "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
 		# copy postgis binaries
 		cp -a pgsql2shp raster2pgsql shp2pgsql "${TARGET_VERSIONS_DIR}/${VERSION}/bin/" || test $IGNORE_MISSING_BINARIES # set env var IGNORE_MISSING_BINARIES=1 to ignore this error
         if [ -e pgtopo_export ]
@@ -58,6 +63,11 @@ do
             # added in PostGIS 3.3
             cp -a pgtopo_export pgtopo_import "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
+        if [ -e postgis ]
+        then
+            # added in PostGIS 3.4
+            cp -a postgis postgis_restore "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi        
         
 		# copy all dynamic libraries
 		cd "${PG_BINARIES_DIR}/${VERSION}/lib/"

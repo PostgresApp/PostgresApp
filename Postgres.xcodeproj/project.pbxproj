@@ -20,6 +20,7 @@
 		36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		36447A64282568BA00F5BB7A /* InstallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36447A61282568BA00F5BB7A /* InstallHistory.swift */; };
 		364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */; };
+		3686D3362A963787003389DD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3686D3352A963787003389DD /* Credits.rtf */; };
 		369189BA2A1E3D5F000A3C97 /* UnixProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */; };
 		369189BC2A1E5BE0000A3C97 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		369189BD2A1E7DAD000A3C97 /* PostgresPermissionDialog in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -133,6 +134,7 @@
 		36447A61282568BA00F5BB7A /* InstallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallHistory.swift; sourceTree = "<group>"; };
 		364E709E26A8398A00D159C9 /* SecondaryLabelColorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabelColorTextField.swift; sourceTree = "<group>"; };
 		3682759A2A249B0600C199C5 /* auth_permission_dialog */ = {isa = PBXFileReference; lastKnownFileType = text; path = auth_permission_dialog; sourceTree = SOURCE_ROOT; };
+		3686D3352A963787003389DD /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnixProcessInfo.swift; sourceTree = "<group>"; };
 		369189BB2A1E3DC1000A3C97 /* PostgresPermissionDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresPermissionDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83FB57241D1B05F000A903A3 /* Info.plist */,
+				3686D3352A963787003389DD /* Credits.rtf */,
 				83543E251D2136E800F764CB /* Postgres-Bridging-Header.h */,
 				83AC347F1D80236A002F6982 /* CopyBinaries.sh */,
 				83B1A80A1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist */,
@@ -491,6 +494,7 @@
 				83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */,
 				83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */,
 				83B1A80B1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist in Resources */,
+				3686D3362A963787003389DD /* Credits.rtf in Resources */,
 				83AC34801D80236A002F6982 /* CopyBinaries.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,6 +20,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 - [PostgreSQL](http://www.postgresql.org/)
 - [PostGIS](http://postgis.net/)
+- [pgrouting](https://pgrouting.org) (PostgreSQL 15 and higher)
 - [wal2json](https://github.com/eulerto/wal2json)
 - [pldebugger](https://github.com/EnterpriseDB/pldebugger)
 - [pgvector](https://github.com/pgvector/pgvector) (PostgreSQL 15 and higher)
@@ -36,17 +37,15 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 9.4 - 10 were / are built on macOS 10.10 with Xcode 7.2.1
-
 - the binaries for PostgreSQL 11 - 12 are built on macOS 10.12 with Xcode 8.3.3
 
 - the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
 
 - the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
 
-- the binaries for PostgreSQL 15 are built on macOS 12 with Command Line Tools for Xcode 14
+- the binaries for PostgreSQL 15 - 16 are built on macOS 12 with Command Line Tools for Xcode 14
 
-- the GUI is built on macOS 12 with Xcode 14.1
+- the GUI is built on macOS 13 with Xcode 14.1
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
@@ -90,7 +89,7 @@ At the very least, you need the following:
 
 - Xcode
 - Developer Tools (install with `xcode-select --install`)
-- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14) or 3.11.x (PostgreSQL 15)
+- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14), 3.11.x (PostgreSQL 15) or 3.12.x (PostgreSQL 16)
 
 For building PostGIS, you also need
 
