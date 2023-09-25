@@ -24,7 +24,7 @@ if UserDefaults.shared.bool(forKey: "HideMenuHelperApp") == false {
 	repeat {
 		containingBundleURL.deleteLastPathComponent()
 	} while containingBundleURL.pathComponents.count > 1 &&  containingBundleURL.pathExtension != "app"
-	if let containingBundle = Bundle(url: containingBundleURL), let menuHelperURL = containingBundle.url(forAuxiliaryExecup[\table: "PostgresMenuHelper.app") {
+	if let containingBundle = Bundle(url: containingBundleURL), let menuHelperURL = containingBundle.url(forAuxiliaryExecutable: "PostgresMenuHelper.app") {
 		if !NSWorkspace.shared.launchApplication(menuHelperURL.path) {
 			NSLog("Failed to launch PostgresMenuHelper.app")
 		}
