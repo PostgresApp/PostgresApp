@@ -24,6 +24,9 @@
 		36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
 		36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
 		36D767B62729F1AD00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
+		36EB76A62AC1E55A00580683 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB76A52AC1E55A00580683 /* BundleExtensions.swift */; };
+		36EB76A72AC1E77400580683 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB76A52AC1E55A00580683 /* BundleExtensions.swift */; };
+		36EB76A82AC1E77400580683 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB76A52AC1E55A00580683 /* BundleExtensions.swift */; };
 		830658E51D536F2E00BA1752 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		830B4B261D1C132300F16762 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B251D1C132300F16762 /* ServerManager.swift */; };
 		830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B4B271D1C289A00F16762 /* Sidebar.swift */; };
@@ -120,6 +123,7 @@
 		3686D3352A963787003389DD /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
+		36EB76A52AC1E55A00580683 /* BundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtensions.swift; sourceTree = "<group>"; };
 		830377B71E4C820A008E6896 /* PostgresApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostgresApplication.h; sourceTree = "<group>"; };
 		830658E41D536F2E00BA1752 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		830B4B251D1C132300F16762 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 				830B4B251D1C132300F16762 /* ServerManager.swift */,
 				3634D7F72954CD69005CE01C /* ServerManagerExtras.swift */,
 				360E961B1DC20D5E005D8C69 /* UserDefaults.swift */,
+				36EB76A52AC1E55A00580683 /* BundleExtensions.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
 				36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */,
 				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
@@ -485,6 +490,7 @@
 				83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */,
 				36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */,
 				360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */,
+				36EB76A72AC1E77400580683 /* BundleExtensions.swift in Sources */,
 				83999C6B1D7DA8E300B8A1D6 /* ServerManager.swift in Sources */,
 				83C19C2D1D7D977000F4862D /* main.swift in Sources */,
 				83999C6C1D7DA8EA00B8A1D6 /* Extensions.swift in Sources */,
@@ -506,6 +512,7 @@
 				8348A1F21DB52E9A0039A024 /* ValueTransformers.swift in Sources */,
 				83C19C6C1D7D9D2E00F4862D /* KeyValueObserver.swift in Sources */,
 				83C19C511D7D9A7D00F4862D /* AppDelegate.swift in Sources */,
+				36EB76A82AC1E77400580683 /* BundleExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,6 +526,7 @@
 				839A38281D88494A00E9591A /* main.swift in Sources */,
 				8353FBE01D1D5E4C002F77E7 /* SplitView.swift in Sources */,
 				83969DC31D36A3EA005B9F1C /* ClientLauncher.applescript in Sources */,
+				36EB76A62AC1E55A00580683 /* BundleExtensions.swift in Sources */,
 				360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */,
 				364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
