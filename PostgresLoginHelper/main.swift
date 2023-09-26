@@ -39,7 +39,7 @@ for server in serverManager.servers {
 			try server.startSync()
 		}
 		catch let error as NSError {
-			Swift.print("Failed to start server \(server.name) because \(error.localizedDescription)")
+			Swift.print("Failed to start server \(server.name): \(error.localizedDescription)")
 		}
 	}
 }
