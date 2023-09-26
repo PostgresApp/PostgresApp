@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 					}
 				} else {
 					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-					NSWorkspace.shared.open(url)
+					NSWorkspace.shared.launchApplication(url.path)
 				}
 			}
 			if #available(macOS 13, *) {
@@ -93,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			
 			if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
 				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-				NSWorkspace.shared.open(url)
+				NSWorkspace.shared.launchApplication(url.path)
 				NSApp.activate(ignoringOtherApps: true)
 			}
 		}

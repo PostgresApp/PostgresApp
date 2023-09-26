@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	var menuItemViewControllers: [MenuItemViewController] = []
 	
 	var mainApp: SBApplication {
-		let mainAppURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+		let mainAppURL = Bundle.mainApp!.bundleURL
 		let mainApp = SBApplication(url: mainAppURL)!
 		return mainApp
 	}
