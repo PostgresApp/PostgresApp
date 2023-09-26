@@ -597,7 +597,7 @@ class Server: NSObject {
 		let newLibs = oldLibs.filter({$0 != "auth_permission_dialog"}) + ["auth_permission_dialog"]
 		let libsvalue = newLibs.joined(separator: ",")
 		
-		guard let newExecutablePath = Bundle.main.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
+		guard let newExecutablePath = Bundle.mainApp?.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
 			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not find PostgresPermissionDialog executable"])
 		}
 
