@@ -287,15 +287,29 @@ auth_permission_dialog(Port *port, int status)
 		free(command);
 		ereport(FATAL, (errcode(ERRCODE_INTERNAL_ERROR), errmsg("auth_permission_dialog: system: %s", errstr)));
 	}
-	
-	free(command);
-	
+		
 	if (system_st != 0) {
+		const char *authentication_name;
+		switch (port->hba->auth_method) {
+			case uaTrust:
+				authentication_name = "\"trust\" authentication";
+				break;
+			case uaIdent:
+				authentication_name = "\"ident\" authentication";
+				break;
+			case uaPeer:
+				authentication_name = "\"peer\" authentication";
+				break;
+			default:
+				authentication_name = "authentication";
+				break;
+		}
 		ereport(FATAL,
-				(errmsg("Postgres.app rejected the connection"),
-				 errdetail("auth_permission_dialog: dialog_executable_path return status %d", system_st),
+				(errmsg("Postgres.app rejected %s", authentication_name),
+				 errdetail("auth_permission_dialog: system(%s) returned %d", command, system_st),
 				 errhint("Try resetting app permissions in Postgres.app, or change hba.conf to require a password.")));
 	}
+	free(command);
 }
 
 /*
