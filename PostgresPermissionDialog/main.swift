@@ -143,22 +143,7 @@ catch {
 	}
 	else {
 		// connection attempt from local client
-		NSApplication.shared.setActivationPolicy(.accessory)
-		NSApplication.shared.activate(ignoringOtherApps: true)
-
-		let alert = NSAlert()
-
-		alert.messageText = "An unknown process is trying to connect to Postgres.app without using a password"
-		alert.addButton(withTitle: "OK")
-		alert.addButton(withTitle: "Don't Allow")
-		
-		let result = alert.runModal()
-
-		switch result {
-		case .alertFirstButtonReturn:
-			exit(0)
-		default:
-			exit(1)
-		}
+		fputs("Postgres.app denied a connection from unknown local process\n", stderr);
+		exit(1);
 	}
 }
