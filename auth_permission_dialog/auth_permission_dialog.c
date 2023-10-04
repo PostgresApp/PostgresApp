@@ -56,7 +56,7 @@ static char* ashqu(char *arg) {
 	}
 
 	// add quotes
-	quoted = malloc(2 + len + 4*nticks +1);
+	quoted = malloc(2 + len + 3*nticks +1);
 	a = arg;
 	q = quoted;
 	*(q++) = '\'';
@@ -243,7 +243,7 @@ auth_permission_dialog(Port *port, int status)
 		
 		quoted_executable_path = ashqu(dialog_executable_path);
 		quoted_socket_path = ashqu(socket_path);
-		asprintf(&command, "'%s' --socket-path '%s' --client-pid %d --client-uid %d --client-gid %d", dialog_executable_path, socket_path, pid, uid, gid);
+		asprintf(&command, "%s --socket-path %s --client-pid %d --client-uid %d --client-gid %d", quoted_executable_path, quoted_socket_path, pid, uid, gid);
 		free(quoted_executable_path);
 		free(quoted_socket_path);
 	} else {
@@ -276,7 +276,7 @@ auth_permission_dialog(Port *port, int status)
 		pid = pid_for_tcp_local_remote(remote_sockaddr, local_sockaddr);
 		
 		quoted_executable_path = ashqu(dialog_executable_path);
-		asprintf(&command, "'%s' --server-addr %s --server-port %s --client-addr %s --client-port %s --client-pid %d", quoted_executable_path, server_host, server_port, client_host, client_port, pid);
+		asprintf(&command, "%s --server-addr %s --server-port %s --client-addr %s --client-port %s --client-pid %d", quoted_executable_path, server_host, server_port, client_host, client_port, pid);
 		free(quoted_executable_path);
 	}
 	
