@@ -13,6 +13,7 @@ redirect_from:
 - [Removing other PostgreSQL installations](remove.html)
 - [CLI Tools](cli-tools.html)
 - [GUI Apps](gui-tools.html)
+- [Client App Permission Dialogs](app-permissions.html)
 - [Using PL/Python](plpython.html)
 - [Troubleshooting & Support](troubleshooting.html)
 
