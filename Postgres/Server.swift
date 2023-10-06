@@ -255,6 +255,9 @@ class Server: NSObject {
 			}
 			
 		}
+		
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
 	
@@ -273,6 +276,9 @@ class Server: NSObject {
 				self.busy = false
 			}
 		}
+		
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
     func changePassword(role: String, newPassword: String, _ completion: @escaping (Result<Void, Error>) -> Void) {

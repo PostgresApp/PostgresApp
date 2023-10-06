@@ -96,6 +96,10 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		server.showWarningDetails(modalFor: view.window!)
 	}
 	
+	@IBAction func clientPermissionWarningButtonClicked(_ sender: AnyObject?) {
+		NSWorkspace.shared.open(URL(string: "https://postgresapp.com/l/app-permissions/")!)
+	}
+	
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
 		if let target = segue.destinationController as? SettingsViewController {
 			guard let server = mainWindowModel.firstSelectedServer else { return }
