@@ -30,6 +30,8 @@ If you click "Don't Allow", then Postgres.app will refuse the connection. The cl
 > DETAIL:  auth_permission_dialog: system('/Applications/Postgres.app/Contents/MacOS/PostgresPermissionDialog' --server-addr ::1 --server-port 5432 --client-addr ::1 --client-port 12345 --client-pid 1234) returned 256
 > HINT:  Try resetting app permissions in Postgres.app, or change pg_hba.conf to require a password.
 
+Additionally, denied connection attempts are shown in the main window of Postgres.app.
+
 Resetting Client App Permissions
 --------------------------------
 
@@ -59,6 +61,7 @@ You can disable the permission dialogs in Postgres.app settings:
 1. Open Postgres.app
 2. Choose "Settings" from the "Postgres" menu
 3. Uncheck the box labelled "Ask for permission when apps connect without password"
-4. Postgres.app will now allow passwordless authentication (if allowed in pg_hba.conf)
+4. Stop running PostgreSQL servers and start them again
+5. Postgres.app will now allow passwordless authentication (if allowed in pg_hba.conf)
 
 This will also allow unknown processes to connect to Postgres.app without using a password.
