@@ -26,9 +26,9 @@ If you click "OK", then Postgres.app will allow the app to connect. Your choice 
 
 If you click "Don't Allow", then Postgres.app will refuse the connection. The client app will show a warning similar to the following:
 
-> FATAL:  Postgres.app rejected "trust" authentication
-> DETAIL:  auth_permission_dialog: system('/Applications/Postgres.app/Contents/MacOS/PostgresPermissionDialog' --server-addr ::1 --server-port 5432 --client-addr ::1 --client-port 12345 --client-pid 1234) returned 256
-> HINT:  Try resetting app permissions in Postgres.app, or change pg_hba.conf to require a password.
+> connection to server at "localhost" (::1), port 5432 failed: FATAL:  Postgres.app rejected "trust" authentication  
+> DETAIL:  Postico is not allowed to connect without a password. For more information see https://postgresapp.com/l/app-permissions/  
+> HINT:  You can reset app permissions in Postgres.app or change pg_hba.conf to require a password
 
 Additionally, denied connection attempts are shown in the main window of Postgres.app.
 
