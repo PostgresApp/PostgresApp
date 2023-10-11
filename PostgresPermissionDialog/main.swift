@@ -51,6 +51,12 @@ guard let pid else {
 var clientApplicationPermissions: [[String: Any]]
 clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] ?? []
 
+class HelpDelegate: NSObject, NSAlertDelegate {
+    func alertShowHelp(_ alert: NSAlert) -> Bool {
+        NSWorkspace.shared.open(URL(string:"https://postgresapp.com/l/app-permissions/")!)
+    }
+}
+
 do {
 	let process = try UnixProcessInfo(runningProcessWithPid: pid)
 	let topLevelProcess = process.getTopLevelProcess()
@@ -80,9 +86,13 @@ do {
 	NSApplication.shared.activate(ignoringOtherApps: true)
 
 	let alert = NSAlert()
-
+    let delegate = HelpDelegate()
+    
 	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app without using a password"
 	alert.informativeText = "You can reset permissions later in Postgres.app settings."
+    alert.showsHelp = true
+    alert.delegate = delegate
+    
 
 	alert.addButton(withTitle: "OK").keyEquivalent = ""
 	alert.addButton(withTitle: "Don't Allow")
@@ -124,7 +134,8 @@ catch {
 		NSApplication.shared.activate(ignoringOtherApps: true)
 
 		let alert = NSAlert()
-
+        let delegate = HelpDelegate()
+        
 		alert.messageText = "A remote client is trying to connect to Postgres.app without using a password"
 		alert.informativeText =
 			"""
@@ -135,6 +146,8 @@ catch {
 		
 		alert.addButton(withTitle: "OK").keyEquivalent = ""
 		alert.addButton(withTitle: "Don't Allow")
+        alert.showsHelp = true
+        alert.delegate = delegate
 
 		let result = alert.runModal()
 
