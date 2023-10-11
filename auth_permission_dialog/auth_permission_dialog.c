@@ -289,7 +289,7 @@ auth_permission_dialog(Port *port, int status)
 		
 		pid = pid_for_tcp_local_remote(remote_sockaddr, local_sockaddr);
 		
-		if (pid <= 1 && !strcmp(client_host, "::1") && !strcmp(client_host, "127.0.0.1")) client_display_name = strdup(client_host);
+		if (pid <= 1 && strcmp(client_host, "::1")!=0 && strcmp(client_host, "127.0.0.1")!=0) client_display_name = strdup(client_host);
 		
 		quoted_executable_path = ashqu(dialog_executable_path);
 		asprintf(&command, "%s --server-addr %s --server-port %s --client-addr %s --client-port %s --client-pid %d", quoted_executable_path, server_host, server_port, client_host, client_port, pid);
@@ -328,6 +328,18 @@ auth_permission_dialog(Port *port, int status)
 				char *last_slash = strrchr(pidpath, '/');
 				client_display_name = strdup(last_slash ? last_slash + 1 : pidpath);
 				client_display_name_long = strdup(pidpath);
+			}
+		}
+		if (tlpid && tlpid != pid) {
+			char pidpath[PROC_PIDPATHINFO_SIZE] = {0};
+			int status;
+			status = proc_pidpath(pid, &pidpath, PROC_PIDPATHINFO_SIZE);
+			if (status && strcmp(client_display_name_long, pidpath)!=0) {
+				char *client_display_name_very_long;
+				
+				asprintf(&client_display_name_very_long, "%s (via %s)", client_display_name_long, pidpath);
+				free(client_display_name_long);
+				client_display_name_long = client_display_name_very_long;
 			}
 		}
 		if (!client_display_name) client_display_name = strdup("unknown process");
