@@ -169,6 +169,18 @@ static pid_t pid_for_tcp_local_remote(struct sockaddr *laddr, struct sockaddr *f
 	return 0;
 }
 
+static const char* authentication_name(Port *port) {
+	switch (port->hba->auth_method) {
+		case uaTrust:
+			return "\"trust\" authentication";
+		case uaIdent:
+			return "\"ident\" authentication";
+		case uaPeer:
+			return "\"peer\" authentication";
+		default:
+			return "authentication";
+	}
+}
 /*
  * Check authentication
  */
@@ -182,6 +194,8 @@ auth_permission_dialog(Port *port, int status)
 	struct sockaddr *local_sockaddr = (struct sockaddr*)&local_sockaddr_storage;
 	pid_t pid;
 	char *command;
+	char *client_display_name = NULL;
+	char *client_display_name_long = NULL;
 	
 	/*
 	 * Any other plugins which use ClientAuthentication_hook.
@@ -275,6 +289,8 @@ auth_permission_dialog(Port *port, int status)
 		
 		pid = pid_for_tcp_local_remote(remote_sockaddr, local_sockaddr);
 		
+		if (pid <= 1 && !strcmp(client_host, "::1") && !strcmp(client_host, "127.0.0.1")) client_display_name = strdup(client_host);
+		
 		quoted_executable_path = ashqu(dialog_executable_path);
 		asprintf(&command, "%s --server-addr %s --server-port %s --client-addr %s --client-port %s --client-pid %d", quoted_executable_path, server_host, server_port, client_host, client_port, pid);
 		free(quoted_executable_path);
@@ -282,34 +298,90 @@ auth_permission_dialog(Port *port, int status)
 	
 	system_st = system(command);
 
-	if (system_st == -1) {
-		char *errstr = strerror(errno);
+	if (WIFEXITED(system_st) && WEXITSTATUS(system_st) == 0) {
+		// client connection is allowed
+		// clean up and return
+		if (client_display_name) free(client_display_name);
 		free(command);
-		ereport(FATAL, (errcode(ERRCODE_INTERNAL_ERROR), errmsg("auth_permission_dialog: system: %s", errstr)));
+		return;
 	}
+	else {
+		// client is denied or an error occurred
+		// first collect info about the client that we need later
 		
-	if (system_st != 0) {
-		const char *authentication_name;
-		switch (port->hba->auth_method) {
-			case uaTrust:
-				authentication_name = "\"trust\" authentication";
-				break;
-			case uaIdent:
-				authentication_name = "\"ident\" authentication";
-				break;
-			case uaPeer:
-				authentication_name = "\"peer\" authentication";
-				break;
-			default:
-				authentication_name = "authentication";
-				break;
+		pid_t ppid, tlpid;
+		tlpid = 0;
+		ppid = pid;
+		while (ppid > 1) {
+			struct proc_bsdshortinfo shortinfo;
+			int status;
+			tlpid = ppid;
+			status = proc_pidinfo(ppid, PROC_PIDT_SHORTBSDINFO, 0, &shortinfo, sizeof(shortinfo));
+			if (!status) break;
+			ppid = shortinfo.pbsi_ppid;
 		}
-		ereport(FATAL,
-				(errmsg("Postgres.app rejected %s", authentication_name),
-				 errdetail("auth_permission_dialog: system(%s) returned %d", command, system_st),
-				 errhint("Try resetting app permissions in Postgres.app, or change pg_hba.conf to require a password.")));
+		if (tlpid) {
+			char pidpath[PROC_PIDPATHINFO_SIZE] = {0};
+			int status;
+			status = proc_pidpath(tlpid, &pidpath, PROC_PIDPATHINFO_SIZE);
+			if (status) {
+				char *last_slash = strrchr(pidpath, '/');
+				client_display_name = strdup(last_slash ? last_slash + 1 : pidpath);
+				client_display_name_long = strdup(pidpath);
+			}
+		}
+		if (!client_display_name) client_display_name = strdup("unknown process");
+		if (!client_display_name_long) client_display_name_long = strdup(client_display_name);
+		
+		if (system_st == -1) {
+			char *errstr = strerror(errno);
+			ereport(FATAL,
+					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
+					 errdetail("An error occurred while running the helper application"),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) failed: %s", client_display_name_long, command, errstr),
+					 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+		}
+		else if (WIFEXITED(system_st)) {
+			int exit_st = WEXITSTATUS(system_st);
+			if (exit_st == 1 || exit_st == 2) {
+				ereport(FATAL,
+						(errmsg("Postgres.app rejected %s", authentication_name(port)),
+						 errdetail("%s is not allowed to connect without a password. For more information see https://postgresapp.com/l/app-permissions/", client_display_name),
+						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, exit_st),
+						 errhint("You can reset app permissions in Postgres.app or change pg_hba.conf to require a password")));
+			}
+			else if (exit_st == 3) {
+				ereport(FATAL,
+						(errmsg("Postgres.app rejected %s", authentication_name(port)),
+						 errdetail("Unknown processes are not allowed to connect without a password. For more information see https://postgresapp.com/l/app-permissions/"),
+						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, exit_st),
+						 errhint("Change pg_hba.conf to require a password")));
+			}
+			else if (exit_st) {
+				ereport(FATAL,
+						(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
+						 errdetail("An error occurred while running the helper application"),
+						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d.", client_display_name_long, command, exit_st),
+						 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+			}
+		}
+		else if (WIFSIGNALED(system_st)) {
+			int termsig = WTERMSIG(system_st);
+			ereport(FATAL,
+					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
+					 errdetail("An error occurred while running the helper application"),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d", client_display_name_long, command, termsig),
+					 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+		}
+		else {
+			ereport(FATAL,
+					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
+					 errdetail("An error occurred while running the helper application"),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned %d", client_display_name_long, command, system_st),
+					 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+		}
+		
 	}
-	free(command);
 }
 
 /*

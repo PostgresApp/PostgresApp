@@ -39,7 +39,13 @@ while let arg = args.first {
 
 guard let pid else {
 	fputs("Usage: \(CommandLine.arguments.first ?? "PostgresPermissionDialog") --client-pid 12345\n", stderr)
-	exit(2);
+	fputs("Exit Status:\n", stderr)
+	fputs("    0: Authentication should be allowed\n", stderr)
+	fputs("    1: Authentication rejected by user in permission dialog\n", stderr)
+	fputs("    2: Authentication rejected by user defaults\n", stderr)
+	fputs("    3: Authentication denied because client process could not be identified\n", stderr)
+	fputs("Any other exit status indicates that an error has occurred.\n", stderr)
+	exit(4);
 }
 
 var clientApplicationPermissions: [[String: Any]]
@@ -62,10 +68,9 @@ do {
 				if policy == "allow" {
 					exit(0)
 				} else {
-					fputs("Connection attempt from \(topLevelProcess.name) denied by Postgres.app settings (\(process.path) PID \(pid)).\n", stderr)
 					UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 					UserDefaults.shared.set("Connection attempt from \(topLevelProcess.name) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
-					exit(1)
+					exit(2)
 				}
 			}
 		}
@@ -90,7 +95,6 @@ do {
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 		exit(0)
 	default:
-		fputs("The user denied the connection attempt from \(topLevelProcess.name) (\(process.path) PID \(pid)).\n", stderr)
 		clientApplicationPermissions.append(["path":topLevelProcess.path, "policy": "deny"])
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 		UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
@@ -108,10 +112,9 @@ catch {
 					if policy == "allow" {
 						exit(0)
 					} else {
-						fputs("Connection attempt from \(remoteClientAddr) denied by Postgres.app settings.\n", stderr)
 						UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 						UserDefaults.shared.set("Connection attempt from \(remoteClientAddr) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
-						exit(1)
+						exit(2)
 					}
 				}
 			}
@@ -141,7 +144,6 @@ catch {
 			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 			exit(0)
 		default:
-			fputs("The user denied a connection attempt from \(remoteClientAddr).\n", stderr)
 			clientApplicationPermissions.append(["address":remoteClientAddr, "policy": "deny"])
 			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 			UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
@@ -151,9 +153,8 @@ catch {
 	}
 	else {
 		// connection attempt from local client
-		fputs("Postgres.app denied a connection from unknown local process\n", stderr);
 		UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 		UserDefaults.shared.set("Postgres.app denied a connection from unknown local process", forKey: "ClientApplicationPermissionLastDeniedMessage")
-		exit(1);
+		exit(3);
 	}
 }
