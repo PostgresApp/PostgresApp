@@ -28,7 +28,7 @@ If you click "Don't Allow", then Postgres.app will refuse the connection. The cl
 
 > FATAL:  Postgres.app rejected "trust" authentication
 > DETAIL:  auth_permission_dialog: system('/Applications/Postgres.app/Contents/MacOS/PostgresPermissionDialog' --server-addr ::1 --server-port 5432 --client-addr ::1 --client-port 12345 --client-pid 1234) returned 256
-> HINT:  Try resetting app permissions in Postgres.app, or change hba.conf to require a password.
+> HINT:  Try resetting app permissions in Postgres.app, or change pg_hba.conf to require a password.
 
 Resetting Client App Permissions
 --------------------------------

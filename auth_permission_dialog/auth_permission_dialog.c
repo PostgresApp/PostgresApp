@@ -307,7 +307,7 @@ auth_permission_dialog(Port *port, int status)
 		ereport(FATAL,
 				(errmsg("Postgres.app rejected %s", authentication_name),
 				 errdetail("auth_permission_dialog: system(%s) returned %d", command, system_st),
-				 errhint("Try resetting app permissions in Postgres.app, or change hba.conf to require a password.")));
+				 errhint("Try resetting app permissions in Postgres.app, or change pg_hba.conf to require a password.")));
 	}
 	free(command);
 }
