@@ -79,7 +79,7 @@ do {
 	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app without using a password"
 	alert.informativeText = "You can reset permissions later in Postgres.app settings."
 
-	alert.addButton(withTitle: "OK")
+	alert.addButton(withTitle: "OK").keyEquivalent = ""
 	alert.addButton(withTitle: "Don't Allow")
 
 	let result = alert.runModal()
@@ -130,7 +130,7 @@ catch {
 			You can reset permissions later in Postgres.app settings.
 			"""
 		
-		alert.addButton(withTitle: "OK")
+		alert.addButton(withTitle: "OK").keyEquivalent = ""
 		alert.addButton(withTitle: "Don't Allow")
 
 		let result = alert.runModal()
