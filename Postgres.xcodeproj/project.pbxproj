@@ -732,6 +732,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/macosx/libswiftAppKit.dylib";
 				PG_BINARIES_DIR = /Applications/Postgres.app/Contents/Versions;
 				PG_BINARIES_VERSIONS = $LATEST_STABLE_PG_VERSION;
 				POSTGRESAPP_BUILD_VERSION = dev;
@@ -791,6 +792,7 @@
 				LATEST_STABLE_PG_VERSION = 16;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/macosx/libswiftAppKit.dylib";
 				PG_BINARIES_DIR = /Applications/Postgres.app/Contents/Versions;
 				PG_BINARIES_VERSIONS = $LATEST_STABLE_PG_VERSION;
 				POSTGRESAPP_BUILD_VERSION = dev;
