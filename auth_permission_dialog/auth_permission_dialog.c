@@ -377,6 +377,14 @@ auth_permission_dialog(Port *port, int status)
 						 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
 			}
 		}
+		else if (WIFSIGNALED(system_st) && WTERMSIG(system_st) == 15) {
+			int termsig = WTERMSIG(system_st);
+			ereport(FATAL,
+					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
+					 errdetail("User did not confirm the permission dialog."),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d", client_display_name_long, command, termsig),
+					 errhint("When you connect a new application to Postgres.app for the first time, a permission dialog will be shown. By default, you have 1 minute to confirm the connection. If you did not see a dialog, submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+		}
 		else if (WIFSIGNALED(system_st)) {
 			int termsig = WTERMSIG(system_st);
 			ereport(FATAL,
