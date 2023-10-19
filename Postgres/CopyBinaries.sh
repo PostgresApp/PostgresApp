@@ -97,7 +97,7 @@ do
 		# if the binaries are signed this will break the code signature
 		# you must make sure to re-sign them afterwards
 		cd "${TARGET_VERSIONS_DIR}/${VERSION}"
-		for file in bin/* lib/* lib/*/*
+		for file in $(find lib bin -perm +111 -type f)
 		do
 		  if [[ -f $file && ! -L $file ]]
 		  then
@@ -110,6 +110,21 @@ do
 				if [[ $file == bin/* ]]
 				then
 				  newname=@loader_path/../lib/$basename
+				elif [[ $file == lib/*/*/*/*/*/*/* ]]
+				then
+				  newname=@loader_path/../../../../../../$basename
+				elif [[ $file == lib/*/*/*/*/*/* ]]
+				then
+				  newname=@loader_path/../../../../../$basename
+				elif [[ $file == lib/*/*/*/*/* ]]
+				then
+				  newname=@loader_path/../../../../$basename
+				elif [[ $file == lib/*/*/*/* ]]
+				then
+				  newname=@loader_path/../../../$basename
+				elif [[ $file == lib/*/*/* ]]
+				then
+				  newname=@loader_path/../../$basename
 				elif [[ $file == lib/*/* ]]
 				then
 				  newname=@loader_path/../$basename
