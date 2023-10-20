@@ -411,7 +411,7 @@ void
 _PG_init(void)
 {
 	DefineCustomStringVariable("auth_permission_dialog.dialog_executable_path",
-							   gettext_noop("Command to show a dialog."),
+							   gettext_noop("Postgres.app uses this executable to show a permission dialog when a client tries to connect using trust, peer or ident authentication."),
 							   NULL,
 							   &dialog_executable_path,
 							   "",
