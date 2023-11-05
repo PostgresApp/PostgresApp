@@ -30,7 +30,7 @@ JPEG_VERSION=9e
 GMP_VERSION=6.2.1
 
 # https://www.mpfr.org/mpfr-current/#download
-MPFR_VERSION=4.2.0
+MPFR_VERSION=4.2.1
 
 # https://www.boost.org/users/download/
 BOOST_VERSION=1_82_0
@@ -48,7 +48,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.10
+OPENSSL_VERSION=3.0.12
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -89,7 +89,7 @@ PLDEBUGGER_VERSION=1.5
 PGVECTOR_VERSION=0.4.4
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=3.5.0
+PGROUTING_VERSION=3.5.1
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
@@ -98,7 +98,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.4
+PYTHON_VERSION_FULL=3.11.6
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build

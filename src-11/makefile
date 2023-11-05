@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1v
+OPENSSL_VERSION=1.1.1w
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.2.0
