@@ -38,12 +38,13 @@ BOOST_VERSION=1_83_0
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.6
 
-# https://gitlab.com/Oslandia/SFCGAL/-/releases
+# https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
 
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
+# https://download.gnome.org/sources/libxml2/
 LIBXML2_VERSION=2.11.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
@@ -51,6 +52,7 @@ LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9
 OPENSSL_VERSION=3.0.12
 
 # https://proj.org/download.html
+# https://github.com/OSGeo/PROJ/releases
 PROJ_VERSION=9.2.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN

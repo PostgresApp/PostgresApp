@@ -38,12 +38,13 @@ BOOST_VERSION=1_82_0
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.5.3
 
-# https://gitlab.com/Oslandia/SFCGAL/-/releases
+# https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
 
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
+# https://download.gnome.org/sources/libxml2/
 LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
