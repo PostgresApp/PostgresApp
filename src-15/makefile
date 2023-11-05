@@ -728,7 +728,7 @@ mpfr-$(MPFR_VERSION)/configure: mpfr-$(MPFR_VERSION).tar.xz
 	touch $@
 
 mpfr-$(MPFR_VERSION).tar.xz:
-	$(CURL) https://www.mpfr.org/mpfr-current/mpfr-$(MPFR_VERSION).tar.xz
+	$(CURL) https://www.mpfr.org/mpfr-$(MPFR_VERSION)/mpfr-$(MPFR_VERSION).tar.xz
 
 clean-mpfr:
 	rm -Rf mpfr-$(MPFR_VERSION)
