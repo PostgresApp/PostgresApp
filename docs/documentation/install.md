@@ -55,6 +55,25 @@ To improve security, we recommend protecting all PostgreSQL servers with a passw
 
 After setting a password, the databases will no longer be shown in Postgres.app.
 
+## Allowing Network Access
+
+By default, PostgreSQL only allows connections from apps on your computer.
+Follow these instructions to allow other computers on your network to connect.
+
+1. Stop the server
+2. Make sure you have a password configured (see above)
+3. Change the listen address
+    1. Click the "Server Settings…" button
+    2. Find the config file and click "Show"
+    3. Open the file in a text editor
+    4. Find the `listen_addresses` setting, remove the leading `#`, and change the value from `'localhost'` to `'*'`.
+4. Update the HBA file
+    1. Click the "Server Settings…" button
+    2. Look for the HBA file and click "Show"
+    3. Open the file in a text editor
+    4. At the bottom, add this line: `host all all 0.0.0.0/0 scram-sha-256` (allow secure authentication with a password for all databases and all users from all IPv4 addresses)
+5. Start the server again
+
 ## Installing PostgreSQL extensions
 
 Postgres.app includes a number of useful extensions.
