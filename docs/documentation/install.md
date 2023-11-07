@@ -33,6 +33,28 @@ This is especially useful if you want to run multiple versions of PostgreSQL sim
 
 To add a cluster, click the "+" icon in the sidebar.
 
+## Protecting PostgreSQL with a password
+
+The default settings for PostgreSQL allow any app on your computer to connect without a password ("trust" authentication).
+
+To improve security, we recommend protecting all PostgreSQL servers with a password by enabling "scram-sha-256" authentication.
+
+1. Stop the server
+2. Change the authentication method
+    1. Click the "Server Settings…" button
+    2. Look for the HBA file and click "Show"
+    3. Open the file in a text editor
+    4. Replace `trust` with `scram-sha-256`
+3. Change passwords (repeat for each user)
+    1. Click the "Server Settings…" button
+    2. Click the "Change Password…" button
+    3. Pick a new password. Don't use your computer password.
+4. Start the server again
+
+(On PostgreSQL servers before version 14, use `md5` instead of `scram-sha-256`.)
+
+After setting a password, the databases will no longer be shown in Postgres.app.
+
 ## Installing PostgreSQL extensions
 
 Postgres.app includes a number of useful extensions.
