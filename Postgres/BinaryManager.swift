@@ -36,8 +36,9 @@ class BinaryManager {
 		return versions
 	}
 	
-	func getLatestBinary() -> PostgresBinary {
-		let latestVersion = Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as! String
+	func getLatestBinary() -> PostgresBinary? {
+		let latestVersion = Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as? String
+		guard let latestVersion, !latestVersion.isEmpty else { return nil }
 		return PostgresBinary(url: binaryVersionsURL.appendingPathComponent(latestVersion), version: latestVersion)
 	}
 	
