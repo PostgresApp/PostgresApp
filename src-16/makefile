@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.4.0
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=16.0
+POSTGRES_VERSION=16.1
 POSTGRES_MAJOR_VERSION=16
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,7 +18,7 @@ ZSTD_VERSION=1.5.5
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.7.2
+GDAL_VERSION=3.7.3
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.12.0
@@ -38,19 +38,21 @@ BOOST_VERSION=1_83_0
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.6
 
-# https://gitlab.com/Oslandia/SFCGAL/-/releases
+# https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
 
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
+# https://download.gnome.org/sources/libxml2/
 LIBXML2_VERSION=2.11.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.10
+OPENSSL_VERSION=3.0.12
 
 # https://proj.org/download.html
+# https://github.com/OSGeo/PROJ/releases
 PROJ_VERSION=9.2.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
@@ -82,14 +84,17 @@ LIBPNG_VERSION=1.6.40
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0
 
+# https://github.com/Unidata/netcdf-c/releases
+NETCDF_VERSION=4.9.2
+
 # https://github.com/EnterpriseDB/pldebugger/tags
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.5.0
+PGVECTOR_VERSION=0.5.1
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=3.5.0
+PGROUTING_VERSION=3.5.1
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
@@ -97,9 +102,8 @@ ICU_MAJOR_VERSION=73
 ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
-# 3.12 expected 2023-10-02
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.0rc2
+PYTHON_VERSION_FULL=3.12.0
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -145,11 +149,11 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql auth_permission_dialog postgis wal2json pldebugger pgvector pgrouting
-clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting
+clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-zstd check-libgeos check-libproj check-gmp check-mpfr check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz
+check: check-postgresql check-zstd check-libgeos check-libproj check-netcdf check-gmp check-mpfr check-arch check-libs check-rpath check-python
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz
 
 
 #########################
@@ -442,7 +446,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal
+# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos, netcdf
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -451,7 +455,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
 	cd gdal-$(GDAL_VERSION)/build && cmake --build .
 	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/netcdf.dylib
 	#patch curl version detection for <= 10.14 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
 	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
@@ -653,6 +657,36 @@ clean-openjpeg:
 	rm -Rf openjpeg-$(OPENJPEG_VERSION)
 
 
+########################
+####### netcdf #########
+########################
+
+netcdf: $(PREFIX)/lib/netcdf.dylib
+	touch $@
+
+$(PREFIX)/lib/netcdf.dylib: netcdf-c-$(NETCDF_VERSION)/build/Makefile
+	cmake --build netcdf-c-$(NETCDF_VERSION)/build
+	cmake --build netcdf-c-$(NETCDF_VERSION)/build --target install
+
+netcdf-c-$(NETCDF_VERSION)/build/Makefile: netcdf-c-$(NETCDF_VERSION)/CMakeLists.txt
+	# patch to avoid failing tests in cmake built w/o utilities <https://github.com/Unidata/netcdf-c/issues/2794>
+	patch -b -d "netcdf-c-$(NETCDF_VERSION)" -p1 <patches/netcdf-test-utilities.patch
+	cd netcdf-c-$(NETCDF_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_NETCDF_4=OFF -DBUILD_UTILITIES=OFF
+
+netcdf-c-$(NETCDF_VERSION)/CMakeLists.txt: netcdf-c-$(NETCDF_VERSION).tar.gz
+	$(TAR) netcdf-c-$(NETCDF_VERSION).tar.gz
+	mkdir netcdf-c-$(NETCDF_VERSION)/build
+	touch $@
+
+netcdf-c-$(NETCDF_VERSION).tar.gz:
+	$(CURL) --remote-header-name https://github.com/Unidata/netcdf-c/archive/refs/tags/v$(NETCDF_VERSION).tar.gz
+
+clean-netcdf:
+	rm -Rf netcdf-c-$(NETCDF_VERSION)
+
+check-netcdf:
+	cmake --build netcdf-c-$(NETCDF_VERSION)/build --target test
+
 #####################
 ####### GMP #########
 #####################
@@ -739,7 +773,7 @@ mpfr-$(MPFR_VERSION)/configure: mpfr-$(MPFR_VERSION).tar.xz
 	touch $@
 
 mpfr-$(MPFR_VERSION).tar.xz:
-	$(CURL) https://www.mpfr.org/mpfr-current/mpfr-$(MPFR_VERSION).tar.xz
+	$(CURL) https://www.mpfr.org/mpfr-$(MPFR_VERSION)/mpfr-$(MPFR_VERSION).tar.xz
 
 clean-mpfr:
 	rm -Rf mpfr-$(MPFR_VERSION)

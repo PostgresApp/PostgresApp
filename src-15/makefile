@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.3.4
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15.4
+POSTGRES_VERSION=15.5
 POSTGRES_MAJOR_VERSION=15
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -30,7 +30,7 @@ JPEG_VERSION=9e
 GMP_VERSION=6.2.1
 
 # https://www.mpfr.org/mpfr-current/#download
-MPFR_VERSION=4.2.0
+MPFR_VERSION=4.2.1
 
 # https://www.boost.org/users/download/
 BOOST_VERSION=1_82_0
@@ -38,17 +38,18 @@ BOOST_VERSION=1_82_0
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.5.3
 
-# https://gitlab.com/Oslandia/SFCGAL/-/releases
+# https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
 
 LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
+# https://download.gnome.org/sources/libxml2/
 LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.10
+OPENSSL_VERSION=3.0.12
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -89,7 +90,7 @@ PLDEBUGGER_VERSION=1.5
 PGVECTOR_VERSION=0.4.4
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=3.5.0
+PGROUTING_VERSION=3.5.1
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # http://site.icu-project.org/download/
@@ -98,7 +99,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.4
+PYTHON_VERSION_FULL=3.11.6
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -441,7 +442,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal
+# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -449,12 +450,12 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib
 	#patch curl version detection for <= 10.14 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
 	#patch sqlite feature non-detection for macOS
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_sqlite.patch
-	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg --with-sqlite3="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg --with-sqlite3="/"
 	touch $@
 
 gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
@@ -746,7 +747,7 @@ mpfr-$(MPFR_VERSION)/configure: mpfr-$(MPFR_VERSION).tar.xz
 	touch $@
 
 mpfr-$(MPFR_VERSION).tar.xz:
-	$(CURL) https://www.mpfr.org/mpfr-current/mpfr-$(MPFR_VERSION).tar.xz
+	$(CURL) https://www.mpfr.org/mpfr-$(MPFR_VERSION)/mpfr-$(MPFR_VERSION).tar.xz
 
 clean-mpfr:
 	rm -Rf mpfr-$(MPFR_VERSION)

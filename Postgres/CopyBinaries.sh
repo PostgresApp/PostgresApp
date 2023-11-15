@@ -147,8 +147,9 @@ do
 done
 
 # create symbolic link
-if [ -e "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/$LATEST_STABLE_PG_VERSION" ];
+if [ -n "$LATEST_STABLE_PG_VERSION" ];
 then
     cd "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions/"
+	test -e "$LATEST_STABLE_PG_VERSION" || (echo "LATEST_STABLE_PG_VERSION ($LATEST_STABLE_PG_VERSION) does not exist"; exit 1)
     ln -sfh ${LATEST_STABLE_PG_VERSION} latest
 fi

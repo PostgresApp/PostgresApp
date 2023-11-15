@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.1.9
 POSTGIS_MAJOR_VERSION=3.1
 
-POSTGRES_VERSION=13.12
+POSTGRES_VERSION=13.13
 POSTGRES_MAJOR_VERSION=13
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1v
+OPENSSL_VERSION=1.1.1w
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
@@ -355,7 +355,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, libjasper, postgresql, libjpeg, libtiff
+# Depends on libproj, libjasper, postgresql, libjpeg, libtiff, libgeos
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -363,10 +363,10 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libgeos.dylib
 	#patch curl version detection for 10.12 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.12.patch
-	cd gdal-$(GDAL_VERSION) && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-sqlite3="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+	cd gdal-$(GDAL_VERSION) && ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-sqlite3="/"
 	touch $@
 
 gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
@@ -543,7 +543,7 @@ plv8: $(PREFIX)/lib/postgresql/plv8.so
 	touch $@
 
 $(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
-	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; make -C plv8-${PLV8_VERSION} install
+	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export PATH=$(PREFIX)/bin:/opt/local/bin:/bin:/usr/bin; make -C plv8-${PLV8_VERSION} install
 
 plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
 	$(TAR) $<

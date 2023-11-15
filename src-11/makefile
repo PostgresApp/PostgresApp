@@ -4,7 +4,7 @@
 POSTGIS_VERSION=2.5.9
 POSTGIS_MAJOR_VERSION=2.5
 
-POSTGRES_VERSION=11.21
+POSTGRES_VERSION=11.22
 POSTGRES_MAJOR_VERSION=11
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1v
+OPENSSL_VERSION=1.1.1w
 
 # http://proj4.org/download.html
 PROJ_VERSION=5.2.0
@@ -348,7 +348,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, libjasper, postgresql, libjpeg, libtiff
+# Depends on libproj, libjasper, postgresql, libjpeg, libtiff, libgeos
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -356,7 +356,7 @@ libgdal: $(PREFIX)/lib/libgdal.dylib
 $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
-gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
+gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/include/json-c/json_object_iterator.h $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjasper.dylib  $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libgeos.dylib
 	cd gdal-$(GDAL_VERSION) && ./configure --prefix="$(PREFIX)" --with-pg="$(PREFIX)/bin/pg_config"  --with-jpeg="$(PREFIX)" --with-jasper="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)"
 	touch $@
 
