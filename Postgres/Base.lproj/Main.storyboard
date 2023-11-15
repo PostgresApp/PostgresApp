@@ -55,7 +55,7 @@
                                                 </popUpButtonCell>
                                                 <connections>
                                                     <binding destination="F90-nP-753" name="content" keyPath="clientAppNames" id="aGW-Xo-aSK"/>
-                                                    <binding destination="KVx-oV-dzR" name="selectedValue" keyPath="values.ClientAppName" previousBinding="aGW-Xo-aSK" id="LeC-Yv-p02"/>
+                                                    <binding destination="trz-dN-oLC" name="selectedValue" keyPath="values.ClientAppName" previousBinding="aGW-Xo-aSK" id="LeC-Yv-p02"/>
                                                 </connections>
                                             </popUpButton>
                                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
@@ -117,7 +117,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="resetAppPermissions:" target="F90-nP-753" id="Egv-pv-hPy"/>
-                                            <binding destination="bOI-k6-hHE" name="enabled" keyPath="values.ClientApplicationPermissions" id="3fe-ge-ol1">
+                                            <binding destination="trz-dN-oLC" name="enabled" keyPath="values.ClientApplicationPermissions" id="3fe-ge-ol1">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSIsNotNil</string>
                                                 </dictionary>
@@ -136,7 +136,7 @@
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="qHA-0W-j7X" name="value" keyPath="values.HideMenuHelperApp" id="WSF-9W-2TW">
+                                            <binding destination="trz-dN-oLC" name="value" keyPath="values.HideMenuHelperApp" id="WSF-9W-2TW">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
@@ -156,7 +156,7 @@
                                                 </dictionary>
                                             </binding>
                                             <binding destination="F90-nP-753" name="hidden" keyPath="launchAgentCheckboxHidden" previousBinding="s8z-qS-LHl" id="8mz-5a-fDv"/>
-                                            <binding destination="IHn-fa-Gdb" name="value" keyPath="values.StartLoginHelper" id="0eb-7I-zwf"/>
+                                            <binding destination="trz-dN-oLC" name="value" keyPath="values.StartLoginHelper" id="0eb-7I-zwf"/>
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="t4V-g8-2uS">
@@ -205,10 +205,6 @@
                     </view>
                 </viewController>
                 <customObject id="PPT-qH-eGw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController id="KVx-oV-dzR"/>
-                <userDefaultsController id="IHn-fa-Gdb"/>
-                <userDefaultsController id="qHA-0W-j7X"/>
-                <userDefaultsController id="bOI-k6-hHE"/>
                 <userDefaultsController id="trz-dN-oLC"/>
             </objects>
             <point key="canvasLocation" x="938" y="226"/>
