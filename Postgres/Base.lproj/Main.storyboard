@@ -631,9 +631,25 @@ IA
                                     </binding>
                                 </connections>
                             </imageView>
+                            <textField hidden="YES" focusRingType="none" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="h4C-V8-1sn">
+                                <rect key="frame" x="18" y="20" width="414" height="166"/>
+                                <textFieldCell key="cell" selectable="YES" title="Normally Postgres.app would show databases here, but the server does not accept passwordless local connections." id="4ky-GB-RnJ">
+                                    <font key="font" metaFont="label"/>
+                                    <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="n71-mI-16p" name="hidden" keyPath="selection.cantConnect" id="Pa5-Gd-9jV">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="leading" secondItem="chP-0M-fyI" secondAttribute="trailing" constant="8" symbolic="YES" id="0H7-Ct-TeX"/>
+                            <constraint firstItem="h4C-V8-1sn" firstAttribute="leading" secondItem="Qf0-xy-oRd" secondAttribute="leading" id="1Dq-zo-Mfi"/>
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" symbolic="YES" id="1PI-17-WIV"/>
                             <constraint firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" constant="20" id="2VZ-2I-6Mv"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="Scd-hP-8Y9" secondAttribute="bottom" constant="8" id="3EL-EL-pxp"/>
@@ -643,6 +659,7 @@ IA
                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="GLd-1a-TYI"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" symbolic="YES" id="LIo-bi-N8O"/>
                             <constraint firstItem="UaU-Bn-2go" firstAttribute="top" secondItem="MYs-NA-b8f" secondAttribute="top" constant="30" id="M45-iy-ELn"/>
+                            <constraint firstItem="h4C-V8-1sn" firstAttribute="trailing" secondItem="Qf0-xy-oRd" secondAttribute="trailing" id="ND1-ne-ygJ"/>
                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="nOw-Qm-BYd" secondAttribute="bottom" constant="50" id="O4B-Da-WRU"/>
                             <constraint firstItem="laV-S9-hSm" firstAttribute="leading" secondItem="ZMb-aL-TmL" secondAttribute="trailing" constant="8" symbolic="YES" id="O7P-L3-G3f"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="top" secondItem="UaU-Bn-2go" secondAttribute="bottom" constant="8" id="OV5-Ig-6P1"/>
@@ -654,6 +671,7 @@ IA
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="8" id="ebC-FL-3FA"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="top" secondItem="8iz-Ak-ysG" secondAttribute="bottom" constant="8" id="gRW-ef-sZK"/>
                             <constraint firstItem="ohd-xG-8rQ" firstAttribute="centerY" secondItem="ZMb-aL-TmL" secondAttribute="centerY" constant="-1" id="gaV-bF-xcm"/>
+                            <constraint firstItem="h4C-V8-1sn" firstAttribute="top" secondItem="EJN-CC-Fqg" secondAttribute="top" id="gpz-is-8aB"/>
                             <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="94" id="iUQ-Be-SZE"/>
                             <constraint firstItem="nOw-Qm-BYd" firstAttribute="centerY" secondItem="chP-0M-fyI" secondAttribute="centerY" constant="-1" id="jfY-Gr-SzP"/>
                             <constraint firstItem="Qf0-xy-oRd" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" constant="20" id="lXX-nh-hjU"/>
@@ -661,6 +679,7 @@ IA
                             <constraint firstAttribute="trailing" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="20" id="rkl-In-o7n"/>
                             <constraint firstItem="ohd-xG-8rQ" firstAttribute="leading" secondItem="chP-0M-fyI" secondAttribute="leading" id="suc-gT-aJu"/>
                             <constraint firstAttribute="bottom" secondItem="EJN-CC-Fqg" secondAttribute="bottom" id="uSk-wQ-rVx"/>
+                            <constraint firstItem="EJN-CC-Fqg" firstAttribute="bottom" secondItem="h4C-V8-1sn" secondAttribute="bottom" constant="20" id="vQB-az-Uqo"/>
                             <constraint firstItem="laV-S9-hSm" firstAttribute="centerY" secondItem="ZMb-aL-TmL" secondAttribute="centerY" id="yAk-Di-aQh"/>
                             <constraint firstItem="EJN-CC-Fqg" firstAttribute="leading" secondItem="MYs-NA-b8f" secondAttribute="leading" id="ywN-FW-4cl"/>
                         </constraints>
