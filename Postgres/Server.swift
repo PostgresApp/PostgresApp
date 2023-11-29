@@ -569,8 +569,13 @@ class Server: NSObject {
 		databases.removeAll()
 		
 #if HAVE_LIBPQ
-		let url = "postgresql://:\(port)"
-		let connection = PQconnectdb(url.cString(using: .utf8))
+		
+		var connection = PQconnectdb("port=\(port)")
+		
+		if PQstatus(connection) != CONNECTION_OK {
+			PQfinish(connection)
+			connection = PQconnectdb("port=\(port) dbname=postgres user=postgres")
+		}
 		
 		if PQstatus(connection) == CONNECTION_OK {
 			let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
