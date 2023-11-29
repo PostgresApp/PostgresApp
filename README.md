@@ -45,7 +45,7 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 15 - 16 are built on macOS 12 with Command Line Tools for Xcode 14
 
-- the GUI is built on macOS 13 with Xcode 14.1
+- the GUI is built on macOS 14 with Xcode 15
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
