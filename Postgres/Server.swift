@@ -106,12 +106,15 @@ class Server: NSObject {
 	
 	@objc dynamic private(set) var busy: Bool = false
 	@objc dynamic private(set) var running: Bool = false
+	@objc dynamic private(set) var cantConnect: Bool = false
 	@objc dynamic private(set) var serverStatus: ServerStatus = .Unknown
 	@objc dynamic private(set) var serverWarning: String? = nil
 	@objc dynamic private(set) var serverWarningButtonTitle: String? = nil
 	@objc dynamic private(set) var serverWarningMessage: String? = nil
 	@objc dynamic private(set) var serverWarningInformativeText: String? = nil
-	@objc dynamic private(set) var databases: [Database] = []
+	@objc dynamic private(set) var databases: [Database] = [] {
+		didSet { cantConnect = false }
+	}
 	@objc dynamic var selectedDatabaseIndices = IndexSet()
 	
 	var firstSelectedDatabase: Database? {
@@ -662,8 +665,13 @@ class Server: NSObject {
 		databases.removeAll()
 		
 #if HAVE_LIBPQ
-		let url = "postgresql://:\(port)"
-		let connection = PQconnectdb(url.cString(using: .utf8))
+		
+		var connection = PQconnectdb("port=\(port)")
+		
+		if PQstatus(connection) != CONNECTION_OK {
+			PQfinish(connection)
+			connection = PQconnectdb("port=\(port) dbname=postgres user=postgres")
+		}
 		
 		if PQstatus(connection) == CONNECTION_OK {
 			let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
@@ -673,6 +681,8 @@ class Server: NSObject {
 				databases.append(Database(name))
 			}
 			PQclear(result)
+		} else {
+			cantConnect = true
 		}
 		PQfinish(connection)
 #endif
