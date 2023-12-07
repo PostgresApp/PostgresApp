@@ -96,14 +96,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	
 	@IBAction func openPostgresApp(_ sender: AnyObject?) {
+		if #available(macOS 14.0, *) {
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.mainApp!.bundleIdentifier!)
+		}
 		mainApp.activate()
 	}
 	
 	@IBAction func openPreferences(_ sender: AnyObject?) {
+		if #available(macOS 14.0, *) {
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.mainApp!.bundleIdentifier!)
+		}
 		mainApp.openPreferences()
 	}
 	
 	@IBAction func checkForUpdates(_ sender: AnyObject?) {
+		if #available(macOS 14.0, *) {
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.mainApp!.bundleIdentifier!)
+		}
 		mainApp.checkForUpdates()
 	}
 	
