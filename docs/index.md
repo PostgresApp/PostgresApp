@@ -206,7 +206,7 @@ DB = Sequel.connect("postgres://localhost/[YOUR_DATABASE_NAME]")
 	<dd>
 		<ol>
 			<li>
-				Download and install the <a href="https://jdbc.postgresql.org/download.html">PostgreSQL JDBC driver</a>
+				Download and install the <a href="https://jdbc.postgresql.org/download/">PostgreSQL JDBC driver</a>
 			</li>
 			<li>
 				Connect to the JDBC URL <tt>jdbc:postgresql://localhost</tt>
