@@ -13,7 +13,7 @@ PGSimpleDataSource dataSource = new PGSimpleDataSource();
 dataSource.setDatabaseName(YOUR_DATABASE_NAME);
 ```
 
-Du kannst den [PostgreSQL JDBC driver](https://jdbc.postgresql.org/download.html) mit [Maven](https://maven.apache.org) installieren:
+Du kannst den [PostgreSQL JDBC driver](https://jdbc.postgresql.org/download/) mit [Maven](https://maven.apache.org) installieren:
 
 ``` xml
 <dependency>
