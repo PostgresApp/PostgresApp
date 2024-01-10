@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.2.5
+POSTGIS_VERSION=3.2.6
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=14.10
@@ -18,7 +18,7 @@ LZ4_VERSION=1.9.4
 GDAL_VERSION=3.3.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.10.5
+GEOS_VERSION=3.10.6
 
 # http://www.ijg.org
 JPEG_VERSION=9e

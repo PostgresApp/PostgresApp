@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.4
+POSTGIS_VERSION=3.3.5
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15.5
@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.5
 GDAL_VERSION=3.5.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.11.2
+GEOS_VERSION=3.11.3
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -99,7 +99,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.11
-PYTHON_VERSION_FULL=3.11.6
+PYTHON_VERSION_FULL=3.11.7
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build

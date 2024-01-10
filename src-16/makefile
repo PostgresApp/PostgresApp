@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.4.0
+POSTGIS_VERSION=3.4.1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=16.1
@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.5
 GDAL_VERSION=3.7.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.12.0
+GEOS_VERSION=3.12.1
 
 # http://www.ijg.org
 JPEG_VERSION=9e
@@ -45,7 +45,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.11.5
+LIBXML2_VERSION=2.11.6
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -103,7 +103,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.0
+PYTHON_VERSION_FULL=3.12.1
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
