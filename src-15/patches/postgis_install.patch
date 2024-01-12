@@ -1,0 +1,12 @@
+--- a/utils/Makefile.in
++++ b/utils/Makefile.in
+@@ -25,6 +25,9 @@
+ PG_CONFIG := @PG_CONFIG@
+ PGXS := @PGXS@
+ include $(PGXS)
++ifneq (@MKDIR_P@,)
++	MKDIR_P = @MKDIR_P@
++endif
+ 
+ VPATH := @srcdir@
+ top_srcdir = @top_srcdir@

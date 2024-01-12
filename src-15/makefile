@@ -864,6 +864,8 @@ postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(P
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
+	# apply fix for 'make install' to fix some PGXS variables being overwritten
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_install.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
