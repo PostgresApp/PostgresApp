@@ -116,8 +116,8 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql postgis wal2json pldebugger
-clean: clean-postgresql clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger
+all: postgresql auth_permission_dialog postgis wal2json pldebugger
+clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
 check: check-postgresql check-libgeos check-arch check-libs check-rpath check-python
@@ -157,6 +157,24 @@ postgresql-$(POSTGRES_VERSION).tar.bz2:
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
+
+
+######################################
+####### auth_permission_dialog #######
+######################################
+
+auth_permission_dialog: $(PREFIX)/lib/postgresql/auth_permission_dialog.so
+	touch $@
+
+$(PREFIX)/lib/postgresql/auth_permission_dialog.so: auth_permission_dialog/Makefile $(PREFIX)/bin/psql
+	make -C auth_permission_dialog
+	make -C auth_permission_dialog install
+
+auth_permission_dialog/Makefile:
+	cp -r ../auth_permission_dialog auth_permission_dialog
+
+clean-auth_permission_dialog:
+	rm -Rf auth_permission_dialog
 
 
 #########################

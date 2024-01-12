@@ -26,4 +26,8 @@ class PreferencesViewController: NSViewController {
 	@objc dynamic var isTranslocated: Bool {
 		Bundle.main.bundlePath.contains("/AppTranslocation/")
 	}
+	
+	@IBAction func resetAppPermissions(_ sender: Any?) {
+		UserDefaults.shared.set(nil, forKey: "ClientApplicationPermissions")
+	}
 }

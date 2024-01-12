@@ -53,6 +53,18 @@ class Server: NSObject {
         }
     }
     var effectiveBinPath: String?
+	var extPath: String {
+		var components = binPath.components(separatedBy: "/")
+		while let last = components.last, last.isEmpty || last == "." {
+			components.removeLast()
+		}
+		if components.last == "bin" {
+			components.removeLast()
+		}
+		components.append("lib")
+		components.append("postgresql")
+		return components.joined(separator: "/")
+	}
 	@objc dynamic var varPath: String = ""
 	@objc dynamic var startOnLogin: Bool = false {
 		didSet {
@@ -246,6 +258,9 @@ class Server: NSObject {
 			}
 			
 		}
+		
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
 	
@@ -264,6 +279,9 @@ class Server: NSObject {
 				self.busy = false
 			}
 		}
+		
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
+		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
     func changePassword(role: String, newPassword: String, _ completion: @escaping (Result<Void, Error>) -> Void) {
@@ -530,6 +548,81 @@ class Server: NSObject {
         return false
     }
 	
+	func authDialogOptions() throws -> [String] {
+		
+		// First make sure the auth permission dialog extension is available
+		if !UserDefaults.standard.bool(forKey: UserDefaults.PermissionDialogForTrustAuthKey) {
+			return []
+		}
+		
+		// First make sure the auth permission dialog extension is available
+		guard FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.dylib")) || FileManager().fileExists(atPath: extPath.appending("/auth_permission_dialog.so")) else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("The auth_permission_dialog extension wasn't found.", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Postgres.app needs this extension to show a permission dialog when an app tries to connect without password.", comment: ""),
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
+		
+		let process = Process()
+		let launchPath = binPath.appending("/postgres")
+		guard FileManager().fileExists(atPath: launchPath) else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("The binaries for this PostgreSQL server were not found.", comment: ""),
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
+		process.launchPath = launchPath
+		process.arguments = [
+			"-D", varPath,
+			"-C",
+			"shared_preload_libraries",
+		]
+		let standardOutputPipe = Pipe()
+		process.standardOutput = standardOutputPipe
+		let errorPipe = Pipe()
+		process.standardError = errorPipe
+		try process.launchAndCheckForRosetta()
+		guard let standardOutputString = String(data: standardOutputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not read PostgreSQL server settings", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Standard output from postgres -C could not be read.", comment: ""),
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
+		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
+		process.waitUntilExit()
+		
+		guard process.terminationStatus == 0 else {
+			let userInfo: [String: Any] = [
+				NSLocalizedDescriptionKey: NSLocalizedString("Could not read PostgreSQL server settings", comment: ""),
+				NSLocalizedRecoverySuggestionErrorKey: errorDescription,
+			]
+			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
+		}
+		
+
+		let oldLibs = standardOutputString.components(separatedBy: ",").map({$0.trimmingCharacters(in: .whitespacesAndNewlines)}).filter { !$0.isEmpty }
+		let newLibs = oldLibs.filter({$0 != "auth_permission_dialog"}) + ["auth_permission_dialog"]
+		let libsvalue = newLibs.joined(separator: ",")
+		
+		guard let newExecutablePath = Bundle.mainApp?.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
+			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not find PostgresPermissionDialog executable"])
+		}
+
+		// quote a value
+		// pg_ctl uses a shell to start postmaster
+		// therefore parameters must be quoted like shell arguments
+		func shqu(_ str: String) -> String {
+			"'" + str.replacingOccurrences(of: "'", with: "'\''") + "'"
+		}
+		
+		return [
+			"-o", "-c shared_preload_libraries=\(shqu(libsvalue))",
+			"-o", "-c auth_permission_dialog.dialog_executable_path=\(shqu(newExecutablePath))"
+		]
+	}
+	
 	
 	/// Checks if the port is in use by another process.
 	private func portInUse() -> Bool {
@@ -598,6 +691,8 @@ class Server: NSObject {
 	
 	// MARK: Sync handlers
 	func startSync() throws {
+		let extraArgs = try authDialogOptions()
+		
 		let process = Process()
 		let launchPath = binPath.appending("/pg_ctl")
 		guard FileManager().fileExists(atPath: launchPath) else {
@@ -612,13 +707,15 @@ class Server: NSObject {
 			"-D", varPath,
 			"-w",
 			"-l", logFilePath,
-			"-o", String("-p \(port)"),
-		]
-		process.standardOutput = Pipe()
+			"-o", "-p \(port)",
+		] + extraArgs
+		let outputPipe = Pipe()
 		let errorPipe = Pipe()
+		process.standardOutput = outputPipe
 		process.standardError = errorPipe
         try process.launchAndCheckForRosetta()
-		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
+		let (_, error) = try readHandlesToEnd(outputPipe.fileHandleForReading, errorPipe.fileHandleForReading)
+		let errorDescription = String(data: error, encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
 		guard process.terminationStatus == 0 else {
@@ -666,6 +763,58 @@ class Server: NSObject {
 		}
 	}
 	
+	func readHandlesToEnd(_ h1: FileHandle, _ h2: FileHandle) throws -> (Data, Data) {
+		typealias resultType = (Data, Data)
+		var result = (Data(), Data())
+		var fds = [
+			pollfd(fd: h1.fileDescriptor, events: Int16(POLLIN), revents: 0),
+			pollfd(fd: h2.fileDescriptor, events: Int16(POLLIN), revents: 0),
+		]
+		var handles = [
+			h1,
+			h2
+		]
+		var resultPaths = [
+			\resultType.0,
+			\resultType.1,
+		]
+		while true {
+			let pollres = poll(&fds, nfds_t(fds.count), -1)
+			if pollres < 0 {
+				let code = Int(errno)
+				let errStr = String(cString: strerror(errno))
+				throw NSError(
+					domain: "com.postgresapp.Postgres2",
+					code: code,
+					userInfo: [
+						NSLocalizedDescriptionKey: "poll() failed: \(errStr)"
+					]
+				)
+			}
+			for i in fds.indices.reversed() {
+				if (fds[i].revents & Int16(POLLIN)) != 0 {
+					let availableData: Data
+					if #available(macOS 10.15.4, *) {
+						availableData = try handles[i].read(upToCount: Int.max) ?? Data()
+					} else {
+						availableData = handles[i].availableData
+					}
+					if availableData.count == 0 {
+						// eof
+						fds.remove(at: i)
+						handles.remove(at: i)
+						resultPaths.remove(at: i)
+					} else {
+						result[keyPath: resultPaths[i]].append(availableData)
+					}
+				}
+			}
+			if fds.isEmpty {
+				break
+			}
+		}
+		return result
+	}
 	
 	func stopSync() throws {
 		let process = Process()
