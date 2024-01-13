@@ -324,17 +324,20 @@ clean-libjpeg:
 libgeos: $(PREFIX)/lib/libgeos.dylib
 	touch $@
 
-$(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/Makefile
-	make -C geos-${GEOS_VERSION} install
+$(PREFIX)/lib/libgeos.dylib: geos-${GEOS_VERSION}/build/Makefile
+	make -C geos-${GEOS_VERSION}/build
+	make -C geos-${GEOS_VERSION}/build install
 
-geos-${GEOS_VERSION}/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
-	cd geos-${GEOS_VERSION} && ./configure --prefix="$(PREFIX)"
+geos-${GEOS_VERSION}/build/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bin/psql
+	cd geos-${GEOS_VERSION}/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
-#geos needs to be patched
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 	$(TAR) geos-${GEOS_VERSION}.tar.bz2
-	/usr/bin/sed -i -e 's/@CFLAGS@$$/@CFLAGS@ -O1/g' geos-${GEOS_VERSION}/src/geom/Makefile.in
-	/usr/bin/sed -i -e 's/@CXXFLAGS@$$/@CXXFLAGS@ -O1/g' geos-${GEOS_VERSION}/src/geom/Makefile.in
+	# geos 3.8.4 misses two files when building with cmake:
+	#  - geos.h: fixed in cb634c8 for geos 3.11 onwards (see #667)
+	#  - libgeos.dylib: fixed in 3.9 branch
+	patch -b -d "geos-${GEOS_VERSION}" -p1 <patches/geos.h.patch
+	mkdir geos-${GEOS_VERSION}/build
 	touch $@
 
 geos-${GEOS_VERSION}.tar.bz2:
