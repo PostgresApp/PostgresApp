@@ -13,7 +13,7 @@
 					<li>PostgreSQL 12.17 with PostGIS 3.0.10</li>
 				</ul>
 				<p>
-					For improved security, Postgres.app 2.7 shows a permission dialog when you connect for the first time.
+					For improved security, Postgres.app now shows a permission prompt when an app attempts to connect for the first time. <a href="https://postgresapp.com/l/app-permissions">More information</a>
 				</p>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
