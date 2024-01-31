@@ -24,7 +24,7 @@ GDAL_VERSION=3.7.3
 GEOS_VERSION=3.12.1
 
 # http://www.ijg.org
-JPEG_VERSION=9e
+JPEG_VERSION=9f
 
 # https://gmplib.org/download/gmp/
 GMP_VERSION=6.3.0
@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.11.6
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.12
+OPENSSL_VERSION=3.0.13
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -79,7 +79,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.40
+LIBPNG_VERSION=1.6.42
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.0

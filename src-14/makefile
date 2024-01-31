@@ -21,7 +21,7 @@ GDAL_VERSION=3.3.3
 GEOS_VERSION=3.10.6
 
 # http://www.ijg.org
-JPEG_VERSION=9e
+JPEG_VERSION=9f
 
 LIBEDIT_VERSION=20130611-3.1
 
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.40
+LIBPNG_VERSION=1.6.42
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
