@@ -37,7 +37,7 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 11 - 12 are built on macOS 10.12 with Xcode 8.3.3
+- the binaries for PostgreSQL 12 are built on macOS 10.12 with Xcode 8.3.3
 
 - the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
 
@@ -45,7 +45,7 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 15 - 16 are built on macOS 12 with Command Line Tools for Xcode 14
 
-- the GUI is built on macOS 14 with Xcode 15
+- the GUI is built on macOS 14 with Xcode 15.0.1
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
@@ -68,7 +68,8 @@ If you want to build your own versions of all the PostgreSQL binaries, you have 
 The directories src-xx each contain a makefile that downloads and builds all the binaries.
 If you have all the prerequisites installed (see below), you can just type `make`.
 
-The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, wal2json, pldebugger and plv8 (till PostgreSQL 13).
+The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, wal2json, pldebugger, 
+plv8 (till PostgreSQL 13), pgvector (starting with PostgreSQL 15) and pgrouting (starting with PostgreSQL 15).
 PostGIS and especially plv8 with all their dependencies take a long time to build, so if you don't need them, type `make postgresql` instead.
 
 The makefile will install all products in `/Applications/Postgres.app/Contents/Versions/xx` (xx is the major version of PostgreSQL).
