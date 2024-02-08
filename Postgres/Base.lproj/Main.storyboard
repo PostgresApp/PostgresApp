@@ -1757,6 +1757,7 @@ Gw
                                 </textFieldCell>
                                 <connections>
                                     <binding destination="u5c-ia-qqM" name="value" keyPath="representedObject.name" id="EOe-XN-8dc"/>
+                                    <binding destination="u5c-ia-qqM" name="fontItalic" keyPath="representedObject.template" id="RhD-Kw-YF5"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -1766,6 +1767,9 @@ Gw
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Qvm-Kq-IOd" secondAttribute="bottom" constant="7" id="Wzr-6q-mZe"/>
                             <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" constant="8" id="y9s-MW-Wga"/>
                         </constraints>
+                        <connections>
+                            <binding destination="u5c-ia-qqM" name="toolTip" keyPath="representedObject.tooltip" id="xJL-PX-UTa"/>
+                        </connections>
                     </view>
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

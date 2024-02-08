@@ -674,11 +674,17 @@ class Server: NSObject {
 		}
 		
 		if PQstatus(connection) == CONNECTION_OK {
-			let result = PQexec(connection, "SELECT datname FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
+			let result = PQexec(connection, "SELECT datname, datistemplate, pg_catalog.shobj_description(oid, 'pg_database'), pg_catalog.pg_size_pretty(pg_catalog.pg_database_size(datname)) FROM pg_database WHERE datallowconn ORDER BY LOWER(datname)")
 			for i in 0..<PQntuples(result) {
 				guard let value = PQgetvalue(result, i, 0) else { continue }
 				let name = String(cString: value)
-				databases.append(Database(name))
+				guard let value = PQgetvalue(result, i, 1) else { continue }
+				let template = (String(cString: value) == "t")
+				guard let value = PQgetvalue(result, i, 2) else { continue }
+				let comment = String(cString: value)
+				guard let value = PQgetvalue(result, i, 3) else { continue }
+				let size = String(cString: value)
+				databases.append(Database(name, template: template, comment: comment, size: size))
 			}
 			PQclear(result)
 		} else {
@@ -1134,10 +1140,21 @@ class Server: NSObject {
 
 class Database: NSObject {
 	@objc dynamic var name: String = ""
+	@objc dynamic var template: Bool = false
+	@objc dynamic var comment: String = ""
+	@objc dynamic var size: String = ""
 	
-	init(_ name: String) {
+	init(_ name: String, template: Bool, comment: String, size: String) {
 		super.init()
 		self.name = name
+		self.template = template
+		self.comment = comment
+		self.size = size
+	}
+	
+	@objc dynamic var tooltip: String? {
+		return "\(self.comment)\nSize: \(self.size)".trimmingCharacters(in: .newlines)
+		//return [self.comment, "Size: \(self.size)"].joined(separator: "\n")
 	}
 }
 
