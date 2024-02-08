@@ -897,9 +897,9 @@ IA
                                         </constraints>
                                     </customView>
                                     <textField hidden="YES" focusRingType="none" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="h4C-V8-1sn">
-                                        <rect key="frame" x="8" y="468" width="434" height="26"/>
+                                        <rect key="frame" x="8" y="462" width="434" height="32"/>
                                         <textFieldCell key="cell" selectable="YES" title="Normally Postgres.app would show databases here, but the server does not accept passwordless local connections." id="4ky-GB-RnJ">
-                                            <font key="font" metaFont="label"/>
+                                            <font key="font" metaFont="message"/>
                                             <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
