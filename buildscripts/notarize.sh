@@ -106,7 +106,7 @@ cat >"$APPCAST_PATH" <<EOF
 $(
 	for v in ${PG_BINARIES_VERSIONS//_/ }
 	do
-		pg_version=$(grep 'PG_VERSION "[^"]*' --only-matching "$PG_BINARIES_DIR"/$v/include/postgresql/server/pg_config.h | cut -c 13-)
+		pg_version=$(grep 'PACKAGE_VERSION "[^"]*' --only-matching "$PG_BINARIES_DIR"/$v/include/postgresql/server/pg_config.h | cut -c 18-)
 		postgis_version=$(grep "default_version = '[^']*"  --only-matching "$PG_BINARIES_DIR"/$v/share/postgresql/extension/postgis.control | cut -c 20-)
 		echo "					<li>PostgreSQL $pg_version with PostGIS $postgis_version</li>"
 	done
