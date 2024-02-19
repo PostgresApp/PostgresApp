@@ -259,8 +259,8 @@ class Server: NSObject {
 			
 		}
 		
-		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
-		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
+		UserDefaults.shared.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
+		UserDefaults.shared.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
 	
@@ -280,8 +280,8 @@ class Server: NSObject {
 			}
 		}
 		
-		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
-		UserDefaults.standard.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
+		UserDefaults.shared.removeObject(forKey: "ClientApplicationPermissionLastDeniedDate")
+		UserDefaults.shared.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
     func changePassword(role: String, newPassword: String, _ completion: @escaping (Result<Void, Error>) -> Void) {
@@ -551,7 +551,7 @@ class Server: NSObject {
 	func authDialogOptions() throws -> [String] {
 		
 		// First make sure the auth permission dialog extension is available
-		if !UserDefaults.standard.bool(forKey: UserDefaults.PermissionDialogForTrustAuthKey) {
+		if !UserDefaults.shared.bool(forKey: UserDefaults.PermissionDialogForTrustAuthKey) {
 			return []
 		}
 		
