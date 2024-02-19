@@ -73,7 +73,8 @@ do {
 			if let policy = client["policy"] as? String {
 				if policy == "allow" {
 					exit(0)
-				} else {
+				}
+				else if policy == "deny" {
 					UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 					UserDefaults.shared.set("Connection attempt from \(topLevelProcess.name) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
 					exit(2)
@@ -121,7 +122,8 @@ catch {
 				if let policy = client["policy"] as? String {
 					if policy == "allow" {
 						exit(0)
-					} else {
+					}
+					else if policy == "deny" {
 						UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 						UserDefaults.shared.set("Connection attempt from \(remoteClientAddr) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
 						exit(2)
