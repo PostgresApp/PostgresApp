@@ -68,6 +68,7 @@ do {
 	}
 	
 	// check user defaults
+	var didFindMatch = false
 	for client in clientApplicationPermissions {
 		if let path = client["path"] as? String, path == topLevelProcess.path {
 			if let policy = client["policy"] as? String {
@@ -79,8 +80,16 @@ do {
 					UserDefaults.shared.set("Connection attempt from \(topLevelProcess.name) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
 					exit(2)
 				}
+				else {
+					didFindMatch = true
+				}
 			}
 		}
+	}
+	if !didFindMatch {
+		// record app without policy in case of timeout or crash
+		clientApplicationPermissions.append(["path":topLevelProcess.path])
+		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 	}
 
 	NSApplication.shared.setActivationPolicy(.accessory)
@@ -102,10 +111,12 @@ do {
 
 	switch result {
 	case .alertFirstButtonReturn:
+		clientApplicationPermissions.removeAll { $0["path"] as? String == topLevelProcess.path }
 		clientApplicationPermissions.append(["path":topLevelProcess.path, "policy": "allow"])
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 		exit(0)
 	default:
+		clientApplicationPermissions.removeAll { $0["path"] as? String == topLevelProcess.path }
 		clientApplicationPermissions.append(["path":topLevelProcess.path, "policy": "deny"])
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 		UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
@@ -117,6 +128,7 @@ catch {
 	// getting process path failed
 	// cehck if it is a remote client
 	if let remoteClientAddr = clientAddr, remoteClientAddr != "::1" && remoteClientAddr !=  "127.0.0.1" {
+		var didFindMatch = false
 		for client in clientApplicationPermissions {
 			if client["address"] as? String == remoteClientAddr {
 				if let policy = client["policy"] as? String {
@@ -128,10 +140,18 @@ catch {
 						UserDefaults.shared.set("Connection attempt from \(remoteClientAddr) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
 						exit(2)
 					}
+					else {
+						didFindMatch = true
+					}
 				}
 			}
 		}
-		
+		if !didFindMatch {
+			// record app without policy in case of timeout or crash
+			clientApplicationPermissions.append(["address":remoteClientAddr])
+			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
+		}
+
 		NSApplication.shared.setActivationPolicy(.accessory)
 		NSApplication.shared.activate(ignoringOtherApps: true)
 
@@ -155,10 +175,12 @@ catch {
 
 		switch result {
 		case .alertFirstButtonReturn:
+			clientApplicationPermissions.removeAll { $0["address"] as? String == remoteClientAddr }
 			clientApplicationPermissions.append(["address":remoteClientAddr, "policy": "allow"])
 			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 			exit(0)
 		default:
+			clientApplicationPermissions.removeAll { $0["address"] as? String == remoteClientAddr }
 			clientApplicationPermissions.append(["address":remoteClientAddr, "policy": "deny"])
 			UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 			UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
