@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,17 +31,17 @@
             <objects>
                 <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="yPx-aT-K8a">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="411"/>
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="412"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Kd-nq-3yy">
-                                <rect key="frame" x="20" y="20" width="380" height="371"/>
+                                <rect key="frame" x="20" y="20" width="380" height="372"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="iUw-28-bFy">
-                                        <rect key="frame" x="0.0" y="342" width="323" height="29"/>
+                                        <rect key="frame" x="0.0" y="334" width="323" height="38"/>
                                         <subviews>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
-                                                <rect key="frame" x="135" y="0.0" width="188" height="26"/>
+                                                <rect key="frame" x="135" y="0.0" width="188" height="35"/>
                                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="menu"/>
@@ -78,7 +78,7 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3cv-TL-lwV">
-                                        <rect key="frame" x="0.0" y="292" width="380" height="34"/>
+                                        <rect key="frame" x="0.0" y="284" width="380" height="34"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ekq-mP-zW1">
                                                 <rect key="frame" x="-2" y="17" width="371" height="18"/>
@@ -109,14 +109,14 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ekq-mP-zW1" secondAttribute="trailing" id="tnK-lK-9Ma"/>
                                         </constraints>
                                     </customView>
-                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="53" horizontalPageScroll="10" verticalLineScroll="53" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aD-1D5">
-                                        <rect key="frame" x="0.0" y="142" width="380" height="134"/>
+                                    <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="53" horizontalPageScroll="10" verticalLineScroll="53" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aD-1D5">
+                                        <rect key="frame" x="0.0" y="142" width="380" height="126"/>
                                         <clipView key="contentView" id="PqE-0w-5WB">
-                                            <rect key="frame" x="1" y="1" width="378" height="132"/>
+                                            <rect key="frame" x="1" y="1" width="378" height="124"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="53" usesAutomaticRowHeights="YES" viewBased="YES" id="6n6-Pi-Za8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="378" height="132"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="378" height="124"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -220,6 +220,9 @@
                                                 </tableView>
                                             </subviews>
                                         </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="125" id="67r-qr-Xt3"/>
+                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="p6G-8a-jJe">
                                             <rect key="frame" x="1" y="119" width="378" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -228,6 +231,13 @@
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
+                                        <connections>
+                                            <binding destination="trz-dN-oLC" name="hidden" keyPath="values.PermissionDialogForTrustAuth" id="ZMe-8r-jNk">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </scrollView>
                                     <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xuP-ZJ-b1l">
                                         <rect key="frame" x="214" y="99" width="173" height="32"/>
@@ -237,6 +247,11 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="resetAppPermissions:" target="F90-nP-753" id="Egv-pv-hPy"/>
+                                            <binding destination="trz-dN-oLC" name="hidden" keyPath="values.PermissionDialogForTrustAuth" previousBinding="3fe-ge-ol1" id="dwn-P2-5iV">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="trz-dN-oLC" name="enabled" keyPath="values.ClientApplicationPermissions" id="3fe-ge-ol1">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSIsNotNil</string>
