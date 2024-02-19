@@ -491,6 +491,7 @@ class Server: NSObject {
 				running = true
 				databases.removeAll()
 				loadDatabases()
+				loadDatabaseDetails()
 				return
 			}
 			else if processPath.hasSuffix("postgres") || processPath.hasSuffix("postmaster") {
@@ -691,6 +692,37 @@ class Server: NSObject {
 			cantConnect = true
 		}
 		PQfinish(connection)
+		
+#endif
+	}
+	
+	/// Retrieves details from all databases.
+	private func loadDatabaseDetails() {
+		
+#if HAVE_LIBPQ
+
+		for database in databases {
+			
+			var connection = PQconnectdb("port=\(port) dbname=\(database.name)")
+			
+			if PQstatus(connection) != CONNECTION_OK {
+				PQfinish(connection)
+				connection = PQconnectdb("port=\(port) dbname=\(database.name) user=postgres")
+			}
+			
+			if PQstatus(connection) == CONNECTION_OK {
+				let result = PQexec(connection, "SELECT string_agg(name, E'\n' ORDER BY name) FROM pg_available_extensions WHERE default_version <> installed_version;")
+				for i in 0..<PQntuples(result) {
+					guard let value = PQgetvalue(result, i, 0) else { continue }
+					let extensionUpgrade = String(cString: value)
+					database.extensionUpgrade = extensionUpgrade
+				}
+				PQclear(result)
+			}
+			PQfinish(connection)
+		
+		}
+		
 #endif
 	}
 	
@@ -1143,6 +1175,7 @@ class Database: NSObject {
 	@objc dynamic var template: Bool = false
 	@objc dynamic var comment: String = ""
 	@objc dynamic var size: String = ""
+	@objc dynamic var extensionUpgrade: String = ""
 	
 	init(_ name: String, template: Bool, comment: String, size: String) {
 		super.init()

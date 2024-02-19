@@ -87,3 +87,12 @@ class ServerStatusStatusMessageTransformer: ValueTransformer {
 		}
 	}
 }
+
+class IsEmptyTransformer: ValueTransformer {
+	override func transformedValue(_ value: Any?) -> Any? {
+		if let stringValue = value as? String {
+			return stringValue.isEmpty
+		}
+		return false
+	}
+}

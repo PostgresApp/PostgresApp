@@ -1760,6 +1760,22 @@ Gw
                                     <binding destination="u5c-ia-qqM" name="fontItalic" keyPath="representedObject.template" id="RhD-Kw-YF5"/>
                                 </connections>
                             </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLc-Q8-f3V">
+                                <rect key="frame" x="5" y="45" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="TDA-Ni-xlD"/>
+                                    <constraint firstAttribute="height" constant="16" id="ZxA-zg-v51"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="caution-icon-color" id="rCb-ny-bs9"/>
+                                <connections>
+                                    <binding destination="u5c-ia-qqM" name="hidden" keyPath="representedObject.extensionUpgrade" id="erO-ri-u2H">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">Postgres.IsEmptyTransformer</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="u5c-ia-qqM" name="toolTip" keyPath="representedObject.extensionUpgrade" id="Hep-N7-bar"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Qvm-Kq-IOd" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="75" id="G93-zC-osj"/>
@@ -1773,6 +1789,7 @@ Gw
                     </view>
                 </collectionViewItem>
                 <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="Di6-vQ-kyG"/>
             </objects>
             <point key="canvasLocation" x="456" y="1143"/>
         </scene>
