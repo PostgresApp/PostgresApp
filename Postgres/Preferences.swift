@@ -30,4 +30,26 @@ class PreferencesViewController: NSViewController {
 	@IBAction func resetAppPermissions(_ sender: Any?) {
 		UserDefaults.shared.set(nil, forKey: "ClientApplicationPermissions")
 	}
+	
+	@IBAction func updateAppPolicy(_ sender: Any?) {
+		guard let popupButton = sender as? NSPopUpButton else {
+			NSSound.beep()
+			return
+		}
+		guard let policy = popupButton.titleOfSelectedItem else {
+			NSSound.beep()
+			return
+		}
+		guard let tableView = popupButton.enclosingScrollView?.documentView as? NSTableView else {
+			NSSound.beep()
+			return
+		}
+		let editedRow = tableView.row(for: popupButton)
+		guard var clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] else {
+			NSSound.beep()
+			return
+		}
+		clientApplicationPermissions[editedRow]["policy"] = policy
+		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
+	}
 }

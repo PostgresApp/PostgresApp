@@ -11,6 +11,7 @@
 		360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961E1DC20EF3005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
+		3630E17C2B839A7E007875A9 /* PreferencesClientCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3630E17B2B839A7E007875A9 /* PreferencesClientCellView.swift */; };
 		3634D7F62954BB2C005CE01C /* BinaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3634D7F52954BB2C005CE01C /* BinaryManager.swift */; };
 		3634D7F82954CD69005CE01C /* ServerManagerExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3634D7F72954CD69005CE01C /* ServerManagerExtras.swift */; };
 		363580AC27503E4B009FC06E /* libpq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 363580AB27503E4B009FC06E /* libpq.a */; };
@@ -129,6 +130,7 @@
 		3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PostgresPermissionDialog; sourceTree = BUILT_PRODUCTS_DIR; };
 		360079712A1B891000CF88B7 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		360E961B1DC20D5E005D8C69 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		3630E17B2B839A7E007875A9 /* PreferencesClientCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesClientCellView.swift; sourceTree = "<group>"; };
 		3634D7F52954BB2C005CE01C /* BinaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryManager.swift; sourceTree = "<group>"; };
 		3634D7F72954CD69005CE01C /* ServerManagerExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerExtras.swift; sourceTree = "<group>"; };
 		363580AB27503E4B009FC06E /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = "src-staticlibs/libpq.a"; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */,
 				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
 				830D62CB1D77297800570BFC /* Preferences.swift */,
+				3630E17B2B839A7E007875A9 /* PreferencesClientCellView.swift */,
 				83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */,
 				8348A1F01DB52E9A0039A024 /* ValueTransformers.swift */,
 				83BB11591DB680DA00772E8D /* DnDArrayController.swift */,
@@ -600,6 +603,7 @@
 				360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */,
 				364E709F26A8398A00D159C9 /* SecondaryLabelColorTextField.swift in Sources */,
 				830B4B281D1C289A00F16762 /* Sidebar.swift in Sources */,
+				3630E17C2B839A7E007875A9 /* PreferencesClientCellView.swift in Sources */,
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsView.swift in Sources */,
