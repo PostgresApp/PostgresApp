@@ -71,6 +71,7 @@ do {
 	var didFindMatch = false
 	for client in clientApplicationPermissions {
 		if let path = client["path"] as? String, path == topLevelProcess.path {
+			didFindMatch = true
 			if let policy = client["policy"] as? String {
 				if policy == "allow" {
 					exit(0)
@@ -79,9 +80,6 @@ do {
 					UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 					UserDefaults.shared.set("Connection attempt from \(topLevelProcess.name) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
 					exit(2)
-				}
-				else {
-					didFindMatch = true
 				}
 			}
 		}
@@ -131,6 +129,7 @@ catch {
 		var didFindMatch = false
 		for client in clientApplicationPermissions {
 			if client["address"] as? String == remoteClientAddr {
+				didFindMatch = true
 				if let policy = client["policy"] as? String {
 					if policy == "allow" {
 						exit(0)
@@ -139,9 +138,6 @@ catch {
 						UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 						UserDefaults.shared.set("Connection attempt from \(remoteClientAddr) denied by Postgres.app settings.", forKey: "ClientApplicationPermissionLastDeniedMessage")
 						exit(2)
-					}
-					else {
-						didFindMatch = true
 					}
 				}
 			}
