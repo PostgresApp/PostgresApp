@@ -31,6 +31,11 @@ class PreferencesClientCellView: NSTableCellView {
 				clientDisplayName = ""
 				clientAppIcon = nil
 			}
+			switch (objectValue as? [String:Any])?["policy"] as? String {
+			case "allow": localizedPolicy = "allow"
+			case "deny": localizedPolicy = "deny"
+			default: localizedPolicy = "ask"
+			}
 		}
 		get {
 			super.objectValue
@@ -39,4 +44,5 @@ class PreferencesClientCellView: NSTableCellView {
 	
 	@objc dynamic var clientAppIcon: NSImage?
 	@objc dynamic var clientDisplayName: String = ""
+	@objc dynamic var localizedPolicy: String = "ask"
 }

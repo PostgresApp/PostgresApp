@@ -157,12 +157,13 @@
                                                                                     <items>
                                                                                         <menuItem title="allow" state="on" id="wJn-Yo-bsi"/>
                                                                                         <menuItem title="deny" id="Ek4-Z0-PH1"/>
+                                                                                        <menuItem title="ask" id="6aH-YK-DUR"/>
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
                                                                             <connections>
                                                                                 <action selector="updateAppPolicy:" target="F90-nP-753" id="nuB-YY-F5d"/>
-                                                                                <binding destination="fsP-qi-mA6" name="selectedValue" keyPath="objectValue.policy" id="DQJ-Xc-v90">
+                                                                                <binding destination="fsP-qi-mA6" name="selectedValue" keyPath="localizedPolicy" id="19s-sD-avt">
                                                                                     <dictionary key="options">
                                                                                         <string key="NSNullPlaceholder">ask</string>
                                                                                     </dictionary>

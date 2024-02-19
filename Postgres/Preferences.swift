@@ -36,9 +36,16 @@ class PreferencesViewController: NSViewController {
 			NSSound.beep()
 			return
 		}
-		guard let policy = popupButton.titleOfSelectedItem else {
+		guard let localizedPolicy = popupButton.titleOfSelectedItem else {
 			NSSound.beep()
 			return
+		}
+		let policy: String?
+		switch localizedPolicy {
+		case "allow": policy = "allow"
+		case "deny": policy = "deny"
+		case "ask": policy = nil
+		default: NSSound.beep(); return
 		}
 		guard let tableView = popupButton.enclosingScrollView?.documentView as? NSTableView else {
 			NSSound.beep()
