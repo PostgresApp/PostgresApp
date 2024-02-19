@@ -13,7 +13,7 @@ struct UnixProcessInfo {
 	let path: String
 
 	var name: String {
-		String(path.split(separator: "/").last!)
+		String(path.split(separator: "/").last ?? "")
 	}
 
 	init(runningProcessWithPid pid: pid_t) throws {
