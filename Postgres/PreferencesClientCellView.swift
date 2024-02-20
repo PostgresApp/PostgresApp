@@ -19,22 +19,22 @@ class PreferencesClientCellView: NSTableCellView {
 				if bundleURL.pathExtension == "app" {
 					let localizedName = try? bundleURL.resourceValues(forKeys: [.localizedNameKey]).localizedName
 					clientDisplayName = localizedName ?? bundleURL.deletingPathExtension().lastPathComponent
-					clientAppIcon = try? bundleURL.resourceValues(forKeys: [.effectiveIconKey]).effectiveIcon as? NSImage
+					clientAppIcon = (try? bundleURL.resourceValues(forKeys: [.effectiveIconKey]).effectiveIcon as? NSImage) ?? (try? url.resourceValues(forKeys: [.effectiveIconKey]).effectiveIcon as? NSImage)
 				} else {
-					clientDisplayName = path.components(separatedBy: "/").last ?? ""
-					clientAppIcon = nil
+					clientDisplayName = url.lastPathComponent
+					clientAppIcon = (try? url.resourceValues(forKeys: [.effectiveIconKey]).effectiveIcon as? NSImage)
 				}
 			} else if let objectValue = objectValue as? [String:Any], let address = objectValue["address"] as? String {
 				clientDisplayName = address
-				clientAppIcon = nil
+				clientAppIcon = NSImage(named: NSImage.networkName)
 			} else {
 				clientDisplayName = ""
 				clientAppIcon = nil
 			}
 			switch (objectValue as? [String:Any])?["policy"] as? String {
-			case "allow": localizedPolicy = "allow"
-			case "deny": localizedPolicy = "deny"
-			default: localizedPolicy = "ask"
+			case "allow": localizedPolicy = "Allow"
+			case "deny": localizedPolicy = "Deny"
+			default: localizedPolicy = "Ask"
 			}
 		}
 		get {
@@ -44,5 +44,5 @@ class PreferencesClientCellView: NSTableCellView {
 	
 	@objc dynamic var clientAppIcon: NSImage?
 	@objc dynamic var clientDisplayName: String = ""
-	@objc dynamic var localizedPolicy: String = "ask"
+	@objc dynamic var localizedPolicy: String = "Ask"
 }
