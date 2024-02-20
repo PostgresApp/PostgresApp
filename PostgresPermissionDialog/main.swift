@@ -97,7 +97,7 @@ do {
     let delegate = HelpDelegate()
     
 	alert.messageText = "“\(topLevelProcess.name)” wants to connect to Postgres.app without using a password"
-	alert.informativeText = "You can reset permissions later in Postgres.app settings."
+	alert.informativeText = "You can change permissions later in Postgres.app settings."
     alert.showsHelp = true
     alert.delegate = delegate
     
@@ -159,7 +159,7 @@ catch {
 			"""
 			Incoming connection from: \(remoteClientAddr)
 			
-			You can reset permissions later in Postgres.app settings.
+			You can change permissions later in Postgres.app settings.
 			"""
 		
 		alert.addButton(withTitle: "OK").keyEquivalent = ""
