@@ -213,7 +213,7 @@
                                                                         </stackView>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K5Q-oY-dPf">
                                                                             <rect key="frame" x="495" y="10" width="45" height="32"/>
-                                                                            <buttonCell key="cell" type="push" title="Inline" bezelStyle="rounded" image="trash" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tT5-WF-j1n">
+                                                                            <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" image="trash" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tT5-WF-j1n">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
@@ -238,6 +238,7 @@
                                                                         <constraint firstItem="K5Q-oY-dPf" firstAttribute="centerY" secondItem="Egy-iu-Eu6" secondAttribute="centerY" id="xQY-vW-1dy"/>
                                                                     </constraints>
                                                                     <connections>
+                                                                        <outlet property="removeButton" destination="K5Q-oY-dPf" id="KFj-0t-MjH"/>
                                                                         <outlet property="textField" destination="8fM-0e-QcQ" id="uuw-yk-2uz"/>
                                                                     </connections>
                                                                 </tableCellView>

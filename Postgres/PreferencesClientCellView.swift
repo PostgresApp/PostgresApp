@@ -45,4 +45,16 @@ class PreferencesClientCellView: NSTableCellView {
 	@objc dynamic var clientAppIcon: NSImage?
 	@objc dynamic var clientDisplayName: String = ""
 	@objc dynamic var localizedPolicy: String = "Ask"
+	
+	@IBOutlet weak var removeButton: NSButton!
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		if #available(macOS 11, *) {
+			// button uses system trash can symbol
+		} else {
+			// trash can symbol not available
+			// use title instead
+			removeButton.imagePosition = .noImage
+		}
+	}
 }
