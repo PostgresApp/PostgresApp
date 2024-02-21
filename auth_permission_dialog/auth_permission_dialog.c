@@ -349,8 +349,8 @@ auth_permission_dialog(Port *port, int status)
 			char *errstr = strerror(errno);
 			ereport(FATAL,
 					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
-					 errdetail("An error occurred while running the helper application"),
-					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) failed: %s", client_display_name_long, command, errstr),
+					 errdetail("An error occurred while running the helper application. For more information see https://postgresapp.com/l/app-permissions/"),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) failed: %s. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, errstr),
 					 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
 		}
 		else if (WIFEXITED(system_st)) {
@@ -360,7 +360,7 @@ auth_permission_dialog(Port *port, int status)
 						(errmsg("Postgres.app rejected %s", authentication_name(port)),
 						 errdetail("You did not allow %s to connect without a password. For more information see https://postgresapp.com/l/app-permissions/", client_display_name),
 						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, exit_st),
-						 errhint("You can reset app permissions in Postgres.app or change pg_hba.conf to require a password")));
+						 errhint("Configure app permissions in Postgres.app settings")));
 			}
 			else if (exit_st == 3) {
 				ereport(FATAL,
@@ -372,8 +372,8 @@ auth_permission_dialog(Port *port, int status)
 			else if (exit_st) {
 				ereport(FATAL,
 						(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
-						 errdetail("An error occurred while running the helper application"),
-						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d.", client_display_name_long, command, exit_st),
+						 errdetail("An error occurred while running the helper application. For more information see https://postgresapp.com/l/app-permissions/"),
+						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, exit_st),
 						 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
 			}
 		}
@@ -382,22 +382,22 @@ auth_permission_dialog(Port *port, int status)
 			ereport(FATAL,
 					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
 					 errdetail("You did not confirm the permission dialog. For more information see https://postgresapp.com/l/app-permissions/"),
-					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d", client_display_name_long, command, termsig),
-					 errhint("When you connect a new application to Postgres.app for the first time, a permission dialog will be shown. By default, you have 1 minute to confirm the connection. If you did not see a dialog, submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, termsig),
+					 errhint("Configure app permissions in Postgres.app settings")));
 		}
 		else if (WIFSIGNALED(system_st)) {
 			int termsig = WTERMSIG(system_st);
 			ereport(FATAL,
 					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
-					 errdetail("An error occurred while running the helper application"),
-					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d", client_display_name_long, command, termsig),
-					 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
+					 errdetail("The helper application terminated with signal %d. For more information see https://postgresapp.com/l/app-permissions/", termsig),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, termsig),
+					 errhint("You may be able to connect by editing app permission in Postgres.app settings. Please report this error to https://github.com/PostgresApp/PostgresApp/issues")));
 		}
 		else {
 			ereport(FATAL,
 					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
-					 errdetail("An error occurred while running the helper application"),
-					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned %d", client_display_name_long, command, system_st),
+					 errdetail("An error occurred while running the helper application. For more information see https://postgresapp.com/l/app-permissions/"),
+					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, system_st),
 					 errhint("Please check the server log and submit an issue to https://github.com/PostgresApp/PostgresApp/issues")));
 		}
 		
