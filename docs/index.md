@@ -269,7 +269,7 @@ int main() {
 			</tr>
 		</table>
 		<p>
-			Now you can use the <a href="https://www.postgresql.org/docs/current/static/libpq.html">libpq C library</a> to connect to PostgreSQL:
+			Now you can use the <a href="https://www.postgresql.org/docs/current/libpq.html">libpq C library</a> to connect to PostgreSQL:
 		</p>
 		<pre><code>let conn = PQconnectdb("postgresql://localhost".cString(using: .utf8))
 if PQstatus(conn) == CONNECTION_OK {

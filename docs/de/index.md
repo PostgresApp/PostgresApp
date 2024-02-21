@@ -267,7 +267,7 @@ int main() {
 				<td><tt>/Applications/Postgres.app/Contents/Versions/latest/lib</tt></td>
 			</tr>
 		</table>
-		<p>Jetztz kannst du auf die <a href="https://www.postgresql.org/docs/current/static/libpq.html">libpq C library</a> zugreifen:</p>
+		<p>Jetzt kannst du auf die <a href="https://www.postgresql.org/docs/current/libpq.html">libpq C library</a> zugreifen:</p>
 		<pre>let conn = PQconnectdb("postgresql://localhost")
 if PQstatus(conn) == CONNECTION_OK {
     let result = PQexec(conn, "SELECT datname FROM pg_database WHERE datallowconn")

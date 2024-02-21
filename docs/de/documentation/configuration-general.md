@@ -25,9 +25,9 @@ Die Standardeinstellung von PostgreSQL erlaubt nur Verbindungen von localhost, u
 Um Verbindungen von anderen Computern zu ermöglichen, musst du den Parameter `listen_address`
 in der Datei `postgresql.conf` ändern. Diese Datei findest du im Datenverzeichnis.
 Mehr Information findest du in der PostgreSQL Dokumentation unter
-[Connections and Authentication](http://www.postgresql.org/docs/current/static/runtime-config-connection.html).
+[Connections and Authentication](https://www.postgresql.org/docs/current/runtime-config-connection.html).
 
-Ausserdem musst du die Datei [`pg_hba.conf`](http://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html) bearbeiten.
+Ausserdem musst du die Datei [`pg_hba.conf`](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html) bearbeiten.
 Hier legst du fest, welche Benutzer von welchen IP-Adressen auf die Datenbank zugreifen können.
 
 Nach Änderungen an diesen Konfigurationsdateien musst du Postgres.app neu starten.

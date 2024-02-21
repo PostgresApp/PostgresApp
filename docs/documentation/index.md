@@ -20,5 +20,5 @@ redirect_from:
 ## Additional Resources
 
 - [PostgreSQL Website](http://www.postgresql.org/) - The source for all of the latest PostgreSQL news and information.
-- [PostgreSQL Docs](http://www.postgresql.org/docs/current/static/index.html) - The canonical reference for everything you need to know about PostgreSQL.
+- [PostgreSQL Docs](https://www.postgresql.org/docs/current/index.html) - The canonical reference for everything you need to know about PostgreSQL.
 - [Postgres Guide](http://postgresguide.com/) - A promising new PostgreSQL resource that reads well and introduces advanced topics in a way that's easy to understand.

@@ -22,9 +22,9 @@ By default, PostgreSQL only allows connections from localhost, and requires no p
 
 If you want to connect to PostgreSQL from a different computer,
 you need to change the `listen_address` parameter in the file `postgresql.conf`,
-which you can find in your data directory (See [Connections and Authentication](http://www.postgresql.org/docs/current/static/runtime-config-connection.html) in the PostgreSQL documentation).
+which you can find in your data directory (See [Connections and Authentication](https://www.postgresql.org/docs/current/runtime-config-connection.html) in the PostgreSQL documentation).
 
-Additionally, you need to edit the [`pg_hba.conf`](http://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html) file to configure which hosts can access the database.
+Additionally, you need to edit the [`pg_hba.conf`](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html) file to configure which hosts can access the database.
 
 Restart Postgres.app after changing these files.
 
