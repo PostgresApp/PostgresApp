@@ -168,7 +168,6 @@ Wenn dir auch der manuelle Start nicht weiter hilft, kannst du versuchen, den Se
 ### Technischer Support
 
 Wenn du Probleme mit Postgres.app hast, findest du Hilfe bei [Github Issues](https://github.com/postgresapp/postgresapp/issues).
-Du kannst auch twittern: [@PostgresApp](https://twitter.com/PostgresApp).
 
 ### Hilf anderen
 
