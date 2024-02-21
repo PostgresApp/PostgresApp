@@ -109,7 +109,7 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ekq-mP-zW1" secondAttribute="trailing" id="tnK-lK-9Ma"/>
                                         </constraints>
                                     </customView>
-                                    <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="53" horizontalPageScroll="10" verticalLineScroll="53" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aD-1D5">
+                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="53" horizontalPageScroll="10" verticalLineScroll="53" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aD-1D5">
                                         <rect key="frame" x="0.0" y="142" width="542" height="132"/>
                                         <clipView key="contentView" id="PqE-0w-5WB">
                                             <rect key="frame" x="1" y="1" width="540" height="130"/>
