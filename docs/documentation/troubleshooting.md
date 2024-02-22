@@ -185,7 +185,7 @@ For debugging, it is often useful to try starting the server manually:
 If you somehow mess up your Postgres.app installation, here's how to start fresh.  
 ***CAUTION: This will delete all your databases, tables and data!***
 
-1. Quit Postgres.app
+1. Quit Postgres.app using the menu item
 2. Open Activity Monitor, see if any processes name `postgres` are running. If so, kill them. Kill the process with the lowest pid first; child processes are respawned automatically after killing them.
 3. Delete the Folder `~/Library/Application Support/Postgres`
 4. Delete all settings using the command: `defaults delete com.postgresapp.Postgres2`

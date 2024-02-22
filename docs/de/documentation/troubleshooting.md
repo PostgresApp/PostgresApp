@@ -5,6 +5,12 @@ title: Fehlerbehebung
 
 ## Fehlerbehebung
 
+### Warnungen
+
+#### Reindexing required / Reindexing recommended
+
+Diese Warnung wird auf [einer eigenen Seite](/l/reindex_warning) (englisch) beschrieben.
+
 ### Häufige Fehlermeldungen
 
 Die folgende Liste enthält alle Fehlermeldungen die bei der Benutzung von Postgres.app auftreten können. 
@@ -159,7 +165,7 @@ Zum Debuggen ist es oft hilfreich, den Server über die Kommandozeile zu starten
 Wenn dir auch der manuelle Start nicht weiter hilft, kannst du versuchen, den Server zurückzusetzen.  
 ***ACHTUNG: Dadurch werden sämtliche Datenbanken, Tabellen und darin enthaltene Daten gelöscht!***
 
-1. Beende Postgres.app
+1. Beende Postgres.app über das Icon in der Menüleiste
 2. Öffne die Aktivitätsanzeige und stelle sicher, dass keine Prozesse namens `postgres` laufen. Fall doch, musst du diese beenden. Dazu muss jener Prozess mit der kleinsten ID gestoppt werden; dadurch werden auch sämtliche Unterprozesse beendet.
 3. Lösche den Ordner `~/Library/Application Support/Postgres`
 4. Setze alle Einstellungen mit diesem Befehl zurück: `defaults delete com.postgresapp.Postgres2`
