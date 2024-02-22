@@ -172,6 +172,12 @@ This error can occur when you delete the data directory while the PostgreSQL ser
 To fix it, kill all PostgreSQL processes or restart your computer.
 Then start a new PostgreSQL server.
 
+#### Postgres.app failed to verify "trust" authentication
+See this [dedicated page](app-permissions.html#postgres-app-failed-to-verify-trust-authentication).
+
+#### Postgres.app rejected "trust" authentication
+See this [dedicated page](app-permissions.html#changing-client-app-permissions)
+
 ### Starting the server manually
 
 For debugging, it is often useful to try starting the server manually:

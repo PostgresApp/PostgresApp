@@ -35,13 +35,14 @@ Changing Client App Permissions
 
 If you change your mind, you can change client permissions in Postgres.app settings:
 
-![Postgres.app Settings](../img/screenshots/postgresapp-settings.png)
-
 1. Open Postgres.app
 2. Choose "Settings" from the "Postgres" menu
-3. Find the app you want to allow or deny, and change the setting in the popup menu
-4. Remove apps from the list by clicking the trash can button (this is equivalent to selecting "Ask" in the popup menu)
-5. Click the "Reset App Permission" button to remove all apps and show the permission dialog again when they make their next connection attempt
+
+![Postgres.app Settings](../img/screenshots/postgresapp-settings.png)
+
+* Find the app you want to allow or deny, and change the setting in the popup menu
+* Remove apps from the list by clicking the trash can button (this is equivalent to selecting "Ask" in the popup menu)
+* Click the "Reset App Permission" button to remove all apps and show the permission dialog again when they make their next connection attempt
 
 Unknown Processes
 -----------------
@@ -50,8 +51,7 @@ In some cases, Postgres.app might not be able to identify the source of a connec
 
 If that happens, Postgres.app automatically blocks the passwordless authentication attempt. A warning is shown in the UI, and a message is written to the PostgreSQL server log.
 
-To allow these unknown processes to connect to Postgres.app, we recommend to configure password authentication.
-
+To allow these unknown processes to connect to Postgres.app, we recommend to [configure password authentication](install.html#protecting-postgresql-with-a-password).
 
 "Postgres.app failed to verify trust authentication"
 ----------------------------------------------------
@@ -69,12 +69,12 @@ Postgres.app 2.7.2 and later let you to approve the app in Postgres.app settings
 2. Choose "Settings" from the "Postgres" menu
 3. Find the problematic app in the list, and select "Allow" from the popup menu
 
-If the app does not appear in the list, please submit an issue to https://github.com/PostgresApp/PostgresApp/issues
+If the app does not appear in the list, please submit an [issue](https://github.com/PostgresApp/PostgresApp/issues).
 
 Disabling Permission Dialogs
 ----------------------------
 
-This will reduce the security of your Mac. We recommend to configure password authentication instead of disabling permission dialogs.
+This will reduce the security of your Mac. We recommend to [configure password authentication](install.html#protecting-postgresql-with-a-password) instead of disabling permission dialogs.
 
 You can disable the permission dialogs in Postgres.app settings:
 

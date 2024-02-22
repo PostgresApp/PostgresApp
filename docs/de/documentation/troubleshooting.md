@@ -145,7 +145,8 @@ Dieser Fehler kann auftreten, wenn du das Datenverzeichnis löscht, während der
 Bitte stoppe alle `postgres`-Prozesse. Am einfachsten geht das in dem du den Computer neu startest.
 Dann starte einen neuen PostgreSQL Server.
 
-
+#### Postgres.app failed to verify "trust" authentication / Postgres.app rejected "trust" authentication
+Dieser Fehler ist auf [einer eigenen Seite](l/app-permissions) (englisch) beschrieben.
 
 ### Manuelles Starten des Servers
 
