@@ -152,7 +152,7 @@ Bitte stoppe alle `postgres`-Prozesse. Am einfachsten geht das in dem du den Com
 Dann starte einen neuen PostgreSQL Server.
 
 #### Postgres.app failed to verify "trust" authentication / Postgres.app rejected "trust" authentication
-Dieser Fehler ist auf [einer eigenen Seite](l/app-permissions) (englisch) beschrieben.
+Dieser Fehler ist auf [einer eigenen Seite](/l/app-permissions) (englisch) beschrieben.
 
 ### Manuelles Starten des Servers
 

@@ -24,9 +24,9 @@ If you click "OK", then Postgres.app will allow the app to connect. Your choice 
 
 If you click "Don't Allow", then Postgres.app will refuse the connection. The client app will show a warning similar to the following:
 
-> connection to server at "localhost" (::1), port 5432 failed: FATAL:  Postgres.app rejected "trust" authentication  
-> DETAIL:  You did not allow Postico to connect without a password. For more information see https://postgresapp.com/l/app-permissions/  
-> HINT:  Configure app permissions in Postgres.app settings
+    connection to server at "localhost" (::1), port 5432 failed: FATAL:  Postgres.app rejected "trust" authentication  
+    DETAIL:  You did not allow Postico to connect without a password. For more information see https://postgresapp.com/l/app-permissions/  
+    HINT:  Configure app permissions in Postgres.app settings
 
 Additionally, denied connection attempts are shown in the main window of Postgres.app.
 
