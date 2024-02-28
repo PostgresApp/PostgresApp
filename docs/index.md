@@ -134,7 +134,7 @@ while ($row = pg_fetch_row($result)) {
 			<p>
 				To connect to postgres from Golang, you can download this library.
 			</p>
-			<pre><code>go get github.com/lib/pq</code></pre>
+			<pre><code>go get github.com/jackc/pgx/v5</code></pre>
 
 			<p>Then you can connect like this: </p>
 
@@ -144,13 +144,13 @@ package main
 import (
   "database/sql"
   "fmt"
-  _ "github.com/lib/pq"
+  _ "github.com/jackc/pgx/v5/stdlib"
 )
 
 func main() {
   dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
     <host>, <port>, <user>, <password>, <dbname>)
-  db, err := sql.Open("postgres", dsn)
+  db, err := sql.Open("pgx", dsn)
   if err != nil {
     panic(err)
   }
