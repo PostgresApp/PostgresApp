@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.0.10
+POSTGIS_VERSION=3.0.11
 POSTGIS_MAJOR_VERSION=3.0
 
 POSTGRES_VERSION=12.18

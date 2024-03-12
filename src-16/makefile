@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.4.1
+POSTGIS_VERSION=3.4.2
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=16.2
@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.1
 BOOST_VERSION=1_83_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.6
+CGAL_VERSION=5.6.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -79,10 +79,10 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.42
+LIBPNG_VERSION=1.6.43
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.5.0
+OPENJPEG_VERSION=2.5.2
 
 # https://github.com/Unidata/netcdf-c/releases
 NETCDF_VERSION=4.9.2
@@ -91,7 +91,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.6.0
+PGVECTOR_VERSION=0.6.1
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -103,7 +103,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.1
+PYTHON_VERSION_FULL=3.12.2
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -641,9 +641,6 @@ $(PREFIX)/lib/libopenjp2.dylib: openjpeg-$(OPENJPEG_VERSION)/build/Makefile
 	make -C openjpeg-$(OPENJPEG_VERSION)/build install
 
 openjpeg-$(OPENJPEG_VERSION)/build/Makefile: openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib
-	#patch to fix a build error. This partially reverts https://github.com/uclouvain/openjpeg/commit/07a454324cfeb431ee3fc3799df522dff252b12b
-	#further analysis and possible upstream fix outstanding.
-	patch -b -d "openjpeg-$(OPENJPEG_VERSION)" -p1 <patches/openjpeg_2.5_tiff.patch
 	cd openjpeg-$(OPENJPEG_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 openjpeg-$(OPENJPEG_VERSION)/CMakeLists.txt: openjpeg-$(OPENJPEG_VERSION).tar.gz
