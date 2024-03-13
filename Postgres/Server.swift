@@ -115,7 +115,11 @@ class Server: NSObject {
 	@objc dynamic private(set) var databases: [Database] = [] {
 		didSet { cantConnect = false }
 	}
-	@objc dynamic var selectedDatabaseIndices = IndexSet()
+	@objc dynamic var selectedDatabaseIndices = IndexSet() {
+		didSet {
+			//print(Thread.callStackSymbols)
+		}
+	}
 	
 	var firstSelectedDatabase: Database? {
 		guard let firstIndex = selectedDatabaseIndices.first else { return nil }
@@ -679,6 +683,9 @@ class Server: NSObject {
 			for i in 0..<PQntuples(result) {
 				guard let value = PQgetvalue(result, i, 0) else { continue }
 				let name = String(cString: value)
+				if name == "postgres" { //NSUserName() {
+					selectedDatabaseIndex = Int(i)
+				}
 				guard let value = PQgetvalue(result, i, 1) else { continue }
 				let template = (String(cString: value) == "t")
 				guard let value = PQgetvalue(result, i, 2) else { continue }
@@ -696,6 +703,9 @@ class Server: NSObject {
 		
 #endif
 		databases = newDatabases
+		if let selectedDatabaseIndex {
+			selectedDatabaseIndices = IndexSet(integer: selectedDatabaseIndex)
+		}
 	}
 	
 	/// Retrieves details from all databases.
