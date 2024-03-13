@@ -489,7 +489,6 @@ class Server: NSObject {
 			if processPath == binPath.appending("/postgres") {
 				serverStatus = .Running
 				running = true
-				databases.removeAll()
 				loadDatabases()
 				loadDatabaseDetails()
 				return
@@ -663,7 +662,8 @@ class Server: NSObject {
 	
 	/// Loads the databases from the servers.
 	private func loadDatabases() {
-		databases.removeAll()
+		var newDatabases = [Database]()
+		var selectedDatabaseIndex: Int?
 		
 #if HAVE_LIBPQ
 		
@@ -685,15 +685,17 @@ class Server: NSObject {
 				let comment = String(cString: value)
 				guard let value = PQgetvalue(result, i, 3) else { continue }
 				let size = String(cString: value)
-				databases.append(Database(name, template: template, comment: comment, size: size))
+				newDatabases.append(Database(name, template: template, comment: comment, size: size))
 			}
 			PQclear(result)
+
 		} else {
 			cantConnect = true
 		}
 		PQfinish(connection)
 		
 #endif
+		databases = newDatabases
 	}
 	
 	/// Retrieves details from all databases.
