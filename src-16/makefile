@@ -152,7 +152,7 @@ all: postgresql auth_permission_dialog postgis wal2json pldebugger pgvector pgro
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-zstd check-libgeos check-libproj check-netcdf check-gmp check-mpfr check-arch check-libs check-rpath check-python
+check: check-postgresql check-zstd check-libgeos check-libproj check-netcdf check-gmp check-mpfr check-pgvector check-arch check-libs check-rpath check-python
 download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz
 
 
@@ -979,6 +979,13 @@ pgvector-${PGVECTOR_VERSION}.tar.gz:
 clean-pgvector:
 	rm -Rf pgvector-${PGVECTOR_VERSION}
 
+check-pgvector:
+	! $(PREFIX)/bin/pg_ctl status -D "$(BUILD_PREFIX)/run" || $(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run"
+	rm -Rf "$(BUILD_PREFIX)/run"
+	$(PREFIX)/bin/initdb -D "$(BUILD_PREFIX)/run" --encoding=UTF-8 --locale=en_US.UTF-8
+	$(PREFIX)/bin/pg_ctl start -D "$(BUILD_PREFIX)/run" -l "$(BUILD_PREFIX)/run/postgresql.log"
+	make -C pgvector-${PGVECTOR_VERSION} installcheck || (ret=$$?; $(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run" && exit $$ret)
+	$(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run"
 
 ##########################
 ####### pgrouting ########
