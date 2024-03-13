@@ -27,6 +27,16 @@ class DatabaseItemView: NSView {
 		}
 	}
 	
+	@IBOutlet weak var representedDatabase: DatabaseItem? {
+		didSet {
+			print("\(representedDatabase)")
+		}
+	}
+	
+	var database: Database? {
+		representedDatabase?.representedObject as? Database
+	}
+	
 	override func draw(_ dirtyRect: NSRect) {
 		let offset = CGFloat(4)
 		if selected {
@@ -51,7 +61,10 @@ class DatabaseItemView: NSView {
 	}
 	
 	private func drawDatabase() {
-		let baseColor = NSColor(calibratedRed: 0.714, green: 0.823, blue: 0.873, alpha: 1)
+		var baseColor = NSColor(calibratedRed: 0.714, green: 0.823, blue: 0.873, alpha: 1)
+		if database?.template == true {
+			baseColor = baseColor.withAlphaComponent(0.3)
+		}
 		let frameColor = baseColor.shadow(withLevel: 0.4)
 		let fillColor = baseColor.highlight(withLevel: 0.7)
 		let lineWidth = CGFloat(1)

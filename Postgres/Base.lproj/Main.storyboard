@@ -1785,6 +1785,7 @@ Gw
                         </constraints>
                         <connections>
                             <binding destination="u5c-ia-qqM" name="toolTip" keyPath="representedObject.tooltip" id="xJL-PX-UTa"/>
+                            <outlet property="representedDatabase" destination="u5c-ia-qqM" id="yHx-Ja-tIA"/>
                         </connections>
                     </view>
                 </collectionViewItem>
