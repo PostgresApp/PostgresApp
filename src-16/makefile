@@ -97,6 +97,12 @@ PGVECTOR_VERSION=0.7.0
 PGROUTING_VERSION=3.5.1
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
+# https://github.com/plv8/pljs/tags
+PLJS_VERSION=0.8.0
+
+# https://bellard.org/quickjs/
+QUICKJS_VERSION=2024-01-13
+
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=73
 ICU_MINOR_VERSION=2
@@ -148,12 +154,12 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql auth_permission_dialog postgis wal2json pldebugger pgvector pgrouting
-clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting
+all: postgresql auth_permission_dialog postgis wal2json pldebugger pgvector pgrouting pljs
+clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-zstd check-libgeos check-libproj check-netcdf check-gmp check-mpfr check-pgvector check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz
+check: check-postgresql check-zstd check-libgeos check-libproj check-netcdf check-gmp check-mpfr check-pgvector check-pljs check-arch check-libs check-rpath check-python
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
 #########################
@@ -1013,6 +1019,44 @@ pgrouting-$(PGROUTING_VERSION).tar.gz:
 
 clean-pgrouting:
 	rm -Rf pgrouting-$(PGROUTING_VERSION)
+
+
+################
+##### pljs #####
+################
+
+pljs: $(PREFIX)/lib/postgresql/pljs.dylib
+	touch $@
+
+$(PREFIX)/lib/postgresql/pljs.dylib: pljs-${PLJS_VERSION}/Makefile $(PREFIX)/bin/psql
+	cd pljs-${PLJS_VERSION} && make
+	make -C pljs-${PLJS_VERSION} install
+
+pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
+	$(TAR) $<
+	# fix an error in 0.8.0 release https://github.com/plv8/pljs/commit/21f22971e325055941440b7983cfd1e3d49d41fe
+	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
+	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
+	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
+	touch $@
+
+pljs-${PLJS_VERSION}.tar.gz:
+	$(CURL) --remote-header-name https://github.com/plv8/pljs/archive/refs/tags/v${PLJS_VERSION}.tar.gz
+	
+quickjs-${QUICKJS_VERSION}.tar.xz:
+	$(CURL) --remote-header-name https://bellard.org/quickjs/quickjs-${QUICKJS_VERSION}.tar.xz
+
+clean-pljs:
+	rm -Rf pljs-${PLJS_VERSION}
+	rm -Rf quickjs-${QUICKJS_VERSION}
+
+check-pljs:
+	! $(PREFIX)/bin/pg_ctl status -D "$(BUILD_PREFIX)/run" || $(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run"
+	rm -Rf "$(BUILD_PREFIX)/run"
+	$(PREFIX)/bin/initdb -D "$(BUILD_PREFIX)/run" --encoding=UTF-8 --locale=en_US.UTF-8
+	$(PREFIX)/bin/pg_ctl start -D "$(BUILD_PREFIX)/run" -l "$(BUILD_PREFIX)/run/postgresql.log"
+	make -C pljs-${PLJS_VERSION} installcheck || (ret=$$?; $(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run" && exit $$ret)
+	$(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run"
 
 
 #########################
