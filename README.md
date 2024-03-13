@@ -24,6 +24,8 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 - [wal2json](https://github.com/eulerto/wal2json)
 - [pldebugger](https://github.com/EnterpriseDB/pldebugger)
 - [pgvector](https://github.com/pgvector/pgvector) (PostgreSQL 15 and higher)
+- [plv8](https://github.com/plv8/plv8) (PostgreSQL 13 and lower)
+- [pljs](https://github.com/plv8/pljs) (PostgreSQL 14 and higher)
 
 ## How To Build
 
