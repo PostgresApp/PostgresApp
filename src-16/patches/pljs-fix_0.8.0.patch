@@ -1,0 +1,10 @@
+--- a/pljs.control
++++ b/pljs.control
+@@ -1,6 +1,6 @@
+ comment = 'PL/JS trusted procedural language'
+ 
+-default_version = '0.1.0'
++default_version = '0.8.0'
+ module_pathname = '$libdir/pljs'
+ relocatable = false
+ schema = pg_catalog
