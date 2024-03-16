@@ -128,6 +128,64 @@ while ($row = pg_fetch_row($result)) {
 }
 ?></code></pre>
 	</dd>
+
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Golang</dt>
+	<dd>
+			<p>
+				To connect to postgres from Golang, you can download this library.
+			</p>
+			<pre><code>go get github.com/jackc/pgx/v5</code></pre>
+
+			<p>Then you can connect like this: </p>
+
+			<pre><code>
+package main
+
+import (
+  "database/sql"
+  "fmt"
+  _ "github.com/jackc/pgx/v5/stdlib"
+)
+
+func main() {
+  dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
+    <host>, <port>, <user>, <password>, <dbname>)
+  db, err := sql.Open("pgx", dsn)
+  if err != nil {
+    panic(err)
+  }
+  defer db.Close()
+
+  ...
+}
+			</code></pre>
+
+			<p>Be sure to replace the placeholders with your actual connection details.</p>
+
+			<h3>GORM</h3>
+			<p>If you are using <a href="https://gorm.io" target="_blank">GORM</a>, you can connect like this:</p>
+
+			<pre><code>
+package main
+
+import (
+  "gorm.io/driver/postgres"
+  "gorm.io/gorm"
+)
+
+func main() {
+  dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
+    <host>, <port>, <user>, <password>, <dbname>)
+  db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+  if err != nil {
+    panic(err)
+  }
+  defer db.Close()
+
+  ...
+}
+			</code></pre>
+	</dd>
 	
 	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Python</dt>
 	<dd>
