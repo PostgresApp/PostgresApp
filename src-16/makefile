@@ -14,7 +14,7 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 LZ4_VERSION=1.9.4
 
 # https://github.com/facebook/zstd/releases
-ZSTD_VERSION=1.5.5
+ZSTD_VERSION=1.5.6
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
@@ -103,7 +103,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.2
+PYTHON_VERSION_FULL=3.12.3
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
