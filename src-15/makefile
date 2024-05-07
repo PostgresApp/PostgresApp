@@ -943,7 +943,7 @@ pgvector: $(PREFIX)/lib/postgresql/vector.so
 	touch $@
 
 $(PREFIX)/lib/postgresql/vector.so: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
-	make -C pgvector-${PGVECTOR_VERSION}
+	make -C pgvector-${PGVECTOR_VERSION} PG_CFLAGS="-DDISABLE_DISPATCH"
 	make -C pgvector-${PGVECTOR_VERSION} install
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
