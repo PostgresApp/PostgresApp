@@ -542,21 +542,15 @@ clean-postgis:
 ######## PLV8 ############
 ##########################
 
-plv8: $(PREFIX)/lib/postgresql/plv8.so
+plv8: $(PREFIX)/lib/postgresql/plv8-$(PLV8_VERSION).so
 	touch $@
 
-$(PREFIX)/lib/postgresql/plv8.so: plv8-${PLV8_VERSION}/Makefile $(PREFIX)/bin/psql
-	export PGHOME="$(PREFIX)"; export PG_CONFIG="$(PREFIX)/bin/pg_config"; export PATH=$(PREFIX)/bin:/opt/local/bin:/bin:/usr/bin; make -C plv8-${PLV8_VERSION} install
-
-plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
-	$(TAR) $<
-	touch $@
-
-plv8-${PLV8_VERSION}.tar.gz:
-	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
+# Unfortunately building plv8 2.3.15 no longer works on macOS 10.15
+# Therefore, we just use a compiled version which is checked into the repo
+$(PREFIX)/lib/postgresql/plv8-$(PLV8_VERSION).so:
+	cp -R plv8/ $(PREFIX)/
 
 clean-plv8:
-	rm -Rf plv8-${PLV8_VERSION}
 
 
 #########################
