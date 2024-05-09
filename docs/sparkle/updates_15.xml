@@ -6,26 +6,23 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.7.2</title>
+		<title>Postgres.app 2.7.3</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 15.6 with PostGIS 3.3.5</li>
+					<li>PostgreSQL 15.7 with PostGIS 3.3.6</li>
 				</ul>
-				<p>
-					For improved security, Postgres.app now shows a permission prompt when an app attempts to connect for the first time. <a href="https://postgresapp.com/l/app-permissions">More information</a>
-				</p>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 22 Feb 2024 01:42:30 +0100</pubDate>
+		<pubDate>Wed, 08 May 2024 20:28:39 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.2/Postgres-2.7.2-15.dmg"
-		sparkle:version="253"
-		sparkle:shortVersionString="2.7.2"
-		length="104300259"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.3/Postgres-2.7.3-15.dmg"
+		sparkle:version="259"
+		sparkle:shortVersionString="2.7.3"
+		length="104376912"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFESpSPJRVMZbTvEJBQ8ppwcbMvh4AhUAuDxZtsDTRMmkwFsTSICjs6jO+SI="
+		sparkle:dsaSignature="MCwCFGNcWzd+9tBfH7fVh/VnMd730iJkAhQkUKIpnkQjJsij7lDkdSXHqH4C0w=="
 		/>
 		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
 	</item>
