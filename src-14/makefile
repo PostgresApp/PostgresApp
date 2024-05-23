@@ -713,6 +713,8 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	$(TAR) $<
 	# fix an error in 0.8.0 release https://github.com/plv8/pljs/commit/21f22971e325055941440b7983cfd1e3d49d41fe
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
+	# disable a test requiring SRFs that are not yet implemented
+	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-disable_srf_test.patch
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
 	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
 	touch $@
