@@ -65,6 +65,12 @@ OPENJPEG_VERSION=2.4.0
 # https://github.com/EnterpriseDB/pldebugger/tags
 PLDEBUGGER_VERSION=1.4
 
+# https://github.com/plv8/pljs/tags
+PLJS_VERSION=0.8.0
+
+# https://bellard.org/quickjs/
+QUICKJS_VERSION=2024-01-13
+
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=69
 ICU_MINOR_VERSION=1
@@ -116,12 +122,12 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql auth_permission_dialog postgis wal2json pldebugger
-clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger
+all: postgresql auth_permission_dialog postgis wal2json pldebugger pljs
+clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-libgeos check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz
+check: check-postgresql check-libgeos check-pljs check-arch check-libs check-rpath check-python
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
 #########################
@@ -691,7 +697,47 @@ pldebugger-${PLDEBUGGER_VERSION}.tar.gz:
 clean-pldebugger:
 	rm -Rf pldebugger-${PLDEBUGGER_VERSION}
 
+
+################
+##### pljs #####
+################
+
+pljs: $(PREFIX)/lib/postgresql/pljs.so
+	touch $@
+
+$(PREFIX)/lib/postgresql/pljs.so: pljs-${PLJS_VERSION}/Makefile $(PREFIX)/bin/psql
+	cd pljs-${PLJS_VERSION} && make
+	make -C pljs-${PLJS_VERSION} install
+
+pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
+	$(TAR) $<
+	# fix an error in 0.8.0 release https://github.com/plv8/pljs/commit/21f22971e325055941440b7983cfd1e3d49d41fe
+	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
+	# disable a test requiring SRFs that are not yet implemented
+	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-disable_srf_test.patch
+	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
+	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
+	touch $@
+
+pljs-${PLJS_VERSION}.tar.gz:
+	$(CURL) --remote-header-name https://github.com/plv8/pljs/archive/refs/tags/v${PLJS_VERSION}.tar.gz
 	
+quickjs-${QUICKJS_VERSION}.tar.xz:
+	$(CURL) --remote-header-name https://bellard.org/quickjs/quickjs-${QUICKJS_VERSION}.tar.xz
+
+clean-pljs:
+	rm -Rf pljs-${PLJS_VERSION}
+	rm -Rf quickjs-${QUICKJS_VERSION}
+
+check-pljs:
+	! $(PREFIX)/bin/pg_ctl status -D "$(BUILD_PREFIX)/run" || $(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run"
+	rm -Rf "$(BUILD_PREFIX)/run"
+	$(PREFIX)/bin/initdb -D "$(BUILD_PREFIX)/run" --encoding=UTF-8 --locale=en_US.UTF-8
+	$(PREFIX)/bin/pg_ctl start -D "$(BUILD_PREFIX)/run" -l "$(BUILD_PREFIX)/run/postgresql.log"
+	make -C pljs-${PLJS_VERSION} installcheck
+	$(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run" 
+
+
 #########################
 ##### Tests #############
 #########################
