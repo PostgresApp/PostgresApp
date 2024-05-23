@@ -66,7 +66,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.17
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_5
+WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.21.12
@@ -88,6 +88,7 @@ OPENJPEG_VERSION=2.5.2
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/tags
+# not yet compatible with pg17
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
@@ -155,7 +156,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql auth_permission_dialog #postgis wal2json pldebugger pgvector pgrouting pljs
+all: postgresql auth_permission_dialog pgvector wal2json #postgis pldebugger pgrouting pljs
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
