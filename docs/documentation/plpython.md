@@ -30,6 +30,7 @@ Please install the correct version of Python, depending on the PostgreSQL versio
 
 | PostgreSQL Version | Python Version                                                           |
 | ------------------ | ------------------------------------------------------------------------ |
+| PostgreSQL 17      | Python 3.13.x from [python.org](https://www.python.org/downloads/macos/) |
 | PostgreSQL 16      | Python 3.12.x from [python.org](https://www.python.org/downloads/macos/) |
 | PostgreSQL 15      | Python 3.11.x from [python.org](https://www.python.org/downloads/macos/) |
 | PostgreSQL 14      | Python 3.9.x from [python.org](https://www.python.org/downloads/macos/)  |
