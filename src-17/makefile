@@ -156,7 +156,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql auth_permission_dialog pgvector wal2json #postgis pldebugger pgrouting pljs
+all: postgresql auth_permission_dialog pgvector wal2json pljs #postgis pldebugger pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -1040,6 +1040,10 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
 	# disable a test requiring SRFs that are not yet implemented
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-disable_srf_test.patch
+	# make compatible with pg17 ('json' is now keyword, SPI no-op macros removed)
+	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-pg17.patch
+	# make compatible with strict build environment
+	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-strict-compiler.patch
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
 	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
 	touch $@
