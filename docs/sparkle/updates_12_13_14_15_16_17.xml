@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_12_13_14_15_16_17.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 2.7.4</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 12.19 with PostGIS 3.0.11</li>
+					<li>PostgreSQL 13.15 with PostGIS 3.1.11</li>
+					<li>PostgreSQL 14.12 with PostGIS 3.2.7</li>
+					<li>PostgreSQL 15.7 with PostGIS 3.3.6</li>
+					<li>PostgreSQL 16.3 with PostGIS 3.4.2</li>
+					<li>PostgreSQL 17beta1 without PostGIS</li>
+				</ul>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
+			]]>
+		</description>
+		<pubDate>Fri, 24 May 2024 12:43:30 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.4/Postgres-2.7.4-12-13-14-15-16-17.dmg"
+		sparkle:version="263"
+		sparkle:shortVersionString="2.7.4"
+		length="453223217"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFCFWedQJxkC7qG8xQhCxKAjG46ZsAhUAoQqN4IhDAVMeUxv5nf2l2y3upzc="
+		/>
+		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+	</item>
+  </channel>
+</rss>
