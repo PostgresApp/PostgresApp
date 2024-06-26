@@ -20,11 +20,11 @@ Postgres.app is designed to run from /Applications. Beginning with Postgres.app 
 Launching Postgres.app directly from the disk image
 ---------------------------------------------------
 
-It is possible to lauch Postgres.app directly from the disk image, with the limitations above, and two extra limitations:
+It is possible to launch Postgres.app directly from the disk image, with the limitations above, and two extra limitations:
 
 - automatic updates do not work if the app is launched from the disk image
 
-- automatc starting of PostgreSQL servers in the background does not work if the app is launched from the disk image
+- automatic starting of PostgreSQL servers in the background does not work if the app is launched from the disk image
 
 - all the limitations above apply as well
 
