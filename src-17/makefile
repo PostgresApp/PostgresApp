@@ -45,11 +45,12 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.12.7
+# 2.13.x causes errors in check-postgresql
+LIBXML2_VERSION=2.12.8
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.3.0
+OPENSSL_VERSION=3.3.1
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -92,7 +93,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.0
+PGVECTOR_VERSION=0.7.2
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -111,7 +112,7 @@ ICU_MINOR_VERSION=1
 # https://www.python.org/downloads/macos/
 # final release expected 2024-10-01
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.0b1
+PYTHON_VERSION_FULL=3.13.0b2
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -973,7 +974,7 @@ pgvector: $(PREFIX)/lib/postgresql/vector.dylib
 	touch $@
 
 $(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
-	make -C pgvector-${PGVECTOR_VERSION} PG_CFLAGS="-DDISABLE_DISPATCH"
+	make -C pgvector-${PGVECTOR_VERSION}
 	make -C pgvector-${PGVECTOR_VERSION} install
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
