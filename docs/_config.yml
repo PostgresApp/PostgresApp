@@ -52,7 +52,7 @@ extraReleases: [
 		postgresappVersion: "2.7.5",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "17beta1", postgis: null, architecture: "Universal" },
+			{ postgres: "17beta2", postgis: null, architecture: "Universal" },
 		],
 	},
 	{
@@ -66,7 +66,7 @@ extraReleases: [
 		postgresappVersion: "2.7.5",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "17beta1", postgis: null, architecture: "Universal" },
+			{ postgres: "17beta2", postgis: null, architecture: "Universal" },
 			{ postgres: "16.3", postgis: "3.4.2", architecture: "Universal" },
 			{ postgres: "15.7", postgis: "3.3.6", architecture: "Universal" },
 			{ postgres: "14.12", postgis: "3.2.7", architecture: "Universal" },
