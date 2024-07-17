@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.6
 GDAL_VERSION=3.7.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.12.1
+GEOS_VERSION=3.12.2
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -46,7 +46,8 @@ LIBEDIT_VERSION=20130611-3.1
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
 # 2.13.x causes errors in check-postgresql
-LIBXML2_VERSION=2.12.8
+#2.12.9 is save, 2.13.1 mad postgres regression test fail
+LIBXML2_VERSION=2.13.3
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -93,7 +94,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.2
+PGVECTOR_VERSION=0.7.4
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -112,7 +113,7 @@ ICU_MINOR_VERSION=1
 # https://www.python.org/downloads/macos/
 # final release expected 2024-10-01
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.0b2
+PYTHON_VERSION_FULL=3.13.0rc1
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
