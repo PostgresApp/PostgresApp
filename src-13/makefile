@@ -55,7 +55,7 @@ PROTOBUFC_VERSION=1.3.3
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/EnterpriseDB/pldebugger/tags
-PLDEBUGGER_VERSION=1.4
+PLDEBUGGER_VERSION=1.8
 
 # http://site.icu-project.org/download/
 ICU_MAJOR_VERSION=67

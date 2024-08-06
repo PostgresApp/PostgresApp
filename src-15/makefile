@@ -84,7 +84,7 @@ LIBPNG_VERSION=1.6.43
 OPENJPEG_VERSION=2.5.2
 
 # https://github.com/EnterpriseDB/pldebugger/tags
-PLDEBUGGER_VERSION=1.5
+PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
 PGVECTOR_VERSION=0.7.4

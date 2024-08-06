@@ -63,7 +63,7 @@ LIBPNG_VERSION=1.6.43
 OPENJPEG_VERSION=2.4.0
 
 # https://github.com/EnterpriseDB/pldebugger/tags
-PLDEBUGGER_VERSION=1.4
+PLDEBUGGER_VERSION=1.8
 
 # https://github.com/plv8/pljs/tags
 PLJS_VERSION=0.8.0
