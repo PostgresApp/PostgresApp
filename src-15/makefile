@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.6
 GDAL_VERSION=3.5.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.11.3
+GEOS_VERSION=3.11.4
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.13
+OPENSSL_VERSION=3.0.14
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -87,7 +87,7 @@ OPENJPEG_VERSION=2.5.2
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.0
+PGVECTOR_VERSION=0.7.4
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -949,7 +949,7 @@ pgvector: $(PREFIX)/lib/postgresql/vector.so
 	touch $@
 
 $(PREFIX)/lib/postgresql/vector.so: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
-	make -C pgvector-${PGVECTOR_VERSION} PG_CFLAGS="-DDISABLE_DISPATCH"
+	make -C pgvector-${PGVECTOR_VERSION}
 	make -C pgvector-${PGVECTOR_VERSION} install
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz

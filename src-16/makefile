@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.6
 GDAL_VERSION=3.7.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.12.1
+GEOS_VERSION=3.12.2
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -45,11 +45,11 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.11.7
+LIBXML2_VERSION=2.11.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.13
+OPENSSL_VERSION=3.0.14
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -91,7 +91,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.5
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.0
+PGVECTOR_VERSION=0.7.4
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -109,7 +109,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.3
+PYTHON_VERSION_FULL=3.12.4
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -971,7 +971,7 @@ pgvector: $(PREFIX)/lib/postgresql/vector.dylib
 	touch $@
 
 $(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(PREFIX)/bin/psql
-	make -C pgvector-${PGVECTOR_VERSION} PG_CFLAGS="-DDISABLE_DISPATCH"
+	make -C pgvector-${PGVECTOR_VERSION}
 	make -C pgvector-${PGVECTOR_VERSION} install
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
