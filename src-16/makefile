@@ -66,7 +66,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.17
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_5
+WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.21.12
