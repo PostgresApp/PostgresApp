@@ -1038,6 +1038,8 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
 	# disable a test requiring SRFs that are not yet implemented
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-disable_srf_test.patch
+	# use our versioned quickjs instead of attempting to download git head in makefile
+	sed -I '' "s/git submodule/#&/" pljs-${PLJS_VERSION}/Makefile
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
 	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
 	touch $@

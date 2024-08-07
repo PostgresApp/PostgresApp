@@ -1045,6 +1045,8 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-pg17.patch
 	# make compatible with strict build environment
 	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-strict-compiler.patch
+	# use our versioned quickjs instead of attempting to download git head in makefile
+	sed -I '' "s/git submodule/#&/" pljs-${PLJS_VERSION}/Makefile
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
 	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
 	touch $@
