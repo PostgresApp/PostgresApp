@@ -457,15 +457,15 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/GNUMakefile
 	make -C gdal-$(GDAL_VERSION) install
 
 gdal-$(GDAL_VERSION)/GNUMakefile: gdal-$(GDAL_VERSION)/configure  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib
-	#patch curl version detection for <= 10.14 compatibility
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
-	#patch sqlite feature non-detection for macOS
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_sqlite.patch
 	cd gdal-$(GDAL_VERSION) && LDFLAGS="-arch arm64 -arch x86_64" ./configure --prefix="$(PREFIX)" --with-pg=yes  --with-jpeg="$(PREFIX)" --with-libjson-c="$(PREFIX)" --with-proj="$(PREFIX)" --with-png="$(PREFIX)" --with-openjpeg --with-sqlite3="/"
 	touch $@
 
 gdal-$(GDAL_VERSION)/configure: gdal-${GDAL_VERSION}.tar.gz
 	$(TAR) gdal-${GDAL_VERSION}.tar.gz
+	#patch curl version detection for <= 10.14 compatibility
+	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
+	#patch sqlite feature non-detection for macOS
+	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_sqlite.patch
 	touch $@
 
 gdal-${GDAL_VERSION}.tar.gz:
