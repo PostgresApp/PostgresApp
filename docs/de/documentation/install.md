@@ -30,7 +30,7 @@ Natürlich gibt es aber auch [graphische Clients für PostgreSQL](gui-tools.html
 
 ## Postgres.app deinstallieren
 
-1. Postgres.app beenden und in den Papierkorb ziehen
+1. Postgres.app beenden (wenn angezeigt über das Icon in der Menüleiste) und in den Papierkorb ziehen
 2. (Optional) Datenverzeichnisse in den Papierkorb ziehen (Standardort: `~/Library/Application Support/Postgres`)
 4. (Optional) Einstellungen und Konfiguration löschen:  
    `defaults delete com.postgresapp.Postgres2`

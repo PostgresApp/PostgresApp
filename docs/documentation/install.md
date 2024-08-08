@@ -82,9 +82,10 @@ Before you can use them, you need to install them in each database using the `CR
 Postgres.app includes the following extensions:
 
 - PostGIS
-- pgrouting
+- pgRouting
 - pgvector
 - PL/Python [Instructions for PL/Python](plpython.html)
+- PL/JS
 - PL Debugger
 - and most of the contrib extensions
 
@@ -115,7 +116,7 @@ Custom extensions will be removed when updating Postgres.app, so build them agai
 
 ## Uninstalling Postgres.app
 
-1. Quit Postgres.app & drag it to the Trash
+1. Quit Postgres.app (via the menu bar icon if shown) and drag it to the Trash
 2. (Optional) Delete the data directories (default location: `~/Library/Application Support/Postgres`)
 4. (Optional) Delete preferences for Postgres.app by executing the following command:  
    `defaults delete com.postgresapp.Postgres2`
