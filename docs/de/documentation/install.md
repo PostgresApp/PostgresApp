@@ -7,10 +7,8 @@ title: Installation, Upgrade und Deinstallation von Postgres.app
 
 Ziehe Postgres.app einfach in den Ordner Programme um es zu installieren.
 
-Postgres.app muss sich immer im Programme-Ordner befinden (in /Applications, nicht in einem benutzerspezifischen Ordner).
-Ansonsten kann die Code-Signatur nicht überprüft werden.
-Du musst es mit dem Finder in den Programme-Ordner bewegen - verwende nicht das Terminal.
-
+Du kannst Postgres.app auch von anderen Orten starten, dann kann es aber sein, dass 
+[gewisse Funktionalitäten nicht wie gewohnt zur Verfügung stehen](relocation-warning.html).
 
 Wenn du von der Kommandozeile aus arbeiten willst, solltest du deinen `$PATH` konfigurieren. 
 Am einfachsten geht das mit:
@@ -25,17 +23,17 @@ Natürlich gibt es aber auch [graphische Clients für PostgreSQL](gui-tools.html
 
 ### Wichtige Verzeichnise
 
-- Binaries: `/Applications/Postgres.app/Contents/Versions/9.6/bin`
-- Header: `/Applications/Postgres.app/Contents/Versions/9.6/include`
-- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/9.6/lib`
-- Datenverzeichnis (data directory): `~/Library/Application Support/Postgres/var-9.6`
+- Binaries: `/Applications/Postgres.app/Contents/Versions/latest/bin`
+- Header: `/Applications/Postgres.app/Contents/Versions/latest/include`
+- Bibliotheken: `/Applications/Postgres.app/Contents/Versions/latest/lib`
+- Datenverzeichnis (data directory): `~/Library/Application Support/Postgres/var-XX` (XX ist die Major-Version von PostgreSQL)
 
 ## Postgres.app deinstallieren
 
 1. Postgres.app beenden und in den Papierkorb ziehen
-2. Datenverzeichnis in den Papierkorb ziehen (Standardort: `~/Library/Application Support/Postgres/var-9.5`)
-4. Preferences löschen:  
+2. (Optional) Datenverzeichnisse in den Papierkorb ziehen (Standardort: `~/Library/Application Support/Postgres`)
+4. (Optional) Einstellungen und Konfiguration löschen:  
    `defaults delete com.postgresapp.Postgres2`
-5. Konfigurationsdatei für `$PATH` löschen (optional):  
+5. (Optional) Die Konfigurationsdatei für den `$PATH` löschen:  
    `sudo rm /etc/paths.d/postgresapp`
 

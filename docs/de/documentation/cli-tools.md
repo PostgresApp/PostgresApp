@@ -16,8 +16,9 @@ sudo mkdir -p /etc/paths.d &&
 echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 ```
 
-Dieser Befehl erstellt eine Datei, die den Pfad zu den Binaries enthält.
-Alternativ kannst du natürlich auch einfach die Konfiguration in deinem `.profile` vornehmen.
+Dieser Befehl erstellt eine Datei, die den Pfad zu den Binaries enthält. Diese wird beim Starten einer neuen Terminalsitzung in die `$PATH` Umgebungsvariable eingelesen.
+Daher musst du das Terminalfenster schliessen und neu öffnen, damit der Pfad wirksam wird.
+Alternativ kannst du natürlich auch direkt die Konfiguration in deinem `.profile` vornehmen.
 
 Du kannst überprüfen ob der Pfad korrekt konfiguriert ist in dem du den Befehl `which psql` ausführst.
 
