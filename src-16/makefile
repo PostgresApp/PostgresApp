@@ -461,7 +461,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
 	cd gdal-$(GDAL_VERSION)/build && cmake --build .
 	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/netcdf.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
 	#patch curl version detection for <= 10.14 compatibility
 	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
 	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
@@ -664,14 +664,16 @@ clean-openjpeg:
 ####### netcdf #########
 ########################
 
-netcdf: $(PREFIX)/lib/netcdf.dylib
+# Depends on zstd
+
+netcdf: $(PREFIX)/lib/libnetcdf.dylib
 	touch $@
 
-$(PREFIX)/lib/netcdf.dylib: netcdf-c-$(NETCDF_VERSION)/build/Makefile
+$(PREFIX)/lib/libnetcdf.dylib: netcdf-c-$(NETCDF_VERSION)/build/Makefile
 	cmake --build netcdf-c-$(NETCDF_VERSION)/build
 	cmake --build netcdf-c-$(NETCDF_VERSION)/build --target install
 
-netcdf-c-$(NETCDF_VERSION)/build/Makefile: netcdf-c-$(NETCDF_VERSION)/CMakeLists.txt
+netcdf-c-$(NETCDF_VERSION)/build/Makefile: netcdf-c-$(NETCDF_VERSION)/CMakeLists.txt $(PREFIX)/lib/libzstd.dylib
 	# patch to avoid failing tests in cmake built w/o utilities <https://github.com/Unidata/netcdf-c/issues/2794>
 	patch -b -d "netcdf-c-$(NETCDF_VERSION)" -p1 <patches/netcdf-test-utilities.patch
 	cd netcdf-c-$(NETCDF_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_NETCDF_4=OFF -DBUILD_UTILITIES=OFF
