@@ -89,9 +89,8 @@ OPENJPEG_VERSION=2.5.2
 # https://github.com/Unidata/netcdf-c/releases
 NETCDF_VERSION=4.9.2
 
-# https://github.com/EnterpriseDB/pldebugger/tags
-# not yet compatible with pg17
-PLDEBUGGER_VERSION=1.5
+# https://github.com/EnterpriseDB/pldebugger/releases
+PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
 PGVECTOR_VERSION=0.7.4
@@ -158,7 +157,7 @@ export PROTOC protobuf_CFLAGS protobuf_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-all: postgresql auth_permission_dialog pgvector wal2json pljs #postgis pldebugger pgrouting
+all: postgresql auth_permission_dialog pgvector wal2json pljs pldebugger #postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
