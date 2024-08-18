@@ -44,6 +44,12 @@ do
             # added in proj 7.0.0
             cp -a projsync "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
         fi
+        # copy geos binaries
+        if [ -e geosop ]
+        then
+        	# added in geos 3.10
+            cp -a geosop "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
+        fi
         # copy gdal binaries
 		cp -a gdal* nearblack ogr* "${TARGET_VERSIONS_DIR}/${VERSION}/bin/" || test $IGNORE_MISSING_BINARIES # set env var IGNORE_MISSING_BINARIES=1 to ignore this error
         if [ -e testepsg ]

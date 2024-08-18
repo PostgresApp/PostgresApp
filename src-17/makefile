@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.6
 GDAL_VERSION=3.7.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.12.2
+GEOS_VERSION=3.13.0beta1
 
 # http://www.ijg.org
 JPEG_VERSION=9f
