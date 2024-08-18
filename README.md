@@ -94,9 +94,9 @@ At the very least, you need the following:
 
 - Xcode
 - Developer Tools (install with `xcode-select --install`)
-- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14), 3.11.x (PostgreSQL 15) or 3.12.x (PostgreSQL 16)
+- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14), 3.11.x (PostgreSQL 15), 3.12.x (PostgreSQL 16) or 3.13.x (PostgreSQL 17)
 
-For building PostGIS, you also need
+For building PostGIS and its dependencies, you also need
 
 - autoconf
 - automake
@@ -120,7 +120,7 @@ Older versions required a different set of packages for building the docs, pleas
 
 It is also possible to install those using homebrew, at least for PostgreSQL 14 and later:
 
-    brew install automake cmake docbook-xsl libtool pkg-config    
+    brew install automake cmake docbook-xsl m4 pkg-config    
 
 ## Under the Hood
 

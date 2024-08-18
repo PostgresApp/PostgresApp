@@ -117,7 +117,9 @@ PYTHON_VERSION_FULL=3.13.0rc1
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
-PATH=$(PREFIX)/bin:/bin:/usr/bin:/sbin:/opt/local/bin:/opt/homebrew/bin
+# Apple broke their m4 with the XCode CLT 15.3 by removing a symlink in https://github.com/apple-oss-distributions/gm4/commit/385e5936ef3dff223fb774cf2b38752e38c90894
+# To mitigate, we inject homebrew's m4 before Apple's
+PATH=$(PREFIX)/bin:/opt/homebrew/opt/m4/bin:/bin:/usr/bin:/sbin:/opt/local/bin:/opt/homebrew/bin
 PKG_CONFIG_LIBDIR=$(PREFIX)/lib/pkgconfig
 DEVELOPER_DIR=/Library/Developer/CommandLineTools
 
