@@ -55,7 +55,7 @@ OPENSSL_VERSION=3.3.1
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.2.1
+PROJ_VERSION=9.4.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -489,6 +489,7 @@ clean-libgdal:
 ######################
 
 # Depends on postgresql, libtiff
+# Builds against system libcurl and sqlite
 
 libproj: $(PREFIX)/lib/libproj.dylib
 	touch $@
