@@ -18,7 +18,7 @@ ZSTD_VERSION=1.5.6
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.7.3
+GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.13.0beta1
@@ -457,7 +457,8 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos, netcdf
+# Depends on libproj, postgresql, libxml2, openssl, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos, netcdf
+# Links against system libcurl (patched for compatibility with older os)
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -466,7 +467,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
 	cd gdal-$(GDAL_VERSION)/build && cmake --build .
 	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
 	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
 	touch $@
 
