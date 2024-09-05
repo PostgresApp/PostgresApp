@@ -447,7 +447,9 @@ geos-${GEOS_VERSION}.tar.bz2:
 	$(CURL) "http://download.osgeo.org/geos/geos-${GEOS_VERSION}.tar.bz2"
 	
 check-libgeos:
-	make -C geos-${GEOS_VERSION}/build check
+	#circumvent a known test failure on x86_64: https://github.com/libgeos/geos/issues/930
+	[ $$(arch) = 'arm64' ] || make -C geos-${GEOS_VERSION}/build check ARGS="--exclude-regex unit-geom-Envelope"
+	[ $$(arch) != 'arm64' ] || make -C geos-${GEOS_VERSION}/build check
 
 clean-libgeos:
 	rm -Rf geos-${GEOS_VERSION}
