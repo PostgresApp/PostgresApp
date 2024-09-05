@@ -305,7 +305,7 @@ openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
-	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+	$(CURL) "https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz"
 
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"
