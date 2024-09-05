@@ -33,7 +33,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.1
 
 # https://www.boost.org/users/download/
-BOOST_VERSION=1_83_0
+BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=5.6.1
@@ -806,7 +806,7 @@ boost: $(PREFIX)/lib/libboost_system.dylib
 	touch $@
 
 $(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
-	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 install
+	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 address-model=64 toolset=clang install
 	# till we find a way to pass flags controlling to use of RPATHs to cmake through the B2 system, we fix RPATHs manually after installing
 	install_name_tool -id $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libboost_system.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib
