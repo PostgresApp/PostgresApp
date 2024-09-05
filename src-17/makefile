@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.6
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.13.0beta1
+GEOS_VERSION=3.13.0beta2
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -45,13 +45,11 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-# 2.13.x causes errors in check-postgresql
-#2.12.9 is save, 2.13.1 mad postgres regression test fail
 LIBXML2_VERSION=2.13.3
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.3.1
+OPENSSL_VERSION=3.3.2
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
