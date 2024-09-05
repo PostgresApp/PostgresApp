@@ -11,7 +11,7 @@ POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
-LZ4_VERSION=1.9.4
+LZ4_VERSION=1.10.0
 
 # https://github.com/facebook/zstd/releases
 ZSTD_VERSION=1.5.6
