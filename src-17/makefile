@@ -53,7 +53,7 @@ OPENSSL_VERSION=3.3.2
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.4.1
+PROJ_VERSION=9.5.0
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -63,7 +63,7 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-JSONC_VERSION=0.17
+JSONC_VERSION=0.18
 
 # https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_6
@@ -76,7 +76,7 @@ PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*
 PROTOBUFC_VERSION=1.4.1
 
 # http://simplesystems.org/libtiff/
-LIBTIFF_VERSION=4.6.0
+LIBTIFF_VERSION=4.7.0
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.44
@@ -501,7 +501,7 @@ $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/build/Makefile
 	make -C proj-$(PROJ_VERSION)/build install
 
 proj-$(PROJ_VERSION)/build/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
-	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_IPO=ON -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_IPO=ON -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DEMBED_PROJ_DATA_PATH=OFF -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 	
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
