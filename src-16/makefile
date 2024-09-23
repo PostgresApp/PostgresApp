@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.4.2
+POSTGIS_VERSION=3.4.3
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=16.4
@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.11.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.14
+OPENSSL_VERSION=3.0.15
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -79,7 +79,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.43
+LIBPNG_VERSION=1.6.44
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.2
@@ -109,7 +109,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.4
+PYTHON_VERSION_FULL=3.12.6
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
