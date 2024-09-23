@@ -126,7 +126,7 @@ all: postgresql auth_permission_dialog postgis wal2json pldebugger pljs
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-libgeos check-pljs check-arch check-libs check-rpath check-python
+check: check-postgresql check-libgeos check-libtiff check-pljs check-arch check-libs check-rpath check-python
 download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
@@ -337,6 +337,8 @@ clean-libedit:
 #######  libjpeg  #######
 #########################
 
+# used for libgdal, postgis, libtiff
+
 libjpeg: $(PREFIX)/lib/libjpeg.dylib
 	touch $@
 
@@ -522,14 +524,16 @@ clean-protobuf-c:
 ####### libtiff #########
 #########################
 
+# Depends on libjpeg
+
 libtiff: $(PREFIX)/lib/libtiff.dylib
 	touch $@
 
 $(PREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
 	make -C tiff-$(LIBTIFF_VERSION) install
 
-tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure
-	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking
+tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure $(PREFIX)/lib/libjpeg.dylib
+	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-jpeg-include-dir=$(PREFIX)/include --with-jpeg-lib-dir=$(PREFIX)/lib
 	# rename VERSION file as we are on a case-insensitive filesystem and are including the source dir in the build
 	# to avoid including this instead of <version> header
 	# (idea taken from https://gitlab.com/graphviz/graphviz/-/merge_requests/2149)
@@ -546,6 +550,8 @@ tiff-$(LIBTIFF_VERSION).tar.gz:
 clean-libtiff:
 	rm -Rf tiff-$(LIBTIFF_VERSION)
 
+check-libtiff:
+	make -C tiff-$(LIBTIFF_VERSION) check
 
 ########################
 ####### libpng #########
