@@ -68,12 +68,16 @@ JSONC_VERSION=0.18
 # https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_6
 
+# https://github.com/abseil/abseil-cpp/releases
+ABSEIL_VERSION=20240722.0
+
 # https://github.com/protocolbuffers/protobuf/releases
-PROTOBUF_VERSION=3.21.12
-PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*)$$/\1/')
+# protobuf-c 1.5.0 is not compatible with >=26.x yet
+# 25.x is kind of LTS: https://protobuf.dev/support/version-support/
+PROTOBUF_VERSION=25.5
 
 # https://github.com/protobuf-c/protobuf-c/releases
-PROTOBUFC_VERSION=1.4.1
+PROTOBUFC_VERSION=1.5.0
 
 # http://simplesystems.org/libtiff/
 LIBTIFF_VERSION=4.7.0
@@ -138,10 +142,6 @@ ICU_CFLAGS=-I$(PREFIX)/share/icu
 XCODE_PROJECT_FILE=$(CURDIR)/../Postgres.xcodeproj
 EXPORT_ARCHIVE_PATH=~/Documents/postgresapp-archives/$(POSTGRESAPP_VERSION)
 
-PROTOC=$(BUILD_PREFIX)/bin/protoc
-protobuf_CFLAGS=-I$(BUILD_PREFIX)/include -pthread
-protobuf_LIBS=-L$(BUILD_PREFIX)/lib -lprotobuf -pthread
-
 # For some reason PostgreSQL could no longer find DTDs when building docs
 # This change fixes that issue. It doesn't fully work in the configure script,
 # But it does work when building docs as long as we also pass XMLINCLUDE=--catalogs to make
@@ -151,18 +151,17 @@ SGML_CATALOG_FILES=/opt/local/etc/sgml/catalog:/opt/homebrew/etc/xml/catalog
 export XMLLINT SGML_CATALOG_FILES
 
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET CMAKE_OSX_ARCHITECTURES ICU_LIBS ICU_CFLAGS
-export PROTOC protobuf_CFLAGS protobuf_LIBS
 
 # commands used for downloading and extracting sources
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 all: postgresql auth_permission_dialog pgvector wal2json pljs pldebugger postgis pgrouting
-clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
+clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-zstd check-libgeos check-libproj check-libtiff check-netcdf check-gmp check-mpfr check-pgvector check-pljs check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
+check: check-postgresql check-zstd check-libgeos check-libproj check-abseil check-protobuf check-protobuf-c check-libtiff check-netcdf check-gmp check-mpfr check-pgvector check-pljs check-arch check-libs check-rpath check-python
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz abseil-cpp-$(ABSEIL_VERSION).tar.gz protobuf-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
 #########################
@@ -548,24 +547,67 @@ clean-json-c:
 	rm -Rf json-c-$(JSONC_VERSION)
 
 
-#########################
-###### protobuf-cpp #####
-#########################
+####################
+###### abseil ######
+####################
 
-$(BUILD_PREFIX)/bin/protoc: protobuf-$(PROTOBUF_VERSION)/Makefile
-	make -C protobuf-$(PROTOBUF_VERSION) install
+# used for: protbuf
 
-protobuf-$(PROTOBUF_VERSION)/Makefile: protobuf-$(PROTOBUF_VERSION)/configure
-	cd protobuf-$(PROTOBUF_VERSION) && ./configure --prefix="$(BUILD_PREFIX)"
+abseil: $(BUILD_PREFIX)/lib/libabsl_base.a
 
-protobuf-$(PROTOBUF_VERSION)/configure: protobuf-cpp-$(PROTOBUF_VERSION).tar.gz
-	$(TAR) protobuf-cpp-$(PROTOBUF_VERSION).tar.gz
+$(BUILD_PREFIX)/lib/libabsl_base.a: abseil-cpp-$(ABSEIL_VERSION)/build/Makefile
+	make -C abseil-cpp-$(ABSEIL_VERSION)/build
+	make -C abseil-cpp-$(ABSEIL_VERSION)/build install
+
+abseil-cpp-$(ABSEIL_VERSION)/build/Makefile: abseil-cpp-$(ABSEIL_VERSION)/configure
+	cd abseil-cpp-$(ABSEIL_VERSION)/build && ABSL_ROOT_DIR= cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$(BUILD_PREFIX)" -DABSL_ENABLE_INSTALL=ON -DCMAKE_INSTALL_PREFIX="$(BUILD_PREFIX)" -DABSL_BUILD_TESTING=OFF -DCMAKE_CXX_STANDARD=17 -DABSL_PROPAGATE_CXX_STD=ON
+
+abseil-cpp-$(ABSEIL_VERSION)/configure: abseil-cpp-$(ABSEIL_VERSION).tar.gz
+	$(TAR) abseil-cpp-$(ABSEIL_VERSION).tar.gz
+	mkdir abseil-cpp-$(ABSEIL_VERSION)/build
 	touch $@
 
-protobuf-cpp-$(PROTOBUF_VERSION).tar.gz:
-	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION_MINOR)/protobuf-cpp-$(PROTOBUF_VERSION).tar.gz"
+abseil-cpp-$(ABSEIL_VERSION).tar.gz:
+	$(CURL) "https://github.com/abseil/abseil-cpp/releases/download/$(ABSEIL_VERSION)/abseil-cpp-$(ABSEIL_VERSION).tar.gz"
 
-clean-protobuf-cpp:
+check-abseil:
+	#requires gtest, remove -DABSL_BUILD_TESTING=OFF
+	#make -C abseil-cpp-$(ABSEIL_VERSION)/build test
+
+clean-abseil:
+	rm -Rf abseil-cpp-$(ABSEIL_VERSION)
+
+
+######################
+###### protobuf ######
+######################
+
+# Depends on abseil
+# used for: protobuf-c
+
+protobuf: $(BUILD_PREFIX)/bin/protoc
+
+$(BUILD_PREFIX)/bin/protoc: protobuf-$(PROTOBUF_VERSION)/build/Makefile
+	make -C protobuf-$(PROTOBUF_VERSION)/build
+	make -C protobuf-$(PROTOBUF_VERSION)/build install
+
+protobuf-$(PROTOBUF_VERSION)/build/Makefile: protobuf-$(PROTOBUF_VERSION)/configure $(BUILD_PREFIX)/lib/libabsl_base.a
+	cd protobuf-$(PROTOBUF_VERSION)/build && cmake .. -DCMAKE_PREFIX_PATH="$(BUILD_PREFIX)" -Dprotobuf_ABSL_PROVIDER=package -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(BUILD_PREFIX)" -Dprotobuf_BUILD_TESTS=OFF -DCMAKE_CXX_STANDARD=17
+
+
+protobuf-$(PROTOBUF_VERSION)/configure: protobuf-$(PROTOBUF_VERSION).tar.gz
+	$(TAR) protobuf-$(PROTOBUF_VERSION).tar.gz
+	mkdir protobuf-$(PROTOBUF_VERSION)/build
+	touch $@
+
+protobuf-$(PROTOBUF_VERSION).tar.gz:
+	$(CURL) "https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION)/protobuf-$(PROTOBUF_VERSION).tar.gz"
+
+check-protobuf:
+	#requires gtest, remove -Dprotobuf_BUILD_TESTS=OFF
+	#make -C protobuf-$(PROTOBUF_VERSION)/build test
+
+clean-protobuf:
 	rm -Rf protobuf-$(PROTOBUF_VERSION)
 
 
@@ -573,7 +615,7 @@ clean-protobuf-cpp:
 ###### protobuf-c #######
 #########################
 
-# Depends on protobuf-cpp
+# Depends on protobuf
 
 protobuf-c: $(PREFIX)/lib/libprotobuf-c.dylib
 
@@ -581,7 +623,7 @@ $(PREFIX)/lib/libprotobuf-c.dylib: protobuf-c-$(PROTOBUFC_VERSION)/Makefile
 	make -C protobuf-c-$(PROTOBUFC_VERSION) install
 
 protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/configure $(BUILD_PREFIX)/bin/protoc
-	cd protobuf-c-$(PROTOBUFC_VERSION) && ./configure --prefix="$(PREFIX)"
+	cd protobuf-c-$(PROTOBUFC_VERSION) && PKG_CONFIG_PATH="$(PKG_CONFIG_LIBDIR):$(BUILD_PREFIX)/lib/pkgconfig" ./configure --prefix="$(PREFIX)"
 
 protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
 	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
@@ -589,6 +631,9 @@ protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.g
 
 protobuf-c-$(PROTOBUFC_VERSION).tar.gz:
 	$(CURL) "https://github.com/protobuf-c/protobuf-c/releases/download/v$(PROTOBUFC_VERSION)/protobuf-c-$(PROTOBUFC_VERSION).tar.gz"
+
+check-protobuf-c:
+	make -C protobuf-c-$(PROTOBUFC_VERSION) check
 
 clean-protobuf-c:
 	rm -Rf protobuf-c-$(PROTOBUFC_VERSION)
@@ -1105,10 +1150,10 @@ check-libs:
 # This checks if the built executables and libraries do not link shared libraries
 # from macports or homebrew:
 # Find all files that are executable, check if the output of otool -L contains
-# /local or /opt (errors are ignored), produce output by executing otool -L again.
+# /local, /opt or build/ (errors are ignored), produce output by executing otool -L again.
 	find $(PREFIX) \
 		-type f -perm -u+x \
-		-exec sh -c 'otool -L "$$0" | grep --silent -e "/local" -e "/opt"' {} \; \
+		-exec sh -c 'otool -L "$$0" | grep --silent -e "/local" -e "/opt" -e "build/"' {} \; \
 		-exec otool -L {} \;
 
 check-rpath:
