@@ -1,4 +1,5 @@
-POSTGRES_VERSION=15.1
+POSTGRES_VERSION=17.0
+POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 # compiler options
 MACOSX_DEPLOYMENT_TARGET=10.13
@@ -37,14 +38,14 @@ libpq.a: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	cp postgresql-$(POSTGRES_VERSION)/src/interfaces/libpq/libpq.a postgresql-$(POSTGRES_VERSION)/src/port/libpgport.a postgresql-$(POSTGRES_VERSION)/src/common/libpgcommon.a .
 	
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: postgresql-$(POSTGRES_VERSION)/configure 
-	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix=$(CURDIR)/install
+	cd "postgresql-$(POSTGRES_VERSION)" && export PATH="$(PREFIX)/bin:$$PATH" && ./configure --prefix=$(CURDIR)/install --without-icu
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:	
-	$(CURL) "https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.bz2"
+	$(CURL) "$(POSTGRES_DOWNLOAD_URL)/postgresql-$(POSTGRES_VERSION).tar.bz2"
 	
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
