@@ -25,6 +25,7 @@
 		369189BA2A1E3D5F000A3C97 /* UnixProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */; };
 		369189BC2A1E5BE0000A3C97 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		369189BD2A1E7DAD000A3C97 /* PostgresPermissionDialog in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		369B82392CA41842008B994E /* libpgcommon_shlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369B82382CA41842008B994E /* libpgcommon_shlib.a */; };
 		36CC815829E6FF990080B0B4 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */; };
 		36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
 		36D767B32729F1AD00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
@@ -142,6 +143,7 @@
 		3686D3352A963787003389DD /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		369189B92A1E3D5F000A3C97 /* UnixProcessInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnixProcessInfo.swift; sourceTree = "<group>"; };
 		369189BB2A1E3DC1000A3C97 /* PostgresPermissionDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresPermissionDialog-Bridging-Header.h"; sourceTree = "<group>"; };
+		369B82382CA41842008B994E /* libpgcommon_shlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgcommon_shlib.a; path = "src-staticlibs/libpgcommon_shlib.a"; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
 		36EB76A52AC1E55A00580683 /* BundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtensions.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36410839296D7A4A00F79014 /* libpgcommon.a in Frameworks */,
+				369B82392CA41842008B994E /* libpgcommon_shlib.a in Frameworks */,
 				3641083B296D7C2C00F79014 /* libpgport.a in Frameworks */,
 				363580AC27503E4B009FC06E /* libpq.a in Frameworks */,
 				8324D9AA1D9402A10066DCDB /* Sparkle.framework in Frameworks */,
@@ -246,6 +249,7 @@
 				3641083A296D7C2C00F79014 /* libpgport.a */,
 				363580AB27503E4B009FC06E /* libpq.a */,
 				36410838296D7A4A00F79014 /* libpgcommon.a */,
+				369B82382CA41842008B994E /* libpgcommon_shlib.a */,
 				831C84AC1D771B4800FA5F59 /* Sparkle.framework */,
 			);
 			name = Frameworks;
