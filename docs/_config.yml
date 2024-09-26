@@ -20,7 +20,7 @@ release: {
 	postgresqlVersions: [
 		{ postgres: "17.0", postgis: "3.5.0beta1", architecture: "Universal" },
 	],
-},
+}
 
 
 extraReleases: [
