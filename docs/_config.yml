@@ -9,18 +9,19 @@ repository: postgresapp/postgresapp
 
 release: {
 	name: {
-		en: "Postgres.app with PostgreSQL 16 (Universal)", 
-		de: "Postgres.app mit PostgreSQL 16 (Universal)",
+		en: "Postgres.app with PostgreSQL 17 (Universal)", 
+		de: "Postgres.app mit PostgreSQL 17 (Universal)",
 	},
-	size: "115MB",
-	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.6/Postgres-2.7.6-16.dmg",
-	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.6",
-	postgresappVersion: "2.7.6",
+	size: "111MB",
+	downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.8/Postgres-2.7.8-17.dmg",
+	releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.8",
+	postgresappVersion: "2.7.8",
 	postgresappMinSystemVersion: "10.13",
 	postgresqlVersions: [
-		{ postgres: "16.4", postgis: "3.4.2", architecture: "Universal" },
+		{ postgres: "17.0", postgis: "3.5.0beta1", architecture: "Universal" },
 	],
-}
+},
+
 
 extraReleases: [
 	{
@@ -28,14 +29,15 @@ extraReleases: [
 			en: "Postgres.app with all currently supported versions (Universal/Intel)", 
 			de: "Postgres.app mit allen unterstützten Versionen (Universal/Intel)",
 		},
-		size: "396MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.6/Postgres-2.7.6-12-13-14-15-16.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.6",
-		postgresappVersion: "2.7.6",
+		size: "501MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.8/Postgres-2.7.8-12-13-14-15-16-17.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.8",
+		postgresappVersion: "2.7.8",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "16.4", postgis: "3.4.2", architecture: "Universal" },
-			{ postgres: "15.8", postgis: "3.3.6", architecture: "Universal" },
+			{ postgres: "17.0", postgis: "3.5.0beta1", architecture: "Universal" },
+			{ postgres: "16.4", postgis: "3.4.3", architecture: "Universal" },
+			{ postgres: "15.8", postgis: "3.3.7", architecture: "Universal" },
 			{ postgres: "14.13", postgis: "3.2.7", architecture: "Universal" },
 			{ postgres: "13.16", postgis: "3.1.11", plv8: "2.3.15", architecture: "Intel" },
 			{ postgres: "12.20", postgis: "3.0.11", plv8: "2.3.15", architecture: "Intel" },
@@ -43,60 +45,41 @@ extraReleases: [
 	},
 	{
 		name: {
-			en: "Postgres.app with PostgreSQL 17 Beta (Universal)", 
-			de: "Postgres.app mit PostreSQL 17 Beta (Universal)",
+			en: "Postgres.app with PostgreSQL 16 (Universal)", 
+			de: "Postgres.app mit PostgreSQL 16 (Universal)",
 		},
-		size: "112MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.7/Postgres-2.7.7-17.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.7",
-		postgresappVersion: "2.7.7",
+		size: "114MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.8/Postgres-2.7.8-16.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.8",
+		postgresappVersion: "2.7.8",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "17rc1", postgis: "3.5.0alpha2", architecture: "Universal" },
+			{ postgres: "16.4", postgis: "3.4.3", architecture: "Universal" },
 		],
 	},
 	{
 		name: {
-			en: "Postgres.app with all currently supported versions + beta (Universal/Intel)", 
-			de: "Postgres.app mit allen unterstützten Versionen + Beta (Universal/Intel)",
+			en: "Postgres.app with PostgreSQL 15 (Universal)", 
+			de: "Postgres.app mit PostgreSQL 15 (Universal)",
 		},
-		size: "502MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.7/Postgres-2.7.7-12-13-14-15-16-17.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.7",
-		postgresappVersion: "2.7.7",
+		size: "106MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.8/Postgres-2.7.8-15.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.8",
+		postgresappVersion: "2.7.8",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
-			{ postgres: "17rc1", postgis: "3.5.0alpha2", architecture: "Universal" },
-			{ postgres: "16.4", postgis: "3.4.2", architecture: "Universal" },
-			{ postgres: "15.8", postgis: "3.3.6", architecture: "Universal" },
-			{ postgres: "14.13", postgis: "3.2.7", architecture: "Universal" },
-			{ postgres: "13.16", postgis: "3.1.11", plv8: "2.3.15", architecture: "Intel" },
-			{ postgres: "12.20", postgis: "3.0.11", plv8: "2.3.15", architecture: "Intel" },
+			{ postgres: "15.8", postgis: "3.3.7", architecture: "Universal" },
 		],
 	},
-	{
-        name: {
-            en: "Postgres.app with PostgreSQL 15 (Universal)", 
-            de: "Postgres.app mit PostgreSQL 15 (Universal)",
-        },
-        size: "106MB",
-        downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.6/Postgres-2.7.6-15.dmg",
-        releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.6",
-        postgresappVersion: "2.7.6",
-        postgresappMinSystemVersion: "10.13",
-        postgresqlVersions: [
-            { postgres: "15.8", postgis: "3.3.6", architecture: "Universal" },
-        ],
-    },
 	{
 		name: {
 			en: "Postgres.app with PostgreSQL 14 (Universal)", 
 			de: "Postgres.app mit PostreSQL 14 (Universal)",
 		},
 		size: "90MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.6/Postgres-2.7.6-14.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.6",
-		postgresappVersion: "2.7.6",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.8/Postgres-2.7.8-14.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.8",
+		postgresappVersion: "2.7.8",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
 			{ postgres: "14.13", postgis: "3.2.7", architecture: "Universal" },
