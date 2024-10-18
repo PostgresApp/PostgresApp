@@ -6,9 +6,11 @@
 //  Copyright © 2016 postgresapp. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class ClientLauncher: NSObject {
+	
+	static let shared = ClientLauncher()
 	
 	private let scriptPath = "ClientLauncher"
 	
@@ -40,7 +42,120 @@ class ClientLauncher: NSObject {
 		script?.executeAppleEvent(eventDescr, error: &errorDict)
 		
 		if let errorDict = errorDict {
-			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: (errorDict as! [String : Any]))
+			var userInfo = errorDict as! [String : Any]
+			if userInfo[NSLocalizedDescriptionKey] == nil {
+				userInfo[NSLocalizedDescriptionKey] = "Failed to open client application"
+			}
+			if userInfo[NSLocalizedRecoverySuggestionErrorKey] == nil {
+				var suggestion = "Make sure Postgres.app has permission to automate the client application."
+				if let command = parameters?.first {
+					suggestion += "\n\nIf you don't want to give Postgres.app permission, run this command to connect:\n\(command)"
+				}
+				userInfo[NSLocalizedRecoverySuggestionErrorKey] = suggestion
+			}
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: userInfo)
+		}
+	}
+	
+	func prepareClientLauncherButton(button: NSPopUpButton, includeAsk: Bool = true) {
+		let postgresURL = URL(string: "postgres:")!
+		var appURLs = [URL]()
+		if #available(macOS 12, *) {
+			appURLs += NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "com.apple.Terminal")
+			appURLs += NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "com.googlecode.iterm2")
+			appURLs += NSWorkspace.shared.urlsForApplications(toOpen: postgresURL)
+		} else {
+			LSCopyApplicationURLsForBundleIdentifier("com.apple.Terminal" as CFString, nil).map { appURLs += $0.takeRetainedValue() as! [URL] }
+			LSCopyApplicationURLsForBundleIdentifier("com.googlecode.iterm2" as CFString, nil).map { appURLs += $0.takeRetainedValue() as! [URL] }
+			LSCopyApplicationURLsForURL(postgresURL as CFURL, [.viewer,.editor]).map { appURLs += $0.takeRetainedValue() as! [URL] }
+		}
+		var bundleIdentifiers = Set<String>()
+		button.menu?.removeAllItems()
+		var items = [NSMenuItem]()
+		var selectedItem: NSMenuItem?
+		if includeAsk {
+			let askItem = NSMenuItem(title: "Ask every time", action: nil, keyEquivalent: "")
+			items.append(askItem)
+			selectedItem = askItem
+		}
+		items.append(NSMenuItem.separator())
+		for appURL in appURLs {
+			if let bundle = Bundle(url: appURL),
+			   let identifier = bundle.bundleIdentifier
+			{
+				//if bundleIdentifiers.contains(identifier) { continue }
+				bundleIdentifiers.insert(identifier)
+				let localizedName = bundle.localizedInfoDictionary?[kCFBundleNameKey as String] as? String ?? bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? appURL.deletingPathExtension().lastPathComponent
+				let item = NSMenuItem(title: localizedName, action: nil, keyEquivalent: "")
+				let attrTitle = NSMutableAttributedString()
+				if #available(macOS 11, *) {
+					attrTitle.append(NSAttributedString(string: localizedName, attributes: [
+						.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .large)),
+					]))
+
+				} else {
+					attrTitle.append(NSAttributedString(string: localizedName, attributes: [
+						.font: NSFont.systemFont(ofSize: NSFont.systemFontSize),
+					]))
+
+				}
+				attrTitle.append(NSAttributedString(string: "\n" + appURL.path, attributes: [
+					.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+					.foregroundColor: NSColor.secondaryLabelColor
+				]))
+				item.attributedTitle = attrTitle
+				item.representedObject = appURL.path
+				item.image = NSWorkspace.shared.icon(forFile: appURL.path)
+				items.append(item)
+				if appURL.path == UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") {
+					selectedItem = item
+				}
+			}
+		}
+		button.menu?.items = items
+		button.select(selectedItem)
+	}
+	
+	@available(macOS 10.15, *)
+	func launchClient(_ appURL: URL, server: Server, databaseName: String = NSUserName(), userName: String = NSUserName()) async throws {
+		guard let bundle = Bundle(url: appURL) else {
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("The client application was not found at \(appURL.path).", comment: "")])
+		}
+		if let checkPath = bundle.executablePath {
+			// make sure client is allowed to connect without password
+			var clientApplicationPermissions: [[String: Any]]
+			clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] ?? []
+			var isAllowed = false
+			for client in clientApplicationPermissions {
+				if let path = client["path"] as? String, path == checkPath {
+					if let policy = client["policy"] as? String {
+						if policy == "allow" {
+							isAllowed = true
+						}
+					}
+				}
+			}
+			if !isAllowed {
+				clientApplicationPermissions.removeAll { $0["path"] as? String == checkPath }
+				clientApplicationPermissions.append(["path":checkPath, "policy": "allow"])
+				UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
+			}
+		}
+		if bundle.bundleIdentifier == "com.apple.Terminal" {
+			try self.runSubroutine("open_Terminal", parameters: ["\"\(server.binPath)/psql\" -p\(server.port) \"\(databaseName)\""])
+		}
+		else if bundle.bundleIdentifier == "com.googlecode.iterm2" {
+			try self.runSubroutine("open_iTerm", parameters: ["\"\(server.binPath)/psql\" -p\(server.port) \"\(databaseName)\""])
+		}
+		else {
+			var components = URLComponents()
+			components.scheme = "postgres"
+			components.user = userName
+			components.path = "/" + databaseName
+			components.host = "localhost"
+			components.port = Int(server.port)
+			let connectionURL = components.url!
+			try await NSWorkspace.shared.open([connectionURL], withApplicationAt: appURL, configuration: NSWorkspace.OpenConfiguration())
 		}
 	}
 }

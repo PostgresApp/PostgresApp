@@ -44,51 +44,23 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		guard let database = server.firstSelectedDatabase else { return }
 		
-		let clientApp = UserDefaults.standard.object(forKey: "ClientAppName") as? String ?? "Terminal"
-        
-        if clientApp == "Postico" {
-            var urlComponents = URLComponents()
-            urlComponents.scheme = "postico"
-            urlComponents.host = "localhost"
-            urlComponents.port = Int(server.port)
-            urlComponents.path = "/" + database.name
-            let url = urlComponents.url!
-            let success = NSWorkspace.shared.open(url)
-            if !success {
-                let alert = NSAlert()
-                alert.messageText = "Could not open Postico"
-                alert.informativeText = "Please make sure that you have the latest version of Postico installed, or choose a different client in the preferences"
-                if let window = sender?.window {
-                    alert.beginSheetModal(for: window, completionHandler: nil)
-                } else {
-                    alert.runModal()
-                }
-            }
-            return
-        }
-        else if clientApp == "Terminal" || clientApp == "iTerm" {
-            let psql_command = "\"\(server.binPath)/psql\" -p\(server.port) \"\(database.name)\""
-            let routine = "open_"+clientApp
-            do {
-                let launcher = ClientLauncher()
-                try launcher.runSubroutine(routine, parameters: [psql_command])
-            } catch {
-                let alert = NSAlert()
-                alert.messageText = "Could not open \(clientApp)"
-                alert.informativeText =
-                """
-                Make sure that Postgres.app has permission to automate \(clientApp).
-                
-                Alternatively, you can also just execute the following command manually to connect to the database:
-                \(psql_command)
-                """
-                if let window = sender?.window {
-                    alert.beginSheetModal(for: window, completionHandler: nil)
-                } else {
-                    alert.runModal()
-                }
-            }
-        }
+		if let clientApplicationPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") {
+			if #available(macOS 10.15, *) {
+				Task {
+					do {
+						try await ClientLauncher.shared.launchClient(URL(fileURLWithPath: clientApplicationPath), server: server, databaseName: database.name)
+					}
+					catch let error {
+						presentError(error, modalFor: view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+					}
+				}
+			} else {
+				// TODO: Implement
+				NSSound.beep()
+			}
+		} else {
+			performSegue(withIdentifier: "ConnectionDialogSegue", sender: sender)
+		}
 	}
 	
 	@IBAction func warningButtonClicked(_ sender: AnyObject?) {
@@ -104,6 +76,10 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		if let target = segue.destinationController as? SettingsViewController {
 			guard let server = mainWindowModel.firstSelectedServer else { return }
 			target.server = server
+		}
+		if let connectionDialog = segue.destinationController as? ConnectionDialog {
+			guard let server = mainWindowModel.firstSelectedServer else { return }
+			connectionDialog.server = server
 		}
 	}
 	

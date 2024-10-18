@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,20 +31,20 @@
             <objects>
                 <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="yPx-aT-K8a">
-                        <rect key="frame" x="0.0" y="0.0" width="582" height="412"/>
+                        <rect key="frame" x="0.0" y="0.0" width="582" height="439"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Kd-nq-3yy">
-                                <rect key="frame" x="20" y="20" width="542" height="372"/>
+                                <rect key="frame" x="20" y="20" width="542" height="399"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="iUw-28-bFy">
-                                        <rect key="frame" x="0.0" y="340" width="323" height="32"/>
+                                        <rect key="frame" x="0.0" y="356" width="342" height="43"/>
                                         <subviews>
-                                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
-                                                <rect key="frame" x="135" y="0.0" width="78" height="29"/>
-                                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
+                                            <popUpButton verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
+                                                <rect key="frame" x="169" y="-2" width="89" height="47"/>
+                                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="menu"/>
+                                                    <font key="font" metaFont="message"/>
                                                     <menu key="menu" id="3kL-IY-fuZ">
                                                         <items>
                                                             <menuItem title="Item 1" state="on" id="5i1-UV-qpz"/>
@@ -54,13 +54,12 @@
                                                     </menu>
                                                 </popUpButtonCell>
                                                 <connections>
-                                                    <binding destination="F90-nP-753" name="content" keyPath="clientAppNames" id="aGW-Xo-aSK"/>
-                                                    <binding destination="trz-dN-oLC" name="selectedValue" keyPath="values.ClientAppName" previousBinding="aGW-Xo-aSK" id="LeC-Yv-p02"/>
+                                                    <binding destination="trz-dN-oLC" name="selectedObject" keyPath="values.PreferredClientApplicationPath" id="jlI-kK-H2y"/>
                                                 </connections>
                                             </popUpButton>
                                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
-                                                <rect key="frame" x="-2" y="7" width="134" height="16"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Open Databases with" id="edI-G0-pds">
+                                                <rect key="frame" x="-2" y="14" width="170" height="16"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect to databases with:" id="edI-G0-pds">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -74,14 +73,14 @@
                                             <constraint firstItem="9Gf-kd-fUZ" firstAttribute="top" secondItem="iUw-28-bFy" secondAttribute="top" constant="4" id="mWa-bx-H3a"/>
                                             <constraint firstItem="9Gf-kd-fUZ" firstAttribute="leading" secondItem="5a3-Mr-g2e" secondAttribute="trailing" constant="8" symbolic="YES" id="qdi-mY-UoX"/>
                                             <constraint firstItem="9Gf-kd-fUZ" firstAttribute="leading" secondItem="5a3-Mr-g2e" secondAttribute="trailing" constant="8" symbolic="YES" id="xPL-GW-nvf"/>
-                                            <constraint firstItem="9Gf-kd-fUZ" firstAttribute="baseline" secondItem="5a3-Mr-g2e" secondAttribute="baseline" id="y7V-vw-fVK"/>
+                                            <constraint firstItem="9Gf-kd-fUZ" firstAttribute="centerY" secondItem="5a3-Mr-g2e" secondAttribute="centerY" id="y7V-vw-fVK"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3cv-TL-lwV">
-                                        <rect key="frame" x="0.0" y="290" width="380" height="34"/>
+                                        <rect key="frame" x="0.0" y="290" width="380" height="50"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ekq-mP-zW1">
-                                                <rect key="frame" x="-2" y="17" width="371" height="18"/>
+                                                <rect key="frame" x="-2" y="17" width="371" height="34"/>
                                                 <buttonCell key="cell" type="check" title="Ask for permission when apps connect without password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Od5-mz-rAz">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -142,7 +141,7 @@
                                                                             <rect key="frame" x="426" y="13" width="72" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wJn-Yo-bsi" id="1gG-YX-iMI">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" id="Vrw-mP-DsB">
                                                                                     <items>
                                                                                         <menuItem title="Allow" state="on" id="wJn-Yo-bsi"/>
@@ -372,6 +371,9 @@
                             <constraint firstItem="8Kd-nq-3yy" firstAttribute="top" secondItem="yPx-aT-K8a" secondAttribute="top" constant="20" symbolic="YES" id="bCL-xo-7gp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="preferredClientMenu" destination="9Gf-kd-fUZ" id="IX9-Gh-of7"/>
+                    </connections>
                 </viewController>
                 <customObject id="PPT-qH-eGw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController id="trz-dN-oLC"/>
@@ -643,14 +645,14 @@
             <objects>
                 <viewController id="Rgw-vS-n3O" customClass="ServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="MYs-NA-b8f" customClass="ServerViewBackgroundView" customModule="Postgres" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="494"/>
+                        <rect key="frame" x="0.0" y="0.0" width="533" height="494"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g5S-qz-Ibq">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="494"/>
+                                <rect key="frame" x="0.0" y="0.0" width="533" height="494"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="rJf-8T-B5v">
-                                        <rect key="frame" x="0.0" y="402" width="450" height="92"/>
+                                        <rect key="frame" x="42" y="402" width="450" height="92"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="chP-0M-fyI">
                                                 <rect key="frame" x="20" y="19" width="16" height="16"/>
@@ -714,7 +716,7 @@ IA
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Jc-Ok-pGx">
-                                        <rect key="frame" x="0.0" y="352" width="450" height="50"/>
+                                        <rect key="frame" x="42" y="352" width="450" height="50"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="laV-S9-hSm">
                                                 <rect key="frame" x="164" y="-7" width="75" height="62"/>
@@ -779,10 +781,10 @@ IA
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="cKZ-aa-I11">
-                                        <rect key="frame" x="0.0" y="292" width="450" height="60"/>
+                                        <rect key="frame" x="0.0" y="292" width="533" height="60"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NJh-WV-lPO">
-                                                <rect key="frame" x="373" y="9" width="64" height="32"/>
+                                                <rect key="frame" x="456" y="9" width="64" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qfD-hk-jvh">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -812,7 +814,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
-                                                <rect key="frame" x="312" y="9" width="63" height="32"/>
+                                                <rect key="frame" x="395" y="9" width="63" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -832,7 +834,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Scd-hP-8Y9">
-                                                <rect key="frame" x="153" y="12" width="25" height="25"/>
+                                                <rect key="frame" x="247" y="12" width="25" height="25"/>
                                                 <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7ZS-lN-IhC">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -853,7 +855,7 @@ IA
                                                 </connections>
                                             </button>
                                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
-                                                <rect key="frame" x="295" y="18" width="16" height="16"/>
+                                                <rect key="frame" x="378" y="18" width="16" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="16" id="TiN-qb-ptl"/>
                                                     <constraint firstAttribute="height" constant="16" id="yd5-dd-lXS"/>
@@ -866,24 +868,37 @@ IA
                                                     </binding>
                                                 </connections>
                                             </progressIndicator>
+                                            <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="KDo-0D-h6z">
+                                                <rect key="frame" x="149" y="9" width="96" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Connect…" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="FsL-vD-id3">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="n71-mI-16p" name="enabled" keyPath="selection.running" id="3tE-Eg-2rQ"/>
+                                                    <segue destination="wrZ-GN-YZw" kind="sheet" identifier="ConnectionDialogSegue" id="wzZ-jM-5af"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="NJh-WV-lPO" firstAttribute="centerY" secondItem="5Be-be-3Q1" secondAttribute="centerY" id="03K-0z-zkC"/>
                                             <constraint firstAttribute="bottom" secondItem="5Be-be-3Q1" secondAttribute="bottom" constant="12" id="2DD-j6-ZGH"/>
                                             <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="cKZ-aa-I11" secondAttribute="leading" constant="20" symbolic="YES" id="5ft-Qv-ZnY"/>
+                                            <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" secondItem="KDo-0D-h6z" secondAttribute="trailing" constant="12" symbolic="YES" id="Dq3-PO-CaB"/>
                                             <constraint firstItem="Scd-hP-8Y9" firstAttribute="centerY" secondItem="5Be-be-3Q1" secondAttribute="centerY" id="IzI-em-eZ4"/>
                                             <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="94" id="UbK-5c-74J"/>
                                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="YRr-tm-UyJ"/>
+                                            <constraint firstItem="KDo-0D-h6z" firstAttribute="leading" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="12" symbolic="YES" id="fgQ-yy-pDg"/>
                                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" symbolic="YES" id="gOL-SS-wa2"/>
                                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="5Be-be-3Q1" secondAttribute="centerY" id="kFQ-C3-iQw"/>
                                             <constraint firstAttribute="trailing" secondItem="NJh-WV-lPO" secondAttribute="trailing" constant="20" id="oDX-Hz-duB"/>
                                             <constraint firstItem="5Be-be-3Q1" firstAttribute="top" secondItem="cKZ-aa-I11" secondAttribute="top" constant="20" symbolic="YES" id="p59-t1-cmn"/>
-                                            <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="12" symbolic="YES" id="ryG-1v-6zT"/>
+                                            <constraint firstItem="KDo-0D-h6z" firstAttribute="centerY" secondItem="5Be-be-3Q1" secondAttribute="centerY" id="pYs-Y8-uL0"/>
                                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="leading" secondItem="Ao6-Je-0kL" secondAttribute="trailing" constant="8" symbolic="YES" id="tSf-qb-87W"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="lYd-oO-thq">
-                                        <rect key="frame" x="0.0" y="272" width="450" height="20"/>
+                                        <rect key="frame" x="42" y="272" width="450" height="20"/>
                                         <subviews>
                                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Qf0-xy-oRd">
                                                 <rect key="frame" x="0.0" y="4" width="450" height="18"/>
@@ -897,7 +912,7 @@ IA
                                         </constraints>
                                     </customView>
                                     <textField hidden="YES" focusRingType="none" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="h4C-V8-1sn">
-                                        <rect key="frame" x="8" y="468" width="434" height="26"/>
+                                        <rect key="frame" x="8" y="468" width="517" height="26"/>
                                         <textFieldCell key="cell" selectable="YES" title="Normally Postgres.app would show databases here, but the server does not accept passwordless local connections." id="4ky-GB-RnJ">
                                             <font key="font" metaFont="label"/>
                                             <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -912,7 +927,7 @@ IA
                                         </connections>
                                     </textField>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-CC-Fqg">
-                                        <rect key="frame" x="0.0" y="26" width="450" height="246"/>
+                                        <rect key="frame" x="42" y="26" width="450" height="246"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Dni-fY-jEd">
                                             <rect key="frame" x="0.0" y="0.0" width="450" height="246"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -941,7 +956,7 @@ IA
                                         </scroller>
                                     </scrollView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ugx-JT-CVE">
-                                        <rect key="frame" x="0.0" y="0.0" width="450" height="26"/>
+                                        <rect key="frame" x="42" y="0.0" width="450" height="26"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wkV-gA-q9V">
                                                 <rect key="frame" x="20" y="5" width="16" height="16"/>
@@ -1059,7 +1074,7 @@ IA
                 </arrayController>
                 <userDefaultsController representsSharedInstance="YES" id="wBe-GR-afW"/>
             </objects>
-            <point key="canvasLocation" x="154" y="1031.5"/>
+            <point key="canvasLocation" x="153.5" y="1031"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Seh-Pd-4Pk">
@@ -1392,7 +1407,7 @@ IA
                 </viewController>
                 <customObject id="fJg-xC-ad6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244.5" y="1556"/>
+            <point key="canvasLocation" x="207" y="1725"/>
         </scene>
         <!--Sidebar Controller-->
         <scene sceneID="JYY-Us-SOh">
@@ -1623,7 +1638,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="3bc-Nr-Mvt">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="UuA-xc-5Pu"/>
                                 </popUpButtonCell>
                                 <connections>
@@ -1772,6 +1787,178 @@ Gw
             </objects>
             <point key="canvasLocation" x="456" y="1143"/>
         </scene>
+        <!--Connection Dialog-->
+        <scene sceneID="Hpf-rK-Zyy">
+            <objects>
+                <viewController id="wrZ-GN-YZw" customClass="ConnectionDialog" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" misplaced="YES" id="tIw-kQ-1Qz">
+                        <rect key="frame" x="0.0" y="0.0" width="452" height="236"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <gridView verticalHuggingPriority="750" xPlacement="leading" yPlacement="center" rowAlignment="none" rowSpacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="cdX-VT-N9S">
+                                <rect key="frame" x="20" y="60" width="412" height="173"/>
+                                <rows>
+                                    <gridRow id="doU-Zu-WxI"/>
+                                    <gridRow id="qdE-9i-eg6"/>
+                                    <gridRow id="Xds-gZ-WAM"/>
+                                    <gridRow id="gSZ-sj-GKt"/>
+                                    <gridRow id="hFn-NQ-afw"/>
+                                </rows>
+                                <columns>
+                                    <gridColumn xPlacement="trailing" width="114" id="mpM-a8-ErN"/>
+                                    <gridColumn width="292" id="Sep-mt-pF6"/>
+                                </columns>
+                                <gridCells>
+                                    <gridCell row="doU-Zu-WxI" column="mpM-a8-ErN" id="jZE-Sa-esi">
+                                        <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPf-fP-MHS">
+                                            <rect key="frame" x="50" y="157" width="66" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Database:" id="a9m-ed-sOs">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="doU-Zu-WxI" column="Sep-mt-pF6" id="xzB-aR-Lkc">
+                                        <comboBox key="contentView" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EaV-h6-kfM">
+                                            <rect key="frame" x="119" y="155" width="104" height="19"/>
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="RTt-NG-q2H">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <objectValues>
+                                                    <string>Item 1</string>
+                                                    <string>Item 2</string>
+                                                    <string>Item 3</string>
+                                                </objectValues>
+                                            </comboBoxCell>
+                                        </comboBox>
+                                    </gridCell>
+                                    <gridCell row="qdE-9i-eg6" column="mpM-a8-ErN" id="tes-xj-RIR">
+                                        <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffV-h8-6Lt">
+                                            <rect key="frame" x="4" y="126" width="112" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="PostgreSQL User:" id="H3i-J1-7Uh">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="qdE-9i-eg6" column="Sep-mt-pF6" id="kjo-SU-odb">
+                                        <comboBox key="contentView" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jiC-9Y-Xzh">
+                                            <rect key="frame" x="119" y="123" width="104" height="21"/>
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="MhX-Zc-9sW">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <objectValues>
+                                                    <string>Item 1</string>
+                                                    <string>Item 2</string>
+                                                    <string>Item 3</string>
+                                                </objectValues>
+                                            </comboBoxCell>
+                                        </comboBox>
+                                    </gridCell>
+                                    <gridCell row="Xds-gZ-WAM" column="mpM-a8-ErN" id="rRZ-5w-iGe">
+                                        <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gMB-4D-FdV">
+                                            <rect key="frame" x="1" y="83" width="115" height="28"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Client Application:" id="s8F-Ow-aak">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="Xds-gZ-WAM" column="Sep-mt-pF6" id="FIv-zy-h7d">
+                                        <popUpButton key="contentView" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AhA-pZ-e2k">
+                                            <rect key="frame" x="115" y="77" width="89" height="40"/>
+                                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mx3-34-Fsp" id="GYx-Dj-uMs">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="K5o-6g-jKF">
+                                                    <items>
+                                                        <menuItem title="Item 1" state="on" id="mx3-34-Fsp"/>
+                                                        <menuItem title="Item 2" id="paS-eu-0UK"/>
+                                                        <menuItem title="Item 3" id="Q6q-Zj-EMH"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                    </gridCell>
+                                    <gridCell row="gSZ-sj-GKt" column="mpM-a8-ErN" id="77I-rG-WTj"/>
+                                    <gridCell row="gSZ-sj-GKt" column="Sep-mt-pF6" id="FmN-j9-LXU">
+                                        <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cVe-LS-Afg">
+                                            <rect key="frame" x="118" y="52" width="189" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Always use this application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="aiM-8h-mdW">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                    </gridCell>
+                                    <gridCell row="hFn-NQ-afw" column="mpM-a8-ErN" id="N4u-uu-WsG"/>
+                                    <gridCell row="hFn-NQ-afw" column="Sep-mt-pF6" id="4nf-kP-yej">
+                                        <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4Lj-cd-Nha">
+                                            <rect key="frame" x="118" y="0.0" width="296" height="39"/>
+                                            <textFieldCell key="cell" selectable="YES" id="CcS-kr-CCg">
+                                                <font key="font" textStyle="caption1" name=".SFNS-Regular"/>
+                                                <string key="title">If your preferred client application does not appear in the list, you need to connect manually. Please refer to the documentation of the client application.</string>
+                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </gridCell>
+                                </gridCells>
+                            </gridView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6k8-Ua-lyA">
+                                <rect key="frame" x="353" y="13" width="86" height="32"/>
+                                <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TeM-pg-V6r">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="connect:" target="wrZ-GN-YZw" id="kJa-FM-nGJ"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y2r-jt-72U">
+                                <rect key="frame" x="279" y="13" width="76" height="32"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FFt-xJ-qVM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dismissController:" target="wrZ-GN-YZw" id="sje-3I-wvd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6k8-Ua-lyA" secondAttribute="bottom" constant="20" symbolic="YES" id="86e-2V-6Ne"/>
+                            <constraint firstItem="y2r-jt-72U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tIw-kQ-1Qz" secondAttribute="leading" constant="20" symbolic="YES" id="Amf-qr-EM6"/>
+                            <constraint firstItem="cdX-VT-N9S" firstAttribute="leading" secondItem="tIw-kQ-1Qz" secondAttribute="leading" constant="20" symbolic="YES" id="JuB-I2-seQ"/>
+                            <constraint firstAttribute="trailing" secondItem="cdX-VT-N9S" secondAttribute="trailing" constant="20" symbolic="YES" id="SPA-8M-2CS"/>
+                            <constraint firstAttribute="trailing" secondItem="6k8-Ua-lyA" secondAttribute="trailing" constant="20" symbolic="YES" id="Yfs-RZ-1v0"/>
+                            <constraint firstItem="6k8-Ua-lyA" firstAttribute="top" secondItem="cdX-VT-N9S" secondAttribute="bottom" constant="20" symbolic="YES" id="lRi-lP-gUF"/>
+                            <constraint firstItem="y2r-jt-72U" firstAttribute="centerY" secondItem="6k8-Ua-lyA" secondAttribute="centerY" id="tSo-NH-Xtd"/>
+                            <constraint firstItem="cdX-VT-N9S" firstAttribute="top" secondItem="tIw-kQ-1Qz" secondAttribute="top" constant="20" symbolic="YES" id="yXG-gr-64e"/>
+                            <constraint firstItem="6k8-Ua-lyA" firstAttribute="leading" secondItem="y2r-jt-72U" secondAttribute="trailing" constant="12" symbolic="YES" id="znx-jj-FWS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="clientAppPopUpButton" destination="AhA-pZ-e2k" id="goK-TD-HwD"/>
+                        <outlet property="databaseComboBox" destination="EaV-h6-kfM" id="rm9-v4-aqO"/>
+                        <outlet property="rememberClientApp" destination="cVe-LS-Afg" id="5ex-uu-bs2"/>
+                        <outlet property="userComboBox" destination="jiC-9Y-Xzh" id="AJj-Rz-5NJ"/>
+                    </connections>
+                </viewController>
+                <customObject id="qm2-SG-wyf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="766" y="1570"/>
+        </scene>
         <!--Change Password View Controller-->
         <scene sceneID="GbV-uu-xl8">
             <objects>
@@ -1822,7 +2009,7 @@ Gw
                                             <rect key="frame" x="111" y="23" width="303" height="25"/>
                                             <popUpButtonCell key="cell" type="push" title="postgres" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Jgd-Hz-gs1" id="b9v-ao-Vsy">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
+                                                <font key="font" metaFont="message"/>
                                                 <menu key="menu" id="veJ-mo-M76">
                                                     <items>
                                                         <menuItem title="postgres" state="on" id="Jgd-Hz-gs1"/>
