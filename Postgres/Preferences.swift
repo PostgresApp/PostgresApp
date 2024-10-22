@@ -9,6 +9,14 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
+	@IBOutlet var preferredClientMenu: NSPopUpButton!
+	
+	override func viewWillAppear() {
+		super.viewWillAppear()
+		
+		ClientLauncher.shared.prepareClientLauncherButton(button: preferredClientMenu)
+	}
+	
 	@objc dynamic var clientAppNames = [
 		"Terminal",
 		"iTerm",
