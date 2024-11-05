@@ -58,7 +58,7 @@ LIBTIFF_VERSION=4.3.0
 # https://github.com/EnterpriseDB/pldebugger/tags
 PLDEBUGGER_VERSION=1.8
 
-# http://site.icu-project.org/download/
+# https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=64
 ICU_MINOR_VERSION=2
 

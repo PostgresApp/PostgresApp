@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.1
 BOOST_VERSION=1_82_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.5.4
+CGAL_VERSION=5.5.5
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -87,7 +87,7 @@ OPENJPEG_VERSION=2.5.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.4
+PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -99,7 +99,7 @@ PLJS_VERSION=0.8.0
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2024-01-13
 
-# http://site.icu-project.org/download/
+# https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=72
 ICU_MINOR_VERSION=1
 

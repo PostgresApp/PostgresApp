@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.5.0beta1
+POSTGIS_VERSION=3.5.0
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=17.0
@@ -91,10 +91,10 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.4
+PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=3.6.2
+PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
@@ -103,14 +103,14 @@ PLJS_VERSION=0.8.0
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2024-01-13
 
-# http://site.icu-project.org/download/
+# https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 # final release expected 2024-10-01
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.0rc2
+PYTHON_VERSION_FULL=3.13.0
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
