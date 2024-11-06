@@ -36,10 +36,10 @@ MPFR_VERSION=4.2.1
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.6.1
+CGAL_VERSION=6.0.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
-SFCGAL_VERSION=1.4.1
+SFCGAL_VERSION=2.0.0
 
 LIBEDIT_VERSION=20130611-3.1
 
@@ -461,8 +461,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libxml2, openssl, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, libgeos, netcdf 
-# Disabled dependencies: sfcgal
+# Depends on libproj, postgresql, libxml2, openssl, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos, netcdf
 # Links against system libcurl (patched for compatibility with older os)
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
@@ -472,7 +471,7 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
 	cd gdal-$(GDAL_VERSION)/build && cmake --build .
 	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
 	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
 	touch $@
 
@@ -740,7 +739,7 @@ gmp-$(GMP_VERSION)/build_arm64/Makefile: gmp-$(GMP_VERSION)/configure
 
 gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
 	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 13 runs on hardware as old as core2, enable-fat should take care of the differences. 17.7.0 is the kernel of 10.13.6
-	cd gmp-$(GMP_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=westmere-apple-darwin17.7.0
+	cd gmp-$(GMP_VERSION)/build_x86_64 && CXX="clang++ -arch x86_64" CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=westmere-apple-darwin17.7.0
 
 gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
 	$(TAR) gmp-$(GMP_VERSION).tar.xz
@@ -891,8 +890,8 @@ clean-sfcgal:
 ###### PostGIS ##########
 #########################
 
-#depends on libgdal, libgeos, libjpeg, postgresql, json-c
-#Disabled dependencies: sfcgal, protobuf-c
+#depends on libgdal, libgeos, libjpeg, postgresql, json-c, sfcgal
+#Disabled dependencies: protobuf-c
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
@@ -905,8 +904,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION} install
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --without-protobuf --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --without-protobuf --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
