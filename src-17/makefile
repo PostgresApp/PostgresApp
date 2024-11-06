@@ -36,10 +36,10 @@ MPFR_VERSION=4.2.1
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.6.1
+CGAL_VERSION=6.0.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
-SFCGAL_VERSION=1.4.1
+SFCGAL_VERSION=2.0.0
 
 LIBEDIT_VERSION=20130611-3.1
 
