@@ -29,7 +29,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 	
 	func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
 		if draggingEnabled {
-			let rowData = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
+			let rowData = try! PropertyListEncoder().encode(rowIndexes)
 			pboard.declareTypes([draggedType], owner: self)
 			pboard.setData(rowData, forType: draggedType)
 		}
@@ -48,7 +48,7 @@ class DnDArrayController: NSArrayController, NSTableViewDataSource, NSTableViewD
 	}
 	
 	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-		guard info.draggingSource as? NSTableView == tableView, let rowData = info.draggingPasteboard.data(forType: draggedType), let indexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet else {
+		guard info.draggingSource as? NSTableView == tableView, let rowData = info.draggingPasteboard.data(forType: draggedType), let indexes = try? PropertyListDecoder().decode(IndexSet.self, from: rowData) else {
 			return false
 		}
 		
