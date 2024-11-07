@@ -1453,7 +1453,7 @@ IA
                                                                         <binding destination="nru-Bg-Wku" name="value" keyPath="objectValue.name" id="qSf-7d-RQz"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jqh-df-Sdj" customClass="SecondaryLabelColorTextField" customModule="Postgres" customModuleProvider="target">
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jqh-df-Sdj">
                                                                     <rect key="frame" x="30" y="8" width="149" height="14"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Port 5432 – 13.2 – Intel" id="Eyi-gG-Xck">
                                                                         <font key="font" metaFont="message" size="11"/>
