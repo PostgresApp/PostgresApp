@@ -108,6 +108,7 @@ ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
+# final release expected 2024-10-01
 PYTHON_VERSION=3.13
 PYTHON_VERSION_FULL=3.13.0
 
@@ -127,9 +128,9 @@ PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/pytho
 export PYTHON
 
 #compiler options
-MACOSX_DEPLOYMENT_TARGET=10.15
-CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
-CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
+MACOSX_DEPLOYMENT_TARGET=10.13
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.13 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.13 -arch arm64 -arch x86_64
 CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
@@ -476,8 +477,8 @@ gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREF
 
 gdal-$(GDAL_VERSION)/CMakeLists.txt: gdal-${GDAL_VERSION}.tar.gz
 	$(TAR) gdal-$(GDAL_VERSION).tar.gz
-	#patch curl version detection for 10.15 compatibility
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.15.patch
+	#patch curl version detection for <= 10.14 compatibility
+	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
 	mkdir gdal-$(GDAL_VERSION)/build
 	touch $@
 
@@ -734,15 +735,15 @@ gmp-$(GMP_VERSION)/build_x86_64/.libs/libgmp.dylib: gmp-$(GMP_VERSION)/build_x86
 	make -C gmp-$(GMP_VERSION)/build_x86_64
 
 gmp-$(GMP_VERSION)/build_arm64/Makefile: gmp-$(GMP_VERSION)/configure
-	#aarch64-apple-darwin20.6.0 is macOS 11 BigSur (>= 11.5) on Apple M1
-	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=aarch64-apple-darwin20.6.0
+	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx
 
 gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
-	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 10.15 runs on hardware as old as Ivy Bridge, enable-fat should take care of the differences. 19.6.0 is the kernel of 10.15.6
-	cd gmp-$(GMP_VERSION)/build_x86_64 && CXX="clang++ -arch x86_64" CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=ivybridge-apple-darwin19.6.0
+	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 13 runs on hardware as old as core2, enable-fat should take care of the differences. 17.7.0 is the kernel of 10.13.6
+	cd gmp-$(GMP_VERSION)/build_x86_64 && CXX="clang++ -arch x86_64" CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=westmere-apple-darwin17.7.0
 
 gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
 	$(TAR) gmp-$(GMP_VERSION).tar.xz
+	#once our MACOSX_DEPLOYMENT_TARGET reaches 11, there is likely another patch required, see https://github.com/Homebrew/homebrew-core/commit/7cf2fcadd549686a715678f0f75a0aacbe33ccd3
 	mkdir gmp-$(GMP_VERSION)/build_x86_64
 	mkdir gmp-$(GMP_VERSION)/build_arm64
 	touch $@
