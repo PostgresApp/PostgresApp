@@ -116,7 +116,6 @@ class ClientLauncher: NSObject {
 		button.select(selectedItem)
 	}
 	
-	@available(macOS 10.15, *)
 	func launchClient(_ appURL: URL, server: Server, databaseName: String = NSUserName(), userName: String = NSUserName()) async throws {
 		guard let bundle = Bundle(url: appURL) else {
 			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("The client application was not found at \(appURL.path).", comment: "")])

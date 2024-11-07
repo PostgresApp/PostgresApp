@@ -45,18 +45,13 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		guard let database = server.firstSelectedDatabase else { return }
 		
 		if let clientApplicationPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") {
-			if #available(macOS 10.15, *) {
-				Task {
-					do {
-						try await ClientLauncher.shared.launchClient(URL(fileURLWithPath: clientApplicationPath), server: server, databaseName: database.name)
-					}
-					catch let error {
-						presentError(error, modalFor: view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
-					}
+			Task {
+				do {
+					try await ClientLauncher.shared.launchClient(URL(fileURLWithPath: clientApplicationPath), server: server, databaseName: database.name)
 				}
-			} else {
-				// TODO: Implement
-				NSSound.beep()
+				catch let error {
+					presentError(error, modalFor: view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+				}
 			}
 		} else {
 			performSegue(withIdentifier: "ConnectionDialogSegue", sender: sender)

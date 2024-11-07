@@ -50,29 +50,24 @@ class ConnectionDialog: NSViewController {
 	}
 	
 	@IBAction func connect(_ sender: Any?) {
-		if #available(macOS 10.15, *) {
-			Task {
-				do {
-					guard let clientPath = clientAppPopUpButton.selectedItem?.representedObject as? String else {
-						throw NSError(domain: "com.postgresapp.Postgres2.ConnectionDialog", code: 1, userInfo: [NSLocalizedDescriptionKey: "No client selected"])
-					}
-					if rememberClientApp.state == .on {
-						UserDefaults.standard.set(clientPath, forKey: "PreferredClientApplicationPath")
-					} else {
-						UserDefaults.standard.removeObject(forKey: "PreferredClientApplicationPath")
-					}
-					let clientAppURL = URL(fileURLWithPath: clientPath)
-					try await ClientLauncher.shared.launchClient(clientAppURL, server: server!, databaseName: databaseComboBox.stringValue, userName: userComboBox.stringValue)
-					dismiss(self)
-				} catch let error {
-					if let window = view.window {
-						self.presentError(error, modalFor: window, delegate: nil, didPresent: nil, contextInfo: nil)
-					}
+		Task {
+			do {
+				guard let clientPath = clientAppPopUpButton.selectedItem?.representedObject as? String else {
+					throw NSError(domain: "com.postgresapp.Postgres2.ConnectionDialog", code: 1, userInfo: [NSLocalizedDescriptionKey: "No client selected"])
+				}
+				if rememberClientApp.state == .on {
+					UserDefaults.standard.set(clientPath, forKey: "PreferredClientApplicationPath")
+				} else {
+					UserDefaults.standard.removeObject(forKey: "PreferredClientApplicationPath")
+				}
+				let clientAppURL = URL(fileURLWithPath: clientPath)
+				try await ClientLauncher.shared.launchClient(clientAppURL, server: server!, databaseName: databaseComboBox.stringValue, userName: userComboBox.stringValue)
+				dismiss(self)
+			} catch let error {
+				if let window = view.window {
+					self.presentError(error, modalFor: window, delegate: nil, didPresent: nil, contextInfo: nil)
 				}
 			}
-		} else {
-			// TODO: Implement
-			NSSound.beep()
 		}
 	}
 }
