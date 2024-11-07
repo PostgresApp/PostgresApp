@@ -19,7 +19,6 @@ class ConnectionDialog: NSViewController {
 	override func viewWillAppear() {
 		super.viewWillAppear()
 		
-		databaseComboBox.placeholderString = NSUserName()
 		databaseComboBox.completes = true
 		databaseComboBox.stringValue = server?.firstSelectedDatabase?.name ?? ""
 		databaseComboBox.removeAllItems()
@@ -32,7 +31,6 @@ class ConnectionDialog: NSViewController {
 			databaseComboBox.addItem(withObjectValue: "postgres")
 		}
 		
-		userComboBox.placeholderString = NSUserName()
 		userComboBox.completes = true
 		userComboBox.removeAllItems()
 		userComboBox.addItem(withObjectValue: NSUserName())

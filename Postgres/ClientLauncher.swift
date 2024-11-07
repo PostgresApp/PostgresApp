@@ -116,7 +116,7 @@ class ClientLauncher: NSObject {
 		button.select(selectedItem)
 	}
 	
-	func launchClient(_ appURL: URL, server: Server, databaseName: String = NSUserName(), userName: String = NSUserName()) async throws {
+	func launchClient(_ appURL: URL, server: Server, databaseName: String = "", userName: String = "") async throws {
 		guard let bundle = Bundle(url: appURL) else {
 			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("The client application was not found at \(appURL.path).", comment: "")])
 		}
@@ -140,17 +140,23 @@ class ClientLauncher: NSObject {
 				UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 			}
 		}
-		if bundle.bundleIdentifier == "com.apple.Terminal" {
-			try self.runSubroutine("open_Terminal", parameters: ["\"\(server.binPath)/psql\" -p\(server.port) \"\(databaseName)\""])
-		}
-		else if bundle.bundleIdentifier == "com.googlecode.iterm2" {
-			try self.runSubroutine("open_iTerm", parameters: ["\"\(server.binPath)/psql\" -p\(server.port) \"\(databaseName)\""])
+		if bundle.bundleIdentifier == "com.apple.Terminal" || bundle.bundleIdentifier == "com.googlecode.iterm2" {
+			var psqlCommand = "\"\(server.binPath)/psql\" -p\(server.port)"
+			if !userName.isEmpty { psqlCommand += " -U \"\(userName)\""}
+			if !databaseName.isEmpty { psqlCommand += " \"\(databaseName)\""}
+
+			if bundle.bundleIdentifier == "com.apple.Terminal" {
+				try self.runSubroutine("open_Terminal", parameters: [psqlCommand])
+			}
+			if bundle.bundleIdentifier == "com.googlecode.iterm2" {
+				try self.runSubroutine("open_iTerm", parameters: [psqlCommand])
+			}
 		}
 		else {
 			var components = URLComponents()
 			components.scheme = "postgres"
-			components.user = userName
-			components.path = "/" + databaseName
+			if !userName.isEmpty { components.user = userName }
+			if !databaseName.isEmpty { components.path = "/" + databaseName }
 			components.host = "localhost"
 			components.port = Int(server.port)
 			let connectionURL = components.url!
