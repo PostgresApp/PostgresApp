@@ -57,7 +57,7 @@ class ClientLauncher: NSObject {
 		}
 	}
 	
-	func prepareClientLauncherButton(button: NSPopUpButton, includeAsk: Bool = true) {
+	func prepareClientLauncherButton(button: NSPopUpButton) {
 		let postgresURL = URL(string: "postgres:")!
 		var appURLs = [URL]()
 		if #available(macOS 12, *) {
@@ -73,12 +73,6 @@ class ClientLauncher: NSObject {
 		button.menu?.removeAllItems()
 		var items = [NSMenuItem]()
 		var selectedItem: NSMenuItem?
-		if includeAsk {
-			let askItem = NSMenuItem(title: "Ask every time", action: nil, keyEquivalent: "")
-			items.append(askItem)
-			selectedItem = askItem
-		}
-		items.append(NSMenuItem.separator())
 		for appURL in appURLs {
 			if let bundle = Bundle(url: appURL),
 			   let identifier = bundle.bundleIdentifier
@@ -113,7 +107,7 @@ class ClientLauncher: NSObject {
 			}
 		}
 		button.menu?.items = items
-		button.select(selectedItem)
+		button.select(selectedItem ?? items.first)
 	}
 	
 	func launchClient(_ appURL: URL, server: Server, databaseName: String = "", userName: String = "") async throws {
