@@ -37,11 +37,7 @@ class ConnectionDialog: NSViewController {
 		userComboBox.addItem(withObjectValue: "postgres")
 		
 		ClientLauncher.shared.prepareClientLauncherButton(button: clientAppPopUpButton)
-		if let selection = clientAppPopUpButton.selectedItem?.representedObject as? String, selection == UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") {
-			rememberClientApp.state = .on
-		} else {
-			rememberClientApp.state = .off
-		}
+		rememberClientApp.state = .off
 		if clientAppPopUpButton.selectedItem == nil && clientAppPopUpButton.numberOfItems > 1 {
 			clientAppPopUpButton.selectItem(at: 1)
 		}
