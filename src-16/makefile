@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.1
 BOOST_VERSION=1_83_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.6.1
+CGAL_VERSION=5.6.2
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=1.4.1
@@ -91,7 +91,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.4
+PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -103,13 +103,13 @@ PLJS_VERSION=0.8.0
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2024-01-13
 
-# http://site.icu-project.org/download/
+# https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=73
 ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.6
+PYTHON_VERSION_FULL=3.12.7
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build

@@ -71,7 +71,7 @@ PLJS_VERSION=0.8.0
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2024-01-13
 
-# http://site.icu-project.org/download/
+# https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=69
 ICU_MINOR_VERSION=1
 

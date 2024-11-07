@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.5.0beta1
+POSTGIS_VERSION=3.5.0
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=17.0
@@ -36,10 +36,10 @@ MPFR_VERSION=4.2.1
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=5.6.1
+CGAL_VERSION=6.0.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
-SFCGAL_VERSION=1.4.1
+SFCGAL_VERSION=2.0.0
 
 LIBEDIT_VERSION=20130611-3.1
 
@@ -91,10 +91,10 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.7.4
+PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=3.6.2
+PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
@@ -103,14 +103,13 @@ PLJS_VERSION=0.8.0
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2024-01-13
 
-# http://site.icu-project.org/download/
+# https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
-# final release expected 2024-10-01
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.0rc2
+PYTHON_VERSION_FULL=3.13.0
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -128,9 +127,9 @@ PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/pytho
 export PYTHON
 
 #compiler options
-MACOSX_DEPLOYMENT_TARGET=10.13
-CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.13 -arch arm64 -arch x86_64
-CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.13 -arch arm64 -arch x86_64
+MACOSX_DEPLOYMENT_TARGET=10.15
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
 CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
@@ -461,8 +460,7 @@ clean-libgeos:
 #######  libgdal  #######
 #########################
 
-# Depends on libproj, postgresql, libxml2, openssl, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, libgeos, netcdf 
-# Disabled dependencies: sfcgal
+# Depends on libproj, postgresql, libxml2, openssl, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos, netcdf
 # Links against system libcurl (patched for compatibility with older os)
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
@@ -472,14 +470,14 @@ $(PREFIX)/lib/libgdal.dylib: gdal-$(GDAL_VERSION)/build/Makefile
 	cd gdal-$(GDAL_VERSION)/build && cmake --build .
 	cd gdal-$(GDAL_VERSION)/build && cmake --build . --target install
 
-gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
+gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libproj.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libtiff.dylib $(PREFIX)/lib/libpng.dylib $(PREFIX)/lib/libopenjp2.dylib  $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libnetcdf.dylib
 	cd gdal-$(GDAL_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib" -DENABLE_IPO=ON -DCMAKE_PREFIX_PATH="$(PREFIX)" -DBUILD_PYTHON_BINDINGS:BOOL=OFF -DBUILD_CSHARP_BINDINGS:BOOL=OFF -DBUILD_JAVA_BINDINGS:BOOL=OFF
 	touch $@
 
 gdal-$(GDAL_VERSION)/CMakeLists.txt: gdal-${GDAL_VERSION}.tar.gz
 	$(TAR) gdal-$(GDAL_VERSION).tar.gz
-	#patch curl version detection for <= 10.14 compatibility
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.14.patch
+	#patch curl version detection for 10.15 compatibility
+	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.15.patch
 	mkdir gdal-$(GDAL_VERSION)/build
 	touch $@
 
@@ -736,15 +734,15 @@ gmp-$(GMP_VERSION)/build_x86_64/.libs/libgmp.dylib: gmp-$(GMP_VERSION)/build_x86
 	make -C gmp-$(GMP_VERSION)/build_x86_64
 
 gmp-$(GMP_VERSION)/build_arm64/Makefile: gmp-$(GMP_VERSION)/configure
-	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx
+	#aarch64-apple-darwin20.6.0 is macOS 11 BigSur (>= 11.5) on Apple M1
+	cd gmp-$(GMP_VERSION)/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch arm64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=aarch64-apple-darwin20.6.0
 
 gmp-$(GMP_VERSION)/build_x86_64/Makefile: gmp-$(GMP_VERSION)/configure
-	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 13 runs on hardware as old as core2, enable-fat should take care of the differences. 17.7.0 is the kernel of 10.13.6
-	cd gmp-$(GMP_VERSION)/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=westmere-apple-darwin17.7.0
+	#westmere is what rosetta2 emulates (see arch -x86_64 ./config.guess). macOS 10.15 runs on hardware as old as Ivy Bridge, enable-fat should take care of the differences. 19.6.0 is the kernel of 10.15.6
+	cd gmp-$(GMP_VERSION)/build_x86_64 && CXX="clang++ -arch x86_64" CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" CXXFLAGS="$(filter-out -arch arm64 x86_64,$(CXXFLAGS)) -arch x86_64" ../configure --prefix="$(PREFIX)" --disable-static --enable-fat --enable-cxx --host=ivybridge-apple-darwin19.6.0
 
 gmp-$(GMP_VERSION)/configure: gmp-$(GMP_VERSION).tar.xz
 	$(TAR) gmp-$(GMP_VERSION).tar.xz
-	#once our MACOSX_DEPLOYMENT_TARGET reaches 11, there is likely another patch required, see https://github.com/Homebrew/homebrew-core/commit/7cf2fcadd549686a715678f0f75a0aacbe33ccd3
 	mkdir gmp-$(GMP_VERSION)/build_x86_64
 	mkdir gmp-$(GMP_VERSION)/build_arm64
 	touch $@
@@ -891,8 +889,8 @@ clean-sfcgal:
 ###### PostGIS ##########
 #########################
 
-#depends on libgdal, libgeos, libjpeg, postgresql, json-c
-#Disabled dependencies: sfcgal, protobuf-c
+#depends on libgdal, libgeos, libjpeg, postgresql, json-c, sfcgal
+#Disabled dependencies: protobuf-c
 
 PCRE_INCLUDE_PATH=$(shell pwd)/include
 
@@ -905,8 +903,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION} install
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --without-protobuf --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --without-protobuf --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz

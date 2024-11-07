@@ -26,15 +26,11 @@ extension Process {
     }
 
     func launchAndCheckForRosetta() throws {
-        if #available(macOS 10.13, *) {
-            do {
-                try self.run()
-            }
-            catch let error as NSError where error.domain == NSPOSIXErrorDomain && error.code == Int(EBADARCH) && is_arm_mac() {
-                throw RosettaNeededError()
-            }
-        } else {
-            self.launch()
-        }
+		do {
+			try self.run()
+		}
+		catch let error as NSError where error.domain == NSPOSIXErrorDomain && error.code == Int(EBADARCH) && is_arm_mac() {
+			throw RosettaNeededError()
+		}
     }
 }
