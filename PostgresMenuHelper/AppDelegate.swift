@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		statusItem.menu = statusMenu
-		statusItem.image = statusIcon
+		statusItem.button!.image = statusIcon
 	}
 	
 	
