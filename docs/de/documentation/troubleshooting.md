@@ -36,13 +36,18 @@ Dieser Fehler kann auftreten, wenn deine Data Directory von einer anderen Postgr
 Dazu musst du den anderen Server stoppen, bevor du Postgres.app öffnest.
 Es ist nicht empfehlenswert, eine Data Directory einer anderen PostgreSQL zu verwenden, da diese anders konfiguriert sein kann und dies zu weiteren Fehlern führen kann.
 
-#### The data directory contains an old postmaster.pid file / The data directory contains an unreadable postmaster.pid file
-PostgreSQL erstellt eine Datei namens `postmaster.pid` im Data Directory. Diese Datei enthält die aktuelle Prozess-ID des PostgreSQL Servers.
-Wenn der Server unerwartet beendet wird, kann diese Datei noch die ID des abgestürzten Prozesses enthalten, was dann zu diesem Fehler führt.
-In diesem Fall musst du die Datei `postmaster.pid` löschen bevor du den Server startest; stelle aber sicher dass der Server nicht läuft!
-Öffne dazu die Aktivitätsanzeige und stelle sicher, dass keine Prozesse namens ‘postgres‘ oder ‘postmaster‘ laufen.
+#### Could not delete stale postmaster.pid file
 
-Achtung: Wenn du die Datei `postmaster.pid` löschst während der Server läuft, können unangenehme Dinge passieren!
+PostgreSQL erstellt eine Datei namens `postmaster.pid` im Data Directory. Diese Datei enthält die aktuelle Prozess-ID des PostgreSQL Servers.
+Wenn der Server unerwartet beendet wird, kann diese Datei noch die PID des abgestürzten Prozesses enthalten.
+
+Postgres.app versucht in diesem Fall die Datei `postmaster.pid` zu löschen. Wenn dabei ein Fehler auftritt, kannst du versuchen die Datei manuell zu löschen.
+
+#### The data directory contains an old postmaster.pid file / The data directory contains an unreadable postmaster.pid file
+
+Frühere Versionen von Postgres.app zeigten diese Warnung, wenn das Data-Directory eine veraltete `postmaster.pid`-Datei enthält.
+
+Um dieses Problem zu beheben kannst du entweder die neueste Version von Postgres.app installieren; oder du kannst die `postmaster.pid` Datei einfach löschen.
 
 #### Could not initialize database cluster
 Dieser Fehler bedeutet, dass der Befehl `initdb` nicht erfolgreich war. Dies sollte im Normalfall nicht passieren; wenn doch, eröffne ein neues Issue auf Github.
