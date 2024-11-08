@@ -129,7 +129,7 @@ while ($row = pg_fetch_row($result)) {
 ?></code></pre>
 	</dd>
 
-	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Golang</dt>
+	<dt onclick="this.parentElement.getElementsByClassName('active')[0].className='';this.className='active';">Go</dt>
 	<dd>
 			<p>
 				To connect to postgres from Golang, you can download this library.
@@ -149,7 +149,7 @@ import (
 
 func main() {
   dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
-    <host>, <port>, <user>, <password>, <dbname>)
+    &lt;host&gt;, &lt;port&gt;, &lt;user&gt;, &lt;password&gt;, &lt;dbname&gt;)
   db, err := sql.Open("pgx", dsn)
   if err != nil {
     panic(err)
@@ -175,7 +175,7 @@ import (
 
 func main() {
   dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
-    <host>, <port>, <user>, <password>, <dbname>)
+    &lt;host&gt;, &lt;port&gt;, &lt;user&gt;, &lt;password&gt;, &lt;dbname&gt;)
   db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
   if err != nil {
     panic(err)
