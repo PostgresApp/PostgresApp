@@ -22,8 +22,6 @@ class Server: NSObject {
 		case DataDirEmpty
 		case Running
 		case Startable
-		case StalePidFile
-		case PidFileUnreadable
 		case Unknown
 	}
 	
@@ -229,19 +227,6 @@ class Server: NSObject {
                 statusResult = Result {
                     try self.startSync()
                 }
-				
-			case .StalePidFile:
-				let userInfo = [
-					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an old postmaster.pid file", comment: ""),
-					NSLocalizedRecoverySuggestionErrorKey: "The data directory contains a postmaster.pid file, which usually means that the server is already running. When the server crashes or is killed, you have to remove this file before you can restart the server. Make sure that the database process is definitely not running anymore, otherwise your data directory will be corrupted."
-				]
-				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
-				
-			case .PidFileUnreadable:
-				let userInfo = [
-					NSLocalizedDescriptionKey: NSLocalizedString("The data directory contains an unreadable postmaster.pid file", comment: "")
-				]
-				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .Unknown:
 				let userInfo = [
@@ -466,26 +451,7 @@ class Server: NSObject {
 			return
 		}
 		
-		if FileManager.default.fileExists(atPath: pidFilePath) {
-			guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
-				serverStatus = .PidFileUnreadable
-				running = false
-				databases.removeAll()
-				return
-			}
-			
-			let firstLine = pidFileContents.components(separatedBy: .newlines).first!
-			guard let pid = Int32(firstLine) else {
-				serverStatus = .PidFileUnreadable
-				running = false
-				databases.removeAll()
-				return
-			}
-			
-			var buffer = [CChar](repeating: 0, count: 1024)
-			proc_pidpath(pid, &buffer, UInt32(buffer.count))
-			let processPath = String(cString: buffer)
-			
+		if let processPath = getServerProcessPath() {
 			if processPath == binPath.appending("/postgres") {
 				serverStatus = .Running
 				running = true
@@ -499,11 +465,9 @@ class Server: NSObject {
 				databases.removeAll()
 				return
 			}
-			else if !processPath.isEmpty {
-				serverStatus = .StalePidFile
-				running = false
-				databases.removeAll()
-				return
+			else {
+				// Probably a stale postmaster.pid file
+				// Assume that server is not running
 			}
 		}
 		
@@ -519,6 +483,32 @@ class Server: NSObject {
 		databases.removeAll()
 	}
     
+	func getServerProcessPath() -> String? {
+		guard FileManager.default.fileExists(atPath: pidFilePath) else {
+			// no pid file
+			return nil
+		}
+		guard let pidFileContents = try? String(contentsOfFile: pidFilePath, encoding: .utf8) else {
+			// couldn't read pid file
+			return nil
+		}
+		
+		let firstLine = pidFileContents.components(separatedBy: .newlines).first!
+		guard let pid = Int32(firstLine) else {
+			// first line is not a pid
+			return nil
+		}
+			
+		var buffer = [CChar](repeating: 0, count: 1024)
+		let ret = proc_pidpath(pid, &buffer, UInt32(buffer.count))
+		guard ret > 0 else {
+			// probably no running process with pid
+			return nil
+		}
+		let processPath = String(cString: buffer)
+		return processPath
+	}
+	
     // This function returns true if
     //  - the binaries directory exists
     //  - the binaries point to a non-existing directory, but we can fix them
@@ -691,6 +681,37 @@ class Server: NSObject {
 	
 	// MARK: Sync handlers
 	func startSync() throws {
+		if let serverProcessPath = getServerProcessPath() {
+			if !serverProcessPath.isEmpty && !serverProcessPath.hasSuffix("postgres") && !serverProcessPath.hasSuffix("postmaster") {
+				// It looks like there is a stale postmaster.pid file
+				//
+				// Usually the postmaster.pid file should contain the pid of the postmaster (the main postgres process)
+				// If it contains the pid of some other process, that means that the PostgreSQL server was probably shut down ungracefully,
+				// and now some other random process is running with the same pid
+				//
+				// This problem could lead to PostgreSQL refusing to start, so we just try to delete the stale pid file.
+				//
+				// See https://github.com/PostgresApp/PostgresApp/issues/573 for detailed discussion
+				do {
+					try FileManager.default.removeItem(atPath: pidFilePath)
+				}
+				catch let error {
+					let userInfo: [String: Any] = [
+						NSLocalizedDescriptionKey: NSLocalizedString("Could not delete stale postmaster.pid file", comment: ""),
+						NSLocalizedRecoverySuggestionErrorKey: error.localizedDescription,
+						NSLocalizedRecoveryOptionsErrorKey: ["OK", "Show File"],
+						NSRecoveryAttempterErrorKey: ErrorRecoveryAttempter(recoveryAttempter: { (error, optionIndex) -> Bool in
+							if optionIndex == 1 {
+								NSWorkspace.shared.selectFile(self.pidFilePath, inFileViewerRootedAtPath: "")
+							}
+							return true
+						})
+					]
+					throw NSError(domain: "com.postgresapp.Postgres2.postmaster.pid", code: 0, userInfo: userInfo)
+				}
+			}
+		}
+		
 		let extraArgs = try authDialogOptions()
 		
 		let process = Process()
