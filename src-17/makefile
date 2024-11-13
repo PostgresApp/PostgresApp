@@ -623,7 +623,9 @@ $(PREFIX)/lib/libprotobuf-c.dylib: protobuf-c-$(PROTOBUFC_VERSION)/Makefile
 	make -C protobuf-c-$(PROTOBUFC_VERSION) install
 
 protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/configure $(BUILD_PREFIX)/bin/protoc
-	cd protobuf-c-$(PROTOBUFC_VERSION) && PKG_CONFIG_PATH="$(PKG_CONFIG_LIBDIR):$(BUILD_PREFIX)/lib/pkgconfig" ./configure --prefix="$(PREFIX)"
+	# LDFLAGS: we need to tell the linker where to find several _CF symbols used in abseil's local_time_zone()
+	# see https://github.com/abseil/abseil-cpp/pull/280/files, https://github.com/protocolbuffers/protobuf/commit/5233990ad79b4dc4a484bbb3fafaa7c8a715dfac
+	cd protobuf-c-$(PROTOBUFC_VERSION) && PKG_CONFIG_PATH="$(PKG_CONFIG_LIBDIR):$(BUILD_PREFIX)/lib/pkgconfig" LDFLAGS="$(LDFLAGS) -framework CoreFoundation" ./configure --prefix="$(PREFIX)"
 
 protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
 	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
