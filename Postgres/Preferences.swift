@@ -12,7 +12,8 @@ class PreferencesViewController: NSViewController {
 	@objc dynamic var clientAppNames = [
 		"Terminal",
 		"iTerm",
-		"Postico"
+		"Postico",
+		"TablePlus"
 	]
 	
 	@objc dynamic var launchAgentCheckboxHidden: Bool {

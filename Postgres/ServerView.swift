@@ -46,9 +46,14 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 		
 		let clientApp = UserDefaults.standard.object(forKey: "ClientAppName") as? String ?? "Terminal"
         
-        if clientApp == "Postico" {
+        if clientApp == "Postico" || clientApp == "TablePlus" {
             var urlComponents = URLComponents()
-            urlComponents.scheme = "postico"
+            if clientApp == "Postico" {
+                urlComponents.scheme = "postico"
+            }
+            else if clientApp == "TablePlus" {
+                urlComponents.scheme = "postgresql"
+            }
             urlComponents.host = "localhost"
             urlComponents.port = Int(server.port)
             urlComponents.path = "/" + database.name
@@ -56,8 +61,8 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
             let success = NSWorkspace.shared.open(url)
             if !success {
                 let alert = NSAlert()
-                alert.messageText = "Could not open Postico"
-                alert.informativeText = "Please make sure that you have the latest version of Postico installed, or choose a different client in the preferences"
+                alert.messageText = "Could not open " + clientApp
+                alert.informativeText = "Please make sure that you have the latest version of " + clientApp + " installed, or choose a different client in the preferences"
                 if let window = sender?.window {
                     alert.beginSheetModal(for: window, completionHandler: nil)
                 } else {
