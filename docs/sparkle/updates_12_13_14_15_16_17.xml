@@ -6,28 +6,28 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.7.8</title>
+		<title>Postgres.app 2.7.9</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 12.20 with PostGIS 3.0.11</li>
-					<li>PostgreSQL 13.16 with PostGIS 3.1.11</li>
-					<li>PostgreSQL 14.13 with PostGIS 3.2.7</li>
-					<li>PostgreSQL 15.8 with PostGIS 3.3.7</li>
-					<li>PostgreSQL 16.4 with PostGIS 3.4.3</li>
-					<li>PostgreSQL 17.0 with PostGIS 3.5.0beta1</li>
+					<li>PostgreSQL 12.21 with PostGIS 3.0.11</li>
+					<li>PostgreSQL 13.17 with PostGIS 3.1.11</li>
+					<li>PostgreSQL 14.14 with PostGIS 3.2.7</li>
+					<li>PostgreSQL 15.9 with PostGIS 3.3.7</li>
+					<li>PostgreSQL 16.5 with PostGIS 3.4.3</li>
+					<li>PostgreSQL 17.1 with PostGIS 3.5.0</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 26 Sep 2024 13:14:45 +0200</pubDate>
+		<pubDate>Thu, 14 Nov 2024 16:03:09 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.8/Postgres-2.7.8-12-13-14-15-16-17.dmg"
-		sparkle:version="278"
-		sparkle:shortVersionString="2.7.8"
-		length="500131746"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.9/Postgres-2.7.9-12-13-14-15-16-17.dmg"
+		sparkle:version="287"
+		sparkle:shortVersionString="2.7.9"
+		length="510265468"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCr28pxAreyVl86F8huslF4m2zcdAIUcA9PgZi1UUs6sj9xMxIl3SY038Q="
+		sparkle:dsaSignature="MC0CFQDZvM4zK+OfsBeZGdfq1jlm9NmZgQIUSMcxB5KI4fmVVyyGXBvw8ByoqFo="
 		/>
 		<sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
 	</item>
