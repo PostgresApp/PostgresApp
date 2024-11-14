@@ -951,6 +951,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+	# patch to allow direct upgrades from 3.5.0beta1 which we shipped with Postgres.app 2.7.8 
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_upgrade_from_beta.patch
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
 	touch $@
 

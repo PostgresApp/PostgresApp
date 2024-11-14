@@ -1,0 +1,8 @@
+--- a/extensions/upgradeable_versions.mk
++++ b/extensions/upgradeable_versions.mk
+@@ -1,4 +1,5 @@
+ UPGRADEABLE_VERSIONS = \
++	3.5.0beta1 \
+ 	2.0.0 \
+ 	2.0.1 \
+ 	2.0.2 \
