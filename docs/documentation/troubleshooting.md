@@ -52,14 +52,22 @@ This can happen if you've configured Postgres.app to use a data directory that i
 Stop the other server before starting Postgres.app.
 In general, it is not recommended to just use a data directory created by another version of PostgreSQL, since it might have been configured differently.
 
+#### Could not delete stale postmaster.pid file
+
+To keep track of the PostgreSQL server process, PostgreSQL stores the process id for the server in a file named `postmaster.pid` in the server's data directory.
+If PostgreSQL crashes, this file can contain an old pid that prevents PostgreSQL from starting.
+
+Postgres.app detects this problem and tries to automatically delete this stale `postmaster.pid` file if necessary.
+
+If you see the error message "Could not delete stale postmaster.pid file", then Postgres.app for some reason failed to delete this file.
+
+You may be able to fix the problem by deleting the file manually.
+
 #### The data directory contains an old postmaster.pid file / The data directory contains an unreadable postmaster.pid file
-PostgreSQL puts a file named `postmaster.pid` in the data directory to store the process id of the PostgreSQL server process.
-If PostgreSQL crashes, this file can contain an old pid that confuses PostgreSQL.
-You can fix this issue by deleting the `postmaster.pid` file. However, you must make sure that PostgreSQL is really not running.
-Open Activity Monitor and make sure that there are no processes named 'postgres' or 'postmaster'.
 
-If you delete the `postmaster.pid` file while PostgreSQL is running, bad things will happen.
+Previous versions of Postgres.app showed this error when the data directory contains a stale postmaster.pid file.
 
+To fix this problem, you can either upgrade to the latest version of Postgres.app; or you can manually delete the file `postmaster.pid` in the data directory.
 
 #### Could not initialize database cluster
 This error means that the `initdb` command failed.

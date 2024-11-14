@@ -72,10 +72,6 @@ class ServerStatusStatusMessageTransformer: ValueTransformer {
 			return "Empty data directory"
 		case .DataDirInUse:
 			return "Data directory in use"
-		case .StalePidFile:
-			return "Stale postmaster.pid file"
-		case .PidFileUnreadable:
-			return "Unreadable postmaster.pid file"
 		case .PortInUse:
 			return "Port in use"
 		case .Startable:
