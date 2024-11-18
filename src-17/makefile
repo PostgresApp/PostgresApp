@@ -45,7 +45,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.13.4
+LIBXML2_VERSION=2.13.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -112,7 +112,6 @@ ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
-# final release expected 2024-10-01
 PYTHON_VERSION=3.13
 PYTHON_VERSION_FULL=3.13.0
 
