@@ -63,18 +63,19 @@ PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 LOG_DIR="$BUILD_DIR/notarize-log"
 ARCHIVE_PATH="$BUILD_DIR"/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png
-EXPORT_PATH="$BUILD_DIR"/Postgres-export
-DMG_SRC_PATH="$BUILD_DIR"/Postgres
 DMG_DST_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}.dmg
 SIGNATURE_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}-signature.txt
 APPCAST_PATH="$BUILD_DIR"/updates_$PG_BINARIES_VERSIONS.xml
-
-MACOSX_DEPLOYMENT_TARGET=$(plutil -extract LSMinimumSystemVersion raw "$DMG_SRC_PATH"/Postgres.app/Contents/Info.plist)
 
 mkdir -p "$LOG_DIR"
 echo "Log Directory: $LOG_DIR"
 
 env >"$LOG_DIR/env"
+
+# Read the minumum macOS version from the xcarchive
+echo -n "Reading LSMinimumSystemVersion from Archive... "
+MACOSX_DEPLOYMENT_TARGET=$(plutil -extract LSMinimumSystemVersion raw "$ARCHIVE_PATH"/Products/Applications/Postgres.app/Contents/Info.plist)
+echo "Done"
 
 # notarize
 echo -n "Notarizing Build... "
