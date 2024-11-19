@@ -20,6 +20,9 @@ Rebuilding indexes is very simple:
 3. If you are using multiple databases, repeat the steps for every database.
 4. If Postgres.app shows the reindex warning, you can now hide it by clicking "More Info" and then on "Hide this Warning"
 
+Rebuilding indexes for all databases is even simpler:
+
+1. Run `reindex --all` from the command line
 
 Why should I reindex my databases?
 -----------------------------------------
