@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Call this script like this:
-# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12 ./build.sh
+# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=$HOME/PostgresApp/Binaries LATEST_STABLE_PG_VERSION=12 BUILD_DIR=$HOME/PostgresApp/Build ./build.sh
 
 set -e
 set -o pipefail
@@ -76,6 +76,9 @@ echo -n "Archive... "
 xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH" -derivedDataPath "$DERIVED_DATA_PATH" POSTGRESAPP_SHORT_VERSION="$POSTGRESAPP_SHORT_VERSION" POSTGRESAPP_BUILD_VERSION="$POSTGRESAPP_BUILD_VERSION" PG_BINARIES_VERSIONS="$PG_BINARIES_VERSIONS" PG_BINARIES_DIR="$PG_BINARIES_DIR" LATEST_STABLE_PG_VERSION="$LATEST_STABLE_PG_VERSION" CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY">"$LOG_DIR/archive.out" 2>"$LOG_DIR/archive.err"
 echo "Done"
 
+# Delete Derived Data
+rm -r "$DERIVED_DATA_PATH" || echo "INFO: Deleting $DERIVED_DATA_PATH failed"
+
 # export and code sign
 echo -n "Export Archive... "
 xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$EXPORT_PATH" -exportOptionsPlist exportOptions.plist >"$LOG_DIR/exportArchive.out" 2>"$LOG_DIR/exportArchive.err"
@@ -119,11 +122,13 @@ codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 
 echo "Done"
 
-mkdir "$DMG_SRC_PATH"
-mv "$EXPORT_PATH"/Postgres.app "$DMG_SRC_PATH"
 
 echo -n "Creating Disk Image... "
-# create dmg
+
+mkdir "$DMG_SRC_PATH"
+mv "$EXPORT_PATH"/Postgres.app "$DMG_SRC_PATH"
+rm -r "$EXPORT_PATH" || echo "INFO: Deleting $EXPORT_PATH failed"
+
 vendor/create-dmg-master/create-dmg \
     --window-pos 200 150 \
     --window-size 512 320 \
@@ -134,4 +139,7 @@ vendor/create-dmg-master/create-dmg \
     --background "$BGIMG_PATH" \
     "$DMG_DST_PATH" \
     "$DMG_SRC_PATH" >"$LOG_DIR/create-dmg.out" 2>"$LOG_DIR/create-dmg.err"
+
+rm -r "$DMG_SRC_PATH" || echo "INFO: Deleting $DMG_SRC_PATH failed"
+
 echo "Done"
