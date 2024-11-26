@@ -8,42 +8,91 @@
 
 import Cocoa
 
+class DatabaseCollectionView: NSCollectionView {
+    override var acceptsFirstResponder: Bool {
+        if self.numberOfItems(inSection: 0) == 0 {
+            return false
+        }
+        return super.acceptsFirstResponder
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        let didBecomeFirstResponder = super.becomeFirstResponder()
+        markSubviewsNeedDisplay()
+        return didBecomeFirstResponder
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        let didResignFirstResponder = super.resignFirstResponder()
+        markSubviewsNeedDisplay()
+        return didResignFirstResponder
+    }
+    
+    override func viewWillMove(toWindow newWindow: NSWindow?) {
+        if let oldWindow = window {
+            NotificationCenter.default.removeObserver(self, name: NSWindow.didBecomeMainNotification, object: oldWindow)
+            NotificationCenter.default.removeObserver(self, name: NSWindow.didResignMainNotification, object: oldWindow)
+        }
+        if let newWindow {
+            NotificationCenter.default.addObserver(self, selector: #selector(noteKeyStatusChanged), name: NSWindow.didBecomeMainNotification, object: newWindow)
+            NotificationCenter.default.addObserver(self, selector: #selector(noteKeyStatusChanged), name: NSWindow.didResignMainNotification, object: newWindow)
+        }
+        super.viewWillMove(toWindow: newWindow)
+    }
+    
+    @objc func noteKeyStatusChanged(_ note: NSNotification) {
+        markSubviewsNeedDisplay()
+    }
+    
+    func markSubviewsNeedDisplay() {
+        var views = subviews
+        while let view = views.popLast() {
+            view.needsDisplay = true
+            views += view.subviews
+        }
+    }
+}
+
 class DatabaseItem: NSCollectionViewItem {
 	override var isSelected: Bool {
 		didSet {
-			if let v = self.view as? DatabaseItemView {
-				v.selected = isSelected
+			if let databaseItemView = self.view as? DatabaseItemView {
+                databaseItemView.selected = isSelected
+                databaseItemView.needsDisplay = true
 			}
 		}
 	}
 }
 
-
-
 class DatabaseItemView: NSView {
-	@objc dynamic var selected: Bool = false {
-		didSet {
-			self.needsDisplay = true
-		}
-	}
+    var selected = false
 	
 	override func draw(_ dirtyRect: NSRect) {
-		let offset = CGFloat(4)
 		if selected {
-			var inset = CGFloat(0)
-			for view in self.subviews where view.identifier?.rawValue == "DBNameLabel" {
+            let horizontalPadding = 8.0
+            var inset = 0.0
+            for view in self.subviews where view.identifier == NSUserInterfaceItemIdentifier("DBNameLabel") {
 				inset = view.frame.minY
 			}
-			let x = offset
+			let x = horizontalPadding
 			let y = inset - 10
-			let w = frame.width - offset*2
+			let w = frame.width - horizontalPadding*2
 			let h = frame.height - inset + 10
 			
 			let rect = CGRect(x: x, y: y, width: w, height: h)
 			let path = NSBezierPath(roundedRect: rect, xRadius: 4, yRadius: 4)
-			NSColor.selectedControlColor.setFill()
+            if
+                let collectionView = self.enclosingScrollView?.documentView as? NSCollectionView,
+                collectionView.isFirstResponder,
+                collectionView.window?.isMainWindow == true
+            {
+                NSColor.selectedControlColor.setFill()
+            } else {
+                NSColor.unemphasizedSelectedTextBackgroundColor.withAlphaComponent(0.8).setFill()
+            }
 			path.fill()
 		}
+        let offset = 4.0
 		let tf = NSAffineTransform()
 		tf.translateX(by: self.bounds.midX-32, yBy: self.bounds.maxY-64-offset*2)
 		tf.concat()
