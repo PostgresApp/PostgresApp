@@ -60,17 +60,24 @@ class HelpDelegate: NSObject, NSAlertDelegate {
 do {
 	let process = try UnixProcessInfo(runningProcessWithPid: pid)
 	let topLevelProcess = process.getTopLevelProcess()
+	var topLevelProcessPath = topLevelProcess.path
 
 	let selfInfo = try UnixProcessInfo(runningProcessWithPid: ProcessInfo.processInfo.processIdentifier)
 	let selfContainingDirectory = (selfInfo.path as NSString).deletingLastPathComponent
-	if (topLevelProcess.path.hasPrefix(selfContainingDirectory)) {
+	if (topLevelProcessPath.hasPrefix(selfContainingDirectory)) {
 		exit(0)
+	}
+	
+	if topLevelProcessPath.contains("AppTranslocation") {
+		if let originalURL = SecTranslocateCreateOriginalPathForURL(URL(fileURLWithPath: topLevelProcessPath)) {
+			topLevelProcessPath = originalURL.path
+		}
 	}
 	
 	// check user defaults
 	var didFindMatch = false
 	for client in clientApplicationPermissions {
-		if let path = client["path"] as? String, path == topLevelProcess.path {
+		if let path = client["path"] as? String, path == topLevelProcessPath {
 			didFindMatch = true
 			if let policy = client["policy"] as? String {
 				if policy == "allow" {
@@ -86,7 +93,7 @@ do {
 	}
 	if !didFindMatch {
 		// record app without policy in case of timeout or crash
-		clientApplicationPermissions.append(["path":topLevelProcess.path])
+		clientApplicationPermissions.append(["path":topLevelProcessPath])
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 	}
 
@@ -109,13 +116,13 @@ do {
 
 	switch result {
 	case .alertFirstButtonReturn:
-		clientApplicationPermissions.removeAll { $0["path"] as? String == topLevelProcess.path }
-		clientApplicationPermissions.append(["path":topLevelProcess.path, "policy": "allow"])
+		clientApplicationPermissions.removeAll { $0["path"] as? String == topLevelProcessPath }
+		clientApplicationPermissions.append(["path":topLevelProcessPath, "policy": "allow"])
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 		exit(0)
 	default:
-		clientApplicationPermissions.removeAll { $0["path"] as? String == topLevelProcess.path }
-		clientApplicationPermissions.append(["path":topLevelProcess.path, "policy": "deny"])
+		clientApplicationPermissions.removeAll { $0["path"] as? String == topLevelProcessPath }
+		clientApplicationPermissions.append(["path":topLevelProcessPath, "policy": "deny"])
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 		UserDefaults.shared.set(Date(), forKey: "ClientApplicationPermissionLastDeniedDate")
 		UserDefaults.shared.set("The user denied the connection attempt from \(topLevelProcess.name).", forKey: "ClientApplicationPermissionLastDeniedMessage")

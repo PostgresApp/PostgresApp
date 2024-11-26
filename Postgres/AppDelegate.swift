@@ -32,6 +32,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
+		let clientAppPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") ?? ""
+		if clientAppPath.isEmpty {
+			// Read the old setting, reverting to Terminal as default
+			let preferredClientAppName = UserDefaults.standard.string(forKey: "ClientAppName") ?? "Terminal"
+			let newClientAppURL: URL?
+			switch preferredClientAppName {
+			case "Postico":
+				newClientAppURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "at.eggerapps.Postico.2.MacAppStore") ?? NSWorkspace.shared.urlForApplication(withBundleIdentifier: "at.eggerapps.Postico") 
+			case "iTerm":
+				newClientAppURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.googlecode.iterm2")
+			case "Terminal":
+				newClientAppURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal")
+			default:
+				newClientAppURL = nil
+			}
+			if let newClientAppURL {
+				UserDefaults.standard.set(newClientAppURL.path, forKey: "PreferredClientApplicationPath")
+			}
+		}
+		
 		ServerManager.shared.loadServers()
 		if isFirstLaunch() {
 			ServerManager.shared.checkForExistingDataDirectories()
