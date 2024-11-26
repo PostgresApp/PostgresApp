@@ -9,16 +9,7 @@
 import Cocoa
 
 class ServerViewController: NSViewController, MainWindowModelConsumer {
-	@IBOutlet var databaseCollectionView: NSCollectionView!
-	
 	@objc dynamic var mainWindowModel: MainWindowModel!
-	
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		databaseCollectionView.itemPrototype = self.storyboard?.instantiateController(withIdentifier: "DatabaseCollectionViewItem") as? NSCollectionViewItem
-	}
-	
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
 		guard let server = mainWindowModel.firstSelectedServer else { return }

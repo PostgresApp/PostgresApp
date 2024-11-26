@@ -924,6 +924,7 @@ IA
                                                     <connections>
                                                         <binding destination="lfI-VP-uU4" name="content" keyPath="arrangedObjects" id="Waa-2h-Oey"/>
                                                         <binding destination="lfI-VP-uU4" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Waa-2h-Oey" id="Rcg-jU-nuF"/>
+                                                        <outlet property="itemPrototype" destination="fZY-To-dp1" id="rVr-Y5-LAw"/>
                                                     </connections>
                                                 </collectionView>
                                             </subviews>
@@ -1037,11 +1038,36 @@ IA
                             <constraint firstAttribute="trailing" secondItem="g5S-qz-Ibq" secondAttribute="trailing" id="vs2-W1-7Pu"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="databaseCollectionView" destination="nrL-ym-6WO" id="AkN-x7-p0O"/>
-                    </connections>
                 </viewController>
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="fZY-To-dp1" customClass="DatabaseItem" customModule="Postgres" customModuleProvider="target">
+                    <connections>
+                        <outlet property="view" destination="2xx-wp-fcR" id="szs-cX-xws"/>
+                    </connections>
+                </customObject>
+                <view id="2xx-wp-fcR" customClass="DatabaseItemView" customModule="Postgres" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="128" height="136"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <subviews>
+                        <textField identifier="DBNameLabel" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qvm-Kq-IOd">
+                            <rect key="frame" x="6" y="45" width="116" height="16"/>
+                            <textFieldCell key="cell" lineBreakMode="charWrapping" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="&lt;name&gt;" id="6C1-M2-FuD">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <binding destination="fZY-To-dp1" name="value" keyPath="representedObject.name" id="FxX-if-U9n"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Qvm-Kq-IOd" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="75" id="G93-zC-osj"/>
+                        <constraint firstItem="Qvm-Kq-IOd" firstAttribute="leading" secondItem="2xx-wp-fcR" secondAttribute="leading" constant="8" id="K8S-Go-yOu"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Qvm-Kq-IOd" secondAttribute="bottom" constant="7" id="Wzr-6q-mZe"/>
+                        <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" constant="8" id="y9s-MW-Wga"/>
+                    </constraints>
+                </view>
                 <dateFormatter dateStyle="short" timeStyle="medium" doesRelativeDateFormatting="YES" id="5lZ-9T-0dh"/>
                 <arrayController objectClassName="Postgres.Server" id="n71-mI-16p" userLabel="Server Array Controller">
                     <classReference key="objectClass" className="Server" moduleName="Postgres"/>
@@ -1739,38 +1765,6 @@ Gw
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-295" y="1545"/>
-        </scene>
-        <!--Database Item-->
-        <scene sceneID="2fR-yR-zDC">
-            <objects>
-                <collectionViewItem storyboardIdentifier="DatabaseCollectionViewItem" id="u5c-ia-qqM" customClass="DatabaseItem" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="2xx-wp-fcR" customClass="DatabaseItemView" customModule="Postgres" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="128" height="136"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textField identifier="DBNameLabel" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qvm-Kq-IOd">
-                                <rect key="frame" x="6" y="45" width="116" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="charWrapping" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="&lt;name&gt;" id="6C1-M2-FuD">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="u5c-ia-qqM" name="value" keyPath="representedObject.name" id="EOe-XN-8dc"/>
-                                </connections>
-                            </textField>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="Qvm-Kq-IOd" firstAttribute="top" secondItem="2xx-wp-fcR" secondAttribute="top" constant="75" id="G93-zC-osj"/>
-                            <constraint firstItem="Qvm-Kq-IOd" firstAttribute="leading" secondItem="2xx-wp-fcR" secondAttribute="leading" constant="8" id="K8S-Go-yOu"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Qvm-Kq-IOd" secondAttribute="bottom" constant="7" id="Wzr-6q-mZe"/>
-                            <constraint firstAttribute="trailing" secondItem="Qvm-Kq-IOd" secondAttribute="trailing" constant="8" id="y9s-MW-Wga"/>
-                        </constraints>
-                    </view>
-                </collectionViewItem>
-                <customObject id="jyQ-st-ZzH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="456" y="1143"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="GbV-uu-xl8">
