@@ -20,6 +20,17 @@ Rebuilding indexes is very simple:
 3. If you are using multiple databases, repeat the steps for every database.
 4. If Postgres.app shows the reindex warning, you can now hide it by clicking "More Info" and then on "Hide this Warning"
 
+Reindexing all databases at once
+--------------------------------
+
+If you have [configured your path](cli-tools.html), you can use the `reindexdb` CLI tool that comes with PostgreSQL to reindex all databases on a server.
+
+```sh
+reindexdb --all --port=5432
+```
+
+(Replace 5432 with the port that your server is using)
+
 
 Why should I reindex my databases?
 -----------------------------------------
