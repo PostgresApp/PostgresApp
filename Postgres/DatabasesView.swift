@@ -51,6 +51,15 @@ class DatabaseCollectionView: NSCollectionView {
             views += view.subviews
         }
     }
+    
+    override func doCommand(by selector: Selector) {
+        switch selector {
+        case #selector(insertNewline):
+            NSApp.sendAction(#selector(ServerViewController.openPsql), to: nil, from: self)
+        default:
+            return super.doCommand(by: selector)
+        }
+    }
 }
 
 class DatabaseItem: NSCollectionViewItem {
