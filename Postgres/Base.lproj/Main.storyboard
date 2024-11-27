@@ -1053,6 +1053,10 @@ IA
                             <constraint firstAttribute="trailing" secondItem="g5S-qz-Ibq" secondAttribute="trailing" id="vs2-W1-7Pu"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="startButton" destination="NJh-WV-lPO" id="qBL-80-91n"/>
+                        <outlet property="stopButton" destination="8iz-Ak-ysG" id="a2r-Ar-WlD"/>
+                    </connections>
                 </viewController>
                 <customObject id="ipu-u3-5pp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="fZY-To-dp1" customClass="DatabaseItem" customModule="Postgres" customModuleProvider="target">
