@@ -1,0 +1,36 @@
+--- a/expected/json.out
++++ b/expected/json.out
+@@ -1,4 +1,4 @@
+-CREATE FUNCTION valid_json(json text) RETURNS boolean
++CREATE FUNCTION valid_json("json" text) RETURNS boolean
+ LANGUAGE pljs IMMUTABLE STRICT
+ AS $$
+   try {
+--- a/sql/json.sql
++++ b/sql/json.sql
+@@ -1,4 +1,4 @@
+-CREATE FUNCTION valid_json(json text) RETURNS boolean
++CREATE FUNCTION valid_json("json" text) RETURNS boolean
+ LANGUAGE pljs IMMUTABLE STRICT
+ AS $$
+   try {
+--- a/src/functions.c
++++ b/src/functions.c
+@@ -182,8 +182,6 @@
+     MemoryContextSwitchTo(m_mcontext);
+     CurrentResourceOwner = m_resowner;
+ 
+-    SPI_pop_conditional(true);
+-
+     return error;
+   }
+   PG_END_TRY();
+@@ -353,8 +351,6 @@
+     RollbackAndReleaseCurrentSubTransaction();
+     MemoryContextSwitchTo(m_mcontext);
+     CurrentResourceOwner = m_resowner;
+-
+-    SPI_pop_conditional(true);
+ 
+     if (values) {
+       pfree(values);
