@@ -53,7 +53,7 @@ OPENSSL_VERSION=3.3.2
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.5.0
+PROJ_VERSION=9.5.1
 # due to their size we no longer bundle proj-data. 
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -113,7 +113,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.0
+PYTHON_VERSION_FULL=3.13.1
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
