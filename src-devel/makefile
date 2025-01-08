@@ -4,9 +4,26 @@
 POSTGIS_VERSION=3.5.0
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=17.2
-POSTGRES_MAJOR_VERSION=17
+# define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
+POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
+#POSTGRES_GIT_REF=HEAD
+#POSTGRES_GIT_REF=cf/5416
+POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
+#POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
+
+ifeq ($(POSTGRES_GIT_HASH),)
+    GIT_REF_MATCH:=$(shell git ls-remote "$(POSTGRES_GIT_URL)" | grep -E "(\t|/)$(POSTGRES_GIT_REF)$$" | head -1)
+    $(warning Found the following ref for PostgreSQL: $(GIT_REF_MATCH))
+    POSTGRES_GIT_HASH:=$(shell echo "$(GIT_REF_MATCH)" | cut -f 1)
+endif
+
+POSTGRES_VERSION=$(POSTGRES_GIT_HASH)
+POSTGRES_MAJOR_VERSION=devel
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
+
+ifeq ($(POSTGRES_VERSION),)
+    $(error "One of POSTGRES_VERSION, POSTGRES_GIT_HASH or POSTGRES_GIT_REF needs to be defined")
+endif
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
@@ -183,7 +200,7 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # 
 # We're building without tcl and perl for now because they caused problems on macOS 10.15
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib postgresql-$(POSTGRES_VERSION)/configure | check-python
-	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --with-ssl=openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-extra-version=" (Postgres.app)" --with-lz4 --with-zstd
+	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --with-ssl=openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-extra-version="$(addprefix -,$(POSTGRES_GIT_HASH)) (Postgres.app)" --with-lz4 --with-zstd
 
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
@@ -191,7 +208,16 @@ postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
+ifneq ($(POSTGRES_GIT_URL),)
+	rm -Rf postgresql-git
+	git init postgresql-git
+	git -C postgresql-git remote add origin $(POSTGRES_GIT_URL)
+	git -C postgresql-git fetch --depth 1 origin $(POSTGRES_VERSION)
+	# archive command borrowed from "make dist"
+	git -C postgresql-git -c core.autocrlf=false -c tar.tar.bz2.command='bzip2 -c' archive --format tar.bz2 --prefix "postgresql-$(POSTGRES_VERSION)/" "$(POSTGRES_VERSION)" -o "../postgresql-$(POSTGRES_VERSION).tar.bz2"
+else
 	$(CURL) "$(POSTGRES_DOWNLOAD_URL)/postgresql-$(POSTGRES_VERSION).tar.bz2"
+endif
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
