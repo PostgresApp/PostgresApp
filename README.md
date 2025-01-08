@@ -94,7 +94,7 @@ At the very least, you need the following:
 
 - Xcode
 - Developer Tools (install with `xcode-select --install`)
-- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14), 3.11.x (PostgreSQL 15), 3.12.x (PostgreSQL 16) or 3.13.x (PostgreSQL 17)
+- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14), 3.11.x (PostgreSQL 15), 3.12.x (PostgreSQL 16), 3.13.x (PostgreSQL 17) or >=3.9.x (PostgreSQL >=18)
 
 For building PostGIS and its dependencies, you also need
 

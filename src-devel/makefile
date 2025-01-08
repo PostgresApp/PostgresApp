@@ -11,8 +11,9 @@ POSTGIS_MAJOR_VERSION=3
 #POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 #POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
 
-POSTGRES_GIT_REF=HEAD
-POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
+# 'Use Python "Limited API" in PL/Python' https://commitfest.postgresql.org/patch/5416
+POSTGRES_GIT_REF=cf/5416
+POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
 
 ifeq ($(POSTGRES_GIT_HASH),)
     POSTGRES_GIT_HASH:=$(shell cat POSTGRES_GIT_HASH 2>/dev/null)
@@ -158,7 +159,6 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.2
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -228,6 +228,10 @@ postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" $(POSTGRES_TARGET) XMLINCLUDE=--catalogs
+	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/plpython3.dylib
+	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/hstore_plpython3.dylib
+	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/jsonb_plpython3.dylib
+	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/ltree_plpython3.dylib
 
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
@@ -1233,4 +1237,4 @@ check-rpath:
 
 check-python:
 # This checks if the specified python version is installed and is universal
-	$(PYTHON) -V | grep -q $(PYTHON_VERSION_FULL) && lipo $(PYTHON) -verify_arch arm64 x86_64
+	$(PYTHON) -V | grep -q $(PYTHON_VERSION) && lipo $(PYTHON) -verify_arch arm64 x86_64
