@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1633,7 +1633,7 @@ IA
             <objects>
                 <viewController id="1Yk-z1-ntp" userLabel="Add Server View Controller" customClass="AddServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Eeo-NL-RWf">
-                        <rect key="frame" x="0.0" y="0.0" width="611" height="234"/>
+                        <rect key="frame" x="0.0" y="0.0" width="611" height="264"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-g9-Q2h">
@@ -1651,7 +1651,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f6O-gR-AUo">
-                                <rect key="frame" x="18" y="192" width="164" height="22"/>
+                                <rect key="frame" x="18" y="222" width="164" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Create new Server" id="mCY-ya-AYe">
                                     <font key="font" metaFont="systemBold" size="18"/>
@@ -1660,7 +1660,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOB-xn-gec">
-                                <rect key="frame" x="114" y="118" width="480" height="26"/>
+                                <rect key="frame" x="114" y="148" width="480" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="3bc-Nr-Mvt">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1683,7 +1683,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVM-CQ-Iap">
-                                <rect key="frame" x="18" y="153" width="92" height="17"/>
+                                <rect key="frame" x="18" y="183" width="92" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="k0m-mn-VGT">
                                     <font key="font" metaFont="system"/>
@@ -1692,7 +1692,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yoW-hT-iqq">
-                                <rect key="frame" x="116" y="150" width="475" height="22"/>
+                                <rect key="frame" x="116" y="180" width="475" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="M5b-WS-ETc">
                                     <font key="font" metaFont="system"/>
@@ -1728,8 +1728,31 @@ DQ
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YKp-OE-V2T">
+                                <rect key="frame" x="116" y="121" width="475" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="eV2-Qt-g5c">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="1Yk-z1-ntp" name="editable" keyPath="binPathEditable" id="Ko9-oQ-reR"/>
+                                    <binding destination="1Yk-z1-ntp" name="enabled" keyPath="binPathEditable" previousBinding="Ko9-oQ-reR" id="uAH-Ix-sH6"/>
+                                    <binding destination="1Yk-z1-ntp" name="value" keyPath="binPath" id="peF-0l-j86"/>
+                                </connections>
+                            </textField>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vQM-0D-225">
+                                <rect key="frame" x="18" y="124" width="92" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Binaries" id="NhC-2U-uLD">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bee-Pa-uVg">
-                                <rect key="frame" x="18" y="125" width="92" height="17"/>
+                                <rect key="frame" x="18" y="155" width="92" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Version" id="btk-2M-aVk">
                                     <font key="font" metaFont="system"/>
@@ -1779,7 +1802,7 @@ Gw
                 </viewController>
                 <customObject id="F8B-tu-pOw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-295" y="1545"/>
+            <point key="canvasLocation" x="-369.5" y="1570"/>
         </scene>
         <!--Connection Dialog-->
         <scene sceneID="Hpf-rK-Zyy">
