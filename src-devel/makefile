@@ -157,9 +157,6 @@ QUICKJS_VERSION=2024-01-13
 ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
-# https://www.python.org/downloads/macos/
-PYTHON_VERSION=3.13
-
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
@@ -172,7 +169,7 @@ DEVELOPER_DIR=/Library/Developer/CommandLineTools
 export PREFIX PATH PKG_CONFIG_LIBDIR DEVELOPER_DIR
 
 #python config
-PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/python3
+PYTHON=/Library/Frameworks/Python.framework/Versions/Current/bin/python3
 export PYTHON
 
 #compiler options
@@ -228,10 +225,10 @@ postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" $(POSTGRES_TARGET) XMLINCLUDE=--catalogs
-	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/plpython3.dylib
-	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/hstore_plpython3.dylib
-	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/jsonb_plpython3.dylib
-	install_name_tool -change /Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/Python /Library/Frameworks/Python.framework/Python $(PREFIX)/lib/postgresql/ltree_plpython3.dylib
+	ORIGINAL_PYTHON_PATH=$$(otool -L $(PREFIX)/lib/postgresql/plpython3.dylib | grep -m 1 -o '/Library/Frameworks/Python.framework/Versions/.*/Python') && \
+	for PYLIB in $(PREFIX)/lib/postgresql/*plpython3.dylib; do \
+		install_name_tool -change $$ORIGINAL_PYTHON_PATH /Library/Frameworks/Python.framework/Python $$PYLIB; \
+	done
 
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
@@ -1236,5 +1233,5 @@ check-rpath:
 		-exec otool -L {} \;
 
 check-python:
-# This checks if the specified python version is installed and is universal
-	$(PYTHON) -V | grep -q $(PYTHON_VERSION) && lipo $(PYTHON) -verify_arch arm64 x86_64
+# This checks if the specified python is universal
+	lipo $(PYTHON) -verify_arch arm64 x86_64
