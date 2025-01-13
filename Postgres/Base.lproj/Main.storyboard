@@ -886,7 +886,7 @@ IA
                                             <constraint firstItem="5Be-be-3Q1" firstAttribute="leading" secondItem="cKZ-aa-I11" secondAttribute="leading" constant="20" symbolic="YES" id="5ft-Qv-ZnY"/>
                                             <constraint firstItem="Scd-hP-8Y9" firstAttribute="leading" secondItem="KDo-0D-h6z" secondAttribute="trailing" constant="12" symbolic="YES" id="Dq3-PO-CaB"/>
                                             <constraint firstItem="Scd-hP-8Y9" firstAttribute="centerY" secondItem="5Be-be-3Q1" secondAttribute="centerY" id="IzI-em-eZ4"/>
-                                            <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="94" id="UbK-5c-74J"/>
+                                            <constraint firstItem="Ao6-Je-0kL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Scd-hP-8Y9" secondAttribute="trailing" constant="12" symbolic="YES" id="UbK-5c-74J"/>
                                             <constraint firstItem="8iz-Ak-ysG" firstAttribute="centerY" secondItem="Ao6-Je-0kL" secondAttribute="centerY" id="YRr-tm-UyJ"/>
                                             <constraint firstItem="KDo-0D-h6z" firstAttribute="leading" secondItem="5Be-be-3Q1" secondAttribute="trailing" constant="12" symbolic="YES" id="fgQ-yy-pDg"/>
                                             <constraint firstItem="NJh-WV-lPO" firstAttribute="leading" secondItem="8iz-Ak-ysG" secondAttribute="trailing" constant="12" symbolic="YES" id="gOL-SS-wa2"/>
