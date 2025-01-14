@@ -25,6 +25,9 @@ ifeq ($(POSTGRES_VERSION),)
     $(error "One of POSTGRES_VERSION, POSTGRES_GIT_HASH or POSTGRES_GIT_REF needs to be defined")
 endif
 
+# set POSTGRES_TARGET=install-world-bin to build PostgreSQL without documentation
+POSTGRES_TARGET=install-world
+
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
@@ -190,8 +193,7 @@ check-postgresql:
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" world XMLINCLUDE=--catalogs
-	make -C "postgresql-$(POSTGRES_VERSION)" install-world
+	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" $(POSTGRES_TARGET) XMLINCLUDE=--catalogs
 
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
