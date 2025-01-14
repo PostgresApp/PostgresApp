@@ -563,6 +563,9 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
 		process.launchPath = launchPath
+        process.environment = [
+            "LC_ALL": "en_US.UTF-8",
+        ]
 		process.arguments = [
 			"-D", varPath,
 			"-C",
@@ -723,6 +726,9 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.pg_ctl", code: 0, userInfo: userInfo)
 		}
 		process.launchPath = launchPath
+        process.environment = [
+            "LC_ALL": "en_US.UTF-8",
+        ]
 		process.arguments = [
 			"start",
 			"-D", varPath,
@@ -1047,6 +1053,9 @@ class Server: NSObject {
 		}
 		let process = Process()
 		process.launchPath = launchPath
+        process.environment = [
+            "LC_ALL": "en_US.UTF-8",
+        ]
 		process.arguments = [
 			"--single",
 			"-D", varPath,
