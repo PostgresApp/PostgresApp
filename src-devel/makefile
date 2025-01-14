@@ -26,6 +26,9 @@ ifeq ($(POSTGRES_VERSION),)
     $(error "One of POSTGRES_VERSION, POSTGRES_GIT_HASH or POSTGRES_GIT_REF needs to be defined")
 endif
 
+# set POSTGRES_TARGET=install-world-bin to build PostgreSQL without documentation
+POSTGRES_TARGET=install-world
+
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
@@ -187,8 +190,7 @@ check-postgresql:
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" world XMLINCLUDE=--catalogs
-	make -C "postgresql-$(POSTGRES_VERSION)" install-world
+	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" $(POSTGRES_TARGET) XMLINCLUDE=--catalogs
 	ORIGINAL_PYTHON_PATH=$$(otool -L $(PREFIX)/lib/postgresql/plpython3.dylib | grep -m 1 -o '/Library/Frameworks/Python.framework/Versions/.*/Python') && \
 	for PYLIB in $(PREFIX)/lib/postgresql/*plpython3.dylib; do \
 		install_name_tool -change $$ORIGINAL_PYTHON_PATH /Library/Frameworks/Python.framework/Python $$PYLIB; \
