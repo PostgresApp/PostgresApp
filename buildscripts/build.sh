@@ -88,24 +88,24 @@ echo -n "Enabling Hardened Runtime... "
 
 APP="$EXPORT_PATH"/Postgres.app
 
-find "$APP"/Contents/Versions/[0-9]*/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
+find "$APP"/Contents/Versions/{[0-9]*,devel}/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
 	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  \
 		--entitlements postgres.entitlements \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
-find "$APP"/Contents/Versions/[0-9]*/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
+find "$APP"/Contents/Versions/{[0-9]*,devel}/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
 	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
-find "$APP"/Contents/Versions/[0-9]*/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
+find "$APP"/Contents/Versions/{[0-9]*,devel}/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
 	codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
 		{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
-	"$APP"/Contents/Versions/[0-9]*/lib/postgresql/pgxs/src/test/regress/pg_regress \
-	"$APP"/Contents/Versions/[0-9]*/lib/*.a \
+	"$APP"/Contents/Versions/{[0-9]*,devel}/lib/postgresql/pgxs/src/test/regress/pg_regress \
+	"$APP"/Contents/Versions/{[0-9]*,devel}/lib/*.a \
 	"$APP"/Contents/MacOS/PostgresMenuHelper.app \
 	"$APP"/Contents/Library/LoginItems/PostgresLoginHelper.app \
 	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
