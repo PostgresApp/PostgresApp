@@ -5,11 +5,12 @@ POSTGIS_VERSION=3.5.0
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
-POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
+#POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
 #POSTGRES_GIT_REF=HEAD
-#POSTGRES_GIT_REF=cf/5416
-POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
-#POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
+# 'Use Python "Limited API" in PL/Python' https://commitfest.postgresql.org/patch/5416 
+POSTGRES_GIT_REF=cf/5416
+#POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
+POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
 
 ifeq ($(POSTGRES_GIT_HASH),)
     GIT_REF_MATCH:=$(shell git ls-remote "$(POSTGRES_GIT_URL)" | grep -E "(\t|/)$(POSTGRES_GIT_REF)$$" | head -1)
@@ -131,10 +132,6 @@ QUICKJS_VERSION=2024-01-13
 ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
-# https://www.python.org/downloads/macos/
-PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.1
-
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
 PREFIX=/Applications/Postgres.app/Contents/Versions/$(POSTGRES_MAJOR_VERSION)
@@ -147,7 +144,7 @@ DEVELOPER_DIR=/Library/Developer/CommandLineTools
 export PREFIX PATH PKG_CONFIG_LIBDIR DEVELOPER_DIR
 
 #python config
-PYTHON=/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)/bin/python3
+PYTHON=/Library/Frameworks/Python.framework/Versions/Current/bin/python3
 export PYTHON
 
 #compiler options
@@ -194,6 +191,10 @@ postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" $(POSTGRES_TARGET) XMLINCLUDE=--catalogs
+	ORIGINAL_PYTHON_PATH=$$(otool -L $(PREFIX)/lib/postgresql/plpython3.dylib | grep -m 1 -o '/Library/Frameworks/Python.framework/Versions/.*/Python') && \
+	for PYLIB in $(PREFIX)/lib/postgresql/*plpython3.dylib; do \
+		install_name_tool -change $$ORIGINAL_PYTHON_PATH /Library/Frameworks/Python.framework/Python $$PYLIB; \
+	done
 
 # setting PATH is to make sure we find the right xml2-config
 # the --with-includes and --with-libraries options are necessary so
@@ -1197,6 +1198,6 @@ check-rpath:
 		-exec otool -L {} \;
 
 check-python:
-# This checks if the specified python version is installed and is universal
-	$(PYTHON) -V | grep -q $(PYTHON_VERSION_FULL) && lipo $(PYTHON) -verify_arch arm64 x86_64
+# This checks if the specified python is universal
+	lipo $(PYTHON) -verify_arch arm64 x86_64
 	
