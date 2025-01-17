@@ -57,16 +57,36 @@ class ClientLauncher: NSObject {
 		}
 	}
 	
+	// These are Terminal apps that support AppleScript
+	// Unfortunately, they don't support the same commands,
+	// so we have separate scripts for each of them
+	static let scriptableTerminalApps = [
+		"com.apple.Terminal",
+		"com.googlecode.iterm2",
+	]
+	
+	// These are Terminal apps that do not support AppleScript,
+	// but they support opening shell scripts
+	static let unscriptableTerminalApps = [
+		"com.mitchellh.ghostty",
+		"co.zeit.hyper",
+		"net.kovidgoyal.kitty",
+		"com.github.wez.wezterm",
+		"dev.warp.Warp-Stable",
+	]
+
 	func prepareClientLauncherButton(button: NSPopUpButton) {
 		let postgresURL = URL(string: "postgres:")!
 		var appURLs = [URL]()
 		if #available(macOS 12, *) {
-			appURLs += NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "com.apple.Terminal")
-			appURLs += NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "com.googlecode.iterm2")
+			for bundleIdentifier in Self.scriptableTerminalApps + Self.unscriptableTerminalApps {
+				appURLs += NSWorkspace.shared.urlsForApplications(withBundleIdentifier: bundleIdentifier)
+			}
 			appURLs += NSWorkspace.shared.urlsForApplications(toOpen: postgresURL)
 		} else {
-			LSCopyApplicationURLsForBundleIdentifier("com.apple.Terminal" as CFString, nil).map { appURLs += $0.takeRetainedValue() as! [URL] }
-			LSCopyApplicationURLsForBundleIdentifier("com.googlecode.iterm2" as CFString, nil).map { appURLs += $0.takeRetainedValue() as! [URL] }
+			for bundleIdentifier in Self.scriptableTerminalApps + Self.unscriptableTerminalApps {
+				LSCopyApplicationURLsForBundleIdentifier(bundleIdentifier as CFString, nil).map { appURLs += $0.takeRetainedValue() as! [URL] }
+			}
 			LSCopyApplicationURLsForURL(postgresURL as CFURL, [.viewer,.editor]).map { appURLs += $0.takeRetainedValue() as! [URL] }
 		}
 		var bundleIdentifiers = Set<String>()
@@ -134,15 +154,27 @@ class ClientLauncher: NSObject {
 				UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 			}
 		}
-		if bundle.bundleIdentifier == "com.apple.Terminal" || bundle.bundleIdentifier == "com.googlecode.iterm2" {
+		if let bundleIdentifier = bundle.bundleIdentifier, Self.scriptableTerminalApps.contains(bundleIdentifier) || Self.unscriptableTerminalApps.contains(bundleIdentifier) {
 			var psqlCommand = "\"\(server.binPath)/psql\" -p\(server.port)"
 			if !userName.isEmpty { psqlCommand += " -U \"\(userName)\""}
 			if !databaseName.isEmpty { psqlCommand += " \"\(databaseName)\""}
 
-			if bundle.bundleIdentifier == "com.apple.Terminal" {
+			if Self.unscriptableTerminalApps.contains(bundleIdentifier) {
+				let commandUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("open_psql.command")
+				try psqlCommand.write(to: commandUrl, atomically: false, encoding: .utf8)
+				try FileManager().setAttributes([.posixPermissions: 0o700], ofItemAtPath: commandUrl.path)
+				if bundleIdentifier == "com.github.wez.wezterm" {
+					// This is a Workaround for bug in wezterm
+					// opening shell scripts seems to work only if the app is already open
+					// so we open it first
+					try await NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
+				}
+				try await NSWorkspace.shared.open([commandUrl], withApplicationAt: appURL, configuration: NSWorkspace.OpenConfiguration())
+			}
+			else if bundle.bundleIdentifier == "com.apple.Terminal" {
 				try self.runSubroutine("open_Terminal", parameters: [psqlCommand])
 			}
-			if bundle.bundleIdentifier == "com.googlecode.iterm2" {
+			else if bundle.bundleIdentifier == "com.googlecode.iterm2" {
 				try self.runSubroutine("open_iTerm", parameters: [psqlCommand])
 			}
 		}
