@@ -158,6 +158,12 @@ class ClientLauncher: NSObject {
 			var psqlCommand = "\"\(server.binPath)/psql\" -p\(server.port)"
 			if !userName.isEmpty { psqlCommand += " -U \"\(userName)\""}
 			if !databaseName.isEmpty { psqlCommand += " \"\(databaseName)\""}
+			if bundleIdentifier != "com.googlecode.iterm2" {
+				// add a clear command before the psql command
+				// this removes login messages from the terminal that appear before psql is executed
+				// iTerm doesn't seem to execute commands in a shell, so it doesn't need it
+				psqlCommand = "clear;" + psqlCommand
+			}
 
 			if Self.unscriptableTerminalApps.contains(bundleIdentifier) {
 				let commandUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("open_psql.command")
