@@ -13,7 +13,20 @@ struct UnixProcessInfo {
 	let path: String
 
 	var name: String {
-		String(path.split(separator: "/").last ?? "")
+		// If the process belongs to an app bundle, show the name of the app bundle instead
+		// We do this because sometimes the executable has a different name as the app bundle
+		// For example, Warp.app/Contents/MacOS/stable -> we want to show "Warp" instead of "stable"
+		let executableURL = URL(fileURLWithPath: path)
+		let bundleURL = executableURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+		if bundleURL.pathExtension == "app" {
+			if let localizedName = try? bundleURL.resourceValues(forKeys: [.localizedNameKey]).localizedName {
+				return localizedName
+			} else {
+				return bundleURL.deletingPathExtension().lastPathComponent
+			}
+		} else {
+			return executableURL.lastPathComponent
+		}
 	}
 
 	init(runningProcessWithPid pid: pid_t) throws {
