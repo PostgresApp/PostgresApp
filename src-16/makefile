@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.4.3
+POSTGIS_VERSION=3.4.4
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=16.6
@@ -79,10 +79,10 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.44
+LIBPNG_VERSION=1.6.46
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.5.2
+OPENJPEG_VERSION=2.5.3
 
 # https://github.com/Unidata/netcdf-c/releases
 NETCDF_VERSION=4.9.2
@@ -109,7 +109,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.8
+PYTHON_VERSION_FULL=3.12.9
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -823,7 +823,7 @@ boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)

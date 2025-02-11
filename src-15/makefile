@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.7
+POSTGIS_VERSION=3.3.8
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15.10
@@ -78,10 +78,10 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.44
+LIBPNG_VERSION=1.6.46
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.5.2
+OPENJPEG_VERSION=2.5.3
 
 # https://github.com/EnterpriseDB/pldebugger/tags
 PLDEBUGGER_VERSION=1.8
@@ -795,7 +795,7 @@ boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)

@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.5.0
+POSTGIS_VERSION=3.5.2
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
@@ -89,12 +89,12 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-ABSEIL_VERSION=20240722.0
+ABSEIL_VERSION=20240722.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # protobuf-c 1.5.0 is not compatible with >=26.x yet
 # 25.x is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=25.5
+PROTOBUF_VERSION=25.6
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.0
@@ -103,10 +103,10 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.44
+LIBPNG_VERSION=1.6.46
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.5.2
+OPENJPEG_VERSION=2.5.3
 
 # https://github.com/Unidata/netcdf-c/releases
 NETCDF_VERSION=4.9.2
@@ -905,7 +905,7 @@ boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	$(CURL) https://boostorg.jfrog.io/artifactory/main/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
