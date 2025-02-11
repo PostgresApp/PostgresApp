@@ -5,11 +5,14 @@ POSTGIS_VERSION=3.5.2
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
-POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
+#POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
 #POSTGRES_GIT_REF=HEAD
 #POSTGRES_GIT_REF=cf/5416
-POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
+#POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 #POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
+
+POSTGRES_GIT_REF=HEAD
+POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 
 ifeq ($(POSTGRES_GIT_HASH),)
     GIT_REF_MATCH:=$(shell git ls-remote "$(POSTGRES_GIT_URL)" | grep -E "(\t|/)$(POSTGRES_GIT_REF)$$" | head -1)
