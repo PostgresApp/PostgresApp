@@ -779,6 +779,30 @@ class Server: NSObject {
 			needWrite = true
 		}
 		
+		//cleanup error in Postgres.app 2.7.x
+		let fixedVersion = switch dataDirectoryVersion {
+			case "12": "12.17-12.22"
+			case "13": "13.13-13.18"
+			case "14": "14.10-14.15"
+			case "15": "15.5-15.10"
+			case "16": "16.1-16.6"
+			case "17": "17.0-17.2"
+			default: dataDirectoryVersion
+		}
+		if let faultyIndex = recentlyStartedPostgresqlVersions.firstIndex(of: "(Postgres.app)") {
+			recentlyStartedPostgresqlVersions[faultyIndex] = fixedVersion ?? "unknown"
+			configPlist["recently_started_postgresql_versions"] = recentlyStartedPostgresqlVersions
+			needWrite = true
+		}
+		if configPlist["initdb_postgresql_version"] as? String == "(Postgres.app)" {
+			configPlist["initdb_postgresql_version"] = fixedVersion ?? "unknown"
+			needWrite = true
+		}
+		if configPlist["reindex_warning_reset_on_postgresql_version"] as? String == "(Postgres.app)" {
+			configPlist["reindex_warning_reset_on_postgresql_version"] = fixedVersion ?? "unknown"
+			needWrite = true
+		}
+		
 		if needWrite {
 			try? writeConfigPlist(configPlist)
 		}
@@ -1125,8 +1149,11 @@ class Server: NSObject {
 		}
 		process.waitUntilExit()
 		let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
-		guard let output = outputOrNil else { return nil }
+		guard var output = outputOrNil else { return nil }
 		guard process.terminationStatus == 0 else { return nil }
+		if let splitIndex = output.lastIndex(of: "(") {
+			output = output[..<splitIndex].trimmingCharacters(in: .whitespacesAndNewlines)
+		}
 		guard let splitIndex = output.lastIndex(of: " ") else { return nil }
 		let versionString = output[splitIndex...]
 		cachedBinaryVersion = versionString.trimmingCharacters(in: .whitespacesAndNewlines)
