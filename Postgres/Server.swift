@@ -1133,11 +1133,11 @@ class Server: NSObject {
 	var binaryVersion: String? {
 		if let a = cachedBinaryVersion { return a }
 		let process = Process()
-		let launchPath = self.binPath + "/postgres"
+		let launchPath = self.binPath + "/pg_config"
 		guard FileManager().fileExists(atPath: launchPath) else { return nil }
 		process.launchPath = launchPath
 		process.arguments = [
-			"-V"
+			"--version"
 		]
 		let outPipe = Pipe()
 		process.standardOutput = outPipe
