@@ -787,19 +787,19 @@ class Server: NSObject {
 			case "15": "15.6-15.10"
 			case "16": "16.2-16.6"
 			case "17": "17.0-17.2"
-			default: dataDirectoryVersion
+			default: "unknown"
 		}
 		if let faultyIndex = recentlyStartedPostgresqlVersions.firstIndex(of: "(Postgres.app)") {
-			recentlyStartedPostgresqlVersions[faultyIndex] = fixedVersion ?? "unknown"
+			recentlyStartedPostgresqlVersions[faultyIndex] = fixedVersion
 			configPlist["recently_started_postgresql_versions"] = recentlyStartedPostgresqlVersions
 			needWrite = true
 		}
 		if configPlist["initdb_postgresql_version"] as? String == "(Postgres.app)" {
-			configPlist["initdb_postgresql_version"] = fixedVersion ?? "unknown"
+			configPlist["initdb_postgresql_version"] = fixedVersion
 			needWrite = true
 		}
 		if configPlist["reindex_warning_reset_on_postgresql_version"] as? String == "(Postgres.app)" {
-			configPlist["reindex_warning_reset_on_postgresql_version"] = fixedVersion ?? "unknown"
+			configPlist["reindex_warning_reset_on_postgresql_version"] = fixedVersion
 			needWrite = true
 		}
 		
