@@ -1169,10 +1169,19 @@ class Server: NSObject {
 		return Data(digest)
 	}()
 	
+    private var cachedDataDirectoryVersion: String?
     var dataDirectoryVersion: String? {
+        if let cachedDataDirectoryVersion {
+            return cachedDataDirectoryVersion
+        }
         do {
             let v = try String(contentsOfFile: pgVersionPath)
-            return v.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimmedVersion = v.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmedVersion.isEmpty else {
+                return nil
+            }
+            cachedDataDirectoryVersion = trimmedVersion
+            return trimmedVersion
         }
         catch {
             return nil
