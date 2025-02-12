@@ -10,7 +10,7 @@ import Cocoa
 import CommonCrypto
 
 class Server: NSObject {
-		
+	
 	static let PropertyChangedNotification = Notification.Name("Server.PropertyChangedNotification")
 	static let StatusChangedNotification = Notification.Name("Server.StatusChangedNotification")
 	
@@ -30,27 +30,27 @@ class Server: NSObject {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-    @objc var subtitle: String {
-        var infos = [String]()
-        infos.append("Port \(self.port)")
-        if let v = self.dataDirectoryVersion { infos.append("v\(v)")}
-        return infos.joined(separator: " – ")
-    }
-    @objc static var keyPathsForValuesAffectingSubtitle: Set<String> { ["port", "binPath", "serverStatus"] }
-
-    
-    
+	@objc var subtitle: String {
+		var infos = [String]()
+		infos.append("Port \(self.port)")
+		if let v = self.dataDirectoryVersion { infos.append("v\(v)")}
+		return infos.joined(separator: " – ")
+	}
+	@objc static var keyPathsForValuesAffectingSubtitle: Set<String> { ["port", "binPath", "serverStatus"] }
+	
+	
+	
 	@objc dynamic var port: UInt = 0 {
 		didSet {
 			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
 		}
 	}
-    @objc dynamic var binPath: String = "" {
-        didSet {
-            NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
-        }
-    }
-    var effectiveBinPath: String?
+	@objc dynamic var binPath: String = "" {
+		didSet {
+			NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: self)
+		}
+	}
+	var effectiveBinPath: String?
 	var extPath: String {
 		var components = binPath.components(separatedBy: "/")
 		while let last = components.last, last.isEmpty || last == "." {
@@ -89,18 +89,18 @@ class Server: NSObject {
 	}
 	
 	func readConfigPlist() throws -> [String: Any] {
-        let data = try Data(contentsOf: URL(fileURLWithPath: configPlistPath))
-        let plist = try PropertyListSerialization.propertyList(from: data, format: nil)
-        guard let configPlist = plist as? [String:Any] else {
-            throw NSError()
-        }
-        return configPlist
+		let data = try Data(contentsOf: URL(fileURLWithPath: configPlistPath))
+		let plist = try PropertyListSerialization.propertyList(from: data, format: nil)
+		guard let configPlist = plist as? [String:Any] else {
+			throw NSError()
+		}
+		return configPlist
 	}
-    
-    func writeConfigPlist(_ newValue:[String: Any]) throws {
-        let data = try PropertyListSerialization.data(fromPropertyList: newValue, format: .xml, options: 0)
-        try data.write(to: URL(fileURLWithPath: configPlistPath))
-    }
+	
+	func writeConfigPlist(_ newValue:[String: Any]) throws {
+		let data = try PropertyListSerialization.data(fromPropertyList: newValue, format: .xml, options: 0)
+		try data.write(to: URL(fileURLWithPath: configPlistPath))
+	}
 	
 	@objc dynamic private(set) var busy: Bool = false
 	@objc dynamic private(set) var running: Bool = false
@@ -143,9 +143,9 @@ class Server: NSObject {
 	
 	init?(propertyList: [AnyHashable: Any]) {
 		guard let name = propertyList["name"] as? String,
-		let port = propertyList["port"] as? UInt,
-		let binPath = propertyList["binPath"] as? String,
-		let varPath = propertyList["varPath"] as? String
+			  let port = propertyList["port"] as? UInt,
+			  let binPath = propertyList["binPath"] as? String,
+			  let varPath = propertyList["varPath"] as? String
 		else {
 			return nil
 		}
@@ -161,16 +161,16 @@ class Server: NSObject {
 	func start(_ completion: @escaping (Result<Void, Error>) -> Void) {
 		busy = true
 		updateServerStatus()
-        
-        if let effectiveBinPath = effectiveBinPath, binPath != effectiveBinPath {
-            binPath = effectiveBinPath
-        }
+		
+		if let effectiveBinPath = effectiveBinPath, binPath != effectiveBinPath {
+			binPath = effectiveBinPath
+		}
 		
 		DispatchQueue.global().async {
 			let statusResult: Result<Void, Error>
 			
 			switch self.serverStatus {
-			
+				
 			case .NoBinaries:
 				var userInfo = [
 					NSLocalizedDescriptionKey: NSLocalizedString("Required PostgreSQL version not installed", comment: ""),
@@ -203,30 +203,30 @@ class Server: NSObject {
 				statusResult = .failure(NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo))
 				
 			case .DataDirEmpty:
-                statusResult = Result {
-                    if self.portInUse() {
-                        let userInfo = [
-                            NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
-                            NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
-                        ]
-                        throw NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
-                    }
-                    
-                    try self.initDatabaseSync()
-                    
-                    try self.startSync()
-                    
-                    try self.createUserSync()
-                    
-                    try self.createUserDatabaseSync()
-                }
+				statusResult = Result {
+					if self.portInUse() {
+						let userInfo = [
+							NSLocalizedDescriptionKey: NSLocalizedString("Port \(self.port) is already in use", comment: ""),
+							NSLocalizedRecoverySuggestionErrorKey: "Usually this means that there is already a PostgreSQL server running on your Mac. If you want to run multiple servers simultaneously, use different ports."
+						]
+						throw NSError(domain: "com.postgresapp.Postgres2.server-status", code: 0, userInfo: userInfo)
+					}
+					
+					try self.initDatabaseSync()
+					
+					try self.startSync()
+					
+					try self.createUserSync()
+					
+					try self.createUserDatabaseSync()
+				}
 			case .Running:
 				statusResult = .success(())
 				
 			case .Startable:
-                statusResult = Result {
-                    try self.startSync()
-                }
+				statusResult = Result {
+					try self.startSync()
+				}
 				
 			case .Unknown:
 				let userInfo = [
@@ -255,9 +255,9 @@ class Server: NSObject {
 		busy = true
 		
 		DispatchQueue.global().async {
-            let stopRes = Result {
-                try self.stopSync()
-            }
+			let stopRes = Result {
+				try self.stopSync()
+			}
 			DispatchQueue.main.async {
 				self.updateServerStatus()
 				completion(stopRes)
@@ -269,26 +269,26 @@ class Server: NSObject {
 		UserDefaults.shared.removeObject(forKey: "ClientApplicationPermissionLastDeniedMessage")
 	}
 	
-    func changePassword(role: String, newPassword: String, _ completion: @escaping (Result<Void, Error>) -> Void) {
-        busy = true
-        
-        DispatchQueue.global().async {
-            let stopRes = Result {
-                try self.changePasswordSync(role: role, newPassword: newPassword)
-            }
-            DispatchQueue.main.async {
-                self.updateServerStatus()
-                completion(stopRes)
-                self.busy = false
-            }
-        }
-    }
-    
+	func changePassword(role: String, newPassword: String, _ completion: @escaping (Result<Void, Error>) -> Void) {
+		busy = true
+		
+		DispatchQueue.global().async {
+			let stopRes = Result {
+				try self.changePasswordSync(role: role, newPassword: newPassword)
+			}
+			DispatchQueue.main.async {
+				self.updateServerStatus()
+				completion(stopRes)
+				self.busy = false
+			}
+		}
+	}
+	
 	// This function checks if the macOS version was recorded when doing initdb
 	// If not, it tries to guess by comparing the creation date of pg_version to the list of macOS versions in InstallHistory.plist
 	// This method is designed to be called only once, when first running a new version of Postgres.app
 	func checkInitdbOSVersion() {
-        var configPlist = (try? readConfigPlist()) ?? [:]
+		var configPlist = (try? readConfigPlist()) ?? [:]
 		
 		// check if there is already a macos version stored
 		if  configPlist["initdb_macos_version"] is String || configPlist["initdb_macos_version_guessed"] is String {
@@ -313,12 +313,12 @@ class Server: NSObject {
 		serverWarningButtonTitle = nil
 		serverWarningMessage = nil
 		serverWarningInformativeText = nil
-
-        guard let configPlist = try? readConfigPlist() else {
-            // if there is no config plist
-            // we don't perform a check
-            return
-        }
+		
+		guard let configPlist = try? readConfigPlist() else {
+			// if there is no config plist
+			// we don't perform a check
+			return
+		}
 		
 		// Reindex warnings only need to be shown when the user uses libc collations
 		if configPlist["initdb_locale_provider"] as? String != "icu" {
@@ -339,10 +339,10 @@ class Server: NSObject {
 			// If the data directory was launched on macOS 10.15 or earlier AND on macOS 11 or later,
 			// we also know that we MUST reindex
 			let reindexCheckVersion =
-				configPlist["reindex_warning_reset_on_macos_version"] as? String ??
-				configPlist["initdb_macos_version"] as? String ??
-				configPlist["initdb_macos_version_guessed"] as? String ??
-				"unknown"
+			configPlist["reindex_warning_reset_on_macos_version"] as? String ??
+			configPlist["initdb_macos_version"] as? String ??
+			configPlist["initdb_macos_version_guessed"] as? String ??
+			"unknown"
 			
 			let startedVersions = configPlist["recently_started_on_macos_versions"] as? [String] ?? []
 			
@@ -378,7 +378,7 @@ class Server: NSObject {
 				let relevantPGVersions = [pgVersion] + (configPlist["recently_started_postgresql_versions"] as? [String] ?? [])
 				if
 					relevantPGVersions.contains("unknown") ||
-					relevantPGVersions.contains(where:{ "14.4".compare($0, options: .numeric) == .orderedDescending })
+						relevantPGVersions.contains(where:{ "14.4".compare($0, options: .numeric) == .orderedDescending })
 				{
 					serverWarning = "Reindexing recommended"
 					serverWarningButtonTitle = "Learn more"
@@ -416,16 +416,16 @@ class Server: NSObject {
 	}
 	
 	func resetReindexWarning() {
-        var configPlist = (try? readConfigPlist()) ?? [:]
+		var configPlist = (try? readConfigPlist()) ?? [:]
 		configPlist["previously_started_on_macos_versions"] =
-			(configPlist["previously_started_on_macos_versions"] as? [String] ?? [])
-			+
-			(configPlist["recently_started_on_macos_versions"] as? [String] ?? [])
+		(configPlist["previously_started_on_macos_versions"] as? [String] ?? [])
+		+
+		(configPlist["recently_started_on_macos_versions"] as? [String] ?? [])
 		configPlist["recently_started_on_macos_versions"] = nil
 		configPlist["previously_started_postgresql_versions"] =
-			(configPlist["previously_started_postgresql_versions"] as? [String] ?? [])
-			+
-			(configPlist["recently_started_postgresql_versions"] as? [String] ?? [])
+		(configPlist["previously_started_postgresql_versions"] as? [String] ?? [])
+		+
+		(configPlist["recently_started_postgresql_versions"] as? [String] ?? [])
 		configPlist["recently_started_postgresql_versions"] = nil
 		configPlist["recently_started_collation_hash"] = nil
 		configPlist["reindex_warning_reset_on_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
@@ -482,7 +482,7 @@ class Server: NSObject {
 		running = false
 		databases.removeAll()
 	}
-    
+	
 	func getServerProcessPath() -> String? {
 		guard FileManager.default.fileExists(atPath: pidFilePath) else {
 			// no pid file
@@ -498,7 +498,7 @@ class Server: NSObject {
 			// first line is not a pid
 			return nil
 		}
-			
+		
 		var buffer = [CChar](repeating: 0, count: 1024)
 		let ret = proc_pidpath(pid, &buffer, UInt32(buffer.count))
 		guard ret > 0 else {
@@ -509,34 +509,34 @@ class Server: NSObject {
 		return processPath
 	}
 	
-    // This function returns true if
-    //  - the binaries directory exists
-    //  - the binaries point to a non-existing directory, but we can fix them
-    //
-    // As a side-effect, it sets the effectiveBinPath variable to a detected compatible binary directory
-    func checkBinPath() -> Bool {
-        if FileManager.default.fileExists(atPath: binPath) {
-            effectiveBinPath = binPath
-            return true
-        }
+	// This function returns true if
+	//  - the binaries directory exists
+	//  - the binaries point to a non-existing directory, but we can fix them
+	//
+	// As a side-effect, it sets the effectiveBinPath variable to a detected compatible binary directory
+	func checkBinPath() -> Bool {
+		if FileManager.default.fileExists(atPath: binPath) {
+			effectiveBinPath = binPath
+			return true
+		}
 #if IS_MAIN_APP
-        let binPathComponents = binPath.components(separatedBy: "/")
-        let appNameIndex = binPathComponents.lastIndex { $0.hasSuffix(".app") }
-        guard let appNameIndex = appNameIndex, appNameIndex < binPathComponents.count - 1 else {
-            effectiveBinPath = nil
-            return false
-        }
-        let binPathSuffix = binPathComponents.suffix(from: appNameIndex+1).joined(separator: "/")
-        for binary in BinaryManager.shared.findAvailableBinaries() {
-            if binary.binPath.hasSuffix(binPathSuffix) {
-                effectiveBinPath = binary.binPath
-                return true
-            }
-        }
+		let binPathComponents = binPath.components(separatedBy: "/")
+		let appNameIndex = binPathComponents.lastIndex { $0.hasSuffix(".app") }
+		guard let appNameIndex = appNameIndex, appNameIndex < binPathComponents.count - 1 else {
+			effectiveBinPath = nil
+			return false
+		}
+		let binPathSuffix = binPathComponents.suffix(from: appNameIndex+1).joined(separator: "/")
+		for binary in BinaryManager.shared.findAvailableBinaries() {
+			if binary.binPath.hasSuffix(binPathSuffix) {
+				effectiveBinPath = binary.binPath
+				return true
+			}
+		}
 #endif
-        effectiveBinPath = nil
-        return false
-    }
+		effectiveBinPath = nil
+		return false
+	}
 	
 	func authDialogOptions() throws -> [String] {
 		
@@ -591,7 +591,7 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
 		
-
+		
 		let oldLibs = standardOutputString.components(separatedBy: ",").map({$0.trimmingCharacters(in: .whitespacesAndNewlines)}).filter { !$0.isEmpty }
 		let newLibs = oldLibs.filter({$0 != "auth_permission_dialog"}) + ["auth_permission_dialog"]
 		let libsvalue = newLibs.joined(separator: ",")
@@ -599,7 +599,7 @@ class Server: NSObject {
 		guard let newExecutablePath = Bundle.mainApp?.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
 			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not find PostgresPermissionDialog executable"])
 		}
-
+		
 		// quote a value
 		// pg_ctl uses a shell to start postmaster
 		// therefore parameters must be quoted like shell arguments
@@ -734,7 +734,7 @@ class Server: NSObject {
 		let errorPipe = Pipe()
 		process.standardOutput = outputPipe
 		process.standardError = errorPipe
-        try process.launchAndCheckForRosetta()
+		try process.launchAndCheckForRosetta()
 		let (_, error) = try readHandlesToEnd(outputPipe.fileHandleForReading, errorPipe.fileHandleForReading)
 		let errorDescription = String(data: error, encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
@@ -755,7 +755,7 @@ class Server: NSObject {
 		}
 		
 		// Log the current macOS version in the config plist so we know when to show reindex warnings
-        var configPlist = (try? readConfigPlist()) ?? [:]
+		var configPlist = (try? readConfigPlist()) ?? [:]
 		var needWrite = false
 		var recentlyStartedMacOSVersions = configPlist["recently_started_on_macos_versions"] as? [String] ?? []
 		if !recentlyStartedMacOSVersions.contains(ProcessInfo.processInfo.macosDisplayVersion) {
@@ -781,13 +781,13 @@ class Server: NSObject {
 		
 		//cleanup error in Postgres.app 2.7.1 - 2.7.x
 		let fixedVersion = switch dataDirectoryVersion {
-			case "12": "12.18-12.22"
-			case "13": "13.14-13.18"
-			case "14": "14.11-14.15"
-			case "15": "15.6-15.10"
-			case "16": "16.2-16.6"
-			case "17": "17.0-17.2"
-			default: "unknown"
+		case "12": "12.18-12.22"
+		case "13": "13.14-13.18"
+		case "14": "14.11-14.15"
+		case "15": "15.6-15.10"
+		case "16": "16.2-16.6"
+		case "17": "17.0-17.2"
+		default: "unknown"
 		}
 		if let faultyIndex = recentlyStartedPostgresqlVersions.firstIndex(of: "(Postgres.app)") {
 			recentlyStartedPostgresqlVersions[faultyIndex] = fixedVersion
@@ -821,7 +821,7 @@ class Server: NSObject {
 		]
 		var resultPaths = [
 			\resultType.0,
-			\resultType.1,
+			 \resultType.1,
 		]
 		while true {
 			let pollres = poll(&fds, nfds_t(fds.count), -1)
@@ -873,7 +873,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-        try process.launchAndCheckForRosetta()
+		try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -920,7 +920,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-        try process.launchAndCheckForRosetta()
+		try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -940,7 +940,7 @@ class Server: NSObject {
 		}
 		
 		// record software versions at initdb time
-        var configPlist = (try? readConfigPlist()) ?? [:]
+		var configPlist = (try? readConfigPlist()) ?? [:]
 		configPlist["initdb_macos_version"] = ProcessInfo.processInfo.macosDisplayVersion
 		configPlist["initdb_postgresql_version"] = self.binaryVersion ?? "unknown"
 		if useICU {
@@ -962,7 +962,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-        try process.launchAndCheckForRosetta()
+		try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -993,7 +993,7 @@ class Server: NSObject {
 		process.standardOutput = Pipe()
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
-        try process.launchAndCheckForRosetta()
+		try process.launchAndCheckForRosetta()
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"
 		process.waitUntilExit()
 		
@@ -1012,8 +1012,8 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.createdb", code: 0, userInfo: userInfo)
 		}
 	}
-		
-    func changePasswordSync(role: String, newPassword: String) throws {
+	
+	func changePasswordSync(role: String, newPassword: String) throws {
 		do {
 			try executeSingleUserModeQuerySync(
 				"ALTER ROLE \"\(role.replacingOccurrences(of:"\"", with: "\"\""))\" WITH PASSWORD '\(newPassword.replacingOccurrences(of:"'", with: "''"))';\n"
@@ -1169,24 +1169,24 @@ class Server: NSObject {
 		return Data(digest)
 	}()
 	
-    private var cachedDataDirectoryVersion: String?
-    var dataDirectoryVersion: String? {
-        if let cachedDataDirectoryVersion {
-            return cachedDataDirectoryVersion
-        }
-        do {
-            let v = try String(contentsOfFile: pgVersionPath)
-            let trimmedVersion = v.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmedVersion.isEmpty else {
-                return nil
-            }
-            cachedDataDirectoryVersion = trimmedVersion
-            return trimmedVersion
-        }
-        catch {
-            return nil
-        }
-    }
+	private var cachedDataDirectoryVersion: String?
+	var dataDirectoryVersion: String? {
+		if let cachedDataDirectoryVersion {
+			return cachedDataDirectoryVersion
+		}
+		do {
+			let v = try String(contentsOfFile: pgVersionPath)
+			let trimmedVersion = v.trimmingCharacters(in: .whitespacesAndNewlines)
+			guard !trimmedVersion.isEmpty else {
+				return nil
+			}
+			cachedDataDirectoryVersion = trimmedVersion
+			return trimmedVersion
+		}
+		catch {
+			return nil
+		}
+	}
 }
 
 class Database: NSObject {

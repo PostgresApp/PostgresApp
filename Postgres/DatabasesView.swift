@@ -9,78 +9,78 @@
 import Cocoa
 
 class DatabaseCollectionView: NSCollectionView {
-    override var acceptsFirstResponder: Bool {
-        if self.numberOfItems(inSection: 0) == 0 {
-            return false
-        }
-        return super.acceptsFirstResponder
-    }
-    
-    override func becomeFirstResponder() -> Bool {
-        let didBecomeFirstResponder = super.becomeFirstResponder()
-        markSubviewsNeedDisplay()
-        return didBecomeFirstResponder
-    }
-    
-    override func resignFirstResponder() -> Bool {
-        let didResignFirstResponder = super.resignFirstResponder()
-        markSubviewsNeedDisplay()
-        return didResignFirstResponder
-    }
-    
-    override func viewWillMove(toWindow newWindow: NSWindow?) {
-        if let oldWindow = window {
-            NotificationCenter.default.removeObserver(self, name: NSWindow.didBecomeMainNotification, object: oldWindow)
-            NotificationCenter.default.removeObserver(self, name: NSWindow.didResignMainNotification, object: oldWindow)
-        }
-        if let newWindow {
-            NotificationCenter.default.addObserver(self, selector: #selector(noteKeyStatusChanged), name: NSWindow.didBecomeMainNotification, object: newWindow)
-            NotificationCenter.default.addObserver(self, selector: #selector(noteKeyStatusChanged), name: NSWindow.didResignMainNotification, object: newWindow)
-        }
-        super.viewWillMove(toWindow: newWindow)
-    }
-    
-    @objc func noteKeyStatusChanged(_ note: NSNotification) {
-        markSubviewsNeedDisplay()
-    }
-    
-    func markSubviewsNeedDisplay() {
-        var views = subviews
-        while let view = views.popLast() {
-            view.needsDisplay = true
-            views += view.subviews
-        }
-    }
-    
-    override func doCommand(by selector: Selector) {
-        switch selector {
-        case #selector(insertNewline):
-            NSApp.sendAction(#selector(ServerViewController.openPsql), to: nil, from: self)
-        default:
-            return super.doCommand(by: selector)
-        }
-    }
+	override var acceptsFirstResponder: Bool {
+		if self.numberOfItems(inSection: 0) == 0 {
+			return false
+		}
+		return super.acceptsFirstResponder
+	}
+	
+	override func becomeFirstResponder() -> Bool {
+		let didBecomeFirstResponder = super.becomeFirstResponder()
+		markSubviewsNeedDisplay()
+		return didBecomeFirstResponder
+	}
+	
+	override func resignFirstResponder() -> Bool {
+		let didResignFirstResponder = super.resignFirstResponder()
+		markSubviewsNeedDisplay()
+		return didResignFirstResponder
+	}
+	
+	override func viewWillMove(toWindow newWindow: NSWindow?) {
+		if let oldWindow = window {
+			NotificationCenter.default.removeObserver(self, name: NSWindow.didBecomeMainNotification, object: oldWindow)
+			NotificationCenter.default.removeObserver(self, name: NSWindow.didResignMainNotification, object: oldWindow)
+		}
+		if let newWindow {
+			NotificationCenter.default.addObserver(self, selector: #selector(noteKeyStatusChanged), name: NSWindow.didBecomeMainNotification, object: newWindow)
+			NotificationCenter.default.addObserver(self, selector: #selector(noteKeyStatusChanged), name: NSWindow.didResignMainNotification, object: newWindow)
+		}
+		super.viewWillMove(toWindow: newWindow)
+	}
+	
+	@objc func noteKeyStatusChanged(_ note: NSNotification) {
+		markSubviewsNeedDisplay()
+	}
+	
+	func markSubviewsNeedDisplay() {
+		var views = subviews
+		while let view = views.popLast() {
+			view.needsDisplay = true
+			views += view.subviews
+		}
+	}
+	
+	override func doCommand(by selector: Selector) {
+		switch selector {
+		case #selector(insertNewline):
+			NSApp.sendAction(#selector(ServerViewController.openPsql), to: nil, from: self)
+		default:
+			return super.doCommand(by: selector)
+		}
+	}
 }
 
 class DatabaseItem: NSCollectionViewItem {
 	override var isSelected: Bool {
 		didSet {
 			if let databaseItemView = self.view as? DatabaseItemView {
-                databaseItemView.selected = isSelected
-                databaseItemView.needsDisplay = true
+				databaseItemView.selected = isSelected
+				databaseItemView.needsDisplay = true
 			}
 		}
 	}
 }
 
 class DatabaseItemView: NSView {
-    var selected = false
+	var selected = false
 	
 	override func draw(_ dirtyRect: NSRect) {
 		if selected {
-            let horizontalPadding = 8.0
-            var inset = 0.0
-            for view in self.subviews where view.identifier == NSUserInterfaceItemIdentifier("DBNameLabel") {
+			let horizontalPadding = 8.0
+			var inset = 0.0
+			for view in self.subviews where view.identifier == NSUserInterfaceItemIdentifier("DBNameLabel") {
 				inset = view.frame.minY
 			}
 			let x = horizontalPadding
@@ -90,18 +90,18 @@ class DatabaseItemView: NSView {
 			
 			let rect = CGRect(x: x, y: y, width: w, height: h)
 			let path = NSBezierPath(roundedRect: rect, xRadius: 4, yRadius: 4)
-            if
-                let collectionView = self.enclosingScrollView?.documentView as? NSCollectionView,
-                collectionView.isFirstResponder,
-                collectionView.window?.isMainWindow == true
-            {
-                NSColor.selectedControlColor.setFill()
-            } else {
-                NSColor.unemphasizedSelectedTextBackgroundColor.withAlphaComponent(0.8).setFill()
-            }
+			if
+				let collectionView = self.enclosingScrollView?.documentView as? NSCollectionView,
+				collectionView.isFirstResponder,
+				collectionView.window?.isMainWindow == true
+			{
+				NSColor.selectedControlColor.setFill()
+			} else {
+				NSColor.unemphasizedSelectedTextBackgroundColor.withAlphaComponent(0.8).setFill()
+			}
 			path.fill()
 		}
-        let offset = 4.0
+		let offset = 4.0
 		let tf = NSAffineTransform()
 		tf.translateX(by: self.bounds.midX-32, yBy: self.bounds.maxY-64-offset*2)
 		tf.concat()

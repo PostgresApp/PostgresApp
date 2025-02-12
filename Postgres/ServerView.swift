@@ -11,23 +11,23 @@ import Cocoa
 class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@objc dynamic var mainWindowModel: MainWindowModel!
 	
-    @IBOutlet weak var stopButton: NSButton!
-    @IBOutlet weak var startButton: NSButton!
-    
-    var responderObserver: KeyValueObserver?
-    override func viewWillAppear() {
-        responderObserver = self.view.window?.observe("firstResponder", callback: { _ in
-            if self.view.window?.firstResponder is DatabaseCollectionView {
-                self.startButton.keyEquivalent = ""
-                self.stopButton.keyEquivalent = ""
-            } else {
-                self.startButton.keyEquivalent = "\r"
-                self.stopButton.keyEquivalent = "\r"
-            }
-        })
-    }
-    
-    @IBAction func startServer(_ sender: AnyObject?) {
+	@IBOutlet weak var stopButton: NSButton!
+	@IBOutlet weak var startButton: NSButton!
+	
+	var responderObserver: KeyValueObserver?
+	override func viewWillAppear() {
+		responderObserver = self.view.window?.observe("firstResponder", callback: { _ in
+			if self.view.window?.firstResponder is DatabaseCollectionView {
+				self.startButton.keyEquivalent = ""
+				self.stopButton.keyEquivalent = ""
+			} else {
+				self.startButton.keyEquivalent = "\r"
+				self.stopButton.keyEquivalent = "\r"
+			}
+		})
+	}
+	
+	@IBAction func startServer(_ sender: AnyObject?) {
 		guard let server = mainWindowModel.firstSelectedServer else { return }
 		server.start { result in
 			if case let .failure(error) = result {

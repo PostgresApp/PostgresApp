@@ -10,14 +10,14 @@ import Cocoa
 
 class MainWindowModel: NSObject {
 	@objc dynamic var serverManager = ServerManager.shared
-    @objc dynamic var selectedServerIndices = IndexSet() {
-        didSet {
-            if selectedServerIndices != oldValue {
-                firstSelectedServer?.updateServerStatus()
-                firstSelectedServer?.checkReindexWarning()
-            }
-        }
-    }
+	@objc dynamic var selectedServerIndices = IndexSet() {
+		didSet {
+			if selectedServerIndices != oldValue {
+				firstSelectedServer?.updateServerStatus()
+				firstSelectedServer?.checkReindexWarning()
+			}
+		}
+	}
 	
 	var firstSelectedServer: Server? {
 		guard let selIdx = selectedServerIndices.first else { return nil }
