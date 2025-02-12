@@ -108,8 +108,9 @@ $(
 	for v in ${PG_BINARIES_VERSIONS//_/ }
 	do
 		pg_version=$(grep 'PACKAGE_VERSION "[^"]*' --only-matching "$PG_BINARIES_DIR"/$v/include/postgresql/server/pg_config.h | cut -c 18-)
-		postgis_version=$(grep "default_version = '[^']*"  --only-matching "$PG_BINARIES_DIR"/$v/share/postgresql/extension/postgis.control | cut -c 20-)
-		echo "					<li>PostgreSQL $pg_version with PostGIS $postgis_version</li>"
+		postgis_version=$(grep "default_version = '[^']*"  --only-matching "$PG_BINARIES_DIR"/$v/share/postgresql/extension/postgis.control 2> >(test $IGNORE_MISSING_BINARIES || cat >&2) | cut -c 20-)
+		[ -z $postgis_version ] || echo "					<li>PostgreSQL $pg_version with PostGIS $postgis_version</li>"
+		! [ -z $postgis_version ] || echo "					<li>PostgreSQL $pg_version without PostGIS</li>"
 	done
 )
 				</ul>
