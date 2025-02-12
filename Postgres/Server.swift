@@ -779,13 +779,13 @@ class Server: NSObject {
 			needWrite = true
 		}
 		
-		//cleanup error in Postgres.app 2.7.x
+		//cleanup error in Postgres.app 2.7.1 - 2.7.x
 		let fixedVersion = switch dataDirectoryVersion {
-			case "12": "12.17-12.22"
-			case "13": "13.13-13.18"
-			case "14": "14.10-14.15"
-			case "15": "15.5-15.10"
-			case "16": "16.1-16.6"
+			case "12": "12.18-12.22"
+			case "13": "13.14-13.18"
+			case "14": "14.11-14.15"
+			case "15": "15.6-15.10"
+			case "16": "16.2-16.6"
 			case "17": "17.0-17.2"
 			default: dataDirectoryVersion
 		}
