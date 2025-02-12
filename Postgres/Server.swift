@@ -779,6 +779,30 @@ class Server: NSObject {
 			needWrite = true
 		}
 		
+		//cleanup error in Postgres.app 2.7.1 - 2.7.x
+		let fixedVersion = switch dataDirectoryVersion {
+			case "12": "12.18-12.22"
+			case "13": "13.14-13.18"
+			case "14": "14.11-14.15"
+			case "15": "15.6-15.10"
+			case "16": "16.2-16.6"
+			case "17": "17.0-17.2"
+			default: "unknown"
+		}
+		if let faultyIndex = recentlyStartedPostgresqlVersions.firstIndex(of: "(Postgres.app)") {
+			recentlyStartedPostgresqlVersions[faultyIndex] = fixedVersion
+			configPlist["recently_started_postgresql_versions"] = recentlyStartedPostgresqlVersions
+			needWrite = true
+		}
+		if configPlist["initdb_postgresql_version"] as? String == "(Postgres.app)" {
+			configPlist["initdb_postgresql_version"] = fixedVersion
+			needWrite = true
+		}
+		if configPlist["reindex_warning_reset_on_postgresql_version"] as? String == "(Postgres.app)" {
+			configPlist["reindex_warning_reset_on_postgresql_version"] = fixedVersion
+			needWrite = true
+		}
+		
 		if needWrite {
 			try? writeConfigPlist(configPlist)
 		}
@@ -1109,11 +1133,11 @@ class Server: NSObject {
 	var binaryVersion: String? {
 		if let a = cachedBinaryVersion { return a }
 		let process = Process()
-		let launchPath = self.binPath + "/postgres"
+		let launchPath = self.binPath + "/pg_config"
 		guard FileManager().fileExists(atPath: launchPath) else { return nil }
 		process.launchPath = launchPath
 		process.arguments = [
-			"-V"
+			"--version"
 		]
 		let outPipe = Pipe()
 		process.standardOutput = outPipe
@@ -1125,8 +1149,11 @@ class Server: NSObject {
 		}
 		process.waitUntilExit()
 		let outputOrNil = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
-		guard let output = outputOrNil else { return nil }
+		guard var output = outputOrNil else { return nil }
 		guard process.terminationStatus == 0 else { return nil }
+		if let splitIndex = output.lastIndex(of: "(") {
+			output = output[..<splitIndex].trimmingCharacters(in: .whitespacesAndNewlines)
+		}
 		guard let splitIndex = output.lastIndex(of: " ") else { return nil }
 		let versionString = output[splitIndex...]
 		cachedBinaryVersion = versionString.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -1142,10 +1169,19 @@ class Server: NSObject {
 		return Data(digest)
 	}()
 	
+    private var cachedDataDirectoryVersion: String?
     var dataDirectoryVersion: String? {
+        if let cachedDataDirectoryVersion {
+            return cachedDataDirectoryVersion
+        }
         do {
             let v = try String(contentsOfFile: pgVersionPath)
-            return v.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimmedVersion = v.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmedVersion.isEmpty else {
+                return nil
+            }
+            cachedDataDirectoryVersion = trimmedVersion
+            return trimmedVersion
         }
         catch {
             return nil
