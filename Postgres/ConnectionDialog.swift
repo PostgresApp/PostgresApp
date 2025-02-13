@@ -51,8 +51,6 @@ class ConnectionDialog: NSViewController {
 				}
 				if rememberClientApp.state == .on {
 					UserDefaults.standard.set(clientPath, forKey: "PreferredClientApplicationPath")
-				} else {
-					UserDefaults.standard.removeObject(forKey: "PreferredClientApplicationPath")
 				}
 				let clientAppURL = URL(fileURLWithPath: clientPath)
 				try await ClientLauncher.shared.launchClient(clientAppURL, server: server!, databaseName: databaseComboBox.stringValue, userName: userComboBox.stringValue)
