@@ -6,6 +6,27 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
+		<title>Postgres.app 2.8</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 15.11 with PostGIS 3.3.8</li>
+				</ul>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
+			]]>
+		</description>
+		<pubDate>Thu, 13 Feb 2025 10:39:24 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8/Postgres-2.8-15.dmg"
+		sparkle:version="298"
+		sparkle:shortVersionString="2.8"
+		length="103125944"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFQCo5qUPevb+0WPvdeZ/xIf/nVwlygIUMoMA3/sxvvVh8shi15DnYaspBLM="
+		/>
+		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
+	</item>
+	<item>
 		<title>Postgres.app 2.7.10</title>
 		<description>
 			<![CDATA[
