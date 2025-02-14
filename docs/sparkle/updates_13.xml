@@ -26,6 +26,7 @@
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
+	<item>
 		<title>Postgres.app 2.7.10</title>
 		<description>
 			<![CDATA[
