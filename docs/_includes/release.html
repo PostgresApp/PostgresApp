@@ -13,6 +13,7 @@
 		{%if include.release.postgresappVersion%}<li>Postgres.app v{{include.release.postgresappVersion}}</li>{%endif%}
 		<li>{{site.strings[lang].requires-os}} macOS&nbsp;{{include.release.postgresappMinSystemVersion}}</li>
 		<li>{{site.strings[lang].download-size}} {{include.release.size}}</li>
+		<li>[{{site.strings[lang].release-notes}}]({{include.release.releaseNotesLocation}})</li>
 	</ul>
 	<ul class="release-contents">
 	{% for postgresqlVersion in include.release.postgresqlVersions %}

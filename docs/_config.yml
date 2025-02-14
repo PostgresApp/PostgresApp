@@ -31,7 +31,7 @@ extraReleases: [
 		},
 		size: "510MB",
 		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.7.10/Postgres-2.7.10-12-13-14-15-16-17.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/vv",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.7.10",
 		postgresappVersion: "2.7.10",
 		postgresappMinSystemVersion: "10.13",
 		postgresqlVersions: [
@@ -329,6 +329,7 @@ strings: {
 		edit-page: Bearbeite diese Seite,
 		requires-os: "Benötigt",
 		download-size: "Downloadgröße",
+		release-notes: "Versionshinweise",
 	},
 	en: {
 		subtitle: The easiest way to get started with PostgreSQL on the Mac,
@@ -344,5 +345,6 @@ strings: {
 		edit-page: edit this page,
 		requires-os: "Requires",
 		download-size: "Download Size",
+		release-notes: "Release Notes",
 	}
 }
