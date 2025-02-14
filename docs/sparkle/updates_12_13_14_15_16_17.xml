@@ -6,40 +6,6 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.8</title>
-		<description>
-			<![CDATA[
-				<p>
-					This update no longer includes PostgreSQL 12 since it is no longer supported.
-				</p>
-				<p style="color: red;">
-					Do not install this update if you are still using PostgreSQL 12.
-				</p>
-				<p>
-					If you are still using PostgreSQL 12, please migrate your database to a newer version before installing this upgrade.
-				</p>
-				<ul>
-					<li>PostgreSQL 13.19 with PostGIS 3.1.12</li>
-					<li>PostgreSQL 14.16 with PostGIS 3.2.8</li>
-					<li>PostgreSQL 15.11 with PostGIS 3.3.8</li>
-					<li>PostgreSQL 16.7 with PostGIS 3.4.4</li>
-					<li>PostgreSQL 17.3 with PostGIS 3.5.2</li>
-				</ul>
-				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
-			]]>
-		</description>
-		<pubDate>Thu, 13 Feb 2025 11:13:14 +0100</pubDate>
-		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8/Postgres-2.8-13-14-15-16-17.dmg"
-		sparkle:version="301"
-		sparkle:shortVersionString="2.8"
-		length="459551501"
-		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFE1LglPcFRffbCwHP3DXBNmVizEoAhRtUuiDgZa4H4dZs9qFB+n/fDMpEw=="
-		/>
-		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
-	</item>
-	<item>
 		<title>Postgres.app 2.7.10</title>
 		<description>
 			<![CDATA[
