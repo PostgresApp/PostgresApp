@@ -54,7 +54,7 @@ OPENSSL_VERSION=3.3.3
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
 PROJ_VERSION=9.5.1
-# due to their size we no longer bundle proj-data. 
+# due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
 
@@ -180,7 +180,7 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-# 
+#
 # We're building without tcl and perl for now because they caused problems on macOS 10.15
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib $(PREFIX)/lib/liblz4.dylib $(PREFIX)/lib/libzstd.dylib postgresql-$(POSTGRES_VERSION)/configure | check-python
 	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --with-ssl=openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-extra-version=" (Postgres.app)" --with-lz4 --with-zstd
@@ -291,10 +291,10 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib 
 
 openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/Makefile
 	make -C openssl-${OPENSSL_VERSION}/build_arm64
-	
+
 openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}/build_x86_64/Makefile
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
-	
+
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" darwin64-arm64-cc zlib shared
 
@@ -445,7 +445,7 @@ geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 
 geos-${GEOS_VERSION}.tar.bz2:
 	$(CURL) "http://download.osgeo.org/geos/geos-${GEOS_VERSION}.tar.bz2"
-	
+
 check-libgeos:
 	#circumvent a known test failure on x86_64: https://github.com/libgeos/geos/issues/930
 	[ $$(arch) = 'arm64' ] || make -C geos-${GEOS_VERSION}/build check ARGS="--exclude-regex unit-geom-Envelope"
@@ -503,7 +503,7 @@ $(PREFIX)/lib/libproj.dylib: proj-$(PROJ_VERSION)/build/Makefile
 
 proj-$(PROJ_VERSION)/build/Makefile: proj-$(PROJ_VERSION)/configure $(PREFIX)/bin/psql $(PREFIX)/lib/libtiff.dylib
 	cd proj-$(PROJ_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_IPO=ON -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DEMBED_PROJ_DATA_PATH=OFF -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
-	
+
 proj-${PROJ_VERSION}/configure: proj-${PROJ_VERSION}.tar.gz
 	$(TAR) "proj-${PROJ_VERSION}.tar.gz"
 	mkdir proj-${PROJ_VERSION}/build
@@ -653,8 +653,8 @@ $(PREFIX)/lib/libtiff.dylib: tiff-$(LIBTIFF_VERSION)/Makefile
 	make -C tiff-$(LIBTIFF_VERSION) install
 
 tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/lib/libzstd.dylib
-	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-jpeg-include-dir=$(PREFIX)/include --with-jpeg-lib-dir=$(PREFIX)/lib --with-zstd-include-dir=$(PREFIX)/include --with-zstd-lib-dir=$(PREFIX)/lib --disable-tools --disable-contrib --disable-docs 
-	
+	cd tiff-$(LIBTIFF_VERSION) && ./configure --prefix="$(PREFIX)" --disable-dependency-tracking --with-jpeg-include-dir=$(PREFIX)/include --with-jpeg-lib-dir=$(PREFIX)/lib --with-zstd-include-dir=$(PREFIX)/include --with-zstd-lib-dir=$(PREFIX)/lib --disable-tools --disable-contrib --disable-docs
+
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
 	touch $@
@@ -693,7 +693,7 @@ libpng-$(LIBPNG_VERSION).tar.gz:
 
 clean-libpng:
 	rm -Rf libpng-$(LIBPNG_VERSION)
-	
+
 ##########################
 ####### openjpeg #########
 ##########################
@@ -773,7 +773,7 @@ $(PREFIX)/lib/libgmp.dylib: gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.dylib gm
 	# to avoid dirty make targets after we touched the libraries, pretend we rebuilded everything before installing
 	make -C gmp-$(GMP_VERSION)/build_arm64 --touch
 	make -C gmp-$(GMP_VERSION)/build_arm64 install
-	
+
 gmp-$(GMP_VERSION)/build_arm64/.libs/libgmp.dylib: gmp-$(GMP_VERSION)/build_arm64/Makefile
 	make -C gmp-$(GMP_VERSION)/build_arm64
 
@@ -822,7 +822,7 @@ $(PREFIX)/lib/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.
 
 mpfr-$(MPFR_VERSION)/build_arm64/src/.libs/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_arm64/Makefile
 	make -C mpfr-$(MPFR_VERSION)/build_arm64
-	
+
 mpfr-$(MPFR_VERSION)/build_x86_64/src/.libs/libmpfr.dylib: mpfr-$(MPFR_VERSION)/build_x86_64/Makefile
 	make -C mpfr-$(MPFR_VERSION)/build_x86_64
 
@@ -844,7 +844,7 @@ mpfr-$(MPFR_VERSION).tar.xz:
 
 clean-mpfr:
 	rm -Rf mpfr-$(MPFR_VERSION)
-	
+
 check-mpfr:
 	make -C mpfr-$(MPFR_VERSION)/build_arm64 check
 
@@ -865,7 +865,7 @@ $(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
 	install_name_tool -id $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libboost_system.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib
-	install_name_tool -id $(PREFIX)/lib/libboost_wserialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib 
+	install_name_tool -id $(PREFIX)/lib/libboost_wserialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
@@ -950,9 +950,9 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
-	# patch to allow direct upgrades from 3.5.0beta1 which we shipped with Postgres.app 2.7.8 
+	# patch to allow direct upgrades from 3.5.0beta1 which we shipped with Postgres.app 2.7.8
 	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_upgrade_from_beta.patch
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
@@ -1116,7 +1116,7 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 
 pljs-${PLJS_VERSION}.tar.gz:
 	$(CURL) --remote-header-name https://github.com/plv8/pljs/archive/refs/tags/v${PLJS_VERSION}.tar.gz
-	
+
 quickjs-${QUICKJS_VERSION}.tar.xz:
 	$(CURL) --remote-header-name https://bellard.org/quickjs/quickjs-${QUICKJS_VERSION}.tar.xz
 
@@ -1146,7 +1146,7 @@ check-arch:
 		\( -name "*.a" \
 		-or -type f -perm -u+x \! -name "*.la" \! -exec sh -c 'test "$$(head -c2 "$$0")" == "#!"' {} \; \
 		\) \! -exec lipo {} -verify_arch arm64 x86_64 \; \
-		-exec lipo {} -info \; 
+		-exec lipo {} -info \;
 
 check-libs:
 # This checks if the built executables and libraries do not link shared libraries
@@ -1171,4 +1171,3 @@ check-rpath:
 check-python:
 # This checks if the specified python version is installed and is universal
 	$(PYTHON) -V | grep -q $(PYTHON_VERSION_FULL) && lipo $(PYTHON) -verify_arch arm64 x86_64
-	

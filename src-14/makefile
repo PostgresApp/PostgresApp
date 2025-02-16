@@ -33,7 +33,7 @@ OPENSSL_VERSION=1.1.1w
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
-# due to their size we no longer bundle proj-data. 
+# due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
 
@@ -147,7 +147,7 @@ $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 # the --with-includes and --with-libraries options are necessary so
 # that postgres will be compiled and linked against our own versions
 # of libraries like openssl, instead of system provided versions
-# 
+#
 # We're building without tcl and perl for now because they caused problems on macOS 10.15
 postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)/lib/libxml2.dylib $(PREFIX)/lib/libicui18n.dylib $(PREFIX)/lib/liblz4.dylib postgresql-$(POSTGRES_VERSION)/configure | check-python
 	cd "postgresql-$(POSTGRES_VERSION)" && PG_SYSROOT=no-sysroot ./configure --prefix="$(PREFIX)" --with-includes="$(PREFIX)/include" --with-libraries="$(PREFIX)/lib" --enable-thread-safety --with-openssl --with-bonjour --with-libxml --with-libxslt --with-python --with-readline --with-uuid=e2fs --with-icu --with-extra-version=" (Postgres.app)" --with-lz4
@@ -228,10 +228,10 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib 
 
 openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/Makefile
 	make -C openssl-${OPENSSL_VERSION}/build_arm64
-	
+
 openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}/build_x86_64/Makefile
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
-	
+
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-arm64-cc zlib shared
 
@@ -377,14 +377,14 @@ geos-${GEOS_VERSION}/build/Makefile: geos-${GEOS_VERSION}/configure $(PREFIX)/bi
 
 geos-${GEOS_VERSION}/configure: geos-${GEOS_VERSION}.tar.bz2
 	$(TAR) geos-${GEOS_VERSION}.tar.bz2
-	#patch to include geos.h - see #667 - this was fixed upstream in cb634c8 for geos 3.11 onwards. 
+	#patch to include geos.h - see #667 - this was fixed upstream in cb634c8 for geos 3.11 onwards.
 	patch -b -d "geos-${GEOS_VERSION}" -p1 <patches/geos.h.patch
 	mkdir geos-${GEOS_VERSION}/build
 	touch $@
 
 geos-${GEOS_VERSION}.tar.bz2:
 	$(CURL) "http://download.osgeo.org/geos/geos-${GEOS_VERSION}.tar.bz2"
-	
+
 check-libgeos:
 	make -C geos-${GEOS_VERSION}/build check
 
@@ -539,7 +539,7 @@ tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure $(PREFIX)/li
 	# (idea taken from https://gitlab.com/graphviz/graphviz/-/merge_requests/2149)
 	mv tiff-$(LIBTIFF_VERSION)/VERSION tiff-$(LIBTIFF_VERSION)/LIBTIFF_VERSION
 	sed -i '' -e 's/\/VERSION/\/LIBTIFF_VERSION/g' -e 's/\tVERSION/\tLIBTIFF_VERSION/' tiff-$(LIBTIFF_VERSION)/Makefile
-	
+
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
 	touch $@
@@ -577,7 +577,7 @@ libpng-$(LIBPNG_VERSION).tar.gz:
 
 clean-libpng:
 	rm -Rf libpng-$(LIBPNG_VERSION)
-	
+
 ##########################
 ####### openjpeg #########
 ##########################
@@ -627,7 +627,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).so: postgis-${POSTGIS_
 	install -m 644 postgis-${POSTGIS_VERSION}/doc/*_cheatsheet.html "${PREFIX}/share/doc/postgis/"
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre" 
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
@@ -729,7 +729,7 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 
 pljs-${PLJS_VERSION}.tar.gz:
 	$(CURL) --remote-header-name https://github.com/plv8/pljs/archive/refs/tags/v${PLJS_VERSION}.tar.gz
-	
+
 quickjs-${QUICKJS_VERSION}.tar.xz:
 	$(CURL) --remote-header-name https://bellard.org/quickjs/quickjs-${QUICKJS_VERSION}.tar.xz
 
@@ -743,7 +743,7 @@ check-pljs:
 	$(PREFIX)/bin/initdb -D "$(BUILD_PREFIX)/run" --encoding=UTF-8 --locale=en_US.UTF-8
 	$(PREFIX)/bin/pg_ctl start -D "$(BUILD_PREFIX)/run" -l "$(BUILD_PREFIX)/run/postgresql.log"
 	make -C pljs-${PLJS_VERSION} installcheck
-	$(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run" 
+	$(PREFIX)/bin/pg_ctl stop -D "$(BUILD_PREFIX)/run"
 
 
 #########################
@@ -759,7 +759,7 @@ check-arch:
 		\( -name "*.a" \
 		-or -type f -perm -u+x \! -name "*.la" \! -exec sh -c 'test "$$(head -c2 "$$0")" == "#!"' {} \; \
 		\) \! -exec lipo {} -verify_arch arm64 x86_64 \; \
-		-exec lipo {} -info \; 
+		-exec lipo {} -info \;
 
 check-libs:
 # This checks if the built executables and libraries do not link shared libraries
@@ -784,4 +784,3 @@ check-rpath:
 check-python:
 # This checks if the specified python version is installed and is universal
 	$(PYTHON) -V | grep -q $(PYTHON_VERSION_FULL) && lipo $(PYTHON) -verify_arch arm64 x86_64
-	
