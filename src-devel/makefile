@@ -15,9 +15,17 @@ POSTGRES_GIT_REF=HEAD
 POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 
 ifeq ($(POSTGRES_GIT_HASH),)
+    POSTGRES_GIT_HASH:=$(shell cat POSTGRES_GIT_HASH 2>/dev/null)
+    ifneq ($(POSTGRES_GIT_HASH),)
+        $(warning Will reuse the last ref for PostgreSQL: $(POSTGRES_GIT_HASH))
+    endif
+endif
+
+ifeq ($(POSTGRES_GIT_HASH),)
     GIT_REF_MATCH:=$(shell git ls-remote "$(POSTGRES_GIT_URL)" | grep -E "(\t|/)$(POSTGRES_GIT_REF)$$" | head -1)
     $(warning Found the following ref for PostgreSQL: $(GIT_REF_MATCH))
     POSTGRES_GIT_HASH:=$(shell echo "$(GIT_REF_MATCH)" | cut -f 1)
+    $(shell echo "$(POSTGRES_GIT_HASH)" > POSTGRES_GIT_HASH)
 endif
 
 POSTGRES_VERSION=$(POSTGRES_GIT_HASH)
@@ -226,6 +234,7 @@ endif
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
+	rm -f POSTGRES_GIT_HASH
 
 
 ######################################
