@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.13.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.3.2
+OPENSSL_VERSION=3.3.3
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases

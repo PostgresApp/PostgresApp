@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.15
+OPENSSL_VERSION=3.0.16
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
