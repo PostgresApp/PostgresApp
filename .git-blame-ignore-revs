@@ -1,6 +1,9 @@
 # Run this command to always ignore formatting commits in `git blame`
 # git config blame.ignoreRevsFile .git-blame-ignore-revs
 
+# Clean up whitespace (makefiles)
+5c54667350bf5475799ab678ff443e62cfb05c36
+
 # Clean up whitespace (Swift files)
 a3662502047d49c0f98d3eedfc98b833b1c343db
 
