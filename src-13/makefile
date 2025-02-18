@@ -179,7 +179,7 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION} install_sw
 
 openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-x86_64-cc zlib no-asm shared
+	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-x86_64-cc zlib no-asm shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz

@@ -291,10 +291,10 @@ openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
 
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" darwin64-arm64-cc zlib shared
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-arm64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" darwin64-x86_64-cc zlib shared
+	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-x86_64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
