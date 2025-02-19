@@ -1,10 +1,10 @@
-POSTGRES_VERSION=17.0
+POSTGRES_VERSION=17.4
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 # compiler options
-MACOSX_DEPLOYMENT_TARGET=10.13
-CFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.13 -g -Os
-CXXFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.13 -g -Os
+MACOSX_DEPLOYMENT_TARGET=10.15
+CFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.15 -g -Os
+CXXFLAGS=-arch arm64 -arch x86_64 -mmacosx-version-min=10.15 -g -Os
 
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET
 
