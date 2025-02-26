@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1w
+OPENSSL_VERSION=3.0.16
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
@@ -177,16 +177,19 @@ openssl: $(PREFIX)/lib/libssl.dylib
 $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION} install_sw
+	install -d "${PREFIX}/share/ssl"
+	install -m 644 patches/openssl.cnf "${PREFIX}/share/ssl/"
+	ln -sf /private/etc/ssl/cert.pem "${PREFIX}/share/ssl/"
 
 openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-x86_64-cc zlib no-asm shared
+	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" --openssldir="${PREFIX}/share/ssl/" --api=1.1.1 darwin64-x86_64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
-	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+	$(CURL) "https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz"
 
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"

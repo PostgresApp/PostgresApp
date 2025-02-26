@@ -73,19 +73,24 @@ do
         then
             # added in PostGIS 3.4
             cp -a postgis postgis_restore "${TARGET_VERSIONS_DIR}/${VERSION}/bin/"
-        fi        
-        
+        fi
+
 		# copy all dynamic libraries
 		cd "${PG_BINARIES_DIR}/${VERSION}/lib/"
 		mkdir -p "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -af *.dylib "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
 		cp -afR postgresql "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+		cp -af engines-* "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+		if [ -e ossl-modules ]
+		then
+			cp -af ossl-modules "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
+		fi
 		if [ -e gdalplugins ]
 		then
 			# added in GDAL 3.5
 			cp -af gdalplugins "${TARGET_VERSIONS_DIR}/${VERSION}/lib/"
-		fi 
-		
+		fi
+
 		# copy static libraries where a dynamic one doesn't exist
 		for file in *.a
 		do
@@ -146,7 +151,7 @@ do
 			done
 		  fi
 		done
-		
+
 		# copy include, share
 		cp -afR "${PG_BINARIES_DIR}/${VERSION}/include" "${PG_BINARIES_DIR}/${VERSION}/share" "${TARGET_VERSIONS_DIR}/${VERSION}/"
 	fi

@@ -1,0 +1,14 @@
+openssl_conf = openssl_init
+
+[openssl_init]
+providers = providers
+
+[providers]
+default = provider_default
+legacy = provider_legacy
+
+[provider_default]
+activate = 1
+
+[provider_legacy]
+activate = 1
