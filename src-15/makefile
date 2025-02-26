@@ -14,7 +14,7 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 LZ4_VERSION=1.9.4
 
 # https://github.com/facebook/zstd/releases
-ZSTD_VERSION=1.5.6
+ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
@@ -74,11 +74,11 @@ PROTOBUF_VERSION_MINOR=$(shell echo $(PROTOBUF_VERSION) | sed -E 's/^[0-9]+\.(.*
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.4.1
 
-# http://simplesystems.org/libtiff/
+# https://libtiff.gitlab.io/libtiff/
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.46
+LIBPNG_VERSION=1.6.47
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.3

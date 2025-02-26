@@ -51,7 +51,7 @@ PROTOBUF_VERSION=3.14.0
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.3.3
 
-# http://simplesystems.org/libtiff/
+# https://libtiff.gitlab.io/libtiff/
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/EnterpriseDB/pldebugger/tags

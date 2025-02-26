@@ -45,7 +45,7 @@ POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 LZ4_VERSION=1.10.0
 
 # https://github.com/facebook/zstd/releases
-ZSTD_VERSION=1.5.6
+ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
@@ -76,7 +76,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.13.5
+LIBXML2_VERSION=2.13.6
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -110,11 +110,11 @@ PROTOBUF_VERSION=25.6
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.0
 
-# http://simplesystems.org/libtiff/
+# https://libtiff.gitlab.io/libtiff/
 LIBTIFF_VERSION=4.7.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.46
+LIBPNG_VERSION=1.6.47
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.3
