@@ -62,7 +62,6 @@
 		83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		839A38281D88494A00E9591A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839A38271D88494A00E9591A /* main.swift */; };
 		83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
-		83AC34801D80236A002F6982 /* CopyBinaries.sh in Resources */ = {isa = PBXBuildFile; fileRef = 83AC347F1D80236A002F6982 /* CopyBinaries.sh */; };
 		83B1A80B1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83B1A80A1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist */; };
 		83BB115A1DB680DA00772E8D /* DnDArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BB11591DB680DA00772E8D /* DnDArrayController.swift */; };
 		83C19C2D1D7D977000F4862D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C19C2C1D7D977000F4862D /* main.swift */; };
@@ -507,7 +506,6 @@
 				83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */,
 				83B1A80B1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist in Resources */,
 				3686D3362A963787003389DD /* Credits.rtf in Resources */,
-				83AC34801D80236A002F6982 /* CopyBinaries.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
