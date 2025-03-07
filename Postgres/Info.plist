@@ -26,8 +26,6 @@
 	<string>$(POSTGRESAPP_BUILD_VERSION)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>LatestStablePostgresVersion</key>
-	<string>$(LATEST_STABLE_PG_VERSION)</string>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSMainStoryboardFile</key>

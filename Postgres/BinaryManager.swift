@@ -37,8 +37,12 @@ class BinaryManager {
 	}
 	
 	func getLatestBinary() -> PostgresBinary? {
-		let latestVersion = Bundle.main.object(forInfoDictionaryKey: "LatestStablePostgresVersion") as? String
-		guard let latestVersion, !latestVersion.isEmpty else { return nil }
+		let latest_symlink = binaryVersionsURL.appendingPathComponent("latest").path
+		guard let targetPath = try? FileManager().destinationOfSymbolicLink(atPath: latest_symlink) else {
+			return nil
+		}
+		let latestVersion = (targetPath as NSString).lastPathComponent
+		guard !latestVersion.isEmpty else { return nil }
 		return PostgresBinary(url: binaryVersionsURL.appendingPathComponent(latestVersion), version: latestVersion)
 	}
 	
