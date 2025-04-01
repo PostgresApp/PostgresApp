@@ -52,7 +52,7 @@ ZSTD_VERSION=1.5.7
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.13.0
+GEOS_VERSION=3.13.1
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -61,7 +61,7 @@ JPEG_VERSION=9f
 GMP_VERSION=6.3.0
 
 # https://www.mpfr.org/mpfr-current/#download
-MPFR_VERSION=4.2.1
+MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
 BOOST_VERSION=1_86_0
@@ -76,7 +76,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.13.6
+LIBXML2_VERSION=2.13.7
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org

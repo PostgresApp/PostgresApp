@@ -18,7 +18,7 @@ LZ4_VERSION=1.9.4
 GDAL_VERSION=3.3.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.10.6
+GEOS_VERSION=3.10.7
 
 # http://www.ijg.org
 JPEG_VERSION=9f

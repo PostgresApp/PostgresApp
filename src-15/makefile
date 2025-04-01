@@ -21,7 +21,7 @@ ZSTD_VERSION=1.5.7
 GDAL_VERSION=3.5.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.11.4
+GEOS_VERSION=3.11.5
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -30,7 +30,7 @@ JPEG_VERSION=9f
 GMP_VERSION=6.2.1
 
 # https://www.mpfr.org/mpfr-current/#download
-MPFR_VERSION=4.2.1
+MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
 BOOST_VERSION=1_82_0
