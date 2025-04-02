@@ -49,6 +49,7 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
+# TODO 3.10 available, 3.9 introduces new build requirements
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
@@ -64,6 +65,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
+# TODO: 1_87 available
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
@@ -76,14 +78,17 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
+# TODO: 2.14 available
 LIBXML2_VERSION=2.13.7
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
+# TODO: 3.5 available
 OPENSSL_VERSION=3.3.3
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
+# TODO: 9.6 available
 PROJ_VERSION=9.5.1
 # due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
@@ -100,14 +105,18 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
+# TODO 20250127 available
 ABSEIL_VERSION=20240722.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # protobuf-c 1.5.0 is not compatible with >=26.x yet
 # 25.x is kind of LTS: https://protobuf.dev/support/version-support/
+# TODO 29 LTS available
+# protobuf-c 1.5.1 is not compatible with >=29.x yet
 PROTOBUF_VERSION=25.6
 
 # https://github.com/protobuf-c/protobuf-c/releases
+# TODO 1.5.1 available (pg17?)
 PROTOBUFC_VERSION=1.5.0
 
 # https://libtiff.gitlab.io/libtiff/
@@ -120,6 +129,7 @@ LIBPNG_VERSION=1.6.47
 OPENJPEG_VERSION=2.5.3
 
 # https://github.com/Unidata/netcdf-c/releases
+# TODO 4.9.3 available
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
@@ -129,16 +139,20 @@ PLDEBUGGER_VERSION=1.8
 PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
+# TODO 3.7 available
 PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
+# TODO some progress - maybe build from commit hash?
 PLJS_VERSION=0.8.0
 
 # https://bellard.org/quickjs/
+# TODO some progress - maybe build from commit hash or try quickjs-ng
 QUICKJS_VERSION=2024-01-13
 
 # https://unicode-org.github.io/icu/download/
+# TODO 77 available with unicode 16 and cldr 47, wait for postgres in /src/Makefile.global.in
 ICU_MAJOR_VERSION=75
 ICU_MINOR_VERSION=1
 
@@ -187,10 +201,10 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 # not building currently:
-# pgvector https://github.com/pgvector/pgvector/issues/779
+# pgvector https://github.com/pgvector/pgvector/issues/779 fixed for next.
 # pljs TupleDescAttr missing
 # pldebugger TupleDescAttr missing https://github.com/EnterpriseDB/pldebugger/issues/30
-# postgis https://trac.osgeo.org/postgis/ticket/5841 fixed for 3.5.3, https://trac.osgeo.org/postgis/ticket/5851
+# postgis https://trac.osgeo.org/postgis/ticket/5841 fixed for 3.5.3, https://trac.osgeo.org/postgis/ticket/5851 fixed for 3.5.3.
 all: postgresql auth_permission_dialog wal2json pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
