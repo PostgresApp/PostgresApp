@@ -576,6 +576,65 @@ class Server: NSObject {
 		]
 	}
 	
+	func extensionSearchPathOptions() throws -> [String] {
+		
+		guard let binaryVersion = self.binaryVersion else {
+			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not determine PostgreSQL version"])
+		}
+		
+		if "18".compare(binaryVersion, options: .numeric) == .orderedDescending {
+			// 17 or earlier doesn't support extension search path
+			return []
+		}
+		
+		let majorVersion = binaryVersion.components(separatedBy: .decimalDigits.inverted).first!
+		
+		// get extensions
+		let extensionPath = FileManager().applicationSupportDirectoryPath().appending("/Extensions/\(majorVersion)")
+		
+		guard FileManager().fileExists(atPath: extensionPath) else {
+			// no extensions, no need to load anything
+			return []
+		}
+		
+		let extensionDirectories = try FileManager().contentsOfDirectory(at: URL(fileURLWithPath: extensionPath), includingPropertiesForKeys: [.isDirectoryKey])
+
+		var extension_control_paths = [String]()
+		var dynamic_library_paths = [String]()
+
+		for extensionDirectory in extensionDirectories {
+			if try extensionDirectory.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true {
+				extension_control_paths.append("\(extensionDirectory.path)/share/postgresql/extension")
+				dynamic_library_paths.append("\(extensionDirectory.path)/lib/postgresql")
+			}
+		}
+		
+		if extension_control_paths.isEmpty {
+			// no extensions found, no need to change config
+			return []
+		}
+		
+		let extension_control_path = try readGUC(name: "extension_control_path").trimmingCharacters(in: .whitespacesAndNewlines)
+		let dynamic_library_path = try readGUC(name: "dynamic_library_path").trimmingCharacters(in: .whitespacesAndNewlines)
+
+		if !extension_control_path.isEmpty { extension_control_paths.insert(extension_control_path, at: 0) }
+		if !dynamic_library_path.isEmpty { dynamic_library_paths.insert(dynamic_library_path, at: 0) }
+
+		let extension_control_path_new = extension_control_paths.joined(separator: ":")
+		let dynamic_library_path_new = dynamic_library_paths.joined(separator: ":")
+						
+		// quote a value
+		// pg_ctl uses a shell to start postmaster
+		// therefore parameters must be quoted like shell arguments
+		func shqu(_ str: String) -> String {
+			"'" + str.replacingOccurrences(of: "'", with: "'\''") + "'"
+		}
+		
+		return [
+			"-o", "-c extension_control_path=\(shqu(extension_control_path_new))",
+			"-o", "-c dynamic_library_path=\(shqu(dynamic_library_path_new))"
+		]
+	}
 	
 	func readGUC(name: String) throws -> String {
 		let process = Process()
@@ -615,8 +674,8 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
 		return standardOutputString;
-		}
-		
+	}
+	
 	/// Checks if the port is in use by another process.
 	private func portInUse() -> Bool {
 		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
@@ -715,7 +774,8 @@ class Server: NSObject {
 			}
 		}
 		
-		let extraArgs = try authDialogOptions()
+		let authDialogArgs = try authDialogOptions()
+		let searchPathArgs = try extensionSearchPathOptions()
 		
 		let process = Process()
 		let launchPath = binPath.appending("/pg_ctl")
@@ -732,7 +792,7 @@ class Server: NSObject {
 			"-w",
 			"-l", logFilePath,
 			"-o", "-p \(port)",
-		] + extraArgs
+		] + authDialogArgs + searchPathArgs
 		let outputPipe = Pipe()
 		let errorPipe = Pipe()
 		process.standardOutput = outputPipe
