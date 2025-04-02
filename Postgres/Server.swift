@@ -540,7 +540,6 @@ class Server: NSObject {
 	
 	func authDialogOptions() throws -> [String] {
 		
-		// First make sure the auth permission dialog extension is available
 		if !UserDefaults.shared.bool(forKey: UserDefaults.PermissionDialogForTrustAuthKey) {
 			return []
 		}
@@ -554,6 +553,31 @@ class Server: NSObject {
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
 		
+		let shared_preload_libraries = try readGUC(name: "shared_preload_libraries")
+		
+		let oldLibs = shared_preload_libraries.components(separatedBy: ",").map({$0.trimmingCharacters(in: .whitespacesAndNewlines)}).filter { !$0.isEmpty }
+		let newLibs = oldLibs.filter({$0 != "auth_permission_dialog"}) + ["auth_permission_dialog"]
+		let libsvalue = newLibs.joined(separator: ",")
+		
+		guard let newExecutablePath = Bundle.mainApp?.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
+			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not find PostgresPermissionDialog executable"])
+		}
+		
+		// quote a value
+		// pg_ctl uses a shell to start postmaster
+		// therefore parameters must be quoted like shell arguments
+		func shqu(_ str: String) -> String {
+			"'" + str.replacingOccurrences(of: "'", with: "'\''") + "'"
+		}
+		
+		return [
+			"-o", "-c shared_preload_libraries=\(shqu(libsvalue))",
+			"-o", "-c auth_permission_dialog.dialog_executable_path=\(shqu(newExecutablePath))"
+		]
+	}
+	
+	
+	func readGUC(name: String) throws -> String {
 		let process = Process()
 		let launchPath = binPath.appending("/postgres")
 		guard FileManager().fileExists(atPath: launchPath) else {
@@ -566,7 +590,7 @@ class Server: NSObject {
 		process.arguments = [
 			"-D", varPath,
 			"-C",
-			"shared_preload_libraries",
+			name,
 		]
 		let standardOutputPipe = Pipe()
 		process.standardOutput = standardOutputPipe
@@ -590,30 +614,9 @@ class Server: NSObject {
 			]
 			throw NSError(domain: "com.postgresapp.Postgres2.postgres", code: 0, userInfo: userInfo)
 		}
-		
-		
-		let oldLibs = standardOutputString.components(separatedBy: ",").map({$0.trimmingCharacters(in: .whitespacesAndNewlines)}).filter { !$0.isEmpty }
-		let newLibs = oldLibs.filter({$0 != "auth_permission_dialog"}) + ["auth_permission_dialog"]
-		let libsvalue = newLibs.joined(separator: ",")
-		
-		guard let newExecutablePath = Bundle.mainApp?.path(forAuxiliaryExecutable: "PostgresPermissionDialog") else {
-			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not find PostgresPermissionDialog executable"])
+		return standardOutputString;
 		}
 		
-		// quote a value
-		// pg_ctl uses a shell to start postmaster
-		// therefore parameters must be quoted like shell arguments
-		func shqu(_ str: String) -> String {
-			"'" + str.replacingOccurrences(of: "'", with: "'\''") + "'"
-		}
-		
-		return [
-			"-o", "-c shared_preload_libraries=\(shqu(libsvalue))",
-			"-o", "-c auth_permission_dialog.dialog_executable_path=\(shqu(newExecutablePath))"
-		]
-	}
-	
-	
 	/// Checks if the port is in use by another process.
 	private func portInUse() -> Bool {
 		let sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
