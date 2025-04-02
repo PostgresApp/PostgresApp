@@ -11,9 +11,8 @@ POSTGIS_MAJOR_VERSION=3
 #POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 #POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
 
-# 'Use Python "Limited API" in PL/Python' https://commitfest.postgresql.org/patch/5416
-POSTGRES_GIT_REF=cf/5416
-POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
+POSTGRES_GIT_REF=HEAD
+POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 
 ifeq ($(POSTGRES_GIT_HASH),)
     POSTGRES_GIT_HASH:=$(shell cat POSTGRES_GIT_HASH 2>/dev/null)
