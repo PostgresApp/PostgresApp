@@ -9,6 +9,7 @@ This file documents recent and upcoming builds of Postgres.app.
 
 Version | Build | Release Date | Included PG Versions                        | PostGIS Versions                                | Notes
 --------|-------|--------------|---------------------------------------------|-------------------------------------------------|-------
+ 2.9dev |  308  |  2025-04-04  | 18devel-b3219c6                             | none                                            | Test build for extension path
  2.8.1  |  307  |  2025-02-20  | 13.20, 14.17, 15.12, 16.8, 17.4             | 3.1.12, 3.2.8, 3.3.8, 3.4.4, 3.5.2              |
  2.8.1  |  306  |  2025-02-20  | 17.4                                        | 3.5.2                                           |
  2.8.1  |  305  |  2025-02-20  | 16.8                                        | 3.4.4                                           |
