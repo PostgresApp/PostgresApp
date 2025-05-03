@@ -152,8 +152,8 @@ PLJS_VERSION=0.8.0
 QUICKJS_VERSION=2024-01-13
 
 # https://unicode-org.github.io/icu/download/
-# TODO 77 available with unicode 16 and cldr 47, wait for postgres in /src/Makefile.global.in
-ICU_MAJOR_VERSION=75
+# Unicode 16, CLDR 47, sync with postgres /src/Makefile.global.in
+ICU_MAJOR_VERSION=77
 ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
