@@ -65,7 +65,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
-# TODO: 1_87 available
+# TODO: 1_88 available
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
@@ -83,7 +83,7 @@ LIBXML2_VERSION=2.13.8
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-# TODO: 3.5 available
+# TODO: 3.5 LTS available
 OPENSSL_VERSION=3.3.3
 
 # https://proj.org/download.html
@@ -116,7 +116,7 @@ ABSEIL_VERSION=20240722.1
 PROTOBUF_VERSION=25.7
 
 # https://github.com/protobuf-c/protobuf-c/releases
-# TODO 1.5.1 available (pg17?)
+# TODO 1.5.2 available (pg17?)
 PROTOBUFC_VERSION=1.5.0
 
 # https://libtiff.gitlab.io/libtiff/
@@ -139,7 +139,7 @@ PLDEBUGGER_VERSION=1.8
 PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
-# TODO 3.7 available
+# TODO 3.8 available
 PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
