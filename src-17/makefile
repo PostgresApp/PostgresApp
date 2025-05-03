@@ -45,7 +45,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.13.7
+LIBXML2_VERSION=2.13.8
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
@@ -74,7 +74,7 @@ ABSEIL_VERSION=20240722.1
 # https://github.com/protocolbuffers/protobuf/releases
 # protobuf-c 1.5.0 is not compatible with >=26.x yet
 # 25.x is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=25.6
+PROTOBUF_VERSION=25.7
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.0
@@ -83,7 +83,7 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.47
+LIBPNG_VERSION=1.6.48
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.3
@@ -113,7 +113,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.2
+PYTHON_VERSION_FULL=3.13.3
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
