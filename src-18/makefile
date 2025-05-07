@@ -4,40 +4,9 @@
 POSTGIS_VERSION=3.5.2
 POSTGIS_MAJOR_VERSION=3
 
-# define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
-#POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
-#POSTGRES_GIT_REF=HEAD
-#POSTGRES_GIT_REF=cf/5416
-#POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
-#POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
-
-POSTGRES_GIT_REF=HEAD
-POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
-
-ifeq ($(POSTGRES_GIT_HASH),)
-    POSTGRES_GIT_HASH:=$(shell cat POSTGRES_GIT_HASH 2>/dev/null)
-    ifneq ($(POSTGRES_GIT_HASH),)
-        $(warning Will reuse the last ref for PostgreSQL: $(POSTGRES_GIT_HASH))
-    endif
-endif
-
-ifeq ($(POSTGRES_GIT_HASH),)
-    GIT_REF_MATCH:=$(shell git ls-remote "$(POSTGRES_GIT_URL)" | grep -E "(\t|/)$(POSTGRES_GIT_REF)$$" | head -1)
-    $(warning Found the following ref for PostgreSQL: $(GIT_REF_MATCH))
-    POSTGRES_GIT_HASH:=$(shell echo "$(GIT_REF_MATCH)" | cut -f 1)
-    $(shell echo "$(POSTGRES_GIT_HASH)" > POSTGRES_GIT_HASH)
-endif
-
-POSTGRES_VERSION=$(POSTGRES_GIT_HASH)
-POSTGRES_MAJOR_VERSION=devel
+POSTGRES_VERSION=18beta1
+POSTGRES_MAJOR_VERSION=18
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
-
-ifeq ($(POSTGRES_VERSION),)
-    $(error "One of POSTGRES_VERSION, POSTGRES_GIT_HASH or POSTGRES_GIT_REF needs to be defined")
-endif
-
-# set POSTGRES_TARGET=install-world-bin to build PostgreSQL without documentation
-POSTGRES_TARGET=install-world
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
@@ -49,7 +18,6 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-# TODO 3.10 available, 3.9 introduces new build requirements
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
@@ -65,7 +33,6 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
-# TODO: 1_88 available
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
@@ -78,17 +45,14 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-# TODO: 2.14 available
 LIBXML2_VERSION=2.13.8
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://www.openssl.org
-# TODO: 3.5 LTS available
 OPENSSL_VERSION=3.3.3
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-# TODO: 9.6 available
 PROJ_VERSION=9.5.1
 # due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
@@ -105,18 +69,14 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-# TODO 20250127 available
 ABSEIL_VERSION=20240722.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # protobuf-c 1.5.0 is not compatible with >=26.x yet
 # 25.x is kind of LTS: https://protobuf.dev/support/version-support/
-# TODO 29 LTS available
-# protobuf-c 1.5.1 is not compatible with >=29.x yet
 PROTOBUF_VERSION=25.7
 
 # https://github.com/protobuf-c/protobuf-c/releases
-# TODO 1.5.2 available (pg17?)
 PROTOBUFC_VERSION=1.5.0
 
 # https://libtiff.gitlab.io/libtiff/
@@ -129,7 +89,6 @@ LIBPNG_VERSION=1.6.48
 OPENJPEG_VERSION=2.5.3
 
 # https://github.com/Unidata/netcdf-c/releases
-# TODO 4.9.3 available
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
@@ -139,16 +98,13 @@ PLDEBUGGER_VERSION=1.8
 PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
-# TODO 3.8 available
 PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
-# TODO some progress - maybe build from commit hash?
 PLJS_VERSION=0.8.0
 
 # https://bellard.org/quickjs/
-# TODO some progress - maybe build from commit hash or try quickjs-ng
 QUICKJS_VERSION=2024-01-13
 
 # https://unicode-org.github.io/icu/download/
@@ -196,12 +152,8 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET CMAKE_OSX_ARCHITECTURES ICU_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-# not building currently:
-# pgvector https://github.com/pgvector/pgvector/issues/779 fixed for next.
-# pljs TupleDescAttr missing
-# pldebugger TupleDescAttr missing https://github.com/EnterpriseDB/pldebugger/issues/30
-# postgis https://trac.osgeo.org/postgis/ticket/5841 fixed for 3.5.3, https://trac.osgeo.org/postgis/ticket/5851 fixed for 3.5.3.
-all: postgresql auth_permission_dialog wal2json pgrouting
+# limited set of targets for now
+all: postgresql auth_permission_dialog wal2json
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -223,7 +175,7 @@ check-postgresql:
 postgresql: $(PREFIX)/bin/psql
 
 $(PREFIX)/bin/psql: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" $(POSTGRES_TARGET) XMLINCLUDE=--catalogs
+	MAKELEVEL=0 make -C "postgresql-$(POSTGRES_VERSION)" install-world XMLINCLUDE=--catalogs
 	ORIGINAL_PYTHON_PATH=$$(otool -L $(PREFIX)/lib/postgresql/plpython3.dylib | grep -m 1 -o '/Library/Frameworks/Python.framework/Versions/.*/Python') && \
 	for PYLIB in $(PREFIX)/lib/postgresql/*plpython3.dylib; do \
 		install_name_tool -change $$ORIGINAL_PYTHON_PATH /Library/Frameworks/Python.framework/Python $$PYLIB; \
@@ -244,20 +196,10 @@ postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
-ifneq ($(POSTGRES_GIT_URL),)
-	rm -Rf postgresql-git
-	git init postgresql-git
-	git -C postgresql-git remote add origin $(POSTGRES_GIT_URL)
-	git -C postgresql-git fetch --depth 1 origin $(POSTGRES_VERSION)
-	# archive command borrowed from "make dist"
-	git -C postgresql-git -c core.autocrlf=false -c tar.tar.bz2.command='bzip2 -c' archive --format tar.bz2 --prefix "postgresql-$(POSTGRES_VERSION)/" "$(POSTGRES_VERSION)" -o "../postgresql-$(POSTGRES_VERSION).tar.bz2"
-else
 	$(CURL) "$(POSTGRES_DOWNLOAD_URL)/postgresql-$(POSTGRES_VERSION).tar.bz2"
-endif
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
-	rm -f POSTGRES_GIT_HASH
 
 
 ######################################
