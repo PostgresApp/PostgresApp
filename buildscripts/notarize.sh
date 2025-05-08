@@ -3,7 +3,7 @@
 # Before calling this script, make sure you have stored App Store Connect API credentials in the keychain
 # xcrun notarytool store-credentials postgresapp
 # Then you can call this script like this:
-# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 PG_BINARIES_DIR=~/Documents/postgresapp/binaries LATEST_STABLE_PG_VERSION=12  SPARKLE_SIGNING_KEY=example.pem ./notarize.sh
+# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 LATEST_STABLE_PG_VERSION=12  SPARKLE_SIGNING_KEY=example.pem ./notarize.sh
 
 set -e
 set -o pipefail
@@ -28,12 +28,6 @@ fi
 if [ "x$PG_BINARIES_VERSIONS" = x ]
 then
 	echo "Please set the environment variable PG_BINARIES_VERSIONS"
-	exit 1
-fi
-
-if [ "x$PG_BINARIES_DIR" = x ]
-then
-	echo "Please set the environment variable PG_BINARIES_DIR"
 	exit 1
 fi
 
@@ -107,8 +101,8 @@ cat >"$APPCAST_PATH" <<EOF
 $(
 	for v in ${PG_BINARIES_VERSIONS//_/ }
 	do
-		pg_version=$(grep 'PACKAGE_VERSION "[^"]*' --only-matching "$PG_BINARIES_DIR"/$v/include/postgresql/server/pg_config.h | cut -c 18-)
-		postgis_version=$(grep "default_version = '[^']*"  --only-matching "$PG_BINARIES_DIR"/$v/share/postgresql/extension/postgis.control 2> >(test $IGNORE_MISSING_BINARIES || cat >&2) | cut -c 20-)
+		pg_version=$(grep 'PACKAGE_VERSION "[^"]*' --only-matching "$ARCHIVE_PATH"/Products/Applications/Postgres.app/Contents/Versions/$v/include/postgresql/server/pg_config.h | cut -c 18-)
+		postgis_version=$(grep "default_version = '[^']*"  --only-matching "$ARCHIVE_PATH"/Products/Applications/Postgres.app/Contents/Versions/$v/share/postgresql/extension/postgis.control 2> >(test $IGNORE_MISSING_BINARIES || cat >&2) | cut -c 20-)
 		[ -z $postgis_version ] || echo "					<li>PostgreSQL $pg_version with PostGIS $postgis_version</li>"
 		! [ -z $postgis_version ] || echo "					<li>PostgreSQL $pg_version without PostGIS</li>"
 	done
