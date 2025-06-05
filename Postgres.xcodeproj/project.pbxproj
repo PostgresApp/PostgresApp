@@ -80,6 +80,7 @@
 		83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FB571F1D1B05F000A903A3 /* Assets.xcassets */; };
 		83FB57231D1B05F000A903A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FB57211D1B05F000A903A3 /* Main.storyboard */; };
 		83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB573B1D1B18C900A903A3 /* MainWindow.swift */; };
+		D7A2F0242DF044AA00F28AD0 /* CrashLogCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2F0232DF044AA00F28AD0 /* CrashLogCollector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -192,6 +193,7 @@
 		83FB57221D1B05F000A903A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83FB57241D1B05F000A903A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83FB573B1D1B18C900A903A3 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		D7A2F0232DF044AA00F28AD0 /* CrashLogCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashLogCollector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 			children = (
 				839A38271D88494A00E9591A /* main.swift */,
 				83FB571B1D1B05F000A903A3 /* AppDelegate.swift */,
+				D7A2F0232DF044AA00F28AD0 /* CrashLogCollector.swift */,
 				83FB573B1D1B18C900A903A3 /* MainWindow.swift */,
 				838B8D361D649CB30050EF03 /* MainWindowModel.swift */,
 				8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */,
@@ -617,6 +620,7 @@
 				3634D7F62954BB2C005CE01C /* BinaryManager.swift in Sources */,
 				36447A62282568BA00F5BB7A /* InstallHistory.swift in Sources */,
 				36C9D0482CC69746006ABA02 /* ConnectionDialog.swift in Sources */,
+				D7A2F0242DF044AA00F28AD0 /* CrashLogCollector.swift in Sources */,
 				8348A1F11DB52E9A0039A024 /* ValueTransformers.swift in Sources */,
 				83969DBB1D369BD1005B9F1C /* ClientLauncher.swift in Sources */,
 				838B8D371D649CB30050EF03 /* MainWindowModel.swift in Sources */,

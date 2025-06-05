@@ -32,6 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
+		CrashLogCollector.shared.scanInBackground()
 		let clientAppPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") ?? ""
 		if clientAppPath.isEmpty {
 			// Read the old setting, reverting to Terminal as default
