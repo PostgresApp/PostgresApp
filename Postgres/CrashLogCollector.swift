@@ -55,7 +55,6 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 				}
 			}
 		}
-		print("Scanning for crash reports finished")
 		if !newCrashes.isEmpty {
 			let newCrashes = newCrashes
 			Task { @MainActor in
