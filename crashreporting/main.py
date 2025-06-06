@@ -1,6 +1,7 @@
 #!/usr/bin/python3 -u
 
 import asyncio
+import asyncpg
 import tornado.ioloop
 import tornado.web
 import os
