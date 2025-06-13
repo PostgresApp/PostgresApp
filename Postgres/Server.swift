@@ -604,7 +604,7 @@ class Server: NSObject {
 
 		for extensionDirectory in extensionDirectories {
 			if try extensionDirectory.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true {
-				extension_control_paths.append("\(extensionDirectory.path)/share/postgresql/extension")
+				extension_control_paths.append("\(extensionDirectory.path)/share/postgresql")
 				dynamic_library_paths.append("\(extensionDirectory.path)/lib/postgresql")
 			}
 		}
