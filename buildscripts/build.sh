@@ -91,19 +91,19 @@ APP="$EXPORT_PATH"/Postgres.app
 for VERSION in ${PG_BINARIES_VERSIONS//_/ }; do
 
 	find "$APP"/Contents/Versions/$VERSION/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
-		codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY"  \
+		codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			--entitlements postgres.entitlements \
 			{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 	find "$APP"/Contents/Versions/$VERSION/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
-		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
+		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
 	find "$APP"/Contents/Versions/$VERSION/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
-		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY"  \
+		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
 
-	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
+	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 		"$APP"/Contents/Versions/$VERSION/lib/postgresql/pgxs/src/test/regress/pg_regress \
 		"$APP"/Contents/Versions/$VERSION/lib/*.a \
 		>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
