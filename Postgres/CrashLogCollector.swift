@@ -39,14 +39,15 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 			if filename.hasPrefix("Postgres") || filename.hasPrefix("postgres") || filename.hasPrefix("psql") {
 				do {
 					let crashReport = try String(contentsOf: url, encoding: .utf8)
-					if filename.hasPrefix("postgres") || filename.hasPrefix("psql") {
-						// check path to avoid reporting homebrew or enterprisedb crashes
-						if crashReport.range(of: ".app/Contents/Versions/") == nil && crashReport.range(of: ".app\\/Contents\\/Versions\\/") == nil {
-							// probably not from Postgres.app
-							processedFiles.append(filename)
-							UserDefaults.standard.setValue(processedFiles, forKey: "ProcessedCrashFiles")
-							continue
-						}
+					// We want to make sure we only upload crash reports from Postgres.app
+					// Not from other PostgreSQL distributions like Homebrew or EnterpriseDB
+					if crashReport.range(of: "com.postgresapp") == nil
+					{
+						// Probably not from Postgres.app
+						// Add it to processed files so we don't read it again
+						processedFiles.append(filename)
+						UserDefaults.standard.setValue(processedFiles, forKey: "ProcessedCrashFiles")
+						continue
 					}
 					newCrashes.append((filename: filename, crashReport: crashReport))
 				}
