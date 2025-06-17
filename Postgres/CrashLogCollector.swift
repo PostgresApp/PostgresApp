@@ -14,25 +14,20 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 	
 	func scanInBackground() {
 		Task.detached {
-			do {
-				try self.scan()
-			}
-			catch {
-				print("Failed to scan for crash reports: \(error)")
-				return
-			}
+			self.scan()
 		}
 	}
 	var newCrashes = [(filename: String, crashReport: String)]()
 	var uploadErrors = [(filename: String, errorDescription: String)]()
-	private func scan() throws {
+	private func scan() {
 		let fileManager = FileManager()
 		let diagnosticReportsURL = URL(fileURLWithPath: NSHomeDirectory()+"/Library/Logs/DiagnosticReports")
-		let urls = try fileManager.contentsOfDirectory(at: diagnosticReportsURL,
-													   includingPropertiesForKeys: [.isDirectoryKey],
-													   options: [])
+		guard let enumerator = fileManager.enumerator(at: diagnosticReportsURL, includingPropertiesForKeys: [.isDirectoryKey]) else {
+			print("Could not enumerate crash log directory.")
+			return
+		}
 		var processedFiles = UserDefaults.standard.stringArray(forKey: "ProcessedCrashFiles") ?? []
-		for url in urls {
+		for case let url as URL in enumerator {
 			if let isDirectory = try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory, isDirectory == true { continue }
 			let filename = url.lastPathComponent
 			if processedFiles.contains(filename) { continue }
