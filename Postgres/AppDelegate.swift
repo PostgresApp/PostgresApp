@@ -175,12 +175,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	private func destroyLaunchAgent() {
-		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
-		let laName = "com.postgresapp.Postgres2LoginHelper"
-		let plistPath = laPath+"/"+laName+".plist"
+		let laPath = NSHomeDirectory() + "/Library/LaunchAgents/com.postgresapp.Postgres2LoginHelper.plist"
 		if FileManager.default.fileExists(atPath: laPath) {
 			do {
-				try FileManager.default.removeItem(atPath: plistPath)
+				try FileManager.default.removeItem(atPath: laPath)
 			} catch let error as NSError {
 				NSLog("Could not delete launch agent \(laPath): \(error)")
 			}
