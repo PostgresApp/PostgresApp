@@ -589,51 +589,61 @@ class Server: NSObject {
 		
 		let majorVersion = binaryVersion.components(separatedBy: .decimalDigits.inverted).first!
 		
-		// get extensions
+		// Postgres.app extensions are installed in ~/Library/Applicaton Support/Postgres/Extensions/XX (XX is the major PostgreSQL version)
+		// We try to automatically support different folder structures by searching for .control and .dylib files
+		// This is necessary because many build scripts are somewhat unpredictable with regard to install paths
+		// It also allows us to support preload libraries that are not packaged as extensions
 		let extensionPath = FileManager().applicationSupportDirectoryPath().appending("/Extensions/\(majorVersion)")
 		
-		guard FileManager().fileExists(atPath: extensionPath) else {
-			// no extensions, no need to load anything
-			return []
-		}
-		
-		let extensionDirectories = try FileManager().contentsOfDirectory(at: URL(fileURLWithPath: extensionPath), includingPropertiesForKeys: [.isDirectoryKey])
-
 		var extension_control_paths = [String]()
 		var dynamic_library_paths = [String]()
 
-		for extensionDirectory in extensionDirectories {
-			if try extensionDirectory.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true {
-				extension_control_paths.append("\(extensionDirectory.path)/share/postgresql")
-				dynamic_library_paths.append("\(extensionDirectory.path)/lib/postgresql")
+		guard let enumerator = FileManager().enumerator(at: URL(fileURLWithPath: extensionPath), includingPropertiesForKeys: nil) else {
+			throw NSError(domain: "com.postgresapp.Postgres2", code: 1, userInfo: [NSLocalizedDescriptionKey: "Could not enumerate directory \(extensionPath)"])
+		}
+		
+		for case let childURL as URL in enumerator {
+			// add anything that contains a dynamic library to the dynamic library paths
+			if childURL.pathExtension == "dylib" || childURL.pathExtension == "so" {
+				let parentPath = childURL.deletingLastPathComponent().path
+				if !dynamic_library_paths.contains(parentPath) {
+					dynamic_library_paths.append(parentPath)
+				}
+			}
+			// add anything that contains a "control" file to the control paths (minus extension)
+			if childURL.pathExtension == "control" {
+				let extensionFolderURL = childURL.deletingLastPathComponent()
+				let controlPath = extensionFolderURL.lastPathComponent == "extension" ? extensionFolderURL.deletingLastPathComponent().path : extensionFolderURL.path
+				if !extension_control_paths.contains(controlPath) {
+					extension_control_paths.append(controlPath)
+				}
 			}
 		}
 		
-		if extension_control_paths.isEmpty {
-			// no extensions found, no need to change config
-			return []
+		var options = [String]()
+		
+		if extension_control_paths.count > 0 {
+			let old_extension_control_path = try readGUC(name: "extension_control_path").trimmingCharacters(in: .whitespacesAndNewlines)
+			if old_extension_control_path != "" { extension_control_paths.insert(old_extension_control_path, at: 0) }
+			let extension_control_path_new = extension_control_paths.joined(separator: ":")
+			options += ["-o", "-c extension_control_path=\(shqu(extension_control_path_new))"]
 		}
 		
-		let extension_control_path = try readGUC(name: "extension_control_path").trimmingCharacters(in: .whitespacesAndNewlines)
-		let dynamic_library_path = try readGUC(name: "dynamic_library_path").trimmingCharacters(in: .whitespacesAndNewlines)
-
-		if !extension_control_path.isEmpty { extension_control_paths.insert(extension_control_path, at: 0) }
-		if !dynamic_library_path.isEmpty { dynamic_library_paths.insert(dynamic_library_path, at: 0) }
-
-		let extension_control_path_new = extension_control_paths.joined(separator: ":")
-		let dynamic_library_path_new = dynamic_library_paths.joined(separator: ":")
-						
+		if dynamic_library_paths.count > 0 {
+			let old_dynamic_library_path = try readGUC(name: "dynamic_library_path").trimmingCharacters(in: .whitespacesAndNewlines)
+			if old_dynamic_library_path != "" { dynamic_library_paths.insert(old_dynamic_library_path, at: 0) }
+			let dynamic_library_path_new = dynamic_library_paths.joined(separator: ":")
+			options += ["-o", "-c dynamic_library_path=\(shqu(dynamic_library_path_new))"]
+		}
+		
+		return options
+			
 		// quote a value
 		// pg_ctl uses a shell to start postmaster
 		// therefore parameters must be quoted like shell arguments
 		func shqu(_ str: String) -> String {
 			"'" + str.replacingOccurrences(of: "'", with: "'\''") + "'"
 		}
-		
-		return [
-			"-o", "-c extension_control_path=\(shqu(extension_control_path_new))",
-			"-o", "-c dynamic_library_path=\(shqu(dynamic_library_path_new))"
-		]
 	}
 	
 	func readGUC(name: String) throws -> String {
