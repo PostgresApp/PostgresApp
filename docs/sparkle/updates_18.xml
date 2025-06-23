@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.8.2</title>
+		<title>Postgres.app 2.8.3</title>
 		<description>
 			<![CDATA[
 				<ul>
@@ -15,14 +15,14 @@
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 08 May 2025 10:59:15 +0200</pubDate>
+		<pubDate>Mon, 23 Jun 2025 13:09:25 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.2/Postgres-2.8.2-18.dmg"
-		sparkle:version="314"
-		sparkle:shortVersionString="2.8.2"
-		length="65348901"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.3/Postgres-2.8.3-18.dmg"
+		sparkle:version="319"
+		sparkle:shortVersionString="2.8.3"
+		length="65359758"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFALqo5BROd/ZHegp9TA6cDRcGbjZAhUAlCnUukEi/2KPcoIiwZ2xYq0woSU="
+		sparkle:dsaSignature="MCwCFEth/zrkmvMB6AAxs0Es7kdn5mq5AhRJuf1kHcVvYtqJav0dnHm2zwLZ0A=="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
