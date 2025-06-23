@@ -1,0 +1,23 @@
+# Steps to execute on the server to set up the crash reporting web server
+apt update
+apt upgrade
+reboot
+apt install certbot
+certbot certonly --standalone -d crashreporting.postgresapp.com --register-unsafely-without-email
+chmod -R o+rx /etc/letsencrypt
+apt install python3-tornado
+apt install python3-asyncpg
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin crashreporting
+mkdir /opt/crashreporting
+sudo chown -R crashreporting:crashreporting /opt/crashreporting
+# - install python app into /opt/crashreporting
+mkdir /etc/crashreporting
+vi /etc/crashreporting/environment
+vi /etc/systemd/system/crashreporting.service
+sudo systemctl daemon-reload
+systemctl enable crashreporting
+apt install postgresql-16
+sudo -u postgres createuser crashreporting
+sudo -u postgres psql
+# configure pg_hba.conf and pg_ident.conf
+# set up database
