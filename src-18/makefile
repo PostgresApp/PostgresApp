@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.5.2
+POSTGIS_VERSION=3.6.0alpha1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=18beta1
@@ -153,7 +153,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 # limited set of targets for now
-all: postgresql auth_permission_dialog wal2json
+all: postgresql auth_permission_dialog wal2json postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -955,8 +955,6 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
-	# patch to allow direct upgrades from 3.5.0beta1 which we shipped with Postgres.app 2.7.8
-	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_upgrade_from_beta.patch
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
 	touch $@
 
