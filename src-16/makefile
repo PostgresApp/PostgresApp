@@ -48,8 +48,8 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.11.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
-# https://www.openssl.org
-OPENSSL_VERSION=3.0.16
+# https://openssl-library.org/source/index.html
+OPENSSL_VERSION=3.0.17
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -79,7 +79,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.48
+LIBPNG_VERSION=1.6.50
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.3
@@ -109,7 +109,7 @@ ICU_MINOR_VERSION=2
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.12
-PYTHON_VERSION_FULL=3.12.9
+PYTHON_VERSION_FULL=3.12.10
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build

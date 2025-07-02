@@ -48,8 +48,8 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
-# https://www.openssl.org
-OPENSSL_VERSION=3.0.16
+# https://openssl-library.org/source/index.html
+OPENSSL_VERSION=3.0.17
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -78,7 +78,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.48
+LIBPNG_VERSION=1.6.50
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.3

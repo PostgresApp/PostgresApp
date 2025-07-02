@@ -82,9 +82,9 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.13.8
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
-# https://www.openssl.org
+# https://openssl-library.org/source/index.html
 # TODO: 3.5 LTS available
-OPENSSL_VERSION=3.3.3
+OPENSSL_VERSION=3.3.4
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -113,7 +113,7 @@ ABSEIL_VERSION=20240722.1
 # 25.x is kind of LTS: https://protobuf.dev/support/version-support/
 # TODO 29 LTS available
 # protobuf-c 1.5.1 is not compatible with >=29.x yet
-PROTOBUF_VERSION=25.7
+PROTOBUF_VERSION=25.8
 
 # https://github.com/protobuf-c/protobuf-c/releases
 # TODO 1.5.2 available (pg17?)
@@ -123,7 +123,7 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.48
+LIBPNG_VERSION=1.6.50
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.3
