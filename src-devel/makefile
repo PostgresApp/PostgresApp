@@ -49,7 +49,7 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-# TODO 3.10 available, 3.9 introduces new build requirements
+# TODO 3.11 available, 3.9 introduces new build requirements
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
@@ -64,7 +64,7 @@ GMP_VERSION=6.3.0
 # https://www.mpfr.org/mpfr-current/#download
 MPFR_VERSION=4.2.2
 
-# https://www.boost.org/users/download/
+# https://www.boost.org/releases/latest/
 # TODO: 1_88 available
 BOOST_VERSION=1_86_0
 
@@ -72,6 +72,7 @@ BOOST_VERSION=1_86_0
 CGAL_VERSION=6.0.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
+# TODO: 2.1 availabe
 SFCGAL_VERSION=2.0.0
 
 LIBEDIT_VERSION=20130611-3.1
@@ -105,7 +106,7 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-# TODO 20250127 available
+# TODO 20250512 available
 ABSEIL_VERSION=20240722.1
 
 # https://github.com/protocolbuffers/protobuf/releases
@@ -129,7 +130,7 @@ LIBPNG_VERSION=1.6.50
 OPENJPEG_VERSION=2.5.3
 
 # https://github.com/Unidata/netcdf-c/releases
-# TODO 4.9.3 available
+# TODO 4.9.3 available (pg16?)
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
@@ -144,11 +145,11 @@ PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
-# TODO some progress - maybe build from commit hash?
+# TODO 1.0 available
 PLJS_VERSION=0.8.0
 
 # https://bellard.org/quickjs/
-# TODO some progress - maybe build from commit hash or try quickjs-ng
+# TODO 2025-04-26 available or try quickjs-ng
 QUICKJS_VERSION=2024-01-13
 
 # https://unicode-org.github.io/icu/download/
