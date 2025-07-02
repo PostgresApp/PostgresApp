@@ -283,30 +283,7 @@ class Server: NSObject {
 			}
 		}
 	}
-	
-	// This function checks if the macOS version was recorded when doing initdb
-	// If not, it tries to guess by comparing the creation date of pg_version to the list of macOS versions in InstallHistory.plist
-	// This method is designed to be called only once, when first running a new version of Postgres.app
-	func checkInitdbOSVersion() {
-		var configPlist = (try? readConfigPlist()) ?? [:]
 		
-		// check if there is already a macos version stored
-		if  configPlist["initdb_macos_version"] is String || configPlist["initdb_macos_version_guessed"] is String {
-			return
-		}
-		
-		//no previous guess, we need to make a guess now
-		if let history = InstallHistory.local {
-			if let pgVersionAttributes = try? FileManager().attributesOfItem(atPath: pgVersionPath) {
-				if let creationDate = pgVersionAttributes[.creationDate] as? Date {
-					let guessedVersion = history.macOSVersion(on: creationDate) ?? "unknown"
-					configPlist["initdb_macos_version_guessed"] = guessedVersion
-					try? writeConfigPlist(configPlist)
-				}
-			}
-		}
-	}
-	
 	// This function checks if the data directory was initialized (or started) on a macOS version with incompatible collations
 	func checkReindexWarning() {
 		serverWarning = nil
@@ -314,10 +291,24 @@ class Server: NSObject {
 		serverWarningMessage = nil
 		serverWarningInformativeText = nil
 		
-		guard let configPlist = try? readConfigPlist() else {
+		guard var configPlist = try? readConfigPlist() else {
 			// if there is no config plist
 			// we don't perform a check
 			return
+		}
+		
+		// check if there is already a macos version stored
+		if !(configPlist["initdb_macos_version"] is String || configPlist["initdb_macos_version_guessed"] is String) {
+			//no previous guess, we need to make a guess now
+			if let history = InstallHistory.local {
+				if let pgVersionAttributes = try? FileManager().attributesOfItem(atPath: pgVersionPath) {
+					if let creationDate = pgVersionAttributes[.creationDate] as? Date {
+						let guessedVersion = history.macOSVersion(on: creationDate) ?? "unknown"
+						configPlist["initdb_macos_version_guessed"] = guessedVersion
+						try? writeConfigPlist(configPlist)
+					}
+				}
+			}
 		}
 		
 		// Reindex warnings only need to be shown when the user uses libc collations
@@ -877,7 +868,13 @@ class Server: NSObject {
 		}
 		
 		if needWrite {
-			try? writeConfigPlist(configPlist)
+			do {
+				try writeConfigPlist(configPlist)
+				checkReindexWarning()
+			}
+			catch {
+				print("Failed to write config plist: \(error.localizedDescription)")
+			}
 		}
 	}
 	
