@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ApplicationDescription</key>
+	<string>Postgres.app is a full-featured PostgreSQL distribution for macOS</string>
+	<key>DeveloperName</key>
+	<string>Postgres.app Maintainers</string>
+	<key>Website</key>
+	<string>https://postgresapp.com</string>
+	<key>Connections</key>
+	<array>
+		<dict>
+			<key>IsIncoming</key>
+			<false/>
+			<key>Host</key>
+			<string>postgresapp.com</string>
+			<key>NetworkProtocol</key>
+			<string>TCP</string>
+			<key>Port</key>
+			<string>443</string>
+			<key>Relevance</key>
+			<string>Default</string>
+			<key>Purpose</key>
+			<string>Postgres.app uses this web server to check for software updates.</string>
+			<key>DenyConsequences</key>
+			<string>If you deny these connections, Postgres.app will not install or notify you about updates. You will have to make sure you regularly download and install the latest version manually.</string>
+		</dict>
+		<dict>
+			<key>IsIncoming</key>
+			<false/>
+			<key>Host</key>
+			<string>github.com</string>
+			<key>NetworkProtocol</key>
+			<string>TCP</string>
+			<key>Port</key>
+			<string>443</string>
+			<key>Relevance</key>
+			<string>Default</string>
+			<key>Purpose</key>
+			<string>Postgres.app software updates are hosted on Github</string>
+			<key>DenyConsequences</key>
+			<string>If you deny these connections, Postgres.app will not be able to automatically install software updates.</string>
+		</dict>
+		<dict>
+			<key>IsIncoming</key>
+			<false/>
+			<key>Host</key>
+			<string>crashreporting.postgresapp.com</string>
+			<key>NetworkProtocol</key>
+			<string>TCP</string>
+			<key>Port</key>
+			<string>443</string>
+			<key>Relevance</key>
+			<string>Default</string>
+			<key>Purpose</key>
+			<string>Share crash reports with maintainers</string>
+			<key>DenyConsequences</key>
+			<string>If you deny these connections, you won&apos;t be able to send crash reports to the maintainers.</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+[Unit]
+Description=Postgres.app Crash Reporting Service
+After=network.target
+
+[Service]
+Type=simple
+User=crashreporting
+Group=crashreporting
+WorkingDirectory=/opt/crashreporting
+ExecStartPre=+/sbin/sysctl -w net.ipv4.ip_unprivileged_port_start=443
+ExecStart=/usr/bin/python3 -u /opt/crashreporting/main.py
+EnvironmentFile=/etc/crashreporting/environment
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
