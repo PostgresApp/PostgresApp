@@ -858,6 +858,12 @@ class Server: NSObject {
 			configPlist["recently_started_postgresql_versions"] = recentlyStartedPostgresqlVersions
 			needWrite = true
 		}
+		var previouslyStartedPostgresqlVersions = configPlist["previously_started_postgresql_versions"] as? [String] ?? []
+		if let faultyIndex = previouslyStartedPostgresqlVersions.firstIndex(of: "(Postgres.app)") {
+			previouslyStartedPostgresqlVersions[faultyIndex] = fixedVersion
+			configPlist["previously_started_postgresql_versions"] = previouslyStartedPostgresqlVersions
+			needWrite = true
+		}
 		if configPlist["initdb_postgresql_version"] as? String == "(Postgres.app)" {
 			configPlist["initdb_postgresql_version"] = fixedVersion
 			needWrite = true
