@@ -3,13 +3,16 @@ layout: documentation
 title: Postgres.app Erweiterungen
 ---
 
-## Contrib-Module
+## Mitgelieferte Erweiterungen
 
-Das sind optionale Erweiterungen, die zusammen mit PostgreSQL ausgeliefert werden.
+Postgres.app enthält viele beliebte Erweiterungen:
 
-In Postgres.app mit PostgreSQL 18 sind die folgenden Erweiterungen enthalten:
-
-adminpack, amcheck, autoinc, bloom, btree_gin, btree_gist, citext, cube, dblink, dict_int, dict_xsyn, earthdistance, file_fdw, fuzzystrmatch, hstore, hstore_plpython3u, insert_username, intagg, intarray, isn, jsonb_plpython3u, lo, ltree, ltree_plpython3u, moddatetime, old_snapshot, pageinspect, pg_buffercache, pg_freespacemap, pg_prewarm, pg_stat_statements, pg_surgery, pg_trgm, pg_visibility, pg_walinspect, pgcrypto, pgrowlocks, pgstattuple, plpgsql, plpython3u, postgres_fdw, refint, seg, sslinfo, tablefunc, tcn, tsm_system_rows, tsm_system_time, unaccent, uuid-ossp, xml2
+- **Contrib Module**: adminpack, amcheck, autoinc, bloom, btree_gin, btree_gist, citext, cube, dblink, dict_int, dict_xsyn, earthdistance, file_fdw, fuzzystrmatch, hstore, hstore_plpython3u, insert_username, intagg, intarray, isn, jsonb_plpython3u, lo, ltree, ltree_plpython3u, moddatetime, old_snapshot, pageinspect, pg_buffercache, pg_freespacemap, pg_prewarm, pg_stat_statements, pg_surgery, pg_trgm, pg_visibility, pg_walinspect, pgcrypto, pgrowlocks, pgstattuple, plpgsql, plpython3u, postgres_fdw, refint, seg, sslinfo, tablefunc, tcn, tsm_system_rows, tsm_system_time, unaccent, uuid-ossp, xml2
+- **PostGIS**: postgis, postgis_raster, postgis_sfcgal, postgis_tiger_geocoder, postgis_topology, address_standardizer, address_standardizer_data_us
+- pgrouting
+- vector
+- pljs
+- **PL Debugger**: pldbgapi
 
 Für die meisten Erweiterungen genügt es, den folgenden SQL-Befehl auszuführen:  
 `CREATE EXTENSION extension_name;`
@@ -17,22 +20,10 @@ Für die meisten Erweiterungen genügt es, den folgenden SQL-Befehl auszuführen
 Wenn du PL/Python verwenden möchtest, musst du zuerst Python von [https://python.org](https://python.org) installieren.  
 Sieh dir dazu diese [Anleitung](/documentation/plpython.html) an.
 
-## Mitgelieferte Erweiterungen
-
-Postgres.app enthält außerdem einige Erweiterungen von Drittanbietern:
-
-- PostGIS: postgis, postgis_raster, postgis_sfcgal, postgis_tiger_geocoder, postgis_topology, address_standardizer, address_standardizer_data_us  
-- pgrouting  
-- vector  
-- pljs  
-- pldbgapi (Teil des PL Debuggers)
-
-Wie bei den contrib-Erweiterungen kannst du diese Erweiterungen mit dem Befehl `CREATE EXTENSION extension_name;` in deiner Datenbank installieren.
-
 Eine vollständige Liste aller verfügbaren Erweiterungen erhältst du mit dem SQL-Befehl:  
 `SELECT * FROM pg_available_extensions`
 
-## Download von zusätzliche Erweiterungen
+## Download von zusätzlichen Erweiterungen
 
 Ab PostgreSQL 18 stellen wir einige zusätzliche Erweiterungen als separaten Download zur Verfügung.
 
@@ -43,9 +34,7 @@ Diese Erweiterungen müssen unabhängig von der Haupt-App installiert werden. So
 3. Starte den PostgreSQL-Server neu  
 4. Nun kannst du mit `CREATE EXTENSION extension_name;` oder `ALTER EXTENSION extension_name UPDATE;` die Erweiterung in deiner Datenbank installieren oder aktualisieren
 
-### Erweiterungen für PostgreSQL 18beta1
-
-Diese Erweiterungen sind mit Postgres.app 2.8.3 oder neuer kompatibel:
+Diese Erweiterungen sind mit Postgres.app 2.8.3 oder neuer und PostgreSQL 18beta1 kompatibel:
 
 - http: [http-pg18-1.6.3.pkg](https://github.com/PostgresApp/Extensions/releases/download/http-1.6.3/http-pg18-1.6.3.pkg)
 - PL/v8: [plv8-pg18-3.2.3.pkg](https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.3/plv8-pg18-3.2.3.pkg)
