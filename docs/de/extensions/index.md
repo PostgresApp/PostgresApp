@@ -17,8 +17,8 @@ Postgres.app enthält viele beliebte Erweiterungen:
 Für die meisten Erweiterungen genügt es, den folgenden SQL-Befehl auszuführen:  
 `CREATE EXTENSION extension_name;`
 
-Wenn du PL/Python verwenden möchtest, musst du zuerst Python von [https://python.org](https://python.org) installieren.  
-Sieh dir dazu diese [Anleitung](/documentation/plpython.html) an.
+Wenn du PL/Python verwenden möchtest, musst du zuerst Python von [python.org](https://python.org) installieren.  
+Sieh dir dazu diese [Anleitung](/de/documentation/plpython.html) an.
 
 Eine vollständige Liste aller verfügbaren Erweiterungen erhältst du mit dem SQL-Befehl:  
 `SELECT * FROM pg_available_extensions`
