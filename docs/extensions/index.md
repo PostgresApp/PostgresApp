@@ -3,13 +3,11 @@ layout: documentation
 title: Postgres.app Extensions
 ---
 
-## Postgres.app Extensions
-
-### Contrib Modules
+## Contrib Modules
 
 These are optional extensions that are distributed together with PostgreSQL.
 
-We include the following extensions with PostgreSQL 18:
+We include the following contrib extensions with PostgreSQL 18:
 
 adminpack, amcheck, autoinc, bloom, btree_gin, btree_gist, citext, cube, dblink, dict_int, dict_xsyn, earthdistance, file_fdw, fuzzystrmatch, hstore, hstore_plpython3u, insert_username, intagg, intarray, isn, jsonb_plpython3u, lo, ltree, ltree_plpython3u, moddatetime, old_snapshot, pageinspect, pg_buffercache, pg_freespacemap, pg_prewarm, pg_stat_statements, pg_surgery, pg_trgm, pg_visibility, pg_walinspect, pgcrypto, pgrowlocks, pgstattuple, plpgsql, plpython3u, postgres_fdw, refint, seg, sslinfo, tablefunc, tcn, tsm_system_rows, tsm_system_time, unaccent, uuid-ossp, xml2
 
@@ -18,7 +16,7 @@ For most extensions, all you need to do is to execute the SQL command `CREATE EX
 If you want to use PL/Python, you need to first install Python from [https://python.org](python.org).
 See these [instructions](/documentation/plpython.html) for details.
 
-### Bundled Extensions
+## Bundled 3rd Party Extensions
 
 We also include some 3rd party extensions with Postgres.app.
 
@@ -32,7 +30,7 @@ Just like contrib extensions, you can install these extensions in a database wit
 
 For a full list of available extensions, please execute the SQL command `SELECT * FROM pg_available_extensions`
 
-### Unbundled Extensions
+## Downloadable Extensions
 
 Starting with PostgreSQL 18, we are providing some additional extensions for download.
 
@@ -43,7 +41,7 @@ These extensions need to be installed separately from the main app. To install t
 3) Restart the PostgreSQL server
 4) Now you can execute the commands `CREATE EXTENSION extension_name;` or `ALTER EXTENSION extension_name UPDATE;` to install or upgrade the extension in your database.
 
-#### Extensions for PostgreSQL 18beta1
+### Extensions for PostgreSQL 18beta1
 
 These extensions are compatible with Postgres.app 2.8.3 or later.
 
@@ -52,7 +50,7 @@ These extensions are compatible with Postgres.app 2.8.3 or later.
 - pg_parquet: [pg_parquet-pg18-0.4.0.pkg](https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0/pg_parquet-pg18-0.4.0.pkg)
 
 
-### Building other extensions
+## Building other extensions
 
 You can also build extensions yourself.
 If you are using PostgreSQL 18 or later, make sure to install them into Application Support.
@@ -76,7 +74,7 @@ make install prefix="$HOME/Library/Application Support/Postgres/Extensions/18/lo
 
 Now restart the PostgreSQL server and you should be able to install the extension with `CREATE EXTENSION` as usual.
 
-#### Building extensions for PostgreSQL 17 and earlier
+### Building extensions for PostgreSQL 17 and earlier
 
 PostgreSQL 17 load extensions only from the directories inside the application package.
 You can still build and install them, but there are two things you need to consider:

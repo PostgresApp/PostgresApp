@@ -43,7 +43,7 @@
 		  			<h2 itemprop="description">{{site.strings[lang].subtitle}}</h2>
 				</a>
 				<ul class="buttons">
-					<li{%unless page.path contains 'documentation/'%}{%if page.path contains 'index'%} class="current"{%endif%}{%endunless%}><a href="{{langPathPrefix}}/">{{site.strings[lang].homepage-button}}</a></li>
+					<li{%unless page.path contains 'documentation/' or page.path contains 'extensions/'%}{%if page.path contains 'index'%} class="current"{%endif%}{%endunless%}><a href="{{langPathPrefix}}/">{{site.strings[lang].homepage-button}}</a></li>
 					<li{% if page.path contains 'downloads' %} class=current{% endif%}><a href="{{langPathPrefix}}/downloads.html">{{site.strings[lang].downloads-title}}</a></li>
 					<li{% if page.path contains 'extensions/' %} class=current{% endif%}><a href="{{langPathPrefix}}/extensions/">{{site.strings[lang].extensions-button}}</a></li>
 					<li{% if page.path contains 'documentation/' %} class=current{% endif%}><a href="{{langPathPrefix}}/documentation/">{{site.strings[lang].docs-button}}</a></li>

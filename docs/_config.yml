@@ -354,10 +354,10 @@ languages: [en, de]
 strings: {
 	de: {
 		subtitle: Der schnellste Weg zu PostgreSQL am Mac,
-		homepage-button: Einleitung,
+		homepage-button: Home,
 		downloads-title: Downloads,
 		download-button: Laden,
-		docs-button: Dokumentation,
+		docs-button: Doku,
 		extensions-button: Erweiterungen,
 		github-button: GitHub,
 		stars: Sterne,
@@ -371,10 +371,10 @@ strings: {
 	},
 	en: {
 		subtitle: The easiest way to get started with PostgreSQL on the Mac,
-		homepage-button: Introduction,
+		homepage-button: Intro,
 		downloads-title: Downloads,
 		download-button: Download,
-		docs-button: Documentation,
+		docs-button: Docs,
 		extensions-button: Extensions,
 		github-button: GitHub,
 		stars: Stars,

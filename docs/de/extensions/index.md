@@ -3,9 +3,7 @@ layout: documentation
 title: Postgres.app Erweiterungen
 ---
 
-## Postgres.app-Erweiterungen
-
-### Contrib-Module
+## Contrib-Module
 
 Das sind optionale Erweiterungen, die zusammen mit PostgreSQL ausgeliefert werden.
 
@@ -19,7 +17,7 @@ Für die meisten Erweiterungen genügt es, den folgenden SQL-Befehl auszuführen
 Wenn du PL/Python verwenden möchtest, musst du zuerst Python von [https://python.org](https://python.org) installieren.  
 Sieh dir dazu diese [Anleitung](/documentation/plpython.html) an.
 
-### Mitgelieferte Erweiterungen
+## Mitgelieferte Erweiterungen
 
 Postgres.app enthält außerdem einige Erweiterungen von Drittanbietern:
 
@@ -34,7 +32,7 @@ Wie bei den contrib-Erweiterungen kannst du diese Erweiterungen mit dem Befehl `
 Eine vollständige Liste aller verfügbaren Erweiterungen erhältst du mit dem SQL-Befehl:  
 `SELECT * FROM pg_available_extensions`
 
-### Download von zusätzliche Erweiterungen
+## Download von zusätzliche Erweiterungen
 
 Ab PostgreSQL 18 stellen wir einige zusätzliche Erweiterungen als separaten Download zur Verfügung.
 
@@ -45,7 +43,7 @@ Diese Erweiterungen müssen unabhängig von der Haupt-App installiert werden. So
 3. Starte den PostgreSQL-Server neu  
 4. Nun kannst du mit `CREATE EXTENSION extension_name;` oder `ALTER EXTENSION extension_name UPDATE;` die Erweiterung in deiner Datenbank installieren oder aktualisieren
 
-#### Erweiterungen für PostgreSQL 18beta1
+### Erweiterungen für PostgreSQL 18beta1
 
 Diese Erweiterungen sind mit Postgres.app 2.8.3 oder neuer kompatibel:
 
@@ -53,7 +51,7 @@ Diese Erweiterungen sind mit Postgres.app 2.8.3 oder neuer kompatibel:
 - PL/v8: [plv8-pg18-3.2.3.pkg](https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.3/plv8-pg18-3.2.3.pkg)
 - pg_parquet: [pg_parquet-pg18-0.4.0.pkg](https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0/pg_parquet-pg18-0.4.0.pkg)
 
-### Erweiterungen selbst kompilieren
+## Erweiterungen selbst kompilieren
 
 Du kannst auch Erweiterungen selbst kompilieren.  
 Wenn du PostgreSQL 18 oder neuer verwendest, sollten sie im das Verzeichnis *Application Support* installiert werden.
@@ -78,7 +76,7 @@ make install prefix="$HOME/Library/Application Support/Postgres/Extensions/18/lo
 
 Starte anschließend den PostgreSQL-Server neu. Danach kannst du die Erweiterung wie gewohnt mit `CREATE EXTENSION` installieren.
 
-#### Erweiterungen für PostgreSQL 17 und älter kompilieren
+### Erweiterungen für PostgreSQL 17 und älter kompilieren
 
 PostgreSQL 17 lädt Erweiterungen nur aus bestimmten Verzeichnissen innerhalb des App-Bundles.
 
