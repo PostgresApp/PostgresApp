@@ -69,6 +69,7 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_86_0
 
 # https://github.com/CGAL/cgal/releases
+# TODO: 6.1 available
 CGAL_VERSION=6.0.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
