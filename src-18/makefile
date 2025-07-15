@@ -102,10 +102,10 @@ PGROUTING_VERSION=3.6.3
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
-PLJS_VERSION=0.8.0
+PLJS_VERSION=1.0.1
 
 # https://bellard.org/quickjs/
-QUICKJS_VERSION=2024-01-13
+QUICKJS_VERSION=2025-04-26
 
 # https://unicode-org.github.io/icu/download/
 # Unicode 16, CLDR 47, sync with postgres /src/Makefile.global.in
@@ -153,7 +153,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 # limited set of targets for now
-all: postgresql auth_permission_dialog wal2json postgis pgrouting
+all: postgresql auth_permission_dialog wal2json postgis pgrouting pljs
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -1109,14 +1109,6 @@ $(PREFIX)/lib/postgresql/pljs.dylib: pljs-${PLJS_VERSION}/Makefile $(PREFIX)/bin
 
 pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 	$(TAR) $<
-	# fix an error in 0.8.0 release https://github.com/plv8/pljs/commit/21f22971e325055941440b7983cfd1e3d49d41fe
-	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
-	# disable a test requiring SRFs that are not yet implemented
-	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-disable_srf_test.patch
-	# make compatible with pg17 ('json' is now keyword, SPI no-op macros removed)
-	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-pg17.patch
-	# make compatible with strict build environment
-	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-strict-compiler.patch
 	# use our versioned quickjs instead of attempting to download git head in makefile
 	sed -I '' "s/git submodule/#&/" pljs-${PLJS_VERSION}/Makefile
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
