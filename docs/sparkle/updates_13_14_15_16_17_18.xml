@@ -6,28 +6,39 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.8.3</title>
+		<title>Postgres.app 2.8.4</title>
 		<description>
 			<![CDATA[
+				<p>
+					PostgreSQL beta versions usually introduce incompatible on-disk data formats.
+				</p>
+				<p style="color: red;">
+					Do not install this update if you need to access databases created with PostgreSQL 18beta1.
+				</p>
+				<p>
+					If you want to keep your 18beta1 servers, be sure to dump your databases before installing this upgrade.
+					Released versions (PostgreSQL 13-17) use a stable data format and can be updated to new minor versions 
+					without the need for dump/restore.
+				</p>
 				<ul>
 					<li>PostgreSQL 13.21 with PostGIS 3.1.12</li>
 					<li>PostgreSQL 14.18 with PostGIS 3.2.8</li>
 					<li>PostgreSQL 15.13 with PostGIS 3.3.8</li>
 					<li>PostgreSQL 16.9 with PostGIS 3.4.4</li>
 					<li>PostgreSQL 17.5 with PostGIS 3.5.2</li>
-					<li>PostgreSQL 18beta1 without PostGIS</li>
+					<li>PostgreSQL 18beta2 with PostGIS 3.6.0alpha1</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Mon, 23 Jun 2025 14:02:51 +0200</pubDate>
+		<pubDate>Thu, 17 Jul 2025 17:22:32 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.3/Postgres-2.8.3-13-14-15-16-17-18.dmg"
-		sparkle:version="320"
-		sparkle:shortVersionString="2.8.3"
-		length="521251512"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.4/Postgres-2.8.4-13-14-15-16-17-18.dmg"
+		sparkle:version="322"
+		sparkle:shortVersionString="2.8.4"
+		length="576097888"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFH6alwkRiFgRumF7o4dzC6FuuXbfAhUAohGCHKCkkYbze2G+2yG6b8yNg0Q="
+		sparkle:dsaSignature="MCwCFGCo3vWRno9dwWiftZHV+LPek0X7AhRrulVPXn+1/NHRC/oulL0SJFcVLQ=="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
