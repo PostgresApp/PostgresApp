@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.6.0alpha1
+POSTGIS_VERSION=3.6.0beta1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=18beta2
@@ -33,13 +33,14 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
-BOOST_VERSION=1_86_0
+BOOST_VERSION=1_88_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.0.1
+# release scheduled for 2025-09
+CGAL_VERSION=6.1-beta1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
-SFCGAL_VERSION=2.0.0
+SFCGAL_VERSION=2.2.0
 
 LIBEDIT_VERSION=20130611-3.1
 
@@ -53,7 +54,7 @@ OPENSSL_VERSION=3.5.1
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.5.1
+PROJ_VERSION=9.6.2
 # due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -524,9 +525,10 @@ proj-${PROJ_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz"
 
 check-libproj:
-	# 'test_fork' fails (if build on big sur, only for arm64) disable for now
+	# 'test_fork' fails (if build on big sur, only for arm64) disabled for now
 	# proj_create: SQLite error on SELECT versioned_auth_name, auth_name, version, priority FROM versioned_auth_name_mapping: disk I/O error
-	#make -C proj-$(PROJ_VERSION)/build test
+	# https://github.com/OSGeo/PROJ/issues/4428
+	ARGS="--exclude-regex test_fork --output-on-failure" make -C proj-$(PROJ_VERSION)/build test
 
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
@@ -864,7 +866,7 @@ check-mpfr:
 ####### BOOST #########
 #######################
 
-# used for cgal and sfcgal
+# used for cgal, sfcgal and pgrouting
 # uses icu (disabled), zstd (?), python (?)
 
 boost: $(PREFIX)/lib/libboost_system.dylib
@@ -880,7 +882,7 @@ $(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
 	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
-	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 75
+	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 89
 	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,system,serialization
 
 boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
