@@ -36,7 +36,9 @@ These extensions are compatible with Postgres.app 2.8.3 or later and PostgreSQL 
 
 - http: [http-pg18-1.6.3.pkg](https://github.com/PostgresApp/Extensions/releases/download/http-1.6.3/http-pg18-1.6.3.pkg)
 - PL/v8: [plv8-pg18-3.2.3.pkg](https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.3/plv8-pg18-3.2.3.pkg)
-- pg_parquet: [pg_parquet-pg18-0.4.0.pkg](https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0/pg_parquet-pg18-0.4.0.pkg)
+- pg_parquet:
+	- [pg_parquet-pg18-0.4.0.pkg](https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0/pg_parquet-pg18-0.4.0.pkg) for PostgreSQL 18beta1
+	- [pg_parquet-pg18-0.4.0.pkg](https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0-18beta2/pg_parquet-pg18-0.4.0.pkg) for PostgreSQL 18beta2
 
 
 ## Building other extensions
