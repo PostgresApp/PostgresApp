@@ -36,7 +36,11 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 					let crashReport = try String(contentsOf: url, encoding: .utf8)
 					// We want to make sure we only upload crash reports from Postgres.app
 					// Not from other PostgreSQL distributions like Homebrew or EnterpriseDB
-					if crashReport.range(of: "com.postgresapp") == nil
+					//  - the "com.postgresapp" substring should match either code signing identifier, bundle identifier or the "app coalition identifier"
+					//    (code signing identifier is not included on older versions of macOS, bundle identifier and app coalition are missing when processes are started from Terminal)
+					//  - "Postgres.app" would match the process path (might not catch cases where app is translocated or renamed by user)
+					// It is still possible that we miss some of our crash reports, but it's very unlikely that we upload crash reports from other distributions
+					if crashReport.range(of: "com.postgresapp") == nil && crashReport.range(of: "Postgres.app") == nil
 					{
 						// Probably not from Postgres.app
 						// Add it to processed files so we don't read it again
