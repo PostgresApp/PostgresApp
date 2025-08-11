@@ -29,7 +29,7 @@ LIBJASPER_VERSION=1.900.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1w
+OPENSSL_VERSION=3.0.17
 
 # http://proj4.org/download.html
 PROJ_VERSION=7.1.1
@@ -110,7 +110,7 @@ all: postgresql auth_permission_dialog postgis plv8 wal2json pldebugger
 clean: clean-postgresql clean-auth_permission_dialog clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjasper clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-postgis clean-plv8 clean-wal2json clean-pldebugger
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-libtiff check-python
+check: check-postgresql check-openssl check-libtiff check-python
 download: postgresql-$(POSTGRES_VERSION).tar.bz2 openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jasper-$(LIBJASPER_VERSION).uuid.tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz proj-datumgrid-${DATUMGRID_VERSION}.zip json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz
 
 
@@ -179,14 +179,17 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/Makefile
 	make -C openssl-${OPENSSL_VERSION} install_sw
 
 openssl-${OPENSSL_VERSION}/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-x86_64-cc zlib no-asm shared
+	cd openssl-${OPENSSL_VERSION} && ./Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" --api=1.1.1 darwin64-x86_64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
-	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+	$(CURL) "https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz"
+
+check-openssl:
+	make -C openssl-${OPENSSL_VERSION} HARNESS_JOBS=4 test VF=1
 
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"

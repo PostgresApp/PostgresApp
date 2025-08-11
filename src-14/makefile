@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=1.1.1w
+OPENSSL_VERSION=3.0.17
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -126,7 +126,7 @@ all: postgresql auth_permission_dialog postgis wal2json pldebugger pljs
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-protobuf-cpp clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-libgeos check-libtiff check-pljs check-arch check-libs check-rpath check-python
+check: check-postgresql check-openssl check-libgeos check-libtiff check-pljs check-arch check-libs check-rpath check-python
 download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz protobuf-cpp-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
@@ -212,7 +212,7 @@ openssl: $(PREFIX)/lib/libssl.dylib
 	touch $@
 
 $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib
-	$(eval DYLD_VERSION=$(shell grep -o "shlib_version_number.*" openssl-${OPENSSL_VERSION}/build_arm64/configdata.pm | cut -d '"' -f2))
+	$(eval DYLD_VERSION=$(shell grep -o '"shlib_version".*' openssl-${OPENSSL_VERSION}/build_arm64/configdata.pm | cut -d '"' -f4))
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libcrypto.${DYLD_VERSION}.dylib ../build_x86_64/libcrypto.${DYLD_VERSION}.dylib -output ./libcrypto.${DYLD_VERSION}.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libcrypto.a ../build_x86_64/libcrypto.a -output ./libcrypto.a
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libssl.${DYLD_VERSION}.dylib ../build_x86_64/libssl.${DYLD_VERSION}.dylib -output ./libssl.${DYLD_VERSION}.dylib
@@ -220,8 +220,12 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib 
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./apps/openssl ../build_x86_64/apps/openssl -output ./apps/openssl
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/capi.dylib ../build_x86_64/engines/capi.dylib -output ./engines/capi.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/dasync.dylib ../build_x86_64/engines/dasync.dylib -output ./engines/dasync.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/loader_attic.dylib ../build_x86_64/engines/loader_attic.dylib -output ./engines/loader_attic.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/ossltest.dylib ../build_x86_64/engines/ossltest.dylib -output ./engines/ossltest.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/padlock.dylib ../build_x86_64/engines/padlock.dylib -output ./engines/padlock.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./providers/legacy.dylib ../build_x86_64/providers/legacy.dylib -output ./providers/legacy.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_test.dylib ../build_x86_64/test/p_test.dylib -output ./test/p_test.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_minimal.dylib ../build_x86_64/test/p_minimal.dylib -output ./test/p_minimal.dylib
 	# to avoid dirty make targets after we touched the libraries, pretend we rebuilded everything before installing
 	make -C openssl-${OPENSSL_VERSION}/build_arm64 --touch
 	make -C openssl-${OPENSSL_VERSION}/build_arm64 install_sw
@@ -233,10 +237,10 @@ openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
 
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-arm64-cc zlib shared
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" --api=1.1.1 darwin64-arm64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" -DOPENSSL_NO_APPLE_CRYPTO_RANDOM darwin64-x86_64-cc zlib shared
+	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" --api=1.1.1 darwin64-x86_64-cc zlib shared
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
@@ -245,7 +249,10 @@ openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	touch $@
 
 openssl-${OPENSSL_VERSION}.tar.gz:
-	$(CURL) "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+	$(CURL) "https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz"
+
+check-openssl:
+	make -C openssl-${OPENSSL_VERSION}/build_arm64 HARNESS_JOBS=4 test VF=1
 
 clean-openssl:
 	rm -Rf "openssl-${OPENSSL_VERSION}"
