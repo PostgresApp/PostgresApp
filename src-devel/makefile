@@ -137,8 +137,7 @@ PLDEBUGGER_VERSION=1.8
 PGVECTOR_VERSION=0.8.0
 
 # https://github.com/pgRouting/pgrouting/releases
-# TODO 3.8 available
-PGROUTING_VERSION=3.6.3
+PGROUTING_VERSION=3.8.0
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
