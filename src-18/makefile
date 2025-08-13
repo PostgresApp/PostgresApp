@@ -46,11 +46,11 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.14.4
+LIBXML2_VERSION=2.14.5
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.1
+OPENSSL_VERSION=3.5.2
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
