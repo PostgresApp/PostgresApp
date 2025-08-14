@@ -154,7 +154,7 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 # limited set of targets for now
-all: postgresql auth_permission_dialog wal2json postgis pgrouting pljs
+all: postgresql auth_permission_dialog pgvector wal2json pljs postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -1053,6 +1053,12 @@ $(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(P
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
 	$(TAR) $<
+	# Patches to allow minimal pg18 compatibility. Source:
+	# https://github.com/pgvector/pgvector/issues/869
+	# https://github.com/pgvector/pgvector/commit/2c53c304150e97e224eda93b87e984d946828417
+	# https://github.com/pgvector/pgvector/commit/78ed8f11576c77a0a6b5fc0ebf721a3dc4f4c954
+	patch -b -d "pgvector-${PGVECTOR_VERSION}" -p1 <patches/pgvector-pg18-1-2c53c30.patch
+	patch -b -d "pgvector-${PGVECTOR_VERSION}" -p1 <patches/pgvector-pg18-2-78ed8f1.patch
 	touch $@
 
 pgvector-${PGVECTOR_VERSION}.tar.gz:
