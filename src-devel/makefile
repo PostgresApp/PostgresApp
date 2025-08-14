@@ -193,8 +193,12 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 # not building currently:
-# pldebugger TupleDescAttr missing https://github.com/EnterpriseDB/pldebugger/issues/30
-all: postgresql auth_permission_dialog pgvector wal2json pljs postgis pgrouting
+# * pldebugger TupleDescAttr missing https://github.com/EnterpriseDB/pldebugger/issues/30
+# * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
+#    - wal2json
+#    - pljs
+#    - postgis
+all: postgresql auth_permission_dialog pgvector pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
