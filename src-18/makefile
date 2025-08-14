@@ -1112,9 +1112,11 @@ $(PREFIX)/lib/postgresql/pljs.dylib: pljs-${PLJS_VERSION}/Makefile $(PREFIX)/bin
 pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 	$(TAR) $<
 	# use our versioned quickjs instead of attempting to download git head in makefile
-	sed -I '' "s/git submodule/#&/" pljs-${PLJS_VERSION}/Makefile
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
-	cp -a quickjs-${QUICKJS_VERSION}/ pljs-${PLJS_VERSION}/deps/quickjs
+	sed -I '' "s/^\tgit submodule .*$$/#&\n\tcp -a ..\/quickjs-${QUICKJS_VERSION}\/ deps\/quickjs/" pljs-${PLJS_VERSION}/Makefile
+	# inject missing upgrade path from 0.8.0
+	cp patches/pljs--0.8.0--1.0.1.sql pljs-${PLJS_VERSION}/
+	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql /" pljs-${PLJS_VERSION}/Makefile
 	touch $@
 
 pljs-${PLJS_VERSION}.tar.gz:
