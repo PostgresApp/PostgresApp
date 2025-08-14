@@ -66,10 +66,10 @@ OPENJPEG_VERSION=2.4.0
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/plv8/pljs/tags
-PLJS_VERSION=0.8.0
+PLJS_VERSION=1.0.1
 
 # https://bellard.org/quickjs/
-QUICKJS_VERSION=2024-01-13
+QUICKJS_VERSION=2025-04-26
 
 # https://unicode-org.github.io/icu/download/
 ICU_MAJOR_VERSION=69
@@ -724,10 +724,6 @@ $(PREFIX)/lib/postgresql/pljs.so: pljs-${PLJS_VERSION}/Makefile $(PREFIX)/bin/ps
 
 pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 	$(TAR) $<
-	# fix an error in 0.8.0 release https://github.com/plv8/pljs/commit/21f22971e325055941440b7983cfd1e3d49d41fe
-	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-fix_0.8.0.patch
-	# disable a test requiring SRFs that are not yet implemented
-	patch -b -d "pljs-${PLJS_VERSION}" -p1 < patches/pljs-disable_srf_test.patch
 	# use our versioned quickjs instead of attempting to download git head in makefile
 	sed -I '' "s/git submodule/#&/" pljs-${PLJS_VERSION}/Makefile
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
