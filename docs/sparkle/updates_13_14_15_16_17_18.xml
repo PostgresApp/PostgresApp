@@ -17,8 +17,9 @@
 				</p>
 				<p>
 					If you want to keep your 18beta1 servers, be sure to dump your databases before installing this upgrade.
-					Released versions (PostgreSQL 13-17) use a stable data format and can be updated to new minor versions 
-					without the need for dump/restore.
+					Servers created with 18beta2 are compatible with 18beta3.
+					Released versions (PostgreSQL 13-17) use a stable data format and can always be updated to new minor versions 
+					without the need for dump/restore. 
 				</p>
 				<ul>
 					<li>PostgreSQL 13.21 with PostGIS 3.1.12</li>

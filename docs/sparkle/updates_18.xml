@@ -17,6 +17,7 @@
 				</p>
 				<p>
 					If you want to keep your 18beta1 servers, be sure to dump your databases before installing this upgrade.
+					Servers created with 18beta2 are compatible with 18beta3.
 				</p>
 				<ul>
 					<li>PostgreSQL 18beta2 with PostGIS 3.6.0alpha1</li>
