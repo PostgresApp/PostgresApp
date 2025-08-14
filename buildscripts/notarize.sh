@@ -73,15 +73,15 @@ echo "Done"
 
 # notarize
 echo -n "Notarizing Build... "
-xcrun notarytool submit "$DMG_DST_PATH" --wait --keychain-profile postgresapp >"$LOG_DIR/notarize.out" 2>"$LOG_DIR/notarize.err"
+xcrun notarytool submit "$DMG_DST_PATH" --wait --keychain-profile postgresapp >"$LOG_DIR/05-notarize.log" 2>&1
 echo "Done"
 echo -n "Stapling... "
-xcrun stapler staple "$DMG_DST_PATH" >"$LOG_DIR/staple.out" 2>"$LOG_DIR/staple.err"
+xcrun stapler staple "$DMG_DST_PATH" >"$LOG_DIR/06-staple.log" 2>&1
 echo "Done"
 
 # sign update
 echo -n "Signing... "
-./sign_update "$DMG_DST_PATH" "$SPARKLE_SIGNING_KEY" >"$SIGNATURE_PATH" 2>"$LOG_DIR/sign_update.err"
+./sign_update "$DMG_DST_PATH" "$SPARKLE_SIGNING_KEY" >"$SIGNATURE_PATH" 2>"$LOG_DIR/07-sign_update_error.log"
 echo "Done"
 
 echo -n "Generating Appcast... "

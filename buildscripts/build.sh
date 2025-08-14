@@ -73,7 +73,7 @@ echo "Using Certificate \"$CODE_SIGN_IDENTITY\""
 
 # build the archive
 echo -n "Archive... "
-xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH" -derivedDataPath "$DERIVED_DATA_PATH" POSTGRESAPP_SHORT_VERSION="$POSTGRESAPP_SHORT_VERSION" POSTGRESAPP_BUILD_VERSION="$POSTGRESAPP_BUILD_VERSION" PG_BINARIES_VERSIONS="$PG_BINARIES_VERSIONS" PG_BINARIES_DIR="$PG_BINARIES_DIR" LATEST_STABLE_PG_VERSION="$LATEST_STABLE_PG_VERSION" CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY">"$LOG_DIR/archive.out" 2>"$LOG_DIR/archive.err"
+xcodebuild archive -project "$PROJECT_FILE" -scheme Postgres -archivePath "$ARCHIVE_PATH" -derivedDataPath "$DERIVED_DATA_PATH" POSTGRESAPP_SHORT_VERSION="$POSTGRESAPP_SHORT_VERSION" POSTGRESAPP_BUILD_VERSION="$POSTGRESAPP_BUILD_VERSION" PG_BINARIES_VERSIONS="$PG_BINARIES_VERSIONS" PG_BINARIES_DIR="$PG_BINARIES_DIR" LATEST_STABLE_PG_VERSION="$LATEST_STABLE_PG_VERSION" CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY">"$LOG_DIR/01-archive.log" 2>&1
 echo "Done"
 
 # Delete Derived Data
@@ -81,7 +81,7 @@ rm -r "$DERIVED_DATA_PATH" || echo "INFO: Deleting $DERIVED_DATA_PATH failed"
 
 # export and code sign
 echo -n "Export Archive... "
-xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$EXPORT_PATH" -exportOptionsPlist exportOptions.plist >"$LOG_DIR/exportArchive.out" 2>"$LOG_DIR/exportArchive.err"
+xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$EXPORT_PATH" -exportOptionsPlist exportOptions.plist >"$LOG_DIR/02-exportArchive.log" 2>&1
 echo "Done"
 
 echo -n "Enabling Hardened Runtime... "
@@ -93,20 +93,20 @@ for VERSION in ${PG_BINARIES_VERSIONS//_/ }; do
 	find "$APP"/Contents/Versions/$VERSION/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
 		codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			--entitlements postgres.entitlements \
-			{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+			{} \; >>"$LOG_DIR/03-codesign.log" 2>&1
 
 	find "$APP"/Contents/Versions/$VERSION/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
 		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
-			{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+			{} \; >>"$LOG_DIR/03-codesign.log" 2>&1
 
 	find "$APP"/Contents/Versions/$VERSION/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
 		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
-			{} \; >>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+			{} \; >>"$LOG_DIR/03-codesign.log" 2>&1
 
 	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 		"$APP"/Contents/Versions/$VERSION/lib/postgresql/pgxs/src/test/regress/pg_regress \
 		"$APP"/Contents/Versions/$VERSION/lib/*.a \
-		>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+		>>"$LOG_DIR/03-codesign.log" 2>&1
 
 done
 
@@ -115,17 +115,17 @@ codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
 	"$APP"/Contents/MacOS/PostgresMenuHelper.app \
 	"$APP"/Contents/Library/LoginItems/PostgresLoginHelper.app \
-	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+	>>"$LOG_DIR/03-codesign.log" 2>&1
 
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/MacOS/PostgresPermissionDialog \
-	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+	>>"$LOG_DIR/03-codesign.log" 2>&1
 
 codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	--entitlements PostgresApp.entitlements \
 	"$APP"/Contents/MacOS/Postgres \
 	"$APP" \
-	>>"$LOG_DIR/codesign.out" 2>>"$LOG_DIR/codesign.err"
+	>>"$LOG_DIR/03-codesign.log" 2>&1
 
 echo "Done"
 
@@ -145,7 +145,7 @@ vendor/create-dmg-master/create-dmg \
     --icon-size 128 \
     --background "$BGIMG_PATH" \
     "$DMG_DST_PATH" \
-    "$DMG_SRC_PATH" >"$LOG_DIR/create-dmg.out" 2>"$LOG_DIR/create-dmg.err"
+    "$DMG_SRC_PATH" >"$LOG_DIR/04-create-dmg.log" 2>&1
 
 rm -r "$DMG_SRC_PATH" || echo "INFO: Deleting $DMG_SRC_PATH failed"
 
