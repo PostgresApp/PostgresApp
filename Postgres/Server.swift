@@ -876,7 +876,9 @@ class Server: NSObject {
 		if needWrite {
 			do {
 				try writeConfigPlist(configPlist)
-				checkReindexWarning()
+				DispatchQueue.main.async {
+					self.checkReindexWarning()
+				}
 			}
 			catch {
 				print("Failed to write config plist: \(error.localizedDescription)")
