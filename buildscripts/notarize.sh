@@ -54,7 +54,7 @@ fi
 PROJECT_ROOT=$(dirname $(pwd))
 PROJECT_FILE="$PROJECT_ROOT"/Postgres.xcodeproj
 
-LOG_DIR="$BUILD_DIR/notarize-log"
+LOG_DIR="$BUILD_DIR/log"
 ARCHIVE_PATH="$BUILD_DIR"/Postgres.xcarchive
 BGIMG_PATH=background-image/folder_bg.png
 DMG_DST_PATH="$BUILD_DIR"/Postgres-$POSTGRESAPP_SHORT_VERSION-${PG_BINARIES_VERSIONS//_/-}.dmg
@@ -64,7 +64,7 @@ APPCAST_PATH="$BUILD_DIR"/updates_$PG_BINARIES_VERSIONS.xml
 mkdir -p "$LOG_DIR"
 echo "Log Directory: $LOG_DIR"
 
-env >"$LOG_DIR/env"
+env >"$LOG_DIR/06-notarize-env.log"
 
 # Read the minumum macOS version from the xcarchive
 echo -n "Reading LSMinimumSystemVersion from Archive... "
@@ -73,15 +73,15 @@ echo "Done"
 
 # notarize
 echo -n "Notarizing Build... "
-xcrun notarytool submit "$DMG_DST_PATH" --wait --keychain-profile postgresapp >"$LOG_DIR/05-notarize.log" 2>&1
+xcrun notarytool submit "$DMG_DST_PATH" --wait --keychain-profile postgresapp >"$LOG_DIR/07-notarize.log" 2>&1
 echo "Done"
 echo -n "Stapling... "
-xcrun stapler staple "$DMG_DST_PATH" >"$LOG_DIR/06-staple.log" 2>&1
+xcrun stapler staple "$DMG_DST_PATH" >"$LOG_DIR/08-staple.log" 2>&1
 echo "Done"
 
 # sign update
 echo -n "Signing... "
-./sign_update "$DMG_DST_PATH" "$SPARKLE_SIGNING_KEY" >"$SIGNATURE_PATH" 2>"$LOG_DIR/07-sign_update_error.log"
+./sign_update "$DMG_DST_PATH" "$SPARKLE_SIGNING_KEY" >"$SIGNATURE_PATH" 2>"$LOG_DIR/09-sign_update_error.log"
 echo "Done"
 
 echo -n "Generating Appcast... "
