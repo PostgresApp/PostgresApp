@@ -140,7 +140,7 @@ PGROUTING_VERSION=3.8.0
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
-PLJS_VERSION=1.0.1
+PLJS_VERSION=1.0.3
 
 # https://bellard.org/quickjs/
 # TODO try quickjs-ng
@@ -1182,9 +1182,10 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	# use our versioned quickjs instead of attempting to download git head in makefile
 	$(TAR) quickjs-${QUICKJS_VERSION}.tar.xz
 	sed -I '' "s/^\tgit submodule .*$$/#&\n\tcp -a ..\/quickjs-${QUICKJS_VERSION}\/ deps\/quickjs/" pljs-${PLJS_VERSION}/Makefile
-	# inject missing upgrade path from 0.8.0
+	# inject missing upgrade paths
 	cp patches/pljs--0.8.0--1.0.1.sql pljs-${PLJS_VERSION}/
-	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql /" pljs-${PLJS_VERSION}/Makefile
+	cp patches/pljs--1.0.1--1.0.3.sql pljs-${PLJS_VERSION}/
+	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql pljs--1.0.1--1.0.3.sql /" pljs-${PLJS_VERSION}/Makefile
 	touch $@
 
 pljs-${PLJS_VERSION}.tar.gz:
