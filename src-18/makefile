@@ -33,7 +33,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/users/download/
-BOOST_VERSION=1_88_0
+BOOST_VERSION=1_89_0
 
 # https://github.com/CGAL/cgal/releases
 # release scheduled for 2025-09
@@ -869,16 +869,23 @@ check-mpfr:
 # used for cgal, sfcgal and pgrouting
 # uses icu (disabled), zstd (?), python (?)
 
-boost: $(PREFIX)/lib/libboost_system.dylib
+boost: $(PREFIX)/lib/libboost_thread.dylib
 	touch $@
 
-$(PREFIX)/lib/libboost_system.dylib: boost_$(BOOST_VERSION)/b2
+$(PREFIX)/lib/libboost_thread.dylib: boost_$(BOOST_VERSION)/b2
 	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 address-model=64 toolset=clang install
 	# till we find a way to pass flags controlling to use of RPATHs to cmake through the B2 system, we fix RPATHs manually after installing
-	install_name_tool -id $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libboost_system.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib
+	install_name_tool -id $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_wserialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
@@ -931,11 +938,13 @@ $(PREFIX)/lib/libSFCGAL.dylib: SFCGAL-v$(SFCGAL_VERSION)/Makefile
 	make -C SFCGAL-v$(SFCGAL_VERSION)
 	make -C SFCGAL-v$(SFCGAL_VERSION) install
 
-SFCGAL-v$(SFCGAL_VERSION)/Makefile: SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt cgal-$(CGAL_VERSION)/include/CGAL $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/lib/libmpfr.dylib $(PREFIX)/lib/libgmp.dylib
+SFCGAL-v$(SFCGAL_VERSION)/Makefile: SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt cgal-$(CGAL_VERSION)/include/CGAL $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libmpfr.dylib $(PREFIX)/lib/libgmp.dylib
 	cd SFCGAL-v$(SFCGAL_VERSION) && GMP_DIR=$(PREFIX)/lib/ MPFR_DIR=$(PREFIX)/lib/ CGAL_DIR=../cgal-$(CGAL_VERSION) BOOST_ROOT=$(BUILD_PREFIX) cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt: SFCGAL-v$(SFCGAL_VERSION).tar.gz
 	$(TAR) SFCGAL-v$(SFCGAL_VERSION).tar.gz
+	# patch support for newer boost no longer including a stub libboost_system library as it is header-only: https://gitlab.com/sfcgal/SFCGAL/-/merge_requests/539
+	patch -b -d "SFCGAL-v$(SFCGAL_VERSION)" -p1 <patches/sfcgal-boost-1.89.patch
 	touch $@
 
 SFCGAL-v$(SFCGAL_VERSION).tar.gz:
@@ -1089,7 +1098,7 @@ $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib: pgroutin
 	# pgrouting didn't yet get the notice, the DLSUFFIX has changed in pg16
 	mv $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).so $(PREFIX)/lib/postgresql/libpgrouting-$(PGROUTING_VERSION_MAJOR).dylib
 
-pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_system.dylib $(PREFIX)/bin/psql
+pgrouting-$(PGROUTING_VERSION)/build/Makefile: pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/bin/psql
 	cd pgrouting-$(PGROUTING_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_DOC=OFF -DBUILD_MAN=ON -DBUILD_HTML=OFF -DBUILD_DOXY=OFF -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 pgrouting-$(PGROUTING_VERSION)/CMakeLists.txt: pgrouting-$(PGROUTING_VERSION).tar.gz
