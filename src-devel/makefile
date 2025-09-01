@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.6.0beta1
+POSTGIS_VERSION=3.6.0rc2
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
@@ -53,7 +53,7 @@ ZSTD_VERSION=1.5.7
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.13.1
+GEOS_VERSION=3.14.0
 
 # http://www.ijg.org
 JPEG_VERSION=9f
