@@ -49,8 +49,7 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-# TODO 3.11 available, 3.9 introduces new build requirements
-GDAL_VERSION=3.8.5
+GDAL_VERSION=3.11.4
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.14.0
@@ -521,7 +520,7 @@ clean-libgeos:
 #########################
 
 # Depends on libproj, postgresql, libxml2, openssl, libjpeg, libtiff, json-c, libpng, openjpeg, lz4, zstd, sfcgal, libgeos, netcdf
-# Links against system libcurl (patched for compatibility with older os)
+# Links against system libcurl (>= 7.68/ >= macOS 12.3) and libsqlite3 (>= 3.31/ >= macOS 11.3)
 
 libgdal: $(PREFIX)/lib/libgdal.dylib
 	touch $@
@@ -536,8 +535,6 @@ gdal-$(GDAL_VERSION)/build/Makefile: gdal-$(GDAL_VERSION)/CMakeLists.txt  $(PREF
 
 gdal-$(GDAL_VERSION)/CMakeLists.txt: gdal-${GDAL_VERSION}.tar.gz
 	$(TAR) gdal-$(GDAL_VERSION).tar.gz
-	#patch curl version detection for 10.15 compatibility
-	patch -b -d "gdal-$(GDAL_VERSION)" -p1 <patches/gdal_curl_10.15.patch
 	mkdir gdal-$(GDAL_VERSION)/build
 	touch $@
 
