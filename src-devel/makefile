@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.6.0rc2
+POSTGIS_VERSION=3.6.0
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
