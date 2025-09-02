@@ -102,19 +102,15 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-# TODO 20250512 available
-ABSEIL_VERSION=20240722.1
+ABSEIL_VERSION=20250814.0
 
 # https://github.com/protocolbuffers/protobuf/releases
-# protobuf-c 1.5.0 is not compatible with >=26.x yet
-# 25.x is kind of LTS: https://protobuf.dev/support/version-support/
-# TODO 29 LTS available
-# protobuf-c 1.5.1 is not compatible with >=29.x yet
-PROTOBUF_VERSION=25.8
+# 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
+# expected in Q4/25, should be compatible to 32
+PROTOBUF_VERSION=32.0
 
 # https://github.com/protobuf-c/protobuf-c/releases
-# TODO 1.5.2 available (pg17?)
-PROTOBUFC_VERSION=1.5.0
+PROTOBUFC_VERSION=1.5.2
 
 # https://libtiff.gitlab.io/libtiff/
 LIBTIFF_VERSION=4.7.0
@@ -657,8 +653,7 @@ $(BUILD_PREFIX)/bin/protoc: protobuf-$(PROTOBUF_VERSION)/build/Makefile
 	make -C protobuf-$(PROTOBUF_VERSION)/build install
 
 protobuf-$(PROTOBUF_VERSION)/build/Makefile: protobuf-$(PROTOBUF_VERSION)/configure $(BUILD_PREFIX)/lib/libabsl_base.a
-	cd protobuf-$(PROTOBUF_VERSION)/build && cmake .. -DCMAKE_PREFIX_PATH="$(BUILD_PREFIX)" -Dprotobuf_ABSL_PROVIDER=package -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(BUILD_PREFIX)" -Dprotobuf_BUILD_TESTS=OFF -DCMAKE_CXX_STANDARD=17
-
+	cd protobuf-$(PROTOBUF_VERSION)/build && cmake .. -DCMAKE_PREFIX_PATH="$(BUILD_PREFIX)" -Dprotobuf_LOCAL_DEPENDENCIES_ONLY=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(BUILD_PREFIX)" -Dprotobuf_BUILD_TESTS=OFF -DCMAKE_CXX_STANDARD=17
 
 protobuf-$(PROTOBUF_VERSION)/configure: protobuf-$(PROTOBUF_VERSION).tar.gz
 	$(TAR) protobuf-$(PROTOBUF_VERSION).tar.gz
