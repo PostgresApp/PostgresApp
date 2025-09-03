@@ -1,6 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
+# remind to make sure with 3.6.1 that the upgrade paths from a1 and b1 are still available
 POSTGIS_VERSION=3.6.0
 POSTGIS_MAJOR_VERSION=3
 

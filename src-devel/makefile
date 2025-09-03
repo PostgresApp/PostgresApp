@@ -141,6 +141,7 @@ PLJS_VERSION=1.0.3
 # https://bellard.org/quickjs/
 # TODO try quickjs-ng
 QUICKJS_VERSION=2025-04-26
+# quickjs 2025-09-13 available, does not compile with pljs, even with an updated renaming patch
 
 # https://unicode-org.github.io/icu/download/
 # Unicode 16, CLDR 47, sync with postgres /src/Makefile.global.in
@@ -192,7 +193,7 @@ TAR=/usr/bin/tar xzf
 # * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
 #    - wal2json
 #    - pljs
-#    - postgis
+#    - postgis likely https://github.com/postgis/postgis/commit/3b7600f8ab8edc415bbae951c4958acf03cf4909
 all: postgresql auth_permission_dialog pgvector pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
