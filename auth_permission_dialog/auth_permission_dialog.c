@@ -391,7 +391,7 @@ auth_permission_dialog(Port *port, int status)
 					(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
 					 errdetail("The helper application terminated with signal %d. For more information see https://postgresapp.com/l/app-permissions/", termsig),
 					 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) terminated with signal %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, termsig),
-					 errhint("You may be able to connect by editing app permission in Postgres.app settings. Please report this error to https://github.com/PostgresApp/PostgresApp/issues")));
+					 errhint("You may be able to connect by editing app permission in Postgres.app settings or by restarting the PostgreSQL server. Please report this error to https://github.com/PostgresApp/PostgresApp/issues")));
 		}
 		else {
 			ereport(FATAL,

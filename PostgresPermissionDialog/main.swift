@@ -49,7 +49,7 @@ guard let pid else {
 }
 
 var clientApplicationPermissions: [[String: Any]]
-clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] ?? []
+clientApplicationPermissions = UserDefaults.shared.object(forKey: "ClientApplicationPermissions") as? [[String : Any]] ?? readClientPermissionsDirectly() ?? []
 
 class HelpDelegate: NSObject, NSAlertDelegate {
     func alertShowHelp(_ alert: NSAlert) -> Bool {
@@ -197,4 +197,26 @@ catch {
 		UserDefaults.shared.set("Postgres.app denied a connection from unknown local process", forKey: "ClientApplicationPermissionLastDeniedMessage")
 		exit(3);
 	}
+}
+
+func readClientPermissionsDirectly() -> [[String: Any]]? {
+	// This is a workaround for an issue where UserDefaults fails
+	// The issue happened when logging out -> the postgres process would continue running,
+	// but the connection to the GUI session was lost. This caused all user defaults related APIs to return nil
+	// As a workaround, we try to read preferences directly from disk
+	// Related: https://github.com/PostgresApp/PostgresApp/issues/749
+	let prefsurl = URL(fileURLWithPath: NSHomeDirectory()+"/Library/Preferences/com.postgresapp.Postgres2.plist")
+	guard let prefsdata = try? Data(contentsOf: prefsurl) else {
+		print("PostgresPermissionDialog: Could not read preferences from \(prefsurl.path)")
+		return nil
+	}
+	guard let plist = try? PropertyListSerialization.propertyList(from: prefsdata, format: nil) as? NSDictionary else {
+		print("PostgresPermissionDialog: Could not parse preferences file \(prefsurl.path)")
+		return nil
+	}
+	guard let permissions = plist["ClientApplicationPermissions"] as? [[String: Any]] else {
+		print("PostgresPermissionDialog: Key ClientApplicationPermissions not found in \(prefsurl.path)")
+		return nil
+	}
+	return permissions
 }
