@@ -39,15 +39,13 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 12 are built on macOS 10.12 with Xcode 8.3.3
-
 - the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
 
 - the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
 
 - the binaries for PostgreSQL 15 - 16 are built on macOS 12 with Command Line Tools for Xcode 14
 
-- the binaries for PostgreSQL 17 are built on macOS 14 with Command Line Tools for Xcode 15.3
+- the binaries for PostgreSQL 17 -18 are built on macOS 14 with Command Line Tools for Xcode 15.3
 
 - the GUI is built on macOS 14 with Xcode 15.0.1
 
