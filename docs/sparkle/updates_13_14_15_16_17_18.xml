@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.9beta</title>
+		<title>Postgres.app 2.9beta2</title>
 		<description>
 			<![CDATA[
 				<p>
@@ -17,7 +17,9 @@
 				</p>
 				<p>
 					If you want to keep your 18beta1 servers, be sure to dump your databases before installing this upgrade.
-					Servers created with 18beta2 are compatible with 18beta3.
+					Servers created with 18beta2 and 18beta3 are compatible with 18rc1.
+				</p>
+				<p>
 					Released versions (PostgreSQL 13-17) use a stable data format and can always be updated to new minor versions 
 					without the need for dump/restore. 
 				</p>
@@ -27,19 +29,19 @@
 					<li>PostgreSQL 15.14 with PostGIS 3.3.8</li>
 					<li>PostgreSQL 16.10 with PostGIS 3.4.4</li>
 					<li>PostgreSQL 17.6 with PostGIS 3.5.3</li>
-					<li>PostgreSQL 18beta3 with PostGIS 3.6.0beta1</li>
+					<li>PostgreSQL 18rc1 with PostGIS 3.6.0</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Fri, 15 Aug 2025 15:09:30 +0200</pubDate>
+		<pubDate>Thu, 04 Sep 2025 11:40:31 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9beta/Postgres-2.9beta-13-14-15-16-17-18.dmg"
-		sparkle:version="330"
-		sparkle:shortVersionString="2.9beta"
-		length="582208886"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9beta2/Postgres-2.9beta2-13-14-15-16-17-18.dmg"
+		sparkle:version="332"
+		sparkle:shortVersionString="2.9beta2"
+		length="582473808"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFHCXEceW7ea9zDMkUKHBRNj6VYq0AhUAhcbjW0D2mALG+VG0Mzdu4wKjkYk="
+		sparkle:dsaSignature="MC0CFDIE1OWAG9XNmd80vpLu63sycbhpAhUAr/M7BDSjS3gzNvv0Ew/eksgLOjs="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
