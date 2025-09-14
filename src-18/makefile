@@ -154,8 +154,7 @@ export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET CMAKE_OSX_ARCHITECTURES ICU_LIBS
 CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
-# limited set of targets for now
-all: postgresql auth_permission_dialog pgvector wal2json pljs postgis pgrouting
+all: postgresql auth_permission_dialog pgvector wal2json pljs pldebugger postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -1041,6 +1040,8 @@ $(PREFIX)/lib/postgresql/plugin_debugger.dylib: pldebugger-${PLDEBUGGER_VERSION}
 
 pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
 	$(TAR) $<
+	# patch for pg18 compatibility https://github.com/EnterpriseDB/pldebugger/commit/696619729ff7145a9f957932d7c57aeb87061e21
+	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg18.patch
 	touch $@
 
 pldebugger-${PLDEBUGGER_VERSION}.tar.gz:

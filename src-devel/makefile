@@ -189,12 +189,11 @@ CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
 TAR=/usr/bin/tar xzf
 
 # not building currently:
-# * pldebugger TupleDescAttr missing https://github.com/EnterpriseDB/pldebugger/issues/30
 # * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
 #    - wal2json
 #    - pljs
 #    - postgis likely https://github.com/postgis/postgis/commit/3b7600f8ab8edc415bbae951c4958acf03cf4909
-all: postgresql auth_permission_dialog pgvector pgrouting
+all: postgresql auth_permission_dialog pgvector pldebugger pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
@@ -1090,6 +1089,10 @@ $(PREFIX)/lib/postgresql/plugin_debugger.dylib: pldebugger-${PLDEBUGGER_VERSION}
 
 pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
 	$(TAR) $<
+	# patch for pg18 compatibility https://github.com/EnterpriseDB/pldebugger/commit/696619729ff7145a9f957932d7c57aeb87061e21
+	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg18.patch
+	# patch for pg18 compatibility https://github.com/EnterpriseDB/pldebugger/pull/36
+	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg19.patch
 	touch $@
 
 pldebugger-${PLDEBUGGER_VERSION}.tar.gz:
