@@ -45,7 +45,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.13.8
+LIBXML2_VERSION=2.13.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
@@ -95,7 +95,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.0
+PGVECTOR_VERSION=0.8.1
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.6.3

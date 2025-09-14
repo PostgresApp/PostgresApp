@@ -47,7 +47,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.14.5
+LIBXML2_VERSION=2.14.6
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
@@ -76,13 +76,13 @@ ABSEIL_VERSION=20250814.0
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
 # expected in Q4/25, should be compatible to 32
-PROTOBUF_VERSION=32.0
+PROTOBUF_VERSION=32.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
 
 # https://libtiff.gitlab.io/libtiff/
-LIBTIFF_VERSION=4.7.0
+LIBTIFF_VERSION=4.7.1rc1
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.50
@@ -97,7 +97,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.0
+PGVECTOR_VERSION=0.8.1
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.8.0
@@ -670,6 +670,7 @@ tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure $(PREFIX)/li
 
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
+	mv tiff-$(subst rc1,,$(LIBTIFF_VERSION)) tiff-$(LIBTIFF_VERSION)
 	touch $@
 
 tiff-$(LIBTIFF_VERSION).tar.gz:
@@ -1062,12 +1063,6 @@ $(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(P
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
 	$(TAR) $<
-	# Patches to allow minimal pg18 compatibility. Source:
-	# https://github.com/pgvector/pgvector/issues/869
-	# https://github.com/pgvector/pgvector/commit/2c53c304150e97e224eda93b87e984d946828417
-	# https://github.com/pgvector/pgvector/commit/78ed8f11576c77a0a6b5fc0ebf721a3dc4f4c954
-	patch -b -d "pgvector-${PGVECTOR_VERSION}" -p1 <patches/pgvector-pg18-1-2c53c30.patch
-	patch -b -d "pgvector-${PGVECTOR_VERSION}" -p1 <patches/pgvector-pg18-2-78ed8f1.patch
 	touch $@
 
 pgvector-${PGVECTOR_VERSION}.tar.gz:
