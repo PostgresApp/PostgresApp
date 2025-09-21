@@ -38,7 +38,7 @@ BOOST_VERSION=1_89_0
 
 # https://github.com/CGAL/cgal/releases
 # release scheduled for 2025-09
-CGAL_VERSION=6.1-beta1
+CGAL_VERSION=6.1-beta2
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.2.0
@@ -51,7 +51,7 @@ LIBXML2_VERSION=2.14.6
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.2
+OPENSSL_VERSION=3.5.3
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -82,13 +82,13 @@ PROTOBUF_VERSION=32.1
 PROTOBUFC_VERSION=1.5.2
 
 # https://libtiff.gitlab.io/libtiff/
-LIBTIFF_VERSION=4.7.1rc1
+LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.50
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.5.3
+OPENJPEG_VERSION=2.5.4
 
 # https://github.com/Unidata/netcdf-c/releases
 NETCDF_VERSION=4.9.2
@@ -669,7 +669,6 @@ tiff-$(LIBTIFF_VERSION)/Makefile: tiff-$(LIBTIFF_VERSION)/configure $(PREFIX)/li
 
 tiff-$(LIBTIFF_VERSION)/configure: tiff-$(LIBTIFF_VERSION).tar.gz
 	$(TAR) tiff-$(LIBTIFF_VERSION).tar.gz
-	mv tiff-$(subst rc1,,$(LIBTIFF_VERSION)) tiff-$(LIBTIFF_VERSION)
 	touch $@
 
 tiff-$(LIBTIFF_VERSION).tar.gz:

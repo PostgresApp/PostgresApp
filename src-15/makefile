@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.2
+OPENSSL_VERSION=3.5.3
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -81,7 +81,7 @@ LIBTIFF_VERSION=4.4.0
 LIBPNG_VERSION=1.6.50
 
 # https://github.com/uclouvain/openjpeg/releases
-OPENJPEG_VERSION=2.5.3
+OPENJPEG_VERSION=2.5.4
 
 # https://github.com/EnterpriseDB/pldebugger/tags
 PLDEBUGGER_VERSION=1.8
