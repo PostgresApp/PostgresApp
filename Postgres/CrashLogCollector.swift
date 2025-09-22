@@ -38,6 +38,12 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 		var processedFiles = UserDefaults.standard.stringArray(forKey: "ProcessedCrashFiles") ?? []
 		for url in crashReportURLs {
 			if let isDirectory = try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory, isDirectory == true { continue }
+			if url.pathExtension == "diag" {
+				// These are diagnostic logs that are written sometimes by macOS
+				// For example, a '.diag' log file is created when Sparkle extracts the update from the DMG
+				// We don't want to upload these log files since we don't need them
+				continue
+			}
 			let filename = url.lastPathComponent
 			if processedFiles.contains(filename) { continue }
 			if filename.hasPrefix("Postgres") || filename.hasPrefix("postgres") || filename.hasPrefix("psql") {
