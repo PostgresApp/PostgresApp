@@ -1,0 +1,34 @@
+From 987e00fa990fc905fe8fab645a16f7a4be3d9126 Mon Sep 17 00:00:00 2001
+From: Daniel Gustafsson <dgustafsson@postgresql.org>
+Date: Mon, 22 Sep 2025 10:12:31 +0200
+Subject: [PATCH] doc: Remove trailing whitespace in xref
+
+Remove stray whitespace in xref tag.
+
+This was found due to a regression in xmllint 2.15.0 which flagged
+this as an error, and at the time of this commit no fix for xmllint
+has shipped.
+
+Author: Erik Wienhold <ewie@ewie.name>
+Discussion: https://postgr.es/m/f4c4661b-4e60-4c10-9336-768b7b55c084@ewie.name
+Backpatch-through: 17
+---
+ doc/src/sgml/ref/pg_combinebackup.sgml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/src/sgml/ref/pg_combinebackup.sgml b/doc/src/sgml/ref/pg_combinebackup.sgml
+index 330a598f701..9a6d201e0b8 100644
+--- a/doc/src/sgml/ref/pg_combinebackup.sgml
++++ b/doc/src/sgml/ref/pg_combinebackup.sgml
+@@ -314,7 +314,7 @@ PostgreSQL documentation
+ 
+   <para>
+    To avoid this problem, taking a new full backup after changing the checksum
+-   state of the cluster using <xref linkend="app-pgchecksums "/> is
++   state of the cluster using <xref linkend="app-pgchecksums"/> is
+    recommended. Otherwise, you can disable and then optionally reenable
+    checksums on the directory produced by <literal>pg_combinebackup</literal>
+    in order to correct the problem.
+-- 
+2.50.1
+
