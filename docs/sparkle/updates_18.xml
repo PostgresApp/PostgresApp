@@ -6,33 +6,27 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.9beta2</title>
+		<title>Postgres.app 2.9</title>
 		<description>
 			<![CDATA[
 				<p>
-					PostgreSQL beta versions usually introduce incompatible on-disk data formats.
-				</p>
-				<p style="color: red;">
-					Do not install this update if you need to access databases created with PostgreSQL 18beta1.
-				</p>
-				<p>
-					If you want to keep your 18beta1 servers, be sure to dump your databases before installing this upgrade.
-					Servers created with 18beta2 and 18beta3 are compatible with 18rc1.
+					If you are upgrading from PostgreSQL 18beta1, please dump your databases before installing this upgrade.
+					Servers created with PostgreSQL 18beta2, 18beta3 and 18rc1 are compatible with PostgreSQL 18.
 				</p>
 				<ul>
-					<li>PostgreSQL 18rc1 with PostGIS 3.6.0</li>
+					<li>PostgreSQL 18.0 with PostGIS 3.6.0</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 04 Sep 2025 01:37:55 +0200</pubDate>
+		<pubDate>Wed, 24 Sep 2025 17:20:47 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9beta2/Postgres-2.9beta2-18.dmg"
-		sparkle:version="331"
-		sparkle:shortVersionString="2.9beta2"
-		length="121785342"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9/Postgres-2.9-18.dmg"
+		sparkle:version="338"
+		sparkle:shortVersionString="2.9"
+		length="121876263"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFEr3ouTvv875UJdvvX5Gr3Cib9A6AhQuiuqd8seRi0oOoPabDLrQuW1NaA=="
+		sparkle:dsaSignature="MC0CFQCdf1WtzrvI0S7O7L4uLXXUGOJmwAIUQh/8V7Acmo726XqSt+66BDnIbPw="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
