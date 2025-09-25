@@ -9,7 +9,15 @@ set -o pipefail
 export NSUnbufferedIO=YES
 export PYTHONUNBUFFERED=1
 
-trap 'if [[ $? -ne 0 ]]; then echo "Error"; echo "Check Log For Details"; fi' EXIT
+trap 'ERROR_COMMAND=$BASH_COMMAND' ERR
+trap 'status=$?;
+	if [[ $status -ne 0 ]]; then
+		echo "ERROR"
+		echo "	$ERROR_COMMAND"
+		echo "	Exit Code $status"
+		echo "	Check Log For Details"
+	fi
+	exit $status' EXIT
 
 if [ "x$POSTGRESAPP_SHORT_VERSION" = x ]
 then
@@ -91,37 +99,37 @@ APP="$EXPORT_PATH"/Postgres.app
 for VERSION in ${PG_BINARIES_VERSIONS//_/ }; do
 
 	find "$APP"/Contents/Versions/$VERSION/bin/ -name postgres -type f -exec \
-		codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
+		codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			--entitlements postgres.entitlements \
 			{} \; >>"$LOG_DIR/04-codesign.log" 2>&1
 
 	find "$APP"/Contents/Versions/$VERSION/bin/ -not -name postgres -type f -exec \
-		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
+		codesign --force --timestamp --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			{} \; >>"$LOG_DIR/04-codesign.log" 2>&1
 
 	find "$APP"/Contents/Versions/$VERSION/lib/postgresql/pgxs \( -name isolationtester -or -name pg_isolation_regress \) -type f -exec \
-		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
+		codesign --force --timestamp --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			{} \; >>"$LOG_DIR/04-codesign.log" 2>&1
 
-	codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
+	codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 		"$APP"/Contents/Versions/$VERSION/lib/postgresql/pgxs/src/test/regress/pg_regress \
 		"$APP"/Contents/Versions/$VERSION/lib/*.a \
 		>>"$LOG_DIR/04-codesign.log" 2>&1
 
 done
 
-codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
+codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
 	"$APP"/Contents/MacOS/PostgresMenuHelper.app \
 	"$APP"/Contents/Library/LoginItems/PostgresLoginHelper.app \
 	>>"$LOG_DIR/04-codesign.log" 2>&1
 
-codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
+codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/MacOS/PostgresPermissionDialog \
 	>>"$LOG_DIR/04-codesign.log" 2>&1
 
-codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" \
+codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	--entitlements PostgresApp.entitlements \
 	"$APP"/Contents/MacOS/Postgres \
 	"$APP" \
