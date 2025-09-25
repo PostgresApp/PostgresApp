@@ -9,7 +9,15 @@ set -o pipefail
 export NSUnbufferedIO=YES
 export PYTHONUNBUFFERED=1
 
-trap 'if [[ $? -ne 0 ]]; then echo "Error"; echo "Check Log For Details"; fi' EXIT
+trap 'ERROR_COMMAND=$BASH_COMMAND' ERR
+trap 'status=$?;
+	if [[ $status -ne 0 ]]; then
+		echo "ERROR"
+		echo "	$ERROR_COMMAND"
+		echo "	Exit Code $status"
+		echo "	Check Log For Details"
+	fi
+	exit $status' EXIT
 
 if [ "x$POSTGRESAPP_SHORT_VERSION" = x ]
 then
