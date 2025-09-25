@@ -90,12 +90,12 @@ APP="$EXPORT_PATH"/Postgres.app
 
 for VERSION in ${PG_BINARIES_VERSIONS//_/ }; do
 
-	find "$APP"/Contents/Versions/$VERSION/bin/ \( -name postgres -o -name postmaster \) -type f -exec \
+	find "$APP"/Contents/Versions/$VERSION/bin/ -name postgres -type f -exec \
 		codesign --force --options runtime --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			--entitlements postgres.entitlements \
 			{} \; >>"$LOG_DIR/04-codesign.log" 2>&1
 
-	find "$APP"/Contents/Versions/$VERSION/bin/ \( -not -name postgres -and -not -name postmaster \) -type f -exec \
+	find "$APP"/Contents/Versions/$VERSION/bin/ -not -name postgres -type f -exec \
 		codesign --force --options runtime  --sign "$CODE_SIGN_IDENTITY" --prefix com.postgresapp. \
 			{} \; >>"$LOG_DIR/04-codesign.log" 2>&1
 
