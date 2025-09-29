@@ -22,6 +22,4 @@ With these releases you can even run multiple versions of PostgreSQL simultaneou
 Releases for older Macs
 -----------------------
 
-We no longer update our legacy releases.
-
-If you haven't upgraded to macOS 10.12 yet, please see our [legacy downloads](downloads_legacy.html).
+If you are using a very old version of macOS, please see our [legacy downloads](downloads_legacy.html).
