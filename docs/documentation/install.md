@@ -74,12 +74,9 @@ Follow these instructions to allow other computers on your network to connect.
     4. At the bottom, add this line: `host all all 0.0.0.0/0 scram-sha-256` (allow secure authentication with a password for all databases and all users from all IPv4 addresses)
 5. Start the server again
 
-## Installing PostgreSQL extensions
+## Using PostgreSQL extensions
 
-Postgres.app includes a number of useful extensions.
-Before you can use them, you need to install them in each database using the `CREATE EXTENSION` SQL command.
-
-Postgres.app includes the following extensions:
+Postgres.app includes a number of useful extensions:
 
 - PostGIS
 - pgRouting
@@ -89,23 +86,17 @@ Postgres.app includes the following extensions:
 - PL Debugger
 - and most of the contrib extensions
 
-For the full list, execute the SQL query `select * from pg_available_extensions;`
+Before you can use an extension, you need to execute the `CREATE EXTENSION` SQL command.
+This will add all the functions, tables and data types from the extension to the current database.
+You need to repeat this command for every database that you want to use.
 
-### Building custom PostgreSQL extensions
+For the full list of available extensions, execute the SQL query `select * from pg_available_extensions;`
 
-It is also possible to build custom PostgreSQL extensions for Postgres.app.
+### Additional PostgreSQL extensions
 
-Typically, you just need to make sure the $PATH is configured correctly and that `pg_config` works, then you can build most extensions with `make && make install`.
+We also offer some additional extensions for Postgres.app. You can download them from https://postgresapp.com/extensions/
 
-The first time you do this, macOS will show that "Terminal tried to modify an application". This setting can be changed in System settings / Security.
-
-However, this is an advanced topic and requires some familiarity with Unix build systems.
-
-Installing custom extensions will break the code signature of Postgres.app. 
-Currently, macOS verifies the code signature only the first time you launch an application, so as long as you launch Postgres.app before building custom extensions it should work.
-However, this may change in a future version of macOS.
-
-Custom extensions will be removed when updating Postgres.app, so build them again afterwards.
+It is also possible to build extensions from source. Please see https://postgresapp.com/extensions/ for instructions.
 
 ### Important Directories
 
