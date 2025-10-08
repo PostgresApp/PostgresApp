@@ -328,6 +328,9 @@ auth_permission_dialog(Port *port, int status)
 				char *last_slash = strrchr(pidpath, '/');
 				client_display_name = strdup(last_slash ? last_slash + 1 : pidpath);
 				client_display_name_long = strdup(pidpath);
+			} else {
+				client_display_name = strdup("unknown process");
+				client_display_name_long = strdup("unknown process");
 			}
 		}
 		if (tlpid && tlpid != pid) {
