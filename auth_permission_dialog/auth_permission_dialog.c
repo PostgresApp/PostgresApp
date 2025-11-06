@@ -372,6 +372,13 @@ auth_permission_dialog(Port *port, int status)
 						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, exit_st),
 						 errhint("Change pg_hba.conf to require a password")));
 			}
+			else if (exit_st == 4) {
+				ereport(FATAL,
+						(errmsg("Postgres.app failed to verify %s", authentication_name(port)),
+						 errdetail("Postgres.app failed to show a dialog. This can happen when the user that started the server is no longer logged in. Try restarting the PostgreSQL server. For more information see https://postgresapp.com/l/app-permissions/"),
+						 errdetail_log("auth_permission_dialog: %s is not allowed to connect without a password because system(%s) returned with exit status %d. For more information see https://postgresapp.com/l/app-permissions/", client_display_name_long, command, exit_st),
+						 errhint("Change pg_hba.conf to require a password")));
+			}
 			else if (exit_st) {
 				ereport(FATAL,
 						(errmsg("Postgres.app failed to verify %s", authentication_name(port)),

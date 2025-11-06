@@ -97,9 +97,18 @@ do {
 		UserDefaults.shared.set(clientApplicationPermissions, forKey: "ClientApplicationPermissions")
 	}
 
+	// We need to intercept the SIGABRT signal because NSApplication.shared calls abort() when no GUI session is available
+	let oldHandler = signal(SIGABRT, { _ in
+		// Exit code 4 tells the parent process that we failed to show a dialog
+		_exit(4);
+	})
+	
 	NSApplication.shared.setActivationPolicy(.accessory)
 	NSApplication.shared.activate(ignoringOtherApps: true)
 
+	// Restore the previous signal handler so we don't catch any unexpected errors
+	signal(SIGABRT, oldHandler)
+	
 	let alert = NSAlert()
     let delegate = HelpDelegate()
     
