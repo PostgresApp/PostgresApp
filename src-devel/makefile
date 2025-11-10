@@ -49,7 +49,7 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.11.4
+GDAL_VERSION=3.12.0
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.14.1
