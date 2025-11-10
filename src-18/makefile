@@ -5,7 +5,7 @@
 POSTGIS_VERSION=3.6.0
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=18.0
+POSTGRES_VERSION=18.1
 POSTGRES_MAJOR_VERSION=18
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -192,7 +192,6 @@ postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/fd.c.patch
-	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/postgresql-libxml-2.15.patch
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
