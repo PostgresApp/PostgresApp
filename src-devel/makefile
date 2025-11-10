@@ -190,7 +190,8 @@ TAR=/usr/bin/tar xzf
 #    - wal2json
 #    - pljs
 #    - postgis likely https://github.com/postgis/postgis/commit/3b7600f8ab8edc415bbae951c4958acf03cf4909
-all: postgresql auth_permission_dialog pgvector pldebugger pgrouting
+#    - pgvector
+all: postgresql auth_permission_dialog pldebugger pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
