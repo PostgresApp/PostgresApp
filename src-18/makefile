@@ -22,7 +22,7 @@ ZSTD_VERSION=1.5.7
 GDAL_VERSION=3.8.5
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.14.0
+GEOS_VERSION=3.14.1
 
 # http://www.ijg.org
 JPEG_VERSION=9f
@@ -37,8 +37,7 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_89_0
 
 # https://github.com/CGAL/cgal/releases
-# release scheduled for 2025-09
-CGAL_VERSION=6.1-beta2
+CGAL_VERSION=6.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.2.0
@@ -47,11 +46,11 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.15.0
+LIBXML2_VERSION=2.15.1
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.3
+OPENSSL_VERSION=3.5.4
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -71,12 +70,11 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-ABSEIL_VERSION=20250814.0
+ABSEIL_VERSION=20250814.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-# expected in Q4/25, should be compatible to 32
-PROTOBUF_VERSION=32.1
+PROTOBUF_VERSION=33.0
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -94,7 +92,7 @@ OPENJPEG_VERSION=2.5.4
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
-PLDEBUGGER_VERSION=1.8
+PLDEBUGGER_VERSION=1.9
 
 # https://github.com/pgvector/pgvector/tags
 PGVECTOR_VERSION=0.8.1
@@ -1040,8 +1038,6 @@ $(PREFIX)/lib/postgresql/plugin_debugger.dylib: pldebugger-${PLDEBUGGER_VERSION}
 
 pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
 	$(TAR) $<
-	# patch for pg18 compatibility https://github.com/EnterpriseDB/pldebugger/commit/696619729ff7145a9f957932d7c57aeb87061e21
-	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg18.patch
 	touch $@
 
 pldebugger-${PLDEBUGGER_VERSION}.tar.gz:

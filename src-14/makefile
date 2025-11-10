@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.17
+OPENSSL_VERSION=3.0.18
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1

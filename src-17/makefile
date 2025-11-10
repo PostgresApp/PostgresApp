@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.13.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.3
+OPENSSL_VERSION=3.5.4
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -113,7 +113,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.7
+PYTHON_VERSION_FULL=3.13.9
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
