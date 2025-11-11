@@ -163,7 +163,7 @@ title: Postgres.app Extensions
 <div class="extension">
 	<h1>pg_parquet</h1>
 	<div class="extension-description">
-      Parquet is gaining popularity as an interchange format for datasets.
+      <a href="https://parquet.apache.org/">Apache Parquet</a> is gaining popularity as an interchange format for datasets.
       This extension allows you to read and write Parquet files using the COPY command.
       The extension was developed by CrunchyData and documentation is available at <a href="https://github.com/CrunchyData/pg_parquet">github.com/CrunchyData/pg_parquet</a>
   </div>
