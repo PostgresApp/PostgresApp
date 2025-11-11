@@ -111,7 +111,7 @@ title: Postgres.app Extensions
 <div class="extension">
 	<h1>PL Debugger</h1>
 	<div class="extension-description">
-      Debug PL/PGSQL functions with pgAdmin. Find instructions in the <a href="https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html">pgAdmin documentation</a>
+      Debug PL/PGSQL functions with pgAdmin. For instructions see the <a href="https://github.com/EnterpriseDB/pldebugger">Github repo</a> and the <a href="https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html">pgAdmin documentation</a>
   </div>
 	<div class="extension-hint">
 			✓ this extension is included with Postgres.app
