@@ -137,8 +137,6 @@ title: Postgres.app Extensions
 	<div class="extension-description">
       Run stored procedures and functions in Javascript -- FAST.
       This extension is based on Chrome's v8 JavaScript runtime. It is probably the fastest and most secure way to run JavaScript code in your database.
-      We used to bundle it with Postgres.app, but the v8 build process is so unreliable that we've stopped doing it.
-      However, we're very happy to offer it as an additional download!
       Learn more about this extension at <a href="https://plv8.github.io">plv8.github.io</a>
   </div>
   <ul>
