@@ -1,4 +1,4 @@
-POSTGRES_VERSION=17.4
+POSTGRES_VERSION=18.1
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 # compiler options
@@ -22,15 +22,12 @@ download: postgresql-$(POSTGRES_VERSION).tar.bz2
 ###### PostgreSQL #######
 #########################
 
-postgresql: libpq.a postgres_ext.h libpq-fe.h pg_config_ext.h
+postgresql: libpq.a libpq-fe.h
 
 postgres_ext.h: postgresql-$(POSTGRES_VERSION)/GNUmakefile
 	cp postgresql-$(POSTGRES_VERSION)/src/include/postgres_ext.h postgres_ext.h
 
-pg_config_ext.h: postgresql-$(POSTGRES_VERSION)/GNUmakefile
-	cp postgresql-$(POSTGRES_VERSION)/src/include/pg_config_ext.h pg_config_ext.h
-
-libpq-fe.h: postgresql-$(POSTGRES_VERSION)/GNUmakefile
+libpq-fe.h: postgresql-$(POSTGRES_VERSION)/GNUmakefile postgres_ext.h
 	cp postgresql-$(POSTGRES_VERSION)/src/interfaces/libpq/libpq-fe.h libpq-fe.h
 
 libpq.a: postgresql-$(POSTGRES_VERSION)/GNUmakefile
@@ -49,3 +46,5 @@ postgresql-$(POSTGRES_VERSION).tar.bz2:
 
 clean-postgresql:
 	rm -Rf postgresql-$(POSTGRES_VERSION)
+	rm -f *.a
+	rm -f *.h
