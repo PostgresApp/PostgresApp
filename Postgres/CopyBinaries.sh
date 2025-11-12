@@ -78,6 +78,7 @@ do
 	unzip "${PG_BINARIES_DIR}/${VERSION}.zip" -d "${TARGET_VERSIONS_DIR}" "${VERSION}/lib/libpgfeutils.a"
 	unzip "${PG_BINARIES_DIR}/${VERSION}.zip" -d "${TARGET_VERSIONS_DIR}" "${VERSION}/lib/libpgport.a"
 	unzip "${PG_BINARIES_DIR}/${VERSION}.zip" -d "${TARGET_VERSIONS_DIR}" "${VERSION}/lib/libpgport_shlib.a"
+	unzip "${PG_BINARIES_DIR}/${VERSION}.zip" -d "${TARGET_VERSIONS_DIR}" "${VERSION}/lib/libpq-oauth.a" || true # added in PG 18
 	
 	# include, share
 	unzip "${PG_BINARIES_DIR}/${VERSION}.zip" -d "${TARGET_VERSIONS_DIR}" "${VERSION}/include/*"
