@@ -132,7 +132,7 @@ echo "Done"
 echo -n "Generating Build History... "
 # 2.9    |  339  |  2025-09-25  | 13.22, 14.19, 15.14, 16.10, 17.6, 18        | 3.1.12, 3.2.8, 3.3.8, 3.4.4, 3.5.3, 3.6.0       |
 printf " %-7s|  %-5s|  %-12s| %-44s| %-48s|\n" \
-       "$POSTGRESAPP_SHORT_VERSION" "$POSTGRESAPP_BUILD_VERSION" "$BUILD_LABEL" "$(IFS=', '; echo "${PG_VERSIONS[*]}")" "$(IFS=', '; echo "${POSTGIS_VERSIONS[*]}")" \
+       "$POSTGRESAPP_SHORT_VERSION" "$POSTGRESAPP_BUILD_VERSION" "$BUILD_LABEL" "$(printf "%s, " "${PG_VERSIONS[@]}" | sed 's/, $//')" "$(printf "%s, " "${POSTGIS_VERSIONS[@]}" | sed 's/, $//')" \
        >"$BUILD_HISTORY_PATH"
 echo "Done"
 
