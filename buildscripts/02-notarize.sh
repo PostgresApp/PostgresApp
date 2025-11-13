@@ -3,7 +3,7 @@
 # Before calling this script, make sure you have stored App Store Connect API credentials in the keychain
 # xcrun notarytool store-credentials postgresapp
 # Then you can call this script like this:
-# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 LATEST_STABLE_PG_VERSION=12  SPARKLE_SIGNING_KEY=example.pem ./notarize.sh
+# POSTGRESAPP_SHORT_VERSION=2.x.x POSTGRESAPP_BUILD_VERSION=xx PG_BINARIES_VERSIONS=10_11_12 LATEST_STABLE_PG_VERSION=12  SPARKLE_SIGNING_KEY=example.pem ./02-notarize.sh
 
 set -e
 set -o pipefail
