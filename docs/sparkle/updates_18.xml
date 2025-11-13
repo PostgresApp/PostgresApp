@@ -6,27 +6,23 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.9</title>
+		<title>Postgres.app 2.9.1</title>
 		<description>
 			<![CDATA[
-				<p>
-					If you are upgrading from PostgreSQL 18beta1, please dump your databases before installing this upgrade.
-					Servers created with PostgreSQL 18beta2, 18beta3 and 18rc1 are compatible with PostgreSQL 18.
-				</p>
 				<ul>
-					<li>PostgreSQL 18.0 with PostGIS 3.6.0</li>
+					<li>PostgreSQL 18.1 with PostGIS 3.6.0</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Wed, 24 Sep 2025 17:20:47 +0200</pubDate>
+		<pubDate>Thu, 13 Nov 2025 10:01:24 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9/Postgres-2.9-18.dmg"
-		sparkle:version="338"
-		sparkle:shortVersionString="2.9"
-		length="121876263"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.1/Postgres-2.9.1-18.dmg"
+		sparkle:version="345"
+		sparkle:shortVersionString="2.9.1"
+		length="121938796"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCdf1WtzrvI0S7O7L4uLXXUGOJmwAIUQh/8V7Acmo726XqSt+66BDnIbPw="
+		sparkle:dsaSignature="MC0CFQCPkglCd/kv2nhaScCiH370m5rGhQIUWTi7/HDAIS7Ot7SEMKPhuh0JWwU="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
