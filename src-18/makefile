@@ -1,8 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-# remind to make sure with 3.6.1 that the upgrade paths from a1 and b1 are still available
-POSTGIS_VERSION=3.6.0
+POSTGIS_VERSION=3.6.1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=18.1
@@ -969,6 +968,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+	# patch to allow direct upgrades from 3.6.0alpha1 and 3.6.0beta1 which we shipped with Postgres.app 2.8.4 and 2.9beta
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_upgrade_from_beta.patch
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
 	touch $@
 
