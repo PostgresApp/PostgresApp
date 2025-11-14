@@ -104,7 +104,7 @@ ABSEIL_VERSION=20250814.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.0
+PROTOBUF_VERSION=33.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
