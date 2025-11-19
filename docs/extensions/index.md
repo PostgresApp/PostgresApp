@@ -59,7 +59,8 @@ title: Postgres.app Extensions
 <div class="extension">
 	<h1>PostGIS</h1>
 	<div class="extension-description">
-      PostGIS is a popular geospatial extension for PostgreSQL. It comes with everything you need to work with geographic vector and raster data.
+      PostGIS is a popular geospatial extension for PostgreSQL.
+	  It includes the GDAL, PROJ.4 and GEOS libraries and comes with everything you need to work with geographic vector and raster data.
       Learn everything about this extension at <a href="https://postgis.net">postgis.net</a>
 	</div>
 	<div class="extension-hint">
@@ -117,6 +118,18 @@ title: Postgres.app Extensions
 			✓ this extension is included with Postgres.app
 	</div>
 </div>
+
+<div class="extension">
+	<h1>wal2json</h1>
+	<div class="extension-description">
+	  wal2json is an output plugin for logical decoding. Track changes to the database as they happens!
+      For details, see the <a href="https://github.com/eulerto/wal2json">Github repo</a>
+  </div>
+	<div class="extension-hint">
+			✓ this extension is included with Postgres.app
+	</div>
+</div>
+
 
 <p>
   Aside from these extensions, Postgres.app also includes most of the standard extensions such as plpgsql, pg_crypto, and so on.
