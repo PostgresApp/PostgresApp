@@ -187,6 +187,20 @@ title: Postgres.app Extensions
 	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0-18beta2/pg_parquet-pg18-0.4.0.pkg">⤓ Download for Postgres.app</a>
 </div>
 
+<div class="extension">
+	<h1>timescaledb</h1>
+	<div class="extension-description">
+      <a href="https://www.tigerdata.com/timescaledb">TimescaleDB</a> adds efficient storage and access methods for time-series data.
+  </div>
+  <ul>
+    <li>timescaledb 2.23.1</li>
+    <li>built for PostgreSQL 18</li>
+  </ul>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/timescaledb-2.23.1/timescaledb-pg18-2.23.1.pkg">⤓ Download for Postgres.app</a>
+</div>
+
+
+
 <p>
   Is your favorite extension still missing? Open an issue in our Github repo and request it!
 </p>
