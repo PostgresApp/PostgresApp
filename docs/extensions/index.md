@@ -122,7 +122,7 @@ title: Postgres.app Extensions
 <div class="extension">
 	<h1>wal2json</h1>
 	<div class="extension-description">
-	  wal2json is an output plugin for logical decoding. Track changes to the database as they happens!
+	  wal2json is an output plugin for logical decoding. Track changes to the database as they happen!
       For details, see the <a href="https://github.com/eulerto/wal2json">Github repo</a>
   </div>
 	<div class="extension-hint">
