@@ -410,8 +410,7 @@ libxslt-${LIBXSLT_VERSION}.tar.xz:
 	$(CURL) "https://download.gnome.org/sources/libxslt/${LIBXSLT_VERSION_MAJOR}/libxslt-${LIBXSLT_VERSION}.tar.xz"
 
 check-libxslt:
-	#checks fail against recent libxml2, fixed upstream
-	#make -C libxslt-${LIBXSLT_VERSION} check
+	make -C libxslt-${LIBXSLT_VERSION} check
 
 clean-libxslt:
 	rm -Rf "libxslt-$(LIBXSLT_VERSION)"
