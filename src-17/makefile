@@ -50,7 +50,7 @@ LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9
 
 # https://gitlab.gnome.org/GNOME/libxslt/-/releases
 # https://download.gnome.org/sources/libxslt/
-LIBXSLT_VERSION=1.1.43
+LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
@@ -88,7 +88,7 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.50
+LIBPNG_VERSION=1.6.51
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4

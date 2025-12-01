@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.50
+LIBPNG_VERSION=1.6.51
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
