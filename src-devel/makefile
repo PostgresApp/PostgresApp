@@ -64,7 +64,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/releases/latest/
-BOOST_VERSION=1_89_0
+BOOST_VERSION=1_90_0
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=6.1
