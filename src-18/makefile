@@ -78,7 +78,7 @@ ABSEIL_VERSION=20250814.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.1
+PROTOBUF_VERSION=33.2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -87,7 +87,7 @@ PROTOBUFC_VERSION=1.5.2
 LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.51
+LIBPNG_VERSION=1.6.53
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4

@@ -88,7 +88,7 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.51
+LIBPNG_VERSION=1.6.53
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -118,7 +118,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.9
+PYTHON_VERSION_FULL=3.13.11
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
