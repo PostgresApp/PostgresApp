@@ -67,7 +67,7 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_90_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.1
+CGAL_VERSION=6.1.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.2.0
@@ -85,7 +85,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.4
+OPENSSL_VERSION=3.5.5
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -105,11 +105,11 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-ABSEIL_VERSION=20250814.1
+ABSEIL_VERSION=20260107.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.2
+PROTOBUF_VERSION=33.5
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -134,11 +134,11 @@ PLDEBUGGER_VERSION=1.9
 PGVECTOR_VERSION=0.8.1
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=4.0.0
+PGROUTING_VERSION=4.0.1
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
-PLJS_VERSION=1.0.3
+PLJS_VERSION=1.0.5
 
 # https://bellard.org/quickjs/
 # TODO try quickjs-ng
@@ -1207,6 +1207,7 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	# inject missing upgrade paths
 	cp patches/pljs--0.8.0--1.0.1.sql pljs-${PLJS_VERSION}/
 	cp patches/pljs--1.0.1--1.0.3.sql pljs-${PLJS_VERSION}/
+	cp patches/pljs--1.0.3--1.0.5.sql pljs-${PLJS_VERSION}/
 	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql pljs--1.0.1--1.0.3.sql /" pljs-${PLJS_VERSION}/Makefile
 	touch $@
 

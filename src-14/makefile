@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.18
+OPENSSL_VERSION=3.0.19
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.53
+LIBPNG_VERSION=1.6.54
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
@@ -66,7 +66,7 @@ OPENJPEG_VERSION=2.4.0
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/plv8/pljs/tags
-PLJS_VERSION=1.0.3
+PLJS_VERSION=1.0.5
 
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2025-04-26
@@ -730,6 +730,7 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	# inject missing upgrade paths
 	cp patches/pljs--0.8.0--1.0.1.sql pljs-${PLJS_VERSION}/
 	cp patches/pljs--1.0.1--1.0.3.sql pljs-${PLJS_VERSION}/
+	cp patches/pljs--1.0.3--1.0.5.sql pljs-${PLJS_VERSION}/
 	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql pljs--1.0.1--1.0.3.sql /" pljs-${PLJS_VERSION}/Makefile
 	touch $@
 

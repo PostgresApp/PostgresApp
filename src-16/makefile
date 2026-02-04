@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.11.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.4
+OPENSSL_VERSION=3.5.5
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -79,7 +79,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.6.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.53
+LIBPNG_VERSION=1.6.54
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -98,7 +98,7 @@ PGROUTING_VERSION=3.5.1
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
-PLJS_VERSION=1.0.3
+PLJS_VERSION=1.0.5
 
 # https://bellard.org/quickjs/
 QUICKJS_VERSION=2025-04-26
@@ -1053,6 +1053,7 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	# inject missing upgrade paths
 	cp patches/pljs--0.8.0--1.0.1.sql pljs-${PLJS_VERSION}/
 	cp patches/pljs--1.0.1--1.0.3.sql pljs-${PLJS_VERSION}/
+	cp patches/pljs--1.0.3--1.0.5.sql pljs-${PLJS_VERSION}/
 	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql pljs--1.0.1--1.0.3.sql /" pljs-${PLJS_VERSION}/Makefile
 	touch $@
 
