@@ -69,8 +69,15 @@ do {
 	}
 	
 	if topLevelProcessPath.contains("AppTranslocation") {
-		if let originalURL = SecTranslocateCreateOriginalPathForURL(URL(fileURLWithPath: topLevelProcessPath)) {
+		let cfurl = URL(fileURLWithPath: topLevelProcessPath) as CFURL
+		var cferror: Unmanaged<CFError>?
+		let cfOriginalURL = SecTranslocateCreateOriginalPathForURL(cfurl, &cferror)
+		let originalURL = cfOriginalURL?.takeUnretainedValue() as URL?
+		if let originalURL {
 			topLevelProcessPath = originalURL.path
+		}
+		else if let error = cferror?.takeRetainedValue() {
+			print("PostgresPermissionDialog: Failed to get untranslocated path: \(error)")
 		}
 	}
 	

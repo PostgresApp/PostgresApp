@@ -9,4 +9,5 @@
 
 #import <libproc.h>
 
-NSURL* SecTranslocateCreateOriginalPathForURL(NSURL*);
+CFURLRef __nullable SecTranslocateCreateOriginalPathForURL(CFURLRef translocatedPath, CFErrorRef* __nullable error)
+__OSX_AVAILABLE(10.12);
