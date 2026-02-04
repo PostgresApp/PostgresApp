@@ -55,7 +55,7 @@ GDAL_VERSION=3.12.1
 GEOS_VERSION=3.14.1
 
 # http://www.ijg.org
-JPEG_VERSION=9f
+JPEG_VERSION=10
 
 # https://gmplib.org/download/gmp/
 GMP_VERSION=6.3.0
