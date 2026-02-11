@@ -1161,7 +1161,7 @@ pljs-${PLJS_VERSION}/Makefile: pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VER
 	cp patches/pljs--0.8.0--1.0.1.sql pljs-${PLJS_VERSION}/
 	cp patches/pljs--1.0.1--1.0.3.sql pljs-${PLJS_VERSION}/
 	cp patches/pljs--1.0.3--1.0.5.sql pljs-${PLJS_VERSION}/
-	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql pljs--1.0.1--1.0.3.sql /" pljs-${PLJS_VERSION}/Makefile
+	sed -I '' "s/^DATA = pljs.control /&pljs--0.8.0--1.0.1.sql pljs--1.0.1--1.0.3.sql pljs--1.0.3--1.0.5.sql /" pljs-${PLJS_VERSION}/Makefile
 	touch $@
 
 pljs-${PLJS_VERSION}.tar.gz:
