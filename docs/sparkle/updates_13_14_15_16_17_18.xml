@@ -6,32 +6,36 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.9.2</title>
+		<title>Postgres.app 2.9.3</title>
 		<description>
 			<![CDATA[
-				<ul>
-					<li>PostgreSQL 13.23 with PostGIS 3.1.12</li>
-					<li>PostgreSQL 14.20 with PostGIS 3.2.8</li>
-					<li>PostgreSQL 15.15 with PostGIS 3.3.8</li>
-					<li>PostgreSQL 16.11 with PostGIS 3.4.4</li>
-					<li>PostgreSQL 17.7 with PostGIS 3.5.4</li>
-					<li>PostgreSQL 18.1 with PostGIS 3.6.1</li>
-				</ul>
 				<p>
-					If you are still using PostgreSQL 13, please upgrade soon. 
-					This update will probably be the last to support PostgreSQL 13.
+					This update no longer includes PostgreSQL 13 since it is no longer supported.
 				</p>
+				<p style="color: red;">
+					Do not install this update if you are still using PostgreSQL 13.
+				</p>
+				<p>
+					If you are still using PostgreSQL 13, please migrate your database to a newer version before installing this upgrade.
+				</p>
+				<ul>
+					<li>PostgreSQL 14.21 with PostGIS 3.2.8</li>
+					<li>PostgreSQL 15.16 with PostGIS 3.3.8</li>
+					<li>PostgreSQL 16.12 with PostGIS 3.4.5</li>
+					<li>PostgreSQL 17.8 with PostGIS 3.5.5</li>
+					<li>PostgreSQL 18.2 with PostGIS 3.6.2</li>
+				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Sat, 15 Nov 2025 18:33:14 +0100</pubDate>
+		<pubDate>Wed, 11 Feb 2026 17:51:58 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.2/Postgres-2.9.2-13-14-15-16-17-18.dmg"
-		sparkle:version="349"
-		sparkle:shortVersionString="2.9.2"
-		length="583520231"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.3/Postgres-2.9.3-14-15-16-17-18.dmg"
+		sparkle:version="355"
+		sparkle:shortVersionString="2.9.3"
+		length="532328245"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQC5KuInlCyZ/PP1yHB1vaeFD2AehgIUFRbnQQTpJm/md2T8LvpheGe30UA="
+		sparkle:dsaSignature="MC0CFBVbK7E2I9TmTuAHfPUTQGsV1nAKAhUAhXQaQz3KNpwb8SeVqiMk6xds64c="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
