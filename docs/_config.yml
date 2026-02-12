@@ -30,7 +30,7 @@ extraReleases: [
 			de: "Postgres.app mit allen unterstützten Versionen (Universal)",
 		},
 		size: "532MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.3/Postgres-2.9.3-13-14-15-16-17-18.dmg",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.3/Postgres-2.9.3-14-15-16-17-18.dmg",
 		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.9.3",
 		postgresappVersion: "2.9.3",
 		postgresappMinSystemVersion: "10.15",
