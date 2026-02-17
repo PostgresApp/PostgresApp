@@ -74,7 +74,7 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-ABSEIL_VERSION=20240722.1
+ABSEIL_VERSION=20240722.2
 
 # https://github.com/protocolbuffers/protobuf/releases
 # protobuf-c 1.5.0 is not compatible with >=26.x yet
