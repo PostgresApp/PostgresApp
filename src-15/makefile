@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.8
+POSTGIS_VERSION=3.3.9
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=15.16
@@ -880,6 +880,8 @@ postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
 	# apply fix for 'make install' to fix some PGXS variables being overwritten
 	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_install.patch
+	# patch postgis_tiger_geocoder upgrade error https://trac.osgeo.org/postgis/ticket/6049
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_tiger_geocoder-upgrade.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:

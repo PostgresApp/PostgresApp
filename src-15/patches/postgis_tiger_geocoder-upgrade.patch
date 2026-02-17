@@ -1,0 +1,30 @@
+From 8c0b543dcba0007b55e0a5fa1b3144910aa27c18 Mon Sep 17 00:00:00 2001
+From: Regina Obe <lr@pcorp.us>
+Date: Thu, 12 Feb 2026 09:50:45 -0500
+Subject: [PATCH]  Do not pre-create tiger_data schema during extension
+ creation time Load process will create it if it does not exist We don't need
+ it as part of the postgis_tiger_geocoder extension
+
+Reference #6049 for PostGIS 3.3.10
+---
+diff --git a/extras/tiger_geocoder/tiger_loader_2022.sql b/extras/tiger_geocoder/tiger_loader_2022.sql
+index 991ce2255..cf162cdd1 100644
+--- a/extras/tiger_geocoder/tiger_loader_2022.sql
++++ b/extras/tiger_geocoder/tiger_loader_2022.sql
+@@ -245,13 +245,6 @@ BEGIN
+ END
+ $$ LANGUAGE 'plpgsql';
+ 
+-DO
+-$$
+-BEGIN
+-    CREATE SCHEMA IF NOT EXISTS tiger_data;
+-END
+-$$ LANGUAGE 'plpgsql';
+-
+ DELETE FROM loader_platform WHERE os IN ('sh', 'windows');
+ GRANT SELECT ON TABLE loader_platform TO public;
+ INSERT INTO loader_platform(os, wget, pgbin, declare_sect, unzip_command, psql,path_sep,loader, environ_set_command, county_process_command)
+-- 
+2.50.1
+
