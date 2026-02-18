@@ -16,6 +16,7 @@ There are many clients for PostgreSQL on the Mac. Below is a list of some of the
 - [Froq](https://www.colourful-apps.com/products/mac/froq)
 - [Luna Modeler](https://www.datensen.com)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
+- [Paul](https://guillim.github.io/products/paul)
 - [pgAdmin](http://pgadmin.org/)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
