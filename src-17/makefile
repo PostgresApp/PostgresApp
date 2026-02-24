@@ -157,7 +157,7 @@ export XMLLINT SGML_CATALOG_FILES
 export CFLAGS CXXFLAGS MACOSX_DEPLOYMENT_TARGET CMAKE_OSX_ARCHITECTURES ICU_LIBS ICU_CFLAGS
 
 # commands used for downloading and extracting sources
-CURL=/usr/bin/curl -L10 --silent --show-error --remote-name --fail
+CURL=/usr/bin/curl --location --silent --show-error --remote-name --fail --remove-on-error
 TAR=/usr/bin/tar xzf
 
 all: postgresql auth_permission_dialog pgvector wal2json pljs pldebugger postgis pgrouting
@@ -1019,7 +1019,7 @@ plv8-${PLV8_VERSION}/Makefile: plv8-${PLV8_VERSION}.tar.gz
 	touch $@
 
 plv8-${PLV8_VERSION}.tar.gz:
-	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
+	$(CURL) --remote-header-name https://github.com/plv8/plv8/archive/v${PLV8_VERSION}.tar.gz
 
 clean-plv8:
 	rm -Rf plv8-${PLV8_VERSION}
@@ -1040,7 +1040,7 @@ wal2json-${WAL2JSON_VERSION}/Makefile: wal2json-${WAL2JSON_VERSION}.tar.gz
 	touch $@
 
 wal2json-${WAL2JSON_VERSION}.tar.gz:
-	/usr/bin/curl -L10 --silent --fail --show-error -o $@ https://github.com/eulerto/wal2json/archive/${WAL2JSON_VERSION}.tar.gz
+	$(CURL) --remote-header-name https://github.com/eulerto/wal2json/archive/${WAL2JSON_VERSION}.tar.gz
 
 clean-wal2json:
 	rm -Rf wal2json-${WAL2JSON_VERSION}
@@ -1152,7 +1152,7 @@ pljs-${PLJS_VERSION}.tar.gz:
 	$(CURL) --remote-header-name https://github.com/plv8/pljs/archive/refs/tags/v${PLJS_VERSION}.tar.gz
 
 quickjs-${QUICKJS_VERSION}.tar.xz:
-	$(CURL) --remote-header-name https://bellard.org/quickjs/quickjs-${QUICKJS_VERSION}.tar.xz
+	$(CURL) https://bellard.org/quickjs/quickjs-${QUICKJS_VERSION}.tar.xz
 
 clean-pljs:
 	rm -Rf pljs-${PLJS_VERSION}
