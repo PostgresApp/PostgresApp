@@ -3,7 +3,7 @@
 //  PostgresPermissionDialog
 //
 //  Created by Jakob Egger on 22.05.23.
-//  Copyright © 2023 postgresapp. All rights reserved.
+//  This code is released under the terms of the PostgreSQL License.
 //
 
 import AppKit

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>FILEHEADER</key>
+<string>
+//  ___FILENAME___
+//  ___PACKAGENAME___
+// 
+// 
+// Created by ___FULLUSERNAME___ on ___DATE___.
+// This code is released under the terms of the PostgreSQL License.
+// 
+</string>
+</dict>
+</plist>

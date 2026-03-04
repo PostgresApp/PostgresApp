@@ -2,8 +2,7 @@
  *
  * auth_permission_dialog.c
  *
- * Copyright (c) 2023, Jakob Egger
- *
+ * This code is released under the terms of the PostgreSQL License.
  *
  * -------------------------------------------------------------------------
  */

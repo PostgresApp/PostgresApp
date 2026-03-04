@@ -3,7 +3,7 @@
 //  Postgres
 //
 //  Created by dev on 04.06.25.
-//  Copyright © 2025 postgresapp. All rights reserved.
+//  This code is released under the terms of the PostgreSQL License.
 //
 
 import Foundation

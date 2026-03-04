@@ -3,7 +3,7 @@
 //  App Maker
 //
 //  Created by Jakob Egger on 07/04/16.
-//  Copyright © 2016 Egger Apps. All rights reserved.
+//  This code is released under the terms of the PostgreSQL License.
 //
 
 #import <Foundation/Foundation.h>

@@ -3,7 +3,7 @@
 //  Postgres
 //
 //  Created by Chris on 18/10/2016.
-//  Copyright © 2016 postgresapp. All rights reserved.
+//  This code is released under the terms of the PostgreSQL License.
 //
 //  Inspired by https://github.com/yconst/YCHarness/blob/master/RSRTVArrayController.m
 

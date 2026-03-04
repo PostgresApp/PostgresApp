@@ -3,7 +3,7 @@
 //  Postgres
 //
 //  Created by Chris on 05/07/16.
-//  Copyright © 2016 postgresapp. All rights reserved.
+//  This code is released under the terms of the PostgreSQL License.
 //
 
 import Cocoa
