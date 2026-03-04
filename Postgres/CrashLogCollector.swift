@@ -93,7 +93,9 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 					if response == .alertFirstButtonReturn {
 						// transmit crashes
 						for (filename, crashData) in newCrashes {
-							var request = URLRequest(url: URL(string: "https://crashreporting.postgresapp.com/upload")!)
+							var components = URLComponents(string: "https://crashreporting.postgresapp.com/upload")!
+							components.queryItems = [URLQueryItem(name: "filename", value: filename)]
+							var request = URLRequest(url: components.url!)
 							request.httpMethod = "POST"
 							request.httpBody = crashData.data(using: .utf8)
 							let postTask = self.session.dataTask(with: request) { _, response, error in
