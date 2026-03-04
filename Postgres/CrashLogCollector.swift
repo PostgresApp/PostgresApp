@@ -27,7 +27,7 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 			URL(fileURLWithPath: "/Library/Logs/DiagnosticReports")
 		]
 		for diagnosticReportsDirectory in diagnosticReportsDirectories {
-			guard let enumerator = fileManager.enumerator(at: diagnosticReportsDirectory, includingPropertiesForKeys: [.isDirectoryKey]) else {
+			guard let enumerator = fileManager.enumerator(at: diagnosticReportsDirectory, includingPropertiesForKeys: [.isDirectoryKey, .fileSizeKey]) else {
 				print("Could not enumerate crash log directory \(diagnosticReportsDirectory)")
 				continue
 			}
@@ -44,6 +44,7 @@ class CrashLogCollector: NSObject, URLSessionDataDelegate {
 				// We don't want to upload these log files since we don't need them
 				continue
 			}
+			if let fileSize = try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize, fileSize > 1_000_000 { continue }
 			let filename = url.lastPathComponent
 			if processedFiles.contains(filename) { continue }
 			if filename.hasPrefix("Postgres") || filename.hasPrefix("postgres") || filename.hasPrefix("psql") {
