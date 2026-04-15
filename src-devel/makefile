@@ -64,7 +64,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/releases/latest/
-BOOST_VERSION=1_90_0
+BOOST_VERSION=1_91_0_beta1
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=6.1.1
@@ -970,14 +970,17 @@ $(PREFIX)/lib/libboost_thread.dylib: boost_$(BOOST_VERSION)/b2
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
 	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 89
-	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,system,serialization
+	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,serialization
 
 boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	$(TAR) boost_$(BOOST_VERSION).tar.bz2
+	mv boost_$(shell echo $(BOOST_VERSION) | sed 's/_[^_]*$$//') boost_$(BOOST_VERSION) || true
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2 \
+	|| ( $(CURL) https://archives.boost.io/beta/$(subst _,.,$(BOOST_VERSION))/source/boost_$(subst beta,b,$(BOOST_VERSION)).tar.bz2 \
+	     && mv boost_$(subst beta,b,$(BOOST_VERSION)).tar.bz2 boost_$(BOOST_VERSION).tar.bz2 )
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
