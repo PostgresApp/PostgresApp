@@ -54,7 +54,7 @@ LIBXSLT_VERSION=1.1.43
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.5
+OPENSSL_VERSION=3.5.6
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -79,7 +79,7 @@ ABSEIL_VERSION=20240722.2
 # https://github.com/protocolbuffers/protobuf/releases
 # protobuf-c 1.5.0 is not compatible with >=26.x yet
 # 25.x is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=25.8
+PROTOBUF_VERSION=25.9
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.0
@@ -88,7 +88,7 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.55
+LIBPNG_VERSION=1.6.57
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -100,7 +100,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.1
+PGVECTOR_VERSION=0.8.2
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.6.3
@@ -118,7 +118,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.12
+PYTHON_VERSION_FULL=3.13.13
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build

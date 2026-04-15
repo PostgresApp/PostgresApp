@@ -45,7 +45,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.15.1
+LIBXML2_VERSION=2.15.2
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://gitlab.gnome.org/GNOME/libxslt/-/releases
@@ -54,7 +54,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.5
+OPENSSL_VERSION=3.5.6
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -78,7 +78,7 @@ ABSEIL_VERSION=20250814.2
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.5
+PROTOBUF_VERSION=33.6
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -87,7 +87,7 @@ PROTOBUFC_VERSION=1.5.2
 LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.55
+LIBPNG_VERSION=1.6.57
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -99,7 +99,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.9
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.1
+PGVECTOR_VERSION=0.8.2
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.8.0

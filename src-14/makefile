@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.19
+OPENSSL_VERSION=3.0.20
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.55
+LIBPNG_VERSION=1.6.57
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
