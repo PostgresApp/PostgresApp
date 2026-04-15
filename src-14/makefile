@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.2.9
+POSTGIS_VERSION=3.2.10
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=14.22
@@ -639,8 +639,6 @@ postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(P
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
-	# patch postgis_tiger_geocoder upgrade error https://trac.osgeo.org/postgis/ticket/6049
-	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_tiger_geocoder-upgrade.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:
