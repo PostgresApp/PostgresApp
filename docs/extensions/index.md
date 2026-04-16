@@ -153,10 +153,10 @@ title: Postgres.app Extensions
       Learn more about this extension at <a href="https://plv8.github.io">plv8.github.io</a>
   </div>
   <ul>
-    <li>plv8 3.2.3</li>
+    <li>plv8 3.2.4</li>
     <li>built for PostgreSQL 18</li>
   </ul>
-	<a class="download" href="https://github.com/PostgresApp/PostgresApp/releases/download/v2.8.3/plv8-pg18-3.2.3.pkg">⤓ Download for Postgres.app</a>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/plv8-pg18-3.2.4.pkg">⤓ Download for Postgres.app</a>
 </div>
 
 <div class="extension">
@@ -167,10 +167,10 @@ title: Postgres.app Extensions
       Find out more at <a href="https://github.com/pramsey/pgsql-http">github.com/pramsey/pgsql-http</a>
   </div>
   <ul>
-    <li>pg http 1.6.3</li>
+    <li>pg http 1.7.0</li>
     <li>built for PostgreSQL 18</li>
   </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/http-1.6.3/http-pg18-1.6.3.pkg">⤓ Download for Postgres.app</a>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/http-pg18-1.7.0.pkg">⤓ Download for Postgres.app</a>
 </div>
 
 <div class="extension">
@@ -181,10 +181,10 @@ title: Postgres.app Extensions
       The extension was developed by CrunchyData and documentation is available at <a href="https://github.com/CrunchyData/pg_parquet">github.com/CrunchyData/pg_parquet</a>
   </div>
   <ul>
-    <li>pg_parquet 0.4.0</li>
+    <li>pg_parquet 0.5.1</li>
     <li>built for PostgreSQL 18</li>
   </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/pg_parquet-0.4.0-18beta2/pg_parquet-pg18-0.4.0.pkg">⤓ Download for Postgres.app</a>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/pg_parquet-pg18-0.5.1.pkg">⤓ Download for Postgres.app</a>
 </div>
 
 <div class="extension">
@@ -193,12 +193,35 @@ title: Postgres.app Extensions
       <a href="https://www.tigerdata.com/timescaledb">TimescaleDB</a> adds efficient storage and access methods for time-series data.
   </div>
   <ul>
-    <li>timescaledb 2.23.1</li>
+    <li>timescaledb 2.26.3</li>
     <li>built for PostgreSQL 18</li>
   </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/timescaledb-2.23.1/timescaledb-pg18-2.23.1.pkg">⤓ Download for Postgres.app</a>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/timescaledb-pg18-2.26.3.pkg">⤓ Download for Postgres.app</a>
 </div>
 
+<div class="extension">
+	<h1>timescaledb_toolkit</h1>
+	<div class="extension-description">
+      <a href="https://github.com/timescale/timescaledb-toolkit/tree/main/docs">TimescaleDB Toolkit</a> adds utilities for working with time-series data: ASAP Smoothing, Hyperloglog, LTTB and Percentile Approximation.
+  </div>
+  <ul>
+    <li>timescaledb_toolkit 1.22.0</li>
+    <li>built for PostgreSQL 18</li>
+  </ul>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/timescaledb_toolkit-pg18-1.22.0.pkg">⤓ Download for Postgres.app</a>
+</div>
+
+<div class="extension">
+	<h1>pg_search (ParadeDB)</h1>
+	<div class="extension-description">
+      <a href="https://paradedb.com/">ParadeDB</a> adds full text search and analytics to PostgreSQL
+  </div>
+  <ul>
+    <li>pg_search 0.22.6</li>
+    <li>built for PostgreSQL 18</li>
+  </ul>
+	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/pg_search-pg18-0.22.6.pkg">⤓ Download for Postgres.app</a>
+</div>
 
 
 <p>
