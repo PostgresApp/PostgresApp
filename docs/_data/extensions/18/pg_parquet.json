@@ -1,0 +1,8 @@
+{
+    "title": "pg_parquet",
+    "description": "<a href='https://parquet.apache.org/'>Apache Parquet</a> is gaining popularity as an interchange format for datasets. This extension allows you to read and write Parquet files using the COPY command. The extension was developed by CrunchyData and documentation is available at <a href='https://github.com/CrunchyData/pg_parquet'>github.com/CrunchyData/pg_parquet</a>",
+    "info_url": "https://github.com/CrunchyData/pg_parquet",
+    "version": "0.5.1",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/pg_parquet-pg18-0.5.1.pkg"
+}
+

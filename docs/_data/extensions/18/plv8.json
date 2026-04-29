@@ -1,0 +1,7 @@
+{
+    "title": "PL/v8",
+    "description": "Run stored procedures and functions in Javascript -- FAST. This extension is based on Chrome's v8 JavaScript runtime. It is probably the fastest and most secure way to run JavaScript code in your database. Learn more about this extension at <a href='https://plv8.github.io'>plv8.github.io</a>",
+    "info_url": "https://plv8.github.io",
+    "version": "3.2.4",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/plv8-pg18-3.2.4.pkg"
+}

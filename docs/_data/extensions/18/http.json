@@ -1,0 +1,7 @@
+{
+    "title": "http",
+    "description": "Did you ever want to call a webhook from a database trigger? This extension allows you to access web services and connect to REST APIs directly from PostgreSQL. Find out more at <a href='https://github.com/pramsey/pgsql-http'>github.com/pramsey/pgsql-http</a>",
+    "info_url": "https://github.com/pramsey/pgsql-http",
+    "version": "1.7.0",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/http-pg18-1.7.0.pkg"
+}

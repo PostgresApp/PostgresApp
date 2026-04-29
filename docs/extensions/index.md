@@ -145,83 +145,28 @@ title: Postgres.app Extensions
   After restarting the server, you can enable them with the <tt>CREATE EXTENSION</tt> command.
 </p>
 
-<div class="extension">
-	<h1>PL/v8</h1>
-	<div class="extension-description">
-      Run stored procedures and functions in Javascript -- FAST.
-      This extension is based on Chrome's v8 JavaScript runtime. It is probably the fastest and most secure way to run JavaScript code in your database.
-      Learn more about this extension at <a href="https://plv8.github.io">plv8.github.io</a>
-  </div>
-  <ul>
-    <li>plv8 3.2.4</li>
-    <li>built for PostgreSQL 18</li>
-  </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/plv8-pg18-3.2.4.pkg">⤓ Download for Postgres.app</a>
-</div>
-
-<div class="extension">
-	<h1>http</h1>
-	<div class="extension-description">
-      Did you ever want to call a webhook from a database trigger?
-      This extension allows you to access web services and connect to REST APIs directly from PostgreSQL.
-      Find out more at <a href="https://github.com/pramsey/pgsql-http">github.com/pramsey/pgsql-http</a>
-  </div>
-  <ul>
-    <li>pg http 1.7.0</li>
-    <li>built for PostgreSQL 18</li>
-  </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/http-pg18-1.7.0.pkg">⤓ Download for Postgres.app</a>
-</div>
-
-<div class="extension">
-	<h1>pg_parquet</h1>
-	<div class="extension-description">
-      <a href="https://parquet.apache.org/">Apache Parquet</a> is gaining popularity as an interchange format for datasets.
-      This extension allows you to read and write Parquet files using the COPY command.
-      The extension was developed by CrunchyData and documentation is available at <a href="https://github.com/CrunchyData/pg_parquet">github.com/CrunchyData/pg_parquet</a>
-  </div>
-  <ul>
-    <li>pg_parquet 0.5.1</li>
-    <li>built for PostgreSQL 18</li>
-  </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/pg_parquet-pg18-0.5.1.pkg">⤓ Download for Postgres.app</a>
-</div>
-
-<div class="extension">
-	<h1>timescaledb</h1>
-	<div class="extension-description">
-      <a href="https://www.tigerdata.com/timescaledb">TimescaleDB</a> adds efficient storage and access methods for time-series data.
-  </div>
-  <ul>
-    <li>timescaledb 2.26.3</li>
-    <li>built for PostgreSQL 18</li>
-  </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/timescaledb-pg18-2.26.3.pkg">⤓ Download for Postgres.app</a>
-</div>
-
-<div class="extension">
-	<h1>timescaledb_toolkit</h1>
-	<div class="extension-description">
-      <a href="https://github.com/timescale/timescaledb-toolkit/tree/main/docs">TimescaleDB Toolkit</a> adds utilities for working with time-series data: ASAP Smoothing, Hyperloglog, LTTB and Percentile Approximation.
-  </div>
-  <ul>
-    <li>timescaledb_toolkit 1.22.0</li>
-    <li>built for PostgreSQL 18</li>
-  </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/timescaledb_toolkit-pg18-1.22.0.pkg">⤓ Download for Postgres.app</a>
-</div>
-
-<div class="extension">
-	<h1>pg_search (ParadeDB)</h1>
-	<div class="extension-description">
-      <a href="https://paradedb.com/">ParadeDB</a> adds full text search and analytics to PostgreSQL
-  </div>
-  <ul>
-    <li>pg_search 0.22.6</li>
-    <li>built for PostgreSQL 18</li>
-  </ul>
-	<a class="download" href="https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/pg_search-pg18-0.22.6.pkg">⤓ Download for Postgres.app</a>
-</div>
+{% assign pg_versions_extensions = site.data.extensions | sort %}
+{% for pg_version_extensions in pg_versions_extensions reversed %}
+  {% assign pg_version = pg_version_extensions[0] %}
+  {% assign extensions = pg_version_extensions[1] | sort %}
+  {% for extension_name_extension_data in extensions %}
+    {% assign extension_name = extension_name_extension_data[0] %}
+    {% assign extension_data = extension_name_extension_data[1] %}
+    <div class="extension">
+      <h1>{{ extension_data.title }}</h1>
+      <div class="extension-description">
+        {{ extension_data.description | markdownify }}
+      </div>
+      <ul>
+        <li>{{ extension_name }} {{ extension_data.version }}</li>
+        <li>built for PostgreSQL {{ pg_version }}</li>
+      </ul>
+      <a class="download" href="{{ extension_data.download_url }}">
+        ⤓ Download for Postgres.app
+      </a>
+    </div>
+  {% endfor %}
+{% endfor %}
 
 
 <p>

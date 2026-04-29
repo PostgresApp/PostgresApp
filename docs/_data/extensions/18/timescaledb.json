@@ -1,0 +1,7 @@
+{
+    "title": "timescaledb",
+    "description": "<a href='https://www.tigerdata.com/timescaledb'>TimescaleDB</a> adds efficient storage and access methods for time-series data.",
+    "info_url": "https://www.tigerdata.com/timescaledb",
+    "version": "2.26.3",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/timescaledb-pg18-2.26.3.pkg"
+}

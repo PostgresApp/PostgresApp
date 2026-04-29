@@ -1,0 +1,7 @@
+{
+    "title": "pg_search (ParadeDB)",
+    "description": "<a href='https://paradedb.com/'>ParadeDB</a> adds full text search and analytics to PostgreSQL",
+    "info_url": "https://paradedb.com/",
+    "version": "0.22.6",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/pg_search-pg18-0.22.6.pkg"
+}

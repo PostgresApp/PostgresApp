@@ -1,0 +1,7 @@
+{
+    "title": "timescaledb_toolkit",
+    "description": "<a href='https://github.com/timescale/timescaledb-toolkit/tree/main/docs'>TimescaleDB Toolkit</a> adds utilities for working with time-series data: ASAP Smoothing, Hyperloglog, LTTB and Percentile Approximation.",
+    "info_url": "https://github.com/timescale/timescaledb-toolkit/tree/main/docs",
+    "version": "1.22.0",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-04-16/timescaledb_toolkit-pg18-1.22.0.pkg"
+}
