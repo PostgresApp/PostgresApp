@@ -145,29 +145,30 @@ title: Postgres.app Extensions
   After restarting the server, you can enable them with the <tt>CREATE EXTENSION</tt> command.
 </p>
 
-{% assign pg_versions_extensions = site.data.extensions | sort %}
-{% for pg_version_extensions in pg_versions_extensions reversed %}
-  {% assign pg_version = pg_version_extensions[0] %}
-  {% assign extensions = pg_version_extensions[1] | sort %}
-  {% for extension_name_extension_data in extensions %}
-    {% assign extension_name = extension_name_extension_data[0] %}
-    {% assign extension_data = extension_name_extension_data[1] %}
-    <div class="extension">
-      <h1>{{ extension_data.title }}</h1>
-      <div class="extension-description">
-        {{ extension_data.description | markdownify }}
+<div>
+  {% assign pg_versions_extensions = site.data.extensions | sort %}
+  {% for pg_version_extensions in pg_versions_extensions reversed %}
+    {% assign pg_version = pg_version_extensions[0] %}
+    {% assign extensions = pg_version_extensions[1] | sort %}
+    {% for extension_name_extension_data in extensions %}
+      {% assign extension_name = extension_name_extension_data[0] %}
+      {% assign extension_data = extension_name_extension_data[1] %}
+      <div class="extension">
+        <h1>{{ extension_data.title }}</h1>
+        <div class="extension-description">
+          {{ extension_data.description | markdownify }}
+        </div>
+        <ul>
+          <li>{{ extension_name }} {{ extension_data.version }}</li>
+          <li>built for PostgreSQL {{ pg_version }}</li>
+        </ul>
+        <a class="download" href="{{ extension_data.download_url }}">
+          ⤓ Download for Postgres.app
+        </a>
       </div>
-      <ul>
-        <li>{{ extension_name }} {{ extension_data.version }}</li>
-        <li>built for PostgreSQL {{ pg_version }}</li>
-      </ul>
-      <a class="download" href="{{ extension_data.download_url }}">
-        ⤓ Download for Postgres.app
-      </a>
-    </div>
+    {% endfor %}
   {% endfor %}
-{% endfor %}
-
+</div>
 
 <p>
   Is your favorite extension still missing? Open an issue in our Github repo and request it!
