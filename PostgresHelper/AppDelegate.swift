@@ -60,8 +60,39 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		statusItem.menu = statusMenu
 		statusItem.button!.image = statusIcon
+		
+		// Start PostgreSQL servers
+		// This may take a few seconds
+		let serverManager = ServerManager.shared
+		serverManager.loadServers()
+		for server in serverManager.servers {
+			if server.startOnLogin {
+				DispatchQueue.global().async {
+					do {
+						try server.startSync()
+					}
+					catch let error as NSError {
+						Swift.print("Failed to start server \(server.name): \(error.localizedDescription)")
+					}
+				}
+			}
+		}
 	}
 	
+	func applicationWillTerminate(_ notification: Notification) {
+		// stop all servers
+		// This may take a few seconds
+		let serverManager = ServerManager.shared
+		serverManager.loadServers()
+		for server in serverManager.servers {
+			do {
+				try server.stopSync()
+			}
+			catch let error as NSError {
+				Swift.print("Failed to stop server \(server.name): \(error.localizedDescription)")
+			}
+		}
+	}
 	
 	func menuNeedsUpdate(_ menu: NSMenu) {
 		guard menu == statusMenu else { return }

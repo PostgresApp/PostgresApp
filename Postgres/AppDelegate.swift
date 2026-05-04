@@ -111,16 +111,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 					destroyLaunchAgent()
 				}
 			}
-			
-			if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
-				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-				NSWorkspace.shared.launchApplication(url.path)
-				NSApp.activate(ignoringOtherApps: true)
-			}
-		}
-		
-		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
-			server.start { _ in }
 		}
 	}
 	
@@ -140,13 +130,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	
 	
 	@available(macOS 13, *) private func registerLoginItem() {
-		let loginHelper = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper")
+		let loginHelper = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2MenuHelper")
 		do {
 			try loginHelper.register()
 		} catch let error {
 			// This most likely means that the user disabled the login item in system setting
 			// We ignore the error, but print it to stdout for easier debugging
-			print("Failed to register login item because: \(error)")
+			print("Failed to register PostgresHelper as a login item because: \(error)")
 		}
 	}
 	

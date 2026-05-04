@@ -119,8 +119,7 @@ done
 codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate \
 	"$APP"/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle \
-	"$APP"/Contents/MacOS/PostgresMenuHelper.app \
-	"$APP"/Contents/Library/LoginItems/PostgresLoginHelper.app \
+	"$APP"/Contents/Library/LoginItems/PostgresHelper.app \
 	>>"$LOG_DIR/04-codesign.log" 2>&1
 
 codesign --force --timestamp --options runtime --sign "$CODE_SIGN_IDENTITY" \
