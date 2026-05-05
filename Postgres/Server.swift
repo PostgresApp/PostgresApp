@@ -715,7 +715,7 @@ class Server: NSObject {
 	
 	/// Loads the databases from the servers.
 	private func loadDatabases() {
-		databases.removeAll()
+		var newDatabases = [Database]()
 		
 #if HAVE_LIBPQ
 		
@@ -731,7 +731,7 @@ class Server: NSObject {
 			for i in 0..<PQntuples(result) {
 				guard let value = PQgetvalue(result, i, 0) else { continue }
 				let name = String(cString: value)
-				databases.append(Database(name))
+				newDatabases.append(Database(name))
 			}
 			PQclear(result)
 		} else {
@@ -739,6 +739,8 @@ class Server: NSObject {
 		}
 		PQfinish(connection)
 #endif
+		
+		self.databases = newDatabases
 	}
 	
 	
