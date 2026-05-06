@@ -40,5 +40,7 @@
 	<string>dsa_pub.pem</string>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>Postgres.app uses Apple Script so you can automatically connect to a database with a double click.</string>
+	<key>LSUIElement</key>
+	<true/>
 </dict>
 </plist>
