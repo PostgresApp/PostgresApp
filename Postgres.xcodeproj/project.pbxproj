@@ -11,6 +11,7 @@
 		360E961C1DC20D5E005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961D1DC20EF2005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
 		360E961E1DC20EF3005D8C69 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E961B1DC20D5E005D8C69 /* UserDefaults.swift */; };
+		361CAF8B2FAB551F00DCF309 /* OpenURLAsLoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CAF8A2FAB551C00DCF309 /* OpenURLAsLoginItem.m */; };
 		3623DDD12FAA229F00A33CB0 /* LegacyLoginItemRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3623DDD02FAA229F00A33CB0 /* LegacyLoginItemRegistration.m */; };
 		3623DDD32FAA22A800A33CB0 /* LegacyLoginItemRegistration.h in Sources */ = {isa = PBXBuildFile; fileRef = 3623DDD22FAA22A600A33CB0 /* LegacyLoginItemRegistration.h */; };
 		3625F43E2DF5B24D001708B6 /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3625F43D2DF5B24D001708B6 /* InternetAccessPolicy.plist */; };
@@ -134,6 +135,8 @@
 		3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PostgresPermissionDialog; sourceTree = BUILT_PRODUCTS_DIR; };
 		360079712A1B891000CF88B7 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		360E961B1DC20D5E005D8C69 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		361CAF892FAB550800DCF309 /* OpenURLAsLoginItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenURLAsLoginItem.h; sourceTree = "<group>"; };
+		361CAF8A2FAB551C00DCF309 /* OpenURLAsLoginItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenURLAsLoginItem.m; sourceTree = "<group>"; };
 		3623DDD02FAA229F00A33CB0 /* LegacyLoginItemRegistration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LegacyLoginItemRegistration.m; sourceTree = "<group>"; };
 		3623DDD22FAA22A600A33CB0 /* LegacyLoginItemRegistration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyLoginItemRegistration.h; sourceTree = "<group>"; };
 		3625F43D2DF5B24D001708B6 /* InternetAccessPolicy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InternetAccessPolicy.plist; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 		83C19C2B1D7D977000F4862D /* PostgresLoginHelper */ = {
 			isa = PBXGroup;
 			children = (
+				361CAF892FAB550800DCF309 /* OpenURLAsLoginItem.h */,
+				361CAF8A2FAB551C00DCF309 /* OpenURLAsLoginItem.m */,
 				83C19C2C1D7D977000F4862D /* main.swift */,
 				83C19C2E1D7D977000F4862D /* Assets.xcassets */,
 				83C19C331D7D977000F4862D /* Info.plist */,
@@ -581,6 +586,7 @@
 				36EB76A72AC1E77400580683 /* BundleExtensions.swift in Sources */,
 				83999C6B1D7DA8E300B8A1D6 /* ServerManager.swift in Sources */,
 				83C19C2D1D7D977000F4862D /* main.swift in Sources */,
+				361CAF8B2FAB551F00DCF309 /* OpenURLAsLoginItem.m in Sources */,
 				83999C6C1D7DA8EA00B8A1D6 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

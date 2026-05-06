@@ -1,45 +1,17 @@
 //
-//  maine.swift
+//  main.swift
 //  PostgresLoginHelper
 //
-//  Created by Chris on 05/09/2016.
+//  Created by jakob on May 6, 2026
 //  This code is released under the terms of the PostgreSQL License.
 //
 
 import Cocoa
 
-if #available(macOS 13, *) {
-	// we only need the else clause
-} else {
-	// on old macOS autostart only works when the app is in /Applications/Postgres.app
-	if !Bundle.main.bundlePath.hasPrefix("/Applications/Postgres.app") {
-		NSLog("Not in /Applications/Postgres.app")
-		exit(0)
-	}
+guard let mainAppURL = Bundle.mainApp?.bundleURL else {
+	fatalError("Main app not found")
 }
 
-// Launch the menu bar helper
-if UserDefaults.shared.bool(forKey: "HideMenuHelperApp") == false {
-	if let menuHelperURL = Bundle.mainApp?.url(forAuxiliaryExecutable: "PostgresMenuHelper.app") {
-		if !NSWorkspace.shared.launchApplication(menuHelperURL.path) {
-			NSLog("Failed to launch PostgresMenuHelper.app")
-		}
-	} else {
-		NSLog("PostgresMenuHelper.app not found")
-	}
-}
-
-// Start PostgreSQL servers
-// This may take a few seconds, so we do this after launching the menu bar helper
-let serverManager = ServerManager.shared
-serverManager.loadServers()
-for server in serverManager.servers {
-	if server.startOnLogin {
-		do {
-			try server.startSync()
-		}
-		catch let error as NSError {
-			Swift.print("Failed to start server \(server.name): \(error.localizedDescription)")
-		}
-	}
+guard OpenURLAsLoginItem(mainAppURL as CFURL) else {
+	fatalError("Could not open main app as login item")
 }
