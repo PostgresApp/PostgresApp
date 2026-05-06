@@ -10,12 +10,15 @@ import Cocoa
 import Sparkle
 import ServiceManagement
 
-class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDelegate, NSMenuDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
 	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 	var startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 	
+	let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+	let statusIcon = NSImage(named: "statusicon")!
+
 	@IBOutlet var sparkleUpdater: SUUpdater!
 	@IBOutlet var preferencesMenuItem: NSMenuItem!
 	@IBOutlet var mainWindowMenuItem: NSMenuItem!
@@ -80,16 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
 			if self.hideMenuHelperApp != hideMenuHelperApp {
 				self.hideMenuHelperApp = hideMenuHelperApp
-				
-				if self.hideMenuHelperApp {
-					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
-					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
-						app.terminate()
-					}
-				} else {
-					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-					NSWorkspace.shared.launchApplication(url.path)
-				}
+				self.statusItem.isVisible = !hideMenuHelperApp
 			}
 			if #available(macOS 13, *) {
 				// this setting was removed in macOS 13
@@ -119,34 +113,96 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 					destroyLaunchAgent()
 				}
 			}
-			
-			if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
-				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-				NSWorkspace.shared.launchApplication(url.path)
-				NSApp.activate(ignoringOtherApps: true)
-			}
 		}
 		
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
 		}
+		
+		statusMenu.addItem(withTitle: "Open Postgres", action: #selector(showMainWindow), keyEquivalent: "")
+		statusMenu.addItem(withTitle: "Settings…", action: #selector(showPreferences), keyEquivalent: "")
+		statusMenu.addItem(withTitle: "Check for Updates…", action: #selector(SUUpdater.checkForUpdates), keyEquivalent: "")
+		statusMenu.items.last?.target = sparkleUpdater
+		statusMenu.addItem(withTitle: "Quit", action: #selector(NSApplication.terminate), keyEquivalent: "")
+		statusMenu.addItem(.separator())
+		statusMenu.delegate = self
+		
+		statusItem.button!.image = statusIcon
+		statusItem.isVisible = !hideMenuHelperApp
+		statusItem.menu = statusMenu
 	}
 	
+	let statusMenu = NSMenu()
+	var menuItemViewControllers: [MenuItemViewController] = []
+
+	func menuNeedsUpdate(_ menu: NSMenu) {
+		guard menu == statusMenu else { return }
+		
+//		serverManager.loadServers()
+		serverManager.refreshServerStatuses()
+		
+		menuItemViewControllers.removeAll()
+		
+		for item in statusMenu.items where item.view is MenuItemView {
+			statusMenu.removeItem(item)
+		}
+		
+		var maxStringWidth = CGFloat(0)
+		for server in serverManager.servers {
+			let stringWidth = (server.name as NSString).size(withAttributes: [NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12)]).width
+			maxStringWidth = max(stringWidth, maxStringWidth)
+		}
+		
+		for server in serverManager.servers {
+			guard let menuItemViewController = MenuItemViewController(server) else { return }
+			menuItemViewControllers.append(menuItemViewController)
+			
+			let menuItem = NSMenuItem()
+			
+			menuItemViewController.view.setFrameSize(NSSize(width: min(max(150+maxStringWidth, 200), 300), height: 32))
+			menuItem.view = menuItemViewController.view
+			
+			statusMenu.addItem(menuItem)
+		}
+	}
+
 	func applicationDidBecomeActive(_ notification: Notification) {
 		NSApp.setActivationPolicy(.regular)
-		showMainWindow()
+		if !NSApp.windows.contains(where: { $0.canBecomeMain }) {
+			showMainWindow()
+		}
 		DispatchQueue.main.async {
 			self.serverManager.refreshServerStatuses()
 		}
 	}
 	
-	func showMainWindow() {
+	func applicationWillTerminate(_ notification: Notification) {
+		for server in serverManager.servers where server.running {
+			try? server.stopSync()
+		}
+	}
+	
+	@IBAction func showMainWindow(_ sender: Any? = nil) {
+		if #available(macOS 14.0, *) {
+			// this seems to help with getting the app to activate
+			// i have no idea how the window server decides to allow postgres.app to activate
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
+		}
+		NSApp.setActivationPolicy(.regular)
+		NSApp.activate(ignoringOtherApps: true)
 		// This is a workaround to trigger a storyboard segue programmatically
 		// If you come up with a better solution please let me know :)
 		NSApp.sendAction(mainWindowMenuItem.action!, to: mainWindowMenuItem.target, from: mainWindowMenuItem)
-	}
+}
 	
-	func showPreferences() {
+	@IBAction func showPreferences(_ sender: Any? = nil) {
+		if #available(macOS 14.0, *) {
+			// this seems to help with getting the app to activate
+			// i have no idea how the window server decides to allow postgres.app to activate
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
+		}
+		NSApp.setActivationPolicy(.regular)
+		NSApp.activate(ignoringOtherApps: true)
 		// The preference window is displayed by a storyboard segue hooked up to a menu item
 		// This seems to be the easiest way to trigger that segue programmatically
 		NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
