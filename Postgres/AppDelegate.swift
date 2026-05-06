@@ -182,6 +182,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
+	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+		NSApp.setActivationPolicy(.accessory)
+		return false;
+	}
+	
 	@IBAction func showMainWindow(_ sender: Any? = nil) {
 		if #available(macOS 14.0, *) {
 			// this seems to help with getting the app to activate

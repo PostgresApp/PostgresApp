@@ -37,9 +37,4 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		let model = MainWindowModel()
 		mainWindowModel = model
 	}
-	
-	
-	func windowWillClose(_ notification: Notification) {
-		NSApp.setActivationPolicy(.accessory)
-	}
 }
