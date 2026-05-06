@@ -33,8 +33,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		CrashLogCollector.shared.scanInBackground()
-		showMainWindow()
+		if NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem {
+			NSApp.setActivationPolicy(.accessory)
+		} else {
+			NSApp.setActivationPolicy(.regular)
+			NSApp.activate(ignoringOtherApps: true)
+			showMainWindow()
+			CrashLogCollector.shared.scanInBackground()
+		}
 		let clientAppPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") ?? ""
 		if clientAppPath.isEmpty {
 			// Read the old setting, reverting to Terminal as default
@@ -127,6 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
+		NSApp.setActivationPolicy(.regular)
 		showMainWindow()
 		DispatchQueue.main.async {
 			self.serverManager.refreshServerStatuses()
