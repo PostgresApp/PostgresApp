@@ -128,6 +128,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		statusMenu.delegate = self
 		
 		statusItem.button!.image = statusIcon
+		statusItem.behavior = .removalAllowed // if we don't allow this, macOS Tahoe will disable the icon in system settings if the user drags the icon from the status bar
+		// TODO: detect when the user removes the icon and toggle the user default accordingly
 		statusItem.isVisible = !hideMenuHelperApp
 		statusItem.menu = statusMenu
 	}
