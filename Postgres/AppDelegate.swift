@@ -18,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	
 	@IBOutlet var sparkleUpdater: SUUpdater!
 	@IBOutlet var preferencesMenuItem: NSMenuItem!
+	@IBOutlet var mainWindowMenuItem: NSMenuItem!
 		
 	func isFirstLaunch() -> Bool {
 		if UserDefaults.standard.bool(forKey: "alreadyLaunched") == false {
@@ -33,6 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		CrashLogCollector.shared.scanInBackground()
+		showMainWindow()
 		let clientAppPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") ?? ""
 		if clientAppPath.isEmpty {
 			// Read the old setting, reverting to Terminal as default
@@ -125,9 +127,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
+		showMainWindow()
 		DispatchQueue.main.async {
 			self.serverManager.refreshServerStatuses()
 		}
+	}
+	
+	func showMainWindow() {
+		// This is a workaround to trigger a storyboard segue programmatically
+		// If you come up with a better solution please let me know :)
+		NSApp.sendAction(mainWindowMenuItem.action!, to: mainWindowMenuItem.target, from: mainWindowMenuItem)
 	}
 	
 	func showPreferences() {

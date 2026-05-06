@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
@@ -453,6 +453,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
+                                        <menuItem title="Show Main Window" keyEquivalent="n" id="s5b-R8-HAR">
+                                            <connections>
+                                                <segue destination="B8D-0N-5wS" kind="show" identifier="ShowMainWindowSegue" id="YNr-Qi-C9K"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="aZm-Ww-SHM"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
@@ -581,6 +587,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Postgres" customModuleProvider="target">
                     <connections>
+                        <outlet property="mainWindowMenuItem" destination="s5b-R8-HAR" id="3b2-dd-x6G"/>
                         <outlet property="preferencesMenuItem" destination="BOF-NM-1cW" id="oUC-O5-DJa"/>
                         <outlet property="sparkleUpdater" destination="Bsl-R6-Brt" id="0Iu-wq-WeQ"/>
                     </connections>
