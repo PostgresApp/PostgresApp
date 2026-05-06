@@ -125,7 +125,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	func applicationDidBecomeActive(_ notification: Notification) {
-		serverManager.refreshServerStatuses()
+		DispatchQueue.main.async {
+			self.serverManager.refreshServerStatuses()
+		}
 	}
 	
 	func showPreferences() {
