@@ -184,9 +184,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
-	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-		NSApp.setActivationPolicy(.accessory)
-		return false;
+	func applicationDidResignActive(_ notification: Notification) {
+		if !NSApp.windows.contains(where: { $0.canBecomeMain }) {
+			NSApp.setActivationPolicy(.accessory)
+		}
 	}
 	
 	@IBAction func showMainWindow(_ sender: Any? = nil) {
