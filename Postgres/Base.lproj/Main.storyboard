@@ -297,11 +297,6 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="F90-nP-753" name="enabled" keyPath="isTranslocated" id="iVI-SR-7NE">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
                                             <binding destination="trz-dN-oLC" name="value" keyPath="values.HideMenuHelperApp" id="WSF-9W-2TW">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
