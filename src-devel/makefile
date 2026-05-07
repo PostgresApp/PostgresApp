@@ -89,7 +89,7 @@ OPENSSL_VERSION=3.5.6
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.7.1
+PROJ_VERSION=9.8.1
 # due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
