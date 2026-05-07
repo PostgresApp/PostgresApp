@@ -24,7 +24,6 @@ BOOL IsLoginItemRegistered(CFURLRef url) {
 	for (CFIndex i=0; i<count; i++) {
 		LSSharedFileListItemRef item = CFArrayGetValueAtIndex(loginItems, i);
 		CFURLRef itemURL = LSSharedFileListItemCopyResolvedURL(item, 0, nil);
-		NSLog(@"LSSharedFileListItem %@ %@", item, itemURL);
 		if (itemURL) {
 			foundMatch = CFEqual(itemURL, url);
 			CFRelease(itemURL);
