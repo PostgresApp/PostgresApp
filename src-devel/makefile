@@ -5,13 +5,13 @@ POSTGIS_VERSION=3.6.3
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
-#POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
+#POSTGRES_GIT_HASH=16743db061e431d40522547c6436af6616026caa # pg_cpu_x86.c:70:2: error: cpuid instruction not available
 #POSTGRES_GIT_REF=HEAD
 #POSTGRES_GIT_REF=cf/5416
 #POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 #POSTGRES_GIT_URL=https://github.com/postgresql-cfbot/postgresql.git
 
-POSTGRES_GIT_REF=HEAD
+POSTGRES_GIT_HASH=d6d9b96b4044e5c744bf2c6474b2c5c2de355f85
 POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
 
 ifeq ($(POSTGRES_GIT_HASH),)
@@ -196,7 +196,8 @@ TAR=/usr/bin/tar xzf
 #    - wal2json
 #    - pljs
 #    - pgvector
-all: postgresql auth_permission_dialog pldebugger postgis pgrouting
+# * postgis: requires postgres 7dadd38
+all: postgresql auth_permission_dialog pldebugger pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
