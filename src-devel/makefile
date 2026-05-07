@@ -125,7 +125,7 @@ LIBPNG_VERSION=1.6.57
 OPENJPEG_VERSION=2.5.4
 
 # https://github.com/Unidata/netcdf-c/releases
-# TODO 4.9.3 available (pg16?)
+# TODO 4.9.3 available (pg16?), 4.10.0 available
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
