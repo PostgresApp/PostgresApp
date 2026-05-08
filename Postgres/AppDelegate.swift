@@ -39,8 +39,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		if NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem {
 			NSApp.setActivationPolicy(.accessory)
 		} else {
-			NSApp.setActivationPolicy(.regular)
-			NSApp.activate(ignoringOtherApps: true)
 			showMainWindow()
 			CrashLogCollector.shared.scanInBackground()
 		}
@@ -140,7 +138,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	func menuNeedsUpdate(_ menu: NSMenu) {
 		guard menu == statusMenu else { return }
 		
-//		serverManager.loadServers()
 		serverManager.refreshServerStatuses()
 		
 		menuItemViewControllers.removeAll()
@@ -168,11 +165,44 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 
-	func applicationDidBecomeActive(_ notification: Notification) {
-		NSApp.setActivationPolicy(.regular)
-		if !NSApp.windows.contains(where: { $0.canBecomeMain }) {
-			showMainWindow()
+	var hasVisibleWindowsThatCanBecomeKey: Bool {
+		return NSApp.windows.contains { $0.isVisible && $0.canBecomeKey }
+	}
+
+	func applicationWillBecomeActive(_ notification: Notification) {
+		if #available(macOS 13, *) {
+			NSApp.setActivationPolicy(.regular)
+		} else {
+			// This is a workaround for a macOS 12 bug
+			// When the app is reopened (by double clicking in the Finder or Dock icon) while it is in .accessory mode,
+			// the menu bar becomes unresponsive. The workaround is to move the app to background,
+			// change the activation policy, then show it again
+			if NSApp.activationPolicy() == .accessory {
+				DispatchQueue.main.async {
+					NSApp.hide(nil)
+					DispatchQueue.main.async {
+						self.showMainWindow()
+					}
+				}
+				return
+			}
 		}
+	}
+
+	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
+		if #available(macOS 13, *) {
+			showMainWindow()
+		} else {
+			// This is a workaround for a macOS 12 bug
+			// See comment in applicationWillBecomeActive
+			if NSApp.activationPolicy() == .regular {
+				showMainWindow()
+			}
+		}
+		return false
+	}
+
+	func applicationDidBecomeActive(_ notification: Notification) {
 		DispatchQueue.main.async {
 			self.serverManager.refreshServerStatuses()
 		}
@@ -184,8 +214,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
+	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+		// this function ignores the about window
+		// we don't want to suddenly hide the app when the about window is still visible
+		// so we double check that no windows are visible
+		if !hasVisibleWindowsThatCanBecomeKey {
+			DispatchQueue.main.async {
+				// This is a workaround in a macOS bug (last verified macOS 26)
+				// when setting the activation policy of the frontmost app to .accessory
+				// macOS brings all windows of the next app to the foreground
+				// Hiding the app does not trigger this behavior
+				// The activation policy will later be changed in applicationDidResignActive
+				NSApp.hide(nil)
+			}
+		}
+		return false
+	}
+		
 	func applicationDidResignActive(_ notification: Notification) {
-		if !NSApp.windows.contains(where: { $0.canBecomeMain }) {
+		if !hasVisibleWindowsThatCanBecomeKey {
 			NSApp.setActivationPolicy(.accessory)
 		}
 	}
