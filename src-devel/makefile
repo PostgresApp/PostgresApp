@@ -167,9 +167,9 @@ PYTHON=/Library/Frameworks/Python.framework/Versions/Current/bin/python3
 export PYTHON
 
 #compiler options
-MACOSX_DEPLOYMENT_TARGET=10.15
-CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
-CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
+MACOSX_DEPLOYMENT_TARGET=11
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=11 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=11 -arch arm64 -arch x86_64
 CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
@@ -211,7 +211,7 @@ download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-
 #########################
 
 # Depends on openssh libxml2 libxslt icu lz4 zstd python
-# Links against system libcurl (>= 7.61.0, macOS 10.15.7 has 7.64.1)
+# Links against system libcurl (>= 7.61.0, macOS 11.5 has 7.64.1)
 # Used for auth_permission_dialog libgeos libgdal libproj postgis wal2json pldebugger pgvector pgrouting pljs
 
 check-postgresql:
