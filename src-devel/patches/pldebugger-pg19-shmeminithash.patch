@@ -1,0 +1,39 @@
+From a1b90ce1fd030e0e3854a9c2e88680bef5573128 Mon Sep 17 00:00:00 2001
+From: Georgy Shelkovy <rekgrpth@gmail.com>
+Date: Sat, 4 Apr 2026 19:33:18 +0500
+Subject: [PATCH] Fix Postgres 19 support
+
+Commit postgres/postgres@9ebe1c4 replaced the two init_size and max_size
+arguments in the ShmemInitHash function with a single nelems argument.
+---
+ plugin_debugger.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/plugin_debugger.c b/plugin_debugger.c
+index 07eb809..b18bacc 100644
+--- a/plugin_debugger.c
++++ b/plugin_debugger.c
+@@ -1439,7 +1439,11 @@ initGlobalBreakpoints(void)
+ 	breakpointCtl.entrysize = sizeof(Breakpoint);
+ 	breakpointCtl.hash 	  	= tag_hash;
+ 
++#if PG_VERSION_NUM >= 190000
++	globalBreakpoints = ShmemInitHash("Global Breakpoints Table", tableEntries, &breakpointCtl, HASH_ELEM | HASH_FUNCTION);
++#else
+ 	globalBreakpoints = ShmemInitHash("Global Breakpoints Table", tableEntries, tableEntries, &breakpointCtl, HASH_ELEM | HASH_FUNCTION);
++#endif
+ 
+ 	if (!globalBreakpoints)
+ 		elog(FATAL, "could not initialize global breakpoints hash table");
+@@ -1451,7 +1455,11 @@ initGlobalBreakpoints(void)
+ 	breakcountCtl.entrysize = sizeof(BreakCount);
+ 	breakcountCtl.hash    	= tag_hash;
+ 
++#if PG_VERSION_NUM >= 190000
++	globalBreakCounts = ShmemInitHash("Global BreakCounts Table", tableEntries, &breakcountCtl, HASH_ELEM | HASH_FUNCTION);
++#else
+ 	globalBreakCounts = ShmemInitHash("Global BreakCounts Table", tableEntries, tableEntries, &breakcountCtl, HASH_ELEM | HASH_FUNCTION);
++#endif
+ 
+ 	if (!globalBreakCounts)
+ 		elog(FATAL, "could not initialize global breakpoints count hash table");

@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.2.9
+POSTGIS_VERSION=3.2.10
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=14.22
+POSTGRES_VERSION=14.23
 POSTGRES_MAJOR_VERSION=14
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -29,7 +29,7 @@ LIBEDIT_VERSION=20130611-3.1
 LIBXML2_VERSION=2.9.14
 
 # https://www.openssl.org
-OPENSSL_VERSION=3.0.19
+OPENSSL_VERSION=3.0.20
 
 # https://proj.org/download.html
 PROJ_VERSION=8.1.1
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.55
+LIBPNG_VERSION=1.6.58
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0
@@ -639,8 +639,6 @@ postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(P
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
-	# patch postgis_tiger_geocoder upgrade error https://trac.osgeo.org/postgis/ticket/6049
-	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_tiger_geocoder-upgrade.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:

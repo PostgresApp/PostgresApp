@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.3.9
+POSTGIS_VERSION=3.3.10
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=15.17
+POSTGRES_VERSION=15.18
 POSTGRES_MAJOR_VERSION=15
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.10.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.5
+OPENSSL_VERSION=3.5.6
 
 # https://proj.org/download.html
 PROJ_VERSION=9.1.1
@@ -78,7 +78,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.4.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.55
+LIBPNG_VERSION=1.6.58
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -87,7 +87,7 @@ OPENJPEG_VERSION=2.5.4
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.1
+PGVECTOR_VERSION=0.8.2
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1
@@ -880,8 +880,6 @@ postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
 	$(TAR) $<
 	# apply fix for 'make install' to fix some PGXS variables being overwritten
 	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 < patches/postgis_install.patch
-	# patch postgis_tiger_geocoder upgrade error https://trac.osgeo.org/postgis/ticket/6049
-	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_tiger_geocoder-upgrade.patch
 	touch $@
 
 postgis-${POSTGIS_VERSION}.tar.gz:

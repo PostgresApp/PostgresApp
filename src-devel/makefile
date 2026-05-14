@@ -1,11 +1,11 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.6.2
+POSTGIS_VERSION=3.6.3
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
-#POSTGRES_GIT_HASH=e26810d01d441a457217a6eae9c2989fba29b80f
+#POSTGRES_GIT_HASH=16743db061e431d40522547c6436af6616026caa # pg_cpu_x86.c:70:2: error: cpuid instruction not available
 #POSTGRES_GIT_REF=HEAD
 #POSTGRES_GIT_REF=cf/5416
 #POSTGRES_GIT_URL=https://github.com/postgres/postgres.git
@@ -49,7 +49,7 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.12.2
+GDAL_VERSION=3.13.0
 
 # https://libgeos.org/usage/download/
 GEOS_VERSION=3.14.1
@@ -64,7 +64,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/releases/latest/
-BOOST_VERSION=1_90_0
+BOOST_VERSION=1_91_0
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=6.1.1
@@ -76,7 +76,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.15.1
+LIBXML2_VERSION=2.15.3
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://gitlab.gnome.org/GNOME/libxslt/-/releases
@@ -85,11 +85,11 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.5
+OPENSSL_VERSION=3.5.6
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.7.1
+PROJ_VERSION=9.8.1
 # due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -109,7 +109,8 @@ ABSEIL_VERSION=20260107.1
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.5
+# 34.x available, will get LTS at 37 2026Q4. protobuf-c needs patch: https://github.com/protobuf-c/protobuf-c/issues/795
+PROTOBUF_VERSION=33.6
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -118,20 +119,20 @@ PROTOBUFC_VERSION=1.5.2
 LIBTIFF_VERSION=4.7.1
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.55
+LIBPNG_VERSION=1.6.58
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
 
 # https://github.com/Unidata/netcdf-c/releases
-# TODO 4.9.3 available (pg16?)
+# TODO 4.9.3 available (pg16?), 4.10.0 available
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
 PLDEBUGGER_VERSION=1.9
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.1
+PGVECTOR_VERSION=0.8.2
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=4.0.1
@@ -146,9 +147,9 @@ QUICKJS_VERSION=2025-04-26
 # quickjs 2025-09-13 available, does not compile with pljs, even with an updated renaming patch
 
 # https://unicode-org.github.io/icu/download/
-# Unicode 16, CLDR 47, sync with postgres /src/Makefile.global.in
-ICU_MAJOR_VERSION=77
-ICU_MINOR_VERSION=1
+# Unicode 17, CLDR 48.2, sync with postgres /src/Makefile.global.in
+ICU_MAJOR_VERSION=78
+ICU_MINOR_VERSION=3
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
@@ -166,9 +167,9 @@ PYTHON=/Library/Frameworks/Python.framework/Versions/Current/bin/python3
 export PYTHON
 
 #compiler options
-MACOSX_DEPLOYMENT_TARGET=10.15
-CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
-CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=10.15 -arch arm64 -arch x86_64
+MACOSX_DEPLOYMENT_TARGET=11
+CFLAGS:=$(CFLAGS) -Os -mmacosx-version-min=11 -arch arm64 -arch x86_64
+CXXFLAGS:=$(CXXFLAGS) -Os -mmacosx-version-min=11 -arch arm64 -arch x86_64
 CMAKE_OSX_ARCHITECTURES=arm64;x86_64
 ICU_LIBS=-licui18n -licuuc
 ICU_CFLAGS=-I$(PREFIX)/share/icu
@@ -194,13 +195,12 @@ TAR=/usr/bin/tar xzf
 # * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
 #    - wal2json
 #    - pljs
-#    - pgvector
-all: postgresql auth_permission_dialog pldebugger postgis pgrouting
+all: postgresql auth_permission_dialog pgvector pldebugger postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
 check: check-postgresql check-zstd check-openssl check-libxml2 check-libxslt check-libgeos check-libproj check-abseil check-protobuf check-protobuf-c check-libtiff check-netcdf check-gmp check-mpfr check-pgvector check-pljs check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz libxml2-${LIBXML2_VERSION}.tar.xz libxslt-${LIBXSLT_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz abseil-cpp-$(ABSEIL_VERSION).tar.gz protobuf-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz libxml2-${LIBXML2_VERSION}.tar.xz libxslt-${LIBXSLT_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz abseil-cpp-$(ABSEIL_VERSION).tar.gz protobuf-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
 #########################
@@ -208,7 +208,7 @@ download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-
 #########################
 
 # Depends on openssh libxml2 libxslt icu lz4 zstd python
-# Links against system libcurl (>= 7.61.0, macOS 10.15.7 has 7.64.1)
+# Links against system libcurl (>= 7.61.0, macOS 11.5 has 7.64.1)
 # Used for auth_permission_dialog libgeos libgdal libproj postgis wal2json pldebugger pgvector pgrouting pljs
 
 check-postgresql:
@@ -393,15 +393,15 @@ $(PREFIX)/lib/libicui18n.dylib: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/
 	install_name_tool -id $(PREFIX)/lib/libicudata.$(ICU_MAJOR_VERSION).dylib $(PREFIX)/lib/libicudata.$(ICU_MAJOR_VERSION).dylib
 
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
-	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; ./runConfigureICU MacOSX --prefix="$(PREFIX)"
+	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; LDFLAGS="$(LDFLAGS) -headerpad_max_install_names" ./runConfigureICU MacOSX --prefix="$(PREFIX)"
 
-icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
-	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
+icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz
+	$(TAR) icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz
 	mv icu icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
 	touch $@
 
-icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz:
-	$(CURL) https://github.com/unicode-org/icu/releases/download/release-$(ICU_MAJOR_VERSION)-$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
+icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz:
+	$(CURL) https://github.com/unicode-org/icu/releases/download/release-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)/icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz
 
 clean-icu:
 	rm -Rf "icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)"
@@ -969,14 +969,17 @@ $(PREFIX)/lib/libboost_thread.dylib: boost_$(BOOST_VERSION)/b2
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
 	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 89
-	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,system,serialization
+	cd boost_$(BOOST_VERSION) && ./bootstrap.sh --prefix="$(BUILD_PREFIX)" --exec-prefix="$(PREFIX)" --without-icu --with-libraries=thread,serialization
 
 boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 	$(TAR) boost_$(BOOST_VERSION).tar.bz2
+	mv boost_$(shell echo $(BOOST_VERSION) | sed 's/_[^_]*$$//') boost_$(BOOST_VERSION) || true
 	touch $@
 
 boost_$(BOOST_VERSION).tar.bz2:
-	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2
+	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2 \
+	|| ( $(CURL) https://archives.boost.io/beta/$(subst _,.,$(BOOST_VERSION))/source/boost_$(subst beta,b,$(BOOST_VERSION)).tar.bz2 \
+	     && mv boost_$(subst beta,b,$(BOOST_VERSION)).tar.bz2 boost_$(BOOST_VERSION).tar.bz2 )
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
@@ -1120,7 +1123,8 @@ $(PREFIX)/lib/postgresql/plugin_debugger.dylib: pldebugger-${PLDEBUGGER_VERSION}
 pldebugger-${PLDEBUGGER_VERSION}/Makefile: pldebugger-${PLDEBUGGER_VERSION}.tar.gz
 	$(TAR) $<
 	# patch for pg19 compatibility https://github.com/EnterpriseDB/pldebugger/pull/36
-	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg19.patch
+	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg19-lwlock.patch
+	patch -b -d "pldebugger-${PLDEBUGGER_VERSION}" -p1 <patches/pldebugger-pg19-shmeminithash.patch
 	touch $@
 
 pldebugger-${PLDEBUGGER_VERSION}.tar.gz:
@@ -1143,6 +1147,7 @@ $(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(P
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
 	$(TAR) $<
+	patch -b -d "pgvector-${PGVECTOR_VERSION}" -p1 <patches/pgvector-pg19.patch
 	touch $@
 
 pgvector-${PGVECTOR_VERSION}.tar.gz:
