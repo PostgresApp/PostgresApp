@@ -13,8 +13,6 @@ import ServiceManagement
 class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDelegate, NSMenuDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
-	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-	var startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 	
 	let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 	let statusIcon = NSImage(named: "statusicon")!
@@ -76,42 +74,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		DistributedNotificationCenter.default.addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.refreshServerStatuses()
 		}
-		
-		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
-			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-			if self.hideMenuHelperApp != hideMenuHelperApp {
-				self.hideMenuHelperApp = hideMenuHelperApp
-				self.statusItem.isVisible = !hideMenuHelperApp
-			}
-			if #available(macOS 13, *) {
-				// this setting was removed in macOS 13
-				// since we try to register the login item in any case
-				// user can enable / disable login item in system settings
-			} else {
-				let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
-				if self.startLoginHelper != startLoginHelper {
-					self.startLoginHelper = startLoginHelper
-					if self.startLoginHelper {
-						self.createLaunchAgent()
-					} else {
-						self.destroyLaunchAgent()
-					}
-				}
-			}
-		}
-
-		if !isTranslocated() {
-			if #available(macOS 13, *) {
-				destroyLaunchAgent()
-				registerLoginItem()
-			} else {
-				if startLoginHelper {
-					createLaunchAgent()
-				} else {
-					destroyLaunchAgent()
-				}
-			}
-		}
+				
+		configureLoginItem()
 		
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
@@ -127,9 +91,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		
 		statusItem.button!.image = statusIcon
 		statusItem.behavior = .removalAllowed // if we don't allow this, macOS Tahoe will disable the icon in system settings if the user drags the icon from the status bar
-		// TODO: detect when the user removes the icon and toggle the user default accordingly
-		statusItem.isVisible = !hideMenuHelperApp
+		statusItem.isVisible = !UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+		UserDefaults.standard.addObserver(self, forKeyPath: "HideMenuHelperApp", context: nil)
+		statusItem.addObserver(self, forKeyPath: "isVisible", context: nil)
 		statusItem.menu = statusMenu
+	}
+	
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if let object = object as? AnyObject {
+			if object === statusItem  && keyPath == "isVisible" {
+				// detect when the user hides icon by dragging away from menu bar
+				let hideMenuItem = !statusItem.isVisible
+				if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") != hideMenuItem {
+					UserDefaults.standard.set(hideMenuItem, forKey: "HideMenuHelperApp")
+				}
+				return
+			}
+			if object is UserDefaults && keyPath == "HideMenuHelperApp" {
+				// detect when the user hides icon by changing user defaults
+				let statusItemIsVisible = !UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+				if statusItem.isVisible != statusItemIsVisible {
+					statusItem.isVisible = statusItemIsVisible
+				}
+				return
+			}
+		}
+		super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 	}
 	
 	let statusMenu = NSMenu()
@@ -295,53 +282,68 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 	
 	
-	@available(macOS 13, *) private func registerLoginItem() {
-		let loginHelper = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper")
-		do {
-			try loginHelper.register()
-		} catch let error {
-			// This most likely means that the user disabled the login item in system setting
-			// We ignore the error, but print it to stdout for easier debugging
-			print("Failed to register login item because: \(error)")
-		}
-	}
-	
-	private func createLaunchAgent() {
-		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
-		let laName = "com.postgresapp.Postgres2LoginHelper"
-		if !FileManager.default.fileExists(atPath: laPath) {
-			do {
-				try FileManager.default.createDirectory(atPath: laPath, withIntermediateDirectories: true, attributes: nil)
-			} catch let error as NSError {
-				NSLog("Could not create directory at \(laPath): \(error)")
-				return
-			}
+	private func configureLoginItem() {
+		if isTranslocated() {
+			return
 		}
 		
-		let plistPath = laPath+"/"+laName+".plist"
-		let attributes: [FileAttributeKey: Any] = [.posixPermissions: 0o600]
-		do {
-			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
-			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
-				NSLog("Could not create plist file at \(plistPath)")
-			}
-		} catch let error as NSError {
-			NSLog("Error getting data of original plist file: \(error)")
-		}
-	}
-	
-	private func destroyLaunchAgent() {
 		let laPath = NSHomeDirectory() + "/Library/LaunchAgents/com.postgresapp.Postgres2LoginHelper.plist"
 		if FileManager.default.fileExists(atPath: laPath) {
+			// found a legacy launch agent
+			// migrate it to the new system
 			do {
 				try FileManager.default.removeItem(atPath: laPath)
+				UserDefaults.standard.set(false, forKey: "StartLoginHelper") // prevent legacy postgres.app from re-adding the launch agent
 			} catch let error as NSError {
 				NSLog("Could not delete launch agent \(laPath): \(error)")
 			}
+			registerLoginItem()
+			return
 		}
+		
+		if UserDefaults.standard.bool(forKey: UserDefaults.LoginItemWasRegisteredKey) {
+			// we don't want to add it back if it was removed by the user
+			return
+		}
+		
+		if #available(macOS 13, *) {
+			let loginItemStatus = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").status
+			switch loginItemStatus {
+			case .enabled, .requiresApproval:
+				// just leave it like it is
+				UserDefaults.standard.set(true, forKey: UserDefaults.LoginItemWasRegisteredKey)
+				return
+			case .notFound, .notRegistered:
+				// we can still register it
+				break
+			@unknown default:
+				// not sure what we should do here
+				NSLog("Unknown login item status: \(loginItemStatus)")
+				break
+			}
+		}
+		
+		if UserDefaults.standard.bool(forKey: "StartLoginHelper") == false {
+			// this must have been set by a previous version of Postgres.app
+			// don't auto-add the login item
+			return
+		}
+		
+		registerLoginItem()
 	}
 	
-	
+	private func registerLoginItem() {
+		do {
+			if #available(macOS 13, *) {
+				try SMAppService.mainApp.register()
+			} else {
+				RegisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
+			}
+			UserDefaults.standard.set(true, forKey: UserDefaults.LoginItemWasRegisteredKey)
+		} catch let error as NSError {
+			NSLog("Could not add app to login items: \(error)")
+		}
+	}
 	
 	// SUUpdater delegate methods
 	func updater(_ updater: SUUpdater, willInstallUpdate item: SUAppcastItem) {

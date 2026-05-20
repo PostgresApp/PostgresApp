@@ -26,4 +26,5 @@ extension UserDefaults {
 	}
 	
 	static let PermissionDialogForTrustAuthKey = "PermissionDialogForTrustAuth"
+	static let LoginItemWasRegisteredKey = "LoginItemWasRegistered"
 }

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 class PreferencesViewController: NSViewController {
 	@IBOutlet var preferredClientMenu: NSPopUpButton!
@@ -23,11 +24,50 @@ class PreferencesViewController: NSViewController {
 		"Postico"
 	]
 	
-	@objc dynamic var launchAgentCheckboxHidden: Bool {
-		if #available(macOS 13, *) {
-			return true
-		} else {
-			return false
+	@objc dynamic var launchAtLogin: Bool {
+		get {
+			if #available(macOS 13, *) {
+				if SMAppService.mainApp.status == .enabled {
+					return true
+				}
+				if SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").status == .enabled {
+					// login item was registered by previous version of Postgres.app
+					return true
+				}
+				return false
+			} else {
+				return IsLoginItemRegistered(Bundle.main.bundleURL as CFURL)
+			}
+		}
+		set {
+			do {
+				if #available(macOS 13, *) {
+					if newValue {
+						// register login item
+						try? SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
+						try SMAppService.mainApp.register()
+					} else {
+						// unregister login item
+						if SMAppService.mainApp.status == .enabled {
+							try SMAppService.mainApp.unregister()
+						} else {
+							try SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
+						}
+					}
+				} else {
+					if newValue {
+						// register login item
+						RegisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
+					} else {
+						// unregister login item
+						UnregisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
+					}
+				}
+			}
+			catch {
+				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+			}
+			
 		}
 	}
 	

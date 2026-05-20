@@ -316,8 +316,7 @@
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="F90-nP-753" name="hidden" keyPath="launchAgentCheckboxHidden" previousBinding="s8z-qS-LHl" id="8mz-5a-fDv"/>
-                                            <binding destination="trz-dN-oLC" name="value" keyPath="values.StartLoginHelper" id="0eb-7I-zwf"/>
+                                            <binding destination="F90-nP-753" name="value" keyPath="launchAtLogin" id="Ui0-2t-pvh"/>
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="t4V-g8-2uS">
