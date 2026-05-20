@@ -438,7 +438,7 @@
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
                                         <menuItem title="Quit Postgres" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
-                                                <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
+                                                <action selector="quitWithConfirmation:" target="Voe-Tx-rLC" id="fq7-E6-rY6"/>
                                             </connections>
                                         </menuItem>
                                     </items>

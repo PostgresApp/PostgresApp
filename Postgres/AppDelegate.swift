@@ -214,6 +214,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
+	@IBAction func quitWithConfirmation(_ sender: AnyObject?) {
+		let alert = NSAlert()
+		alert.messageText = "Do you want to completely quit Postgres.app?"
+		alert.informativeText = "This will stop servers and hide the menu bar icon.\n\nIf you want to continue using PostgreSQL servers, Postgres.app can move to the background instead."
+		alert.addButton(withTitle: "Quit")
+		alert.addButton(withTitle: "Move to background")
+		alert.addButton(withTitle: "Cancel")
+		switch alert.runModal() {
+		case .alertFirstButtonReturn:
+			NSApp.terminate(nil)
+		case .alertSecondButtonReturn:
+			var didClose = false
+			for window in NSApp.windows where window.isVisible && window.canBecomeKey {
+				// app will hide after last window was closed
+				window.performClose(nil)
+				didClose = true
+			}
+			if !didClose {
+				// no windows were open
+				// just hide the app
+				NSApp.hide(nil)
+			}
+		default:
+			break
+		}
+	}
+	
 	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
 		// this function ignores the about window
 		// we don't want to suddenly hide the app when the about window is still visible
@@ -324,14 +351,5 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		for menuApp in NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper") {
 			menuApp.terminate()
 		}
-	}
-	
-	func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-		if isTranslocated() {
-			for server in serverManager.servers where server.running && server.binPath.hasPrefix(Bundle.main.bundlePath) {
-				try? server.stopSync()
-			}
-		}
-		return .terminateNow
 	}
 }
