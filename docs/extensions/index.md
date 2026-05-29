@@ -1,6 +1,8 @@
 ---
 layout: documentation
 title: Postgres.app Extensions
+redirect_from:
+  - /de/extensions/
 ---
 
 ## Bundled Extensions
