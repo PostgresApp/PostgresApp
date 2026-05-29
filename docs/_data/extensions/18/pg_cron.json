@@ -1,0 +1,8 @@
+{
+    "title": "pg_cron",
+    "description": "Run periodic tasks directly inside your database. Please follow the [pg_cron setup instructions for Postgres.app](pg_cron.html) after installing this extension.",
+    "info_url": "https://github.com/citusdata/pg_cron",
+    "version": "1.6.7",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-05-29/pg_cron-pg18-1.6.7.pkg"
+}
+
