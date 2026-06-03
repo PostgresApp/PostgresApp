@@ -31,7 +31,7 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 Postgres.app consists of separate parts:
 
-1) The PostgreSQL binaries, including extensions and a bunch of command line tools. 
+1) The PostgreSQL binaries, including extensions and a bunch of command line tools.
    You can find the binaries in /Applications/Postgres.app/Contents/Versions
 
 2) The Postgres.app user interface, written in Swift.
@@ -39,15 +39,17 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 13 are built on macOS 10.15 with Xcode 11.7
-
 - the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
 
 - the binaries for PostgreSQL 15 - 16 are built on macOS 12 with Command Line Tools for Xcode 14
 
-- the binaries for PostgreSQL 17 -18 are built on macOS 14 with Command Line Tools for Xcode 15.3
+- the binaries for PostgreSQL 17 - 18 are built on macOS 14 with Command Line Tools for Xcode 15.3
+
+- the binaries for PostgreSQL 19 are built on macOS 26 with Command Line Tools for Xcode 26.5
 
 - the GUI is built on macOS 14 with Xcode 15.0.1
+
+- the GUI for Postgres.app 3 is built on macOS 26 with Xcode 26.5
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
@@ -67,10 +69,10 @@ Tools required for building the GUI:
 
 If you want to build your own versions of all the PostgreSQL binaries, you have slightly more work to do.
 
-The directories src-xx each contain a makefile that downloads and builds all the binaries.
+The directories `src-xx` each contain a makefile that downloads and builds all the binaries.
 If you have all the prerequisites installed (see below), you can just type `make`.
 
-The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, wal2json, pldebugger, 
+The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, wal2json, pldebugger,
 plv8 (till PostgreSQL 13), pgvector (starting with PostgreSQL 15) and pgrouting (starting with PostgreSQL 15).
 PostGIS and especially plv8 with all their dependencies take a long time to build, so if you don't need them, type `make postgresql` instead.
 
@@ -84,7 +86,7 @@ My recommendation is to use one more job than the number of logical processors y
 Since my macOS 10.12 VM is limited to 2 virtual CPUs, I use `-j 3`.
 However, parallel builds make debugging problems a lot harder, so don't use them when something doesn't work.
 
-Always check the exit code of make to see if any errors occurred, eg. `make -j 3 || echo "Build failed with exit code $?"` 
+Always check the exit code of make to see if any errors occurred, eg. `make -j 3 || echo "Build failed with exit code $?"`
 
 ### Prerequisites for building the binaries
 
@@ -118,7 +120,7 @@ Older versions required a different set of packages for building the docs, pleas
 
 It is also possible to install those using homebrew, at least for PostgreSQL 14 and later:
 
-    brew install automake cmake docbook-xsl pkg-config
+    brew install automake cmake docbook-xsl pkgconf
 
 ## Under the Hood
 
