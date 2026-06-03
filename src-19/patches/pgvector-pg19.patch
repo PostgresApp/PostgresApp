@@ -1,0 +1,140 @@
+From 97e0ed44643322919457da379c53c1f63da81bec Mon Sep 17 00:00:00 2001
+From: Andrew Kane <andrew@ankane.org>
+Date: Tue, 14 Apr 2026 15:46:10 -0700
+Subject: [PATCH] Fixed compilation errors with Postgres 19
+
+---
+ src/hnsw.c       |  1 +
+ src/hnsw.h       |  4 ++++
+ src/hnswbuild.c  |  7 ++++++-
+ src/hnswinsert.c |  1 +
+ src/ivfbuild.c   | 10 +++++++++-
+ src/ivfflat.h    |  1 +
+ src/ivfscan.c    |  3 +++
+ 7 files changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/src/hnsw.c b/src/hnsw.c
+index bfc92a1c7..a3f582299 100644
+--- a/src/hnsw.c
++++ b/src/hnsw.c
+@@ -13,6 +13,7 @@
+ #include "hnsw.h"
+ #include "miscadmin.h"
+ #include "nodes/pg_list.h"
++#include "storage/lwlock.h"
+ #include "utils/float.h"
+ #include "utils/guc.h"
+ #include "utils/relcache.h"
+diff --git a/src/hnsw.h b/src/hnsw.h
+index 841af0fa7..65a74e8ad 100644
+--- a/src/hnsw.h
++++ b/src/hnsw.h
+@@ -10,6 +10,10 @@
+ #include "lib/pairingheap.h"
+ #include "nodes/execnodes.h"
+ #include "port.h"				/* for random() */
++#include "storage/bufpage.h"
++#include "storage/condition_variable.h"
++#include "storage/lwlock.h"
++#include "storage/s_lock.h"
+ #include "utils/relptr.h"
+ #include "utils/sampling.h"
+ #include "vector.h"
+diff --git a/src/hnswbuild.c b/src/hnswbuild.c
+index ca82f77ed..81750fb78 100644
+--- a/src/hnswbuild.c
++++ b/src/hnswbuild.c
+@@ -54,6 +54,7 @@
+ #include "nodes/execnodes.h"
+ #include "optimizer/optimizer.h"
+ #include "storage/bufmgr.h"
++#include "storage/condition_variable.h"
+ #include "tcop/tcopprot.h"
+ #include "utils/datum.h"
+ #include "utils/memutils.h"
+@@ -802,7 +803,11 @@ HnswParallelScanAndInsert(Relation heapRel, Relation indexRel, HnswShared * hnsw
+ 	buildstate.hnswarea = hnswarea;
+ 	InitAllocator(&buildstate.allocator, &HnswSharedMemoryAlloc, &buildstate);
+ 	scan = table_beginscan_parallel(heapRel,
+-									ParallelTableScanFromHnswShared(hnswshared));
++									ParallelTableScanFromHnswShared(hnswshared)
++#if PG_VERSION_NUM >= 190000
++									,SO_NONE
++#endif
++		);
+ 	reltuples = table_index_build_scan(heapRel, indexRel, indexInfo,
+ 									   true, progress, BuildCallback,
+ 									   (void *) &buildstate, scan);
+diff --git a/src/hnswinsert.c b/src/hnswinsert.c
+index 8bd4d24ef..08ff27e42 100644
+--- a/src/hnswinsert.c
++++ b/src/hnswinsert.c
+@@ -6,6 +6,7 @@
+ #include "nodes/execnodes.h"
+ #include "storage/bufmgr.h"
+ #include "storage/lmgr.h"
++#include "storage/lwlock.h"
+ #include "utils/datum.h"
+ #include "utils/memutils.h"
+ #include "utils/rel.h"
+diff --git a/src/ivfbuild.c b/src/ivfbuild.c
+index bf2cfc60a..e5beba274 100644
+--- a/src/ivfbuild.c
++++ b/src/ivfbuild.c
+@@ -22,6 +22,7 @@
+ #include "nodes/execnodes.h"
+ #include "optimizer/optimizer.h"
+ #include "storage/bufmgr.h"
++#include "storage/condition_variable.h"
+ #include "tcop/tcopprot.h"
+ #include "utils/memutils.h"
+ #include "utils/rel.h"
+@@ -377,6 +378,9 @@ InitBuildState(IvfflatBuildState * buildstate, Relation heap, Relation index, In
+ 	TupleDescInitEntry(buildstate->sortdesc, (AttrNumber) 1, "list", INT4OID, -1, 0);
+ 	TupleDescInitEntry(buildstate->sortdesc, (AttrNumber) 2, "tid", TIDOID, -1, 0);
+ 	TupleDescInitEntry(buildstate->sortdesc, (AttrNumber) 3, "vector", TupleDescAttr(buildstate->tupdesc, 0)->atttypid, -1, 0);
++#if PG_VERSION_NUM >= 190000
++	TupleDescFinalize(buildstate->sortdesc);
++#endif
+ 
+ 	buildstate->slot = MakeSingleTupleTableSlot(buildstate->sortdesc, &TTSOpsVirtual);
+ 
+@@ -653,7 +657,11 @@ IvfflatParallelScanAndSort(IvfflatSpool * ivfspool, IvfflatShared * ivfshared, S
+ 	ivfspool->sortstate = InitBuildSortState(buildstate.sortdesc, sortmem, coordinate);
+ 	buildstate.sortstate = ivfspool->sortstate;
+ 	scan = table_beginscan_parallel(ivfspool->heap,
+-									ParallelTableScanFromIvfflatShared(ivfshared));
++									ParallelTableScanFromIvfflatShared(ivfshared)
++#if PG_VERSION_NUM >= 190000
++									,SO_NONE
++#endif
++		);
+ 	reltuples = table_index_build_scan(ivfspool->heap, ivfspool->index, indexInfo,
+ 									   true, progress, BuildCallback,
+ 									   (void *) &buildstate, scan);
+diff --git a/src/ivfflat.h b/src/ivfflat.h
+index 5cf3686ed..cb07e1292 100644
+--- a/src/ivfflat.h
++++ b/src/ivfflat.h
+@@ -9,6 +9,7 @@
+ #include "lib/pairingheap.h"
+ #include "nodes/execnodes.h"
+ #include "port.h"				/* for random() */
++#include "storage/condition_variable.h"
+ #include "utils/sampling.h"
+ #include "utils/tuplesort.h"
+ #include "vector.h"
+diff --git a/src/ivfscan.c b/src/ivfscan.c
+index dda1da2be..35b10f34f 100644
+--- a/src/ivfscan.c
++++ b/src/ivfscan.c
+@@ -298,6 +298,9 @@ ivfflatbeginscan(Relation index, int nkeys, int norderbys)
+ 	so->tupdesc = CreateTemplateTupleDesc(2);
+ 	TupleDescInitEntry(so->tupdesc, (AttrNumber) 1, "distance", FLOAT8OID, -1, 0);
+ 	TupleDescInitEntry(so->tupdesc, (AttrNumber) 2, "heaptid", TIDOID, -1, 0);
++#if PG_VERSION_NUM >= 190000
++	TupleDescFinalize(so->tupdesc);
++#endif
+ 
+ 	/* Prep sort */
+ 	so->sortstate = InitScanSortState(so->tupdesc);

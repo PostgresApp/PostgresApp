@@ -1,0 +1,28 @@
+--- a/doc/src/sgml/stylesheet-speedup-xhtml.xsl
++++ b/doc/src/sgml/stylesheet-speedup-xhtml.xsl
+@@ -167,14 +167,15 @@
+ 
+ <!-- from xhtml/chunk-common.xsl -->
+ 
++<!-- Disabled due to incompatibility starting with libxml2 2.14.1 / libxslt 1.1.40
+ <xsl:template name="chunk-all-sections">
+   <xsl:param name="content">
+     <xsl:apply-imports/>
+   </xsl:param>
+ 
+-  <!-- Optimization for pgsql-docs: Since we set a fixed $chunk.section.depth,
++  <!- - Optimization for pgsql-docs: Since we set a fixed $chunk.section.depth,
+        we can do away with a bunch of complicated XPath searches for the
+-       previous and next sections at various levels. -->
++       previous and next sections at various levels. - ->
+ 
+   <xsl:if test="$chunk.section.depth != 1">
+     <xsl:message terminate="yes">
+@@ -250,6 +251,7 @@
+     <xsl:with-param name="content" select="$content"/>
+   </xsl:call-template>
+ </xsl:template>
++-->
+ 
+ <xsl:template name="href.target">
+   <xsl:param name="context" select="."/>

@@ -1,0 +1,22 @@
+--- a/src/backend/storage/file/fd.c
++++ b/src/backend/storage/file/fd.c
+@@ -1074,6 +1074,19 @@ tryAgain:
+ 			goto tryAgain;
+ 		errno = save_errno;
+ 	}
++	else if (errno == EINTR)
++	{
++		/*
++		* On most systems open() never returns EINTR
++		* However, on macOS open() sometimes returns EINTR when the user
++		* has installed endpoint security system extensions.
++		*/
++		ereport(LOG,
++				(errcode(ERRCODE_IO_ERROR),
++				errmsg("open file \"%s\" failed: %m; retry",
++						fileName)));
++		goto tryAgain;
++	}
+ 
+ 	return -1;					/* failure */
+ }
