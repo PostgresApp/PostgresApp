@@ -105,11 +105,11 @@ JSONC_VERSION=0.18
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-ABSEIL_VERSION=20260107.1
+ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-# 34.x available, will get LTS at 37 2026Q4. protobuf-c needs patch: https://github.com/protobuf-c/protobuf-c/issues/795
+# 35.x available, will get LTS at 37 2026Q4. protobuf-c needs patch: https://github.com/protobuf-c/protobuf-c/issues/795
 PROTOBUF_VERSION=33.6
 
 # https://github.com/protobuf-c/protobuf-c/releases
