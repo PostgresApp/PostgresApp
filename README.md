@@ -118,7 +118,7 @@ Older versions required a different set of packages for building the docs, pleas
 
 It is also possible to install those using homebrew, at least for PostgreSQL 14 and later:
 
-    brew install automake cmake docbook-xsl m4 pkg-config    
+    brew install automake cmake docbook-xsl pkg-config
 
 ## Under the Hood
 
