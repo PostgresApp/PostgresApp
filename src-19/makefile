@@ -96,7 +96,7 @@ OPENJPEG_VERSION=2.5.4
 NETCDF_VERSION=4.9.2
 
 # https://github.com/EnterpriseDB/pldebugger/releases
-PLDEBUGGER_VERSION=1.9
+PLDEBUGGER_VERSION=1.10
 
 # https://github.com/pgvector/pgvector/tags
 PGVECTOR_VERSION=0.8.2
