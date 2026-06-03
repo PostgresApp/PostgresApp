@@ -49,6 +49,7 @@ class PreferencesViewController: NSViewController {
 					} else {
 						// unregister login item
 						if SMAppService.mainApp.status == .enabled {
+							try? SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
 							try SMAppService.mainApp.unregister()
 						} else {
 							try SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
