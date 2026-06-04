@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_19.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 3alpha4</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 19beta1 without PostGIS</li>
+				</ul>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
+			]]>
+		</description>
+		<pubDate>Thu, 04 Jun 2026 03:28:35 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha4/Postgres-3alpha4-19.dmg"
+		sparkle:version="369"
+		sparkle:shortVersionString="3alpha4"
+		length="67197392"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFGY6zurrzKXR/rSJvRpb8VVRtO91AhRWkmwQYf2+zkbQqZOrweCM+0iA7w=="
+		/>
+		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
+	</item>
+  </channel>
+</rss>

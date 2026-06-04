@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Postgres Changelog</title>
+    <link>https://postgresapp.com/sparkle/updates_14_15_16_17_18_19.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+	<item>
+		<title>Postgres.app 3alpha4</title>
+		<description>
+			<![CDATA[
+				<ul>
+					<li>PostgreSQL 14.23 with PostGIS 3.2.10</li>
+					<li>PostgreSQL 15.18 with PostGIS 3.3.10</li>
+					<li>PostgreSQL 16.14 with PostGIS 3.4.6</li>
+					<li>PostgreSQL 17.10 with PostGIS 3.5.6</li>
+					<li>PostgreSQL 18.4 with PostGIS 3.6.3</li>
+					<li>PostgreSQL 19beta1 without PostGIS</li>
+				</ul>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
+			]]>
+		</description>
+		<pubDate>Thu, 04 Jun 2026 04:09:35 +0200</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha4/Postgres-3alpha4-14-15-16-17-18-19.dmg"
+		sparkle:version="370"
+		sparkle:shortVersionString="3alpha4"
+		length="593244167"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MC0CFQCzSG1heAm8nxMpRtB17CSvLy018AIUINz5nx7L0HX2wzQo/vQbWn5mBeg="
+		/>
+		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
+	</item>
+  </channel>
+</rss>
