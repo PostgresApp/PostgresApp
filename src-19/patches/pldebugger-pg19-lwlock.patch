@@ -1,0 +1,32 @@
+From d1ac33f9dece24800e36a7374ecc58e442ee4d12 Mon Sep 17 00:00:00 2001
+From: Georgy Shelkovy <rekgrpth@gmail.com>
+Date: Thu, 4 Sep 2025 08:28:24 +0500
+Subject: [PATCH] Fix compatibility with pg19
+
+Upstream commit postgres/postgres@38b602b added the name argument to the LWLockNewTrancheId function and removed the LWLockRegisterTranche function.
+---
+ plugin_debugger.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/plugin_debugger.c b/plugin_debugger.c
+index 07eb809..acd3d2d 100644
+--- a/plugin_debugger.c
++++ b/plugin_debugger.c
+@@ -1409,11 +1409,16 @@ initGlobalBreakpoints(void)
+ #if (PG_VERSION_NUM >= 90600)
+ 	if (!found)
+ 	{
++#if (PG_VERSION_NUM >= 190000)
++		gbpd->tranche_id = LWLockNewTrancheId("pldebugger");
++#else
+ 		gbpd->tranche_id = LWLockNewTrancheId();
++#endif
+ 		LWLockInitialize(&gbpd->lock, gbpd->tranche_id);
+ 	}
+ 	{
+-#if (PG_VERSION_NUM >= 100000)
++#if (PG_VERSION_NUM >= 190000)
++#elif (PG_VERSION_NUM >= 100000)
+ 		LWLockRegisterTranche(gbpd->tranche_id, "pldebugger");
+ #else
+ 		static LWLockTranche tranche;

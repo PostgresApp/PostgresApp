@@ -84,11 +84,12 @@ echo -n "Getting version info... "
 for v in ${PG_BINARIES_VERSIONS//_/ }
 do
 	pg_version=$(grep 'PACKAGE_VERSION "[^"]*' --only-matching "$ARCHIVE_PATH"/Products/Applications/Postgres.app/Contents/Versions/$v/include/postgresql/server/pg_config.h | cut -c 18-)
-	postgis_version=$(grep "default_version = '[^']*"  --only-matching "$ARCHIVE_PATH"/Products/Applications/Postgres.app/Contents/Versions/$v/share/postgresql/extension/postgis.control 2> >(test $IGNORE_MISSING_BINARIES || cat >&2) | cut -c 20-)
+	postgis_version=$(grep "default_version = '[^']*"  --only-matching "$ARCHIVE_PATH"/Products/Applications/Postgres.app/Contents/Versions/$v/share/postgresql/extension/postgis.control 2> >(test $IGNORE_MISSING_BINARIES || cat >&2) | cut -c 20-) || (( $? == 141 ))
 	[ -z $postgis_version ] || RELEASENOTES_VERSIONS+=("					<li>PostgreSQL $pg_version with PostGIS $postgis_version</li>")
 	! [ -z $postgis_version ] || RELEASENOTES_VERSIONS+=("					<li>PostgreSQL $pg_version without PostGIS</li>")
 	PG_VERSIONS+=($pg_version)
 	[ -z $postgis_version ] || POSTGIS_VERSIONS+=($postgis_version)
+	! [ -z $postgis_version ] || POSTGIS_VERSIONS+=("none")
 done
 echo "Done"
 
