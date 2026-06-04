@@ -919,11 +919,7 @@ class Server: NSObject {
 			for i in fds.indices.reversed() {
 				if (fds[i].revents & Int16(POLLIN)) != 0 {
 					let availableData: Data
-					if #available(macOS 10.15.4, *) {
-						availableData = try handles[i].read(upToCount: Int.max) ?? Data()
-					} else {
-						availableData = handles[i].availableData
-					}
+					availableData = try handles[i].read(upToCount: Int.max) ?? Data()
 					if availableData.count == 0 {
 						// eof
 						fds.remove(at: i)
@@ -1163,12 +1159,7 @@ class Server: NSObject {
 		let errorPipe = Pipe()
 		process.standardError = errorPipe
 		try process.launchAndCheckForRosetta()
-		if #available(macOS 10.15.4, *) {
-			try inputPipe.fileHandleForWriting.write(contentsOf: query.data(using: .utf8)!)
-		} else {
-			// Fallback on earlier versions
-			inputPipe.fileHandleForWriting.write(query.data(using: .utf8)!)
-		}
+		try inputPipe.fileHandleForWriting.write(contentsOf: query.data(using: .utf8)!)
 		inputPipe.fileHandleForWriting.closeFile()
 		let output = String(data: outputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)!
 		let errorDescription = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "(incorrectly encoded error message)"

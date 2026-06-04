@@ -102,17 +102,9 @@ class ClientLauncher: NSObject {
 				let localizedName = bundle.localizedInfoDictionary?[kCFBundleNameKey as String] as? String ?? bundle.infoDictionary?[kCFBundleNameKey as String] as? String ?? appURL.deletingPathExtension().lastPathComponent
 				let item = NSMenuItem(title: localizedName, action: nil, keyEquivalent: "")
 				let attrTitle = NSMutableAttributedString()
-				if #available(macOS 11, *) {
-					attrTitle.append(NSAttributedString(string: localizedName, attributes: [
-						.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .large)),
-					]))
-
-				} else {
-					attrTitle.append(NSAttributedString(string: localizedName, attributes: [
-						.font: NSFont.systemFont(ofSize: NSFont.systemFontSize),
-					]))
-
-				}
+				attrTitle.append(NSAttributedString(string: localizedName, attributes: [
+					.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .large)),
+				]))
 				attrTitle.append(NSAttributedString(string: "\n" + appURL.path, attributes: [
 					.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
 					.foregroundColor: NSColor.secondaryLabelColor
