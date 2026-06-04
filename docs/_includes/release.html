@@ -19,7 +19,7 @@
 	{% for postgresqlVersion in include.release.postgresqlVersions %}
 	 	<li>
 			PostgreSQL {{ postgresqlVersion.postgres }}
-			/ PostGIS {{ postgresqlVersion.postgis }}
+			{%if postgresqlVersion.postgis %} / PostGIS {{ postgresqlVersion.postgis }}{% endif %}
 			{%if postgresqlVersion.plv8 %} / plv8 {{ postgresqlVersion.plv8 }}{% endif %}
 			{%if postgresqlVersion.architecture %} <span class="architecture">&nbsp;·&nbsp; {{ postgresqlVersion.architecture }}</span>{% endif %}
 		</li>
