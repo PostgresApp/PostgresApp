@@ -55,6 +55,7 @@ extraReleases: [
 		postgresqlVersions: [
 			{ postgres: "19beta1", architecture: "Universal" },
 		],
+		badge: "Pre-release",
 	},
 	{
 		name: {
@@ -74,6 +75,7 @@ extraReleases: [
 			{ postgres: "15.18", postgis: "3.3.10", architecture: "Universal" },
 			{ postgres: "14.23", postgis: "3.2.10", architecture: "Universal" },
 		],
+		badge: "Pre-release",
 	},
 	{
 		name: {

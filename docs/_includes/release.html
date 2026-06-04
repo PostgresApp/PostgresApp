@@ -8,7 +8,7 @@
 {% endfor %}
 
 <div class="release">
-	<h1>{{include.release.name[lang]}}</h1>
+	<h1>{{include.release.name[lang]}}{%if include.release.badge %}<span class="badge">{{include.release.badge}}</span>{% endif %}</h1>
 	<ul class="release-info">
 		{%if include.release.postgresappVersion%}<li>Postgres.app v{{include.release.postgresappVersion}}</li>{%endif%}
 		<li>{{site.strings[lang].requires-os}} macOS&nbsp;{{include.release.postgresappMinSystemVersion}}</li>

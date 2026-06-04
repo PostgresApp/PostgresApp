@@ -31,6 +31,17 @@
 	bottom: 20px;
 }
 
+.release .badge {
+	display: inline-block;
+	background: rgba(255,255,255,0.8);
+	color: #000;
+	padding: 0.1em 0.5em;
+	margin-left: 0.5em;
+	font-size: 0.5em;
+	vertical-align: middle;
+	border-radius: 4px;
+}
+
 .release ul.release-contents {
 	list-style-type: none;
 	color: rgba(255,255,255,1);
@@ -53,7 +64,7 @@
 
 .release ul.release-info li {
 	display: inline-block;
-	
+
 }
 
 .release ul.release-info li + li::before {
