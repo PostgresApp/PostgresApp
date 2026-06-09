@@ -213,6 +213,30 @@ If everything worked, you can install your extension into application support wi
   make install prefix="$HOME/Library/Application Support/Postgres/Extensions/XX/local"
 </pre>
 
+For reference, here's an example of directory structure inside <code>~/Library/Application Support/Postgres/Extensions/XX/</code> with two extensions installed:
+
+<pre>
+XX/
+├── ext_one/
+│   ├── lib/
+│   │   └── postgresql/
+│   │       └── ext_one.dylib
+│   └── share/
+│       └── postgresql/
+│           └── extension/
+│               ├── ext_one--1.0.sql
+│               └── ext_one.control
+└── ext_two/
+    ├── lib/
+    │   └── postgresql/
+    │       └── ext_two.dylib
+    └── share/
+        └── postgresql/
+            └── extension/
+                ├── ext_two--0.2.1.sql
+                └── ext_two.control
+</pre>
+
 <em>
   Note: If you are using <strong>PostgreSQL 17 or earlier</strong>, this will not work.
   PostgreSQL versions before 18 require extensions to be installed in the PostgreSQL installation directory.
