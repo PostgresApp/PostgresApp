@@ -210,7 +210,7 @@ Make sure the version matches what you expect!
 If everything worked, you can install your extension into application support with this command:
 
 <pre>
-  make install prefix="$HOME/Library/Application Support/Postgres/Extensions/XX/local"
+  make install prefix="$HOME/Library/Application Support/Postgres/Extensions/XX/extension_name"
 </pre>
 
 For reference, here's an example of directory structure inside <code>~/Library/Application Support/Postgres/Extensions/XX/</code> with two extensions installed:
