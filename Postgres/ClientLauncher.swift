@@ -12,12 +12,33 @@ class ClientLauncher: NSObject {
 	
 	static let shared = ClientLauncher()
 	
-	private let scriptPath = "ClientLauncher"
+	private let openTerminalScript =
+		"""
+		on open_Terminal(cmnd)
+			tell application id "com.apple.Terminal"
+			  do script cmnd
+			  activate
+			end tell
+		end open_Terminal
+		"""
 	
+	private let openiTermScript =
+		"""
+		on open_iTerm(cmnd)
+			tell application id "com.googlecode.iterm2"
+			  if number of windows = 0 then
+				  create window with default profile command cmnd
+				  else
+				  tell current window
+					  create tab with default profile command cmnd
+				  end tell
+			  end if
+			  activate
+			end tell
+		end open_iTerm
+		"""
 	
-	func runSubroutine(_ subroutine: String, parameters: [String]?) throws {
-		guard let path = Bundle.main.path(forResource: scriptPath, ofType: "scpt") else { return }
-		
+	func runSubroutine(_ subroutine: String, inScript scriptSource: String, parameters: [String]?) throws {
 		// these constants are defined in Carbon (no need to include)
 		let kASAppleScriptSuite = FourCharCode("ascr")
 		let kASSubroutineEvent = FourCharCode("psbr")
@@ -25,10 +46,20 @@ class ClientLauncher: NSObject {
 		
 		var errorDict: NSDictionary?
 		
-		let script = NSAppleScript(contentsOf: URL(fileURLWithPath: path), error: &errorDict)
+		guard let script = NSAppleScript(source: scriptSource) else {
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not initialise NSAppleScript object"])
+		}
+		guard script.compileAndReturnError(&errorDict) else {
+			let description = "Compiling Apple Script failed"
+			let detail = errorDict?["NSAppleScriptErrorMessage"] as? String
+			var userInfo = [NSLocalizedDescriptionKey: description]
+			if let detail { userInfo[NSLocalizedRecoverySuggestionErrorKey] = detail }
+			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: userInfo)
+		}
+		
 		let paramDescr = NSAppleEventDescriptor.list()
 		
-		if let parameters = parameters {
+		if let parameters {
 			var idx = 1
 			for p in parameters {
 				paramDescr.insert(NSAppleEventDescriptor(string: p), at: idx)
@@ -39,20 +70,13 @@ class ClientLauncher: NSObject {
 		let eventDescr = NSAppleEventDescriptor.appleEvent(withEventClass: kASAppleScriptSuite, eventID: kASSubroutineEvent, targetDescriptor: NSAppleEventDescriptor.null(), returnID: AEReturnID(kAutoGenerateReturnID), transactionID: AETransactionID(kAnyTransactionID))
 		eventDescr.setDescriptor(NSAppleEventDescriptor(string: subroutine), forKeyword: keyASSubroutineName)
 		eventDescr.setDescriptor(paramDescr, forKeyword: keyDirectObject)
-		script?.executeAppleEvent(eventDescr, error: &errorDict)
+		script.executeAppleEvent(eventDescr, error: &errorDict)
 		
-		if let errorDict = errorDict {
-			var userInfo = errorDict as! [String : Any]
-			if userInfo[NSLocalizedDescriptionKey] == nil {
-				userInfo[NSLocalizedDescriptionKey] = "Failed to open client application"
-			}
-			if userInfo[NSLocalizedRecoverySuggestionErrorKey] == nil {
-				var suggestion = "Make sure Postgres.app has permission to automate the client application."
-				if let command = parameters?.first {
-					suggestion += "\n\nIf you don't want to give Postgres.app permission, run this command to connect:\n\(command)"
-				}
-				userInfo[NSLocalizedRecoverySuggestionErrorKey] = suggestion
-			}
+		if let errorDict {
+			let description = "Executing Apple Script failed"
+			let detail = errorDict["NSAppleScriptErrorMessage"] as? String
+			var userInfo = [NSLocalizedDescriptionKey: description]
+			if let detail { userInfo[NSLocalizedRecoverySuggestionErrorKey] = detail }
 			throw NSError(domain: "com.postgresapp.Postgres2.ClientLauncher", code: 0, userInfo: userInfo)
 		}
 	}
@@ -170,10 +194,10 @@ class ClientLauncher: NSObject {
 				try await NSWorkspace.shared.open([commandUrl], withApplicationAt: appURL, configuration: NSWorkspace.OpenConfiguration())
 			}
 			else if bundle.bundleIdentifier == "com.apple.Terminal" {
-				try self.runSubroutine("open_Terminal", parameters: [psqlCommand])
+				try self.runSubroutine("open_Terminal", inScript: self.openTerminalScript, parameters: [psqlCommand])
 			}
 			else if bundle.bundleIdentifier == "com.googlecode.iterm2" {
-				try self.runSubroutine("open_iTerm", parameters: [psqlCommand])
+				try self.runSubroutine("open_iTerm", inScript: self.openiTermScript, parameters: [psqlCommand])
 			}
 		}
 		else {

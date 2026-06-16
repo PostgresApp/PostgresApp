@@ -8,7 +8,7 @@
 {% endfor %}
 
 <div class="release">
-	<h1>{{include.release.name[lang]}}</h1>
+	<h1>{{include.release.name[lang]}}{%if include.release.badge %}<span class="badge">{{include.release.badge}}</span>{% endif %}</h1>
 	<ul class="release-info">
 		{%if include.release.postgresappVersion%}<li>Postgres.app v{{include.release.postgresappVersion}}</li>{%endif%}
 		<li>{{site.strings[lang].requires-os}} macOS&nbsp;{{include.release.postgresappMinSystemVersion}}</li>
@@ -19,7 +19,7 @@
 	{% for postgresqlVersion in include.release.postgresqlVersions %}
 	 	<li>
 			PostgreSQL {{ postgresqlVersion.postgres }}
-			/ PostGIS {{ postgresqlVersion.postgis }}
+			{%if postgresqlVersion.postgis %} / PostGIS {{ postgresqlVersion.postgis }}{% endif %}
 			{%if postgresqlVersion.plv8 %} / plv8 {{ postgresqlVersion.plv8 }}{% endif %}
 			{%if postgresqlVersion.architecture %} <span class="architecture">&nbsp;·&nbsp; {{ postgresqlVersion.architecture }}</span>{% endif %}
 		</li>
