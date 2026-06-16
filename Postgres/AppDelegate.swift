@@ -28,11 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 		return false
 	}
-	
-	func isTranslocated() -> Bool {
-		Bundle.main.bundlePath.contains("/AppTranslocation/")
-	}
-	
+		
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		if NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem {
 			NSApp.setActivationPolicy(.accessory)
@@ -75,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			self.serverManager.refreshServerStatuses()
 		}
 				
-		configureLoginItem()
+		LaunchAtLoginManager.shared.configureLoginItem()
 		
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
@@ -279,70 +275,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
 		NSWorkspace.shared.open(URL(string: "https://postgresapp.com/l/help/")!)
-	}
-	
-	
-	private func configureLoginItem() {
-		if isTranslocated() {
-			return
-		}
-		
-		let laPath = NSHomeDirectory() + "/Library/LaunchAgents/com.postgresapp.Postgres2LoginHelper.plist"
-		if FileManager.default.fileExists(atPath: laPath) {
-			// found a legacy launch agent
-			// migrate it to the new system
-			do {
-				try FileManager.default.removeItem(atPath: laPath)
-				UserDefaults.standard.set(false, forKey: "StartLoginHelper") // prevent legacy postgres.app from re-adding the launch agent
-			} catch let error as NSError {
-				NSLog("Could not delete launch agent \(laPath): \(error)")
-			}
-			registerLoginItem()
-			return
-		}
-		
-		if UserDefaults.standard.bool(forKey: UserDefaults.LoginItemWasRegisteredKey) {
-			// we don't want to add it back if it was removed by the user
-			return
-		}
-		
-		if #available(macOS 13, *) {
-			let loginItemStatus = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").status
-			switch loginItemStatus {
-			case .enabled, .requiresApproval:
-				// just leave it like it is
-				UserDefaults.standard.set(true, forKey: UserDefaults.LoginItemWasRegisteredKey)
-				return
-			case .notFound, .notRegistered:
-				// we can still register it
-				break
-			@unknown default:
-				// not sure what we should do here
-				NSLog("Unknown login item status: \(loginItemStatus)")
-				break
-			}
-		}
-		
-		if UserDefaults.standard.bool(forKey: "StartLoginHelper") == false {
-			// this must have been set by a previous version of Postgres.app
-			// don't auto-add the login item
-			return
-		}
-		
-		registerLoginItem()
-	}
-	
-	private func registerLoginItem() {
-		do {
-			if #available(macOS 13, *) {
-				try SMAppService.mainApp.register()
-			} else {
-				RegisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
-			}
-			UserDefaults.standard.set(true, forKey: UserDefaults.LoginItemWasRegisteredKey)
-		} catch let error as NSError {
-			NSLog("Could not add app to login items: \(error)")
-		}
 	}
 	
 	// SUUpdater delegate methods
