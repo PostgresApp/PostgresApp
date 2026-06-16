@@ -46,12 +46,20 @@ class PreferencesViewController: NSViewController {
 						// register login item
 						try? SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
 						try SMAppService.mainApp.register()
+						guard SMAppService.mainApp.status == .enabled else {
+							// macOS 27 beta doesn't report an error if the switch is turned off, it just silently fails
+							throw NSError(domain: "com.postgresapp.Postgres2", code: 2, userInfo: [
+								NSLocalizedDescriptionKey: "Registering login item failed",
+								NSLocalizedRecoverySuggestionErrorKey: "Make sure to allow background activities for Postgres.app in system settings."
+							])
+						}
 					} else {
 						// unregister login item
 						if SMAppService.mainApp.status == .enabled {
 							try? SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
 							try SMAppService.mainApp.unregister()
 						} else {
+							try? SMAppService.mainApp.unregister()
 							try SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
 						}
 					}
@@ -67,6 +75,11 @@ class PreferencesViewController: NSViewController {
 			}
 			catch {
 				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+				DispatchQueue.main.async {
+					// update UI
+					self.willChangeValue(forKey: "launchAtLogin")
+					self.didChangeValue(forKey: "launchAtLogin")
+				}
 			}
 			
 		}
