@@ -79,8 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		
 		statusMenu.addItem(withTitle: "Open Postgres", action: #selector(showMainWindow), keyEquivalent: "")
 		statusMenu.addItem(withTitle: "Settings…", action: #selector(showPreferences), keyEquivalent: "")
-		statusMenu.addItem(withTitle: "Check for Updates…", action: #selector(SUUpdater.checkForUpdates), keyEquivalent: "")
-		statusMenu.items.last?.target = sparkleUpdater
+		statusMenu.addItem(withTitle: "Check for Updates…", action: #selector(checkForUpdates), keyEquivalent: "")
 		statusMenu.addItem(withTitle: "Quit", action: #selector(NSApplication.terminate), keyEquivalent: "")
 		statusMenu.addItem(.separator())
 		statusMenu.delegate = self
@@ -271,6 +270,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		// The preference window is displayed by a storyboard segue hooked up to a menu item
 		// This seems to be the easiest way to trigger that segue programmatically
 		NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
+	}
+	
+	@IBAction func checkForUpdates(_ sender: Any? = nil) {
+		if #available(macOS 14.0, *) {
+			// this seems to help with getting the app to activate
+			// i have no idea how the window server decides to allow postgres.app to activate
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
+		}
+		NSApp.setActivationPolicy(.regular)
+		NSApp.activate(ignoringOtherApps: true)
+		sparkleUpdater.checkForUpdates(sender)
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
