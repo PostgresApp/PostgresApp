@@ -207,17 +207,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		case .alertFirstButtonReturn:
 			NSApp.terminate(nil)
 		case .alertSecondButtonReturn:
-			var didClose = false
 			for window in NSApp.windows where window.isVisible && window.canBecomeKey {
-				// app will hide after last window was closed
 				window.performClose(nil)
-				didClose = true
 			}
-			if !didClose {
-				// no windows were open
-				// just hide the app
-				NSApp.hide(nil)
-			}
+			NSApp.hide(nil)
 		default:
 			break
 		}
