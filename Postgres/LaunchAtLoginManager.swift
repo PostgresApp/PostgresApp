@@ -16,6 +16,18 @@ extension UserDefaults {
 class LaunchAtLoginManager {
 	static var shared = LaunchAtLoginManager()
 	
+	var requiresApproval : Bool {
+		if #available(macOS 13.0, *) {
+			if SMAppService.mainApp.status == .enabled {
+				return false
+			}
+			if SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").status == .requiresApproval {
+				return true
+			}
+		}
+		return false
+	}
+	
 	var isLaunchAtLoginEnabled : Bool {
 		if #available(macOS 13, *) {
 			if SMAppService.mainApp.status == .enabled {
@@ -32,15 +44,10 @@ class LaunchAtLoginManager {
 	
 	func registerLoginItem() throws {
 		UserDefaults.standard.set(true, forKey: UserDefaults.LoginItemWasRegisteredKey)
-		do {
-			if #available(macOS 13, *) {
-				// clean up login item if necessary
-				try? SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").unregister()
-				// register main app as login item
-				try SMAppService.mainApp.register()
-			} else {
-				RegisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
-			}
+		if #available(macOS 13, *) {
+			try SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").register()
+		} else {
+			RegisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
 		}
 		guard isLaunchAtLoginEnabled else {
 			throw LaunchAtLoginManagerError(errorDescription: "Registering login item failed", recoverySuggestion: "Make sure Postgres.app has permission to run in the background in system settings.")

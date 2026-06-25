@@ -52,6 +52,14 @@ class PreferencesViewController: NSViewController {
 		Bundle.main.bundlePath.contains("/AppTranslocation/")
 	}
 	
+	@objc dynamic var launchAtLoginRequiresApproval: Bool {
+		LaunchAtLoginManager.shared.requiresApproval
+	}
+	
+	@objc dynamic var isLaunchAtLoginCheckboxEnabled: Bool {
+		!isTranslocated && !launchAtLoginRequiresApproval
+	}
+	
 	@IBAction func resetAppPermissions(_ sender: Any?) {
 		UserDefaults.shared.set(nil, forKey: "ClientApplicationPermissions")
 	}

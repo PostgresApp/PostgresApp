@@ -310,11 +310,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="F90-nP-753" name="enabled" keyPath="isTranslocated" id="s8z-qS-LHl">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
+                                            <binding destination="F90-nP-753" name="enabled" keyPath="isLaunchAtLoginCheckboxEnabled" id="7mT-zR-lQz"/>
                                             <binding destination="F90-nP-753" name="value" keyPath="launchAtLogin" id="Ui0-2t-pvh"/>
                                         </connections>
                                     </button>
@@ -333,6 +329,21 @@
                                             </binding>
                                         </connections>
                                     </textField>
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="NrB-RM-I9p">
+                                        <rect key="frame" x="-2" y="0.0" width="519" height="13"/>
+                                        <textFieldCell key="cell" selectable="YES" title="If you want to automatically start Postgres.app, you need to allow background activities in system settings." id="whg-66-Kog">
+                                            <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="F90-nP-753" name="hidden" keyPath="launchAtLoginRequiresApproval" id="GsD-bG-GLk">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="xuP-ZJ-b1l" secondAttribute="trailing" id="LjF-M4-0Op"/>
@@ -345,8 +356,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
