@@ -37,4 +37,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		let model = MainWindowModel()
 		mainWindowModel = model
 	}
+	
+	func windowWillClose(_ notification: Notification) {
+		let delegate = NSApp.delegate as! AppDelegate
+		delegate.mainWindowWillClose(notification)
+	}
 }

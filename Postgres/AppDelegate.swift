@@ -223,12 +223,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 	}
 	
-	func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-		// this function ignores the about window
-		// we don't want to suddenly hide the app when the about window is still visible
-		// so we double check that no windows are visible
-		if !hasVisibleWindowsThatCanBecomeKey {
-			DispatchQueue.main.async {
+	func mainWindowWillClose(_ notification: Notification) {
+		DispatchQueue.main.async {
+			// we don't want to suddenly hide the app when other windows are still open (about window, sparkle etc)
+			// so we check that no windows are visible
+			if !self.hasVisibleWindowsThatCanBecomeKey {
 				// This is a workaround in a macOS bug (last verified macOS 26)
 				// when setting the activation policy of the frontmost app to .accessory
 				// macOS brings all windows of the next app to the foreground
@@ -237,7 +236,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 				NSApp.hide(nil)
 			}
 		}
-		return false
 	}
 		
 	func applicationDidResignActive(_ notification: Notification) {
