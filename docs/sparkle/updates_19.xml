@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 3alpha5</title>
+		<title>Postgres.app 3alpha6</title>
 		<description>
 			<![CDATA[
 				<ul>
@@ -15,14 +15,14 @@
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 25 Jun 2026 11:06:28 +0200</pubDate>
+		<pubDate>Tue, 30 Jun 2026 13:47:31 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha5/Postgres-3alpha5-19.dmg"
-		sparkle:version="371"
-		sparkle:shortVersionString="3alpha5"
-		length="67225623"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha6/Postgres-3alpha6-19.dmg"
+		sparkle:version="373"
+		sparkle:shortVersionString="3alpha6"
+		length="67224714"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFAGeS1CtFB3zcc4nz2q22N0LeNfeAhUAhzqaptTOwQhjTaH4a7qgQEqruvY="
+		sparkle:dsaSignature="MCwCFBVOPdF279ugWrI2KVw5lu0E3yK8AhRllVbZDd9yKwGZeTpKPAUtKdmnKg=="
 		/>
 		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>
