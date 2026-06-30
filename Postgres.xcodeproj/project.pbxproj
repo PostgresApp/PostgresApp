@@ -60,7 +60,6 @@
 		83999C6C1D7DA8EA00B8A1D6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830658E41D536F2E00BA1752 /* Extensions.swift */; };
 		83999C6D1D7DA9B000B8A1D6 /* ErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83543E271D2136E800F764CB /* ErrorRecoveryAttempter.m */; };
 		839A38281D88494A00E9591A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839A38271D88494A00E9591A /* main.swift */; };
-		83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A544E21D6682C700603068 /* KeyValueObserver.swift */; };
 		83B1A80B1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83B1A80A1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist */; };
 		83BB115A1DB680DA00772E8D /* DnDArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BB11591DB680DA00772E8D /* DnDArrayController.swift */; };
 		83C19C2D1D7D977000F4862D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C19C2C1D7D977000F4862D /* main.swift */; };
@@ -163,7 +162,6 @@
 		83969DBA1D369BD1005B9F1C /* ClientLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientLauncher.swift; sourceTree = "<group>"; };
 		83999C731D7DAA5B00B8A1D6 /* PostgresLoginHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresLoginHelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		839A38271D88494A00E9591A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		83A544E21D6682C700603068 /* KeyValueObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
 		83AC347F1D80236A002F6982 /* CopyBinaries.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CopyBinaries.sh; sourceTree = "<group>"; };
 		83B1A80A1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.postgresapp.Postgres2LoginHelper.plist; sourceTree = "<group>"; };
 		83BB11591DB680DA00772E8D /* DnDArrayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DnDArrayController.swift; sourceTree = "<group>"; };
@@ -295,7 +293,6 @@
 				36EB76A52AC1E55A00580683 /* BundleExtensions.swift */,
 				830658E41D536F2E00BA1752 /* Extensions.swift */,
 				36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */,
-				83A544E21D6682C700603068 /* KeyValueObserver.swift */,
 				830D62CB1D77297800570BFC /* Preferences.swift */,
 				369344FB2FE16F0000762CF4 /* LaunchAtLoginManager.swift */,
 				3630E17B2B839A7E007875A9 /* PreferencesClientCellView.swift */,
@@ -532,7 +529,6 @@
 				83FB573C1D1B18C900A903A3 /* MainWindow.swift in Sources */,
 				8359542A1E4A30FD00D1F0DF /* ScriptCommands.swift in Sources */,
 				83F3647E1D5204D30096F1F5 /* SettingsView.swift in Sources */,
-				83A544E31D6682C700603068 /* KeyValueObserver.swift in Sources */,
 				36CC815829E6FF990080B0B4 /* ChangePasswordViewController.swift in Sources */,
 				830D62CC1D77297800570BFC /* Preferences.swift in Sources */,
 				3623DDD12FAA229F00A33CB0 /* LegacyLoginItemRegistration.m in Sources */,

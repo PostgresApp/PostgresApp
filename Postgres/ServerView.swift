@@ -14,9 +14,18 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 	@IBOutlet weak var stopButton: NSButton!
 	@IBOutlet weak var startButton: NSButton!
 	
-	var responderObserver: KeyValueObserver?
 	override func viewWillAppear() {
-		responderObserver = self.view.window?.observe("firstResponder", callback: { _ in
+		self.view.window?.addObserver(self, forKeyPath: "firstResponder", context: nil)
+		super.viewWillAppear()
+	}
+	
+	override func viewWillDisappear() {
+		self.view.window?.removeObserver(self, forKeyPath: "firstResponder")
+		super.viewWillDisappear()
+	}
+	
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if keyPath == "firstResponder" {
 			if self.view.window?.firstResponder is DatabaseCollectionView {
 				self.startButton.keyEquivalent = ""
 				self.stopButton.keyEquivalent = ""
@@ -24,7 +33,9 @@ class ServerViewController: NSViewController, MainWindowModelConsumer {
 				self.startButton.keyEquivalent = "\r"
 				self.stopButton.keyEquivalent = "\r"
 			}
-		})
+			return
+		}
+		super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 	}
 	
 	@IBAction func startServer(_ sender: AnyObject?) {
