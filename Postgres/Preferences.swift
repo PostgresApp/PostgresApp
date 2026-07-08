@@ -18,6 +18,25 @@ class PreferencesViewController: NSViewController {
 		ClientLauncher.shared.prepareClientLauncherButton(button: preferredClientMenu)
 	}
 	
+	override func viewDidAppear() {
+		super.viewDidAppear()
+		NotificationCenter.default.addObserver(self, selector: #selector(windowDidBecomeKey), name: NSWindow.didBecomeKeyNotification, object: self.view.window)
+	}
+	
+	override func viewWillDisappear() {
+		NotificationCenter.default.removeObserver(self, name: NSWindow.didBecomeKeyNotification, object: self.view.window)
+		super.viewWillDisappear()
+	}
+	
+	@objc func windowDidBecomeKey(_ note: Notification) {
+		self.willChangeValue(forKey: "launchAtLogin")
+		self.didChangeValue(forKey: "launchAtLogin")
+		self.willChangeValue(forKey: "launchAtLoginRequiresApproval")
+		self.didChangeValue(forKey: "launchAtLoginRequiresApproval")
+		self.willChangeValue(forKey: "isLaunchAtLoginCheckboxEnabled")
+		self.didChangeValue(forKey: "isLaunchAtLoginCheckboxEnabled")
+	}
+	
 	@objc dynamic var clientAppNames = [
 		"Terminal",
 		"iTerm",
