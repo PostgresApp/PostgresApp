@@ -30,9 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 		
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		if NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem {
-			NSApp.setActivationPolicy(.accessory)
-		} else {
+		let launchedAsLoginItem = NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
+		if !launchedAsLoginItem {
 			showMainWindow()
 			CrashLogCollector.shared.scanInBackground()
 		}
@@ -151,26 +150,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		return NSApp.windows.contains { $0.isVisible && $0.canBecomeKey }
 	}
 
-	func applicationWillBecomeActive(_ notification: Notification) {
-		if #available(macOS 13, *) {
-			NSApp.setActivationPolicy(.regular)
-		} else {
-			// This is a workaround for a macOS 12 bug
-			// When the app is reopened (by double clicking in the Finder or Dock icon) while it is in .accessory mode,
-			// the menu bar becomes unresponsive. The workaround is to move the app to background,
-			// change the activation policy, then show it again
-			if NSApp.activationPolicy() == .accessory {
-				DispatchQueue.main.async {
-					NSApp.hide(nil)
-					DispatchQueue.main.async {
-						self.showMainWindow()
-					}
-				}
-				return
-			}
-		}
-	}
-
 	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
 		if #available(macOS 13, *) {
 			showMainWindow()
@@ -199,9 +178,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	@IBAction func quitWithConfirmation(_ sender: AnyObject?) {
 		let alert = NSAlert()
 		alert.messageText = "Do you want to completely quit Postgres.app?"
-		alert.informativeText = "This will stop servers and hide the menu bar icon.\n\nIf you want to continue using PostgreSQL servers, Postgres.app can move to the background instead."
+		alert.informativeText = "This will stop servers and hide the menu bar icon.\n\nIf you want to continue using PostgreSQL servers, Postgres.app can continue running in the background instead."
 		alert.addButton(withTitle: "Quit")
-		alert.addButton(withTitle: "Move to background")
+		alert.addButton(withTitle: "Continue in background")
 		alert.addButton(withTitle: "Cancel")
 		switch alert.runModal() {
 		case .alertFirstButtonReturn:
@@ -210,40 +189,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			for window in NSApp.windows where window.isVisible && window.canBecomeKey {
 				window.performClose(nil)
 			}
-			NSApp.hide(nil)
 		default:
 			break
 		}
 	}
-	
-	func mainWindowWillClose(_ notification: Notification) {
-		DispatchQueue.main.async {
-			// we don't want to suddenly hide the app when other windows are still open (about window, sparkle etc)
-			// so we check that no windows are visible
-			if !self.hasVisibleWindowsThatCanBecomeKey {
-				// This is a workaround in a macOS bug (last verified macOS 26)
-				// when setting the activation policy of the frontmost app to .accessory
-				// macOS brings all windows of the next app to the foreground
-				// Hiding the app does not trigger this behavior
-				// The activation policy will later be changed in applicationDidResignActive
-				NSApp.hide(nil)
-			}
-		}
-	}
 		
-	func applicationDidResignActive(_ notification: Notification) {
-		if !hasVisibleWindowsThatCanBecomeKey {
-			NSApp.setActivationPolicy(.accessory)
-		}
-	}
-	
 	@IBAction func showMainWindow(_ sender: Any? = nil) {
 		if #available(macOS 14.0, *) {
 			// this seems to help with getting the app to activate
 			// i have no idea how the window server decides to allow postgres.app to activate
 			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
 		}
-		NSApp.setActivationPolicy(.regular)
 		NSApp.activate(ignoringOtherApps: true)
 		// This is a workaround to trigger a storyboard segue programmatically
 		// If you come up with a better solution please let me know :)
@@ -256,7 +212,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			// i have no idea how the window server decides to allow postgres.app to activate
 			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
 		}
-		NSApp.setActivationPolicy(.regular)
 		NSApp.activate(ignoringOtherApps: true)
 		// The preference window is displayed by a storyboard segue hooked up to a menu item
 		// This seems to be the easiest way to trigger that segue programmatically
@@ -269,7 +224,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 			// i have no idea how the window server decides to allow postgres.app to activate
 			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
 		}
-		NSApp.setActivationPolicy(.regular)
 		NSApp.activate(ignoringOtherApps: true)
 		sparkleUpdater.checkForUpdates(sender)
 	}
