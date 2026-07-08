@@ -96,7 +96,11 @@ class LaunchAtLoginManager {
 			} catch let error as NSError {
 				NSLog("Could not delete launch agent \(laPath): \(error)")
 			}
-			try? registerLoginItem()
+			do {
+				try registerLoginItem()
+			} catch {
+				print("Could not convert launch agent to login item. \(error.localizedDescription))")
+			}
 			return
 		}
 		
@@ -128,6 +132,10 @@ class LaunchAtLoginManager {
 			return
 		}
 		
-		try? registerLoginItem()
+		do {
+			try registerLoginItem()
+		} catch {
+			print("Initial registration of login item failed. \(error.localizedDescription))")
+		}
 	}
 }
