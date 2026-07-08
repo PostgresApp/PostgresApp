@@ -18,10 +18,7 @@ class LaunchAtLoginManager {
 	
 	var requiresApproval : Bool {
 		if #available(macOS 13.0, *) {
-			if SMAppService.mainApp.status == .enabled {
-				return false
-			}
-			if SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").status == .requiresApproval {
+			if SMAppService.mainApp.status == .requiresApproval {
 				return true
 			}
 		}
@@ -45,7 +42,7 @@ class LaunchAtLoginManager {
 	func registerLoginItem() throws {
 		UserDefaults.standard.set(true, forKey: UserDefaults.LoginItemWasRegisteredKey)
 		if #available(macOS 13, *) {
-			try SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper").register()
+			try SMAppService.mainApp.register()
 		} else {
 			RegisterLegacyLoginItem(Bundle.main.bundleURL as CFURL)
 		}
