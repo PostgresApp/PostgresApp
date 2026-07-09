@@ -29,9 +29,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
 		super.windowDidLoad()
 		
 		guard let window = self.window else { return }
-		window.titleVisibility = .hidden
-		window.styleMask = [window.styleMask, .fullSizeContentView]
-		window.titlebarAppearsTransparent = true
 		window.isMovableByWindowBackground = true
 		
 		let model = MainWindowModel()

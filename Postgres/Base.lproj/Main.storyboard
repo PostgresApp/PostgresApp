@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="25079.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25079.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,18 +30,18 @@
         <scene sceneID="qij-K2-cCG">
             <objects>
                 <viewController id="F90-nP-753" customClass="PreferencesViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="yPx-aT-K8a">
-                        <rect key="frame" x="0.0" y="0.0" width="582" height="439"/>
+                    <view key="view" misplaced="YES" id="yPx-aT-K8a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Kd-nq-3yy">
-                                <rect key="frame" x="20" y="20" width="542" height="399"/>
+                                <rect key="frame" x="20" y="20" width="560" height="411"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="iUw-28-bFy">
-                                        <rect key="frame" x="0.0" y="356" width="342" height="43"/>
+                                        <rect key="frame" x="0.0" y="374" width="342" height="37"/>
                                         <subviews>
                                             <popUpButton verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
-                                                <rect key="frame" x="169" y="-2" width="89" height="47"/>
+                                                <rect key="frame" x="174" y="4" width="95" height="29"/>
                                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="message"/>
@@ -58,7 +58,7 @@
                                                 </connections>
                                             </popUpButton>
                                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5a3-Mr-g2e">
-                                                <rect key="frame" x="-2" y="14" width="170" height="16"/>
+                                                <rect key="frame" x="-2" y="11" width="170" height="16"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect to databases with:" id="edI-G0-pds">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -77,10 +77,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3cv-TL-lwV">
-                                        <rect key="frame" x="0.0" y="290" width="380" height="50"/>
+                                        <rect key="frame" x="0.0" y="324" width="380" height="34"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ekq-mP-zW1">
-                                                <rect key="frame" x="-2" y="17" width="371" height="34"/>
+                                                <rect key="frame" x="0.0" y="18" width="367" height="16"/>
                                                 <buttonCell key="cell" type="check" title="Ask for permission when apps connect without password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Od5-mz-rAz">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -109,19 +109,19 @@
                                         </constraints>
                                     </customView>
                                     <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="53" horizontalPageScroll="10" verticalLineScroll="53" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aD-1D5">
-                                        <rect key="frame" x="0.0" y="142" width="542" height="132"/>
+                                        <rect key="frame" x="0.0" y="175" width="555" height="133"/>
                                         <clipView key="contentView" id="PqE-0w-5WB">
-                                            <rect key="frame" x="1" y="1" width="540" height="130"/>
+                                            <rect key="frame" x="1" y="1" width="553" height="131"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="53" usesAutomaticRowHeights="YES" viewBased="YES" id="6n6-Pi-Za8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="130"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="553" height="131"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <tableViewGridLines key="gridStyleMask" dashed="YES"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="528" minWidth="40" maxWidth="10000" id="bhh-aM-eaH">
+                                                        <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="541" minWidth="40" maxWidth="10000" id="bhh-aM-eaH">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -134,11 +134,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView misplaced="YES" id="fsP-qi-mA6" customClass="PreferencesClientCellView" customModule="Postgres" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="53"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="553" height="53"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <popUpButton horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Egy-iu-Eu6">
-                                                                            <rect key="frame" x="426" y="13" width="72" height="25"/>
+                                                                            <rect key="frame" x="418" y="15" width="81" height="24"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wJn-Yo-bsi" id="1gG-YX-iMI">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="message"/>
@@ -171,7 +171,7 @@
                                                                             </connections>
                                                                         </imageView>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalCompressionResistancePriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xm4-D0-IA7">
-                                                                            <rect key="frame" x="55" y="12" width="369" height="30"/>
+                                                                            <rect key="frame" x="55" y="12" width="358" height="30"/>
                                                                             <subviews>
                                                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="klf-g0-9bG">
                                                                                     <rect key="frame" x="-2" y="14" width="64" height="16"/>
@@ -211,7 +211,7 @@
                                                                             </customSpacing>
                                                                         </stackView>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K5Q-oY-dPf">
-                                                                            <rect key="frame" x="495" y="10" width="45" height="32"/>
+                                                                            <rect key="frame" x="507" y="15" width="39" height="24"/>
                                                                             <buttonCell key="cell" type="push" title="Inline" bezelStyle="rounded" image="trash" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tT5-WF-j1n">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -253,8 +253,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="125" id="67r-qr-Xt3"/>
                                         </constraints>
-                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="p6G-8a-jJe">
-                                            <rect key="frame" x="1" y="119" width="378" height="15"/>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="p6G-8a-jJe">
+                                            <rect key="frame" x="1" y="115" width="552" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="RHm-rX-kig">
@@ -270,7 +270,7 @@
                                         </connections>
                                     </scrollView>
                                     <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xuP-ZJ-b1l">
-                                        <rect key="frame" x="376" y="99" width="173" height="32"/>
+                                        <rect key="frame" x="397" y="135" width="163" height="24"/>
                                         <buttonCell key="cell" type="push" title="Reset App Permissions" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BXu-1M-Dy0">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -290,7 +290,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ALE-A3-sd5">
-                                        <rect key="frame" x="-2" y="73" width="191" height="18"/>
+                                        <rect key="frame" x="0.0" y="103" width="187" height="16"/>
                                         <buttonCell key="cell" type="check" title="Show Postgres in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="SOF-zZ-JMG">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -304,7 +304,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ON-LL-Ciy">
-                                        <rect key="frame" x="-2" y="41" width="252" height="18"/>
+                                        <rect key="frame" x="0.0" y="71" width="248" height="16"/>
                                         <buttonCell key="cell" type="check" title="Automatically start Postgres on Login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BZf-5n-IZj">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -315,7 +315,7 @@
                                         </connections>
                                     </button>
                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="t4V-g8-2uS">
-                                        <rect key="frame" x="-2" y="0.0" width="546" height="26"/>
+                                        <rect key="frame" x="-2" y="29" width="564" height="26"/>
                                         <textFieldCell key="cell" selectable="YES" title="Postgres.app was launched from a temporary location. Move the app to a permanent location with Finder to enable all features." id="a2l-4H-iTf">
                                             <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -611,11 +611,28 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" userLabel="Main Window Controller" customClass="MainWindowController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Postgres" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                    <window key="window" title="Postgres" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="600" height="200"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="7680" height="4290"/>
                         <value key="minSize" type="size" width="600" height="200"/>
+                        <toolbar key="toolbar" implicitIdentifier="9AB33C82-67CC-482D-A656-ED92FEE029E4" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="2Zb-1Z-2zY">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="E791A9B0-8914-4306-A825-D00F467451FA" explicitItemIdentifier="AddServer" label="Add Server…" paletteLabel="Add Server…" tag="-1" image="NSAddTemplate" bordered="YES" sizingBehavior="auto" id="0kX-G5-sLf">
+                                    <connections>
+                                        <segue destination="1Yk-z1-ntp" kind="sheet" id="yAv-Hk-s3v"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="FQc-r9-jES"/>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="FQc-r9-jES"/>
+                                <toolbarItem reference="0kX-G5-sLf"/>
+                            </defaultToolbarItems>
+                            <connections>
+                                <outlet property="delegate" destination="B8D-0N-5wS" id="xBY-t4-lpD"/>
+                            </connections>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="bt1-Ha-O4t"/>
                         </connections>
@@ -628,12 +645,12 @@
             </objects>
             <point key="canvasLocation" x="54" y="103"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Main Split View Controller-->
         <scene sceneID="tQl-Oo-dqS">
             <objects>
-                <splitViewController id="it9-uo-REU" sceneMemberID="viewController">
+                <splitViewController id="it9-uo-REU" customClass="MainSplitViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="260" id="gtw-Ta-XCg"/>
+                        <splitViewItem holdingPriority="1000" behavior="sidebar" id="gtw-Ta-XCg"/>
                         <splitViewItem id="Q5R-ud-P97"/>
                     </splitViewItems>
                     <splitView key="splitView" wantsLayer="YES" misplaced="YES" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="QG8-SB-dWs" customClass="UncollapsibleSplitView" customModule="Postgres" customModuleProvider="target">
@@ -732,7 +749,7 @@ IA
                                         <rect key="frame" x="42" y="352" width="450" height="50"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="laV-S9-hSm">
-                                                <rect key="frame" x="164" y="-7" width="75" height="62"/>
+                                                <rect key="frame" x="171" y="0.0" width="65" height="50"/>
                                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zec-A1-Qvh">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -797,7 +814,7 @@ IA
                                         <rect key="frame" x="0.0" y="292" width="533" height="60"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NJh-WV-lPO">
-                                                <rect key="frame" x="456" y="9" width="64" height="32"/>
+                                                <rect key="frame" x="459" y="14" width="54" height="24"/>
                                                 <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qfD-hk-jvh">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -827,7 +844,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
-                                                <rect key="frame" x="395" y="9" width="63" height="32"/>
+                                                <rect key="frame" x="394" y="14" width="53" height="24"/>
                                                 <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -847,7 +864,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Scd-hP-8Y9">
-                                                <rect key="frame" x="247" y="12" width="25" height="25"/>
+                                                <rect key="frame" x="258" y="14" width="24" height="24"/>
                                                 <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7ZS-lN-IhC">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -857,7 +874,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Be-be-3Q1">
-                                                <rect key="frame" x="13" y="5" width="138" height="40"/>
+                                                <rect key="frame" x="20" y="12" width="128" height="28"/>
                                                 <buttonCell key="cell" type="push" title="Server Settings…" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="DlM-u9-5ko">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -868,7 +885,7 @@ IA
                                                 </connections>
                                             </button>
                                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
-                                                <rect key="frame" x="378" y="18" width="16" height="16"/>
+                                                <rect key="frame" x="370" y="18" width="16" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="16" id="TiN-qb-ptl"/>
                                                     <constraint firstAttribute="height" constant="16" id="yd5-dd-lXS"/>
@@ -882,7 +899,7 @@ IA
                                                 </connections>
                                             </progressIndicator>
                                             <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="KDo-0D-h6z">
-                                                <rect key="frame" x="149" y="9" width="96" height="32"/>
+                                                <rect key="frame" x="160" y="14" width="86" height="24"/>
                                                 <buttonCell key="cell" type="push" title="Connect…" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="FsL-vD-id3">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -993,7 +1010,7 @@ IA
                                                 </connections>
                                             </textField>
                                             <textField focusRingType="none" verticalHuggingPriority="800" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bdJ-i7-2RX">
-                                                <rect key="frame" x="76" y="6" width="273" height="14"/>
+                                                <rect key="frame" x="76" y="6" width="269" height="14"/>
                                                 <textFieldCell key="cell" selectable="YES" title="Permission Denied Message" id="Ydy-ZI-I1q">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1004,7 +1021,7 @@ IA
                                                 </connections>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7y0-wd-87U">
-                                                <rect key="frame" x="349" y="-2" width="87" height="27"/>
+                                                <rect key="frame" x="351" y="3" width="79" height="20"/>
                                                 <buttonCell key="cell" type="push" title="More Info…" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gbh-e0-Bz8">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -1128,7 +1145,7 @@ IA
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField focusRingType="none" horizontalHuggingPriority="1" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyT-HX-chR">
-                                <rect key="frame" x="62" y="333" width="279" height="19"/>
+                                <rect key="frame" x="62" y="330" width="279" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="TLb-6X-fbU">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1139,7 +1156,7 @@ IA
                                 </connections>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Zf-OI-5D1">
-                                <rect key="frame" x="18" y="335" width="38" height="14"/>
+                                <rect key="frame" x="18" y="334" width="38" height="14"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="WsD-Xy-6fR">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1147,7 +1164,7 @@ IA
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cs-Wv-SXu">
-                                <rect key="frame" x="18" y="306" width="38" height="14"/>
+                                <rect key="frame" x="18" y="302" width="38" height="14"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="jkN-O7-N3F">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1155,7 +1172,7 @@ IA
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yt-mE-dE6">
-                                <rect key="frame" x="62" y="304" width="41" height="19"/>
+                                <rect key="frame" x="62" y="298" width="41" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="j7D-rd-0Lv"/>
                                 </constraints>
@@ -1178,13 +1195,13 @@ IA
                                 </connections>
                             </textField>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="oRG-00-QiV">
-                                <rect key="frame" x="0.0" y="271" width="361" height="5"/>
+                                <rect key="frame" x="0.0" y="265" width="361" height="5"/>
                             </box>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pLa-GF-SdJ">
                                 <rect key="frame" x="0.0" y="47" width="361" height="5"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m0L-aG-Cns">
-                                <rect key="frame" x="185" y="19" width="156" height="16"/>
+                                <rect key="frame" x="188" y="20" width="153" height="14"/>
                                 <buttonCell key="cell" type="check" title="Automatically start server" bezelStyle="regularSquare" imagePosition="left" alignment="justified" controlSize="small" lineBreakMode="truncatingTail" inset="2" id="eNi-TD-DQe">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="message" size="11"/>
@@ -1194,7 +1211,7 @@ IA
                                 </connections>
                             </button>
                             <gridView xPlacement="leading" yPlacement="bottom" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="fEc-ph-rgS">
-                                <rect key="frame" x="20" y="149" width="321" height="116"/>
+                                <rect key="frame" x="20" y="143" width="321" height="116"/>
                                 <rows>
                                     <gridRow id="ddM-4b-Z9b"/>
                                     <gridRow id="f4n-KI-bfN"/>
@@ -1386,7 +1403,7 @@ IA
                                 </gridCells>
                             </gridView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7tI-Yz-NQx">
-                                <rect key="frame" x="216" y="298" width="131" height="27"/>
+                                <rect key="frame" x="218" y="299" width="123" height="20"/>
                                 <buttonCell key="cell" type="push" title="Change Password…" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aGU-iC-6ua">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
@@ -1401,7 +1418,7 @@ IA
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ik7-Xf-IkN">
-                                <rect key="frame" x="60" y="282" width="283" height="14"/>
+                                <rect key="frame" x="60" y="276" width="283" height="14"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="stop server to change port or passwords" id="3tc-V0-flm">
                                     <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -1456,12 +1473,12 @@ IA
         <scene sceneID="JYY-Us-SOh">
             <objects>
                 <viewController id="fKp-yy-u0S" userLabel="Sidebar Controller" customClass="SidebarController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="Jbb-lb-c1Z">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="358"/>
+                    <view key="view" misplaced="YES" id="Jbb-lb-c1Z">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="320"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-eZ-QEe">
-                                <rect key="frame" x="0.0" y="33" width="200" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="dFK-VJ-sw2">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1562,74 +1579,13 @@ IA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4tL-aA-EIb">
-                                <rect key="frame" x="0.0" y="30" width="200" height="5"/>
-                            </box>
-                            <visualEffectView blendingMode="behindWindow" material="sidebar" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="YHO-ct-evJ">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-Fg-SZa">
-                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon-add" imagePosition="only" alignment="center" inset="2" id="8Nm-K3-zU0">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="n8u-T0-FYO"/>
-                                            <constraint firstAttribute="width" constant="32" id="wnb-mO-fjh"/>
-                                        </constraints>
-                                        <connections>
-                                            <binding destination="Dsw-zw-YD1" name="enabled" keyPath="canAdd" id="eao-nH-a1L"/>
-                                            <segue destination="1Yk-z1-ntp" kind="sheet" id="W2h-aF-Jjc"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2oV-nX-Naq">
-                                        <rect key="frame" x="32" y="0.0" width="32" height="32"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon-remove" imagePosition="only" alignment="center" inset="2" id="oHf-Qh-b0f">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="k5n-4l-3kU"/>
-                                            <constraint firstAttribute="width" constant="32" id="la5-wq-rnW"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="removeServer:" target="fKp-yy-u0S" id="aKh-hk-haY"/>
-                                            <binding destination="Dsw-zw-YD1" name="enabled" keyPath="canRemove" id="WZT-U8-RgD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="2oV-nX-Naq" secondAttribute="bottom" id="5gl-F0-sqY"/>
-                                    <constraint firstItem="2oV-nX-Naq" firstAttribute="leading" secondItem="lhI-Fg-SZa" secondAttribute="trailing" id="7H4-Cj-9fy"/>
-                                    <constraint firstItem="lhI-Fg-SZa" firstAttribute="top" secondItem="YHO-ct-evJ" secondAttribute="top" id="FGy-zf-4S5"/>
-                                    <constraint firstItem="2oV-nX-Naq" firstAttribute="top" secondItem="YHO-ct-evJ" secondAttribute="top" id="MEY-cR-QmI"/>
-                                    <constraint firstAttribute="bottom" secondItem="lhI-Fg-SZa" secondAttribute="bottom" id="SNP-Fk-VlF"/>
-                                    <constraint firstAttribute="height" constant="32" id="fUp-UD-cjv"/>
-                                    <constraint firstItem="2oV-nX-Naq" firstAttribute="leading" secondItem="lhI-Fg-SZa" secondAttribute="trailing" id="reb-7p-lXF"/>
-                                    <constraint firstItem="lhI-Fg-SZa" firstAttribute="leading" secondItem="YHO-ct-evJ" secondAttribute="leading" id="vW9-Ug-hT6"/>
-                                </constraints>
-                            </visualEffectView>
-                            <visualEffectView blendingMode="behindWindow" material="sidebar" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="lkQ-qG-3E4">
-                                <rect key="frame" x="0.0" y="333" width="200" height="25"/>
-                            </visualEffectView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="YHO-ct-evJ" firstAttribute="top" secondItem="4tL-aA-EIb" secondAttribute="bottom" id="2tw-GP-DJa"/>
-                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" constant="25" id="Bcj-Wj-daD"/>
+                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="5GB-mI-dQ7"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="Has-5z-2v7"/>
                             <constraint firstItem="g7T-eZ-QEe" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="Mq2-yO-CMl"/>
-                            <constraint firstItem="g7T-eZ-QEe" firstAttribute="top" secondItem="lkQ-qG-3E4" secondAttribute="bottom" id="MxA-RX-6Lp"/>
-                            <constraint firstAttribute="bottom" secondItem="YHO-ct-evJ" secondAttribute="bottom" id="S0f-yG-zBi"/>
-                            <constraint firstItem="4tL-aA-EIb" firstAttribute="top" secondItem="g7T-eZ-QEe" secondAttribute="bottom" id="byE-Bm-ho2"/>
-                            <constraint firstAttribute="trailing" secondItem="lkQ-qG-3E4" secondAttribute="trailing" id="erh-Pc-LPZ"/>
-                            <constraint firstAttribute="trailing" secondItem="4tL-aA-EIb" secondAttribute="trailing" id="il2-gt-leA"/>
-                            <constraint firstAttribute="trailing" secondItem="YHO-ct-evJ" secondAttribute="trailing" id="l5f-KP-cbo"/>
-                            <constraint firstItem="YHO-ct-evJ" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="pPp-eh-fCK"/>
-                            <constraint firstItem="lkQ-qG-3E4" firstAttribute="top" secondItem="Jbb-lb-c1Z" secondAttribute="top" id="r1I-7T-psu"/>
+                            <constraint firstAttribute="bottom" secondItem="g7T-eZ-QEe" secondAttribute="bottom" id="XRi-Wk-Egj"/>
                             <constraint firstAttribute="trailing" secondItem="g7T-eZ-QEe" secondAttribute="trailing" id="uX4-fq-6xw"/>
-                            <constraint firstItem="4tL-aA-EIb" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="xnY-Ik-rgC"/>
-                            <constraint firstItem="lkQ-qG-3E4" firstAttribute="leading" secondItem="Jbb-lb-c1Z" secondAttribute="leading" id="xpa-aF-xf0"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -1810,7 +1766,7 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <gridView verticalHuggingPriority="750" xPlacement="leading" yPlacement="center" rowAlignment="none" rowSpacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="cdX-VT-N9S">
-                                <rect key="frame" x="20" y="60" width="412" height="179"/>
+                                <rect key="frame" x="20" y="64" width="412" height="187"/>
                                 <rows>
                                     <gridRow id="doU-Zu-WxI"/>
                                     <gridRow id="qdE-9i-eg6"/>
@@ -1825,7 +1781,7 @@ Gw
                                 <gridCells>
                                     <gridCell row="doU-Zu-WxI" column="mpM-a8-ErN" id="jZE-Sa-esi">
                                         <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPf-fP-MHS">
-                                            <rect key="frame" x="50" y="161" width="66" height="16"/>
+                                            <rect key="frame" x="50" y="167" width="66" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Database:" id="a9m-ed-sOs">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1835,7 +1791,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="doU-Zu-WxI" column="Sep-mt-pF6" id="xzB-aR-Lkc">
                                         <comboBox key="contentView" focusRingType="none" verticalHuggingPriority="750" verticalCompressionResistancePriority="850" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EaV-h6-kfM">
-                                            <rect key="frame" x="119" y="157" width="104" height="23"/>
+                                            <rect key="frame" x="120" y="163" width="100" height="24"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="RTt-NG-q2H">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1850,7 +1806,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="qdE-9i-eg6" column="mpM-a8-ErN" id="tes-xj-RIR">
                                         <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffV-h8-6Lt">
-                                            <rect key="frame" x="4" y="127" width="112" height="16"/>
+                                            <rect key="frame" x="4" y="129" width="112" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="PostgreSQL User:" id="H3i-J1-7Uh">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1860,7 +1816,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="qdE-9i-eg6" column="Sep-mt-pF6" id="kjo-SU-odb">
                                         <comboBox key="contentView" focusRingType="none" verticalHuggingPriority="750" verticalCompressionResistancePriority="850" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jiC-9Y-Xzh">
-                                            <rect key="frame" x="119" y="123" width="104" height="23"/>
+                                            <rect key="frame" x="120" y="125" width="100" height="24"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="MhX-Zc-9sW">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1885,7 +1841,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="Xds-gZ-WAM" column="Sep-mt-pF6" id="FIv-zy-h7d">
                                         <popUpButton key="contentView" verticalHuggingPriority="750" verticalCompressionResistancePriority="850" translatesAutoresizingMaskIntoConstraints="NO" id="AhA-pZ-e2k">
-                                            <rect key="frame" x="115" y="77" width="89" height="40"/>
+                                            <rect key="frame" x="120" y="83" width="95" height="28"/>
                                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mx3-34-Fsp" id="GYx-Dj-uMs">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="message"/>
@@ -1902,7 +1858,7 @@ Gw
                                     <gridCell row="gSZ-sj-GKt" column="mpM-a8-ErN" id="77I-rG-WTj"/>
                                     <gridCell row="gSZ-sj-GKt" column="Sep-mt-pF6" id="FmN-j9-LXU">
                                         <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cVe-LS-Afg">
-                                            <rect key="frame" x="118" y="52" width="216" height="18"/>
+                                            <rect key="frame" x="120" y="53" width="212" height="16"/>
                                             <buttonCell key="cell" type="check" title="Set as default client application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="aiM-8h-mdW">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1924,7 +1880,7 @@ Gw
                                 </gridCells>
                             </gridView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6k8-Ua-lyA">
-                                <rect key="frame" x="353" y="13" width="86" height="32"/>
+                                <rect key="frame" x="356" y="20" width="76" height="24"/>
                                 <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TeM-pg-V6r">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1937,7 +1893,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y2r-jt-72U">
-                                <rect key="frame" x="279" y="13" width="76" height="32"/>
+                                <rect key="frame" x="278" y="20" width="66" height="24"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FFt-xJ-qVM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1978,11 +1934,11 @@ Gw
             <objects>
                 <viewController id="ngu-dR-Rxg" customClass="ChangePasswordViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="38I-EA-fcj">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="207"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="218"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-Ya-DcF">
-                                <rect key="frame" x="18" y="156" width="414" height="31"/>
+                                <rect key="frame" x="18" y="167" width="414" height="31"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Change Password" id="7hN-yY-S9H">
                                     <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1990,7 +1946,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XAH-9w-HyQ">
-                                <rect key="frame" x="18" y="132" width="414" height="16"/>
+                                <rect key="frame" x="18" y="143" width="414" height="16"/>
                                 <textFieldCell key="cell" title="You can reset the PostgreSQL password for any PostgreSQL user." id="fCl-Io-z6K">
                                     <font key="font" textStyle="body" name=".SFNS-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1998,7 +1954,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <gridView verticalHuggingPriority="750" xPlacement="none" yPlacement="top" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="8kF-J7-u9k">
-                                <rect key="frame" x="20" y="60" width="410" height="47"/>
+                                <rect key="frame" x="20" y="64" width="410" height="54"/>
                                 <rows>
                                     <gridRow id="k0o-IB-HkS"/>
                                     <gridRow id="KCf-eS-Bs7"/>
@@ -2010,7 +1966,7 @@ Gw
                                 <gridCells>
                                     <gridCell row="k0o-IB-HkS" column="is9-YB-JQB" id="rxh-Vc-JPD">
                                         <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sjc-8U-ZoR">
-                                            <rect key="frame" x="-2" y="27" width="112" height="19"/>
+                                            <rect key="frame" x="-2" y="30" width="112" height="20"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="PostgreSQL User:" id="1LH-h2-k94">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2020,7 +1976,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="k0o-IB-HkS" column="cWk-rO-Fsi" id="ZGh-os-Dec">
                                         <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mrU-pW-h8I">
-                                            <rect key="frame" x="111" y="23" width="303" height="25"/>
+                                            <rect key="frame" x="114" y="30" width="296" height="24"/>
                                             <popUpButtonCell key="cell" type="push" title="postgres" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Jgd-Hz-gs1" id="b9v-ao-Vsy">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="message"/>
@@ -2034,7 +1990,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="KCf-eS-Bs7" column="is9-YB-JQB" id="dBH-pA-uUA">
                                         <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rRm-ss-emC">
-                                            <rect key="frame" x="13" y="0.0" width="97" height="19"/>
+                                            <rect key="frame" x="13" y="0.0" width="97" height="20"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="New Password:" id="e7n-kV-hov">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2044,7 +2000,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="KCf-eS-Bs7" column="cWk-rO-Fsi" id="seU-Sf-asj">
                                         <secureTextField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MRe-Fd-3Sk">
-                                            <rect key="frame" x="114" y="0.0" width="296" height="21"/>
+                                            <rect key="frame" x="114" y="0.0" width="296" height="24"/>
                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="9c2-VJ-gXV">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2058,7 +2014,7 @@ Gw
                                 </gridCells>
                             </gridView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jMX-e5-0Bz">
-                                <rect key="frame" x="294" y="13" width="143" height="32"/>
+                                <rect key="frame" x="297" y="20" width="133" height="24"/>
                                 <buttonCell key="cell" type="push" title="Change Password" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IK3-iK-7dY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2071,7 +2027,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-W6-zMg">
-                                <rect key="frame" x="220" y="13" width="76" height="32"/>
+                                <rect key="frame" x="219" y="20" width="66" height="24"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5J9-if-cqO">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2113,11 +2069,10 @@ Gw
         </scene>
     </scenes>
     <resources>
+        <image name="NSAddTemplate" width="18" height="16"/>
         <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="caution-icon-color" width="18" height="18"/>
-        <image name="icon-add" width="32" height="32"/>
-        <image name="icon-remove" width="32" height="32"/>
         <image name="trash" catalog="system" width="15" height="17"/>
     </resources>
 </document>

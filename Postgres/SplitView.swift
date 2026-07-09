@@ -22,4 +22,34 @@ class UncollapsibleSplitView: NSSplitView {
 			subview.isHidden = false
 		}
 	}
+	
+	override func awakeFromNib() {
+		for subview in self.arrangedSubviews {
+			subview.isHidden = false
+		}
+		super.awakeFromNib()
+	}
+}
+
+
+class MainSplitViewController: NSSplitViewController {
+	override func splitView(_ splitView: NSSplitView, canCollapseSubview subview: NSView) -> Bool {
+		return false
+	}
+	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		for item in splitViewItems {
+			item.canCollapse = false
+		}
+	}
+	
+	override func viewWillAppear() {
+		super.viewWillAppear()
+		if let toolbar = view.window?.toolbar {
+			if !toolbar.items.contains(where: {$0.itemIdentifier == .sidebarTrackingSeparator}) {
+				toolbar.insertItem(withItemIdentifier: .sidebarTrackingSeparator, at: toolbar.items.count)
+			}
+		}
+	}
 }
