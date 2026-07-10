@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class ServerViewController: NSViewController, MainWindowModelConsumer {
-	@objc dynamic var mainWindowModel: MainWindowModel!
-	
+class ServerViewController: NSViewController {
+	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
+
 	@IBOutlet weak var stopButton: NSButton!
 	@IBOutlet weak var startButton: NSButton!
 	

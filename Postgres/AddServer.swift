@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class AddServerViewController: NSViewController, MainWindowModelConsumer {
+class AddServerViewController: NSViewController {
 	
-	@objc dynamic var mainWindowModel: MainWindowModel!
+	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
 	@objc dynamic var name: String = "New Server"
 	@objc dynamic var port: UInt = 5432
 	@objc dynamic var varPath: String = ""

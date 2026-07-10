@@ -9,6 +9,8 @@
 import Cocoa
 
 class MainWindowModel: NSObject {
+	static var shared = MainWindowModel()
+	
 	@objc dynamic var serverManager = ServerManager.shared
 	@objc dynamic var selectedServerIndices = IndexSet() {
 		didSet {
@@ -36,10 +38,4 @@ class MainWindowModel: NSObject {
 			selectedServerIndices = IndexSet()
 		}
 	}
-}
-
-
-
-protocol MainWindowModelConsumer {
-	var mainWindowModel: MainWindowModel! { get set }
 }

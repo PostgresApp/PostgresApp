@@ -8,18 +8,10 @@
 
 import Cocoa
 
-class SidebarController: NSViewController, MainWindowModelConsumer {
+class SidebarController: NSViewController {
 	
-	@objc dynamic var mainWindowModel: MainWindowModel!
-	
-	
-	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-		if var target = segue.destinationController as? MainWindowModelConsumer {
-			target.mainWindowModel = mainWindowModel
-		}
-	}
-	
-	
+	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
+
 	@IBAction func removeServer(_ sender: AnyObject?) {
 		let alert = NSAlert()
 		alert.messageText = "Do you want to remove the server from the sidebar?"

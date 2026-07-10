@@ -10,29 +10,13 @@ import Cocoa
 
 class MainWindowController: NSWindowController, NSWindowDelegate {
 	
-	@objc dynamic var mainWindowModel: MainWindowModel! {
-		didSet {
-			func propagate(_ mainWindowModel: MainWindowModel, toChildrenOf parent: NSViewController) {
-				if var consumer = parent as? MainWindowModelConsumer {
-					consumer.mainWindowModel = mainWindowModel
-				}
-				for child in parent.children {
-					propagate(mainWindowModel, toChildrenOf: child)
-				}
-			}
-			propagate(mainWindowModel, toChildrenOf: self.contentViewController!)
-		}
-	}
-	
+	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
 	
 	override func windowDidLoad() {
 		super.windowDidLoad()
 		
 		guard let window = self.window else { return }
 		window.isMovableByWindowBackground = true
-		
-		let model = MainWindowModel()
-		mainWindowModel = model
 	}
 	
 }
