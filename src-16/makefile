@@ -49,7 +49,7 @@ LIBXML2_VERSION=2.11.9
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.6
+OPENSSL_VERSION=3.5.7
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -91,7 +91,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.2
+PGVECTOR_VERSION=0.8.5
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.5.1

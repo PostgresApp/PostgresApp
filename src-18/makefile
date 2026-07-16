@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_89_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.1.1
+CGAL_VERSION=6.1.2
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.2.0
@@ -54,7 +54,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.6
+OPENSSL_VERSION=3.5.7
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -84,7 +84,7 @@ PROTOBUF_VERSION=33.6
 PROTOBUFC_VERSION=1.5.2
 
 # https://libtiff.gitlab.io/libtiff/
-LIBTIFF_VERSION=4.7.1
+LIBTIFF_VERSION=4.7.2
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.58
@@ -99,7 +99,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.9
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.2
+PGVECTOR_VERSION=0.8.5
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.8.0
@@ -196,7 +196,6 @@ postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/fd.c.patch
-	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/postgresql-docs-libxslt-libxml-chunk-fix.patch
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
@@ -344,7 +343,7 @@ $(PREFIX)/lib/libicui18n.dylib: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/
 	install_name_tool -id $(PREFIX)/lib/libicudata.$(ICU_MAJOR_VERSION).dylib $(PREFIX)/lib/libicudata.$(ICU_MAJOR_VERSION).dylib
 
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source/Makefile: icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)
-	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; ./runConfigureICU MacOSX --prefix="$(PREFIX)"
+	cd icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)/source; LDFLAGS="$(LDFLAGS) -headerpad_max_install_names" ./runConfigureICU MacOSX --prefix="$(PREFIX)"
 
 icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION): icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz
 	$(TAR) icu4c-$(ICU_MAJOR_VERSION)_$(ICU_MINOR_VERSION)-src.tgz

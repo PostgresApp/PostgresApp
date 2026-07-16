@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.6.3
+POSTGIS_VERSION=3.7.0alpha1
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=19beta1
+POSTGRES_VERSION=19beta2
 POSTGRES_MAJOR_VERSION=19
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,10 +18,10 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.13.0
+GDAL_VERSION=3.13.1
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.14.1
+GEOS_VERSION=3.15.0beta1
 
 # http://www.ijg.org
 JPEG_VERSION=10
@@ -36,10 +36,13 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_91_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.1.1
+CGAL_VERSION=6.2
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
-SFCGAL_VERSION=2.2.0
+SFCGAL_VERSION=2.3.0
+
+# https://github.com/nlohmann/json/releases
+NLOHMANNJSON_VERSION=3.12.0
 
 LIBEDIT_VERSION=20130611-3.1
 
@@ -54,7 +57,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.6
+OPENSSL_VERSION=3.5.7
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -68,7 +71,7 @@ PLV8_VERSION=3.0.0
 
 # https://github.com/json-c/json-c/wiki
 # https://s3.amazonaws.com/json-c_releases/releases/index.html
-JSONC_VERSION=0.18
+JSONC_VERSION=0.19
 
 # https://github.com/eulerto/wal2json/releases
 WAL2JSON_VERSION=wal2json_2_6
@@ -84,7 +87,7 @@ PROTOBUF_VERSION=33.6
 PROTOBUFC_VERSION=1.5.2
 
 # https://libtiff.gitlab.io/libtiff/
-LIBTIFF_VERSION=4.7.1
+LIBTIFF_VERSION=4.7.2
 
 # https://github.com/glennrp/libpng/tags
 LIBPNG_VERSION=1.6.58
@@ -99,7 +102,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.10
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.2
+PGVECTOR_VERSION=0.8.5
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=4.0.1
@@ -154,12 +157,13 @@ CURL=/usr/bin/curl --location --silent --show-error --remote-name --fail --remov
 TAR=/usr/bin/tar xzf
 
 # limited set of targets for now
-all: postgresql auth_permission_dialog
-clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
+# scheduled for unbundling in Postgres.app 3 (pg19): wal2json pljs pldebugger pgrouting (?)
+all: postgresql auth_permission_dialog pgvector postgis
+clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-nlohmann-json clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
-check: check-postgresql check-zstd check-openssl check-libxml2 check-libxslt check-libgeos check-libproj check-abseil check-protobuf check-protobuf-c check-libtiff check-netcdf check-gmp check-mpfr check-pgvector check-pljs check-arch check-libs check-rpath check-python
-download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz libxml2-${LIBXML2_VERSION}.tar.xz libxslt-${LIBXSLT_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz abseil-cpp-$(ABSEIL_VERSION).tar.gz protobuf-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
+check: check-postgresql check-zstd check-openssl check-libxml2 check-libxslt check-libgeos check-libproj check-abseil check-protobuf check-protobuf-c check-libtiff check-netcdf check-gmp check-mpfr check-nlohmann-json check-pgvector check-pljs check-arch check-libs check-rpath check-python
+download: postgresql-$(POSTGRES_VERSION).tar.bz2 lz4-${LZ4_VERSION}.tar.gz zstd-${ZSTD_VERSION}.tar.gz openssl-${OPENSSL_VERSION}.tar.gz icu4c-$(ICU_MAJOR_VERSION).$(ICU_MINOR_VERSION)-sources.tgz libxml2-${LIBXML2_VERSION}.tar.xz libxslt-${LIBXSLT_VERSION}.tar.xz libedit-$(LIBEDIT_VERSION).tar.gz jpegsrc.v$(JPEG_VERSION).tar.gz geos-${GEOS_VERSION}.tar.bz2 gdal-${GDAL_VERSION}.tar.gz proj-${PROJ_VERSION}.tar.gz json-c-$(JSONC_VERSION).tar.gz abseil-cpp-$(ABSEIL_VERSION).tar.gz protobuf-$(PROTOBUF_VERSION).tar.gz protobuf-c-$(PROTOBUFC_VERSION).tar.gz tiff-$(LIBTIFF_VERSION).tar.gz libpng-$(LIBPNG_VERSION).tar.gz openjpeg-$(OPENJPEG_VERSION).tar.gz netcdf-c-$(NETCDF_VERSION).tar.gz gmp-$(GMP_VERSION).tar.xz mpfr-$(MPFR_VERSION).tar.xz boost_$(BOOST_VERSION).tar.bz2 nlohmann-json-$(NLOHMANNJSON_VERSION).tar.gz CGAL-$(CGAL_VERSION).tar.xz SFCGAL-v$(SFCGAL_VERSION).tar.gz postgis-${POSTGIS_VERSION}.tar.gz plv8-${PLV8_VERSION}.tar.gz wal2json-${WAL2JSON_VERSION}.tar.gz pldebugger-${PLDEBUGGER_VERSION}.tar.gz pgvector-${PGVECTOR_VERSION}.tar.gz pgrouting-$(PGROUTING_VERSION).tar.gz pljs-${PLJS_VERSION}.tar.gz quickjs-${QUICKJS_VERSION}.tar.xz
 
 
 #########################
@@ -194,7 +198,6 @@ postgresql-$(POSTGRES_VERSION)/GNUmakefile: $(PREFIX)/lib/libssl.dylib $(PREFIX)
 postgresql-$(POSTGRES_VERSION)/configure: postgresql-$(POSTGRES_VERSION).tar.bz2
 	$(TAR) "postgresql-$(POSTGRES_VERSION).tar.bz2"
 	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/fd.c.patch
-	patch -b -d "postgresql-$(POSTGRES_VERSION)" -p1 <patches/postgresql-docs-libxslt-libxml-chunk-fix.patch
 	touch $@
 
 postgresql-$(POSTGRES_VERSION).tar.bz2:
@@ -554,10 +557,7 @@ proj-${PROJ_VERSION}.tar.gz:
 	$(CURL) "http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz"
 
 check-libproj:
-	# 'test_fork' fails (if build on big sur, only for arm64) disabled for now
-	# proj_create: SQLite error on SELECT versioned_auth_name, auth_name, version, priority FROM versioned_auth_name_mapping: disk I/O error
-	# https://github.com/OSGeo/PROJ/issues/4428
-	ARGS="--exclude-regex test_fork --output-on-failure" make -C proj-$(PROJ_VERSION)/build test
+	ARGS="--output-on-failure" make -C proj-$(PROJ_VERSION)/build test
 
 clean-libproj:
 	rm -Rf proj-${PROJ_VERSION}
@@ -793,7 +793,8 @@ clean-netcdf:
 	rm -Rf netcdf-c-$(NETCDF_VERSION)
 
 check-netcdf:
-	cmake --build netcdf-c-$(NETCDF_VERSION)/build --target test
+    # on Tahoe Test 21 nc_test fails, similar to https://github.com/Unidata/netcdf-c/issues/3027
+	#cmake --build netcdf-c-$(NETCDF_VERSION)/build --target test
 
 #####################
 ####### GMP #########
@@ -901,7 +902,7 @@ boost: $(PREFIX)/lib/libboost_thread.dylib
 	touch $@
 
 $(PREFIX)/lib/libboost_thread.dylib: boost_$(BOOST_VERSION)/b2
-	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 address-model=64 toolset=clang install
+	cd boost_$(BOOST_VERSION) && ./b2 architecture=arm+x86 address-model=64 toolset=clang install linkflags="-Wl,-headerpad_max_install_names"
 	# till we find a way to pass flags controlling to use of RPATHs to cmake through the B2 system, we fix RPATHs manually after installing
 	install_name_tool -id $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib
 	install_name_tool -id $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib
@@ -930,6 +931,37 @@ boost_$(BOOST_VERSION).tar.bz2:
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)
 
+###############################
+####### NLOHMANN-JSON #########
+###############################
+
+nlohmann-json: $(PREFIX)/include/nlohmann/json.hpp
+	touch $@
+
+$(PREFIX)/include/nlohmann/json.hpp: nlohmann-json-$(NLOHMANNJSON_VERSION)/build/Makefile
+	cmake --build nlohmann-json-$(NLOHMANNJSON_VERSION)/build
+	cmake --build nlohmann-json-$(NLOHMANNJSON_VERSION)/build --target install
+	touch $@
+
+nlohmann-json-$(NLOHMANNJSON_VERSION)/build/Makefile: nlohmann-json-$(NLOHMANNJSON_VERSION)/CMakeLists.txt
+	cd nlohmann-json-$(NLOHMANNJSON_VERSION)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
+
+nlohmann-json-$(NLOHMANNJSON_VERSION)/CMakeLists.txt: nlohmann-json-$(NLOHMANNJSON_VERSION).tar.gz
+	$(TAR) nlohmann-json-$(NLOHMANNJSON_VERSION).tar.gz
+	mv json-$(NLOHMANNJSON_VERSION) nlohmann-json-$(NLOHMANNJSON_VERSION)
+	mkdir nlohmann-json-$(NLOHMANNJSON_VERSION)/build
+	touch $@
+
+nlohmann-json-$(NLOHMANNJSON_VERSION).tar.gz:
+	$(CURL) --remote-header-name https://github.com/nlohmann/json/archive/refs/tags/v$(NLOHMANNJSON_VERSION).tar.gz
+	mv json-$(NLOHMANNJSON_VERSION).tar.gz nlohmann-json-$(NLOHMANNJSON_VERSION).tar.gz
+
+clean-nlohmann-json:
+	rm -Rf nlohmann-json-$(NLOHMANNJSON_VERSION)
+
+check-nlohmann-json:
+	cmake --build nlohmann-json-$(NLOHMANNJSON_VERSION)/build --target test -- ARGS="-LE 'not_reproducible|git_required'"
+
 
 ######################
 ####### CGAL #########
@@ -957,7 +989,7 @@ clean-cgal:
 ######################
 
 # used for gdal, postgis
-# uses cgal, boost, gmp, mpfr
+# uses cgal, boost, gmp, mpfr, nlohmannjson
 
 sfcgal: $(PREFIX)/lib/libSFCGAL.dylib
 	touch $@
@@ -966,13 +998,11 @@ $(PREFIX)/lib/libSFCGAL.dylib: SFCGAL-v$(SFCGAL_VERSION)/Makefile
 	make -C SFCGAL-v$(SFCGAL_VERSION)
 	make -C SFCGAL-v$(SFCGAL_VERSION) install
 
-SFCGAL-v$(SFCGAL_VERSION)/Makefile: SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt cgal-$(CGAL_VERSION)/include/CGAL $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libmpfr.dylib $(PREFIX)/lib/libgmp.dylib
+SFCGAL-v$(SFCGAL_VERSION)/Makefile: SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt cgal-$(CGAL_VERSION)/include/CGAL $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libmpfr.dylib $(PREFIX)/lib/libgmp.dylib $(PREFIX)/include/nlohmann/json.hpp
 	cd SFCGAL-v$(SFCGAL_VERSION) && GMP_DIR=$(PREFIX)/lib/ MPFR_DIR=$(PREFIX)/lib/ CGAL_DIR=../cgal-$(CGAL_VERSION) BOOST_ROOT=$(BUILD_PREFIX) cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$(PREFIX)" -DCMAKE_MACOSX_RPATH=ON -DCMAKE_INSTALL_RPATH="$(PREFIX)/lib" -DCMAKE_INSTALL_NAME_DIR="$(PREFIX)/lib"
 
 SFCGAL-v$(SFCGAL_VERSION)/CMakeLists.txt: SFCGAL-v$(SFCGAL_VERSION).tar.gz
 	$(TAR) SFCGAL-v$(SFCGAL_VERSION).tar.gz
-	# patch support for newer boost no longer including a stub libboost_system library as it is header-only: https://gitlab.com/sfcgal/SFCGAL/-/merge_requests/539
-	patch -b -d "SFCGAL-v$(SFCGAL_VERSION)" -p1 <patches/sfcgal-boost-1.89.patch
 	touch $@
 
 SFCGAL-v$(SFCGAL_VERSION).tar.gz:
@@ -988,8 +1018,6 @@ clean-sfcgal:
 
 #depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c, sfcgal
 
-PCRE_INCLUDE_PATH=$(shell pwd)/include
-
 postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib
 	touch $@
 
@@ -1000,7 +1028,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
-	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto PCRE_CFLAGS="-I$(PCRE_INCLUDE_PATH)" PCRE_LIBS="-lpcre"
+	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto
 	touch $@
 
 postgis-${POSTGIS_VERSION}/configure: postgis-${POSTGIS_VERSION}.tar.gz
@@ -1093,7 +1121,6 @@ $(PREFIX)/lib/postgresql/vector.dylib: pgvector-${PGVECTOR_VERSION}/Makefile $(P
 
 pgvector-${PGVECTOR_VERSION}/Makefile: pgvector-${PGVECTOR_VERSION}.tar.gz
 	$(TAR) $<
-	patch -b -d "pgvector-${PGVECTOR_VERSION}" -p1 <patches/pgvector-pg19.patch
 	touch $@
 
 pgvector-${PGVECTOR_VERSION}.tar.gz:
