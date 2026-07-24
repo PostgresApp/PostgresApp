@@ -18,6 +18,9 @@ class MainWindowModel: NSObject {
 				firstSelectedServer?.updateServerStatus()
 				firstSelectedServer?.checkReindexWarning()
 			}
+			if !selectedServerIndices.isEmpty {
+				selectedNavigationElementIndices.removeAll()
+			}
 		}
 	}
 	
@@ -38,4 +41,32 @@ class MainWindowModel: NSObject {
 			selectedServerIndices = IndexSet()
 		}
 	}
+	
+	@objc dynamic var navigationElements = [
+		NavigationElement.settings,
+		NavigationElement.about
+	]
+	
+	@objc dynamic var selectedNavigationElementIndices = IndexSet() {
+		didSet {
+			if !selectedNavigationElementIndices.isEmpty {
+				selectedServerIndices.removeAll()
+			}
+		}
+	}
+}
+
+@objc class NavigationElement: NSObject {
+	@objc var name: String
+	@objc var icon: NSImage
+	
+	init(name: String, icon: NSImage) {
+		self.name = name
+		self.icon = icon
+	}
+	
+	static var settings = NavigationElement(name: "Settings", icon: NSImage(systemSymbolName: "gear", accessibilityDescription: nil)!)
+	
+	static var about = NavigationElement(name: "About", icon: NSImage(systemSymbolName: "info.circle", accessibilityDescription: nil)!)
+
 }
