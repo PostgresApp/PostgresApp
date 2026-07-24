@@ -20,6 +20,7 @@ class MainWindowModel: NSObject {
 			}
 			if !selectedServerIndices.isEmpty {
 				selectedNavigationElementIndices.removeAll()
+				selectedTabIdentifier = "ServerTab"
 			}
 		}
 	}
@@ -51,22 +52,26 @@ class MainWindowModel: NSObject {
 		didSet {
 			if !selectedNavigationElementIndices.isEmpty {
 				selectedServerIndices.removeAll()
+				selectedTabIdentifier = navigationElements[selectedNavigationElementIndices.first!].identifier
 			}
 		}
 	}
+	
+	@objc dynamic var selectedTabIdentifier = "ServerTab"
 }
 
 @objc class NavigationElement: NSObject {
 	@objc var name: String
 	@objc var icon: NSImage
+	@objc var identifier: String
 	
-	init(name: String, icon: NSImage) {
+	init(name: String, icon: NSImage, identifier: String) {
 		self.name = name
 		self.icon = icon
+		self.identifier = identifier
 	}
 	
-	static var settings = NavigationElement(name: "Settings", icon: NSImage(systemSymbolName: "gear", accessibilityDescription: nil)!)
-	
-	static var about = NavigationElement(name: "About", icon: NSImage(systemSymbolName: "info.circle", accessibilityDescription: nil)!)
+	static var settings = NavigationElement(name: "Settings", icon: NSImage(systemSymbolName: "gear", accessibilityDescription: nil)!, identifier: "SettingsTab")
+	static var about = NavigationElement(name: "About", icon: NSImage(systemSymbolName: "info.circle", accessibilityDescription: nil)!, identifier: "AboutTab")
 
 }

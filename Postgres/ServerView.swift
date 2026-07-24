@@ -14,9 +14,9 @@ class ServerViewController: NSViewController {
 	@IBOutlet weak var stopButton: NSButton!
 	@IBOutlet weak var startButton: NSButton!
 	
-	override func viewWillAppear() {
+	override func viewDidAppear() {
 		self.view.window?.addObserver(self, forKeyPath: "firstResponder", context: nil)
-		super.viewWillAppear()
+		super.viewDidAppear()
 	}
 	
 	override func viewWillDisappear() {

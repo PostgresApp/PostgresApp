@@ -30,6 +30,7 @@
 		369189BD2A1E7DAD000A3C97 /* PostgresPermissionDialog in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		369344FC2FE16F1200762CF4 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369344FB2FE16F0000762CF4 /* LaunchAtLoginManager.swift */; };
 		369B82392CA41842008B994E /* libpgcommon_shlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369B82382CA41842008B994E /* libpgcommon_shlib.a */; };
+		36A4C3EB3013557B008B805E /* DetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A4C3EA3013556F008B805E /* DetailTabViewController.swift */; };
 		36C9D0482CC69746006ABA02 /* ConnectionDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C9D0472CC69746006ABA02 /* ConnectionDialog.swift */; };
 		36CC815829E6FF990080B0B4 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */; };
 		36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
@@ -137,6 +138,7 @@
 		369189BB2A1E3DC1000A3C97 /* PostgresPermissionDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgresPermissionDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		369344FB2FE16F0000762CF4 /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
 		369B82382CA41842008B994E /* libpgcommon_shlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgcommon_shlib.a; path = "src-staticlibs/libpgcommon_shlib.a"; sourceTree = "<group>"; };
+		36A4C3EA3013556F008B805E /* DetailTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTabViewController.swift; sourceTree = "<group>"; };
 		36C9D0472CC69746006ABA02 /* ConnectionDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDialog.swift; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				83FB573B1D1B18C900A903A3 /* MainWindow.swift */,
 				838B8D361D649CB30050EF03 /* MainWindowModel.swift */,
 				8353FBDF1D1D5E4C002F77E7 /* SplitView.swift */,
+				36A4C3EA3013556F008B805E /* DetailTabViewController.swift */,
 				8353FBDD1D1D57C8002F77E7 /* ServerView.swift */,
 				36C9D0472CC69746006ABA02 /* ConnectionDialog.swift */,
 				836CC37D1D2C62F4000D0C13 /* DatabasesView.swift */,
@@ -517,6 +520,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				830B4B261D1C132300F16762 /* ServerManager.swift in Sources */,
+				36A4C3EB3013557B008B805E /* DetailTabViewController.swift in Sources */,
 				36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */,
 				83FB571C1D1B05F000A903A3 /* AppDelegate.swift in Sources */,
 				839A38281D88494A00E9591A /* main.swift in Sources */,
