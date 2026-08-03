@@ -100,7 +100,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.5
+PGVECTOR_VERSION=0.8.6
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.6.3
