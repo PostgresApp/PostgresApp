@@ -80,8 +80,8 @@ WAL2JSON_VERSION=wal2json_2_6
 ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
-# 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.6
+# 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
+PROTOBUF_VERSION=36.0-rc1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -669,6 +669,8 @@ protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/config
 
 protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
 	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
+	#patch for protobuf > v34  compatibility: https://github.com/protobuf-c/protobuf-c/pull/797
+	patch -b -d "protobuf-c-$(PROTOBUFC_VERSION)" -p1 <patches/protobuf-c-protobuf-v34.patch
 	touch $@
 
 protobuf-c-$(PROTOBUFC_VERSION).tar.gz:

@@ -113,8 +113,8 @@ ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-# 36.x available, will get LTS at 37 2026Q4. protobuf-c needs patch: https://github.com/protobuf-c/protobuf-c/issues/795
-PROTOBUF_VERSION=33.6
+# 36.x will get LTS at 37 2026Q4. protobuf-c needs patch
+PROTOBUF_VERSION=36.0-rc1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -719,6 +719,8 @@ protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/config
 
 protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
 	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
+	#patch for protobuf > v34  compatibility: https://github.com/protobuf-c/protobuf-c/pull/797
+	patch -b -d "protobuf-c-$(PROTOBUFC_VERSION)" -p1 <patches/protobuf-c-protobuf-v34.patch
 	touch $@
 
 protobuf-c-$(PROTOBUFC_VERSION).tar.gz:
