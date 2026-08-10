@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.7.0beta1
+POSTGIS_VERSION=3.7.0beta2
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=19beta2
@@ -81,7 +81,7 @@ ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=36.0-rc1
+PROTOBUF_VERSION=36.0-rc2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2

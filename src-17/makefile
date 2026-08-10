@@ -118,7 +118,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.14
+PYTHON_VERSION_FULL=3.13.15
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build

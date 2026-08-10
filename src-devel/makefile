@@ -114,7 +114,7 @@ ABSEIL_VERSION=20260526.0
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
 # 36.x will get LTS at 37 2026Q4. protobuf-c needs patch
-PROTOBUF_VERSION=36.0-rc1
+PROTOBUF_VERSION=36.0-rc2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
