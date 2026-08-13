@@ -6,32 +6,32 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 3alpha7</title>
+		<title>Postgres.app 3alpha8</title>
 		<description>
 			<![CDATA[
 				<p>
 					PostgreSQL beta versions usually introduce incompatible on-disk data formats.
 				</p>
 				<p style="color: red;">
-					Do not install this update if you need to access databases created with PostgreSQL 19beta1.
+					Do not install this update if you need to access databases created with PostgreSQL 19beta1 or 19beta2.
 				</p>
 				<p>
-					If you want to keep your 19beta1 servers, be sure to dump your databases before installing this upgrade.
+					If you want to keep your 19beta servers, be sure to dump your databases before installing this upgrade.
 				</p>
 				<ul>
-					<li>PostgreSQL 19beta2 with PostGIS 3.7.0alpha1</li>
+					<li>PostgreSQL 19beta3 with PostGIS 3.7.0beta2</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 16 Jul 2026 15:44:48 +0200</pubDate>
+		<pubDate>Thu, 13 Aug 2026 04:24:43 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha7/Postgres-3alpha7-19.dmg"
-		sparkle:version="375"
-		sparkle:shortVersionString="3alpha7"
-		length="126652671"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha8/Postgres-3alpha8-19.dmg"
+		sparkle:version="383"
+		sparkle:shortVersionString="3alpha8"
+		length="126798818"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQC6oq3T5Rr2C25FA7R2d5wTXtbkkgIVANXNmQcNd/L78FpqLZ3tqi1HfCwl"
+		sparkle:dsaSignature="MCwCFDyImWjDf0tRi5g4U8K0K46ywK1sAhReHIaD9IisRgJ1N90EJL+R4yY7nA=="
 		/>
 		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>
