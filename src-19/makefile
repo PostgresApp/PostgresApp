@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.7.0alpha1
+POSTGIS_VERSION=3.7.0beta2
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=19beta2
+POSTGRES_VERSION=19beta3
 POSTGRES_MAJOR_VERSION=19
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,10 +18,10 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.13.1
+GDAL_VERSION=3.13.2
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.15.0beta1
+GEOS_VERSION=3.15.0beta2
 
 # http://www.ijg.org
 JPEG_VERSION=10
@@ -80,8 +80,8 @@ WAL2JSON_VERSION=wal2json_2_6
 ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
-# 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=33.6
+# 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
+PROTOBUF_VERSION=36.0-rc2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -102,7 +102,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.10
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.5
+PGVECTOR_VERSION=0.8.6
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=4.0.1
@@ -669,6 +669,8 @@ protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/config
 
 protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
 	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
+	#patch for protobuf > v34  compatibility: https://github.com/protobuf-c/protobuf-c/pull/797
+	patch -b -d "protobuf-c-$(PROTOBUFC_VERSION)" -p1 <patches/protobuf-c-protobuf-v34.patch
 	touch $@
 
 protobuf-c-$(PROTOBUFC_VERSION).tar.gz:

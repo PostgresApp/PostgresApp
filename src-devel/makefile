@@ -50,10 +50,10 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.13.1
+GDAL_VERSION=3.13.2
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.15.0beta1
+GEOS_VERSION=3.15.0beta2
 
 # http://www.ijg.org
 JPEG_VERSION=10
@@ -65,7 +65,7 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/releases/latest/
-BOOST_VERSION=1_91_0
+BOOST_VERSION=1_92_0_b1
 
 # https://github.com/CGAL/cgal/releases
 CGAL_VERSION=6.2
@@ -113,8 +113,8 @@ ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-# 36.x available, will get LTS at 37 2026Q4. protobuf-c needs patch: https://github.com/protobuf-c/protobuf-c/issues/795
-PROTOBUF_VERSION=33.6
+# 36.x will get LTS at 37 2026Q4. protobuf-c needs patch
+PROTOBUF_VERSION=36.0-rc2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -136,7 +136,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.10
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.5
+PGVECTOR_VERSION=0.8.6
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=4.0.1
@@ -719,6 +719,8 @@ protobuf-c-$(PROTOBUFC_VERSION)/Makefile: protobuf-c-$(PROTOBUFC_VERSION)/config
 
 protobuf-c-$(PROTOBUFC_VERSION)/configure: protobuf-c-$(PROTOBUFC_VERSION).tar.gz
 	$(TAR) protobuf-c-$(PROTOBUFC_VERSION).tar.gz
+	#patch for protobuf > v34  compatibility: https://github.com/protobuf-c/protobuf-c/pull/797
+	patch -b -d "protobuf-c-$(PROTOBUFC_VERSION)" -p1 <patches/protobuf-c-protobuf-v34.patch
 	touch $@
 
 protobuf-c-$(PROTOBUFC_VERSION).tar.gz:
@@ -978,8 +980,7 @@ boost_$(BOOST_VERSION)/bootstrap.sh: boost_$(BOOST_VERSION).tar.bz2
 
 boost_$(BOOST_VERSION).tar.bz2:
 	$(CURL) https://archives.boost.io/release/$(subst _,.,$(BOOST_VERSION))/source/boost_$(BOOST_VERSION).tar.bz2 \
-	|| ( $(CURL) https://archives.boost.io/beta/$(subst _,.,$(BOOST_VERSION))/source/boost_$(subst beta,b,$(BOOST_VERSION)).tar.bz2 \
-	     && mv boost_$(subst beta,b,$(BOOST_VERSION)).tar.bz2 boost_$(BOOST_VERSION).tar.bz2 )
+	|| $(CURL) https://archives.boost.io/beta/$(subst _,.,$(subst b,beta,$(BOOST_VERSION)))/source/boost_$(BOOST_VERSION).tar.bz2
 
 clean-boost:
 	rm -Rf boost_$(BOOST_VERSION)

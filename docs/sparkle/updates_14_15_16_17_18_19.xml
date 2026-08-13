@@ -6,28 +6,37 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 3alpha6</title>
+		<title>Postgres.app 3alpha7</title>
 		<description>
 			<![CDATA[
+				<p>
+					PostgreSQL beta versions usually introduce incompatible on-disk data formats.
+				</p>
+				<p style="color: red;">
+					Do not install this update if you need to access databases created with PostgreSQL 19beta1.
+				</p>
+				<p>
+					If you want to keep your 19beta1 servers, be sure to dump your databases before installing this upgrade.
+				</p>
 				<ul>
 					<li>PostgreSQL 14.23 with PostGIS 3.2.10</li>
 					<li>PostgreSQL 15.18 with PostGIS 3.3.10</li>
 					<li>PostgreSQL 16.14 with PostGIS 3.4.6</li>
 					<li>PostgreSQL 17.10 with PostGIS 3.5.6</li>
 					<li>PostgreSQL 18.4 with PostGIS 3.6.3</li>
-					<li>PostgreSQL 19beta1 without PostGIS</li>
+					<li>PostgreSQL 19beta2 with PostGIS 3.7.0alpha1</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Tue, 30 Jun 2026 14:08:23 +0200</pubDate>
+		<pubDate>Thu, 16 Jul 2026 16:17:04 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha6/Postgres-3alpha6-14-15-16-17-18-19.dmg"
-		sparkle:version="374"
-		sparkle:shortVersionString="3alpha6"
-		length="593451121"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha7/Postgres-3alpha7-14-15-16-17-18-19.dmg"
+		sparkle:version="376"
+		sparkle:shortVersionString="3alpha7"
+		length="652684163"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQCxau2dWSmpf9DbTT07AsoBVq+L/gIUXy/hd9MA4z1A/qwWUyZNqyQvEzE="
+		sparkle:dsaSignature="MC0CFCizG5jyoMks2++PBKa6TOCAi8NsAhUAyQq273kp/JlyFyRftQ2Rw5ZN6zE="
 		/>
 		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>
