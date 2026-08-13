@@ -52,6 +52,17 @@ class MainWindowModel: NSObject {
 			if !selectedNavigationElementIndices.isEmpty {
 				selectedServerIndices.removeAll()
 			}
+			if let idx = selectedNavigationElementIndices.first {
+				switch navigationElements[idx] {
+				case NavigationElement.settings:
+					(NSApp.delegate as? AppDelegate)?.showPreferences(nil)
+				case NavigationElement.about:
+					NSApp.orderFrontStandardAboutPanel(nil)
+				default:
+					break
+				}
+			}
+			selectedNavigationElementIndices.removeAll()
 		}
 	}
 }
