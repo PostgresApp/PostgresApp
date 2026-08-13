@@ -1564,6 +1564,7 @@ IA
                                                 <binding destination="Dsw-zw-YD1" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Sye-8o-FrV" id="bHj-ue-Ov7"/>
                                                 <outlet property="dataSource" destination="Dsw-zw-YD1" id="kwN-bY-lY0"/>
                                                 <outlet property="delegate" destination="Dsw-zw-YD1" id="dgF-Nb-HBv"/>
+                                                <outlet property="menu" destination="bJX-2b-ruC" id="Qez-Yh-eTs"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -1681,6 +1682,16 @@ IA
                     </view>
                 </viewController>
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="bJX-2b-ruC">
+                    <items>
+                        <menuItem title="Remove Server..." id="q39-2F-05O">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="removeServer:" target="fKp-yy-u0S" id="Zsu-yE-QUR"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
                 <arrayController objectClassName="Postgres.Server" id="Dsw-zw-YD1" customClass="DnDArrayController" customModule="Postgres" customModuleProvider="target">
                     <classReference key="objectClass" className="Server" moduleName="Postgres"/>
                     <connections>

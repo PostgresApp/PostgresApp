@@ -13,14 +13,16 @@ class SidebarController: NSViewController {
 	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
 
 	@IBAction func removeServer(_ sender: AnyObject?) {
+		guard let server = mainWindowModel.firstSelectedServer else { return }
+		
 		let alert = NSAlert()
-		alert.messageText = "Do you want to remove the server from the sidebar?"
+		alert.messageText = "Do you want to remove the server \"\(server.name)\" from the sidebar?"
 		alert.informativeText = "Postgres.app will not delete the data directory."
 		alert.addButton(withTitle: "Remove Server")
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
-				if let server = self.mainWindowModel.firstSelectedServer, server.running {
+				if server.running {
 					try? server.stopSync()
 				}
 				self.mainWindowModel.removeSelectedServer()
