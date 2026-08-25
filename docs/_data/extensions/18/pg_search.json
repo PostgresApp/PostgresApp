@@ -2,6 +2,6 @@
     "title": "pg_search (ParadeDB)",
     "description": "<a href='https://paradedb.com/'>ParadeDB</a> adds full text search and analytics to PostgreSQL",
     "info_url": "https://paradedb.com/",
-    "version": "0.25.3",
-    "download_url": "https://github.com/paradedb/paradedb/releases/download/v0.25.3/pg_search-pg18-0.25.3.pkg"
+    "version": "0.25.4",
+    "download_url": "https://github.com/paradedb/paradedb/releases/download/v0.25.4/pg_search-pg18-0.25.4.pkg"
 }
