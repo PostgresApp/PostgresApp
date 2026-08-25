@@ -54,7 +54,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.7
+OPENSSL_VERSION=3.5.8
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases

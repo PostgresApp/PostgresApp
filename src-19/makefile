@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.7.0beta2
+POSTGIS_VERSION=3.7.0rc1
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=19beta3
@@ -18,10 +18,10 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.13.2
+GDAL_VERSION=3.13.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.15.0beta2
+GEOS_VERSION=3.15.0rc1
 
 # http://www.ijg.org
 JPEG_VERSION=10
@@ -57,7 +57,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.7
+OPENSSL_VERSION=3.5.8
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -81,7 +81,7 @@ ABSEIL_VERSION=20260526.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=36.0-rc2
+PROTOBUF_VERSION=36.0
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -1018,7 +1018,7 @@ clean-sfcgal:
 ###### PostGIS ##########
 #########################
 
-#depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c, sfcgal
+#depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c, sfcgal, gmp
 
 postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib
 	touch $@
@@ -1029,7 +1029,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION} install
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgmp.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto
 	touch $@
 
