@@ -967,7 +967,18 @@ $(PREFIX)/lib/libboost_thread.dylib: boost_$(BOOST_VERSION)/b2
 	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_date_time.dylib
+	install_name_tool -change @rpath/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_serialization.dylib
 	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
 	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 89
