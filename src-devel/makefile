@@ -53,7 +53,7 @@ ZSTD_VERSION=1.5.7
 GDAL_VERSION=3.13.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.15.0rc1
+GEOS_VERSION=3.15.0
 
 # http://www.ijg.org
 JPEG_VERSION=10
@@ -114,7 +114,7 @@ ABSEIL_VERSION=20260817.0
 # https://github.com/protocolbuffers/protobuf/releases
 # 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
 # 36.x will get LTS at 37 2026Q4. protobuf-c needs patch
-PROTOBUF_VERSION=36.0
+PROTOBUF_VERSION=36.1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
