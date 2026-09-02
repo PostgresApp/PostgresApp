@@ -151,15 +151,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	}
 
 	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
-		if #available(macOS 13, *) {
-			showMainWindow()
-		} else {
-			// This is a workaround for a macOS 12 bug
-			// See comment in applicationWillBecomeActive
-			if NSApp.activationPolicy() == .regular {
-				showMainWindow()
-			}
-		}
+		showMainWindow()
 		return false
 	}
 
