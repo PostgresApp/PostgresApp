@@ -625,11 +625,17 @@
                                         <segue destination="1Yk-z1-ntp" kind="sheet" id="yAv-Hk-s3v"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="5DD6D278-0F82-40BD-8771-FDDC50C3DA9B" explicitItemIdentifier="RemoveServer" label="Remove Server…" paletteLabel="Remove Server…" tag="-1" image="NSRemoveTemplate" bordered="YES" sizingBehavior="auto" id="HjK-sI-3y4">
+                                    <connections>
+                                        <action selector="removeServer:" target="Oky-zY-oP4" id="rfR-KD-TGA"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="FQc-r9-jES"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="FQc-r9-jES"/>
                                 <toolbarItem reference="0kX-G5-sLf"/>
+                                <toolbarItem reference="HjK-sI-3y4"/>
                             </defaultToolbarItems>
                             <connections>
                                 <outlet property="delegate" destination="B8D-0N-5wS" id="xBY-t4-lpD"/>
@@ -3026,9 +3032,10 @@ Gw
         <segue reference="aNU-nS-0dN"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="NSActionTemplate" width="19" height="19"/>
-        <image name="NSAddTemplate" width="18" height="16"/>
+        <image name="NSActionTemplate" width="20" height="20"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
         <image name="NSApplicationIcon" width="32" height="32"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="caution-icon-color" width="18" height="18"/>
         <image name="trash" catalog="system" width="15" height="17"/>
