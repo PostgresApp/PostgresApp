@@ -2486,6 +2486,9 @@ IA
                             <constraint firstAttribute="trailing" secondItem="Ruq-13-86M" secondAttribute="trailing" id="z5M-Bi-Of5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="serverTableView" destination="Kht-WI-z50" id="OVk-4h-Khs"/>
+                    </connections>
                 </viewController>
                 <customObject id="EH7-jo-yIM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="bJX-2b-ruC">

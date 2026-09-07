@@ -12,9 +12,18 @@ class SidebarController: NSViewController {
 	
 	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
 
+	@IBOutlet weak var serverTableView: NSTableView?
+	
 	@IBAction func removeServer(_ sender: AnyObject?) {
-		guard let server = mainWindowModel.firstSelectedServer else { return }
-		
+		let server: Server
+		if let clickedRow = serverTableView?.clickedRow, clickedRow != -1 {
+			server = mainWindowModel.serverManager.servers[clickedRow]
+		} else if let selectedServer = mainWindowModel.firstSelectedServer {
+			server = selectedServer
+		} else {
+			NSSound.beep()
+			return
+		}
 		let alert = NSAlert()
 		alert.messageText = "Do you want to remove the server \"\(server.name)\" from the sidebar?"
 		alert.informativeText = "Postgres.app will not delete the data directory."
