@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,7 +42,7 @@
                                         <rect key="frame" x="0.0" y="374" width="342" height="37"/>
                                         <subviews>
                                             <popUpButton verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-kd-fUZ">
-                                                <rect key="frame" x="174" y="4" width="95" height="29"/>
+                                                <rect key="frame" x="174" y="4" width="94" height="29"/>
                                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5i1-UV-qpz" id="CgQ-cv-sQb">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="message"/>
@@ -139,7 +139,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <popUpButton horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Egy-iu-Eu6">
-                                                                            <rect key="frame" x="418" y="15" width="81" height="24"/>
+                                                                            <rect key="frame" x="420" y="15" width="80" height="24"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wJn-Yo-bsi" id="1gG-YX-iMI">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="message"/>
@@ -172,7 +172,7 @@
                                                                             </connections>
                                                                         </imageView>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalCompressionResistancePriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xm4-D0-IA7">
-                                                                            <rect key="frame" x="55" y="12" width="358" height="30"/>
+                                                                            <rect key="frame" x="55" y="12" width="360" height="30"/>
                                                                             <subviews>
                                                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="klf-g0-9bG">
                                                                                     <rect key="frame" x="-2" y="14" width="64" height="16"/>
@@ -212,7 +212,7 @@
                                                                             </customSpacing>
                                                                         </stackView>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K5Q-oY-dPf">
-                                                                            <rect key="frame" x="507" y="15" width="39" height="24"/>
+                                                                            <rect key="frame" x="508" y="15" width="38" height="24"/>
                                                                             <buttonCell key="cell" type="push" title="Inline" bezelStyle="rounded" image="trash" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tT5-WF-j1n">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -712,33 +712,34 @@
         <!--About Postgres.app-->
         <scene sceneID="vkr-Tg-bfR">
             <objects>
-                <viewController title="About Postgres.app" id="QCU-YG-KZX" sceneMemberID="viewController">
+                <viewController title="About Postgres.app" id="QCU-YG-KZX" customClass="AboutViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="BGK-RU-Ho1">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="847"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="taU-M6-QZV">
-                                <rect key="frame" x="18" y="796" width="414" height="31"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="About Postgres.app" id="xCs-aG-xtP">
-                                    <font key="font" textStyle="largeTitle" name=".SFNS-Regular"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRH-Df-YLg">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="788"/>
+                                <rect key="frame" x="20" y="0.0" width="430" height="847"/>
                                 <clipView key="contentView" drawsBackground="NO" id="EhV-0R-Cch">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="788"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="430" height="847"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView wantsLayer="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" baseWritingDirection="leftToRight" smartInsertDelete="YES" id="S7T-LX-MUo">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="788"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="847"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="450" height="788"/>
+                                            <size key="minSize" width="430" height="847"/>
                                             <size key="maxSize" width="450" height="10000000"/>
                                             <attributedString key="textStorage">
+                                                <fragment>
+                                                    <string key="content">About Postgres.app
+</string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" textStyle="largeTitle" name=".SFNS-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
                                                 <fragment>
                                                     <string key="content">
 Postgres.app is a full-featured PostgreSQL installation packaged as a standard Mac app. It is developed by Jakob Egger, Tobias Bussmann, Chris Pastl, Mattt Thompson and various contributors, licensed under the PostgreSQL License.
@@ -746,7 +747,7 @@ Postgres.app is a full-featured PostgreSQL installation packaged as a standard M
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="Homepage">
@@ -754,14 +755,14 @@ Postgres.app is a full-featured PostgreSQL installation packaged as a standard M
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://postgresapp.com"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content=" / ">
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="GitHub Issues">
@@ -769,7 +770,94 @@ Postgres.app is a full-featured PostgreSQL installation packaged as a standard M
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/postgresapp/postgresapp/issues"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content" base64-UTF8="YES">
+CgoKA
+</string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content">Version Information
+</string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" metaFont="system" size="17"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content">
+This is Postgres.app </string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="{{VERSION}} ({{BUILD}})">
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content">
+
+This release includes the following PostgreSQL binaries: </string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="{{POSTGRESQL_BINARIES}}">
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content">
+
+If you need a different version of PostgreSQL, you can find additional releases at </string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="https://postgresapp.com/downloads.html">
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
+                                                        <string key="NSLink">https://postgresapp.com/downloads.html</string>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment>
+                                                    <string key="content" base64-UTF8="YES">
+CgoKA
+</string>
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="11" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="Acknowledgements">
+                                                    <attributes>
+                                                        <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" textStyle="title2" name=".SFNS-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -781,7 +869,7 @@ PostgreSQL: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="PostgreSQL License">
@@ -789,7 +877,7 @@ PostgreSQL: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="http://www.postgresql.org/about/licence/"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -798,7 +886,7 @@ PostGIS: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="GPLv2">
@@ -806,7 +894,7 @@ PostGIS: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -815,7 +903,7 @@ pgRouting: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="GPLv2">
@@ -823,7 +911,7 @@ pgRouting: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -832,7 +920,7 @@ wal2json: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 3-Clause">
@@ -840,7 +928,7 @@ wal2json: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/eulerto/wal2json/blob/master/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -849,7 +937,7 @@ pl/pgsql debugger API: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="Artistic Licence v2.0">
@@ -857,7 +945,7 @@ pl/pgsql debugger API: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://opensource.org/license/artistic-2-0/"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -866,7 +954,7 @@ pgvector: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="PostgreSQL License">
@@ -874,7 +962,7 @@ pgvector: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/pgvector/pgvector/blob/master/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -883,7 +971,7 @@ plv8: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="PostgreSQL License">
@@ -891,7 +979,7 @@ plv8: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/plv8/plv8/blob/r3.2/COPYRIGHT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -900,7 +988,7 @@ pljs: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="PostgreSQL License">
@@ -908,7 +996,7 @@ pljs: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/plv8/pljs/blob/main/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -917,7 +1005,7 @@ Sparkle: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -925,7 +1013,7 @@ Sparkle: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/sparkle-project/Sparkle/blob/2.x/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -935,7 +1023,7 @@ OpenSSL: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="Apache License v2">
@@ -943,7 +1031,7 @@ OpenSSL: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.openssl.org/source/apache-license-2.0.txt"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -952,7 +1040,7 @@ ICU: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="Unicode Licence v3">
@@ -960,7 +1048,7 @@ ICU: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.unicode.org/license.txt"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -969,7 +1057,7 @@ LZ4: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 2-Clause / GPLv2">
@@ -977,7 +1065,7 @@ LZ4: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/lz4/lz4/releases"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -986,7 +1074,7 @@ Zstandard: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 3-Clause">
@@ -994,14 +1082,14 @@ Zstandard: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/facebook/zstd/blob/dev/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content=" / ">
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="GPLv2">
@@ -1009,7 +1097,7 @@ Zstandard: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/facebook/zstd/blob/dev/COPYING"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1018,7 +1106,7 @@ V8: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 3-Clause and others">
@@ -1026,7 +1114,7 @@ V8: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/v8/v8/blob/main/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1035,7 +1123,7 @@ QuickJS: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1043,7 +1131,7 @@ QuickJS: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/bellard/quickjs/blob/master/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1052,7 +1140,7 @@ GDAL/OGR: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1060,14 +1148,14 @@ GDAL/OGR: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://gdal.org/license.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content=" and ">
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="others">
@@ -1075,7 +1163,7 @@ GDAL/OGR: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://raw.githubusercontent.com/OSGeo/gdal/master/LICENSE.TXT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1084,7 +1172,7 @@ GEOS: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="LGPL">
@@ -1092,7 +1180,7 @@ GEOS: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1101,7 +1189,7 @@ PROJ: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1109,7 +1197,7 @@ PROJ: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://proj.org/en/latest/about.html#license"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1118,7 +1206,7 @@ libjpeg: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="JPEG licence">
@@ -1126,7 +1214,7 @@ libjpeg: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://jpegclub.org/reference/libjpeg-license/"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1135,7 +1223,7 @@ libTIFF: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="LibTIFF License">
@@ -1143,7 +1231,7 @@ libTIFF: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="http://simplesystems.org/libtiff/project/license.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1152,7 +1240,7 @@ libpng: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="zlib/libpng License">
@@ -1160,7 +1248,7 @@ libpng: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/glennrp/libpng/blob/libpng16/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1169,7 +1257,7 @@ openJPEG: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 2-Clause">
@@ -1177,7 +1265,7 @@ openJPEG: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/uclouvain/openjpeg/blob/master/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1186,7 +1274,7 @@ JasPer: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="JasPer License 2">
@@ -1194,7 +1282,7 @@ JasPer: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/jasper-software/jasper/blob/master/LICENSE.txt"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1203,7 +1291,7 @@ netCDF: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 3-Clause">
@@ -1211,7 +1299,7 @@ netCDF: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/Unidata/netcdf-c/blob/main/COPYRIGHT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1220,7 +1308,7 @@ libxml2: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1228,7 +1316,7 @@ libxml2: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://gitlab.gnome.org/GNOME/libxml2/-/blob/master/Copyright"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1237,7 +1325,7 @@ libxslt: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1245,7 +1333,7 @@ libxslt: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://gitlab.gnome.org/GNOME/libxslt/-/blob/master/Copyright"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1254,7 +1342,7 @@ json-c: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1262,7 +1350,7 @@ json-c: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/json-c/json-c/blob/master/COPYING"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1271,7 +1359,7 @@ Abseil: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="Apache License v2">
@@ -1279,7 +1367,7 @@ Abseil: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/abseil/abseil-cpp/blob/master/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1288,7 +1376,7 @@ Protocol Buffers: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 3-Clause">
@@ -1296,7 +1384,7 @@ Protocol Buffers: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/protocolbuffers/protobuf/blob/main/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1305,7 +1393,7 @@ protobuf-c: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="BSD 2-Clause">
@@ -1313,7 +1401,7 @@ protobuf-c: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://opensource.org/license/bsd-2-clause/"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1322,7 +1410,7 @@ GMP: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="LGPLv3">
@@ -1330,14 +1418,14 @@ GMP: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.gnu.org/licenses/lgpl.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content=" / ">
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="GPLv2">
@@ -1345,7 +1433,7 @@ GMP: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.gnu.org/licenses/gpl-2.0.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1354,7 +1442,7 @@ MPFR: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="LGPLv3">
@@ -1362,7 +1450,7 @@ MPFR: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.gnu.org/licenses/lgpl-3.0.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1371,7 +1459,7 @@ Boost: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="Boost Software License 1.0">
@@ -1379,7 +1467,7 @@ Boost: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://opensource.org/license/bsl-1-0/"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1388,7 +1476,7 @@ CGAL: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="LGPLv3+, GPLv3+">
@@ -1396,14 +1484,14 @@ CGAL: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://www.cgal.org/license.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content=" and ">
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="others">
@@ -1411,7 +1499,7 @@ CGAL: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://github.com/CGAL/cgal/blob/master/Installation/LICENSE"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1420,7 +1508,7 @@ SFCGAL: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="LGPLv2+">
@@ -1428,7 +1516,7 @@ SFCGAL: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment>
@@ -1437,7 +1525,7 @@ nlohmann/json: </string>
                                                     <attributes>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                                 <fragment content="MIT">
@@ -1445,7 +1533,7 @@ nlohmann/json: </string>
                                                         <color key="NSColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="11" name="Helvetica"/>
                                                         <url key="NSLink" string="https://json.nlohmann.me/home/license/"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -1457,21 +1545,21 @@ nlohmann/json: </string>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="2yA-WV-ku9">
-                                    <rect key="frame" x="433" y="0.0" width="17" height="788"/>
+                                    <rect key="frame" x="413" y="0.0" width="17" height="847"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="taU-M6-QZV" firstAttribute="leading" secondItem="BGK-RU-Ho1" secondAttribute="leading" constant="20" symbolic="YES" id="Cjl-0o-SV6"/>
-                            <constraint firstAttribute="trailing" secondItem="taU-M6-QZV" secondAttribute="trailing" constant="20" symbolic="YES" id="K3A-km-WTr"/>
-                            <constraint firstItem="DRH-Df-YLg" firstAttribute="top" secondItem="taU-M6-QZV" secondAttribute="bottom" constant="8" symbolic="YES" id="OOK-dy-kIK"/>
                             <constraint firstAttribute="trailing" secondItem="DRH-Df-YLg" secondAttribute="trailing" id="cWJ-Do-MwX"/>
-                            <constraint firstItem="DRH-Df-YLg" firstAttribute="leading" secondItem="BGK-RU-Ho1" secondAttribute="leading" id="e3q-gh-CZZ"/>
-                            <constraint firstItem="taU-M6-QZV" firstAttribute="top" secondItem="BGK-RU-Ho1" secondAttribute="top" constant="20" symbolic="YES" id="ee9-rk-HZo"/>
+                            <constraint firstItem="DRH-Df-YLg" firstAttribute="leading" secondItem="BGK-RU-Ho1" secondAttribute="leading" constant="20" symbolic="YES" id="e3q-gh-CZZ"/>
+                            <constraint firstItem="DRH-Df-YLg" firstAttribute="top" secondItem="BGK-RU-Ho1" secondAttribute="top" id="jQJ-Il-Qns"/>
                             <constraint firstAttribute="bottom" secondItem="DRH-Df-YLg" secondAttribute="bottom" id="yyK-AE-AZp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="aboutTextView" destination="S7T-LX-MUo" id="4qM-97-a8C"/>
+                    </connections>
                 </viewController>
                 <customObject id="A2U-If-Rsj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1556,7 +1644,7 @@ IA
                                         <rect key="frame" x="42" y="352" width="450" height="50"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="laV-S9-hSm">
-                                                <rect key="frame" x="171" y="0.0" width="65" height="50"/>
+                                                <rect key="frame" x="171" y="0.0" width="64" height="50"/>
                                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zec-A1-Qvh">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1651,7 +1739,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8iz-Ak-ysG">
-                                                <rect key="frame" x="394" y="14" width="53" height="24"/>
+                                                <rect key="frame" x="395" y="14" width="52" height="24"/>
                                                 <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zPN-hb-W1k">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1692,7 +1780,7 @@ IA
                                                 </connections>
                                             </button>
                                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Je-0kL">
-                                                <rect key="frame" x="370" y="18" width="16" height="16"/>
+                                                <rect key="frame" x="371" y="18" width="16" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="16" id="TiN-qb-ptl"/>
                                                     <constraint firstAttribute="height" constant="16" id="yd5-dd-lXS"/>
@@ -2211,7 +2299,7 @@ IA
                                 </gridCells>
                             </gridView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7tI-Yz-NQx">
-                                <rect key="frame" x="218" y="299" width="123" height="20"/>
+                                <rect key="frame" x="219" y="299" width="122" height="20"/>
                                 <buttonCell key="cell" type="push" title="Change Password…" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aGU-iC-6ua">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
@@ -2527,10 +2615,10 @@ IA
             <objects>
                 <viewController id="1Yk-z1-ntp" userLabel="Add Server View Controller" customClass="AddServerViewController" customModule="Postgres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="Eeo-NL-RWf">
-                        <rect key="frame" x="0.0" y="0.0" width="681" height="236"/>
+                        <rect key="frame" x="0.0" y="0.0" width="696" height="236"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p8t-g9-Q2h">
-                                <rect key="frame" x="553" y="20" width="108" height="24"/>
+                                <rect key="frame" x="569" y="20" width="107" height="24"/>
                                 <buttonCell key="cell" type="push" title="Create Server" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ot0-XS-xZt">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2543,7 +2631,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f6O-gR-AUo">
-                                <rect key="frame" x="18" y="195" width="645" height="21"/>
+                                <rect key="frame" x="18" y="195" width="660" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Create new Server" id="mCY-ya-AYe">
                                     <font key="font" metaFont="systemBold" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2551,7 +2639,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fse-a1-EXc">
-                                <rect key="frame" x="475" y="20" width="66" height="24"/>
+                                <rect key="frame" x="491" y="20" width="66" height="24"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xv3-bx-H0B">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2564,7 +2652,7 @@ Gw
                                 </connections>
                             </button>
                             <gridView xPlacement="fill" yPlacement="fill" rowAlignment="firstBaseline" rowSpacing="9" columnSpacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="FgH-8N-X6a">
-                                <rect key="frame" x="20" y="64" width="641" height="123"/>
+                                <rect key="frame" x="20" y="64" width="656" height="123"/>
                                 <rows>
                                     <gridRow id="keZ-ZO-Gdf"/>
                                     <gridRow id="byB-5s-AZH"/>
@@ -2588,7 +2676,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="keZ-ZO-Gdf" column="CSO-yA-IXH" id="Seq-fj-yi7">
                                         <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yoW-hT-iqq">
-                                            <rect key="frame" x="98" y="99" width="543" height="24"/>
+                                            <rect key="frame" x="98" y="99" width="558" height="24"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="M5b-WS-ETc">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2611,7 +2699,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="byB-5s-AZH" column="CSO-yA-IXH" id="KJE-sm-b0d">
                                         <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iOB-xn-gec">
-                                            <rect key="frame" x="98" y="66" width="543" height="24"/>
+                                            <rect key="frame" x="98" y="66" width="558" height="24"/>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="3bc-Nr-Mvt">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="message"/>
@@ -2636,10 +2724,10 @@ Gw
                                     </gridCell>
                                     <gridCell row="RvW-dU-fUP" column="CSO-yA-IXH" id="IVr-m8-ztO">
                                         <stackView key="contentView" distribution="fill" orientation="horizontal" alignment="firstBaseline" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2GL-uC-gUH">
-                                            <rect key="frame" x="98" y="33" width="543" height="24"/>
+                                            <rect key="frame" x="98" y="33" width="558" height="24"/>
                                             <subviews>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6E-ew-iSE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="455" height="24"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="471" height="24"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="NLc-15-rK0">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2650,7 +2738,7 @@ Gw
                                                     </connections>
                                                 </textField>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JVF-Hf-x1g">
-                                                    <rect key="frame" x="462" y="0.0" width="81" height="24"/>
+                                                    <rect key="frame" x="478" y="0.0" width="80" height="24"/>
                                                     <buttonCell key="cell" type="push" title="Choose…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VQ5-Hs-99k">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -2682,7 +2770,7 @@ Gw
                                     </gridCell>
                                     <gridCell row="4Hl-LB-vNe" column="CSO-yA-IXH" id="HGE-Eq-4qZ">
                                         <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rOt-nl-Hs4">
-                                            <rect key="frame" x="98" y="0.0" width="543" height="24"/>
+                                            <rect key="frame" x="98" y="0.0" width="558" height="24"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="nKb-gs-tXK">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="Mon-Fp-jl8">
                                                     <real key="minimum" value="1"/>
@@ -2843,7 +2931,7 @@ Gw
                                 </gridCells>
                             </gridView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6k8-Ua-lyA">
-                                <rect key="frame" x="356" y="20" width="76" height="24"/>
+                                <rect key="frame" x="357" y="20" width="75" height="24"/>
                                 <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TeM-pg-V6r">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2856,7 +2944,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y2r-jt-72U">
-                                <rect key="frame" x="278" y="20" width="66" height="24"/>
+                                <rect key="frame" x="279" y="20" width="66" height="24"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FFt-xJ-qVM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2977,7 +3065,7 @@ Gw
                                 </gridCells>
                             </gridView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jMX-e5-0Bz">
-                                <rect key="frame" x="297" y="20" width="133" height="24"/>
+                                <rect key="frame" x="298" y="20" width="132" height="24"/>
                                 <buttonCell key="cell" type="push" title="Change Password" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IK3-iK-7dY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -2990,7 +3078,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-W6-zMg">
-                                <rect key="frame" x="219" y="20" width="66" height="24"/>
+                                <rect key="frame" x="220" y="20" width="66" height="24"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5J9-if-cqO">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
