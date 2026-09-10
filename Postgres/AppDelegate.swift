@@ -18,7 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 	let statusIcon = NSImage(named: "statusicon")!
 
 	@IBOutlet var sparkleUpdater: SUUpdater!
-	@IBOutlet var preferencesMenuItem: NSMenuItem!
 	@IBOutlet var mainWindowMenuItem: NSMenuItem!
 		
 	func isFirstLaunch() -> Bool {
@@ -199,15 +198,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 }
 	
 	@IBAction func showPreferences(_ sender: Any? = nil) {
-		if #available(macOS 14.0, *) {
-			// this seems to help with getting the app to activate
-			// i have no idea how the window server decides to allow postgres.app to activate
-			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
-		}
-		NSApp.activate(ignoringOtherApps: true)
-		// The preference window is displayed by a storyboard segue hooked up to a menu item
-		// This seems to be the easiest way to trigger that segue programmatically
-		NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
+		showMainWindow(nil)
+		MainWindowModel.shared.selectedNavigationElementIndices = IndexSet(integer: 0)
 	}
 	
 	@IBAction func checkForUpdates(_ sender: Any? = nil) {
