@@ -40,6 +40,20 @@ class SidebarController: NSViewController {
 		}
 	}
 	
+	var newServerObserver: AnyObject?
+	override func viewDidLoad() {
+		newServerObserver = NotificationCenter.default.addObserver(forName: Server.NewServerCreatedNotification, object: nil, queue: .main) { [weak self] note in
+			let server = note.object as! Server
+			if let index = self?.mainWindowModel.serverManager.servers.firstIndex(of: server) {
+				self?.serverTableView?.scrollRowToVisible(index)
+			}
+		}
+		super.viewDidLoad()
+	}
+	
+	deinit {
+		if let newServerObserver { NotificationCenter.default.removeObserver(newServerObserver) }
+	}
 }
 
 

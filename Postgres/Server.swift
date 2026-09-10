@@ -12,6 +12,7 @@ import CommonCrypto
 class Server: NSObject {
 	
 	static let PropertyChangedNotification = Notification.Name("Server.PropertyChangedNotification")
+	static let NewServerCreatedNotification = Notification.Name("Server.NewServerCreatedNotification")
 	static let StatusChangedNotification = Notification.Name("Server.StatusChangedNotification")
 	
 	
