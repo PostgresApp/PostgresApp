@@ -32,6 +32,7 @@
 		369B82392CA41842008B994E /* libpgcommon_shlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369B82382CA41842008B994E /* libpgcommon_shlib.a */; };
 		36A4C3EB3013557B008B805E /* DetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A4C3EA3013556F008B805E /* DetailTabViewController.swift */; };
 		36A4C3ED30500A34008B805E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A4C3EC30500A2D008B805E /* AboutViewController.swift */; };
+		36A4C3EF305408CE008B805E /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 36A4C3EE305408CE008B805E /* AppIcon.icon */; };
 		36C9D0482CC69746006ABA02 /* ConnectionDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C9D0472CC69746006ABA02 /* ConnectionDialog.swift */; };
 		36CC815829E6FF990080B0B4 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */; };
 		36D767B02729EFDE00161CF2 /* ProcessExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */; };
@@ -141,6 +142,7 @@
 		369B82382CA41842008B994E /* libpgcommon_shlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpgcommon_shlib.a; path = "src-staticlibs/libpgcommon_shlib.a"; sourceTree = "<group>"; };
 		36A4C3EA3013556F008B805E /* DetailTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTabViewController.swift; sourceTree = "<group>"; };
 		36A4C3EC30500A2D008B805E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		36A4C3EE305408CE008B805E /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		36C9D0472CC69746006ABA02 /* ConnectionDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDialog.swift; sourceTree = "<group>"; };
 		36CC815729E6FF990080B0B4 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		36D767AF2729EFDE00161CF2 /* ProcessExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtensions.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				835954271E4A301F00D1F0DF /* PostgresAppScriptable.sdef */,
 				835954291E4A30FD00D1F0DF /* ScriptCommands.swift */,
 				83FB571F1D1B05F000A903A3 /* Assets.xcassets */,
+				36A4C3EE305408CE008B805E /* AppIcon.icon */,
 				83FB57211D1B05F000A903A3 /* Main.storyboard */,
 				83C19C5B1D7D9AAE00F4862D /* MenuItemView.swift */,
 				83C19C611D7D9C2500F4862D /* MenuItemView.xib */,
@@ -445,6 +448,7 @@
 			files = (
 				3603EF172FAB6BBA00BDA576 /* MenuItemView.xib in Resources */,
 				8348A1ED1DB4ED5E0039A024 /* dsa_pub.pem in Resources */,
+				36A4C3EF305408CE008B805E /* AppIcon.icon in Resources */,
 				835954281E4A301F00D1F0DF /* PostgresAppScriptable.sdef in Resources */,
 				83FB57201D1B05F000A903A3 /* Assets.xcassets in Resources */,
 				3625F43E2DF5B24D001708B6 /* InternetAccessPolicy.plist in Resources */,
