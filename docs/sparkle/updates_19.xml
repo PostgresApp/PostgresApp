@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 3alpha8</title>
+		<title>Postgres.app 3alpha9</title>
 		<description>
 			<![CDATA[
 				<p>
@@ -19,19 +19,19 @@
 					If you want to keep your 19beta servers, be sure to dump your databases before installing this upgrade.
 				</p>
 				<ul>
-					<li>PostgreSQL 19beta3 with PostGIS 3.7.0beta2</li>
+					<li>PostgreSQL 19beta3 with PostGIS 3.7.0rc1</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 13 Aug 2026 04:24:43 +0200</pubDate>
+		<pubDate>Tue, 15 Sep 2026 10:44:28 +0200</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha8/Postgres-3alpha8-19.dmg"
-		sparkle:version="383"
-		sparkle:shortVersionString="3alpha8"
-		length="126798818"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3alpha9/Postgres-3alpha9-19.dmg"
+		sparkle:version="385"
+		sparkle:shortVersionString="3alpha9"
+		length="129058857"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MCwCFDyImWjDf0tRi5g4U8K0K46ywK1sAhReHIaD9IisRgJ1N90EJL+R4yY7nA=="
+		sparkle:dsaSignature="MCwCFDAG1Zhs0Ls7w4hGsVLEmn/1T63sAhRh+cAMML6cl8WY7G/s8aFvpn0quA=="
 		/>
 		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>
