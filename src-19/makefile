@@ -1,7 +1,7 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.7.0rc1
+POSTGIS_VERSION=3.7.0rc2
 POSTGIS_MAJOR_VERSION=3
 
 POSTGRES_VERSION=19beta3
@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_92_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.2
+CGAL_VERSION=6.2.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.3.0
@@ -48,7 +48,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.15.3
+LIBXML2_VERSION=2.15.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://gitlab.gnome.org/GNOME/libxslt/-/releases
@@ -81,7 +81,7 @@ ABSEIL_VERSION=20260817.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=36.1
+PROTOBUF_VERSION=36.2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -105,7 +105,7 @@ PLDEBUGGER_VERSION=1.10
 PGVECTOR_VERSION=0.8.6
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=4.0.1
+PGROUTING_VERSION=4.0.2
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
