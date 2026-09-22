@@ -2,6 +2,7 @@
 
 # http://postgis.net/development/source_code/
 # dev version (like 3.6.5dev) contain the unreleased commits towards that minor version
+# https://postgis.net/stuff/
 POSTGIS_VERSION=3.7.0dev
 POSTGIS_MAJOR_VERSION=3
 
@@ -198,6 +199,8 @@ TAR=/usr/bin/tar xzf
 # * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
 #    - wal2json
 #    - pljs
+# * "Rename varatt_external to varatt_external_oid" c5806f2165b57434290dd345ba301e4179634c23
+#    - postgis
 all: postgresql auth_permission_dialog pgvector pldebugger postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-nlohmann-json clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
