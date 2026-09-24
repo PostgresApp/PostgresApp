@@ -36,7 +36,7 @@ MPFR_VERSION=4.2.2
 BOOST_VERSION=1_89_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.1.2
+CGAL_VERSION=6.1.3
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.2.0
@@ -45,7 +45,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.15.3
+LIBXML2_VERSION=2.15.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://gitlab.gnome.org/GNOME/libxslt/-/releases
@@ -54,7 +54,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.7
+OPENSSL_VERSION=3.5.8
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases

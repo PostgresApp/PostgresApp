@@ -1,10 +1,10 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.7.0beta2
+POSTGIS_VERSION=3.7.0rc2
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=19beta3
+POSTGRES_VERSION=19beta4
 POSTGRES_MAJOR_VERSION=19
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -18,10 +18,10 @@ ZSTD_VERSION=1.5.7
 
 # https://github.com/OSGeo/gdal/releases
 # http://download.osgeo.org/gdal/
-GDAL_VERSION=3.13.2
+GDAL_VERSION=3.13.3
 
 # https://libgeos.org/usage/download/
-GEOS_VERSION=3.15.0beta2
+GEOS_VERSION=3.15.0
 
 # http://www.ijg.org
 JPEG_VERSION=10
@@ -33,10 +33,10 @@ GMP_VERSION=6.3.0
 MPFR_VERSION=4.2.2
 
 # https://www.boost.org/releases/latest/
-BOOST_VERSION=1_91_0
+BOOST_VERSION=1_92_0
 
 # https://github.com/CGAL/cgal/releases
-CGAL_VERSION=6.2
+CGAL_VERSION=6.2.1
 
 # https://gitlab.com/sfcgal/SFCGAL/-/releases
 SFCGAL_VERSION=2.3.0
@@ -48,7 +48,7 @@ LIBEDIT_VERSION=20130611-3.1
 
 # https://gitlab.gnome.org/GNOME/libxml2/-/releases
 # https://download.gnome.org/sources/libxml2/
-LIBXML2_VERSION=2.15.3
+LIBXML2_VERSION=2.15.4
 LIBXML2_VERSION_MAJOR=$(shell echo $(LIBXML2_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://gitlab.gnome.org/GNOME/libxslt/-/releases
@@ -57,11 +57,11 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.7
+OPENSSL_VERSION=3.5.8
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
-PROJ_VERSION=9.8.1
+PROJ_VERSION=9.9.0
 # due to their size we no longer bundle proj-data.
 # Users can download them via projsync or use the CDN
 #PROJ-DATA_VERSION=1.7
@@ -77,11 +77,11 @@ JSONC_VERSION=0.19
 WAL2JSON_VERSION=wal2json_2_6
 
 # https://github.com/abseil/abseil-cpp/releases
-ABSEIL_VERSION=20260526.0
+ABSEIL_VERSION=20260817.0
 
 # https://github.com/protocolbuffers/protobuf/releases
 # 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=36.0-rc2
+PROTOBUF_VERSION=36.2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -105,7 +105,7 @@ PLDEBUGGER_VERSION=1.10
 PGVECTOR_VERSION=0.8.6
 
 # https://github.com/pgRouting/pgrouting/releases
-PGROUTING_VERSION=4.0.1
+PGROUTING_VERSION=4.0.2
 PGROUTING_VERSION_MAJOR=$(shell echo $(PGROUTING_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://github.com/plv8/pljs/tags
@@ -917,7 +917,18 @@ $(PREFIX)/lib/libboost_thread.dylib: boost_$(BOOST_VERSION)/b2
 	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_thread.dylib
 	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_thread.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_date_time.dylib
+	install_name_tool -change @rpath/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_serialization.dylib
+	install_name_tool -change @rpath/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_serialization.dylib
 	install_name_tool -change @rpath/libboost_serialization.dylib $(PREFIX)/lib/libboost_serialization.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_thread.dylib $(PREFIX)/lib/libboost_thread.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_date_time.dylib $(PREFIX)/lib/libboost_date_time.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_container.dylib $(PREFIX)/lib/libboost_container.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_chrono.dylib $(PREFIX)/lib/libboost_chrono.dylib $(PREFIX)/lib/libboost_wserialization.dylib
+	install_name_tool -change @rpath/libboost_atomic.dylib $(PREFIX)/lib/libboost_atomic.dylib $(PREFIX)/lib/libboost_wserialization.dylib
 
 boost_$(BOOST_VERSION)/b2: boost_$(BOOST_VERSION)/bootstrap.sh $(PREFIX)/lib/libzstd.dylib
 	#ToDo: evaluate the nedded libraries, see sfcgal/CMakeList.txt from Line 89
@@ -1018,7 +1029,7 @@ clean-sfcgal:
 ###### PostGIS ##########
 #########################
 
-#depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c, sfcgal
+#depends on libgdal, libgeos, libjpeg, postgresql, json-c, protobuf-c, sfcgal, gmp
 
 postgis: $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib
 	touch $@
@@ -1029,7 +1040,7 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION} install
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
-postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib
+postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgmp.dylib
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto
 	touch $@
 
