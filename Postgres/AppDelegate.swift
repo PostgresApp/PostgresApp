@@ -33,6 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		if !launchedAsLoginItem {
 			showMainWindow()
 			CrashLogCollector.shared.scanInBackground()
+		} else {
+			sparkleUpdater.checkForUpdatesInBackground()
 		}
 		let clientAppPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") ?? ""
 		if clientAppPath.isEmpty {
