@@ -54,7 +54,7 @@ LIBXSLT_VERSION=1.1.43
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.8
+OPENSSL_VERSION=3.5.9
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -88,7 +88,7 @@ PROTOBUFC_VERSION=1.5.0
 LIBTIFF_VERSION=4.7.2
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.58
+LIBPNG_VERSION=1.6.59
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -100,7 +100,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.8
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.6
+PGVECTOR_VERSION=0.8.7
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=3.6.3
@@ -118,7 +118,7 @@ ICU_MINOR_VERSION=1
 
 # https://www.python.org/downloads/macos/
 PYTHON_VERSION=3.13
-PYTHON_VERSION_FULL=3.13.15
+PYTHON_VERSION_FULL=3.13.16
 
 #path configuration
 BUILD_PREFIX=$(shell pwd)/build
