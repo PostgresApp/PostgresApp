@@ -13,6 +13,7 @@ Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Ma
 - [DBeaver](http://dbeaver.jkiss.org/)
 - [DBGlass](http://dbglass.web-pal.com)
 - [DbVisualizer](https://www.dbvis.com/)
+- [LibreDB Studio](https://libredb.org)
 - [Luna Modeler](https://www.datensen.com)
 - [Navicat for PostgreSQL](http://www.navicat.com/products/navicat-for-postgresql)
 - [pgAdmin](http://pgadmin.org/)
