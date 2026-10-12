@@ -71,7 +71,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.18
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_6
+WAL2JSON_VERSION=wal2json_2_7
 
 # https://github.com/abseil/abseil-cpp/releases
 ABSEIL_VERSION=20250814.2

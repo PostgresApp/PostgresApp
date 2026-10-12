@@ -107,7 +107,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.19
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_6
+WAL2JSON_VERSION=wal2json_2_7
 
 # https://github.com/abseil/abseil-cpp/releases
 ABSEIL_VERSION=20260817.0
@@ -197,11 +197,10 @@ TAR=/usr/bin/tar xzf
 
 # not building currently:
 # * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
-#    - wal2json
 #    - pljs
 # * "Rename varatt_external to varatt_external_oid" c5806f2165b57434290dd345ba301e4179634c23
 #    - postgis
-all: postgresql auth_permission_dialog pgvector pldebugger postgis pgrouting
+all: postgresql auth_permission_dialog pgvector wal2json pldebugger postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-nlohmann-json clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
 	rm -Rf "$(BUILD_PREFIX)"
