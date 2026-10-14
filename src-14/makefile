@@ -45,7 +45,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.15
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_6
+WAL2JSON_VERSION=wal2json_2_7
 
 # https://github.com/protocolbuffers/protobuf/releases
 PROTOBUF_VERSION=3.18.3
@@ -57,7 +57,7 @@ PROTOBUFC_VERSION=1.4.1
 LIBTIFF_VERSION=4.3.0
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.58
+LIBPNG_VERSION=1.6.59
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.4.0

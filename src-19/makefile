@@ -4,7 +4,7 @@
 POSTGIS_VERSION=3.7.0rc2
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=19beta4
+POSTGRES_VERSION=19rc1
 POSTGRES_MAJOR_VERSION=19
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
@@ -57,7 +57,7 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.8
+OPENSSL_VERSION=3.5.9
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -74,7 +74,7 @@ PLV8_VERSION=3.0.0
 JSONC_VERSION=0.19
 
 # https://github.com/eulerto/wal2json/releases
-WAL2JSON_VERSION=wal2json_2_6
+WAL2JSON_VERSION=wal2json_2_7
 
 # https://github.com/abseil/abseil-cpp/releases
 ABSEIL_VERSION=20260817.0
@@ -90,7 +90,7 @@ PROTOBUFC_VERSION=1.5.2
 LIBTIFF_VERSION=4.7.2
 
 # https://github.com/glennrp/libpng/tags
-LIBPNG_VERSION=1.6.58
+LIBPNG_VERSION=1.6.59
 
 # https://github.com/uclouvain/openjpeg/releases
 OPENJPEG_VERSION=2.5.4
@@ -102,7 +102,7 @@ NETCDF_VERSION=4.9.2
 PLDEBUGGER_VERSION=1.10
 
 # https://github.com/pgvector/pgvector/tags
-PGVECTOR_VERSION=0.8.6
+PGVECTOR_VERSION=0.8.7
 
 # https://github.com/pgRouting/pgrouting/releases
 PGROUTING_VERSION=4.0.2
