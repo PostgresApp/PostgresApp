@@ -13,7 +13,7 @@
 					PostgreSQL beta versions usually introduce incompatible on-disk data formats.
 				</p>
 				<p style="color: red;">
-					Do not install this update if you need to access databases created with PostgreSQL 19beta1, 19beta2, 19beta3 or 19beta34.
+					Do not install this update if you need to access databases created with PostgreSQL 19beta1, 19beta2, 19beta3 or 19beta4.
 				</p>
 				<p>
 					If you want to keep your 19beta servers, be sure to dump your databases before installing this upgrade.
