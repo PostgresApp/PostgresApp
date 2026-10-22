@@ -22,6 +22,7 @@ There are many clients for PostgreSQL on the Mac. Below is a list of some of the
 - [TableAi](https://tableai.org)
 - [TablePlus](https://tableplus.io)
 - [Valentina Studio](http://www.valentina-db.com/en/valentina-studio-overview)
+- [VisuaLeaf](https://visualeaf.com/database/postgresql/)
 
 You can find many more of them on the [PostgreSQL Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) page in the PostgreSQL wiki. Some of them are quite powerful; some are still a bit rough.
 
