@@ -18,6 +18,7 @@ There are many clients for PostgreSQL on the Mac. Below is a list of some of the
 - [pgAdmin](http://pgadmin.org/)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
+- [SequelPG](http://sequelpg.com)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
 - [TableAi](https://tableai.org)
 - [TablePlus](https://tableplus.io)
