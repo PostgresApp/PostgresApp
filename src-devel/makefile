@@ -3,7 +3,7 @@
 # http://postgis.net/development/source_code/
 # dev version (like 3.6.5dev) contain the unreleased commits towards that minor version
 # https://postgis.net/stuff/
-POSTGIS_VERSION=3.7.1dev
+POSTGIS_VERSION=3.8.0dev
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
