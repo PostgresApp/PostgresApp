@@ -90,7 +90,8 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.9
+# 4.2 will likely become the next LTS in 2027-04
+OPENSSL_VERSION=4.1.0
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -337,14 +338,11 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib 
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libssl.${DYLD_VERSION}.dylib ../build_x86_64/libssl.${DYLD_VERSION}.dylib -output ./libssl.${DYLD_VERSION}.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libssl.a ../build_x86_64/libssl.a -output ./libssl.a
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./apps/openssl ../build_x86_64/apps/openssl -output ./apps/openssl
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/capi.dylib ../build_x86_64/engines/capi.dylib -output ./engines/capi.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/dasync.dylib ../build_x86_64/engines/dasync.dylib -output ./engines/dasync.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/loader_attic.dylib ../build_x86_64/engines/loader_attic.dylib -output ./engines/loader_attic.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/ossltest.dylib ../build_x86_64/engines/ossltest.dylib -output ./engines/ossltest.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/padlock.dylib ../build_x86_64/engines/padlock.dylib -output ./engines/padlock.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./providers/legacy.dylib ../build_x86_64/providers/legacy.dylib -output ./providers/legacy.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_test.dylib ../build_x86_64/test/p_test.dylib -output ./test/p_test.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/fake-cipher.dylib ../build_x86_64/test/fake-cipher.dylib -output ./test/fake-cipher.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_minimal.dylib ../build_x86_64/test/p_minimal.dylib -output ./test/p_minimal.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_ossltest.dylib ../build_x86_64/test/p_ossltest.dylib -output ./test/p_ossltest.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_test.dylib ../build_x86_64/test/p_test.dylib -output ./test/p_test.dylib
 	# to avoid dirty make targets after we touched the libraries, pretend we rebuilded everything before installing
 	make -C openssl-${OPENSSL_VERSION}/build_arm64 --touch
 	make -C openssl-${OPENSSL_VERSION}/build_arm64 install_sw
@@ -356,10 +354,10 @@ openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
 
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-arm64 zlib shared no-docs
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-arm64 enable-ec_nistp_64_gcc_128 no-docs
 
 openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-x86_64 zlib shared no-docs
+	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-x86_64 enable-ec_nistp_64_gcc_128 no-docs
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
