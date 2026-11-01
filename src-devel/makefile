@@ -113,9 +113,9 @@ WAL2JSON_VERSION=wal2json_2_7
 ABSEIL_VERSION=20260817.0
 
 # https://github.com/protocolbuffers/protobuf/releases
-# 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-# 36.x will get LTS at 37 2026Q4. protobuf-c needs patch
-PROTOBUF_VERSION=36.2
+# 37.x is kind of LTS: https://protobuf.dev/support/version-support/
+# protobuf-c needs patch since 36
+PROTOBUF_VERSION=37.0-rc1
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
