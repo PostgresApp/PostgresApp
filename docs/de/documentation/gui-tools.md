@@ -22,6 +22,7 @@ Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Ma
 - [TableAi](https://tableai.org)
 - [TablePlus](https://tableplus.io)
 - [Valentina Studio](http://www.valentina-db.com/de/valentina-studio-overview)
+- [VisuaLeaf](https://visualeaf.com/database/postgresql/)
 
 Eine ausführlichere Übersicht über verfügbare Programme findest du im PostgreSQL Wiki: [PostgreSQL Clients](https://wiki.postgresql.org/wiki/PostgreSQL_Clients) (Englisch). Einige sind bereits sehr ausgereift, andere noch eher unfertig.
 
