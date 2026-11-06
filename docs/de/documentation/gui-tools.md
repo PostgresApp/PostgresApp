@@ -18,6 +18,7 @@ Es gibt mittlerweile eine beachtliche Anzahl an Clients für Postgres-User am Ma
 - [pgAdmin](http://pgadmin.org/)
 - [Postico](https://eggerapps.at/postico/)
 - [PSequel](http://www.psequel.com)
+- [Seqora](https://seqora.dev/)
 - [SQLPro for PostgreSQL](http://www.hankinsoft.com/SQLProPostgres/)
 - [TableAi](https://tableai.org)
 - [TablePlus](https://tableplus.io)
