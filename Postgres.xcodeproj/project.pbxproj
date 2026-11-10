@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 100;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -78,43 +78,36 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		3600796D2A1B891000CF88B7 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstSubfolder = None;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		8324D9AC1D9402A20066DCDB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				8324D9AB1D9402A10066DCDB /* Sparkle.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8332859A1D5CBE88001EA003 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = Contents/Library/LoginItems;
-			dstSubfolderSpec = 1;
+			dstSubfolder = Wrapper;
 			files = (
 				83999C671D7DA3C300B8A1D6 /* PostgresLoginHelper.app in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83999C681D7DA41600B8A1D6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 6;
+			dstSubfolder = Executables;
 			files = (
 				369189BD2A1E7DAD000A3C97 /* PostgresPermissionDialog in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -190,21 +183,16 @@
 /* Begin PBXFrameworksBuildPhase section */
 		3600796C2A1B891000CF88B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83C19C271D7D977000F4862D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83FB57151D1B05F000A903A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				36410839296D7A4A00F79014 /* libpgcommon.a in Frameworks */,
 				369B82392CA41842008B994E /* libpgcommon_shlib.a in Frameworks */,
@@ -212,7 +200,6 @@
 				363580AC27503E4B009FC06E /* libpq.a in Frameworks */,
 				8324D9AA1D9402A10066DCDB /* Sparkle.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -342,8 +329,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = PostgresPermissionDialog;
 			productName = PostgresPermissionDialog;
 			productReference = 3600796F2A1B891000CF88B7 /* PostgresPermissionDialog */;
@@ -358,8 +343,6 @@
 				83C19C281D7D977000F4862D /* Resources */,
 			);
 			buildRules = (
-			);
-			dependencies = (
 			);
 			name = PostgresLoginHelper;
 			productName = PostgresLoginHelper;
@@ -380,8 +363,6 @@
 				8324D9AC1D9402A20066DCDB /* Embed Frameworks */,
 			);
 			buildRules = (
-			);
-			dependencies = (
 			);
 			name = Postgres;
 			productName = Postgres;
@@ -414,7 +395,6 @@
 				};
 			};
 			buildConfigurationList = 83FB57131D1B05F000A903A3 /* Build configuration list for PBXProject "Postgres" */;
-			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -422,6 +402,7 @@
 				Base,
 			);
 			mainGroup = 83FB570F1D1B05F000A903A3;
+			preferredProjectObjectVersion = 100;
 			productRefGroup = 83FB57191D1B05F000A903A3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -436,15 +417,12 @@
 /* Begin PBXResourcesBuildPhase section */
 		83C19C281D7D977000F4862D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				83C19C2F1D7D977000F4862D /* Assets.xcassets in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83FB57161D1B05F000A903A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				3603EF172FAB6BBA00BDA576 /* MenuItemView.xib in Resources */,
 				8348A1ED1DB4ED5E0039A024 /* dsa_pub.pem in Resources */,
@@ -456,16 +434,12 @@
 				83B1A80B1DABE0150091EE7A /* com.postgresapp.Postgres2LoginHelper.plist in Resources */,
 				3686D3362A963787003389DD /* Credits.rtf in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		36BF586A1D771E62002CB485 /* Copy PostgreSQL Executables, Libraries, etc. */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
 			inputPaths = (
 				$PG_BINARIES_DIR,
 			);
@@ -473,41 +447,37 @@
 			outputPaths = (
 				$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Versions,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "source \"${SRCROOT}\"/Postgres/CopyBinaries.sh\n";
+			shellScript = (
+				"source \"${SRCROOT}\"/Postgres/CopyBinaries.sh",
+				"",
+			);
 		};
 		83DAAECA1D92DBD500D5BC3C /* Remove Swift Libraries from Helper Apps */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
 			name = "Remove Swift Libraries from Helper Apps";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -e\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/LoginItems/PostgresLoginHelper.app/Contents/Frameworks\"\nrm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/PostgresMenuHelper.app/Contents/Frameworks\"\n";
+			shellScript = (
+				"set -e",
+				"rm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/LoginItems/PostgresLoginHelper.app/Contents/Frameworks\"",
+				"rm -rf \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/PostgresMenuHelper.app/Contents/Frameworks\"",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3600796B2A1B891000CF88B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				360079722A1B891000CF88B7 /* main.swift in Sources */,
 				369189BA2A1E3D5F000A3C97 /* UnixProcessInfo.swift in Sources */,
 				369189BC2A1E5BE0000A3C97 /* UserDefaults.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83C19C261D7D977000F4862D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				36447A63282568BA00F5BB7A /* InstallHistory.swift in Sources */,
 				83999C6A1D7DA8DF00B8A1D6 /* Server.swift in Sources */,
@@ -520,11 +490,9 @@
 				361CAF8B2FAB551F00DCF309 /* OpenURLAsLoginItem.m in Sources */,
 				83999C6C1D7DA8EA00B8A1D6 /* Extensions.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83FB57141D1B05F000A903A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				830B4B261D1C132300F16762 /* ServerManager.swift in Sources */,
 				36A4C3EB3013557B008B805E /* DetailTabViewController.swift in Sources */,
@@ -562,7 +530,6 @@
 				8353FBDE1D1D57C8002F77E7 /* ServerView.swift in Sources */,
 				83BB115A1DB680DA00772E8D /* DnDArrayController.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -578,7 +545,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		360079732A1B891000CF88B7 /* Debug */ = {
+		360079732A1B891000CF88B7 /* Debug configuration for PBXNativeTarget "PostgresPermissionDialog" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -603,7 +570,7 @@
 			};
 			name = Debug;
 		};
-		360079742A1B891000CF88B7 /* Release */ = {
+		360079742A1B891000CF88B7 /* Release configuration for PBXNativeTarget "PostgresPermissionDialog" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -627,7 +594,7 @@
 			};
 			name = Release;
 		};
-		83C19C341D7D977000F4862D /* Debug */ = {
+		83C19C341D7D977000F4862D /* Debug configuration for PBXNativeTarget "PostgresLoginHelper" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -650,7 +617,7 @@
 			};
 			name = Debug;
 		};
-		83C19C351D7D977000F4862D /* Release */ = {
+		83C19C351D7D977000F4862D /* Release configuration for PBXNativeTarget "PostgresLoginHelper" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -673,7 +640,7 @@
 			};
 			name = Release;
 		};
-		83FB57251D1B05F000A903A3 /* Debug */ = {
+		83FB57251D1B05F000A903A3 /* Debug configuration for PBXProject "Postgres" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -740,7 +707,7 @@
 			};
 			name = Debug;
 		};
-		83FB57261D1B05F000A903A3 /* Release */ = {
+		83FB57261D1B05F000A903A3 /* Release configuration for PBXProject "Postgres" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -800,7 +767,7 @@
 			};
 			name = Release;
 		};
-		83FB57281D1B05F000A903A3 /* Debug */ = {
+		83FB57281D1B05F000A903A3 /* Debug configuration for PBXNativeTarget "Postgres" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -832,7 +799,7 @@
 			};
 			name = Debug;
 		};
-		83FB57291D1B05F000A903A3 /* Release */ = {
+		83FB57291D1B05F000A903A3 /* Release configuration for PBXNativeTarget "Postgres" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -869,37 +836,33 @@
 		360079752A1B891000CF88B7 /* Build configuration list for PBXNativeTarget "PostgresPermissionDialog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				360079732A1B891000CF88B7 /* Debug */,
-				360079742A1B891000CF88B7 /* Release */,
+				360079732A1B891000CF88B7 /* Debug configuration for PBXNativeTarget "PostgresPermissionDialog" */,
+				360079742A1B891000CF88B7 /* Release configuration for PBXNativeTarget "PostgresPermissionDialog" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		83C19C361D7D977000F4862D /* Build configuration list for PBXNativeTarget "PostgresLoginHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83C19C341D7D977000F4862D /* Debug */,
-				83C19C351D7D977000F4862D /* Release */,
+				83C19C341D7D977000F4862D /* Debug configuration for PBXNativeTarget "PostgresLoginHelper" */,
+				83C19C351D7D977000F4862D /* Release configuration for PBXNativeTarget "PostgresLoginHelper" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		83FB57131D1B05F000A903A3 /* Build configuration list for PBXProject "Postgres" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83FB57251D1B05F000A903A3 /* Debug */,
-				83FB57261D1B05F000A903A3 /* Release */,
+				83FB57251D1B05F000A903A3 /* Debug configuration for PBXProject "Postgres" */,
+				83FB57261D1B05F000A903A3 /* Release configuration for PBXProject "Postgres" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		83FB57271D1B05F000A903A3 /* Build configuration list for PBXNativeTarget "Postgres" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83FB57281D1B05F000A903A3 /* Debug */,
-				83FB57291D1B05F000A903A3 /* Release */,
+				83FB57281D1B05F000A903A3 /* Debug configuration for PBXNativeTarget "Postgres" */,
+				83FB57291D1B05F000A903A3 /* Release configuration for PBXNativeTarget "Postgres" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
