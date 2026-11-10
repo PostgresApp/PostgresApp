@@ -44,7 +44,7 @@ POSTGRES_TARGET=install-world
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
-LZ4_VERSION=1.10.0
+LZ4_VERSION=1.11.1
 
 # https://github.com/facebook/zstd/releases
 ZSTD_VERSION=1.5.7
