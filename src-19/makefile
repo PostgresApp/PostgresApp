@@ -1,17 +1,17 @@
 # VERSION numbers
 
 # http://postgis.net/development/source_code/
-POSTGIS_VERSION=3.7.0rc2
+POSTGIS_VERSION=3.7.0
 POSTGIS_MAJOR_VERSION=3
 
-POSTGRES_VERSION=19rc1
+POSTGRES_VERSION=19rc2
 POSTGRES_MAJOR_VERSION=19
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
-LZ4_VERSION=1.10.0
+LZ4_VERSION=1.11.1
 
 # https://github.com/facebook/zstd/releases
 ZSTD_VERSION=1.5.7
@@ -80,8 +80,8 @@ WAL2JSON_VERSION=wal2json_2_7
 ABSEIL_VERSION=20260817.0
 
 # https://github.com/protocolbuffers/protobuf/releases
-# 36.x will get kind of LTS at 37 in 2026Q4: https://protobuf.dev/support/version-support/
-PROTOBUF_VERSION=36.2
+# 37.x is kind of LTS: https://protobuf.dev/support/version-support/
+PROTOBUF_VERSION=37.0-rc2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -1041,6 +1041,8 @@ $(PREFIX)/lib/postgresql/postgis-$(POSTGIS_MAJOR_VERSION).dylib: postgis-${POSTG
 	make -C postgis-${POSTGIS_VERSION}/doc cheatsheet-install
 
 postgis-${POSTGIS_VERSION}/GNUMakefile: postgis-${POSTGIS_VERSION}/configure $(PREFIX)/lib/libgdal.dylib $(PREFIX)/lib/libgeos.dylib $(PREFIX)/lib/libjpeg.dylib $(PREFIX)/bin/psql $(PREFIX)/lib/libjson-c.dylib $(PREFIX)/lib/libprotobuf-c.dylib $(PREFIX)/lib/libSFCGAL.dylib $(PREFIX)/lib/libgmp.dylib
+	# patch to allow direct upgrades from 3.7.0rc2 which we shipped with Postgres.app 3beta1
+	patch -b -d "postgis-${POSTGIS_VERSION}" -p1 <patches/postgis_upgrade_from_beta.patch
 	cd postgis-${POSTGIS_VERSION} && ./configure --prefix="$(PREFIX)" --without-phony-revision --with-pgconfig="$(PREFIX)/bin/pg_config" --with-geosconfig="$(PREFIX)/bin/geos-config" --with-projdir="$(PREFIX)" --with-gdalconfig="$(PREFIX)"/bin/gdal-config --with-jsondir="$(PREFIX)" --with-protobufdir="$(PREFIX)" --with-sfcgal="$(PREFIX)/bin/sfcgal-config" --enable-lto
 	touch $@
 

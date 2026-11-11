@@ -45,11 +45,11 @@ For compatibility reasons we build the different parts on different versions of 
 
 - the binaries for PostgreSQL 17 - 18 are built on macOS 14 with Command Line Tools for Xcode 15.3
 
-- the binaries for PostgreSQL 19 are built on macOS 26 with Command Line Tools for Xcode 26.5
+- the binaries for PostgreSQL 19 are built on macOS 26 with Command Line Tools for Xcode 26.6
 
 - the GUI is built on macOS 14 with Xcode 15.0.1
 
-- the GUI for Postgres.app 3 is built on macOS 26 with Xcode 26.5
+- the GUI for Postgres.app 3 is built on macOS 26 with Xcode 26.6
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 

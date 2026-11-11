@@ -3,7 +3,7 @@
 # http://postgis.net/development/source_code/
 # dev version (like 3.6.5dev) contain the unreleased commits towards that minor version
 # https://postgis.net/stuff/
-POSTGIS_VERSION=3.7.0dev
+POSTGIS_VERSION=3.8.0dev
 POSTGIS_MAJOR_VERSION=3
 
 # define either a full commit hash in POSTGRES_GIT_HASH or a git ref in POSTGRES_GIT_REF
@@ -44,7 +44,7 @@ POSTGRES_TARGET=install-world
 POSTGRESAPP_VERSION=$(POSTGRES_VERSION)
 
 # https://github.com/lz4/lz4/releases
-LZ4_VERSION=1.10.0
+LZ4_VERSION=1.11.1
 
 # https://github.com/facebook/zstd/releases
 ZSTD_VERSION=1.5.7
@@ -90,7 +90,8 @@ LIBXSLT_VERSION=1.1.45
 LIBXSLT_VERSION_MAJOR=$(shell echo $(LIBXSLT_VERSION) | sed -E 's/^([0-9]+\.[0-9]+)\..*$$/\1/')
 
 # https://openssl-library.org/source/index.html
-OPENSSL_VERSION=3.5.9
+# 4.2 will likely become the next LTS in 2027-04
+OPENSSL_VERSION=4.1.0
 
 # https://proj.org/download.html
 # https://github.com/OSGeo/PROJ/releases
@@ -113,9 +114,9 @@ WAL2JSON_VERSION=wal2json_2_7
 ABSEIL_VERSION=20260817.0
 
 # https://github.com/protocolbuffers/protobuf/releases
-# 33.x, is kind of LTS: https://protobuf.dev/support/version-support/
-# 36.x will get LTS at 37 2026Q4. protobuf-c needs patch
-PROTOBUF_VERSION=36.2
+# 37.x is kind of LTS: https://protobuf.dev/support/version-support/
+# protobuf-c needs patch since 36
+PROTOBUF_VERSION=37.0-rc2
 
 # https://github.com/protobuf-c/protobuf-c/releases
 PROTOBUFC_VERSION=1.5.2
@@ -198,8 +199,6 @@ TAR=/usr/bin/tar xzf
 # not building currently:
 # * "Convert varatt.h access macros to static inline functions." e035863c9a04beeecc254c3bfe48dab58e389e10 broke:
 #    - pljs
-# * "Rename varatt_external to varatt_external_oid" c5806f2165b57434290dd345ba301e4179634c23
-#    - postgis
 all: postgresql auth_permission_dialog pgvector wal2json pldebugger postgis pgrouting
 clean: clean-postgresql clean-auth_permission_dialog clean-lz4 clean-zstd clean-openssl clean-icu clean-libxml2 clean-libxslt clean-libedit clean-libjpeg clean-libgeos clean-libgdal clean-libproj clean-json-c clean-abseil clean-protobuf clean-protobuf-c clean-libtiff clean-libpng clean-openjpeg clean-netcdf clean-gmp clean-mpfr clean-boost clean-nlohmann-json clean-cgal clean-sfcgal clean-postgis clean-plv8 clean-wal2json clean-pldebugger clean-pgvector clean-pgrouting clean-pljs
 	rm -Rf "$(PREFIX)"
@@ -339,14 +338,11 @@ $(PREFIX)/lib/libssl.dylib: openssl-${OPENSSL_VERSION}/build_arm64/libssl.dylib 
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libssl.${DYLD_VERSION}.dylib ../build_x86_64/libssl.${DYLD_VERSION}.dylib -output ./libssl.${DYLD_VERSION}.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./libssl.a ../build_x86_64/libssl.a -output ./libssl.a
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./apps/openssl ../build_x86_64/apps/openssl -output ./apps/openssl
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/capi.dylib ../build_x86_64/engines/capi.dylib -output ./engines/capi.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/dasync.dylib ../build_x86_64/engines/dasync.dylib -output ./engines/dasync.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/loader_attic.dylib ../build_x86_64/engines/loader_attic.dylib -output ./engines/loader_attic.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/ossltest.dylib ../build_x86_64/engines/ossltest.dylib -output ./engines/ossltest.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./engines/padlock.dylib ../build_x86_64/engines/padlock.dylib -output ./engines/padlock.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./providers/legacy.dylib ../build_x86_64/providers/legacy.dylib -output ./providers/legacy.dylib
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_test.dylib ../build_x86_64/test/p_test.dylib -output ./test/p_test.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/fake-cipher.dylib ../build_x86_64/test/fake-cipher.dylib -output ./test/fake-cipher.dylib
 	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_minimal.dylib ../build_x86_64/test/p_minimal.dylib -output ./test/p_minimal.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_ossltest.dylib ../build_x86_64/test/p_ossltest.dylib -output ./test/p_ossltest.dylib
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && lipo -create ./test/p_test.dylib ../build_x86_64/test/p_test.dylib -output ./test/p_test.dylib
 	# to avoid dirty make targets after we touched the libraries, pretend we rebuilded everything before installing
 	make -C openssl-${OPENSSL_VERSION}/build_arm64 --touch
 	make -C openssl-${OPENSSL_VERSION}/build_arm64 install_sw
@@ -358,10 +354,10 @@ openssl-${OPENSSL_VERSION}/build_x86_64/libssl.dylib: openssl-${OPENSSL_VERSION}
 	make -C openssl-${OPENSSL_VERSION}/build_x86_64
 
 openssl-${OPENSSL_VERSION}/build_arm64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-arm64 zlib shared no-docs
+	cd openssl-${OPENSSL_VERSION}/build_arm64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch arm64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-arm64 enable-ec_nistp_64_gcc_128 no-docs
 
 openssl-${OPENSSL_VERSION}/build_x86_64/Makefile: openssl-${OPENSSL_VERSION}/Configure
-	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-x86_64 zlib shared no-docs
+	cd openssl-${OPENSSL_VERSION}/build_x86_64 && CFLAGS="$(filter-out -arch arm64 x86_64,$(CFLAGS)) -arch x86_64" ../Configure --prefix="${PREFIX}" --openssldir="/private/etc/ssl" darwin64-x86_64 enable-ec_nistp_64_gcc_128 no-docs
 
 openssl-${OPENSSL_VERSION}/Configure: openssl-${OPENSSL_VERSION}.tar.gz
 	$(TAR) openssl-${OPENSSL_VERSION}.tar.gz
