@@ -6,23 +6,23 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 2.9.6</title>
+		<title>Postgres.app 2.9.7</title>
 		<description>
 			<![CDATA[
 				<ul>
-					<li>PostgreSQL 15.19 with PostGIS 3.3.10</li>
+					<li>PostgreSQL 15.20 with PostGIS 3.3.10</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 13 Aug 2026 04:30:50 +0200</pubDate>
+		<pubDate>Tue, 10 Nov 2026 22:01:33 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.6/Postgres-2.9.6-15.dmg"
-		sparkle:version="378"
-		sparkle:shortVersionString="2.9.6"
-		length="104768613"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.7/Postgres-2.9.7-15.dmg"
+		sparkle:version="392"
+		sparkle:shortVersionString="2.9.7"
+		length="104860249"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC0CFQC7og/JjP0pr1YVscj+gNyAdAb5vwIUemHuP9JtyDaXOCs2tbToYeyTn1w="
+		sparkle:dsaSignature="MC4CFQDMNPZA0k+GQF9veKNN/DhGwvYe0AIVANcyowWc3kOjOEnrDCT8VXFXIRsU"
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
 	</item>
