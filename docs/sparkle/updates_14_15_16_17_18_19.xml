@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 3beta1</title>
+		<title>Postgres.app 3beta2</title>
 		<description>
 			<![CDATA[
 				<p>
@@ -18,25 +18,32 @@
 				<p>
 					If you want to keep your 19beta servers, be sure to dump your databases before installing this upgrade.
 				</p>
+				<p>
+					Servers created with 19rc1 are compatible with 19rc2.
+				</p>
 				<ul>
-					<li>PostgreSQL 14.24 with PostGIS 3.2.10</li>
-					<li>PostgreSQL 15.19 with PostGIS 3.3.10</li>
-					<li>PostgreSQL 16.15 with PostGIS 3.4.6</li>
-					<li>PostgreSQL 17.11 with PostGIS 3.5.6</li>
-					<li>PostgreSQL 18.6 with PostGIS 3.6.3</li>
-					<li>PostgreSQL 19rc1 with PostGIS 3.7.0rc2</li>
+					<li>PostgreSQL 14.25 with PostGIS 3.2.10</li>
+					<li>PostgreSQL 15.20 with PostGIS 3.3.10</li>
+					<li>PostgreSQL 16.16 with PostGIS 3.4.6</li>
+					<li>PostgreSQL 17.12 with PostGIS 3.5.6</li>
+					<li>PostgreSQL 18.7 with PostGIS 3.6.3</li>
+					<li>PostgreSQL 19rc2 with PostGIS 3.7.0</li>
 				</ul>
+				<p>
+					This will likely be the final update for PostgreSQL 14 before it reaches the end of its support period.
+					Please update to a newer version as soon as possible.
+				</p>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 15 Oct 2026 02:12:40 +0200</pubDate>
+		<pubDate>Thu, 12 Nov 2026 00:32:02 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3beta1/Postgres-3beta1-14-15-16-17-18-19.dmg"
-		sparkle:version="390"
-		sparkle:shortVersionString="3beta1"
-		length="655621772"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3beta2/Postgres-3beta2-14-15-16-17-18-19.dmg"
+		sparkle:version="398"
+		sparkle:shortVersionString="3beta2"
+		length="656102312"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQCUXwiIubFO0mrp6VglbGnBL3MHQgIVAJRkzL7fOboaGktPNzfQtufrZ9K7"
+		sparkle:dsaSignature="MC0CFQC0Tuhyrn1kKKMJq/BfPLIyC+hSJAIUINDwKMhyciNmNBEMNljohJ5cYU4="
 		/>
 		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>

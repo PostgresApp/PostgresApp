@@ -6,7 +6,7 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
 	<item>
-		<title>Postgres.app 3beta1</title>
+		<title>Postgres.app 3beta2</title>
 		<description>
 			<![CDATA[
 				<p>
@@ -18,20 +18,23 @@
 				<p>
 					If you want to keep your 19beta servers, be sure to dump your databases before installing this upgrade.
 				</p>
+				<p>
+					Servers created with 19rc1 are compatible with 19rc2.
+				</p>
 				<ul>
-					<li>PostgreSQL 19rc1 with PostGIS 3.7.0rc2</li>
+					<li>PostgreSQL 19rc2 with PostGIS 3.7.0</li>
 				</ul>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
 		</description>
-		<pubDate>Thu, 15 Oct 2026 01:48:21 +0200</pubDate>
+		<pubDate>Wed, 11 Nov 2026 23:47:03 +0100</pubDate>
 		<enclosure
-		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3beta1/Postgres-3beta1-19.dmg"
-		sparkle:version="389"
-		sparkle:shortVersionString="3beta1"
-		length="129105213"
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3beta2/Postgres-3beta2-19.dmg"
+		sparkle:version="397"
+		sparkle:shortVersionString="3beta2"
+		length="129120596"
 		type="application/octet-stream"
-		sparkle:dsaSignature="MC4CFQCemUAw3RjNG0oVGasL4GdnvCF2uwIVAMpuh30221wZA3FtUEWMZid+0nyk"
+		sparkle:dsaSignature="MC0CFQCHSIDpU49TNagZrFquXx6w/Um2xgIUHIacbWVpD3kQVEyrht+UKin4uTs="
 		/>
 		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>
