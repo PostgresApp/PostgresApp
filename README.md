@@ -20,12 +20,11 @@ Documentation is available at [http://postgresapp.com/documentation](http://post
 
 - [PostgreSQL](http://www.postgresql.org/)
 - [PostGIS](http://postgis.net/)
-- [pgrouting](https://pgrouting.org) (PostgreSQL 15 and higher)
-- [wal2json](https://github.com/eulerto/wal2json)
-- [pldebugger](https://github.com/EnterpriseDB/pldebugger)
-- [pgvector](https://github.com/pgvector/pgvector) (PostgreSQL 15 and higher)
-- [plv8](https://github.com/plv8/plv8) (PostgreSQL 13 and lower)
-- [pljs](https://github.com/plv8/pljs) (PostgreSQL 14 and higher)
+- [pgvector](https://github.com/pgvector/pgvector)
+- [pgrouting](https://pgrouting.org) (PostgreSQL 18 and lower)
+- [wal2json](https://github.com/eulerto/wal2json) (PostgreSQL 18 and lower)
+- [pldebugger](https://github.com/EnterpriseDB/pldebugger) (PostgreSQL 18 and lower)
+- [pljs](https://github.com/plv8/pljs) (PostgreSQL 18 and lower)
 
 ## How To Build
 
@@ -39,24 +38,20 @@ Postgres.app consists of separate parts:
 
 For compatibility reasons we build the different parts on different versions of macOS.
 
-- the binaries for PostgreSQL 14 are built on macOS 11 with Command Line Tools for Xcode 12.5
-
 - the binaries for PostgreSQL 15 - 16 are built on macOS 12 with Command Line Tools for Xcode 14
 
 - the binaries for PostgreSQL 17 - 18 are built on macOS 14 with Command Line Tools for Xcode 15.3
 
 - the binaries for PostgreSQL 19 are built on macOS 26 with Command Line Tools for Xcode 26.6
 
-- the GUI is built on macOS 14 with Xcode 15.0.1
-
-- the GUI for Postgres.app 3 is built on macOS 26 with Xcode 26.6
+- the GUI is built on macOS 26 with Xcode 26.6
 
 It is of course possible to use other versions of macOS / Xcode (see details below), but those are the environments we use.
 
 ### Building the GUI
 
 If you want to work on the user interface only, you don't have to re-compile the binaries yourself.
-By default, the buildscript for Postgres.app just copies the binaries from /Applications/Postgres.app/Contents/Versions
+By default, the buildscript for Postgres.app just copies the binaries from `/Applications/Postgres.app/Contents/Versions`
 
 So just make sure you have a copy of Postgres.app in your applications folder.
 Open the XCode file and start hacking!
@@ -72,39 +67,40 @@ If you want to build your own versions of all the PostgreSQL binaries, you have 
 The directories `src-xx` each contain a makefile that downloads and builds all the binaries.
 If you have all the prerequisites installed (see below), you can just type `make`.
 
-The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, wal2json, pldebugger,
-plv8 (till PostgreSQL 13), pgvector (starting with PostgreSQL 15) and pgrouting (starting with PostgreSQL 15).
-PostGIS and especially plv8 with all their dependencies take a long time to build, so if you don't need them, type `make postgresql` instead.
+The makefile will download and build many gigabytes of sources. The default target (`all`) builds postgresql, postgis, pgvector with
+all required dependencies. Before PostgreSQL 19 also pgrouting, pljs, wal2json and pldebugger are built - these are
+[downloadable extensions](https://postgresapp.com/extensions/) in later versions.
+PostGIS with all its dependencies takes a long time to build, so if you don't need them, type `make postgresql` instead.
 
 The makefile will install all products in `/Applications/Postgres.app/Contents/Versions/xx` (xx is the major version of PostgreSQL).
 So for best results, make sure that directory is empty before starting the build.
 
 If you want to change the version number of any of the dependencies, edit the makefile (all version numbers are specified at the top).
 
-You can use the `-j` option (eg. `make -j 3 postgresql`) for parallel builds.
-My recommendation is to use one more job than the number of logical processors you have.
-Since my macOS 10.12 VM is limited to 2 virtual CPUs, I use `-j 3`.
+You can use the `-j` option (eg. `make -j 8 postgresql`) for parallel builds. Recent processors offer a lot of cores that can be used to speed
+up builds but due to build order dependencies, the degree of parallelism that can be used until the end of build is limited.
 However, parallel builds make debugging problems a lot harder, so don't use them when something doesn't work.
 
-Always check the exit code of make to see if any errors occurred, eg. `make -j 3 || echo "Build failed with exit code $?"`
+Always check the exit code of make to see if any errors occurred, eg. `make -j 8 || echo "Build failed with exit code $?"`
 
 ### Prerequisites for building the binaries
 
 At the very least, you need the following:
 
-- Xcode
-- Developer Tools (install with `xcode-select --install`)
-- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.8.x (PostgreSQL 13), 3.9.x (PostgreSQL 14), 3.11.x (PostgreSQL 15), 3.12.x (PostgreSQL 16), 3.13.x (PostgreSQL 17) or >=3.9.x (PostgreSQL >=18)
+- XCode Command Line Tools (install with `xcode-select --install`)
+- Python from [python.org](https://www.python.org/downloads/macos/) in version 3.11.x (PostgreSQL 15), 3.12.x (PostgreSQL 16), 3.13.x (PostgreSQL 17)
+  or >=3.9.x (PostgreSQL >=18)
 
 For building PostGIS and its dependencies, you also need
 
 - autoconf
 - automake
-- pkgconfig (when building GDAL 3.0.0 or later)
+- pkgconfig
 - libtool
-- cmake (when building universal binaries - PostgreSQL 14 or later)
+- cmake
 
-By default, PostgreSQL is built with documentation. To build the PostgreSQL 13 docs, you need these packages (see https://www.postgresql.org/docs/current/docguide-toolsets.html for details):
+By default, PostgreSQL is built with documentation. To build the PostgreSQL docs, you need these packages (see
+[PostgreSQL Docs](https://www.postgresql.org/docs/current/docguide-toolsets.html) for details):
 
 - docbook-xml-4.5
 - docbook-xsl-nons
@@ -116,11 +112,11 @@ The quickest way to install all the dependencies is with MacPorts. Install MacPo
 
 (The `-N` flag tells Macports to install required dependencies without asking)
 
-Older versions required a different set of packages for building the docs, please see the specific versions of the documentation page https://www.postgresql.org/docs/current/docguide-toolsets.html for details.
-
-It is also possible to install those using homebrew, at least for PostgreSQL 14 and later:
+It is also possible to install those using homebrew:
 
     brew install automake cmake docbook-xsl pkgconf
+
+Older versions may require different sets of packages for building.
 
 ## Under the Hood
 
@@ -152,28 +148,11 @@ Postgres.app also includes useful command line utilities (note: this list may be
 
 See [the documentation](http://postgresapp.com/documentation) for more info.
 
-## Using the pl/pgsql Debugger
-
-First, you'll need to adjust the configuration file (`postgresql.conf`) to preload the debugger extension. Add the following line:
-
-```
-shared_preload_libraries = 'plugin_debugger'
-```
-
-After you've saved this file, restart the server. You'll need to load the debugger extension into the database you wish to debug using:
-
-```
-CREATE EXTENSION pldbgapi;
-```
-
-Debugging requires that you are a superuser. Please refer to the [documentation](https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html) for further information. This requires that you use a supported client, such as [PgAdmin 4](https://www.pgadmin.org/). The official documentation for the module can be accessed [here](https://github.com/EnterpriseDB/pldebugger/blob/master/README.pldebugger).
-
 ## Contact
 
 If you find a bug, please [open an issue](https://github.com/PostgresApp/PostgresApp/issues).
 
 Postgres.app is maintained by [Jakob Egger](https://github.com/jakob) and [Tobias Bussmann](https://github.com/tbussmann).
-
 
 ## License
 
