@@ -1,4 +1,4 @@
-POSTGRES_VERSION=19rc2
+POSTGRES_VERSION=19.0
 POSTGRES_DOWNLOAD_URL=https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)
 
 # compiler options
