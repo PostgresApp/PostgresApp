@@ -1,0 +1,8 @@
+{
+    "title": "address_standardizer",
+    "description": "<a href='https://github.com/postgis/address_standardizer'>address_standardizer</a> is an extension to parse a street address string into its component parts. It came previously bundled with PostGIS.",
+    "hint": "This extension requires macOS 13 or later.",
+    "info_url": "https://github.com/postgis/address_standardizer",
+    "version": "3.7.0",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-12/address_standardizer-pg19-3.7.0.pkg"
+}

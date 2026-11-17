@@ -1,0 +1,7 @@
+{
+    "title": "wal2json",
+    "description": "<a href='https://github.com/eulerto/wal2json'>wal2json</a> is an output plugin for logical decoding. Track changes to the database as they happen! Please follow the [wal2json setup instructions for Postgres.app](wal2json.html) after installing this extension.",
+    "info_url": "https://github.com/eulerto/wal2json",
+    "version": "2.7",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-12/wal2json-pg19-2_7.pkg"
+}

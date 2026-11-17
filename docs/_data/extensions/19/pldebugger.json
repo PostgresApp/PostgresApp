@@ -1,0 +1,7 @@
+{
+    "title": "pldebugger",
+    "description": "Debug PL/pgSQL functions with pgAdmin. For instructions see the <a href='https://github.com/EnterpriseDB/pldebugger'>Github repo</a> and the <a href='https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html'>pgAdmin documentation</a>. Please follow the [pldebugger setup instructions for Postgres.app](pldebugger.html) after installing this extension.",
+    "info_url": "https://github.com/EnterpriseDB/pldebugger",
+    "version": "1.10",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-12/pldebugger-pg19-1.10.pkg"
+}

@@ -62,7 +62,7 @@ redirect_from:
 	<h1>PostGIS</h1>
 	<div class="extension-description">
       PostGIS is a popular geospatial extension for PostgreSQL.
-	  It includes the GDAL, PROJ.4 and GEOS libraries and comes with everything you need to work with geographic vector and raster data.
+	  It includes the GDAL, PROJ and GEOS libraries and comes with everything you need to work with geographic vector and raster data.
       Learn everything about this extension at <a href="https://postgis.net">postgis.net</a>
 	</div>
 	<div class="extension-hint">
@@ -76,7 +76,7 @@ redirect_from:
       Extends PostGIS to provide geospatial routing functionality. Project homepage: <a href="https://pgrouting.org">pgrouting.org</a>
 	</div>
 	<div class="extension-hint">
-			✓ this extension is included with Postgres.app
+			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier.
 	</div>
 </div>
 
@@ -107,7 +107,7 @@ redirect_from:
       Created by the PL/v8 author, instructions are available at <a href="https://github.com/plv8/pljs">github.com/plv8/pljs</a>
   </div>
 	<div class="extension-hint">
-			✓ this extension is included with Postgres.app
+			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier.
 	</div>
 </div>
 
@@ -117,7 +117,7 @@ redirect_from:
       Debug PL/PGSQL functions with pgAdmin. For instructions see the <a href="https://github.com/EnterpriseDB/pldebugger">Github repo</a> and the <a href="https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html">pgAdmin documentation</a>
   </div>
 	<div class="extension-hint">
-			✓ this extension is included with Postgres.app
+			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier. See [below](#downloadable-extensions) for later versions.
 	</div>
 </div>
 
@@ -128,7 +128,7 @@ redirect_from:
       For details, see the <a href="https://github.com/eulerto/wal2json">Github repo</a>
   </div>
 	<div class="extension-hint">
-			✓ this extension is included with Postgres.app
+			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier. See [below](#downloadable-extensions) for later versions.
 	</div>
 </div>
 
@@ -139,7 +139,7 @@ redirect_from:
   For a full list of included extensions, see the catalog table <tt>pg_available_extensions</tt>.
 </p>
 
-## Downloadable Extensions for PostgreSQL 18
+## Downloadable Extensions
 
 <p>
   We are also offering some popular extensions as an additional download.
@@ -147,10 +147,12 @@ redirect_from:
   After restarting the server, you can enable them with the <tt>CREATE EXTENSION</tt> command.
 </p>
 
-<div>
+
   {% assign pg_versions_extensions = site.data.extensions | sort %}
   {% for pg_version_extensions in pg_versions_extensions reversed %}
     {% assign pg_version = pg_version_extensions[0] %}
+### for PostgreSQL {{ pg_version }}
+<div>
     {% assign extensions = pg_version_extensions[1] | sort %}
     {% for extension_name_extension_data in extensions %}
       {% assign extension_name = extension_name_extension_data[0] %}
@@ -160,6 +162,11 @@ redirect_from:
         <div class="extension-description">
           {{ extension_data.description | markdownify }}
         </div>
+        {% if extension_data.hint %}
+          <div class="extension-hint">
+            {{ extension_data.hint | markdownify }}
+          </div>
+        {% endif %}
         <ul>
           <li>{{ extension_name }} {{ extension_data.version }}</li>
           <li>built for PostgreSQL {{ pg_version }}</li>
@@ -169,8 +176,9 @@ redirect_from:
         </a>
       </div>
     {% endfor %}
-  {% endfor %}
 </div>
+  {% endfor %}
+
 
 <p>
   Is your favorite extension still missing? Open an issue in our Github repo and request it!
@@ -198,7 +206,7 @@ Make sure the version matches what you expect!
 
 <p>The next step is to build your extension. <strong>You need to have a compiler installed!</strong>
  You can either use Xcode or the Command Line Tools.
-  
+
 <p>Compile the code with commands similar to these:
 
 <pre>
