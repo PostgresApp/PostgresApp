@@ -11,14 +11,14 @@ PL/Python erlaubt dir, Funktionen und Prozeduren in der Programmiersprache Pytho
 
 Ab PostgreSQL 13 wird Postgres.app mit der `plpython3u`-Erweiterung ausgeliefert.
 Diese Erweiterung erlaubt dir, Funktionen in Python3 zu schreiben.
-Allerdings ist Python 3 selbst nicht im Lieferumfang von Postgres.app -- 
+Allerdings ist Python 3 selbst nicht im Lieferumfang von Postgres.app --
 wenn du Python 3 verwenden willst, musst du es zusätzlich installieren.
 
 1. Lade und installiere Python 3.8.x für PostgreSQL 13, Python 3.9.x (universal2) für
    PostgreSQL 14, Python 3.11.x für PostgreSQL 15, Python 3.12.x für PostgreSQL 16,
    Python 3.13.x für PostgreSQL 17 und/oder eine beliebige Version neuer oder gleich
-   Python 3.9.x (universal2) für PostgreSQL 18 von
-   [python.org](https://www.python.org/downloads/macos/). 
+   Python 3.9.x (universal2) für PostgreSQL 18 oder neuer von
+   [python.org](https://www.python.org/downloads/macos/).
    Andere Versionen von Python oder Pakete aus anderen Quellen werden nicht unterstützt.
 
 2. Aktiviere die `plpython3u` Erweiterung mit dem Befehl `CREATE EXTENSION plpython3u;`
