@@ -117,7 +117,7 @@ redirect_from:
       Debug PL/PGSQL functions with pgAdmin. For instructions see the <a href="https://github.com/EnterpriseDB/pldebugger">Github repo</a> and the <a href="https://www.pgadmin.org/docs/pgadmin4/latest/debugger.html">pgAdmin documentation</a>
   </div>
 	<div class="extension-hint">
-			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier. See [below](#downloadable-extensions) for later versions.
+			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier. See <a href="#downloadable-extensions">below</a> for later versions.
 	</div>
 </div>
 
@@ -128,7 +128,7 @@ redirect_from:
       For details, see the <a href="https://github.com/eulerto/wal2json">Github repo</a>
   </div>
 	<div class="extension-hint">
-			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier. See [below](#downloadable-extensions) for later versions.
+			✓ this extension is included with Postgres.app for PostgreSQL 18 or earlier. See <a href="#downloadable-extensions">below</a> for later versions.
 	</div>
 </div>
 

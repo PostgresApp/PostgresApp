@@ -1,7 +1,7 @@
 {
     "title": "postgis_tiger_geocoder",
     "description": "The <a href='https://gitea.osgeo.org/postgis/postgis_tiger_geocoder'>PostGIS Tiger Geocoder</a> is a PL/pgSQL extension that contains functions for geocoding, reverse geocoding, and standardizing address data using US Census TIGER/Line data. It came previously bundled with PostGIS.",
-    "hint": "For best results also install `address_standardizer`.",
+    "hint": "For best results also install address_standardizer.",
     "info_url": "https://gitea.osgeo.org/postgis/postgis_tiger_geocoder",
     "version": "2025.2",
     "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-12/postgis_tiger_geocoder-pg19-2025.2.pkg"
