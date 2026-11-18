@@ -1,0 +1,7 @@
+{
+    "title": "pg_pinecone (Pinecone)",
+    "description": "<a href='https://www.pinecone.io/'>Pinecone</a> vector + full-text search for pgvector columns, with local or Pinecone-backed indexes",
+    "info_url": "https://github.com/pinecone-io/pg_pinecone",
+    "version": "0.13.0",
+    "download_url": "https://github.com/pinecone-io/pg_pinecone/releases/download/v0.13.0/pg_pinecone-pg18-0.13.0.pkg"
+}
