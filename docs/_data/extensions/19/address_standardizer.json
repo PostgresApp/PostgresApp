@@ -4,5 +4,5 @@
     "hint": "This extension requires macOS 13 or later.",
     "info_url": "https://github.com/postgis/address_standardizer",
     "version": "3.7.0",
-    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-12/address_standardizer-pg19-3.7.0.pkg"
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-19/address_standardizer-pg19-3.7.0.pkg"
 }

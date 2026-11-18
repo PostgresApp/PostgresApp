@@ -1,0 +1,7 @@
+{
+    "title": "pg_stat_plans",
+    "description": "Track per-plan call counts, execution times and EXPLAIN texts in Postgres. Find out more at <a href='https://github.com/pganalyze/pg_stat_plans'>github.com/pganalyze/pg_stat_plans</a>",
+    "info_url": "https://github.com/pganalyze/pg_stat_plans",
+    "version": "2.1.1",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-19/pg_stat_plans-pg19-2.1.1.pkg"
+}

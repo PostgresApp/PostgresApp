@@ -1,0 +1,7 @@
+{
+    "title": "pgRouting",
+    "description": "Extends PostGIS to provide geospatial routing functionality. Project homepage: <a href='https://pgrouting.org'>pgrouting.org</a>",
+    "info_url": "https://pgrouting.org",
+    "version": "4.0.2",
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-19/pgrouting-pg19-4.0.2.pkg"
+}

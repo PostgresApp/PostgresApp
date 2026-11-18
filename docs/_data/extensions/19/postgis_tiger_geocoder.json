@@ -4,5 +4,5 @@
     "hint": "For best results also install address_standardizer.",
     "info_url": "https://gitea.osgeo.org/postgis/postgis_tiger_geocoder",
     "version": "2025.2",
-    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-12/postgis_tiger_geocoder-pg19-2025.2.pkg"
+    "download_url": "https://github.com/PostgresApp/Extensions/releases/download/2026-11-19/postgis_tiger_geocoder-pg19-2025.2.pkg"
 }
