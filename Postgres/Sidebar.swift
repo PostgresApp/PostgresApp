@@ -8,27 +8,30 @@
 
 import Cocoa
 
-class SidebarController: NSViewController, MainWindowModelConsumer {
+class SidebarController: NSViewController {
 	
-	@objc dynamic var mainWindowModel: MainWindowModel!
-	
-	
-	override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-		if var target = segue.destinationController as? MainWindowModelConsumer {
-			target.mainWindowModel = mainWindowModel
-		}
-	}
-	
+	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
+
+	@IBOutlet weak var serverTableView: NSTableView?
 	
 	@IBAction func removeServer(_ sender: AnyObject?) {
+		let server: Server
+		if let clickedRow = serverTableView?.clickedRow, clickedRow != -1 {
+			server = mainWindowModel.serverManager.servers[clickedRow]
+		} else if let selectedServer = mainWindowModel.firstSelectedServer {
+			server = selectedServer
+		} else {
+			NSSound.beep()
+			return
+		}
 		let alert = NSAlert()
-		alert.messageText = "Do you want to remove the server from the sidebar?"
+		alert.messageText = "Do you want to remove the server \"\(server.name)\" from the sidebar?"
 		alert.informativeText = "Postgres.app will not delete the data directory."
 		alert.addButton(withTitle: "Remove Server")
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: self.view.window!) { (modalResponse) in
 			if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
-				if let server = self.mainWindowModel.firstSelectedServer, server.running {
+				if server.running {
 					try? server.stopSync()
 				}
 				self.mainWindowModel.removeSelectedServer()
@@ -37,6 +40,20 @@ class SidebarController: NSViewController, MainWindowModelConsumer {
 		}
 	}
 	
+	var newServerObserver: AnyObject?
+	override func viewDidLoad() {
+		newServerObserver = NotificationCenter.default.addObserver(forName: Server.NewServerCreatedNotification, object: nil, queue: .main) { [weak self] note in
+			let server = note.object as! Server
+			if let index = self?.mainWindowModel.serverManager.servers.firstIndex(of: server) {
+				self?.serverTableView?.scrollRowToVisible(index)
+			}
+		}
+		super.viewDidLoad()
+	}
+	
+	deinit {
+		if let newServerObserver { NotificationCenter.default.removeObserver(newServerObserver) }
+	}
 }
 
 

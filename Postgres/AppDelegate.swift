@@ -10,14 +10,15 @@ import Cocoa
 import Sparkle
 import ServiceManagement
 
-class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDelegate, NSMenuDelegate {
 	
 	let serverManager: ServerManager = ServerManager.shared
-	var hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-	var startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
 	
+	let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+	let statusIcon = NSImage(named: "statusicon")!
+
 	@IBOutlet var sparkleUpdater: SUUpdater!
-	@IBOutlet var preferencesMenuItem: NSMenuItem!
+	@IBOutlet var mainWindowMenuItem: NSMenuItem!
 		
 	func isFirstLaunch() -> Bool {
 		if UserDefaults.standard.bool(forKey: "alreadyLaunched") == false {
@@ -26,13 +27,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		}
 		return false
 	}
-	
-	func isTranslocated() -> Bool {
-		Bundle.main.bundlePath.contains("/AppTranslocation/")
-	}
-	
+		
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		CrashLogCollector.shared.scanInBackground()
+		let launchedAsLoginItem = NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
+		if !launchedAsLoginItem {
+			showMainWindow()
+			CrashLogCollector.shared.scanInBackground()
+		}
 		let clientAppPath = UserDefaults.standard.string(forKey: "PreferredClientApplicationPath") ?? ""
 		if clientAppPath.isEmpty {
 			// Read the old setting, reverting to Terminal as default
@@ -67,127 +68,153 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		DistributedNotificationCenter.default.addObserver(forName: Server.StatusChangedNotification, object: nil, queue: OperationQueue.main) { _ in
 			self.serverManager.refreshServerStatuses()
 		}
-		
-		NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main) { _ in
-			let hideMenuHelperApp = UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
-			if self.hideMenuHelperApp != hideMenuHelperApp {
-				self.hideMenuHelperApp = hideMenuHelperApp
 				
-				if self.hideMenuHelperApp {
-					let runningMenuHelperApps = NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper")
-					for app in runningMenuHelperApps where app.bundleURL!.path == Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!.path {
-						app.terminate()
-					}
-				} else {
-					let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-					NSWorkspace.shared.launchApplication(url.path)
-				}
-			}
-			if #available(macOS 13, *) {
-				// this setting was removed in macOS 13
-				// since we try to register the login item in any case
-				// user can enable / disable login item in system settings
-			} else {
-				let startLoginHelper = UserDefaults.standard.bool(forKey: "StartLoginHelper")
-				if self.startLoginHelper != startLoginHelper {
-					self.startLoginHelper = startLoginHelper
-					if self.startLoginHelper {
-						self.createLaunchAgent()
-					} else {
-						self.destroyLaunchAgent()
-					}
-				}
-			}
-		}
-
-		if !isTranslocated() {
-			if #available(macOS 13, *) {
-				destroyLaunchAgent()
-				registerLoginItem()
-			} else {
-				if startLoginHelper {
-					createLaunchAgent()
-				} else {
-					destroyLaunchAgent()
-				}
-			}
-			
-			if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") == false {
-				let url = Bundle.main.url(forAuxiliaryExecutable: "PostgresMenuHelper.app")!
-				NSWorkspace.shared.launchApplication(url.path)
-				NSApp.activate(ignoringOtherApps: true)
-			}
-		}
+		LaunchAtLoginManager.shared.configureLoginItem()
 		
 		for server in serverManager.servers where server.startOnLogin && server.serverStatus == .Startable {
 			server.start { _ in }
 		}
+		
+		statusMenu.addItem(withTitle: "Open Postgres", action: #selector(showMainWindow), keyEquivalent: "")
+		statusMenu.addItem(withTitle: "Settings…", action: #selector(showPreferences), keyEquivalent: "")
+		statusMenu.addItem(withTitle: "Check for Updates…", action: #selector(checkForUpdates), keyEquivalent: "")
+		statusMenu.addItem(withTitle: "Quit", action: #selector(NSApplication.terminate), keyEquivalent: "")
+		statusMenu.addItem(.separator())
+		statusMenu.delegate = self
+		
+		statusItem.button!.image = statusIcon
+		statusItem.behavior = .removalAllowed // if we don't allow this, macOS Tahoe will disable the icon in system settings if the user drags the icon from the status bar
+		statusItem.isVisible = !UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+		UserDefaults.standard.addObserver(self, forKeyPath: "HideMenuHelperApp", context: nil)
+		statusItem.addObserver(self, forKeyPath: "isVisible", context: nil)
+		statusItem.menu = statusMenu
 	}
 	
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if let object = object as? AnyObject {
+			if object === statusItem  && keyPath == "isVisible" {
+				// detect when the user hides icon by dragging away from menu bar
+				let hideMenuItem = !statusItem.isVisible
+				if UserDefaults.standard.bool(forKey: "HideMenuHelperApp") != hideMenuItem {
+					UserDefaults.standard.set(hideMenuItem, forKey: "HideMenuHelperApp")
+				}
+				return
+			}
+			if object is UserDefaults && keyPath == "HideMenuHelperApp" {
+				// detect when the user hides icon by changing user defaults
+				let statusItemIsVisible = !UserDefaults.standard.bool(forKey: "HideMenuHelperApp")
+				if statusItem.isVisible != statusItemIsVisible {
+					statusItem.isVisible = statusItemIsVisible
+				}
+				return
+			}
+		}
+		super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+	}
+	
+	let statusMenu = NSMenu()
+	var menuItemViewControllers: [MenuItemViewController] = []
+
+	func menuNeedsUpdate(_ menu: NSMenu) {
+		guard menu == statusMenu else { return }
+		
+		serverManager.refreshServerStatuses()
+		
+		menuItemViewControllers.removeAll()
+		
+		for item in statusMenu.items where item.view is MenuItemView {
+			statusMenu.removeItem(item)
+		}
+		
+		var maxStringWidth = CGFloat(0)
+		for server in serverManager.servers {
+			let stringWidth = (server.name as NSString).size(withAttributes: [NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12)]).width
+			maxStringWidth = max(stringWidth, maxStringWidth)
+		}
+		
+		for server in serverManager.servers {
+			guard let menuItemViewController = MenuItemViewController(server) else { return }
+			menuItemViewControllers.append(menuItemViewController)
+			
+			let menuItem = NSMenuItem()
+			
+			menuItemViewController.view.setFrameSize(NSSize(width: min(max(150+maxStringWidth, 200), 300), height: 32))
+			menuItem.view = menuItemViewController.view
+			
+			statusMenu.addItem(menuItem)
+		}
+	}
+
+	var hasVisibleWindowsThatCanBecomeKey: Bool {
+		return NSApp.windows.contains { $0.isVisible && $0.canBecomeKey }
+	}
+
+	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
+		showMainWindow()
+		return false
+	}
+
 	func applicationDidBecomeActive(_ notification: Notification) {
 		DispatchQueue.main.async {
 			self.serverManager.refreshServerStatuses()
 		}
 	}
 	
-	func showPreferences() {
-		// The preference window is displayed by a storyboard segue hooked up to a menu item
-		// This seems to be the easiest way to trigger that segue programmatically
-		NSApp.sendAction(preferencesMenuItem.action!, to: preferencesMenuItem.target, from: preferencesMenuItem)
+	func applicationWillTerminate(_ notification: Notification) {
+		for server in serverManager.servers where server.running {
+			try? server.stopSync()
+		}
+	}
+	
+	@IBAction func quitWithConfirmation(_ sender: AnyObject?) {
+		let alert = NSAlert()
+		alert.messageText = "Do you want to completely quit Postgres.app?"
+		alert.informativeText = "This will stop servers and hide the menu bar icon.\n\nIf you want to continue using PostgreSQL servers, Postgres.app can continue running in the background instead."
+		alert.addButton(withTitle: "Quit")
+		alert.addButton(withTitle: "Continue in background")
+		alert.addButton(withTitle: "Cancel")
+		switch alert.runModal() {
+		case .alertFirstButtonReturn:
+			NSApp.terminate(nil)
+		case .alertSecondButtonReturn:
+			for window in NSApp.windows where window.isVisible && window.canBecomeKey {
+				window.performClose(nil)
+			}
+		default:
+			break
+		}
+	}
+		
+	@IBAction func showMainWindow(_ sender: Any? = nil) {
+		if #available(macOS 14.0, *) {
+			// this seems to help with getting the app to activate
+			// i have no idea how the window server decides to allow postgres.app to activate
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
+		}
+		NSApp.activate(ignoringOtherApps: true)
+		// This is a workaround to trigger a storyboard segue programmatically
+		// If you come up with a better solution please let me know :)
+		NSApp.sendAction(mainWindowMenuItem.action!, to: mainWindowMenuItem.target, from: mainWindowMenuItem)
+}
+	
+	@IBAction func showPreferences(_ sender: Any? = nil) {
+		showMainWindow(nil)
+		MainWindowModel.shared.selectedNavigationElementIndices = IndexSet(integer: 0)
+	}
+	
+	@IBAction func checkForUpdates(_ sender: Any? = nil) {
+		if #available(macOS 14.0, *) {
+			// this seems to help with getting the app to activate
+			// i have no idea how the window server decides to allow postgres.app to activate
+			NSApp.yieldActivation(toApplicationWithBundleIdentifier: Bundle.main.bundleIdentifier!)
+		}
+		NSApp.activate(ignoringOtherApps: true)
+		sparkleUpdater.checkForUpdates(sender)
 	}
 	
 	@IBAction func openHelp(_ sender: AnyObject?) {
 		NSWorkspace.shared.open(URL(string: "https://postgresapp.com/l/help/")!)
 	}
-	
-	
-	@available(macOS 13, *) private func registerLoginItem() {
-		let loginHelper = SMAppService.loginItem(identifier:"com.postgresapp.Postgres2LoginHelper")
-		do {
-			try loginHelper.register()
-		} catch let error {
-			// This most likely means that the user disabled the login item in system setting
-			// We ignore the error, but print it to stdout for easier debugging
-			print("Failed to register login item because: \(error)")
-		}
-	}
-	
-	private func createLaunchAgent() {
-		let laPath = NSHomeDirectory().appending("/Library/LaunchAgents")
-		let laName = "com.postgresapp.Postgres2LoginHelper"
-		if !FileManager.default.fileExists(atPath: laPath) {
-			do {
-				try FileManager.default.createDirectory(atPath: laPath, withIntermediateDirectories: true, attributes: nil)
-			} catch let error as NSError {
-				NSLog("Could not create directory at \(laPath): \(error)")
-				return
-			}
-		}
-		
-		let plistPath = laPath+"/"+laName+".plist"
-		let attributes: [FileAttributeKey: Any] = [.posixPermissions: 0o600]
-		do {
-			let data = try Data(contentsOf: Bundle.main.url(forResource: laName, withExtension: "plist")!)
-			if !FileManager.default.createFile(atPath: plistPath, contents: data, attributes: attributes) {
-				NSLog("Could not create plist file at \(plistPath)")
-			}
-		} catch let error as NSError {
-			NSLog("Error getting data of original plist file: \(error)")
-		}
-	}
-	
-	private func destroyLaunchAgent() {
-		let laPath = NSHomeDirectory() + "/Library/LaunchAgents/com.postgresapp.Postgres2LoginHelper.plist"
-		if FileManager.default.fileExists(atPath: laPath) {
-			do {
-				try FileManager.default.removeItem(atPath: laPath)
-			} catch let error as NSError {
-				NSLog("Could not delete launch agent \(laPath): \(error)")
-			}
-		}
-	}
-	
-	
 	
 	// SUUpdater delegate methods
 	func updater(_ updater: SUUpdater, willInstallUpdate item: SUAppcastItem) {
@@ -197,14 +224,5 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		for menuApp in NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper") {
 			menuApp.terminate()
 		}
-	}
-	
-	func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-		if isTranslocated() {
-			for server in serverManager.servers where server.running && server.binPath.hasPrefix(Bundle.main.bundlePath) {
-				try? server.stopSync()
-			}
-		}
-		return .terminateNow
 	}
 }

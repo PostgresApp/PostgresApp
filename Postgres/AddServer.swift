@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class AddServerViewController: NSViewController, MainWindowModelConsumer {
+class AddServerViewController: NSViewController {
 	
-	@objc dynamic var mainWindowModel: MainWindowModel!
+	@objc dynamic var mainWindowModel: MainWindowModel { MainWindowModel.shared }
 	@objc dynamic var name: String = "New Server"
 	@objc dynamic var port: UInt = 5432
 	@objc dynamic var varPath: String = ""
@@ -81,6 +81,7 @@ class AddServerViewController: NSViewController, MainWindowModelConsumer {
 		mainWindowModel.selectedServerIndices = IndexSet(integer: mainWindowModel.serverManager.servers.indices.last!)
 		
 		NotificationCenter.default.post(name: Server.PropertyChangedNotification, object: nil)
+		NotificationCenter.default.post(name: Server.NewServerCreatedNotification, object: server)
 		
 		self.dismiss(nil)
 	}

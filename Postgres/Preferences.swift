@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 class PreferencesViewController: NSViewController {
 	@IBOutlet var preferredClientMenu: NSPopUpButton!
@@ -17,22 +18,65 @@ class PreferencesViewController: NSViewController {
 		ClientLauncher.shared.prepareClientLauncherButton(button: preferredClientMenu)
 	}
 	
+	override func viewDidAppear() {
+		super.viewDidAppear()
+		NotificationCenter.default.addObserver(self, selector: #selector(windowDidBecomeKey), name: NSWindow.didBecomeKeyNotification, object: self.view.window)
+	}
+	
+	override func viewWillDisappear() {
+		NotificationCenter.default.removeObserver(self, name: NSWindow.didBecomeKeyNotification, object: self.view.window)
+		super.viewWillDisappear()
+	}
+	
+	@objc func windowDidBecomeKey(_ note: Notification) {
+		self.willChangeValue(forKey: "launchAtLogin")
+		self.didChangeValue(forKey: "launchAtLogin")
+		self.willChangeValue(forKey: "launchAtLoginRequiresApproval")
+		self.didChangeValue(forKey: "launchAtLoginRequiresApproval")
+		self.willChangeValue(forKey: "isLaunchAtLoginCheckboxEnabled")
+		self.didChangeValue(forKey: "isLaunchAtLoginCheckboxEnabled")
+	}
+	
 	@objc dynamic var clientAppNames = [
 		"Terminal",
 		"iTerm",
 		"Postico"
 	]
 	
-	@objc dynamic var launchAgentCheckboxHidden: Bool {
-		if #available(macOS 13, *) {
-			return true
-		} else {
-			return false
+	@objc dynamic var launchAtLogin: Bool {
+		get {
+			LaunchAtLoginManager.shared.isLaunchAtLoginEnabled
+		}
+		set {
+			do {
+				if newValue {
+					try LaunchAtLoginManager.shared.registerLoginItem()
+				} else {
+					try LaunchAtLoginManager.shared.unregisterLoginItem()
+				}
+			}
+			catch {
+				self.presentError(error, modalFor: self.view.window!, delegate: nil, didPresent: nil, contextInfo: nil)
+				DispatchQueue.main.async {
+					// update UI
+					self.willChangeValue(forKey: "launchAtLogin")
+					self.didChangeValue(forKey: "launchAtLogin")
+				}
+			}
+			
 		}
 	}
 	
 	@objc dynamic var isTranslocated: Bool {
 		Bundle.main.bundlePath.contains("/AppTranslocation/")
+	}
+	
+	@objc dynamic var launchAtLoginRequiresApproval: Bool {
+		LaunchAtLoginManager.shared.requiresApproval
+	}
+	
+	@objc dynamic var isLaunchAtLoginCheckboxEnabled: Bool {
+		!isTranslocated && !launchAtLoginRequiresApproval
 	}
 	
 	@IBAction func resetAppPermissions(_ sender: Any?) {
