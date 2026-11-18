@@ -17,8 +17,8 @@
 					<li>PostgreSQL 18.7 with PostGIS 3.6.3</li>
 				</ul>
 				<p>
-					This will likely be the final update for PostgreSQL 14 before it reaches the end of its support period.
-					Please update to a newer version as soon as possible.
+					PostgreSQL 14 has reached the end of its support period.
+					If you are still using a PostgreSQL 14 database, update to a newer version as soon as possible.
 				</p>
 				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
 			]]>
@@ -33,6 +33,38 @@
 		sparkle:dsaSignature="MCwCFDq3p8zIr2jw4KZ6zR0iu1gHNPGlAhReOqJ1aZ17zimnYYFhOl2YEbTJDA=="
 		/>
 		<sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
+	</item>
+	<item>
+		<title>Postgres.app 3.0</title>
+		<description>
+			<![CDATA[
+				<p>PostgreSQL 19 is now available!</p>
+				<ul>
+					<li>PostgreSQL 14.25 with PostGIS 3.2.10</li>
+					<li>PostgreSQL 15.20 with PostGIS 3.3.10</li>
+					<li>PostgreSQL 16.16 with PostGIS 3.4.6</li>
+					<li>PostgreSQL 17.12 with PostGIS 3.5.6</li>
+					<li>PostgreSQL 18.7 with PostGIS 3.6.3</li>
+					<li>PostgreSQL 19.0 with PostGIS 3.7.0</li>
+				</ul>
+				<p>
+					PostgreSQL 14 has reached the end of its support period.
+					The next version of Postgres.app will no longer include PostgreSQL 14.
+					If you are still using a PostgreSQL 14 database, update to a newer version as soon as possible.
+				</p>
+				<p>You can find more info on the <a href="https://github.com/PostgresApp/PostgresApp/releases">Github Releases Page</a>.</p>
+			]]>
+		</description>
+		<pubDate>Thu, 19 Nov 2026 11:09:38 +0100</pubDate>
+		<enclosure
+		url="https://github.com/PostgresApp/PostgresApp/releases/download/v3.0/Postgres-3.0-14-15-16-17-18-19.dmg"
+		sparkle:version="400"
+		sparkle:shortVersionString="3.0"
+		length="656095132"
+		type="application/octet-stream"
+		sparkle:dsaSignature="MCwCFFxAJLcMnYYh+YX8UUhaToj+4XtiAhQfpxquR+5wi8yZGyWT+IApxPYRJw=="
+		/>
+		<sparkle:minimumSystemVersion>11</sparkle:minimumSystemVersion>
 	</item>
   </channel>
 </rss>
