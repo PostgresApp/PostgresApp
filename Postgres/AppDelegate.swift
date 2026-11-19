@@ -88,6 +88,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, SUUpdaterDelegate, NSAlertDe
 		UserDefaults.standard.addObserver(self, forKeyPath: "HideMenuHelperApp", context: nil)
 		statusItem.addObserver(self, forKeyPath: "isVisible", context: nil)
 		statusItem.menu = statusMenu
+		
+		// Check for menu helper from Postgres.app 2.x
+		for app in NSRunningApplication.runningApplications(withBundleIdentifier: "com.postgresapp.Postgres2MenuHelper") {
+			print("Detected  menu helper from Postgres.app 2.x. Trying to quit it.")
+			app.terminate()
+		}
 	}
 	
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
