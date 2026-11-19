@@ -9,6 +9,42 @@ repository: postgresapp/postgresapp
 
 release: {
 		name: {
+			en: "Postgres.app with PostgreSQL 19",
+			de: "Postgres.app mit PostgreSQL 19",
+		},
+		size: "129MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v3.0/Postgres-3.0-19.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v3.0",
+		postgresappVersion: "3.0",
+		postgresappMinSystemVersion: "11",
+		postgresqlVersions: [
+			{ postgres: "19.0", postgis: "3.7.0", architecture: "Universal" },
+		],
+	}
+
+
+extraReleases: [
+	{
+		name: {
+			en: "Postgres.app with all currently supported versions",
+			de: "Postgres.app mit allen unterstützten Versionen",
+		},
+		size: "656MB",
+		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v3.0/Postgres-3.0-14-15-16-17-18-19.dmg",
+		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v3.0",
+		postgresappVersion: "3.0",
+		postgresappMinSystemVersion: "11",
+		postgresqlVersions: [
+			{ postgres: "19.0", postgis: "3.7.0", architecture: "Universal" },
+			{ postgres: "18.7", postgis: "3.6.3", architecture: "Universal" },
+			{ postgres: "17.12", postgis: "3.5.6", architecture: "Universal" },
+			{ postgres: "16.16", postgis: "3.4.6", architecture: "Universal" },
+			{ postgres: "15.20", postgis: "3.3.10", architecture: "Universal" },
+			{ postgres: "14.25", postgis: "3.2.10", architecture: "Universal" },
+		],
+	},
+	{
+		name: {
 			en: "Postgres.app with PostgreSQL 18",
 			de: "Postgres.app mit PostgreSQL 18",
 		},
@@ -20,62 +56,6 @@ release: {
 		postgresqlVersions: [
 			{ postgres: "18.7", postgis: "3.6.3", architecture: "Universal" },
 		],
-	}
-
-
-extraReleases: [
-	{
-		name: {
-			en: "Postgres.app with all currently supported versions",
-			de: "Postgres.app mit allen unterstützten Versionen",
-		},
-		size: "534MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v2.9.7/Postgres-2.9.7-14-15-16-17-18.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v2.9.7",
-		postgresappVersion: "2.9.7",
-		postgresappMinSystemVersion: "10.15",
-		postgresqlVersions: [
-			{ postgres: "18.7", postgis: "3.6.3", architecture: "Universal" },
-			{ postgres: "17.12", postgis: "3.5.6", architecture: "Universal" },
-			{ postgres: "16.16", postgis: "3.4.6", architecture: "Universal" },
-			{ postgres: "15.20", postgis: "3.3.10", architecture: "Universal" },
-			{ postgres: "14.25", postgis: "3.2.10", architecture: "Universal" },
-		],
-	},
-	{
-		name: {
-			en: "Postgres.app with PostgreSQL 19 Beta",
-			de: "Postgres.app mit PostgreSQL 19 Beta",
-		},
-		size: "129MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v3beta2/Postgres-3beta2-19.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v3beta2",
-		postgresappVersion: "3beta2",
-		postgresappMinSystemVersion: "11",
-		postgresqlVersions: [
-			{ postgres: "19rc2", postgis: "3.7.0", architecture: "Universal" },
-		],
-		badge: "Pre-release",
-	},
-	{
-		name: {
-			en: "Postgres.app with PostgreSQL 19 RC and all currently supported versions",
-			de: "Postgres.app mit PostgreSQL 19 RC und allen unterstützten Versionen",
-		},
-		size: "656MB",
-		downloadLocation: "https://github.com/PostgresApp/PostgresApp/releases/download/v3beta2/Postgres-3beta2-14-15-16-17-18-19.dmg",
-		releaseNotesLocation: "https://github.com/PostgresApp/PostgresApp/releases/v3beta2",
-		postgresappVersion: "3beta2",
-		postgresappMinSystemVersion: "11",
-		postgresqlVersions: [
-			{ postgres: "19rc2", postgis: "3.7.0", architecture: "Universal" },
-			{ postgres: "18.7", postgis: "3.6.3", architecture: "Universal" },
-			{ postgres: "17.12", postgis: "3.5.6", architecture: "Universal" },
-			{ postgres: "16.16", postgis: "3.4.6", architecture: "Universal" },
-			{ postgres: "15.20", postgis: "3.3.10", architecture: "Universal" },
-			{ postgres: "14.25", postgis: "3.2.10", architecture: "Universal" },
-		],
-		badge: "Pre-release",
 	},
 	{
 		name: {
